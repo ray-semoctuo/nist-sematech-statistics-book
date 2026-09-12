@@ -1,0 +1,42 @@
+.
+. Starting Step 3.1
+variable label x1 Turns
+variable label x2 Windingsp()Distance
+variable label x3 Wiresp()Guage
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+xtic offset 0.5 0.5
+xtic mark label format numeric
+y1label ^y
+ylabel displacement 12
+char circle blank
+char fill on blank
+line solid solid
+ylimits 1 5
+line solid
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+set matrix plot x2label effect
+set matrix plot lower diagonal off
+x2label displacement 16
+dex mean interaction effects plot y x1 x2 x3
+justification center
+move 50 96
+text DEX Interaction Effects Plot for Eddy Current Data
+multiplot corner coordinates
+multiplot scale factor 1
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Guage
+x2label displacement
+char x
+line blank
+char fill off
+ylimits
+y1label
+ylabel displacement
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.1: Page Back for Output

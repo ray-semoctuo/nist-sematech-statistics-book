@@ -1,0 +1,155 @@
+Dataplot commands and output:
+
+
+. Plot of wafer and day effect on repeatability 
+. standard deviations for run 1
+
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters a b c d e f
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND DAY
+X3LABEL CODE FOR DAYS: A, B, C, D, E, F
+TITLE RUN 1
+plot sw z2 day subset run 1
+
+. Plot of wafer and day effect on repeatability 
+. standard deviations for run 2 	
+
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters a b c d e f
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND DAY
+X3LABEL CODE FOR DAYS: A, B, C, D, E, F
+TITLE RUN 2
+plot sw z2 day subset run 2
+
+. Plot of repeatability standard deviations 
+. for 5 probes - run 1 	
+
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters 1 2 3 4 5
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND PROBE
+X3LABEL CODE FOR PROBES: 1= SRM1; 2= 281; 3=283; 4=2062; 5=2362
+TITLE RUN 1
+plot sw z2 probe subset run 1
+
+. Plot of repeatability standard deviations 
+. for 5 probes - run 2 	
+
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters 1 2 3 4 5
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND PROBE
+X3LABEL CODE FOR PROBES: 1= SRM1; 2= 281; 3=283; 4=2062; 5=2362
+TITLE RUN 2
+plot sw z2 probe subset run 2
+
+. Plot of differences from the wafer mean 
+. for 5 probes - run 1 	
+
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+read mpc61a.dat wafer probe d1 d2
+let biasrun1 = mean d1 subset probe 2362
+print biasrun1
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 1)
+plot d1 wafer probe and
+plot zero wafer
+
+. Plot of differences from the wafer mean 
+. for 5 probes - run 2 	
+
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+read mpc61a.dat wafer probe d1 d2
+let biasrun2 = mean d2 subset probe 2362
+print biasrun2
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 2)
+plot d2 wafer probe and
+plot zero wafer
+
+. Plot of averages by day showing reproducibility and 
+. stability for measurements made with probe #2362 on 5 wafers 	
+
+reset data
+reset plot control
+reset i/o
+dimension 300 50
+label size 3
+read mcp61b.dat  wafer probe mo1 day1 y1 mo2 day2 y2 diff
+let t = mo1+(day1-1)/31.
+let t2= mo2+(day2-1)/31.
+x3label WAFER 138
+multiplot 3 2
+plot y1 t subset wafer 138 and
+plot y2 t2 subset wafer 138
+x3label wafer 139
+plot y1 t subset wafer 139 and
+plot y2 t2 subset wafer 139
+x3label WAFER 140
+plot y1 t subset wafer 140 and
+plot y2 t2 subset wafer 140
+x3label WAFER 140
+plot y1 t subset wafer 141 and
+plot y2 t2 subset wafer 141
+x3label WAFER 142
+plot y1 t subset wafer 142 and
+plot y2 t2 subset wafer 142
+

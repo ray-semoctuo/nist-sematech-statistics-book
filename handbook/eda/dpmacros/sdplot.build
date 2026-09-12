@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < sdplot.dp
+mv dppl1f.dat sdplot.ps
+gs -sDEVICE=ppm -sOutputFile=sdplot.ppm  -dNOPAUSE -dBATCH sdplot.ps
+~/bin/pnmrotate  -90 sdplot.ppm > sdplot_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 sdplot_r.ppm > sdplot_s.ppm
+~/bin/ppmtogif  sdplot_s.ppm > sdplot.gif
+mv sdplot.gif ../gif/sdplot.gif
+rm sdplot.ppm sdplot_r.ppm sdplot_s.ppm sdplot.ps
+#

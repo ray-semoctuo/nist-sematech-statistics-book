@@ -1,0 +1,23 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\usepackage[landscape]{geometry}
+\begin{document}
+\pagestyle{empty}
+\large
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+%\renewcommand{\bfdefault}{sb}
+
+\hspace*{-1.75in}
+%\renewcommand*\arraystretch{1.5}
+\begin{tabular}{|c|c|c|c|c|} \hline 
+{\bf Source}  & {\bf Sum of Squares} & {\bf DoF} & {\bf Mean Square} & {\bf \it{F}$_0$} \\ \hline
+{\bf A}    & $SSA = JK\sum{{(\bar{y}_{i \cdot\cdot}-\bar{y}_{\cdot\cdot\cdot})}^2}$ & $I-1$ & $MSA = SSA/(I-1)$ & $MSA/MSB$ \\ \hline
+{\bf B within A} & $SSB = K\sum \sum{{(\bar{y}_{ij\cdot} - \bar{y}_{i\cdot\cdot})}}^2$ & $I(J-1)$ & $MSB = SSB/(I(J-1))$  & $MSB/MSE$\\ \hline
+{\bf Residuals} & $SSE = \sum \sum \sum{{(y_{ijk} - \bar{y}_{ij\cdot})^2}}$  & $IJ(K-1)$ & $MSE = SSE/(IJ(K-1))$  & \\ \hline
+{\bf Corr. Total} & $SST = \sum \sum \sum{{(y_{ijk} - \bar{y}_{\cdot\cdot\cdot})^2}} $ & $IJK-1$ &  &\\ \hline
+\end{tabular}
+
+
+\end{document}

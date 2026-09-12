@@ -1,0 +1,20 @@
+reset data
+reset i/o
+reset plot control
+dimension 30 columns
+skip 25
+read mass.dat t id y bal s ds
+skip 0
+title mass check standard 41
+y1label micrograms
+x1label time in years
+xlimits 75 90
+let ybar=mean y subset t < 85
+let sd=standard deviation y subset t < 85
+let cc=y-y+ybar
+let ul=cc+3*sd
+let ll=cc-3*sd
+characters * blank blank blank * blank blank blank
+lines blank solid dotted dotted blank solid dotted dotted
+plot y cc ul ll vs t
+.end of calculations

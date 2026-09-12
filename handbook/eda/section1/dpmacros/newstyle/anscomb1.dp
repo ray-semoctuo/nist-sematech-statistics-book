@@ -1,0 +1,30 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+.
+set ipl1na ansco1.ps
+device 2 postscript
+.
+skip 25
+read anscombe.dat x1 y1
+fit y1 x1
+label size 3
+title size 3
+tic label size 3
+character hw 3 2.25
+character circle BLANK
+character fill on
+line blank solid
+plot y1 x1 and
+plot pred x1
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv ANSCO1.PS ansco1.ps
+.
+. quit

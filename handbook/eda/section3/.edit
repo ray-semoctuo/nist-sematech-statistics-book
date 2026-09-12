@@ -1,0 +1,5 @@
+#!/bin/csh -f
+ex - $1 << end-of-edit
+g/dpcomm/s//\.\.\/section4\/eda44/g
+wq
+end-of-edit

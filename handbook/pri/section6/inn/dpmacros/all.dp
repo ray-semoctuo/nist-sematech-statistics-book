@@ -1,0 +1,173 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+pre-erase off
+.
+erase
+.
+set ipl1na order.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call order.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv ORDER.PS order.ps
+.
+erase
+.
+set ipl1na dexsct.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexsct.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXSCT.PS dexsct.ps
+.
+erase
+.
+set ipl1na dexmea.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexmea.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXMEA.PS dexmea.ps
+.
+erase
+.
+set ipl1na dexeff.ps
+device 2 postscript
+.
+title size 18
+label size 18
+tic label size 18
+call dexeff.dp
+title size 
+label size
+tic label size
+.
+erase
+.
+device 2 close
+system mv DEXEFF.PS dexeff.ps
+.
+set ipl1na blockp.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call blockp.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BLOCKP.PS blockp.ps
+.
+erase
+.
+capture yates.out
+call yates.dp
+end of capture
+.
+set ipl1na probpl.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call probpl.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv PROBPL.PS probpl.ps
+.
+erase
+.
+set ipl1na youden.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call youden.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv YOUDEN.PS youden.ps
+.
+erase
+.
+set ipl1na effect.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call effect.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv EFFECT.PS effect.ps
+.
+erase
+.
+set ipl1na cumres.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call cumres.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv CUMRES.PS cumres.ps
+.
+erase
+.
+set ipl1na dexcon.ps
+device 2 postscript
+.
+thickness 0.15
+title size 3
+label size 3
+tic label size 3
+call dexcon.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXCON.PS dexcon.ps
+.
+quit

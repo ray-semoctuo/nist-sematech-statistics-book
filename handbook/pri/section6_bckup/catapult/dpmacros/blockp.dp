@@ -1,0 +1,51 @@
+.
+. Starting Step 3.2
+char 1 2
+lines solid all
+line blank blank
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+multiplot 3 4
+x1tics off
+x1tic labels off
+
+title X1: Band Height
+x1label X2 & X3
+block plot y x2 x3 x1 subset cent = 0
+x1label X4 & X5
+block plot y x4 x5 x1 subset cent = 0
+
+title X2: Start Angle
+x1label X1 & X3
+block plot y x1 x3 x2 subset cent = 0
+x1label X4 & X5
+block plot y x4 x5 x2 subset cent = 0
+
+title X3: Number of Bands
+x1label X1 & X2
+block plot y x1 x2 x3 subset cent = 0
+x1label X4 & X5
+block plot y x4 x5 x3 subset cent = 0
+
+title X4: Arm Length
+x1label X1 & X2
+block plot y x1 x2 x4 subset cent = 0
+x1label X3 & X5
+block plot y x3 x5 x4 subset cent = 0
+
+title X5: Stop Angle
+x1label X1 & X2
+block plot y x1 x2 x5 subset cent = 0
+x1label X3 & x4
+block plot y x3 x4 x5 subset cent = 0
+
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+char x blank
+line blank solid
+title
+x1label
+x1tics on
+x1tic labels on
+. Finished Step 3.2: Page Back for Output

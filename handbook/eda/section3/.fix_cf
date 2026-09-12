@@ -1,0 +1,15 @@
+#!/bin/csh -f
+#
+#  This script restores some files that are currently screwed 
+#  up by Cold Fusion export
+#
+#  You should run this before running ".copy_name_alpha"
+#
+set echo
+cp autocop3.htm   eda3313.htm
+cp autocop4.htm   eda3314.htm
+cp weibplot.htm   eda33u.htm
+cp youdplot.htm   eda33v.htm
+cp dexyoud.htm    eda33v1.htm
+cp 4plot.htm      eda33w.htm
+cp 6plot.htm      eda33x.htm

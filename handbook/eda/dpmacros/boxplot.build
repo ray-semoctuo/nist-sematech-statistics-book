@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < boxplot.dp
+mv dppl1f.dat boxplot.ps
+gs -sDEVICE=ppm -sOutputFile=boxplot.ppm  -dNOPAUSE -dBATCH boxplot.ps
+~/bin/pnmrotate  -90 boxplot.ppm > boxplot_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 boxplot_r.ppm > boxplot_s.ppm
+~/bin/ppmtogif  boxplot_s.ppm > boxplot.gif
+mv boxplot.gif ../gif/boxplot.gif
+rm boxplot.ppm boxplot_r.ppm boxplot_s.ppm boxplot.ps
+#

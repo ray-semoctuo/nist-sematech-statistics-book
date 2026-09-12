@@ -1,0 +1,60 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 99 99 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char blank
+lines solid
+device 2 postscript
+read clb3.dat x pred
+xlabel Temperature
+y1label Voltage
+xlimits 386.5 390.5
+ylimits 730 750
+tic offset units data
+xtic offset 0.25 0.25 
+ytic offset 1 1
+plot pred x
+char circle
+let ynew = 736.0425
+let pe = 387.3748
+let lcb = 387.344
+let ucb = 387.4055
+region fill on
+hw 0.5 2 
+let haep = lcb-0.025
+let vaep = ynew-0.25
+arrow data 386.25 ynew haep ynew 
+arrow data lcb vaep lcb 729
+arrow data ucb vaep ucb 729
+lines solid
+drawdata lcb ynew ucb ynew 
+drawdata lcb 735.9725 lcb 736.1125
+drawdata pe  735.9725 pe  736.1125
+drawdata ucb 735.9725 ucb 736.1125
+lines blank 
+justification center
+case asis
+hw  3 3
+let ynewtp = ynew + 0.3 
+movedata 386.75 ynewtp
+text Voltage =
+let ynewtp = ynew - 0.65 
+movedata 386.75 ynewtp
+text ^ynew
+let petp = pe - 0.15
+movedata petp 732.35
+angle units degrees
+angle 90 
+text Temperature =
+let petp = pe + 0.13
+movedata petp 732.75
+text ^pe +/- 0.0307
+circle data 389.98 746.38623 390.02 746.38623
+device 2 close
+system mv dppl1f.dat clb3.ps
+quit

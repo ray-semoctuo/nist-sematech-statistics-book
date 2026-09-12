@@ -1,0 +1,5 @@
+device 1 x11
+call data.dp
+.
+call wtfunc.dp
+.

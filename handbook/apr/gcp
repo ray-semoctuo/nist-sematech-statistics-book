@@ -1,0 +1,23 @@
+##### update graphics for section1 #####
+rm -r section1/eqns
+cp -r /local/home/luser/wwwsed/handbook/apr/section1/eqns section1
+rm -r section1/gifs
+cp -r /local/home/luser/wwwsed/handbook/apr/section1/gifs section1
+
+##### update graphics for section2 #####
+rm -r section2/eqns
+cp -r /local/home/luser/wwwsed/handbook/apr/section2/eqns section2
+rm -r section2/gifs
+cp -r /local/home/luser/wwwsed/handbook/apr/section2/gifs section2
+
+##### update graphics for section3 #####
+rm -r section3/eqns
+cp -r /local/home/luser/wwwsed/handbook/apr/section3/eqns section3
+rm -r section3/gifs
+cp -r /local/home/luser/wwwsed/handbook/apr/section3/gifs section3
+
+##### update graphics for section4 #####
+rm -r section4/eqns
+cp -r /local/home/luser/wwwsed/handbook/apr/section4/eqns section4
+rm -r section4/gifs
+cp -r /local/home/luser/wwwsed/handbook/apr/section4/gifs section4

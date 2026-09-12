@@ -1,0 +1,13 @@
+.
+.  Generate sample output for 1-sample t-test
+.
+skip 25
+read zarr13.dat y
+let value = 5
+set write decimals 5
+echo on
+capture screen on
+capture ttest1s.out
+t test y value
+end of capture 
+quit

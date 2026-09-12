@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\begin{document} 
+\pagestyle{empty} 
+\Large 
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+\boldmath
+
+
+\begin{eqnarray*}
+\hat{p} - \delta \le p \le \hat{p} + \delta
+\end{eqnarray*}
+
+\hspace*{.25in}
+ 
+\begin{eqnarray*}
+\delta = z_{1-\alpha/2} \, \sqrt{\frac{p_0 (1-p_0)}{N}} + z_{1-\beta} \, \sqrt{\frac{p_1 (1-p_1)}{N}}
+\end{eqnarray*}
+
+\hspace*{.25in}
+
+\begin{eqnarray*}
+N \ge  \left( \frac{z_{1-\alpha/2} \, \sqrt{p_0 (1-p_0)} + z_{1-\beta} \, \sqrt{p_1 (1-p_1)}}{\delta} \, \right)^2
+\end{eqnarray*}
+
+\hspace*{.25in}
+
+\begin{eqnarray*}
+N \ge  \left( \frac{z_{1-\alpha} \, \sqrt{p_0 (1-p_0)} + z_{1-\beta} \, \sqrt{p_1 (1-p_1)}}{\delta} \, \right)^2
+\end{eqnarray*}
+
+\hspace*{1in}
+
+\vspace*{-.5in}
+
+\begin{eqnarray*}
+N = N' + 1/\delta
+\end{eqnarray*}
+
+\hspace*{.25in}
+
+\begin{eqnarray*}
+N & \ge & \left( \frac{z_{1-\alpha} \, \sqrt{p_0 (1-p_0)} + z_{1-\beta} \, \sqrt{p_1 (1-p_1)}}{\delta} \, \right)^2 \\
+   &       & \left( \frac{1.645 \, \sqrt{0.1 \times 0.9} + 1.282 \, \sqrt{0.2 \times 0.8}}{0.1} \, \right)^2 \\
+   & \approx & 102
+\end{eqnarray*}
+
+\end{document}  
+
+

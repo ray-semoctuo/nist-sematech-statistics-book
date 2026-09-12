@@ -1,0 +1,173 @@
+device 1 x11
+substitute character @
+.
+let function fnum = P1 + P2*x + P3*x**2
+let function fden = 1 + P4*x + P5*x**2
+let function f = (fnum)/(fden)
+.
+xlabel x
+y1label y
+x1label displacement 11
+y1label displacement 10
+multiplot scale factor 2.5
+.
+erase
+device 2 postscript
+pre-erase off
+.
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+.
+let p1 = 1
+let p2 = 2
+let p3 = 1
+let p4 = (-1/12)
+let p5 = (-1/12)
+title y = (1+2x+x^2)/(1 - (1/12)x - (1/12)x^2)
+let aymin = -20
+let aymax = 20
+ylimits aymin aymax
+.
+plot f for x = -20 0.05 -4.05 and
+plot f for x = -3.95 0.05 2.95 and
+plot f for x = 3.05 0.05 20
+line dash
+drawdata -10 0 10 0
+drawdata -4 aymin -4 aymax
+drawdata 3 aymin 3 aymax
+line solid
+ylimits
+.
+let p1 = 1
+let p2 = 2
+let p2 = 1
+let p4 = 2
+let p5 = 1
+title y = (1+2x+x^2)/(1 + 2x + x^2)
+let aymin = -5
+let aymax = 20
+ylimits aymin aymax
+.
+plot f for x = -10 .1 -1.1 and
+plot f for x = -0.9 .1 10
+line dash
+drawdata -10 0 10 0
+drawdata -1 aymin -1 aymax
+line solid
+ylimits
+.
+let p1 = 1
+let p2 = 2
+let p3 = 1
+let p4 = (1/15)
+let p5 = (1/15)
+title y = (1+2x+x^2)/(1 + (1/15)x + (1/15)x^2)
+.
+ylimits
+plot f for x = -20 0.1 20
+line dash 
+drawdata -19 0 19 0
+line solid
+ylimits
+.
+end of multiplot
+.
+device 2 close
+system cp dppl1f.dat r22p1.ps
+.
+label size 4
+tic label size 4
+title size 4
+thickness 0.15
+.
+erase
+device 2 postscript
+.
+let p1 = 1.25
+let p2 = -0.17
+let p3 = 0.003
+let p4 = -0.001
+let p5 = 0.000023
+ylimits 0 100
+ytic offset 5 10
+title y = (@p1 + @p2 x + @p3 x^2)/(1 + @p4 x + @p5 x^2)
+plot f for x = -400 0.1 400
+.
+device 2 close
+system cp dppl1f.dat r22p2.ps
+.
+erase
+device 2 postscript
+.
+let p1 = 0.0
+let p2 = 1.4
+let p3 = 1.9
+let p4 = 0.7
+let p5 = 2.0
+ylimits
+ytic offset 0 0
+title y = (@p1 + @p2 x + @p3 x^2)/(1 + @p4 x + @p5 x^2)
+plot f for x = -4 0.01 4
+.
+device 2 close
+system cp dppl1f.dat r22p3.ps
+.
+erase
+device 2 postscript
+.
+let p1 = -3.0
+let p2 = 0.4
+let p3 = -0.007
+let p4 = -0.01
+let p5 = -0.0003
+ylimits
+ytic offset 0 0
+title y = (@p1 + @p2 x + @p3 x^2)/(1 + @p4 x + @p5 x^2)
+plot f for x = 50 0.1 1000
+.
+device 2 close
+system cp dppl1f.dat r22p4.ps
+.
+erase
+device 2 postscript
+.
+let p1 = -3.0
+let p2 = 0.4
+let p3 = -0.007
+let p4 = -0.01
+let p5 = -0.0003
+ylimits -1000 1500
+ytic offset 0 0
+title y = (@p1 + @p2 x + @p3 x^2)/(1 + @p4 x + @p5 x^2)
+plot f for x = 40 0.01 43.4 and
+plot f for x = 43.5 0.01 50
+.
+line dotted
+drawdata 43.43 -900 43.43 1500
+line solid
+.
+device 2 close
+system cp dppl1f.dat r22p5.ps
+.
+erase
+device 2 postscript
+.
+let p1 = -3.0
+let p2 = 0.4
+let p3 = -0.007
+let p4 = -0.01
+let p5 = -0.0003
+ylimits
+ytic offset 0 0
+title y = (@p1 + @p2 x + @p3 x^2)/(1 + @p4 x + @p5 x^2)
+plot f for x = -100 0.1 -78 and
+plot f for x = -75 0.1 40
+.
+line dotted
+drawdata -76.759 -2000 -76.759 2000
+line solid
+.
+device 2 close
+system cp dppl1f.dat r22p6.ps
+.
+quit

@@ -1,0 +1,10 @@
+device 1 x11
+set ipl1na test.ps
+background color white
+device 2 postscript
+device 2 color on
+.
+plot x**2 for x = 1 1 9
+.
+device 2 close
+.

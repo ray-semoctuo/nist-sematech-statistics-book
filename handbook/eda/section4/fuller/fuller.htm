@@ -1,0 +1,590 @@
+<HTML>
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+  <TITLE>Dataplot Commands for Airplane Polished Window Strength
+  Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../eda4298.htm" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../eda4298.htm" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Airplane Polished Window Strength
+   Data</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defautls, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Airplane Polished Window Strength Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 3
+title automatic
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+read fuller2.dat y
+skip 0
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Histogram</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.1
+.
+y1label Counts
+x1label Polished Window Strength (ksi)
+xlimits 10 60
+ytic offset 0 5
+HISTOGRAM Y
+xlimits
+y1label
+x1label
+title
+ytic offset 5 5
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Normal Probability Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.2
+.
+y1label Dlc()ata
+x1label Tlc()heoretical
+char circle
+char hw 1 0.75
+line blank
+normal probability plot y
+let x1 = xplot(1)
+let y1 = ppa0 + ppa1*x1
+let n = size xplot
+let xn = xplot(n)
+let yn = ppa0 + ppa1*xn
+line solid
+drawdata x1 y1 xn yn
+justification center
+height 4
+move 50 2
+text Fitted Line: Intercept = ^PPA0, Slope = ^ppa1
+justification left
+move 16 83
+text PPCC = ^PPCC
+x1label
+y1label
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Weibull Analysis</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1 - Generate PPCC plot for Weibull
+.
+title automatic
+title case upper
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+set minmax 1
+x1label gamma
+ylimits 0.90 1.0
+weibull ppcc plot y
+justification left
+move 22 31
+let maxppcc = round(maxppcc,4)
+text max ppcc = ^maxppcc
+move 22 24
+text shape = ^shape
+let gamma1 = 1.5
+let gamma2 = 2.5
+ylimits 0.95 1.0
+weibull ppcc plot y
+delete gamma1 gamma2
+ylimits
+let maxppcc = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc
+move 22 24
+text shape = ^shape2
+let gamma = shape
+y1label DATA
+x1label THEORETICAL
+weibull probability plot y
+justification left
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 22 85
+text location = ^ppa02
+move 22 78
+text slope = ^ppa12
+set relative histogram area
+title histogram with overlaid pdf
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+xtic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot weipdf(x,gamma,ppa0,ppa1) for x = 20 0.1 45
+limits
+end of multiplot
+title case asis
+title automatic
+x1label
+y1label
+line solid
+character blank
+xtic offset 5 5
+LET X = DATA .01 .025 .05 .95 .975 .99
+LET Y2 = WEIPPF(X,GAMMA,PPA0,PPA1)
+SET WRITE REWIND OFF
+WRITE WEIBPPF.OUT "Estimated percent points using Weibull Distribution"
+WRITE WEIBPPF.OUT " "
+WRITE WEIBPPF.OUT "PERCENT POINT        FAILURE TIME "
+SET WRITE FORMAT F5.2,15X,F7.2
+WRITE WEIBPPF.OUT X Y2
+SET WRITE FORMAT
+SET WRITE REWIND ON
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Weibull Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2 - Generate a Weibull Plot
+.
+print y
+limits
+xtic offset 0 0
+y1label Weibull Cumulative Probability (%)
+x1label Log or Ordered Response
+character x
+line blank
+WEIBULL PLOT Y
+justification left
+let beta = round(beta,3)
+let eta = round(eta,3)
+move 22 65
+text shape = ^beta
+move 22 60
+text scale = ^eta
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Weibull Hazard Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.3 - Generate a Weibull Hazard Plot
+.
+xtic offset 0 0
+title automatic
+y1label Weibull Cumulative Hazard
+x1label Log or Ordered Response
+character x
+line blank
+WEIBULL HAZARD PLOT Y
+. Finished Step 3.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lognormal Analysis</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1 - Generate PPCC plot for Lognormal
+.
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+xlimits
+x1label SD
+LOGNORMAL PPCC PLOT Y
+justification left
+let maxppcc2 = round(maxppcc,4)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape2
+let sigma1 = 0.1
+let sigma2 = 0.3
+LOGNORMAL PPCC PLOT Y
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape2
+let sd = shape
+y1label DATA
+x1label THEORETICAL
+LOGNORMAL PROBABILITY PLOT Y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+justification right
+move 88 31
+text location = ^ppa02
+move 88 24
+text slope = ^ppa12
+justification left
+set relative histogram area
+title HISTOGRAM WITH OVERLAID PDF
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot lgnpdf(x,sd,ppa0,ppa1) for x = 20 0.1 45
+limits
+end of multiplot
+ytic offset 5 5
+x1label
+y1label
+title case asis
+title automatic
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Gamma Analysis</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.1 - Generate PPCC plot for Gamma
+.
+title case upper
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+x1label gamma
+ylimits 0.90 1.0
+gamma ppcc plot y
+delete gamma1 gamma2
+justification center
+let maxppcc2 = round(maxppcc,4)
+justification left
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text max shape = ^shape
+let gamma1 = 10
+let gamma2 = 15
+ylimits 0.95 1.0
+gamma ppcc plot y
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text max shape = ^shape2
+let gamma = shape
+y1label DATA
+x1label THEORETICAL
+gamma probability plot y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 22 83
+text location = ^ppa02
+move 22 75
+text slope = ^ppa12
+set relative histogram area
+title HISTOGRAM WITH OVERLAID PDF
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot gampdf(x,gamma,ppa0,ppa1) for x = 20 0.1 45
+limits
+end of multiplot
+title case upper
+title automatic
+x1label
+y1label
+limits
+ytic offset 5 5
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Power Normal</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 6.1 - Generate PPCC plot for Power Normal
+.
+title case upper
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+x1label p
+ylimits 0.90 1.0
+power normal ppcc plot y
+delete p1 p2
+let maxppcc2 = round(maxppcc,4)
+justification left
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape
+let p1 = 0.05
+let p2 = 3
+ylimits 0.97 1.0
+power normal ppcc plot y
+delete p1 p2
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape2
+let p = shape
+y1label DATA
+x1label THEORETICAL
+power normal probability plot y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 22 31
+text location = ^ppa02
+move 22 24
+text slope = ^ppa12
+set relative histogram area
+title histogram with overlaid pdf
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot pnrpdf(x,p,ppa0,ppa1) for x = 20 0.1 42
+limits
+end of multiplot
+title case asis
+title automatic
+ytic offset 5 5
+x1label
+y1label
+. Finished Step 6.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fatigue Life Analysis</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 7.1 - Generate PPCC plot for Fatigue Life
+.
+title case upper
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+delete gamma1 gamma2
+x1label gamma
+limits
+fatigue life ppcc plot y
+justification center
+let maxppcc2 = round(maxppcc,4)
+justification left
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text max shape = ^shape
+let gamma1 = 0.1
+let gamma2 = 2
+ylimits 0.95 1.0
+fatigue life ppcc plot y
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text max shape = ^shape2
+let gamma = shape
+y1label DATA
+x1label THEORETICAL
+fatigue life probability plot y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 22 83
+text location = ^ppa02
+move 22 75
+text slope = ^ppa12
+set relative histogram area
+title HISTOGRAM WITH OVERLAID PDF
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot flpdf(x,gamma,ppa0,ppa1) for x = 20 0.1 45
+limits
+end of multiplot
+title case upper
+title automatic
+x1label
+y1label
+limits
+ytic offset 5 5
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Anderson-Darling Goodness of Fit</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 8.1
+.
+anderson-darling normal test y
+. Finished Step 8.1: Page Back for Output
+. Starting Step 8.2
+.
+anderson-darling lognormal test y
+. Finished Step 8.2: Page Back for Output
+. Starting Step 8.3
+.
+let gamma = 2.13
+anderson-darling weibull test y
+. Finished Step 8.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<A HREF="http://www.nist.gov">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../eda4298.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../eda4298.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   </HTML>
+

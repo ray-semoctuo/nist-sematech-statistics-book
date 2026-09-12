@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < histogram.dp
+mv dppl1f.dat histogram.ps
+gs -sDEVICE=ppm -sOutputFile=histogram.ppm  -dNOPAUSE -dBATCH histogram.ps
+~/bin/pnmrotate  -90 histogram.ppm > histogram_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 histogram_r.ppm > histogram_s.ppm
+~/bin/ppmtogif  histogram_s.ppm > histogram.gif
+mv histogram.gif ../gif/histogram.gif
+rm histogram.ppm histogram_r.ppm histogram_s.ppm histogram.ps
+#

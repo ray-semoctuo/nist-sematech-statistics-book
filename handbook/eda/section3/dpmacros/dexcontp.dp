@@ -1,0 +1,36 @@
+. -----Start Point-----
+.
+device 1 x11
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+character size 4
+title offset 2
+.
+set ipl1na dexcontp.ps
+device 2 postscript
+.
+skip 25
+read BOXYIELD.DAT y x1 x2
+.
+let  ycont = sequence 50 2 70
+character zval circle circle
+character fill off on on
+line blank blank solid
+line thickness 0.1 0.1 0.1 0.3
+title DEX Contour Plot
+y1label Factor 2
+x1label Factor 1
+limits -2 2
+.
+pre-erase off
+dex contour plot y x1 x2 ycont
+.
+box 0 0 100 100
+.
+device 2 close
+system mv DEXCONTP.PS dexcontp.ps
+.

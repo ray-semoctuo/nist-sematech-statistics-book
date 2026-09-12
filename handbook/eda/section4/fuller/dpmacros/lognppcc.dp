@@ -1,0 +1,59 @@
+.
+. Starting Step 4.1 - Generate PPCC plot for Lognormal
+.
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+xlimits
+x1label SD
+LOGNORMAL PPCC PLOT Y
+justification left
+let maxppcc2 = round(maxppcc,4)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape2
+let sigma1 = 0.1
+let sigma2 = 0.3
+LOGNORMAL PPCC PLOT Y
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape2
+let sd = shape
+y1label DATA
+x1label THEORETICAL
+LOGNORMAL PROBABILITY PLOT Y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+justification right
+move 88 31
+text location = ^ppa02
+move 88 24
+text slope = ^ppa12
+justification left
+set relative histogram area
+title HISTOGRAM WITH OVERLAID PDF
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot lgnpdf(x,sd,ppa0,ppa1) for x = 20 0.1 45
+limits
+end of multiplot
+ytic offset 5 5
+x1label
+y1label
+title case asis
+title automatic
+. Finished Step 4.1: Page Back for Output

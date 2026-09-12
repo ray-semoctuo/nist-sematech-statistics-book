@@ -1,0 +1,45 @@
+feedback off
+set write decimals 4
+.
+dimension 50 columns
+.
+capture mpc3321.out
+let y = data -0.3800 -1.5900 -1.2150
+let r = data 1 1 0
+let refstand = 0.82329
+.
+read matrix x
+1 -1 0
+1 0 -1
+0 1 -1
+end of data
+.
+let xt = matrix transpose x
+let xtx = matrix multiply xt x
+print xtx
+.
+let rnew = r
+let rnew(4) = 0
+let a = create matrix xtx1 xtx2 xtx3 r
+let a = matrix add row a rnew
+print a
+.
+let ainv = matrix inverse a
+print ainv
+.
+let q = create matrix ainv1 ainv2 ainv3
+let q = matrix delete row q 4
+print q
+.
+let h = ainv4
+retain h for i = 1 1 3
+print h
+.
+let qxt = matrix multiply q xt
+print qxt
+let b = matrix multiply qxt y
+print b
+let b1 = b + refstand*h
+print b1
+end of capture
+.

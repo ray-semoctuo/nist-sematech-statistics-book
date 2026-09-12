@@ -1,0 +1,35 @@
+.
+. Starting Step 3.2
+quadratic fit rot flux
+let res2 = res
+let n = size flux
+let wt1 = 1 for i = 1 1 n
+let tempx = flux
+let tempy = rot
+retain tempx tempy wt1 subset res2 <= 0.1
+let nadj = size tempx
+let n2 = size fluxnew
+let rotnew = 0 for i = 1 1 n2
+let wtnew = 0 for i = 1 1 n2
+extend tempx fluxnew
+extend tempy rotnew
+extend wt1 wtnew
+weights wt1
+quadratic fit tempy tempx 
+let nnew = size tempx
+.
+skip 0
+read dpst2f.dat fsd
+let tag2 = 1 for i = 1 1 nnew
+let tag2 = 0 for i = 1 1 nadj
+let pred2 = pred
+retain fsd pred2 subset tag2 = 1
+let sflow = sqrt(ressd**2 + fsd**2)
+.
+CAPTURE YSD2.OUT
+print ressd
+set write format f3.0,5x,f12.7,5x,f12.7,5x,f12.7
+write fluxnew pred2 fsd sflow
+set write format
+END OF CAPTURE
+. Finished Step 3.2: Page Back for Output

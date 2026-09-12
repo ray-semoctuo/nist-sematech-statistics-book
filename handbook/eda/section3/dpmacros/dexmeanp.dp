@@ -1,0 +1,61 @@
+. This is Dataplot Program file    graphicsgallery.dp
+. Purpose--Generate WWW Graphics gallery Plots
+. June 1996
+.
+. -----Start Point-----
+.
+device 1 x11
+.
+.  Jim's dplogf.tex defaults
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 10. dex mean plot BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title DEX Mean Plot
+y1label Mean Response
+x1label Factors
+. x3label automatic
+xlimits 1 7
+major xtic mark number 7
+xtic offset 1 1
+xtic offset units data
+ytic offset 0 0
+.
+dex mean plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat dexmeanp.ps
+.

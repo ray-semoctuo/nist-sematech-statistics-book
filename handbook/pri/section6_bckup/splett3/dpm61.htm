@@ -1,0 +1,443 @@
+<HTML>
+
+<HEAD>
+<TITLE>Dataplot Commands for Eddy Probe Current Case Study</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../pri619.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="../pri619.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../../" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Eddy Current Probe Case Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Set Software Options and Get Started
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Eddy Current Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read splett3.dat y x1 x2 x3
+variable label y Impedance
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Guage
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Scatter Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.1
+title Eddy Current Data
+xlimits 1 3
+major x1tic mark number 3
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3
+y1label ^y
+dex scatter plot y x1 x2 x3
+line dash
+drawdata 1.5 0 1.5 5
+drawdata 2.5 0 2.5 5
+line blank
+title
+y1label
+xlimits
+x1tic mark label format
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Mean Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.2
+title Eddy Current Data
+xlimits 1 3
+major x1tic mark number 3
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3
+y1label ^y
+char blank
+ylimits 1 5
+line solid
+dex mean plot y x1 x2 x3
+char x
+line blank
+title
+y1label
+xlimits
+xtic mark label format
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Mean Interaction Effects Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1
+variable label x1 Turns
+variable label x2 Windingsp()Distance
+variable label x3 Wiresp()Guage
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+xtic offset 0.5 0.5
+xtic mark label format numeric
+y1label ^y
+ylabel displacement 12
+char circle blank
+char fill on blank
+line solid solid
+ylimits 1 5
+line solid
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+set matrix plot x2label effect
+set matrix plot lower diagonal off
+x2label displacement 16
+dex mean interaction effects plot y x1 x2 x3
+multiplot corner coordinates
+multiplot scale factor 1
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Guage
+x2label displacement
+char x
+line blank
+char fill off
+ylimits
+y1label
+ylabel displacement
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Block Plots
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2
+char 1 2
+lines blank blank
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+multiplot 2 2
+title Primary Factor - Turns
+block plot y x2 x3 x1
+title Primary Factor - Winding Distance
+block plot y x1 x3 x2
+title Primary Factor - Wire Guage
+block plot y x1 x2 x3
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+char x blank
+line blank solid
+title
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Yates Analysis
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1
+yates y
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Probability Plots of Effects
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.1
+yates y
+skip 0
+read dpst1f.dat tag coef t ressd1 ressd2
+let numcoef = size coef
+multiplot scale factor 2
+multiplot corner coordinates 2 2 98 98
+multiplot 2 2
+title Normal Probability Plot of coef
+normal probability plot coef
+let abscoef = abs(coef)
+title Half-Normal Probability Plot of |coef|
+halfnormal probability plot abscoef
+characters automatic tag
+let seq = numcoef -1 1
+title Labeled Half-Normal Probability Plot
+character size 3 all
+plot yplot xplot seq
+end of multiplot
+multiplot scale factor 1
+multiplot corner coordinates
+character x
+character size
+title
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Youden Plot of Effects
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.2
+let a1 = mean y subset x1 = +1
+let b1 = mean y subset x1 = -1
+let a2 = mean y subset x2 = +1
+let b2 = mean y subset x2 = -1
+let a3 = mean y subset x3 = +1
+let b3 = mean y subset x3 = -1
+let xjunk = x1*x2
+let a4 = mean y subset xjunk = +1
+let b4 = mean y subset xjunk = -1
+let xjunk = x1*x3
+let a5 = mean y subset xjunk = +1
+let b5 = mean y subset xjunk = -1
+let xjunk = x2*x3
+let a6 = mean y subset xjunk = +1
+let b6 = mean y subset xjunk = -1
+let xjunk = x1*x2*x3
+let a7 = mean y subset xjunk = +1
+let b7 = mean y subset xjunk = -1
+.
+let ytemp = data a1 a2 a3 a4 a5 a6 a7
+let xtemp = data b1 b2 b3 b4 b5 b6 b7
+let tag = data 1 2 3 4 5 6 7
+character 1 2 3 12 13 23 123
+.
+label font simplex
+y1label Ybarsub()+
+x1label Ybarsub()-
+plot ytemp xtemp tag
+char blank all
+char x
+line solid all
+line blank
+label
+label font tektronix
+. Finished Step 5.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residual Plots for Model Validation
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 6.2
+yates y
+skip 0
+read dpst1f.dat tag coef t ressd1 ressd2
+let b1 = coef(1)
+let b2 = coef(2)
+.
+multiplot scale factor 3
+multiplot corner coordinates 2 2 98 98
+multiplot 3 3
+y1label displacement 15
+major ytic mark number 6
+title normal prob plot
+normal probability plot res
+title run sequence
+y1label res
+plot res
+title x1
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+plot res vs x1
+title x2
+plot res vs x2
+title x3
+plot res vs x3
+title x1*x2
+interaction plot res x1 x2
+title x1*x3
+interaction plot res x1 x3
+title x2*x3
+interaction plot res x2 x3
+title x1*x2*x3
+interaction plot res x1 x2 x3
+end of multiplot
+multiplot scale factor 1
+multiplot corner coordinates
+character x
+character size
+title
+title
+y1label
+y1label displacement
+major tic mark number
+minor tic mark number
+. Finished Step 6.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Contour Plot of Factors 1 and 2
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 7.1
+title DEX Contour Plot
+x1label Number of Turns
+y1label Winding Distance
+limits -2 2
+major tic mark number 5
+let levels = sequence 0 0.5 6
+line thickness 0.1 0.1 0.3
+char blank circle
+char fill off on
+dex contour plot y x1 x2 levels
+char x blank blank
+line blank
+line thickness 0.1 all
+title
+y1label
+limits
+major tic mark number
+. Finished Step 7.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+</PRE>
+</TD>
+</TR>
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../../" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="../pri619.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../pri619.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,5 @@
+#!/bin/csh
+#
+set a = $1:r
+convert -rotate 90 -resize 600x425  $a.ps  $a.r.jpg
+convert -rotate 90 -resize 792x612  $a.ps  $a.jpg

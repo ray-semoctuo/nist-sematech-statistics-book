@@ -1,0 +1,425 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.1.5. Work This Example Yourself</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc62.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc614.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.htm">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc61.htm">Lithography Process</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.1.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Work This Example Yourself</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A HREF="lithogra/lithogra.htm">
+<I>
+View Dataplot Macro for this Case Study
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This page allows you to repeat the analysis outlined in the
+case study description on the previous page using Dataplot.
+It is required that you have already downloaded and installed
+Dataplot.  Output from each analysis step below will be displayed
+in one or more of the Dataplot windows.  The four main windows
+are the Output Window, the Graphics window, the Command History
+window, and the data sheet window.  Across the top of the main
+windows there are menus for executing Dataplot commands.  Across
+the bottom is a command entry window where commands can be typed
+in.
+</TD>
+</TR>
+</TABLE>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TABLE WIDTH=540 BORDER=2 CELLPADDING=10>
+<TR>
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Data Analysis Steps
+</FONT>
+</TH>
+
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Results and Conclusions
+</FONT>
+</th>
+</TR>
+
+<TR>
+<TD>
+<BR>
+<I>
+Click on the links below to start
+Dataplot and run this case study yourself.  Each
+step may use results from previous steps, so
+please be patient.  Wait until the software
+verifies that the current step is complete before
+clicking on the next step.
+</I>
+<BR><BR>
+</TD>
+
+<TD>
+<BR>
+<I>The links in this column will connect you with more
+detailed information about each analysis step from the case
+study description.</I>
+<BR><BR>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+1. Invoke Dataplot and read data.
+</PRE>
+<A HREF="lithogra/dpmacros/data.dp"><PRE>
+   1. Read in the data.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREf="pmc611.htm"><PRE>
+ 1. You have read 5 columns of numbers 
+    into Dataplot, variables CASSETTE, WAFER,
+    SITE, WIDTH, and RUNSEQ.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+2. Plot of the response variable
+</PRE>
+<A HREF="lithogra/dpmacros/summary.dp"><PRE>
+   1. Numerical summary of WIDTH.
+
+
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/4plot.dp"><PRE>
+   2. 4-Plot of WIDTH.
+
+
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/runseqpl.dp"><PRE>
+   3. Run sequence plot of WIDTH.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="pmc612.htm#SUMMARY"><PRE>
+ 1. The summary shows the mean line width
+    is 2.53 and the standard deviation
+    of the line width is 0.69.
+
+</PRE></A>
+<A HREF="pmc612.htm#4PLOT"><PRE>
+ 2. The 4-plot shows non-constant
+    location and scale and moderate
+    autocorrelation.
+
+</PRE></A>
+<A HREF="pmc612.htm#RUNSEQPL"><PRE>
+ 3. The run sequence plot shows
+    non-constant location and scale.
+
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+3. Generate scatter and box plots against
+   individual factors.
+</PRE>
+<A HREF="lithogra/dpmacros/scatcass.dp"><PRE>
+   1. Scatter plot of WIDTH versus
+      CASSETTE.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/boxpcass.dp"><PRE>
+   2. Box plot of WIDTH versus
+      CASSETTE.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/scatwafe.dp"><PRE>
+   3. Scatter plot of WIDTH versus
+      WAFER.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/boxpwafe.dp"><PRE>
+   4. Box plot of WIDTH versus
+      WAFER.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/scatsite.dp"><PRE>
+   5. Scatter plot of WIDTH versus
+      SITE.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/boxpsite.dp"><PRE>
+   6. Box plot of WIDTH versus
+      SITE.
+
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/dexmeanp.dp"><PRE>
+   7. Dex mean plot of WIDTH versus
+      CASSETTE, WAFER, and SITE.
+
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/dexsd.dp"><PRE>
+   8. Dex sd plot of WIDTH versus
+      CASSETTE, WAFER, and SITE.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+
+</PRE>
+<A HREF="pmc612.htm#SCATCASS"><PRE>
+ 1. The scatter plot shows considerable
+    variation in location.
+
+</PRE></A>
+<A HREF="pmc612.htm#BOXPCASS"><PRE>
+ 2. The box plot shows considerable
+    variation in location and scale
+    and the prescence of some outliers.
+</PRE></A>
+<A HREF="pmc612.htm#SCATWAFE"><PRE>
+ 3. The scatter plot shows minimal
+    variation in location and scale.
+
+</PRE></A>
+<A HREF="pmc612.htm#BOXPWAFE"><PRE>
+ 4. The box plot shows minimal
+    variation in location and scale.
+    It also show some outliers.
+</PRE></A>
+<A HREF="pmc612.htm#SCATSITE"><PRE>
+ 5. The scatter plot shows some
+    variation in location.
+
+</PRE></A>
+<A HREF="pmc612.htm#BOXPSITE"><PRE>
+ 6. The box plot shows some
+    variation in location.  Scale
+    seems relatively constant.
+    Some outliers.
+</PRE></A>
+<A HREF="pmc612.htm#DEXMEANP"><PRE>
+ 7. The dex mean plot shows effects
+    for CASSETTE and SITE, no effect
+    for WAFER.
+
+</PRE></A>
+<A HREF="pmc612.htm#DEXSD"><PRE>
+ 8. The dex sd plot shows effects
+    for CASSETTE and SITE, no effect
+    for WAFER.
+
+</PRE></A>
+</TD>
+</TR>
+
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+4. Subgroup analysis.
+</PRE>
+<A HREF="lithogra/dpmacros/movemean.dp"><PRE>
+   1. Generate a moving mean control
+      chart.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/moverang.dp"><PRE>
+   2. Generate a moving range control
+      chart.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/wafemean.dp"><PRE>
+   3. Generate a mean control chart
+      for WAFER.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/wafesd.dp"><PRE>
+   4. Generate a sd control chart
+      for WAFER.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/cassmean.dp"><PRE>
+   5. Generate a mean control chart
+      for CASSETTE.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/casssd.dp"><PRE>
+   6. Generate a sd control chart
+      for CASSETTE.
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/anova.dp"><PRE>
+   7. Generate an analysis of variance.
+
+
+</PRE></A>
+<A HREF="lithogra/dpmacros/cass2mea.dp"><PRE>
+   8. Generate a mean control chart
+      using lot-to-lot variation.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="pmc613.htm#MOVEMEAN"><PRE>
+ 1. The moving mean plot shows
+    a large number of out of
+    control points.
+</PRE></A>
+<A HREF="pmc613.htm#MOVERANG"><PRE>
+ 2. The moving range  plot shows
+    a large number of out of
+    control points.
+</PRE></A>
+<A HREF="pmc613.htm#WAFEMEAN"><PRE>
+ 3. The mean control chart shows
+    a large number of out of
+    control points.
+</PRE></A>
+<A HREF="pmc613.htm#WAFESD"><PRE>
+ 4. The sd control chart shows
+    no out of control points.
+
+</PRE></A>
+<A HREF="pmc613.htm#CASSMEAN"><PRE>
+ 5. The mean control chart shows
+    a large number of out of
+    control points.
+</PRE></A>
+<A HREF="pmc613.htm#CASSSD"><PRE>
+ 6. The sd control chart shows
+    no out of control points.
+
+</PRE></A>
+<A HREF="pmc613.htm#ANOVA"><PRE>
+ 7. The analysis of variance show
+    that CASSETTE and SITE are
+    significant factors while
+    WAFER is not.
+</PRE></A>
+
+<A HREF="pmc614.htm#LOTTOLOT"><PRE>
+ 8. The mean control chart shows one
+    point that is on the boundary of
+    being out of control.
+
+</PRE></A>
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc614.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc62.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

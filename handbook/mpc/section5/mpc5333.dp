@@ -1,0 +1,43 @@
+Dataplot commands and output:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+read mpc536.dat wafer day probe d1 d2
+let n = count probe
+let t = sequence 1 1 n
+y1label = ohm.cm
+characters 1 2 3 4 5
+x1label = DIFFERENCES BETWEEN 2 WIRING CONFIGURATIONS CODED BY WAFER
+x2label RUN 1
+plot d1 t wafer
+x2label run 2
+plot d2 t wafer
+
+let dff = n-1
+let avgrun1 = average d1
+let avgrun2 = average d2
+let sdrun1 = standard deviation d1
+let sdrun2 = standard deviation d2
+let t1 = ((n)**.5)*avgrun1/sdrun1
+let t2 = ((n)**.5)*avgrun2/sdrun2
+print avgrun1 sdrun1 t1
+print avgrun2 sdrun2 t2
+
+> PARAMETERS AND CONSTANTS--
+>
+>     AVGRUN1 -- -0.3834483E-02
+>     SDRUN1  --  0.5145197E-02
+>     T1      -- -0.4013319E+01
+>
+> PARAMETERS AND CONSTANTS--
+>
+>     AVGRUN2 --  0.4886207E-02
+>     SDRUN2  --  0.4004259E-02
+>     T2      --  0.6571260E+01
+
+let tcritical=tppf(.975,dff)
+
+> THE COMPUTED VALUE OF THE CONSTANT TCRITICA =   2.0484
+

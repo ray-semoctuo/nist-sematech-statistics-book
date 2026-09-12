@@ -1,0 +1,62 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+set ipl1na scale.ps
+device 2 postscript
+.
+let y1 = normal random numbers for i = 1 1 10000
+let a1 = standard deviation y1
+let b1 = mad y1
+let c1 = range y1
+.
+let y2 = double exponential random numbers for i = 1 1 10000
+let a2 = standard deviation y2
+let b2 = mad y2
+let c2 = range y2
+let y3 = cauchy random numbers for i = 1 1 10000
+let a3 = standard deviation y3
+let b3 = mad y3
+let c3 = range y3
+let lambda = 1.2
+let y4 = tukey-lambda random numbers for i = 1 1 10000
+let a4 = standard deviation y4
+let b4 = mad y4
+let c4 = range y4
+multiplot corner coordiantes 2 2 98 98
+multiplot 2 2
+legend 1 coordinates 16 82
+legend 2 coordinates 16 77
+legend size 5
+label size 5
+x1label size 6
+title size 6
+tic mark label size 5
+height 4
+xlimits -10 10
+.
+title normal random numbers
+x1label sd = ^a1, mad = ^b1, r= ^c1
+histogram y1
+.
+title double exponential random numbers
+x1label sd = ^a2, mad = ^b2, r= ^c2
+histogram y2
+.
+title cauchy random numbers
+x1label sd = ^a3, mad = ^b3, r= ^c3
+histogram y3 subset y3 = -10 to 10
+.
+title tukey lambda (l=1.2) random numbers
+x1label sd = ^a4, mad = ^b4, r= ^c4
+histogram y4
+.
+end of multiplot
+.
+box 0 0 100 100
+.
+device 2 close
+system cp SCALE.PS scale.ps
+.
+quit

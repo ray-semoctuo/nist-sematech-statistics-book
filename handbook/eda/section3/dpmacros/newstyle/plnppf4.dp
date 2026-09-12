@@ -1,0 +1,38 @@
+.
+.  Generate sample output for Power Lognormal PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na plnppf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Power Lognormal PPF (p = 0.5, sd = 1)
+PLOT PLNPPF(P,0.5,1) FOR P = 0.01 0.01 0.99
+TITLE Power Lognormal PPF (p = 1, sd = 1)
+PLOT PLNPPF(P,1,1) FOR P = 0.01 0.01 0.99
+TITLE Power Lognormal PPF (p = 0.99, sd = 1)
+PLOT PLNPPF(P,5,1) FOR P = 0.01 0.01 0.99
+TITLE Power Lognormal PPF (p = 10, sd = 1)
+PLOT PLNPPF(P,10,1) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp PLNPPF4.PS plnppf4.ps
+system rm PLNPPF4.PS
+.
+quit

@@ -1,0 +1,8 @@
+for file in $*
+do 
+ex - $file << end-of-edits
+g/<TITLE>44/s//<TITLE>4/
+g/<TITLE>/s/\. /\./
+wq
+end-of-edits
+done

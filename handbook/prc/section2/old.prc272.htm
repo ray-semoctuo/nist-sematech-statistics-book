@@ -1,0 +1,174 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.7.2. Sample sizes required</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/prc3.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc271.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.htm">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.htm">Comparisons based on data vrom one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc27.htm">How can we determine whether the proportion of defectives produced by a process
+has changed from the "nominal" value?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.7.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Sample sizes required</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Derivation
+of formula for required sample size when testing proportions</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->The methods of determining
+sample sizes for proportions is similar to the methods use for sampling
+to estimate the normal mean. Although the sampling distribution for proportions
+actually follows a binomial distribution. The normal distribution can be
+used to approximate the binomial distribution when <i>n is large.</i>
+<p>The test statistic is
+<center><img SRC="eqns/propsze2.gif" height=68 width=132>
+<br><img SRC="eqns/propsze3.gif" height=86 width=252></center>
+
+<p>The sampling error, <font face="Symbol">e</font> , is equal to (<img SRC="eqns/phat.gif" height=20 width=13 align=ABSCENTER><i>-
+p</i>) , the difference between sample proportion&nbsp;<img SRC="eqns/phat.gif" height=20 width=13 align=ABSCENTER>
+and the parameter to be estimated (<i>p</i>). This sampling error can be
+defined as</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Formula for required sample size</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><img SRC="eqns/propsze4.gif" height=164 width=154></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Steps to calculate required sample size</i></td>
+
+<td VALIGN=TOP WIDTH="85%">To calculate the sample size for proportions
+the following three quantities must be defined:
+<ol>
+<li>
+The level of confidence desired, 1 - <font face="symbol">a</font></li>
+
+<li>
+The sampling error permitted, <font face="Symbol">e</font></li>
+
+<li>
+The population <i>p</i>&nbsp;</li>
+</ol>
+Observe the following: items 2 and 3 are somewhat arbitrary. Often
+<font face="Symbol">a</font>
+is set to .10, but this is not mandatory. The sampling error is often defined
+as 5% of its true value. Again, this can be set to any desired percentage.&nbsp;
+<p>The guess at <i>p</i> is based on some form of prior knowledge. (But
+really, how can we expect to state a value for the very item that we are
+taking a sample in order to determine it?) It turns out that if we take
+p = .5 we obtain the largest sample size possible. This implies the widest
+confidence intervals and the highest possible cost. Hence we achieve the
+maximum information, and the highest precision, but at a price. We spent
+more money and time.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>How to test proportions</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Let us conclude with an example.&nbsp;
+<p>A department manager wished to to have 90% confidence of estimating
+the proportion of nonconformities in the product that he is responsible
+for.&nbsp;
+<p>Not knowing the true value, he indicates that he wants to be within
+4% of the true (but unknown) value. Lacking any further information about
+the true proportion he accepts as a first guess <i>p</i> = .5 (this is
+the worst case choice of <i>p</i>, leading to the largest required sample
+size).&nbsp;
+<p>With these criteria on the table, we get:
+<br><i>Z</i> = 1.645, <font face="Symbol">e</font> = .04, and <i>p</i>
+= 0.5. Then&nbsp;
+<center><img SRC="eqns/propsze5.gif" height=98 width=308></center>
+If this sample size is prohibitive for one or several reasons (too expensive,
+not enough manpower, not enough test equipment capacity, etc.), another
+calculation with changed parameters can be performed.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>How to test proportions</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b>The Finite Population Correction Factor</b>
+<p>In order to determine the sample size when sampling without replacement,
+the finite population correction factor is applied as follows&nbsp;
+<center><img SRC="eqns/propsze8.gif" height=188 width=150></center>
+If the amount sampled exceeds about 25% of the population, the finite population
+correction factor will exert a substantial effect on the sample size.</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc271.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/prc3.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

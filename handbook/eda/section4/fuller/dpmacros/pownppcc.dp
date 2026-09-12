@@ -1,0 +1,61 @@
+.
+. Starting Step 6.1 - Generate PPCC plot for Power Normal
+.
+title case upper
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+x1label p
+ylimits 0.90 1.0
+power normal ppcc plot y
+delete p1 p2
+let maxppcc2 = round(maxppcc,4)
+justification left
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape
+let p1 = 0.05
+let p2 = 3
+ylimits 0.97 1.0
+power normal ppcc plot y
+delete p1 p2
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text shape = ^shape2
+let p = shape
+y1label DATA
+x1label THEORETICAL
+power normal probability plot y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 22 31
+text location = ^ppa02
+move 22 24
+text slope = ^ppa12
+set relative histogram area
+title histogram with overlaid pdf
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot pnrpdf(x,p,ppa0,ppa1) for x = 20 0.1 42
+limits
+end of multiplot
+title case asis
+title automatic
+ytic offset 5 5
+x1label
+y1label
+. Finished Step 6.1: Page Back for Output

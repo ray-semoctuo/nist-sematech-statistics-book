@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   <HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>1.3.3.11.2. Lag Plot: Weak Autocorrelation</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="eda33b3.htm" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="eda33b1.htm" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+	   <area sharea shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">1.</FONT> <A HREF="../eda.htm"><FONT COLOR="#00105A">Exploratory Data Analysis</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.</FONT> <A HREF="eda3.htm"><FONT COLOR="#00105A">EDA Techniques</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.3.</FONT> <A HREF="eda33.htm"><FONT COLOR="#00105A">Graphical Techniques: Alphabetic</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.3.11.</FONT> <A HREF="eda33b.htm"><FONT COLOR="#00105A">Lag Plot</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">1.3.3.11.2.</FONT> Lag Plot: Weak Autocorrelation </H2>
+<FONT SIZE=-1>
+</=-1>
+</=-1>
+</P>
+</FONT></FONT></FONT>
+   </TD>
+   </TR>
+
+   
+
+   
+
+   
+
+<!-----graphic----->
+
+<tr>
+<td width=15% valign=top>
+Lag Plot
+</td>
+
+<td width=85%>
+<img align = left src = "../gif/lagplot2.gif">
+</td>
+</tr>
+
+<!-----conclusions----->
+
+<tr>
+<td width=15% valign=top>
+Conclusions
+</td>
+
+<td width=85%>
+1.  Underlying autoregressive model <br>
+<dd> with moderate positive autocorrelation <br>
+2.  No outliers
+</td>
+</tr>
+
+<!-----discussion----->
+
+<tr>
+<td width=15% valign=top>
+Discussion
+</td>
+
+<td width=85%>
+Note above how the plot points tend to cluster
+(albeit noisily) along the diagonal.  Such clustering
+is the lag plot signature of "moderate autocorrelation",
+which in turn provides improved predictability.
+<p>
+If the process were completely random
+(see the previous example),
+knowledge of a current observation (say Y(i-1) = 0)
+would yield virtually no knowledge about the next
+observation Y(i) (it could here be anywhere from
+-.02 to +.02).
+If the process had moderate autocorrelation as above,
+and if Y(i-1) = 0, then
+the range of possible values for Y(i) is seen to be restricted
+to a smaller range
+(.01 to +.01)--still wide but an improvement nonetheless
+(relative to -.02 to +.02)
+in predictive power.
+
+</td>
+</tr>
+
+<!-----recommended next step----->
+
+<tr>
+<td width=15% valign=top>
+Recommended<br>
+Next Step
+</td>
+
+<td width=85%>
+Determine the parameters for the autoregressive model:
+<p>
+<dd> Y(i) = a0 + a1*Y(i-1) + random error
+<p>
+Since Y(i) and Y(i-1) are precisely the axes of the lag plot,
+such estimation is most easily done by doing a linear regression
+straight from the lag plot.
+<p>
+Note the residual standard deviation for this autoregressive
+model--it will be much smaller than the residual standard
+deviation for the default model
+<p>
+<dd> Y(i) = a0 + random error
+</td>
+</tr>
+
+<!-----end jjf----->
+
+   
+  
+   
+  
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov">
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="0,19,91,35">
+   </MAP>
+
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="eda33b1.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="eda33b3.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   </HTML>

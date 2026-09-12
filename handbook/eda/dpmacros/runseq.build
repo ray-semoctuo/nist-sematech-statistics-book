@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < runseq.dp
+mv dppl1f.dat runseq.ps
+gs -sDEVICE=ppm -sOutputFile=runseq.ppm  -dNOPAUSE -dBATCH runseq.ps
+~/bin/pnmrotate  -90 runseq.ppm > runseq_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 runseq_r.ppm > runseq_s.ppm
+~/bin/ppmtogif  runseq_s.ppm > runseq.gif
+mv runseq.gif ../gif/runseq.gif
+rm runseq.ppm runseq_r.ppm runseq_s.ppm runseq.ps
+#

@@ -1,0 +1,25 @@
+.
+.  Generate sample output for t CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na tcdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE t CDF (10 df)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT TCDF(X,10) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp TCDF.PS tcdf.ps
+system rm TCDF.PS
+.
+quit

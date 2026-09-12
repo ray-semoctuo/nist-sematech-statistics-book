@@ -1,0 +1,208 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.2.4. Estimate Main and Interaction Effects</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri625.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri623.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri62.htm">Catapult Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.2.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Estimate Main and Interaction Effects</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><a NAME="yates"></a><i>Effects
+Estimation&nbsp;</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Although the effect estimates
+were given on the <a href="pri623.htm">dex mean interaction plot</a> on
+the previous page, they can also be estimated quantitatively.&nbsp;
+<p>Fractional factorial designs with 2 levels can be fit using the Yates
+technique, which is described in <a href="../section7/pri7.htm">Box, Hunter,
+and Hunter</a>. The Yates technique utilizes the special structure of these
+designs to simplify the computation and presentation of the fit. Note that
+the center points are not included in the Yates analysis for estimating
+the effects.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Dataplot
+Output&nbsp;</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->Dataplot generated
+the following output for the Yates analysis.&nbsp;
+<pre>&nbsp;&nbsp;
+
+(NOTE--DATA MUST BE IN STANDARD ORDER)
+
+NUMBER OF OBSERVATIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16
+
+NUMBER OF FACTORS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4
+
+NO REPLICATION CASE
+
+&nbsp;&nbsp;
+
+PSEUDO-REPLICATION STAND. DEV.&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.23333400726E+02
+
+PSEUDO-DEGREES OF FREEDOM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5
+
+(THE PSEUDO-REP. STAND. DEV. ASSUMES ALL
+
+3, 4, 5, ...-TERM INTERACTIONS ARE NOT REAL,
+
+BUT MANIFESTATIONS OF RANDOM ERROR)
+
+&nbsp;&nbsp;
+
+STANDARD DEVIATION OF A COEF.&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.11666700363E+02
+
+(BASED ON PSEUDO-REP. ST. DEV.)
+
+&nbsp;&nbsp;
+
+GRAND MEAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.55296875000E+02
+
+GRAND STANDARD DEVIATION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.37568069458E+02
+
+&nbsp;&nbsp;
+
+99% CONFIDENCE LIMITS (+-)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.47041816711E+02
+
+95% CONFIDENCE LIMITS (+-)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.29990217209E+02
+
+99.5% POINT OF T DISTRIBUTION&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.40321440697E+01
+
+97.5% POINT OF T DISTRIBUTION&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 0.25705826283E+01
+
+&nbsp;&nbsp;
+
+IDENTIFIER&nbsp;&nbsp;&nbsp; EFFECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RESSD:&nbsp;&nbsp;&nbsp;&nbsp; RESSD:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MEAN +&nbsp;&nbsp;&nbsp;&nbsp; MEAN +
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TERM&nbsp;&nbsp;&nbsp; CUM TERMS
+
+----------------------------------------------------------
+
+&nbsp;&nbsp; MEAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 55.29688&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 37.56807&nbsp;&nbsp; 37.56807
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 40.28125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.5*&nbsp;&nbsp;&nbsp; 32.38174&nbsp;&nbsp; 32.38174
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 35.90625&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.1*&nbsp;&nbsp;&nbsp; 33.82029&nbsp;&nbsp; 27.06551
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 26.96875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.3&nbsp;&nbsp;&nbsp;&nbsp; 36.11603&nbsp;&nbsp; 23.47657
+
+&nbsp;&nbsp; 1234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24.09375&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.1&nbsp;&nbsp;&nbsp;&nbsp; 36.69212&nbsp;&nbsp; 19.75246
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; -22.15625&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1.9&nbsp;&nbsp;&nbsp;&nbsp; 37.03936&nbsp;&nbsp; 15.25831
+
+&nbsp;&nbsp;&nbsp;&nbsp; 34&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15.21875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.3&nbsp;&nbsp;&nbsp;&nbsp; 38.02627&nbsp;&nbsp; 12.47985
+
+&nbsp;&nbsp;&nbsp;&nbsp; 14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.40625&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8&nbsp;&nbsp;&nbsp;&nbsp; 38.56024&nbsp;&nbsp; 11.44448
+
+&nbsp;&nbsp;&nbsp;&nbsp; 13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.28125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8&nbsp;&nbsp;&nbsp;&nbsp; 38.56889&nbsp;&nbsp; 10.02313
+
+&nbsp;&nbsp;&nbsp;&nbsp; 23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -6.34375&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.5&nbsp;&nbsp;&nbsp;&nbsp; 38.73853&nbsp;&nbsp;&nbsp; 9.50675
+
+&nbsp;&nbsp;&nbsp; 123&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.28125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5&nbsp;&nbsp;&nbsp;&nbsp; 38.74143&nbsp;&nbsp;&nbsp; 8.76873
+
+&nbsp;&nbsp;&nbsp; 124&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.65625&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5&nbsp;&nbsp;&nbsp;&nbsp; 38.76894&nbsp;&nbsp;&nbsp; 8.00750
+
+&nbsp;&nbsp;&nbsp;&nbsp; 12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -5.53125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.5&nbsp;&nbsp;&nbsp;&nbsp; 38.77409&nbsp;&nbsp;&nbsp; 6.68584
+
+&nbsp;&nbsp;&nbsp; 134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.34375&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5&nbsp;&nbsp;&nbsp;&nbsp; 38.78160&nbsp;&nbsp;&nbsp; 3.15269
+
+&nbsp;&nbsp;&nbsp;&nbsp; 24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -2.21875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.2&nbsp;&nbsp;&nbsp;&nbsp; 38.86856&nbsp;&nbsp;&nbsp; 0.43301
+
+&nbsp;&nbsp;&nbsp; 234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.21875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.0&nbsp;&nbsp;&nbsp;&nbsp; 38.88647&nbsp;&nbsp;&nbsp; 0.00000
+
+&nbsp;&nbsp;
+
+</pre>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Interpretation&nbsp;</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->In fitting 2-level factorial
+designs, Dataplot takes advantage of the special structure of these designs
+in computing the fit and printing the results. Specifically, the main effects
+and interaction effects are printed in sorted order from most significant
+to least significant. It also prints the t-value for the term and the residual
+standard deviation obtained by fitting the model with that term and the
+mean (the column labeled RESSD MEAN + TERM) and for the model with that
+term, the mean, and all other terms that are more statistically significant
+(the column labeled RESSD MEAN + CUM TERMS).&nbsp;
+<p>For the t distribution with 5 degrees of freedom, the critical values
+for significance levels of 0.01, 0.05, and 0.10 are 4.032, 2.571, and 2.015
+respectively. In this case, no factors are statistically significant at
+the 0.01 level, factors 4 (Arm Length) and 3 (Number of Bands) are statistically
+significant at the 0.05 level, and factor 1 (Band Height) and the interaction
+of factors 1, 2, 3, and 4 are statisically significant at the 0.10 level.
+The remaining factors (including interaction terms) are not statistically
+significant even at the 0.10 level.&nbsp;</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri623.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri625.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

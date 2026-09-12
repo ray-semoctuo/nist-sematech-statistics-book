@@ -1,0 +1,6 @@
+#!/bin/csh -f
+# 
+# Run this on blazon to get 100x75 icon
+convert -geometry $1_r.gif $1.ppm
+/usr/local/bin/ppmtogif $1.ppm $1.gif
+mv $1.gif ../gif100

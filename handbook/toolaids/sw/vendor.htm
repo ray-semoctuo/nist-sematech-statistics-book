@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>Guidelines for Vendors</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../../toolaids.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="../../toolaids.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43" TARGET="_parent">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021"></FONT>
+<FONT COLOR="#00105A"><A HREF="../../toolaids.htm">Tools & Aids</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Guidelines for Vendors</H2>
+</TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Integrated with Dataplot</I>
+</TD>
+<TD WIDTH=85%>
+The version of the Handbook on the NIST web site is integrated
+with the Dataplot statistical software.  Dataplot is a free,
+downloadable statistical software package maintained by the
+National Institute of Standards and Technology.  It can be
+used both within the Handbook and independently of the Handbook
+and is able to perform a significant proportion of the analyses
+described in the Handbook.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Integration with Other Statistical Software
+</I>
+</TD>
+<TD WIDTH=85%>
+Although we have currently chosen to integrate only the non-commercial
+statistics package, Dataplot, with the Handbook, we are aware that many
+organizations have established software standards and need for software
+support that may preclude the exclusive use of Dataplot.  We also
+recognize that the value of the Handbook will be greatly increased if
+it is integrated with as many of the statistical programs widely available
+in industry, government, and academia as possible.  Although we at NIST and
+SEMATECH are not in a position to undertake this integration ourselves, we 
+would like to encourage any statistical software providers who are interested
+to integrate their software with the Handbook.  This web page provides
+guidelines for that task.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+What Needs to be Done
+</I>
+</TD>
+<TD WIDTH=85%>
+The following sections provide guidelines for integrating your
+software with the Handbook.  We anticipate that a vendor of
+statistical software would want to establish a site for
+displaying a specialized version of the Handbook that is
+integrated with the software package or individual pages of
+special interest to its clients.  Sections and features of the
+Handbook which may provide opportunities for vendors to feature
+their software are outlined below.
+<ol>
+   <li><a href="vendor.htm#MODIFY">What parts of the Handbook are 
+       likely to be of most interest for software integration</A>.
+   <li><a href="vendor.htm#INTEGRATE">Integrating
+       your software with the Handbook</a>.
+   <li><a href="vendor.htm#SUPPORT">What NIST/SEMATECH
+       will provide</a>.
+   <li><a href="vendor.htm#LINKS">Links from the NIST web site to 
+       a vendor's site</A>.
+   <li><a href="vendor.htm#VENDOR">Vendors responsibilities</a>.
+</ol>
+<p>
+
+
+</TD>
+</TR>
+
+
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="MODIFY">
+<I>
+Features of Interest to Software Vendors
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+There are several portions of the Handbook that may be modified.
+<ol>
+   <li>Most chapters contain a section on case studies where
+       the Dataplot program is actively invoked by the Handbook.
+       Specifically, each case study has a work this example
+       yourself page.  The Dataplot macros could be replaced with
+       macros for your statistical package.  In addition, the
+       case studies also contain sample output and graphs which
+       could be replaced with output from your package.
+   <li>Many other pages contain sample output from Dataplot and
+       other software programs.  In addition, reference is made 
+       on how to accomplish certain tasks in a particular
+       package.
+   <li>A "WEB HANDBOOK &lt;keyword&gt;" command uses the Handbook
+       as a help system from within Dataplot.  For example,
+       entering WEB HANDBOOK REGRESSION opens a browser to a
+       page in the Handbook that discusses regression.
+</ol>
+
+</TD>
+</TR>
+
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="INTEGRATE">
+<I>
+Integration of Software
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+There are several approaches to integrating software with the
+Handbook where the software is activated by clicking on a mouse.
+<ol>
+   <li>The simplest method brings up the software,
+       executes the macro, displays the results for some given
+       period of time, exits the software (you might make it
+       user controllable as to when the user exits the software),
+       and then returns control to the Handbook.
+       <p>
+       The advantage of this method is:
+       <ul>
+          <li>It should be relatively easy to implement with 
+              software packages that have a scripting or command
+              interface.
+       </ul>
+       <p>
+       The disadvantages are:
+       <ul>
+          <li>The case studies are run in large chunks by
+              clicking on a single macro.
+          <li>The software needs to be installed or accessible
+              on the user's local system.
+       </ul>
+       <p>
+   <li>The method used by the Handbook with Dataplot is an
+       elaboration of method (1).  First, a check is made to see
+       if the software is currently running.  If so, the macro
+       is executed.  If not, the software s brought up and then
+       the macro is executed.  In either case, the software
+       remains open.  This makes it possible to execute macros
+       successively.
+       <p>
+       The advantages of this method are:
+       <ul>
+          <li>You can implement fairly involved case studies in
+              small, manageable steps.
+       </ul>
+       <p>
+       The disadvantages of this method are:
+       <ul>
+          <li>The software needs to be installed or accessible on
+              the user's local system
+          <li>The implementation is more complex than for method
+              (1).
+       </ul>
+       <p>
+    <li>The software can be executed on a server system
+        and the output returned to web page.
+       <p>
+       The advantage of this method is:
+       <ul>
+          <li>The software does not need to be installed on the
+              user's local system.
+       </ul>
+       <p>
+       The disadvantages of this method are:
+       <ul>
+          <li>Similar to method (1), it is more difficult to
+              move through case studies in small steps.
+          <li>If a site is using the Handbook heavily, it could
+              be a burden on the server where the software is
+              installed.
+       </ul>
+</ol>
+
+</TD>
+</TR>
+
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="SUPPORT">
+<I>
+Support NIST Will Provide
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+If you are interested in integrating your software with the
+Handbook, we will provide a complete copy of the Handbook.
+<p>
+We are also willing to provide the Tcl/Tk and Expect scripts used
+by Dataplot.  These scripts implement the entire Dataplot
+graphical interface, not just the Handbook integration (the
+Handbook integration is actually a small part of the scripts).
+A similar ability could possibly be implemented using Perl or other Web
+scripting facilities as well.
+<P>
+We cannot guarantee any additional support beyond this.
+<P>
+Requests should directed to
+<a href="mailto: alan.heckert@nist.gov">Alan Heckert</a>.
+</TD>
+</TR>
+
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="LINKS">
+<I>
+Links from NIST to the Vendor
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+On request, we will provide a link from the official NIST web site to
+your site for displaying analyses and software tools that are related
+to the Handbook.  However, NIST does not endorse any commercial products
+or software and a disclaimer to that effect will appear when the reader 
+leaves the NIST site.
+</TD>
+</TR>
+
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME=#VENDOR">
+<I>
+Vendors Responsibilities
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+If you choose to develop pages of your own that follow the format
+of the Handbook or make use of data or analyses from the Handbook, please
+give proper credit to the source and to be careful not to imply that your
+views, analyses, software products, etc. are endorsed by NIST.
+
+</TD>
+</TR>
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31" TARGET="_parent">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="../../toolaids.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../../toolaids.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

@@ -1,0 +1,2 @@
+#!/bin/csh -f
+tar -cvf ~/pmc.tar  pmc44*.htm pmc45.htm gifs gif100 dpmacros

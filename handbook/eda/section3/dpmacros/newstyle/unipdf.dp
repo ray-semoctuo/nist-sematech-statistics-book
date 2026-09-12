@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Uniform PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na unipdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Uniform PDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT UNIPDF(X) FOR X = 0 0.1 1
+.
+box 0 0 100 100
+.
+device 2 close
+system cp UNIPDF.PS unipdf.ps
+system rm UNIPDF.PS
+.
+quit

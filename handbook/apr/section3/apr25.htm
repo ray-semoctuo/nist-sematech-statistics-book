@@ -1,0 +1,309 @@
+
+<HTML>
+   <HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+      <TITLE>8.2.5.  What models and assumptions are typically made when Bayesian methods are used
+for reliability evaluation                                                                                                                                                    </TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+   <!-- check check -->
+   <!--- <BODY BGCOLOR="FFFFEF"> --->
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="../section3/apr3.htm" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="apr24.htm" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">8.</FONT> <A HREF="../apr.htm"><FONT COLOR="#00105A"> Assessing Product Reliability                                                                                                                                                                                                                                </a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">8.2.</FONT> <A HREF="apr2.htm"><FONT COLOR="#00105A"> Assumptions/Prerequisites                                                                                                                                                                                                                                    </a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">8.2.5.</FONT>  What models and assumptions are typically made when Bayesian methods are used
+for reliability evaluation                                                                                                                                                     </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P>Bayesian assumptions for the <I>gamma&nbsp; exponential&nbsp; system
+model&nbsp;</I></TD>
+
+<TD WIDTH="85%"><!-- Add main text below -->The basics of <A HREF="../section1/apr110.htm">Bayesian
+methodology</A> were explained earlier, along with some of the <A HREF="../section1/apr110.htm#Advantages and Disadvantages of using Bayes">advantages
+and disadvantages</A> of using this approach. Here we only consider the
+models and assumptions that are commonplace when applying Bayesian methodology
+to evaluate system reliability.&nbsp;
+
+<P><A NAME="Assumptions"></A><B><U>Assumptions</U></B>:&nbsp;
+
+<P>1. Failure times for the system under investigation can be adequately
+modeled by the <A HREF="../section1/apr161.htm">exponential distribution</A>.
+For repairable systems, this means the <A HREF="../section1/apr171.htm">HPP</A>
+model applies and the system is operating in the flat portion of the<A HREF="../section1/apr124.htm">
+bathtub curve.</A> While Bayesian methodology can also be applied to non
+repairable component populations, we will restrict ourselves to the system
+application in this Handbook&nbsp;
+
+<P>2. The MTBF for the system can be thought of as chosen from a prior
+distribution model which is an analytic representation of our previous
+information or judgments about the system's reliability. The form of this
+prior model is the <A HREF="../section1/apr165.htm">gamma distribution</A>
+(the <A HREF="../section1/apr110.htm#Bayes Formula and Prior and Posterior Distribution">conjugate
+prior</A> for the exponential model). <I>The prior model is actually defined
+for <FONT FACE="Symbol">l </FONT>= 1/MTBF, since it is easier to do the
+calculations this way.&nbsp;</I>&nbsp;
+
+<P>3. <B><I>Our prior knowledge is used to choose the gamma parameters
+a and b for the prior distribution model for </I></B><FONT FACE="Symbol">l</FONT>.
+There are many possible ways to convert "knowledge" to gamma parameters,
+depending on the form of the "knowledge" - we will describe three approaches.&nbsp;
+<BR>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%">Several ways to choose the prior gamma parameter
+values</TD>
+
+<TD VALIGN=TOP WIDTH="85%">
+<UL>i)&nbsp; If you have <I>actual data from previous testing</I> done
+on the system (or a system believed to have the same reliability as the
+one under investigation) this is the most credible prior knowledge, and
+the easiest to use. <I>Simply set the gamma parameter a equal to the total
+number of fails from all the previous data, and set the parameter b equal
+to the total of all the previous test hours.&nbsp;</I>&nbsp;
+
+<P><I>ii)&nbsp; </I>A consensus method for determining a and b that works
+well is the following: Assemble a group of engineers who know the system
+and its sub components well from a reliability viewpoint.&nbsp;
+<BR>&nbsp;
+<UL>
+<LI>
+<I>Have the group reach agreement on a<B> reasonable MTBF</B> they expect
+the system to have</I>. They could each pick a number they would be willing
+to bet even money that the system would either meet or miss, and the average
+or median of these numbers would be their <I>50% best guess for the MTBF.
+</I>Or they could just discuss even money MTBF candidates until a consensus
+is reached&nbsp;</LI>
+</UL>
+&nbsp;
+<UL>
+<LI>
+<I>Repeat the process again, this time reaching agreement on a<B> low MTBF</B>
+they expect the system to exceed. </I>A "5%" value that they are "95% confident"
+the system will exceed (i.e., they would give 19 to 1 odds) is a good choice.
+Or a "10%" value might be chosen (i.e., they would give 9 to 1 odds the
+actual MTBF exceeds the <I>low MTBF</I>). Use whichever percentile choice
+the group prefers.&nbsp;</LI>
+</UL>
+&nbsp;
+<UL>
+<LI>
+Call the reasonable MTBF <I>MTBF<SUB>50 </SUB></I>and the low MTBF you
+are 95% confident the system will exceed&nbsp; <I>MTBF<SUB>05</SUB></I>.
+These two numbers uniquely determine gamma parameters a and b that have
+<FONT FACE="Symbol">l </FONT>percentile values at the right locations (<I><FONT FACE="Symbol">l</FONT><SUB>50</SUB>
+= 1/ MTBF<SUB>50 </SUB>and <FONT FACE="Symbol">l</FONT><SUB>95</SUB> =
+1/MTBF<SUB>05</SUB>). </I>We call this method of specifying gamma prior
+parameters the <I>50/95 method</I> (or the <I>50/90 method, if we use MTBF<SUB>10
+</SUB>, etc</I>.). A simple way to calculate a and b for this method, using
+EXCEL, is described below.</LI>
+</UL>
+iii) A third way of choosing prior parameters starts the same way as the
+second method. Consensus is reached on an reasonable MTBF,&nbsp; <I>MTBF<SUB>50</SUB></I>.
+Next, however, the group decides they want a somewhat&nbsp;<A NAME="weak"></A><I>weak
+prior</I>&nbsp; that will change rapidly, based on new test information.
+If the prior parameter "a" is set to 1, the gamma has a standard deviation
+equal to it's mean, which makes it spread out, or "weak". To insure the
+50th percentile is set at <I><FONT FACE="Symbol">l</FONT><SUB>50</SUB>
+= 1/ MTBF<SUB>50 </SUB></I>, we have to choose&nbsp;
+<UL>b = ln 2 x <I>MTBF<SUB>50 </SUB></I>,<I><SUB>&nbsp; </SUB></I>which
+is approximately&nbsp; .6931<I>MTBF<SUB>50</SUB></I> .&nbsp;</UL>
+<U>Note</U>: As we will see when we <A HREF="../section3/apr315.htm">plan
+Bayesian tests</A>, this <I>weak</I> prior is actually a very <I>friendly</I>
+prior in terms of saving test time&nbsp;
+<BR>&nbsp;</UL>
+Many variations are possible, based on the above three methods. For example,
+you might have prior data from sources that you&nbsp; don't completely
+trust. Or you might question whether the data really applies to the system
+under investigation. You might decide to "weight" the prior data by .5,
+to "weaken" it. This can be implemented by setting&nbsp;&nbsp;&nbsp; <I>a
+= .5 x the number of fails in the prior data and b = .5 times the number
+of test hours</I>. That spreads out the prior distribution more, and lets
+it react quicker to new test data.&nbsp;
+
+<P><B><U>Consequences</U></B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%">After a new test is run, the posterior gamma
+parameters are easily obtained from the prior parameters by adding the
+new number of fails to "a" and the new test time to "b"</TD>
+
+<TD VALIGN=TOP WIDTH="85%">No matter how you arrive at values for the gamma
+prior parameters "a" and "b", the method for incorporating new test information
+is the same. The new information is combined with the prior model to produce
+an updated or<I> <A HREF="../section1/apr110.htm#Bayes Formula and Prior and Posterior Distribution">posterior
+distribution model</A></I><A HREF="../section1/apr110.htm#Bayes Formula and Prior and Posterior Distribution">
+</A>for <FONT FACE="Symbol">l</FONT>.&nbsp;
+
+<P><B><I>Under assumptions 1 and 2, when a new test is run with T system
+operating hours and r failures, the posterior distribution for <FONT FACE="Symbol">l</FONT>
+is still a gamma, with new parameters:</I></B>&nbsp;
+<BR>&nbsp;
+<UL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<B>a<FONT FACE="Arial,Helvetica">' = </FONT>a + r&nbsp;<FONT FACE="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</FONT>b<FONT FACE="Arial,Helvetica">' </FONT>= b + T&nbsp;<FONT FACE="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></B><FONT FACE="Arial,Helvetica">&nbsp;</FONT></UL>
+In other words, add to "a" the number of new failures and add to "b" the
+number of new test hours, to get the new parameters for the posterior distribution.&nbsp;
+
+<P>Use of the posterior distribution to estimate the system MTBF (with
+confidence, or prediction, intervals) is described in the section on <A HREF="../section4/apr46.htm">estimating
+reliability using the Bayesian gamma model</A>.&nbsp;
+
+<P><B><U>Using EXCEL To Obtain Gamma Parameters</U></B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%">EXCEL can easily solve for gamma prior parameters
+when using the "50/95" consensus method</TD>
+
+<TD VALIGN=TOP WIDTH="85%">We will describe how to obtain "a" and "b" for
+the 50/95 method and indicate the minor changes needed when any 2 other
+MTBF percentiles are used. The step by step procedure is&nbsp;
+
+<P>1. Calculate the ratio&nbsp; RT = MTBF<SUB>50</SUB>/MTBF<SUB>05</SUB>.&nbsp;
+
+<P>2. Open an EXCEL spreadsheet and put any starting value guess for a
+in A1 - say 2.&nbsp;
+
+<P>3. Move to B1 and type the following expression:&nbsp;
+<BR>&nbsp;
+<UL>= GAMMAINV(.95,A1,1)/GAMMAINV(.5,A1,1)&nbsp;
+<BR>&nbsp;</UL>
+4. Press enter and a number will appear in B1. We are going to use the
+"Goal Seek" tool EXCEL has to vary A1 until the number in B1 equals RT.&nbsp;
+
+<P>5. Click on "Tools" (on the top menu bar) and then on "Goal Seek". A
+box will open. Click on "Set cell" and highlight cell B1. $B$1 will appear
+in the "Set cell' window. Click on "To value" and type in the numerical
+value for RT. Click on "By changing cell" and highlight A1 ($A$1 will appear
+in "By changing cell"). Now click "OK" and watch the value of the "a" parameter
+appear in A1.&nbsp;
+
+<P>6. Go to C1 and type&nbsp;
+<BR>&nbsp;
+<UL>= .5*MTBF<SUB>50</SUB>*GAMMAINV(.5, A1, 2)</UL>
+and the value of "b" will appear in C1 when you hit enter.&nbsp;
+
+<P><A NAME="Example"></A><B><U>Example</U></B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%">An EXCEL example using the "50/95" consensus
+method</TD>
+
+<TD VALIGN=TOP WIDTH="85%">A group of engineers, discussing the reliability
+of a new piece of equipment, decide to use the 50/95 method to convert
+their knowledge into a Bayesian gamma prior. Consensus is reached on a
+likely MTBF<SUB>50</SUB> value of 600 hours and a low MTBF<SUB>05</SUB>
+value of 250. RT is 600/250 = 2.4. The figure below shows the EXCEL 5.0
+spreadsheet just prior to clicking "OK" in the "Goal Seek" box.&nbsp;
+<BR>&nbsp;
+<BR><IMG SRC="gifs/excel.gif" HEIGHT=347 WIDTH=450>&nbsp;
+
+<P>After clicking "OK", the value in A1 changes from "2" to "2.862978".
+This new value is the prior "a" parameter. (<U>Note</U>: if the group felt
+250 was a MTBF<SUB>10</SUB> value, instead of a MTBF<SUB>05</SUB> value,
+then the only change needed would be to replace 0.95 in the B1 equation
+by 0.90. This would be the "50/90" method.)&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P>The figure below shows what to enter in C1 to obtain the prior "b" parameter
+value of 1522.46.&nbsp;
+<BR>&nbsp;
+
+<P><IMG SRC="gifs/excel2.gif" HEIGHT=213 WIDTH=406>&nbsp;
+<UL>&nbsp;</UL>
+The gamma prior with parameters a = 2.863 and b = 1522.46 will have (approximately)
+a probability of 50% of <FONT FACE="Symbol">l</FONT> being below 1/600
+= .001667 and a probability of 95% of <FONT FACE="Symbol">l</FONT> being
+below 1/250 = .004. This can be checked by typing&nbsp;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+=GAMMDIST(.001667,2.863,(1/1522.46), TRUE)&nbsp;
+<BR>and&nbsp;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+=GAMMDIST(.004,2.863,(1/1522.46), TRUE)&nbsp;
+<BR>as described when gamma EXCEl functions were introduced in<A HREF="../section1/apr165.htm#DATAPLOT and EXCEL Functions for">
+Section 1</A>.&nbsp;
+
+<P>This example will be continued in<A HREF="../section3/apr315.htm#Example:Calculating a Bayesian Test Time">
+Section 3</A>, where the Bayesian test time needed to confirm a 500 hour
+MTBF at 80% confidence, will be derived.&nbsp;
+<UL>&nbsp;
+<BR><I>&nbsp;</I></UL>
+&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%"></TD>
+
+<TD VALIGN=TOP WIDTH="85%"></TD>
+</TR>
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov">
+   <IMG SRC="../../gifs/nvgtbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org" coords="0,19,91,35">
+   </MAP>
+
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http:/../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="apr24.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../section3/apr3.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   </HTML>

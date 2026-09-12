@@ -1,0 +1,71 @@
+.
+.  Generate sample output for skewness
+.
+device 1 x11
+device 1 font simplex
+set ipl1na skewness.ps
+device 2 postscript
+thickness 0.2
+title displacement 2
+x1label displacement 10
+.
+let y1 = normal random numbers for i = 1 1 10000
+let a1 = skewness y1
+let b1 = kurtosis y1
+let a1 = round(a1,3)
+let b1 = round(b1,3)
+.
+let y2 = double exponential random numbers for i = 1 1 10000
+let a2 = skewness y2
+let b2 = kurtosis y2
+let a2 = round(a2,3)
+let b2 = round(b2,3)
+.
+let y3 = cauchy random numbers for i = 1 1 10000
+let a3 = skewness y3
+let b3 = kurtosis y3
+let a3 = round(a3,1)
+let b3 = round(b3,1)
+.
+let gamma = 1.5
+set minmax 1
+let y4 = weibull random numbers for i = 1 1 10000
+let a4 = skewness y4
+let b4 = kurtosis y4
+let a4 = round(a4,3)
+let b4 = round(b4,3)
+.
+multiplot corner coordiantes 2 2 98 98
+multiplot 2 2
+label size 7
+title size 6
+tic mark label size 6
+height 4
+xlimits -10 10
+.
+title normal random numbers
+x1label skewness = ^a1, kurtosis = ^b1
+histogram y1
+.
+title double exponential random numbers
+x1label skewness = ^a2, kurtosis = ^b2
+histogram y2
+.
+. class width 0.3
+. class lower -10
+. class upper 10
+title cauchy random numbers
+x1label skewness = ^a3, kurtosis = ^b3
+histogram y3 subset y3 = -10 to 10
+.
+title Weibull (gamma = 1.5) random numbers
+x1label skewness = ^a4, kurtosis = ^b4
+histogram y4
+.
+end of multiplot
+.
+box 0 0 100 100
+device 2 close
+system cp SKEWNESS.PS skewness.ps
+.
+quit

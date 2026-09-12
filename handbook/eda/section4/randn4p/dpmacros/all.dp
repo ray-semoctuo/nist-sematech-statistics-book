@@ -1,0 +1,70 @@
+device 1 x11
+thickness 0.2
+.
+call data.dp
+.
+label size 4
+tic label size 4
+legend size 4
+set ipl1na 4plot.ps
+device 2 postscript
+call 4plot.dp
+box 0 0 100 100
+device 2 close
+system mv 4PLOT.PS 4plot.ps
+.
+label size 4
+tic label size 4
+legend size 4
+set ipl1na runseq.ps
+device 2 postscript
+call runseq.dp
+box 0 0 100 100
+device 2 close
+system mv RUNSEQ.PS runseq.ps
+.
+label size 4
+tic label size 4
+legend size 4
+x2label displacement 13
+set ipl1na lagplot.ps
+device 2 postscript
+call lagplot.ps.dp
+box 0 0 100 100
+device 2 close
+system mv LAGPLOT.PS lagplot.ps
+.
+label size 4
+tic label size 4
+legend size 4
+x2label displacement 13
+set ipl1na histogra.ps
+device 2 postscript
+call hist.dp
+box 0 0 100 100
+device 2 close
+system mv HISTOGRA.PS histogra.ps
+.
+label size 4
+tic label size 4
+legend size 4
+x2label displacement 13
+set ipl1na normprpl.ps
+device 2 postscript
+call normprpl.dp
+box 0 0 100 100
+device 2 close
+system mv NORMPRPL.PS normprpl.ps
+.
+label size 4
+tic label size 4
+legend size 4
+x2label displacement 13
+set ipl1na autocorr.ps
+device 2 postscript
+call random.dp
+box 0 0 100 100
+device 2 close
+system mv AUTOCORR.PS autocorr.ps
+.
+quit

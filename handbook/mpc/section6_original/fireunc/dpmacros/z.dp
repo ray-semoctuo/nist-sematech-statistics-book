@@ -1,0 +1,9 @@
+.
+. Starting Step 4.1
+let z = 100*(flowpred/(flowpred+10))
+.
+CAPTURE Z.OUT
+set write decimals 5
+write fluxnew  flowpred z
+END OF CAPTURE
+. Finished Step 4.1: Page Back for Output

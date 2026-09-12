@@ -1,0 +1,9 @@
+#!/bin/csh -f
+#  Script to create 100x75 images from original images
+#  using convert.  This should be run on the SGI to use
+#  convert.  The will100.bat script not working with these
+#  images for some reason.
+#
+convert -geometry 100x75! condplot.gif ../gif100/condplot.gif
+convert -geometry 100x75! dexint1.gif ../gif100/dexint1.gif
+convert -geometry 100x75! spmatr2.gif ../gif100/spmatr2.gif

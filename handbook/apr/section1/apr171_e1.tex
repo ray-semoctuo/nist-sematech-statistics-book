@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\setlength{\oddsidemargin}{-.75in}
+\begin{document}
+\pagestyle{empty}
+\Large
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+\bf
+\boldmath
+
+\begin{tabular}{ll}
+\hspace*{-.3in}
+$ F(t) = 1 - e^{-\lambda t}$ = & CDF of the waiting time to the next failure \\
+                                           & (or ``interarrival" time between failures)
+\end{tabular}
+\\
+\\
+\begin{tabular}{ll}
+$N(T)$ = & cumulative number of failures from time 0 to time $T$ 
+\end{tabular}
+\\
+\\          
+ \begin{tabular}{ll}    
+$\displaystyle{P\{N(t)=k\} = \frac{(\lambda T)^k e^{-\lambda T}}{k!}}$  \\
+\end{tabular}
+\\
+\\
+\begin{tabular}{ll}
+$M(t) = \lambda T$ = expected number of failures by time $T$ \\
+\end{tabular}
+\\
+\\
+\begin{tabular}{ll}                    
+$M'(t) = m(t) = \lambda$ = repair rate or ROCOF \\
+\end{tabular}
+\\
+\\
+\begin{tabular}{ll}
+$\displaystyle{\frac{1}{\lambda}}$ = Mean Time Between Failures (MTBF) 
+\end{tabular}
+ 
+  
+\end{document}
+
+

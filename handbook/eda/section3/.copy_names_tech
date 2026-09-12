@@ -1,0 +1,68 @@
+#!/bin/csh -f
+#
+#  Make duplicate files for ordering by technique
+#
+set echo
+ cp eda341.htm zrunseqp.htm   
+ cp eda342.htm zlagplot.htm   
+ cp eda3421.htm zlagplo1.htm   
+ cp eda3422.htm zlagplo2.htm   
+ cp eda3423.htm zlagplo3.htm   
+ cp eda3424.htm zlagplo4.htm   
+ cp eda343.htm zhistogr.htm   
+ cp eda3431.htm zhistog1.htm   
+ cp eda3432.htm zhistog2.htm   
+ cp eda3433.htm zhistog3.htm   
+ cp eda3434.htm zhistog4.htm   
+ cp eda3435.htm zhistog5.htm   
+ cp eda3436.htm zhistog6.htm   
+ cp eda3437.htm zhistog7.htm   
+ cp eda3438.htm zhistog8.htm   
+ cp eda344.htm znormprp.htm   
+ cp eda345.htm z4plot.htm     
+ cp eda346.htm zppccplo.htm   
+ cp eda347.htm zweibplo.htm   
+ # 
+ cp eda348.htm zzrunseq.htm   
+ cp eda349.htm zspectru.htm   
+ cp eda34a.htm zautocop.htm   
+ cp eda34b.htm zcompdea.htm   
+ cp eda34c.htm zcompdep.htm   
+ cp eda34d.htm zscattep.htm   
+ cp eda34d1.htm zscatte1.htm   
+ cp eda34d2.htm zscatte2.htm   
+ cp eda34d3.htm zscatte3.htm   
+ cp eda34d4.htm zscatte4.htm   
+ cp eda34d5.htm zscatte5.htm   
+ cp eda34d6.htm zscatte6.htm   
+ cp eda34d7.htm zscatte7.htm   
+ cp eda34d8.htm zscatte8.htm   
+ cp eda34d9.htm zscatte9.htm   
+ cp eda34da.htm zscattea.htm   
+ cp eda34e.htm zboxplot.htm   
+ cp eda34f.htm zbihisto.htm   
+ cp eda34g.htm zsdplot.htm    
+ cp eda34h.htm zblockpl.htm   
+ # 
+ cp eda34i.htm zdexmean.htm   
+ cp eda34j.htm zcontou.htm    
+ # 
+ cp eda34k.htm zzscattp.htm   
+ cp eda34k1.htm zzscatt1.htm   
+ cp eda34k2.htm zzscatt2.htm   
+ cp eda34k3.htm zzscatt3.htm   
+ cp eda34k4.htm zzscatt4.htm   
+ cp eda34k5.htm zzscatt5.htm   
+ cp eda34k6.htm zzscatt6.htm   
+ cp eda34k7.htm zzscatt7.htm   
+ cp eda34k8.htm zzscatt8.htm   
+ cp eda34k9.htm zzscatt9.htm   
+ cp eda34ka.htm zzscatta.htm   
+ cp eda34l.htm z6plot.htm     
+ cp eda34m.htm zlinecor.htm   
+ cp eda34n.htm zlineint.htm   
+ cp eda34o.htm zlineslo.htm   
+ cp eda34p.htm zlinress.htm   
+ cp eda34q.htm zyoudplo.htm   
+ cp eda34r.htm zstarplo.htm   
+ # 

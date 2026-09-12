@@ -1,0 +1,33 @@
+. Starting Step 6.1
+title DEX Contour Plot
+y1label X3: Number of Bands
+x1label X4: Arm Length
+limits -2 2
+tic offset 0 0
+major tic mark number 5
+. let levels = sequence 30 10 140
+let levels = sequence 30 10 90
+line solid all
+line blank solid
+. line thickness .1 .1 .3 .3
+char blank all
+char zval circle
+char fill off on
+dex contour plot y x3 x4 levels
+let ytemp = data -1 1 -1 1
+let xtemp = data 0 0 0 0
+let tagtemp = data 1 2 3 4
+char circle circle 41.25 91.75
+char fill on
+char offset 0 0 0 0 0 -3 0 3
+pre-erase off
+plot ytemp xtemp tagtemp
+pre-erase on
+char x blank blank
+line blank solid
+line thickness 0.1 all
+title
+y1label
+limits
+major tic mark number
+. Finished Step 6.1: Page Back for Output

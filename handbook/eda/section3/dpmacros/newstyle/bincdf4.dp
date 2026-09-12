@@ -1,0 +1,44 @@
+.
+.  Generate sample output for Binomial CDF plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na bincf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+LINE BLANK
+SPIKE ON
+XTIC OFFSET 0 2
+MAJOR XTIC MARK NUMBER 6
+MINOR XTIC MARK NUMBER 1
+.
+TITLE Binomial CDF (P=0.1, N=100)
+PLOT BINCDF(X,0.1,100) FOR X = 0 1 100
+TITLE Binomial CDF (P=0.25, N=100)
+PLOT BINCDF(X,0.25,100) FOR X = 0 1 100
+TITLE Binomial CDF (P=0.50, N=100)
+PLOT BINCDF(X,0.50,100) FOR X = 0 1 100
+TITLE Binomial CDF (P=0.75, N=100)
+PLOT BINCDF(X,0.75,100) FOR X = 0 1 100
+.
+END OF MULTIPLOT
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv BINCF4.PS bincf4.ps
+.
+quit

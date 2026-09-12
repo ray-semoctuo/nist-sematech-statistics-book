@@ -1,0 +1,40 @@
+.
+.  Plot for Normal CDF table
+.
+device 1 x11
+device 1 font simplex
+set ipl1na tpdftb.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE t PDF (Two-Sided Test at Alpha = 0.05)
+TITLE OFFSET 3
+TITLE SIZE 5
+LABEL SIZE 5
+LABEL CASE ASIS
+TIC LABEL SIZE 4
+Y1LABEL Probability
+X1LABEL X
+.
+SET X11 HARDWARE FILL OFF
+REGION FILL OFF ON ON
+REGION BASE 0 ALL
+.
+PLOT TPDF(X,10) FOR X = -5 0.01 5 AND
+PLOT TPDF(X,10) FOR X = -5 0.01 -2.29 AND
+PLOT TPDF(X,10) FOR X = 2.29 0.01 5.0
+.
+font simplex
+height 3
+movedata 3.0 0.03
+text lc()alph() = 0.025
+movedata -4.5 0.03
+text lc()alph() = 0.025
+.
+box 0 0 100 100
+.
+device 2 close
+system cp TPDFTB.PS tpdftb.ps
+system rm TPDFTB.PS
+.
+. quit

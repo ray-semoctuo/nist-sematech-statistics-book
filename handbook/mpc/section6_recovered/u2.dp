@@ -1,0 +1,20 @@
+read s
+0.0710
+0.0362
+0.0197
+0.0162
+0
+0.0000308
+0.000227
+0.00000868
+0.000441
+0
+end of data
+let a2 = sqrt(5/6)
+let a4 = sqrt(1/10)
+let a = data 0 a2 1 a4 1 900.901 22.222 159.20 100 100
+.
+let temp = (a**2)*(s**2)
+let atemp = sum temp
+let u = sqrt(atemp)
+.

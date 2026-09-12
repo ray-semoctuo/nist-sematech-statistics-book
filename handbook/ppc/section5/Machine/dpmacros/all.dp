@@ -1,0 +1,104 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+pre-erase off
+.
+. erase
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. char size 3 all
+. call bpmach.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv dppl1f.dat bpmach.ps
+. .
+. erase
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. char size 3 all
+. call bpday.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv dppl1f.dat bpday.ps
+. .
+. erase
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. char size 3 all
+. call bptime.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv dppl1f.dat bptime.ps
+. .
+. erase
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. char size 3 all
+. call bpsamp.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv dppl1f.dat bpsamp.ps
+.
+call anova.dp
+.
+call anova1.dp
+.
+erase
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call modval.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv dppl1f.dat modval.ps
+.
+call anovatp.dp
+.
+erase
+device 2 postscript
+pre-erase off
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call thrput.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv dppl1f.dat thrput.ps
+.

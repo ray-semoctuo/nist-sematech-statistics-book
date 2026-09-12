@@ -1,0 +1,164 @@
+<TABLE WIDTH=540 BORDER=2 CELLPADDING=10>
+<TR>
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Data Analysis Steps
+</FONT>
+</TH>
+
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Results and Conclusions
+</FONT>
+</th>
+</TR>
+
+<TR>
+<TD>
+<BR>
+<I>
+Click on the links below to start
+Dataplot and run this case study yourself.  Each
+step may use results from previous steps, so
+please be patient.  Wait until the software
+verifies that the current step is complete before
+clicking on the next step.
+</I>
+<BR><BR>
+</TD>
+
+<TD>
+<BR>
+<I>The links in this column will connect you with more
+detailed information about each analysis step from the case
+study description.</I>
+<BR><BR>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+1. Get set up and started.
+</PRE>
+<A HREF="randn4p/dpmacros/data.dp"><PRE>
+   1. Read in the data.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+                              
+</PRE>
+<A HREf="eda5211.htm"><PRE>
+ 1. You have read 1 column of numbers 
+    into Dataplot, variable Y.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+2. 4-plot of data.
+</PRE>
+<A HREF="randn4p/dpmacros/4plot.dp"><PRE>
+   1. 4-plot of Y.
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda5212.htm"><PRE>
+ 1. Based on the 4-plot, there are no shifts
+    in location or scale, and the data seem to
+    follow a normal distribution.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+3. Generate the individual plots.
+</PRE>
+<A HREF="randn4p/dpmacros/runseq.dp"><PRE>
+   1. Generate a run sequence plot.
+
+
+</PRE></A>
+<A HREF="randn4p/dpmacros/lagplot.dp"><PRE>
+   2. Generate a lag plot.
+
+
+</PRE></A>
+<A HREF="randn4p/dpmacros/hist.dp"><PRE>
+   3. Generate a histogram with an
+      overlaid normal pdf.
+
+</PRE></A>
+<A HREF="randn4p/dpmacros/gra2b.dp"><PRE>
+   4. Generate a normal probability
+      plot.
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda5212.htm"><PRE>
+ 1. The run sequence plot indicates that
+    there are no shifts of location or
+    scale.
+</PRE></A>
+<A HREF="eda5212.htm"><PRE>
+ 2. The lag plot does not indicate any
+    significant patterns (which would
+    show the data were not random).
+</PRE></A>
+<A HREF="eda5212.htm"><PRE>
+ 3. The histogram indicates that a 
+    normal distribution is a good
+    distribution for this data.
+</PRE></A>
+<A HREF="eda5212.htm"><PRE>
+ 4. The normal probability plot verifies
+    that the normal distribution is a
+    reasonable distribution for this data.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+4. Compute summary statistics.
+</PRE>
+<A HREF="randn4p/dpmacros/summary.dp"><PRE>
+   1. Compute measures of location, scale,
+      randomness, and distributional
+      adequacy.
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+
+</PRE>
+<PRE>
+ 1. The mean =       , the median =      ,
+    standard deviation =       ,
+    
+</PRE></A>
+</TD>
+</TR>
+
+

@@ -1,0 +1,9 @@
+#!/bin/csh -f
+will.bat co2auto.ps
+will.bat co2boxpl.ps
+will.bat co2part.ps
+will.bat co2res.ps
+will.bat co2runsq.ps
+will.bat co2sauto.ps
+will.bat co2seas.ps
+will.bat co2spart.ps

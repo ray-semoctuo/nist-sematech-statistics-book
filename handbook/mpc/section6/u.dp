@@ -1,0 +1,17 @@
+let u = 0.0388
+let num = u**4
+.
+let a2 = sqrt(5/6)
+let a4 = sqrt(1/10)
+let a = data 0 a2 1 a4
+let s = data 0.0710 0.0362 0.0197 0.0162
+let nu = data 300 50 5 9
+.
+let temp = (a**4)*(s**4)/nu
+let denom = sum temp
+let v = num/denom
+.
+let temp2 = (a**4)*(s**2)/nu
+let denom = sum temp2
+let v2 = num/denom
+.

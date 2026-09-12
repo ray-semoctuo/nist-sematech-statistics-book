@@ -1,0 +1,496 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.14. Anderson-Darling Test</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35f.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35d.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.htm">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.htm">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.htm">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.14.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Anderson-Darling Test</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Test for Distributional Adequacy
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling test
+      (<a href="../section4/eda43.htm#Stephens">Stephens, 1974</a>)
+      is used to test if a sample of data came from a population
+      with a specific distribution.  It is a modification of the
+      <a href="eda35g.htm">Kolmogorov-Smirnov (K-S) test</a> and
+      gives more weight to the tails than does the K-S test.  The K-S
+      test is distribution free in the sense that the critical values
+      do not depend on the specific distribution being tested.  The
+      Anderson-Darling test makes use of the specific distribution in
+      calculating critical values.  This has the advantage of allowing
+      a more sensitive test and the disadvantage that critical values
+      must be calculated for each distribution.  Currently, tables of
+      critical values are available for the
+      <a href="eda3661.htm">normal</a>,
+      <a href="eda3669.htm">lognormal</a>,
+      <a href="eda3667.htm">exponential</a>,
+      <a href="eda3668.htm">Weibull</a>,
+      <a href="eda366g.htm">extreme value type I</a>, and logistic
+      distributions.  We do not provide the tables of critical
+      values in this Handbook
+      (see <a href="../section4/eda43.htm#Stephens">Stephens 1974,
+      1976, 1977, and 1979</a>) since this test is usually
+      applied with a statistical software program that will print
+      the relevant critical values. 
+      <p>
+      The Anderson-Darling test is an alternative to the
+      <a href="eda35f.htm">chi-square</a> and
+      <a href="eda35g.htm">Kolmogorov-Smirnov</a>
+      goodness-of-fit tests.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling test is defined as:
+      <table>
+
+      <tr>
+         <td valign=top>
+            H<sub>0</sub>:
+         </td>
+         <td valign=top>
+            The data follow a specified distribution.
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            H<sub>a</sub>:
+         </td>
+         <td valign=top>
+            The data do not follow the specified distribution
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td align=top>
+            The Anderson-Darling test statistic is defined as
+            <ul>
+               <img src="eqns/adstat1.gif" alt="A**2 = -N - S">
+            </ul>
+            where
+            <p>
+              <img src="eqns/adstat2.gif" alt=
+     "S=SUM(i=1 to N)((2*i - 1)/N)*[LN(F(Y(i)) + LN(1 - F(Y(N+1-i))]">
+            <p>
+            <b><i>F</i></b> is the <a href="eda362.htm#CDF">cumulative
+            distribution function</a> of the specified distribution.
+            Note that the <i>Y<sub>i</sub></i> are the <i>ordered</i>
+            data.
+          </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            <img src="eqns/alpha.gif" alt="alpha">
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td align=top>
+            The critical values for the Anderson-Darling test
+            are dependent on the specific distribution that is
+            being tested.  Tabulated values and formulas have
+            been published
+            (<a href="../section4/eda43.htm#Stephens">Stephens, 1974,
+            1976, 1977, 1979</a>)
+            for a few specific distributions (normal, lognormal,
+            exponential, Weibull, logistic, extreme value type 1).
+            The test is a one-sided test and the hypothesis that
+            the distribution is of a specific form is rejected if the
+            test statistic, A, is greater than the critical value.
+            <p>
+            Note that for a given distribution, the Anderson-Darling
+            statistic may be multiplied by a constant (which
+            usually depends on the sample size, <i>n</i>).  These
+            constants are given in the various papers by Stephens.
+            In the sample output below, this is the "adjusted
+            Anderson-Darling" statistic.  This is what should be
+            compared against the critical values.  Also, be aware that
+            different constants (and therefore critical values) have
+            been published.  You just need to be aware of what
+            constant was used for a given set of critical values
+            (the needed constant is typically given with the
+            critical values).
+         </td>
+      </tr>
+
+     </table>
+    
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Output<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Dataplot generated the following output for the
+      Anderson-Darling test.  1,000 random numbers were
+      generated for a normal, double exponential, Cauchy, and
+      lognormal distribution. In all four cases, the Anderson-Darling
+      test was applied to test for a normal distribution.
+      When the data were generated using a normal distribution, the
+      test statistic was small and the hypothesis was accepted.
+      When the data were generated using the double exponential,
+      Cauchy, and lognormal distributions, the statistics were
+      significant, and the hypothesis of an underlying normal
+      distribution was rejected at significance levels of 0.10,
+      0.05, and 0.01.
+      <P>
+      The normal random numbers were stored in the variable Y1,
+      the double exponential random numbers were stored in the
+      variable Y2, the Cauchy random numbers were stored in the
+      variable Y3, and the lognormal random numbers were stored
+      in the variable Y4.
+
+      <FONT SIZE=-1>
+      <PRE>
+       ***************************************
+       **  anderson darling normal test y1  **
+       ***************************************
+  
+  
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =     1000
+       MEAN                                  =   0.4359940E-02
+       STANDARD DEVIATION                    =    1.001816
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =   0.2565918
+       ADJUSTED TEST STATISTIC VALUE         =   0.2576117
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6560000
+       95         % POINT    =   0.7870000
+       97.5       % POINT    =   0.9180000
+       99         % POINT    =    1.092000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO COME FROM A NORMAL DISTRIBUTION.
+  
+  
+       ***************************************
+       **  anderson darling normal test y2  **
+       ***************************************
+  
+  
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =     1000
+       MEAN                                  =   0.2034888E-01
+       STANDARD DEVIATION                    =    1.321627
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =    5.826050
+       ADJUSTED TEST STATISTIC VALUE         =    5.849208
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6560000
+       95         % POINT    =   0.7870000
+       97.5       % POINT    =   0.9180000
+       99         % POINT    =    1.092000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO NOT COME FROM A NORMAL DISTRIBUTION.
+  
+  
+       ***************************************
+       **  anderson darling normal test y3  **
+       ***************************************
+  
+  
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =     1000
+       MEAN                                  =    1.503854
+       STANDARD DEVIATION                    =    35.13059
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =    287.6429
+       ADJUSTED TEST STATISTIC VALUE         =    288.7863
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6560000
+       95         % POINT    =   0.7870000
+       97.5       % POINT    =   0.9180000
+       99         % POINT    =    1.092000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO NOT COME FROM A NORMAL DISTRIBUTION.
+  
+  
+       ***************************************
+       **  anderson darling normal test y4  **
+       ***************************************
+  
+  
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =     1000
+       MEAN                                  =    1.518372
+       STANDARD DEVIATION                    =    1.719969
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =    83.06335
+       ADJUSTED TEST STATISTIC VALUE         =    83.39352
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6560000
+       95         % POINT    =   0.7870000
+       97.5       % POINT    =   0.9180000
+       99         % POINT    =    1.092000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO NOT COME FROM A NORMAL DISTRIBUTION.
+      </PRE>
+      <FONT SIZE=+0>
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of the Sample Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The output is divided into three sections.
+<OL>
+   <LI>The first section prints the number of observations and
+       estimates for the <a href="eda364.htm">location and scale
+       parameters</a>.
+       <P>
+   <LI>The second section prints the upper critical value for the
+       Anderson-Darling test statistic distribution corresponding to
+       various significance levels.  The value in the first column,
+       the confidence level of the test, is equivalent to
+       100(1-<img src="eqns/alpha.gif" alt="alpha">).  We reject the
+       null hypothesis at that significance level if the
+       value of the Anderson-Darling test statistic printed in
+       section one is greater than the critical value printed in the
+       last column.
+       <P>
+   <LI>The third section prints the conclusion for a 95% test.
+       For a different significance level, the appropriate
+       conclusion can be drawn from the table printed in section
+       two.  For example, for <img src="eqns/alpha.gif" alt+alpha">
+       = 0.10, we look at the row for 90% confidence and compare
+       the critical value 0.656 to the Anderson-Darling test statistic
+       (for the normal data) 0.256.  Since the test statistic is
+       less than the critical value, we do not reject the null
+       hypothesis at the <img src="eqns/alpha.gif" alt="alpha">
+       = 0.10 level.
+</OL>
+
+<P>
+As we would hope, the Anderson-Darling test accepts the
+hypothesis of normality for the normal random numbers and
+rejects it for the 3 non-normal cases.
+<P>
+The output from other statistical software programs may differ
+somewhat from the output above.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling test can be used to answer the following
+      questions:
+      <ul>
+         <li>Are the data from a normal distribution?
+         <li>Are the data from a log-normal distribution?
+         <li>Are the data from a Weibull distribution?
+         <li>Are the data from an exponential distribution?
+         <li>Are the data from a logistic distribution?
+      </ul>
+
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical tests and procedures are based on specific
+      distributional assumptions.  The assumption of normality
+      is particularly common in classical statistical tests.
+      Much reliability modeling is based on the assumption
+      that the data follow a Weibull distribution.
+      <p>
+      There are many non-parametric and robust techniques that
+      do not make strong distributional assumptions.  However,
+      techniques based on specific distributional assumptions
+      are in general more powerful than non-parametric and
+      robust techniques.  Therefore, if the distributional assumptions
+      can be validated, they are generally preferred.
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda35f.htm">Chi-Square goodness-of-fit Test</a><br>
+      <a href="eda35g.htm">Kolmogorov-Smirnov Test</a><br> 
+      <a href="../../prc/section2/prc213.htm">Shapiro-Wilk
+            Normality Test</a><br>
+      <a href="probplot.htm">Probability Plot</a><br> 
+      <a href="ppccplot.htm">Probability Plot Correlation Coefficient
+         Plot</a><br> 
+
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="../section4/eda429.htm">Airplane glass failure time</a>
+         data.
+   </td>
+</tr>
+
+<!-----begin section: Software -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling goodness-of-fit test is available in some
+      general purpose statistical software programs, including
+      <a href="../section4/eda44.htm#ANDERSON-DARLING">Dataplot</a>.
+
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35d.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35f.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

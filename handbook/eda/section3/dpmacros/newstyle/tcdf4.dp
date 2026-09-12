@@ -1,0 +1,38 @@
+.
+.  Generate sample output for t CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na tcdf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE t CDF (1 df)
+PLOT TCDF(X,1) FOR X = -5 0.01 5
+TITLE t CDF (10 df)
+PLOT TCDF(X,10) FOR X = -5 0.01 5
+TITLE t CDF (20 df)
+PLOT TCDF(X,20) FOR X = -5 0.01 5
+TITLE t CDF (30 df)
+PLOT TCDF(X,30) FOR X = -5 0.01 5
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp TCDF4.PS tcdf4.ps
+system rm TCDF4.PS
+.
+quit

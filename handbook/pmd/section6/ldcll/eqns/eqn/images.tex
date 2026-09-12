@@ -1,0 +1,73 @@
+\batchmode
+\documentstyle[12pt]{article}
+\makeatletter
+
+\makeatother
+\newenvironment{tex2html_wrap}{}{}
+\newwrite\lthtmlwrite
+\def\lthtmltypeout#1{{\let\protect\string\immediate\write\lthtmlwrite{#1}}}%
+\newbox\sizebox
+\begin{document}
+\pagestyle{empty}
+{\newpage
+\clearpage
+\samepage \begin{displaymath}D = \beta_1 + \beta_2L + \varepsilon
+\end{displaymath}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{displaymath}D = \beta_1 + \beta_2L
+\end{displaymath}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{displaymath}D = \beta_1 + \beta_2L + \beta_3L^2 + \varepsilon
+\end{displaymath}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{displaymath}D = \beta_1 + \beta_2L + \beta_3L^2
+\end{displaymath}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{displaymath}D = \beta_1 + \beta_2L + \beta_3L^2 + \beta_4L^3 + \varepsilon
+\end{displaymath}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{displaymath}D = \beta_1 + \beta_2L + \beta_3L^2 + \beta_4L^3
+\end{displaymath}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{eqnarray*}D & = & 0.673618\times10^{-3}  \\ 
+  & + & (0.732059\times10^{-6})L  \\ 
+  & - & (0.316081\times10^{-14})L^2
+\end{eqnarray*}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{eqnarray*}1.239742 & = & 0.673618\times10^{-3}  \\ 
+         & + & (0.732059\times10^{-6})L  \\ 
+         & - & (0.316081\times10^{-14})L^2  \\ 
+         &   \Downarrow & \\ 
+      L  & = &  1705133
+\end{eqnarray*}
+}
+
+{\newpage
+\clearpage
+\samepage \begin{displaymath}1705133 \pm U
+\end{displaymath}
+}
+
+
+\end{document}

@@ -1,0 +1,185 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.4.6.1. Tukey's method</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc462.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc46.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.htm">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc4.htm">Comparisons based on data from more than two processes</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc46.htm">How can we make multiple comparisons?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.4.6.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Tukey's method</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Tukey's
+method considers all possible pairwise differences of means at the same
+time</i>
+<br>&nbsp;
+<br>&nbsp;
+<p><i>The studentized range q</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><i>The distribution of q is tabulated in many textbooks and can be calculated
+using Dataplot</i>
+<br>&nbsp;</td>
+
+<td WIDTH="85%"><!-- Add main text below -->The Tukey method applies simultaneously
+to the set of all pairwise comparisons&nbsp;
+<center>
+<p>{<i><font face="Symbol">m</font><sub>i </sub>-<font face="Symbol"> m</font></i><sub>j</sub>}</center>
+
+<p>The confidence coefficient for the set, when all sample sizes are equal,
+is exactly 1-<font face="Symbol">a</font>.&nbsp; For unequal sample sizes,
+the confidence coefficient is greater than 1-<font face="Symbol">a.</font>
+In other words, the Tukey method is conservative when there are unequal
+sample sizes.
+<p><b>Studentized Range Distribution&nbsp;</b>
+<p>The Tukey method uses the <i>studentized range distribution</i>.&nbsp;
+<br>Suppose we have<i> r</i> independent observations <i>y<sub>1</sub>,
+..., y<sub>r</sub></i><sub>&nbsp; </sub>from a normal distribution with
+mean <i>&micro;</i> and variance&nbsp;<font face="Symbol"> s</font><sup>2</sup>.
+Let <i>w</i> be the range for this set , i.e.,&nbsp; the maximum -&nbsp;
+the minimum. Now suppose that we have an estimate <font face="Times New Roman,Times">s</font><sup>2</sup>
+of the variance <font face="Symbol">s</font><sup>2</sup> which is based
+on<font face="Symbol"> n </font>degrees of freedom and is independent of
+the <i>y<sub>i</sub></i><sub> </sub>.&nbsp;
+<br>The studentized range is defined as&nbsp;
+<center>
+<p><i>q<sub>r</sub></i><sub>,<font face="Symbol"> n</font></sub><font face="Symbol">
+=</font><i><font face="Times New Roman,Times"> w</font></i><font face="Symbol">/</font><font face="Times New Roman,Times">s</font></center>
+
+<p>The distribution of <i>q</i> has been tabulated and appears in many
+textbooks on statistics. In addition, Dataplot has a CDF function (SRACDF)
+and a percentile function (SRAPPF) for <i>q.</i>
+<p>As an example, let r = 5 and <font face="Symbol">n</font> = 10. The
+95th percentile is <i>q<sub>.05</sub></i><sub>;5,10</sub> = 4.65. This
+means:&nbsp;
+<center><img SRC="eqns/mult29.gif" height=95 width=121></center>
+So, if we have five observations from a normal distribution, the probability
+is .95 that their range is not more than 4.65 times as great as an independent
+sample standard deviation estimate that has 10 degrees of freedom.&nbsp;
+<br>&nbsp;
+<p><b>Tukey's Method&nbsp;</b>
+<p>The Tukey confidence limits for all pairwise comparisons with confidence
+coefficient of at least 1-<font face="Symbol">a</font> are:&nbsp;
+<center><img SRC="eqns/mult30.gif" height=78 width=233></center>
+
+<p>Notice that the point estimator and the estimated variance are the same
+as those for a <a href="prc425.htm">single pairwise comparison</a> that
+was illustrated previously. The only difference between the confidence
+limits for simultaneous comparisons and those for a single comparison is
+the multiple of the estimated standard deviation.&nbsp;
+<br>&nbsp;
+<p><b>Example&nbsp;</b>
+<p>We use the data from a <a href="prc426.htm#example1">previous example</a>.&nbsp;
+<p>The set of all pairwise comparisons consists of:&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&micro;<sub>2</sub>-&micro;<sub>1</sub>,&nbsp; &micro;<sub>3</sub>-&micro;<sub>1</sub>,&nbsp;
+&micro;<sub>1</sub>-&micro;<sub>4,</sub>&nbsp; &micro;<sub>2</sub>-&micro;<sub>3</sub>,&nbsp;
+&micro;<sub>2</sub>-&micro;<sub>4</sub>,&nbsp; &micro;<sub>3</sub>-&micro;<sub>4&nbsp;</sub>
+<p>Assume we want a confidence coefficient of 95 percent, or .95. Since
+<i>r</i> = 4 and <i>n<sub>t</sub></i> = 20, the required percentile of
+the studentized range distribution is q<sub>.05; 4,16</sub>. Using the
+Tukey method formula for each of the six comparisons yields:&nbsp;
+<center><img SRC="eqns/mult35.gif" height=188 width=144></center>
+
+<p>The simultaneous pairwise comparisons indicate that the differences
+<i>&micro;<sub>1 </sub></i>-<i>&micro;<sub>4 </sub></i>and <i>&micro;<sub>2
+</sub>- &micro;<sub>3 </sub></i>are not significant different from 0 (their
+confidence intervals include 0), and all the other pairs are&nbsp; significantly
+different from one another.&nbsp;
+<p>It is possible to work with unequal sample sizes. In this case, one
+has to calculate the estimated standard deviation for each pairwise comparison.
+The Tukey procedure for unequal sample sizes is sometimes referred to as
+the <i>Tukey-Kramer Method</i>.&nbsp;
+<p>&nbsp;</td>
+</tr>
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc46.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc462.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

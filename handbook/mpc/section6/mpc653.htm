@@ -1,0 +1,209 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.5.3. Compute predicted values and standard deviations of predicted values of flowrate </TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc654.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc6523.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.htm">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.htm">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc65.htm">Uncertainty analysis for extinguishing fire</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.5.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Compute predicted values and standard deviation of predicted values of flowrate</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<a name="predict">
+<I>
+Calibrated Values of Nitrogen Flowrate
+</I>
+</a>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Calibrated values of nitrogen flowrate (LPM) are computed
+as a function of flux from the calibration curve:
+<UL>
+   <img src="fireunc/eqns/calibrat.gif">
+</UL>
+From the previous section, this model was determined to
+be:
+<UL>
+   <img src="fireunc/eqns/fit4.gif">
+</UL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<a name="sdpredict">
+<I>
+Uncertainty for the Flowrate
+</I>
+</a>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The standard deviations for the predicted values of flow
+from the quadratic calibration curve are combined with the
+residual standard deviation of the fit, <b><i>S</i></b>,
+to estimate the uncertainty for flowrate.
+<UL>
+   <img src="fireunc/eqns/uncertsy.gif">
+</UL>
+The residual standard deviation is available from the
+fit outout in the previous section.  Dataplot writes
+the parameter variance-covariance matrix to a file
+(not shown).  For convenience, we print the parameter
+variance-covariance matrix here:
+<PRE>
+           a               b              c
+a     0.3076035E-03  -0.1132122E-04   0.8771889E-07
+b    -0.1132122E-04   0.4565592E-06  -0.3695745E-08
+c     0.8771889E-07  -0.3695745E-08   0.3083867E-10
+
+
+</PRE>
+
+Substituting the appropriate values gives the following
+formula for the flowrate uncertainty
+<UL>
+ <img src="fireunc/eqns/uncerts2.gif">
+</UL>
+where
+<PRE>
+   b0 =  1.0003076
+   b1 = -0.0000002264
+   b2 =  0.000000632
+   b3 = -0.000000003696
+   b4 =  0.00003084
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Values For New Flux Measurements
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+Applying these formulas to the new flux measurements
+results in the following table:
+<PRE>
+                                SD OF            SD OF
+MEASURED  PREDICTED         PREDICTED           FUTURE
+    FLUX       FLOW              FLOW             FLOW
+      <B>X         Y'              S<sub>cal</sub>              S<sub>y'</sub></B>
+========   =========        =========        =========
+     26.   5.2056756        0.0055054        0.0287137
+     30.   5.9764223        0.0047473        0.0285781
+     27.   5.3996716        0.0052807        0.0286715
+     44.   8.5641050        0.0045642        0.0285482
+     16.   3.2177362        0.0088804        0.0295471
+     21.   4.2226119        0.0069547        0.0290265
+     14.   2.8096786        0.0097664        0.0298254
+     24.   4.8150678        0.0060222        0.0288173
+     22.   4.4209700        0.0066239        0.0289490
+     43.   8.3849421        0.0045052        0.0285389
+     41.   8.0239973        0.0044005        0.0285225
+     47.   9.0963602        0.0047504        0.0285786
+     45.   8.7423964        0.0046256        0.0285581
+     42.   8.2049055        0.0044501        0.0285302
+     14.   2.8096786        0.0097664        0.0298254
+     14.   2.8096786        0.0097664        0.0298254
+     32.   6.3565612        0.0045103        0.0285397
+     29.   5.7850447        0.0049013        0.0286041
+     47.   9.0963602        0.0047504        0.0285786
+     44.   8.5641050        0.0045642        0.0285482
+     47.   9.0963602        0.0047504        0.0285786
+
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc6523.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc654.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

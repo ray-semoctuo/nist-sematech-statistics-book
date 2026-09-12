@@ -1,0 +1,12 @@
+.
+.  Generate sample output for a t test
+.
+skip 25
+read auto83b.dat y1 y2
+retain y2 subset y2 > -999
+set write decimals 5
+echo on
+capture ttest.out
+t test y1 y2
+end of capture 
+quit

@@ -1,0 +1,260 @@
+Edits for Case Study 1: Eddy Current
+
+
+-----Section 0: Problem Description-----
+
+Background & Project Goal:
+The goal of this project is to develop a
+nondestructive portable device for detecting
+cracks and fractures in metals.  A primary
+application for such would be for the detection of
+defects in airplane wings.  The internal mechanism
+for the detector would be to sense crack-induced
+changes in the detector's electromagnetic field
+which would in turn result in changes in the
+impedance level of the detector.  This change of
+impedance is termed "sensitivity" and it is a
+sub-goal of this experiment to maximize such
+sensitivity as the detector is moved from an
+unflawed region to a flawed region on the metal.
+
+Statistical Goals:
+The specific statistical goals of the experiment
+are the usual:
+
+   1. Factors : determine important factors which
+                affect sensitivity;
+   2. Settings: determine settings which
+                maximize sensitivity;
+   3. Model   : determine a prediction equation which
+                functionally relates sensitivity
+                to various factors.
+
+There were 3 detector wiring component factors
+under consideration:
+
+   X1 = Number of wire turns
+   X2 = Wire winding distance
+   X3 = Wire guage
+
+Since the maximum number of runs that could be
+afforded timewise and costwise in this experiment
+was n = 10, a 2^3 full factoral experiment
+(involving n = 8 runs) could be afforded and so
+was chosen to be run.  With an eye to the usual
+monotonicity assumption in 2-level factorial
+designs, the selected settings for the 3 factors
+were as follows:
+
+   X1 = Number of wire turns :
+   X2 = Wire winding distance:
+   X3 = Wire guage           :
+
+The experiment was run (with the 8 settings
+executed in random order). The following data
+resulted:
+
+<data>
+   <add additional column: run sequence>
+   <2 8 3 6 7 1 4 5>
+
+5.6.1.2. Main Effects
+
+
+-----Section 1: DEX Scatter Plot-----
+
+<label the plot as a DEX Scatter Plot>
+<impedance => sensitivity     everywhere>
+
+...
+
+<dex scatter plot>
+
+Conclusions:
+
+1. Important Factors:
+   Factor 1 is clearly important ; when X1 = -1,
+   all 4 sensitivities are low; when X1 = +1, all
+   4 impedances are high.  Factor 2 is less
+   important; the 4 sensitivities for X2 = -1 are
+   slightly higher than the 4 sensitivities for X2
+   = +1.  Factor 3 does not appear to be important
+   at all--the sensitivity is about the same (on
+   the average) regardless of the settings for X3.
+
+2. Best Settings:
+   The best settings depend on the definition of
+   "best" for the response.  In this experiment,
+   we are using the device as a detector, and so
+   high sensitivities are desirable.  Given this,
+   our first pass at best settings yields (X1 =
+   +1, X2 = -1, X3 = either).
+
+-----Section 2: DEX Mean Plot-----
+
+<label the plot as a DEX Mean Plot>
+
+...
+
+<main effects plot>
+
+Conclusions:
+
+The main effects plot reaffirms the ordering of
+the DEX scatter plot, but additional information is
+gleaned because the eyeball distance between the
+mean values gives an approximation to the least
+squares estimate for the factor effects:
+
+1. Important Factors:
+   X1 (effect = large   : about 3 ohms)
+   X2 (effect = moderate: about -1 ohm)
+   X3 (effect = small   : about 1/4 ohm)
+
+2. Best Settings:
+   As before, choose those factor settings which
+   (on the average) maximize the sensitivity:
+
+      (X1,X2,X3) = (+,-,+)
+
+-----Section 3: Interaction Effects Plot-----
+
+In addition to the main effects, it is also
+important to check for interaction
+effects--especially 2-term interaction effects.
+The DEX Mean Interaction Effects Plot is an
+effective tool for this.  The 3 diagonal plots are
+a replotting of the main effects-- they are plots
+of the average response versus each of the 3
+factors.  The off-diagonal plots have the average
+response (vertically) versus the interaction (=
+cross-product here) horizontally.  Thus for the
+middle plot on the top, the horizontal axis is
+X1*X2, where X1 takes on values -1 and +1, X2
+takes on -1 and +1, and thus X1*x2 takes on values
+-1 and +1.
+
+The legend within each plot is the least squares
+estimate of the factor (or interaction) effect; in
+this orthogonal design case, the estimated effect
+is identical to the difference of the mean values.
+
+<matrix of plots>
+
+Conclusions:
+
+1. Important Factors:
+   Noting the plots which have steepest lines (that is,
+   largest effects), we note that:
+      X1 is most important     : estimated effect = -3.1025;
+      X2 is next most important: estimated effect = -.8675;
+      X3 is relatively unimportant;
+      All 3 2-term interactions are relatively unimporant.
+
+2. Best Settings:
+   As with the main effects plot, the best settings
+   (to maximize the sensitivity) are
+
+      (X1,X2,X3) = (+1,-1,+1)
+
+    but with the X3 setting of +1 mattering little.
+
+-----Section 4: Block Plots-----
+
+Block plots are a useful adjunct to confirm the importance of
+factors, to establish the robustness of main effect conclusions,
+and to determine the existence of interactions.
+
+The first plot below answers the question: Is factor 1 important
+(robust over all 4 settings of X2 and X3)?
+The second plot answers the question: Is factor 2 important
+(robust over all 4 settings of X1 and X3)?
+The third plot answers the question: Is factor 3 important
+(robust over all 4 settings of X1 and X2)?
+
+For block plots, it is the height of the bars which is important--
+not the relative positioning of each bar; hence we focus on the
+size and internals of the blocks--not "where" the blocks are one
+relative to another.
+
+<block plots>
+
+Conclusions:
+
+1. Relative Importance of Factors:
+   All of the bar heights in plot 1 are bigger
+   than the bar heights in plots 2 and 3--hence
+   factor 1 is more important than factors 2
+   and 3.
+
+2. Statistical Significance
+   In plot 1, looking at the levels within each
+   bar, we note that the response for level 2
+   is higher than level 1 in each and all of
+   the 4 bars.  By chance this happens with
+   probability 1/(2^4) = 1/16 = 6.25%.  Hence
+   factor 1 is near-statistically significant
+   at the 5% level.  Similarly, for plot 2,
+   level 1 > level 2 for all 4 bars, hence
+   factor 2 is near-statistically significant.
+   For factor 3, there is not consistent
+   ordering within all 4 bars and hence factor
+   3 is not statistically significant.
+
+3. Interactions:
+   For factor 1, the 4 bars do not change
+   height in any systematic way and hence there
+   is no evidence of X1 interacting with either
+   X2 or X3.  Similarly for factor 2.
+
+-----Section 5: Estimating Effects-----
+
+<text as you have it>
+
+<yates output>
+
+<omit "Interpretation" and have your text as is>
+<I think "Interpetation" and "Conclusions" are close enough
+to be confusing>
+
+<in addition to the good stuff you  have explaining the Dataplot
+output, I would suggest adding the following line...>
+
+Of the 5 columns of output, the most important are the first
+(which is the identifier), the second (which is the least squares
+estimated effect = difference of means), and the last (which
+is the residuals standard deviation for the cumualtive model--more on
+this in the next section).
+
+Conclusions:
+
+1. Important Factors:
+   X1 (Number of Turns)           : effect est. =  3.1025 ohms
+   X2 (Winding Distance)          : effect est. = -0.8675 ohms
+   X2*X3 (Number x Guage)         : effect est. =   .2975 ohms
+   X1*X3 (Number x Guage)         : effect est. =   .2475 ohms
+   X3 (Wire Guage)                : effect est. =   .2125 ohms
+   X1*X2*X3 (Num. x Dist. x Guage): effect est. =   .1425 ohms
+   X1*X2 (Number x Distance)      : effect est. =   .1275 ohms
+
+-----Modeling & Prediction Equations-----
+
+The last column of the above table gives the 
+residual standard deviation for 8 possible 
+models--each one progressively more complicated.  
+If none of the factors are important, then the 
+prediction equation defaults to 
+
+      Yhat = the average = 2.65875
+
+From the last column of the table, it is seen that
+this simplest of all models has a residual 
+standard deviation (a measure of goodness of fit) 
+of 1.74106 ohms.  Finding a good-fitting model was
+NOT one of the stated goals of this experiment, 
+but its determination is "free" along with the 
+rest of the analysis and so it is included.  
+
+Conclusions:
+From the last column of the above table, we 
+conclude the following: The prediction equation: 

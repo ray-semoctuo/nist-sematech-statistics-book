@@ -1,0 +1,181 @@
+#!/bin/csh -f
+#
+#  Rebuild gif files to match Will's format
+#
+./.build.2.gifs   autocop1.dp
+./.build.2.gifs   bincdf4.dp
+./.build.2.gifs   binpdf.dp
+./.build.2.gifs   binpdf4.dp
+./.build.2.gifs   binppf4.dp
+./.build.2.gifs   bootstrap.dp
+./.build.2.gifs   boxcox.dp
+./.build.2.gifs   boxcoxli.dp
+./.build.2.gifs   caucdf.dp
+./.build.2.gifs   caucha.dp
+./.build.2.gifs   cauhaz.dp
+./.build.2.gifs   cauisurv.dp
+./.build.2.gifs   caupdf.dp
+./.build.2.gifs   cauppf.dp
+./.build.2.gifs   causurv.dp
+./.build.2.gifs   chscdf4.dp
+./.build.2.gifs   chspdf.dp
+./.build.2.gifs   chspdf4.dp
+./.build.2.gifs   chspdftb.dp
+./.build.2.gifs   chsppf4.dp
+./.build.2.gifs   condplot.dp
+./.build.2.gifs   dexcdf.dp
+./.build.2.gifs   dexcha.dp
+./.build.2.gifs   dexhaz.dp
+./.build.2.gifs   dexint1.dp
+./.build.2.gifs   dexint3.dp
+./.build.2.gifs   dexisurv.dp
+./.build.2.gifs   dexmeanp.dp
+./.build.2.gifs   dexpdf.dp
+./.build.2.gifs   dexppf.dp
+./.build.2.gifs   dexscat1.dp
+./.build.2.gifs   dexsdplo.dp
+./.build.2.gifs   dexsurv.dp
+./.build.2.gifs   ecdf.dp
+./.build.2.gifs   ev1cdf.dp
+./.build.2.gifs   ev1cdf2.dp
+./.build.2.gifs   ev1cha.dp
+./.build.2.gifs   ev1cha2.dp
+./.build.2.gifs   ev1haz.dp
+./.build.2.gifs   ev1haz2.dp
+./.build.2.gifs   ev1isur2.dp
+./.build.2.gifs   ev1isurv.dp
+./.build.2.gifs   ev1pdf.dp
+./.build.2.gifs   ev1pdf2.dp
+./.build.2.gifs   ev1ppf.dp
+./.build.2.gifs   ev1ppf2.dp
+./.build.2.gifs   ev1surv.dp
+./.build.2.gifs   ev1surv2.dp
+# ./.build.2.gifs   expcdf.dp
+# ./.build.2.gifs   expcha.dp
+# ./.build.2.gifs   exphaz.dp
+# ./.build.2.gifs   expisurv.dp
+# ./.build.2.gifs   exppdf.dp
+# ./.build.2.gifs   expppf.dp
+# ./.build.2.gifs   expsurv.dp
+# ./.build.2.gifs   fcdf4.dp
+# ./.build.2.gifs   flcdf4.dp
+# ./.build.2.gifs   flcha4.dp
+# ./.build.2.gifs   flhaz4.dp
+# ./.build.2.gifs   flisur4.dp
+# ./.build.2.gifs   floctest.dp
+# ./.build.2.gifs   flpdf.dp
+# ./.build.2.gifs   flpdf4.dp
+# ./.build.2.gifs   flpdf4_new.dp
+# ./.build.2.gifs   flppf4.dp
+# ./.build.2.gifs   flsur4.dp
+# ./.build.2.gifs   fpdf.dp
+# ./.build.2.gifs   fpdf4.dp
+# ./.build.2.gifs   fpdftb.dp
+# ./.build.2.gifs   fppf4.dp
+# ./.build.2.gifs   ftable.dp
+# ./.build.2.gifs   ftest.dp
+# ./.build.2.gifs   gamcdf4.dp
+# ./.build.2.gifs   gamcha4.dp
+# ./.build.2.gifs   gamhaz4.dp
+# ./.build.2.gifs   gamisur4.dp
+# ./.build.2.gifs   gampdf.dp
+# ./.build.2.gifs   gampdf4.dp
+# ./.build.2.gifs   gamppf4.dp
+# ./.build.2.gifs   gamsurv4.dp
+# ./.build.2.gifs   grubbs.dp
+# ./.build.2.gifs   hazard.dp
+# ./.build.2.gifs   ks.dp
+# ./.build.2.gifs   lamcdf4.dp
+# ./.build.2.gifs   lampdf.dp
+# ./.build.2.gifs   lampdf4.dp
+# ./.build.2.gifs   lamppf4.dp
+# ./.build.2.gifs   levene.dp
+# ./.build.2.gifs   lgncdf4.dp
+# ./.build.2.gifs   lgncha4.dp
+# ./.build.2.gifs   lgnhaz4.dp
+# ./.build.2.gifs   lgnisur4.dp
+# ./.build.2.gifs   lgnpdf.dp
+# ./.build.2.gifs   lgnpdf4.dp
+# ./.build.2.gifs   lgnppf4.dp
+# ./.build.2.gifs   lgnsurv4.dp
+# ./.build.2.gifs   linressd.dp
+# ./.build.2.gifs   location.dp
+# ./.build.2.gifs   meanplot.dp
+# ./.build.2.gifs   norcdf.dp
+# ./.build.2.gifs   norcha.dp
+# ./.build.2.gifs   norhaz.dp
+# ./.build.2.gifs   norisurv.dp
+# ./.build.2.gifs   normprp1.dp
+# ./.build.2.gifs   normprp2.dp
+# ./.build.2.gifs   normprp3.dp
+# ./.build.2.gifs   normprp4.dp
+# ./.build.2.gifs   norpdf.dp
+# ./.build.2.gifs   norpdflo.dp
+# ./.build.2.gifs   norpdfls.dp
+# ./.build.2.gifs   norpdfs1.dp
+# ./.build.2.gifs   norpdfs2.dp
+# ./.build.2.gifs   norpdftb.dp
+# ./.build.2.gifs   norppf.dp
+# ./.build.2.gifs   norsurv.dp
+# ./.build.2.gifs   nortabl2.dp
+# ./.build.2.gifs   nortable.dp
+# ./.build.2.gifs   plncdf4.dp
+# ./.build.2.gifs   plncha4.dp
+# ./.build.2.gifs   plnhaz4.dp
+# ./.build.2.gifs   plnisur4.dp
+# ./.build.2.gifs   plnpdf.dp
+# ./.build.2.gifs   plnpdf4.dp
+# ./.build.2.gifs   plnppf4.dp
+# ./.build.2.gifs   plnsurv4.dp
+# ./.build.2.gifs   pnrcdf4.dp
+# ./.build.2.gifs   pnrcha4.dp
+# ./.build.2.gifs   pnrhaz4.dp
+# ./.build.2.gifs   pnrisur4.dp
+# ./.build.2.gifs   pnrpdf.dp
+# ./.build.2.gifs   pnrpdf4.dp
+# ./.build.2.gifs   pnrppf4.dp
+# ./.build.2.gifs   pnrsurv4.dp
+# ./.build.2.gifs   poicdf4.dp
+# ./.build.2.gifs   poipdf.dp
+# ./.build.2.gifs   poipdf4.dp
+# ./.build.2.gifs   poippf4.dp
+# ./.build.2.gifs   probplot.dp
+# ./.build.2.gifs   qqplot.dp
+# ./.build.2.gifs   runs.dp
+# ./.build.2.gifs   runseq.dp
+# ./.build.2.gifs   scale.dp
+# ./.build.2.gifs   scatplot.dp
+# ./.build.2.gifs   skewness.dp
+# ./.build.2.gifs   spect1.dp
+# ./.build.2.gifs   spmatr.dp
+# ./.build.2.gifs   spmatr2.dp
+# ./.build.2.gifs   spmatr3.dp
+# ./.build.2.gifs   spmatrix.dp
+# ./.build.2.gifs   starplot.dp
+# ./.build.2.gifs   tcdf.dp
+# ./.build.2.gifs   tcdf4.dp
+# ./.build.2.gifs   tpdf.dp
+# ./.build.2.gifs   tpdf4.dp
+# ./.build.2.gifs   tpdftb.dp
+# ./.build.2.gifs   tppf.dp
+# ./.build.2.gifs   tppf4.dp
+# ./.build.2.gifs   ttable.dp
+# ./.build.2.gifs   ttest.dp
+# ./.build.2.gifs   ttest1s.dp
+# ./.build.2.gifs   unicdf.dp
+# ./.build.2.gifs   unicha.dp
+# ./.build.2.gifs   unihaz.dp
+# ./.build.2.gifs   uniisurv.dp
+# ./.build.2.gifs   unipdf.dp
+# ./.build.2.gifs   unippf.dp
+# ./.build.2.gifs   unisurv.dp
+# ./.build.2.gifs   weibshap.dp
+# ./.build.2.gifs   weicdf4.dp
+# ./.build.2.gifs   weicha4.dp
+# ./.build.2.gifs   weihaz4.dp
+# ./.build.2.gifs   weiisur4.dp
+# ./.build.2.gifs   weipdf.dp
+# ./.build.2.gifs   weipdf4.dp
+# ./.build.2.gifs   weippf4.dp
+# ./.build.2.gifs   weisurv4.dp
+# ./.build.2.gifs   xbarplot.dp

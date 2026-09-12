@@ -1,0 +1,44 @@
+.
+.  Generate sample output for dex standard deviation plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na dexsdp.ps
+device 2 postscript
+.
+.
+.  Jim's dplogf.tex settings
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title Bike Speed:  DEX Standard Deviation Plot
+y1label Mean Response
+x1label Factors
+.
+dex standard deviation plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+. box 0 0 100 100
+.
+device 2 close
+system mv DEXSDP.PS dexsdp.ps
+.
+quit

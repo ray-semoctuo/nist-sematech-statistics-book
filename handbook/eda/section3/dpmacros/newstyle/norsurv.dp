@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Normal Survival plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na norsurv.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Normal Survival
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT 1 - NORCDF(X) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp NORSURV.PS norsurv.ps
+system rm NORSURV.PS
+.
+quit

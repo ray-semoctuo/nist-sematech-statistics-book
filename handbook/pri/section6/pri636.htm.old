@@ -1,0 +1,138 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.3.6. Validate the Fitted Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri637.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri635.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri63.htm">Catapult Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.3.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Validate the Fitted Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="partmodel">
+<I>
+Model Validation
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The previous sections have led us to the model
+<UL>
+    <img src="catapult/eqns/partmode.gif">
+</UL>
+The residual standard deviation of this model is 0.30429.
+<P>
+The next step is to 
+<a href="../../pmd/section4/pmd44.htm">validate the model</a>.
+We do this through various residual plots.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="resplots">
+<I>
+Residual Plots
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+<P>
+<A HREF="catapult/gifs/part_f.gif">
+<img src="catapult/gifs/part_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="various residual plots do not indicate any serious problems with the model">
+</A>
+<P>
+The first plot is a
+<a href="../../eda/section3/normprpl.htm">normal probability plot</a>
+of the residuals.  The second plot is a
+<a href="../../eda/section3/runseqpl.htm">run sequence plot</a>
+of the residuals.
+<P>
+These plots do not reveal any major problems that would lead us
+to reject the model.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri635.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri637.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

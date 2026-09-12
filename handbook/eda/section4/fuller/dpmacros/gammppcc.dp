@@ -1,0 +1,62 @@
+.
+. Starting Step 5.1 - Generate PPCC plot for Gamma
+.
+title case upper
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+x1label gamma
+ylimits 0.90 1.0
+gamma ppcc plot y
+delete gamma1 gamma2
+justification center
+let maxppcc2 = round(maxppcc,4)
+justification left
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text max shape = ^shape
+let gamma1 = 10
+let gamma2 = 15
+ylimits 0.95 1.0
+gamma ppcc plot y
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 22 31
+text max ppcc = ^maxppcc2
+move 22 24
+text max shape = ^shape2
+let gamma = shape
+y1label DATA
+x1label THEORETICAL
+gamma probability plot y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 22 83
+text location = ^ppa02
+move 22 75
+text slope = ^ppa12
+set relative histogram area
+title HISTOGRAM WITH OVERLAID PDF
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+plot gampdf(x,gamma,ppa0,ppa1) for x = 20 0.1 45
+limits
+end of multiplot
+title case upper
+title automatic
+x1label
+y1label
+limits
+ytic offset 5 5
+. Finished Step 5.1: Page Back for Output

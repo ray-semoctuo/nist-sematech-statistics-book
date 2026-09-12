@@ -1,0 +1,292 @@
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Construction of DEX Contour Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The four vertex values of this imbedded 2<sup>2</sup> full
+factorial design involving X1 and X2 were obtained from the
+raw data by simple averaging.  Thus the value on the contour
+plot at X1 = -1 and X2 = -1 was gotten by referencing the
+raw data table and noting all (X1 = -1, X2 = -1) data;
+there were 2 such data values: Y = 1.51  and Y = 1.70.
+Averaging these two values together yields the 1.6 which in
+turn appears on the plot.  We proceed similarly for the other
+three vertices.  To draw the contour lines, we make use of the
+local 2-term equation in X1 and X2 only, namely:
+<P>
+<UL>
+   Yhat = mu + 0.5(B1*X1 + B2*X2 + B12*X1*X2)
+   Yhat = 2.65875 + 0.5
+</UL>
+<P>
+where the coefficients B. were drawn from the Yates analysis.
+From the raw data table, we note that the 8 data values ranged
+from ...  to ..., and so contour lines were drawn
+from ...  to ..., at increments of ...  .
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Information From the DEX Countour Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the contour plot, we may derive the following
+3 pieces of information:
+<P>
+<OL>
+   <li>Interaction significance;
+   <li>Best (data) setting for these 2 dominant factors;
+   <li>Best (non-data) settings.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interaction Significance
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Note the appearance of the contour plot.  If the contour
+curves are linear, then that implies that the interaction
+term is insignificant; if the contour curves have considerable
+curvature, than that implies that the interaction term is
+large and important.  In our case, the contour curves are
+linear and so we conclude that the X1*X2 term is
+insignificant.  That is, we conclude that the X1 effect
+(= ...  units) is valid irrespective of the settings of X2.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Best Settings
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To determine the best (data) setting (that is, the best factor
+settings for the already-run experiment), then we first must
+define what "best" means.  As before, for this case study,
+"best" here means to <b>maximize</b> (rather than minimize or
+hit a target) the response.  Hence from the contour plot, we
+determine the best settings for the two dominant factors by
+simply scanning the four vertices and choosing the vertex
+with the <b>largest</b> value (= average response).  In this
+case, it is (X1 = +1, X2 = +1).  Hence the best settings for
+the two dominant factors based on the experiment that was
+already run is
+<P>
+<UL>
+   (X1 = +1, X2 = +1).
+</UL>
+<P>
+As for factor X3, the contour plot provides no best setting
+info, and so we would resort to other tools: the main effects
+plot, the interaction effects matrix, or the ordered data
+(see next section) to determine optimal X3 settings.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Best Setting (non-data)
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To determine the best (non-data) setting (that is, the best
+setting even beyond the settings utilized in the already-run
+experiment), we do the following 6 steps:
+<P>
+<OL>
+   <li>Note Best Current Value;
+   <li>Specify Target Future Value;
+   <li>Note Target Contour Curve;
+   <li>Determine Closest Point on Target Contour Curve;
+   <li>Translate Optimal Settings to Original Factor Units;
+   <li>Confirmation Run or Confirmation Experiment.
+</OL>
+<P>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Note Best Current Value
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We first go to the best data setting.  That is, we use as
+our starting point that vertex (out of the four) with the
+highest average response.  For the case study at hand, that
+optimal point is: (X1 = +1, X2 = +1).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Specify Target Future Value
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We mentally specify as to what value of the response (above
+and beyond our best data vertex) that we would like to see
+if we had the luxury of sampling elsewhere in the factor
+domains.  For our case study, we can already achieve (on the
+average) ..., and so let us suppose we choose to increase our
+response to ... -- we thus specify ... as the "target future
+value".
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Note Target Contour Curve
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We note the plot contour curve which comes closest to the
+target future value.  Our next best setting is thus going to be
+somewhere along the Y = ...  contour curve.  In our case, with
+the target future value at ..., and with the contour curves
+at ..., ..., ..., to ...  we thus choose contour curve
+Y = ... as the target curve.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Determine Closest Point On Target Contour Curve
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Since the contour curves were based on the data and since the
+validity of the contour curves becomes more and more suspect as
+we move away from the data vertices, then the strategy is to
+choose that value on the target contour curve which is closest
+to the optimal data vertex.  In practice this is achieved by
+starting at this best vertex and proceeding in the direction of
+the path of steepest ascent (noting the nature and curvature of
+the local contour curves) until we (perpendicularly) intersect
+the target contour curve.  The interesection point becomes our
+best "estimate" for the X1 and X2 settings that will yield the
+desired future value.  This is the point where we would like to
+conduct our next experiment, or at least run confirmation
+runs to determine if this best-estimate point in fact yields
+the quality of response that we desire.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Translate Optimal Settings to Original Factor Units
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+At this intersection point, note the coded settings for factors
+X1 and X2.  Since the original four vertices were coded
+values of +-1 in each of the two factors under study, it is
+quite common for the best new settings to be somewhere in the
+region +- 1.25 to +- 2. Determine exactly such best settings
+in coded units, and then linearly translate back to the best
+settings in the original factor units.  For example, in our
+case, if the optimal new setting for X1 (= number of wire
+turns) was X1 = +2, and since
+<P>
+<UL>
+   X1 = -1 corresponds to  90 turns, and<br>
+   X1 = +1 corresponds to 180 turns, then<br>
+   X1 = +2 corresponds to 225 turns.<br>
+</UL>
+<P>
+Similarly, if X2 (winding distance) = +2
+is optimal, then since
+<P>
+<UL>
+   X2 = -1 corresponds to  .38, and<br>
+   X2 = +1 corresponds to 1.14, this implies<br>
+   X2 = +2 corresponds to 1.52.<br>
+</UL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Do Confirmation Run or Confirmation Experiment
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+ Test the above best setting by additionally collecting data
+at this new point, or running a 2-level factorial experiment
+(centered at this point) in the vicinity of this new point (and
+repeat the entire 2-level analysis again).
+
+</TD>
+</TR>
+<!-- end paragraph -->

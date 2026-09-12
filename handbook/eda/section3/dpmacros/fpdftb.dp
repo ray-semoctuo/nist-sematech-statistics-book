@@ -1,0 +1,41 @@
+.
+.  Plot for F CDF table
+.
+device 1 x11
+device 1 font simplex
+set ipl1na fpdftb.ps
+device 2 postscript
+.
+TITLE OFFSET 3
+TITLE CASE ASIS
+TITLE F PDF (One-Sided Test at Alpha = 0.05)
+TITLE SIZE 5
+LABEL SIZE 5
+LABEL CASE ASIS
+TIC LABEL SIZE 4
+Y1LABEL Probability Density
+X1LABEL X
+.
+SET X11 HARDWARE FILL OFF
+REGION FILL OFF ON ON
+REGION BASE 0 ALL
+.
+PLOT FPDF(X,10,10) FOR X = 0 0.01 6 AND
+. PLOT FPDF(X,10,10) FOR X = 0 0.01 0.27 AND
+. PLOT FPDF(X,10,10) FOR X = 3.72 0.01 6
+PLOT FPDF(X,10,10) FOR X = 2.98 0.01 6
+.
+font simplex
+height 3
+movedata 4.0 0.05
+text lc()alph() = 0.05 (2.98)
+. movedata 0.35 0.05
+. text lc()alph() = 0.025
+.
+box 0 0 100 100
+.
+device 2 close
+system cp FPDFTB.PS fpdftb.ps
+system rm FPDFTB.PS
+.
+quit

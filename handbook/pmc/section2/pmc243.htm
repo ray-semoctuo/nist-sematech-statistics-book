@@ -1,0 +1,462 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+                id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.2.4.3. OC Curves</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc25.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc242.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc2.htm">Methods of Process Monitoring and 
+Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc24.htm">How do we perform product monitoring for acceptability?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.2.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>OC Curves</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%">
+<center><!-- Add main text below --></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Acceptance sampling basics</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Acceptance sampling is a major field of statistical
+quality control. It found its origin during World War II when the military
+had to determine which lots of ammunition to accept. If everything was
+tested in advance, no bullets would be left to ship. If, on the other hand,&nbsp;
+none were tested, malfunctions might occur in the field of battle, with
+potentially disastrous results.&nbsp;&nbsp;
+<p>
+Acceptance sampling is "the middle of the road" approach between no
+inspection and 100 % inspection. There are two major classifications of
+acceptance plans: by <i>attributes</i> ("go, no-go") and by <i>variables</i>.
+The attribute plan is the most common.&nbsp;
+<p>
+Another expression for "acceptance plan" is "sampling plan". Sampling
+plans can be <i>single, double</i> or<i> multiple</i>.&nbsp; A single sampling
+plan for attributes consists of a sample of size \(n\)
+<!-- <i>n</i> -->
+and an acceptance number \(c\).
+<!-- <i> c</i>.&nbsp; -->
+The procedure operates as follows: Select \(n\)
+<!-- <i>n</i> -->
+items at random from a (large) lot. If there are fewer than \(c\)
+<!-- <i> c</i> -->
+defectives in the sample, accept the lot. Otherwise reject the lot.&nbsp;
+<p>
+Double sampling plans take a second sample and combine the information
+from the two samples to reach a decision. Multiple sampling combines the
+information from 3 or more samples. We will first focus on single
+sampling.
+<p>
+Suppose that a supplier submits a lot of size \(N\) for inspection. \(N\) should
+be large (theoretically infinity).&nbsp; Then the sampling plan
+\(n=52\), \(c=3\) 
+<!-- &nbsp; n=52, c=3 -->
+means that from a lot of size \(N\), a random sample of 52 is inspected,
+and if the number of defective items is greater than 3, the lot is
+rejected. Otherwise the lot is accepted.
+<p>
+In order to measure the performance of an acceptance-sampling plan
+we use the Operating Characteristic (OC) curve. This curve plots
+the probability of accepting the lot (Y-axis) versus the lot fraction or
+percent defectives.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>OC curves</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The visual shape of the OC curve for a 
+(52, 3) sampling plan is shown below.
+<p><img SRC="gifs/occurve.gif" height=268 width=421>
+<br>&nbsp;
+<p>
+It is instructive to show how the points on the curve are obtained,
+once we have a sampling plan \((n,c)\) - later we will demonstrate how a sampling
+plan \((n,c)\) 
+<!-- (<i>n,c</i>) -->
+is obtained.
+<p>
+We assume that the lot is very large, as stated before, theoretically
+infinite. Then the distribution of the number of defectives, \(d\), in a random
+sample of \(n\)
+<!-- <i> n</i> -->
+items is binomial with parameters \(n\) and \(p\),
+<!-- <i> n</i> and <i>p</i>, -->
+where \(p\)
+<!-- <i> p</i> -->
+is the fraction of defectives per lot. The probability of
+observing exactly \(d\)
+<!-- <i>d </i> -->
+defectives is
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>The binomial distribution</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+
+$$ P(d) = f(d) = \frac{n!}{d!(n-d)!} p^d (1-p)^{n-d} \, . $$
+
+<!-- <center><br><img SRC="eqns/oc1.gif" height=44 width=242></center> -->
+
+<p>
+The probability of acceptance is the probability that \(d\),
+<!-- <i> d</i>, -->
+the number of defectives, is less than or equal to \(c\),
+<!-- <i>c</i>, -->
+the acceptance number. This means
+
+$$ P_a = P(d \le c) = \sum_{d=0}^c \frac{n!}{d!(n-d)!} p^d (1-p)^{n-d} \, . $$
+
+<!-- <center> <p><img SRC="eqns/oc2.gif" height=45 width=270></center> -->
+
+<p>
+Using this formula with 
+\(n = 52\), \(c=3\), and \(p = 0.01, \, 0.02, \, \ldots, \, 0.12 \), 
+<!-- n=52 and c=3&nbsp; and p = .01, .02, ...,.12 -->
+we find
+
+$$ \begin{eqnarray}
+P_a & \,\,\,\,\, & P_d \\
+0.998 & \,\,\,\,\, & 0.01 \\
+0.980 & \,\,\,\,\, & 0.02 \\
+0.930 & \,\,\,\,\, & 0.03 \\
+0.845 & \,\,\,\,\, & 0.04 \\
+0.739 & \,\,\,\,\, & 0.05 \\
+0.620 & \,\,\,\,\, & 0.06 \\
+0.502 & \,\,\,\,\, & 0.07 \\
+0.394 & \,\,\,\,\, & 0.08 \\
+0.300 & \,\,\,\,\, & 0.09 \\
+0.223 & \,\,\,\,\, & 0.10 \\
+0.162 & \,\,\,\,\, & 0.11 \\
+0.115 & \,\,\,\,\, & 0.12 \, .
+\end{eqnarray} $$
+
+<!-- <center><img SRC="eqns/ocdat.gif" height=310 width=66></center> -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Average Outgoing Quality</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="AOQ"></a><b><font size=+1>Average Outgoing
+Quality (\(AOQ\))</font></b>
+<p>
+What does one do when a lot is rejected? Usually the rejected&nbsp;
+lot is completely inspected and all the defected items are removed. If
+feasible,&nbsp; rework may be performed . Or, if a vendor is involved,
+the defective items may be returned. There is an option to replace the
+defective items by good ones. Such sampling schemes are referred to as
+<i>rectifying inspection programs.</i>
+<p>
+After screening, the final fraction defectives will be zero. However,
+accepted lots have fraction defective \(p_0\).
+<!-- <i> p</i><sub>0</sub>. -->
+Therefore, the outgoing lots from the inspection stations are a mixture of lots 
+with fractions defective \(p_0\)
+<!-- <i>p</i><sub>0</sub> -->
+and 0. So the average fraction defective is \(p_1\),
+<!-- <i>p</i><sub>1</sub>, -->
+which is equal to or less than \(p_0\).
+<!-- <i>p</i><sub>0</sub>. -->
+<p>
+How do we calculate the average outgoing quality (\(AOQ\))? Assume that
+the lot size is \(N\) and that all defectives are replaced with good items.
+Then the average fraction defective, called the average outgoing quality, is
+
+$$ AOQ = \frac{p_a p(N-n)}{N} \, . $$
+
+<!-- <center><img SRC="eqns/oc3.gif" height=41 width=128></center> -->
+<p>
+For example, let \(N=10,000\), \(n = 52\), \(c=3\) and \(p\), 
+<!-- N = 10000, n=52, c=3, and p, -->
+<u>the quality of incoming lots</u>, = 0.03. Now at \(p=0.03\), 
+we glean from the OC curve table that \(p_a = 0.930\) and
+
+$$ AOQ = \frac{0.930(0.03)(10,000-52)}{10,000} = 0.00278\, . $$
+<!--
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+AOQ = (.930)(.03)(10000-52) / 10000 = .00278.&nbsp;
+-->
+<p>
+Setting \(p = 0.01, \, 0.02, \, \ldots, \, 0.12\),
+<!-- p=.01, .02, ..., .12 -->
+we can generate the following table.
+
+$$ \begin{eqnarray}
+AOQ & \,\,\,\,\, & P_d \\
+0.0010 & \,\,\,\,\, & 0.01 \\
+0.0196 & \,\,\,\,\, & 0.02 \\
+0.0278 & \,\,\,\,\, & 0.03 \\
+0.0338 & \,\,\,\,\, & 0.04 \\
+0.0369 & \,\,\,\,\, & 0.05 \\
+0.0372 & \,\,\,\,\, & 0.06 \\
+0.0351 & \,\,\,\,\, & 0.07 \\
+0.0315 & \,\,\,\,\, & 0.08 \\
+0.0270 & \,\,\,\,\, & 0.09 \\
+0.0223 & \,\,\,\,\, & 0.10 \\
+0.0178 & \,\,\,\,\, & 0.11 \\
+0.0138 & \,\,\,\,\, & 0.12 
+\end{eqnarray} $$
+
+<!-- <center><img SRC="eqns/aoqdat.gif" height=308 width=72></center> -->
+
+<p>
+A plot of the \(AOQ\) versus \(p\) is given below.
+
+<center><p><img SRC="gifs/aoq.gif" height=300 width=391></center>
+
+<p>
+From examining this curve we observe that when the incoming quality
+is very good (very small fraction of defectives coming in) then the outgoing
+quality is also very good (very small fraction of defectives going out)
+When the incoming lot quality is very bad, most of the lots are rejected
+and then inspected. The "duds" are eliminated or replaced by good ones,
+so that the quality of the outgoing lots, the \(AOQ\), becomes very good.
+In between these extremes, the \(AOQ\) rises, reaches a maximum, and
+then drops.
+<p>
+The maximum ordinate on the \(AOQ\) curve represents the worst possible
+quality that results from the rectifying inspection program.
+It is called the <b>average outgoing quality limit,</b> (<b>\(AOQL\)</b>).
+<p>
+From the table we see that the \(AOQL = 0.0372\) at \(p = 0.06\)
+<!-- <i>p</i> = .06 -->
+for the above example.
+<p>
+One final remark: if \(N \gg n\) 
+<!-- N >> n,&nbsp; -->
+then \(AOQ \approx p_a p\).
+<!-- AOQ ~ p<sub>a</sub> p. -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>The \(LTPD\) and \(AQL\)</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b><font size=+1>The&nbsp;<a NAME="LTPD"></a>Lot
+Tolerance Percent Defective (\(LTPD\)) and the
+<a NAME="AQL"></a>Acceptable Quality Level (\(AQL\))</font></b>
+<p>
+The \(AQL\) represents the poorest level of quality for the producer's process
+that the consumer would consider to accept on a regular basis.
+<p>
+The \(AQL\) is a property of the producer's manufacturing process,
+not of the sampling plan. The consumer hopes that the producer's process
+will operate at a level that is much better than the \(AQL\). In addition,
+the consumer is also interested in the other end of the OC curve, that
+is, in the protection against accepting lots of even poorer quality. The
+technical term for this situation is <i>lot tolerance percent defective</i>
+(\(LTPD\)).
+<p>
+The \(LTPD\) is the worst quality that the consumer is willing to accept
+in an <u>individual</u> lot. As is the case in the \(AQL\), the \(LTPD\) is not
+a function of the sampling plan. But where the \(AQL\) is a property of the
+producer's process, the \(LTPD\) is a property of the consumer's quality specifications.
+<br>
+<br>The \(AQL\) can be called "good" quality and the \(LTPD\) "bad" quality.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Producer's Risk and Consumer's Risk</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="Risk"></a><b><font size=+1>Producer's
+Risk and Consumer's Risk</font></b>
+<p>
+In order to design a sampling plan with a specified OC curve one needs
+two designated points. Let us design a sampling plan such that the probability
+of acceptance is \(1-\alpha\)
+<!-- 1-<font face="Symbol">a</font> -->
+for lots with fraction defective \(p_1\)
+<!-- <i>p</i><sub>1 </sub> -->
+and the probability of acceptance is \(\beta\)
+<!-- <font face="Symbol">b</font> -->
+for lots with fraction defective \(p_2\).
+<!-- <i>p</i><sub>2</sub>. -->
+If we are willing to assume that binomial sampling is valid, 
+then the sample size, \(n\),
+<!-- <i>n</i>, -->
+and the acceptance number, \(c\),
+<!-- <i>c</i> -->
+are the solution to
+
+$$ \begin{eqnarray}
+1-\alpha & = & \sum_{d=0}^c \frac{n!}{d!(n-d)!} p_1^d (1-p_1)^{n-d} \\
+   \beta & = & \sum_{d=0}^c \frac{n!}{d!(n-d)!} p_2^d (1-p_2)^{n-d} \, .
+\end{eqnarray} $$
+
+<!-- <center><img SRC="eqns/oc4.gif" height=93 width=216></center> -->
+
+<p>
+The two simultaneous equations are nonlinear so there is no simple,
+direct solution. There are however a number of iterative techniques available
+that give approximate solutions so that composition of a computer program
+poses no problems. While any two points on the OC curve suffice, it is
+customary to use the \(AQL\) and \(LTPD\) points for this purpose. When the levels
+of lot quality specified are \(p_1 = AQL\) and \(p_2 = LTPD\),
+<!-- p<sub>1</sub>=AQL and p<sub>2</sub>=LTPD, -->
+the corresponding points on the OC curve are usually referred to as the
+<i>producer's risk</i> and the <i>consumer's risk</i> respectively. So, \(1-\alpha\)
+<!-- 1-<font face="Symbol">a</font> -->
+is the producer's risk and \(\beta\)
+<!-- <font face="Symbol">b</font> -->
+is the consumer's risk.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Average Total Inspection</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b><font size=+1>The&nbsp;<a NAME="ATI"></a>Average
+Total Inspection (\(ATI\))</font></b>
+<p>
+We have seen that an acceptance sampling plan that requires corrective
+action in the form of 100 % inspection (or screening) of a rejected lot
+is called a rectification inspection program. What is the total amount
+of inspection?
+<p>If all lots contain zero defectives, no lot will be rejected.
+<p>If all items are defective, all lots will be inspected, and the
+amount to be inspected is \(N\).
+<!-- <i>N</i>. -->
+<p>
+Finally if the lot quality is \(0 < p < 1\),
+<!-- 0 &lt; <i>p </i>&lt; 1, -->
+the average amount of inspection per lot will vary between the sample size, \(n\),
+<!-- <i>n</i>, -->
+and the lot size, \(N\).
+<!-- <i>N</i>.&nbsp; -->
+<p>
+Let the quality of the lot be \(p\) and the probability of lot acceptance
+be \(p_a\),
+<!-- p<sub>a</sub>, -->
+then the average total inspection per lot is
+
+$$ ATI = n + (1-p_a)(N-n) \, . $$
+<!--
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ATI =<i> n + (</i>1 <i>- pa) (N - n)</i>
+-->
+<p>
+For example, let \(N = 10,000\), \(n=52\), \(c=3\), and \(p=0.03\).
+<!-- <i>N</i> = 10000,&nbsp; <i>n</i> = 52,&nbsp; <i>c</i>
+= 3,&nbsp; and <i>p</i>&nbsp;&nbsp; = .03&nbsp; -->
+We know from the OC table that \(p_a = 0.930\). Then
+
+$$ ATI = 52 + (1-0.930)(10,000-52) = 753 \, . $$
+
+<!-- &nbsp; ATI = 52 + (1-.930) (10000 - 52) =&nbsp; 753. -->
+
+<p>
+Setting \(p = 0.01, \, 0.02, \, \ldots, \, 0.14\)
+<!-- p=.01, .02, ....14 -->
+generates the following table.
+
+$$ \begin{eqnarray}
+ATI & \,\,\,\,\, & P_d \\
+70 & \,\,\,\,\, & 0.01 \\
+253 & \,\,\,\,\, & 0.02 \\
+753 & \,\,\,\,\, & 0.03 \\
+1584 & \,\,\,\,\, & 0.04 \\
+2655 & \,\,\,\,\, & 0.05 \\
+3836 & \,\,\,\,\, & 0.06 \\
+5007 & \,\,\,\,\, & 0.07 \\
+6083 & \,\,\,\,\, & 0.08 \\
+7012 & \,\,\,\,\, & 0.09 \\
+7779 & \,\,\,\,\, & 0.10 \\
+8388 & \,\,\,\,\, & 0.11 \\
+8854 & \,\,\,\,\, & 0.12 \\
+9201 & \,\,\,\,\, & 0.13 \\
+9453 & \,\,\,\,\, & 0.14
+\end{eqnarray} $$
+
+<!-- <center><img SRC="eqns/atidat.gif" height=356 width=69></center> -->
+
+<p>
+A plot of \(ATI\) versus \(p\), the Incoming Lot Quality (\(ILQ\)) is given below.
+
+<center><p><img SRC="gifs/ati.gif" height=300 width=370></center>
+
+</td>
+</tr>
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc242.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc25.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

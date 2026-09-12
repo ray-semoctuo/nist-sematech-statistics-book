@@ -1,0 +1,746 @@
+5.6.3.2 Main Effects
+
+-----Section 1: DEX Scatter Plot-----
+
+<label the plot as DEX Scatter Plot>
+
+Conclusions:
+
+1. Wide Spread: The most noteworthy aspect of the
+   DEX scatter Plot is the wide range of the
+   response: the distance ranges nearly 10 feet:
+   from near-0 to beyond 125 inches.  Clearly,
+   therefore, with such a range we have an
+   interesting system: either we have a system in
+   which the factors and their settings have no
+   effect but is extremely noisy (unlikely), or we
+   have a system in which the factors and settings
+   have a deterministic effect which simply needs
+   to be uncovered (more likely).
+
+2. Bimodality: Also noteworthy is the bifurcation
+   of the data into 2 regions: below 50 inches and
+   above 80 inches, with a large 30+ inch gap in
+   the middle.  Such bimodality is often caused by
+   the presence of discrete (non-continuous)
+   factors in the experiment, which would point an
+   initial finger at factor 1 (band height) and
+   factor 3 (number of bands) as the possible
+   culprits.  In any event, the bimodality is
+   glaring and so a side-goal of the analysis is
+   to uncover the reason for its existence.
+
+3. Settings for Y = 60: The gap from roughly 50 to
+   80 is of particular concern because one of the
+   stated engineering goals is to determine
+   settings for the 5 factors that would yield a
+   response of 60 inches, and there is no setting
+   in any of the 20 runs that yielded a response
+   anywhere close to Y = 60.  The implication is,
+   therefore, that the best setting must come from
+   a derived model and hence additional "pressure"
+   is being put on the model that it have good
+   interpolatory/extrapolatory properties.
+
+4. Weak Main Factors: Note from the scatter plot
+   that none of the 5 factors is (for one setting)
+   consistently below and then (for the other
+   setting) consistently above the gap.  This
+   implies that there is no dominant factor and
+   hence the resulting model will be more
+   complicated and less parsimonious (that is will
+   need many terms).
+
+-----Section 2: Box Plot-----
+
+An alternative is to generate a box plot, which
+reduces all of 8 data points at a given factor
+and setting into (in the simplest case) 5
+summary statistics: the min, the 25% point, the
+50% point (the median), the 75% point, and the
+maximum.  Because of such simplicity, the box plot simetimes manifests
+the differences in response locations (that is, the factor effects)
+more clearly that the DEX scatter plot.
+
+Conclusions:
+
+1. Low Settings: Note how certain settings tend to
+   yield low responses; in particular, smaller
+   distances (<= 50 inches) tend to come from
+
+          (X1,X2,X3,X4,X5) = (-,+,-,-,-).
+
+   Further, these settings yield responses which
+   also have low variability.  One can conclude,
+   therefore, the the best setting to yield Y = 30
+   (one of the experiment objectives) will
+   probably be in the vicinity of (-,+,-,-,-).
+
+2. High Settings: Note that the opposite settings:
+
+          (X1,X2,X3,X4,X5) = (+,-,+,+,+)
+
+   yield responses which are high location and
+   high variability (that is, the distances are
+   much longer, but the responses are also much
+   noisier).  This implies that the Y = 90
+   settings we develop will be much noisier (and
+   hence of much poorer quality) that the Y = 30
+   settings.
+
+3. Variance-Stabilizing Transformations:
+   Furthermore, this combination of low location &
+   low variability with high location & high
+   variability is characteristic of a system which
+   violates the constant variability assumption
+   implicit in subsequent least-squares model
+   fitting, and hence provides the first
+   suggestion that a variance-stabilizing
+   transformation (e.g., logarithmic) should be
+   applied to the data prior to further analysis.
+   This transformation issue will be be revisited
+   later.
+
+-----Section 3: DEX Mean Plot-----
+
+One of the experimental goals is to identify the most important
+factors.  Specifically we would like to produce a ranked list
+of such factors, ranked most important to least important.
+Such "factors" can include main effects, but can in more generality
+include interactions.  The DEX Mean Plot (also known as the "Main
+Effects Plot) is an effective tool for producing such a ranked list
+for main effect only (no interactions).
+
+Note that the DEX scatter plot and the box plots had all the data
+including center points.  For the DEX mean plot we produce 2 plots--
+one with the center points and one without.  As is common in the
+analysis of 2-level designs, we choose for subsequent analyses
+to omit the center points and to use just the vertices of the 2**(5-1).
+We hold the center points aside for analysis and for modeling and
+we will use them at a later time for model validation/confirmation.
+
+In a DEX Mean Plot, the vertical axis is the mean response at a setting
+(typically this will be the mean of 8 values).
+One virtue of orthogonla designs (such as the 2**(5-1) utilized here)
+is that the least squares estimates
+of the factor effects is identically the difference of the means for
+each setting; hence, large differences (steep slopes) that manifest themselves
+in a DEX Mean Plot implies large estimated factor effects.
+The DEX Mean PLot hence provides an easy "eyeball" method for arriving
+at an initial ranked list of (main) factors.
+
+We produce 2 dex mean plots, one with the center points included
+and one with them excluded.
+.
+Conclusions:
+
+1. Non-Monotonicity: Note from the DEX Mean Plot with center points
+   that for factors X3, X4, and X5, the center point has a higher
+   mean response than at the -1 and +1 settings.
+   The implication of this is that
+
+      1. Curvature: The underlying response surface
+         may have curvature and so a more complicated
+         model may be needed.
+
+      2. Inadequate model: Any fitted model based
+         on the extreme points only may possibly
+         fit poorly at the center point and
+         therefore interpolation may be invalid.
+
+      3. Biased effect estimates: The least
+         squares estimates for the effects have an
+         implicit assumption of response surface
+         monotonicity (no response extrema between
+         the extreme settings -1 and +1).  When
+         this is violated, then the values of the
+         effect estimates are extremely dependent
+         on the settings, and may not
+         monotonically increase/decrease as the
+         settings are widened.  Worse, we may end
+         up with effect estimates that are
+         near-zero, when in fact the factor has a
+         large effect on the response.
+
+2. Ranked List of Factors: From the DEX Mean Plot with no center points,
+   we may deduce the ranked list of important factors as
+
+      1. X4 (arm length)      (effect = about 40 inches)
+      2. X3 (number of bands) (effect = about 35 inches)
+      3. X1 (band height)     (effect = about 30 inches)
+      4. X5 (start point)     (effect = about 25 inches)
+      5. X2 (stop angle)      (effect = about 20 inches)
+
+3. Lack of Dominant Factors: From the DEX Mean
+   Plot, we note that the factor effects drop off
+   in a slow, near-uniform fashion--this is not
+   typical.  It is much more common in engineering
+   experiments to have 1 or 2 factors dominate and
+   the remaining factor effects being 2 to 10
+   times smaller--that was not the case here.
+   There are 5 possible reasons for this
+   non-dominance:
+
+      1. Engineering reality
+      2. Interactions & Confounding
+      3. Other Factors
+      4. Noisiness (high variance)
+      5. Non-constant variance
+
+   These 5 possibilities are now discussed point-by-point.
+
+      1. Engineering Reality: The estimated effects
+         may in fact be accurate, and this may be a
+         factual reflection of the engineering
+         cause-and-effect.  Again, this is not
+         usually seen in engineering experiments, but
+         is a possibility.
+
+      2. Interactions & Confounding: Interactions may
+         be important and hence (in fractional
+         factorial designs) may contaminate main
+         effects.  However, for the 2**(5-1)
+         fractional factorial design that we have
+         run, main effects are not confounded with
+         any 2-term or 3-term interactions (only
+         4-term interactions and higher).  For many
+         physical systems, the assumption that 4-term
+         interactions and higher are nil (and may be
+         discarded) is invariably safe, and hence for
+         this experiment, contamination via
+         confounding is adjudged not to be the cause.
+
+      3. Other factors: Other factors (besides the 5
+         we have controlled) may in fact be driving
+         the system.  Unfortunately, these other
+         factors may be known or unknown, recorded or
+         not recorded.  If there are other factors
+         driving the system, then this is a
+         near-fatal experimental deficiency, and their
+         effect will be smeared over (that is, will
+         bias) the main effects in an
+         unpredictable way.  For this experiment,
+         this possibility must still be entertained.
+         In the larger issue, this is detected by the
+         replicated (pseudo-) center points during
+         the experiment, and the post-experiment
+         confirmation runs (replicated) at the best
+         settings (to yield Y = 30, 60, and 90).  For
+         the replicated pseudo-center points, the
+         spread is reasonably close (see below) and
+         so there appears no drifiting caused by
+         other factors.  Hence for this data, "other
+         factors" is probably not the cause.
+
+      4. Noisy Experiment: Some experiments are
+         intrinsically noisy (for example, fracture and
+         reliability data).  If the replication standard
+         deviation (the intrinsic variability the data
+         under fixed conditions) is high, then that
+         may translate into large and non-discriminating
+         effect estimates.  Fortunately, in our
+         experiment design, we designed in some
+         replication (the 2 pseudo-center points (each) at
+         X3 = -1 and X3 = +1) so as estimate how much
+         intrinsic replication error the catapult experiment
+         has.  For the 2 pseudo-center points at
+         (0,0,-1,0,0), the data is Y = 37.5 and 45, and
+         hence the replication standard deviation s1 =
+         5.303; for the 2 pseudo-center points at
+         (0,0,1,0,0), the data is Y = 84.5 and 99 and so
+         s2 = 9.175.  Combining these 2 estimates for sigma,
+         we form a pooled standard deviation of s-pooled
+         = 8.162.  Since 8.162 is less than 10% of the
+         total spread of the data (8 to 126.5), "noisy
+         experiment" is probably not the cause of the large
+         effect estimates.
+
+      5. Non-constant variance: This is the case where
+         the data is partially noisy-- precise in
+         certain subregions but noisy in other
+         subregions.  In particular, for the case
+         where the response variable Y is in a
+         proportionately noisy (low response has
+         low random error but large response has
+         large random error), as opposed to absolutely
+         noisy (all responses have same random error)
+         then the setting of each factor which tend to
+         yield large responses (distances) will be
+         noisy, and hence tend to produce longer
+         distances, larger means, and hence larger
+         effect estimates.  For this experiment,
+         non-constant variation is a plausible and
+         the most likely explanation for the
+         non-discriminating effect estimates.
+         This discussion point will be picked up
+         at a later time.
+
+4. Settings to Maximize the Response: One of the
+   engineering objectives of this experiment was
+   to find the settings of the 5 factors that
+   would yield Y = 30, 60, and 90.  If we
+   temporarily set aside this stated objective,
+   and replace it with the objective: "Find the
+   settings which maximize the response" (which is
+   common in many other engineering experiments),
+   then the DEX Mean Plot assists in answering
+   that question.  By noting for each factor as to
+   whether the maximum mean is attained by -1 or
+   +1, we may deduce from the plot that (on the
+   average) the maximal response is attained by
+
+          (X1,X2,X3,X4,X5) = (+1,-1,+1,+1,+1)
+
+   Scanning the raw data table from section 5.6.3.1, we note
+   that (+,-,+,+,+) happened by chance to not to be one of
+   the design points (since this was a fractional factorial
+   design).  However, the design point which yielded the
+   observed maximum response (Y = 126.5) was (+,-,+,+,-).
+   Note that these 2 sets of settings are identical for
+   factors X1 to X4 and differ only in factor X5.  Based on
+   the DEX Mean Plot, this suggests that (+,-,+,+,+) may in
+   fact yield a larger response than the observed
+   (+,-,+,+,-).  This may be confirmed (or denied) by
+   follow-up confirmation runs at (+,-,+,+,+).
+
+5. Settings to Yield Y = 30, 60, 90: As for the
+   stated experimental objective of determining
+   best settings to yield Y = 30, 60, and 90, we
+   may deduce that the Y = 90 settings will be in
+   the "vicinity" of the maximum setting:
+   (+,-,+,+,+); the Y = 30 settings will be in the
+   "vicinity" of the converse: (-,+,-,-,-); and the Y =
+   60 settings are still unknown at this point.
+
+-----Section 4: DEX Median Plot-----
+
+Conclusions:
+
+The DEX Median Plot is not usually done in the
+recommended list of analysis techniques for
+2-level orthogonal designs.  We employ it here
+because of the aforementioned noting of
+non-constant variation and how that ties in with
+skewness.  We are specifically generating this
+plot so as to compare its conclusions with the
+conclusions of the DEX Mean Plot.  (Note, however,
+for formal effect estimation (see section
+5.6.3.6), we still employ the usual least squares
+estimates which are the difference of the means.)
+Definitionally, each plot point itself in the DEX
+Median Plot is the median of all (8) points at the
+given setting (-1 or +1) of the given factor.
+
+Conclusions:
+
+1. Skewness and Transformations: The DEX median
+   plot indicates that the data is skewed.  Note
+   from the DEX Mean Plot that the grand mean (of
+   all 16 points) is approximately 55, whereas
+   from the DEX Median Plot the grand median is
+   drastically smaller: approximately 36.  Further
+   the location for the higher points has dropped
+   from around 70 (mean) to 60 (median), and the
+   location of the lower points has dropped from
+   around 40 (mean) to around 35 (median).  All of
+   these are consistent with skewed data.  Skewed
+   data is not fundamentally wrong to analyze; on
+   the other hand, the usual analysis tools/tests
+   are more valid with normal (or at least
+   symmetric) data and so this suggests a
+   transformation to normality (or at least
+   symmetry).  Again, a logarithmic transformation
+   is commonly useful to achieve such.
+
+2. Ranked list of factors: Note that the ranked
+   list of factors from the DEX Mean Plot was X4, X3,
+   X1, X5, and X2, whereas the ranked list of
+   factors from the DEX Median Plot is X4, X3, X5,
+   X1, and X2.  The consistency and robustness of
+   the X4 and X3 ranking across both plots
+   provides confidence in the importance of
+   these 2 factors relative to the remaining 3
+   factors.
+
+3. Best Settings for Maximum: Although this is not
+   a stated objective of the experiment, note that
+   the settings to yield the maximum (on the
+   "median") is the same (+,-,+,+,+) as the
+   settings to yield the maximum from the DEX Mean
+   Plot.
+
+-----Section 5: DEX Standard Deviation Plot-----
+
+As with the DEX Median Plot, the DEX Standard
+Deviation Plot is not usually generated (or
+needed).  We employ it here to illustrate how it
+may be usefully interpreted in certain anomalous
+cases.  Each plot point itself is the simple
+standard deviation of all (8) points at the given
+setting (-1 or +1) of the given factor.
+
+Conclusions:
+
+1. Ranked List of "Noisy" Factors:
+   Factors X3 (number of bands), X4 (arm length),
+   and X1 (band height) all significantly differ
+   in noisiness (by a factor of around 2 in the
+   standard deviation) between the -1 and +1
+   settings.  The +1 settings are about twice as
+   noisy as th -1 setting for all 3 of these
+   factors.  Factors X2 (start angle) and X5 (stop
+   angle) have near-co variation across their 2
+   settings.
+
+2. Non-Constant Variation: It is useful to interpret
+   the DEX standard deviation plot in conjunction
+   with the DEX mean plot.  Note that the settings
+   of the 5 factors which minimize the variability
+   (from the DEX standard deviation plot) is
+   (-,+,-,-,-).  Note that this is identical to
+   the settings of the 5 factors which minimize
+   the mean (from the DEX mean plot).  Similarly,
+   large variability is from (+,-,+,+,+) which is
+   identical to large location (+,-,+,+,+).
+   Thus we a reinforcement of what was seen
+   before, namely that the variation is increasing
+   with the location--this is referred to as
+   non-constant variation and its existence
+   negates the usual coefficient estimation output
+   from future least squares fitting.
+
+-----Comparison of Plots-----
+
+-----5.6.3.3 Interaction Effects-----
+
+In addition to the main effects, it is also
+important to check for interaction effects.  The
+DEX mean interaction plot is an effective tool for
+viewing akk 2-term interaction effects.  The
+diagonal plots in the matrix are mean plots of each
+main factor.  The off-diagonal plots are mean plots
+versus each of the C(k,2) = C(5,2) = 10 2-term
+interactions.  All plots have the same vertical axis
+limits and so all are comparable.  Like usual, step
+lines imply a strong effects while flat lines imply no
+effects.  The least squares estimate of the effect is
+given via annotation within each plot.  The matrix is
+scanned by searching for steep lines (important
+factors) to flat lines (unimportant factors).
+
+Conclusions:
+
+   1. Ranked List of Factors:
+      1. X4  (arm length)      (effect =  40.3 inches)
+      2. X3  (number of bands) (effect =  35.9 inches)
+      3. X1  (band height)     (effect =  27.0 inches)
+      4. X5  (start point)     (effect =  24.0 inches)
+      5. X2  (stop angle)      (effect = -22.2 inches)
+      6. X3*X4 interaction     (effect =  15.2 inches)
+      7. X1*X4 interaction     (effect =   9.4 inches)
+      8. X1*X3 interaction     (effect =   9.3 inches)
+      etc.
+
+   2. Interactions:  The most important interaction is X3*X4
+      (number of bands)*(arm length).  The estimated interaction
+      is 15.2 units which is more than 10% of the total spread
+      (8 to 126.5) of the data, and hence is relatively large from
+      a simple numeric point of view.  The 15.2 is to be interpreted
+      as follows: this states that the X3 effect changes by 15.2
+      units depending on whether X4 is -1 or +1.  The X3 effect of
+      35.9 is a single number integrated over all of the data.
+      Since the X3*x4 effect is 15.2 then this implies that the
+      X3 effect for X4 = -1 equals 35.9 - 15.2/2 = 28.3 and
+      the X3 effect for X4 = +1 will equal 35.9 + 15.2/2 = 43.5.
+
+-----Block Plots-----
+
+<as is>
+Plots 1 and 2 address the question: Is factor X1 important?
+The plot character (1 and 2) represent the 2 settings of factor 1.
+The horizontal axis of plot 1 is the 4 combinations of X1 and X2.
+The horizontal axis of plot 2 is the 4 combinations of X4 and X5.
+Plots 3 and 4 ask: Is factor X2 important?
+Plots 5 and 6 ask: Is factor X3 important?  etc.
+
+Conclusions:
+
+1. X1 is statistically significant (2 is larger than 1
+   in 7 out of 8 cases--the probability of that (or worse)
+   happening by chance is (8 + 1) / 256 = 3.5%.)
+2. From plots 3 and 4, factor X2 has 2 > 1 in 3 out of
+   8 cases--not statistically significant.
+3. From plots 5 and 6, Factor X3 has 2 > 1 in 8 out of 8
+   cases--statistically significant at the 1% level.
+4. From plots 7 and 8, Factor X4 has 2 > 1 in 8 out of 8
+   cases--also statistically significant.
+5. From plots 9 and 10, Factor X5 has 2 > 1 in 4 out of 4
+   cases--not statistically significant.
+6. From plots 5 and 6, the height of the vertical bar
+   (the local factor 3 estimated effect) is large
+   when X1*X2 = -1 and small when X1*X2 = +1 thereby
+   implying an X3*X1*X2 interaction.
+7. etc.
+
+   The block plot thus reinforces the conclusions from the
+   Interaction effects matrix.
+
+-----5.6.3.5: Model Selection, Fitting, & Validation-----
+
+As with the Eddy Current Probe Sensitivity Full
+Factorial Case Study, the criterion for fractional
+factorial designs as to the ordering of terms to be
+added in the model is the same, namely, add terms in
+the order of the ranked list of important factors.
+Hence our model will include X4, followed by X3,
+followed by X1, etc.
+
+When does one stop adding terms.  The guidelines are
+the same as with full factorial disigns; namely,
+
+1. Halfnormal Probability Plot of |effects|: add the
+   terms which stand out in a halfnormal probability
+   plot of the |effects|.
+
+2. Minimum Engineering Signficant Difference: add those
+   terms which are bigger than the engineer's
+   prespecified minimum engineering significant
+   difference (e.g., 10% of the total range of the data
+   = 10% (126.5 - 8) = 12 inches = 1 foot.  (In fact,
+   no such cutoff value was pre-specified in this
+   experiment and so this criterion cannot be applied.)
+
+3. Minimum Engineering Residual Standard Deviation: Add
+   terms until the residual standard deviation gets
+   smaller that the engineer's pre-specified value for
+   how good he/she wants the model to be; that is, how
+   small does he/she want the fitted model to be (e.g.,
+   5% of the total range = 5% (126.5 - 8) = 6 inches).
+   In fact, no such apriori value was pre-set and so
+   this criterion cannot be applied.
+
+4. Replication Standard Deviation: Add terms until the
+   residual standard deviation is smaller than the
+   replicated standard deviation.  Since this
+   experiment has by design built-in replication, this
+   criterion may be applied.  The replication standard
+   deviations were gotten from the 2 pseudo-center
+   points and had the values s1 = 5.6 and s2 = 9.x with
+   a pooled value of 8.x.  The logic of this is that we
+   can demand of our model to fit with more at least
+   the precision of replicated points, but no further
+   (else we would be fitting noise).  Thus keep adding
+   terms to the model until the residual standard
+   deviation drops below 8.x.
+
+5. Normal Probability Plot of Residuals: Keep adding
+   terms (and computing residuals) until the normal
+   probability plot of the residuals is "sufficiently"
+   linear.
+
+The above 5 criterion may not all agree in terms of
+what terms to include in the model.  Criterion 4 is an
+absolute lower bound and so adding terms beyond that is
+senseless.  Further, since this is essentially a
+modeling exercise, then criterion 3 (how small do you
+want the residual standard deviation to be?) is the
+definitive criterion.  In the absense of an answer to
+that question, then criterion 1 along with criterion 5
+is often used in combination.
+
+For the experiment at hand, we use criteria 1, 4, and 5.
+
+The following plots show the normal probability plot of
+the effects and the halfnormal probability plot of the
+absolute value of the effects (both without and with
+the coded effect tags).  The halfnormal probability
+plot is more informative than the normal probability
+plot since the halfnormal plot does not change
+depending on how the original f settings were coded
+(for example, for Factor 1, do we define 2.25 and 4.75
+to be coded as -1 and +1 or conversely as +1 and -1?
+Depending on what we do, this will change the sign of
+the effect and hence change the appearance of the
+normal probability plot--but the halfnormal plot will
+be unchanged since it only focuses on magnitude).
+
+<3 plots>
+
+Conclusions:
+
+1. The plots are not conclusive.  The normal
+   probability plot is roughly linear which implies no
+   factors are important.  The halfnormal probability
+   plot is also roughly linear with the same
+   implication.  In practice, such plots usually have a
+   linear sub-portion (consisting of factors we leave
+   out of the model) and then a displaced set of
+   factors (which we include in the model).  Here the
+   situation is not clear.  From the halfnormal
+   probability plot, we can extract the upper 6 factors
+   as (slightly) different from the lower linear 9
+   factors, but little justification exists for this
+   and less justification exists adding more terms
+   beyond the 6. As from our ranked list, the 6 terms
+   are X4, X3, X1, X5, X2, and X3*X4.
+
+   Carrying out the usual least squares fit for this
+   model, we obtain the following fitted model
+   (prediction equation):
+
+      Y = 55.30 + 0.5 (40.28 X4 + 35.91 X3 +
+                       26.97 X1 + 24.09 X5 +
+                      -22.16 X2 + 15.22 X3*X4)
+
+   Regarding adequacy of this model, 2 approaches are
+   carried out:
+
+      1. Quantitatively: compute the residual standard
+                         deviation and compare it to the
+                         replication deviation (step 4 above);
+
+      2. Graphically:    generate a normal probability plot
+                         of the residuals so as to achieve
+                         linearity (step 5 above).
+
+   Quantitatively, the residual standard deviation for
+   this model is 12.48.  This is 50% larger than the
+   replication standard deviation of 8.xx and so this
+   suggests that the model is inadequate (and so
+   additional terms must be added).  Graphically, the
+   normal probability plot of the residuals is
+   presented below.
+
+      <normal prob plot of residuals>
+
+   This plot by itself suggests that the model is
+   adequate, but the normal probability plot is a
+   secondary tool relative to the computed residual
+   standard deviation.  The bottom line is that the
+   given model has a "typical residual" of the order of
+   12 inches and so the usual +- 2 standard deviations
+   will yield a rough 95% error of prediction of 24
+   inches.  This is probably too large in practice and
+   so this suggests that more terms need to be added to
+   drive the error of prediction down.
+
+   How many more terms need to be added?  To determine
+   this we need the following table which provides
+   effect estimates and residual standard deviations
+   for cumulatively more complicated models.  One of
+   the saving graces of orthogonal designs (such as the
+   2**(5-1) fractional factorial design used here) is
+   that the effect estimates do NOT change as we add
+   additional terms.  The following table thus serves
+   as a two-fold purpose of giving the ranked list of
+   factors and also giving the goodness of fit of the
+   correspoinding cumulative fitted models.
+
+      <yates table here>
+
+Conclusions:
+
+As seen above, the model with a constant + 6 terms has
+a residual standard deviation of 12.48.  Adding 2
+additional terms (X1*X4 and X1*x3) brings the residual
+standard deviation down to 10.02.  It would take 3 more
+terms beyond that (a constant + 9 terms) to drive the
+residual standard deviation below the replication
+standard deviation of 8.16.  The normal probability
+plot of the residuals of this model (not shown) would
+be acceptable (that is, linear) but the problem we have
+is 4-fold:
+
+   1. Have we used the wrong form?  If the form (linear
+      + interaction terms) is wrong, then no amount of
+      additional terms will improve things.  For
+      example, trying to fit an asymptotic exponential
+      function via a polynomial.
+
+   2. Is the model too complicated?  Such a model
+      (constant + 9 terms) is always suspicious.  This
+      suggests that perhaps another functional
+      approach/form should have been used (e.g,
+      transforming before fitting).
+
+   3. Were the underlying assumptions for least squares
+      fitting adhered to when estimating the
+      coefficients of this model?  The answer to this
+      is no--because of the non-constant variance
+      problem (low responses have low variation, but
+      high responses have high variation).  In such
+      case, the regression coefficients of the model
+      are incorrect.  The corrective action for this is
+      twofold:
+
+         1. weighted least squares;
+         2. transformations of the response.
+
+      This latter point will be developed and pursued
+      in the next section.
+
+   4. Does this model have good interpolatory
+      properties?  Recall that the purpose of this
+      model is not as an end in itself, but to assist
+      in deriving good settings for Y = 30, 60, and 90.
+      In this context, we ask as to how well does this
+      model do at the pseudo-center points (such
+      interpolatory testing is why these points were
+      included in the design in the first place).
+
+         At pseudo-center point 1: (0,0,-1,0,0), Y = 37.5 and 45.0,
+            with a mean of 41.25.
+            The fitted model yields a predicted value of
+            Y = 55.30 + 0.5 (26.97*(-1)) = 41.82
+            which is excellent compared to the mean of 41.25
+
+         At pseudo-center point 2: (0,0,+1,0,0), Y = 84.5 and 99,
+            with a mean of 91.75.
+            The fitted model yields a predicted value of
+            Y = 55.30 + 0.5 (26.97*(+1)) = 68.79
+            which is terrible compared to the mean of 91.75
+
+      We thus conclude that this model cannot be freely
+      and universally used for interpolation--in
+      particular for the X3 = +1 (that is, the number
+      of rubber bands = 2) case.  We are thus led to
+      the prospect of a model whose adequacy is
+      conditional--based on the setting of a discrete
+      variable (X3).  As a matter of experience, this
+      is a quite common occurrance when discrete
+      variables are involved in the analysis.  When
+      this occurs (that such a factor is important,
+      discrete, and the 2 levels of such a factor
+      behave drastically different), then the
+      suggestive corrective action is to split the
+      analysis (and carry out 2 parallel analyses (and
+      models, and settings)--one based on X3 = -1 and
+      one based on X3 = +1.
+
+      Four added benefits of such an approach are
+
+         1. Simplified Sub-models: the resulting 2
+            sub-models are each frequently quite simple
+            (since all of the interaction terms
+            involving X3 (in this case) disappear with
+            the subsetting;
+
+         2. Improved Predicted values: the prediction
+            equations yield better (more accurate)
+            predicted values;
+
+         3. Improved best settings: This follows from
+            the above.  This line of analysis will be
+            pursued later.
+
+         4. Improved Insight: Separating out a dominant
+            discrete terms encourages a separation of
+            engineering cause-effect into 2 separate
+            camps, both devoid of complicated
+            interactions;
+
+Such subset fitting yields the following:
+
+   For X3 = -1 data only (n = 8)
+
+        Y =

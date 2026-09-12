@@ -1,0 +1,21 @@
+.
+.  Macro to generate chi-square PPF Table.  List to 3
+.  digits.  This is the upper critical values.
+.
+cd f:\handbook\eda\section3\dpmacros
+let alpha = data 0.10 0.05 0.025 0.01 0.001
+set write rewind off
+set write format f4.0,5x,5(f9.3,1x)
+.
+feedback off
+loop for k = 1 1 100
+   let ytemp = chsppf(alpha,k)
+   let b1 = ytemp(1)
+   let b2 = ytemp(2)
+   let b3 = ytemp(3)
+   let b4 = ytemp(4)
+   let b5 = ytemp(5)
+   write chsppf2.out k b1 b2 b3 b4 b5
+end of loop
+.
+quit

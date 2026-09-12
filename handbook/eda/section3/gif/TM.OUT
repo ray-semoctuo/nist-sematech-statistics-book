@@ -1,0 +1,47 @@
+ 
+            Tietjen-Moore Test for Multiple Outliers: Two-Sided Case
+                            (Assumption: Normality)
+ 
+Response Variable: Y
+ 
+H0: There are no outliers
+Ha: The     2 most extreme points are outliers
+Potential Outlier Value Tested:                 -1.3999
+Potential Outlier Value Tested:                  0.0600
+ 
+Summary Statistics:
+Number of Observations:                              15
+Sample Minimum:                                 -1.3999
+Sample Maximum:                                  1.0100
+Sample Mean:                                     0.0180
+Sample SD:                                       0.5509
+ 
+Tietjen-Moore Test Statistic Value:              0.2919
+CDF Value:                                       0.9656
+P-Value                                          0.0344
+ 
+ 
+ 
+Percent Points of the Reference Distribution
+-----------------------------------
+  Percent Point               Value
+-----------------------------------
+            0.0    =          0.064
+            1.0    =          0.237
+            2.5    =          0.277
+            5.0    =          0.315
+           10.0    =          0.362
+           25.0    =          0.435
+           50.0    =          0.508
+          100.0    =          0.755
+ 
+Conclusions (Lower 1-Tailed Test)
+----------------------------------------------
+  Alpha    CDF   Critical Value     Conclusion
+----------------------------------------------
+    10%    10%            0.362      Reject H0
+     5%     5%            0.315      Reject H0
+   2.5%   2.5%            0.277      Accept H0
+     1%     1%            0.237      Accept H0
+ 
+  *Critical Values Based on    10000 Monte Carlo Simulations

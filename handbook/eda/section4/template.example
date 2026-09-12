@@ -1,0 +1,15 @@
+<!-----begin section: examples -->
+
+<tr>
+   <td width=15% valign=top>
+      <a name = "examples"> </a>
+      <I>Examples</I>
+   </td>
+   <td width=85% valign=top>
+      <dl>
+         <dt> <a href = "histogr1.htm"> 1. Normal </a><br>
+         <dt> <a href = "histogr2.htm"> 2. Symmetric, Non-Normal, Short-Tailed </a> <br>
+      </dl>
+   </td>
+</tr>
+

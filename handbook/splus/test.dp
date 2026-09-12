@@ -1,0 +1,4 @@
+device 1 x11
+let a = 2
+x3label automatic
+plot x**2 for x = 1 1 9

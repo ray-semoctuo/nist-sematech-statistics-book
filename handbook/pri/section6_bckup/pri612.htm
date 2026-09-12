@@ -1,0 +1,224 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.2. Main Effects</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri613.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri611.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Main Effects</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="dexscatter">
+<I>
+Plot the Data: Dex Scatter Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+A first step in the analysis is to plot the data.  The
+<a href="../../eda/section3/dexsplot.htm">dex scatter plot</a>
+is an effective tool for this.
+<P>
+<A HREF="splett3/gifs/dexsct_f.gif">
+<img src="splett3/gifs/dexsct_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot shows clear effect for factor 1, less clear for factors 2 and 3">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions from the DEX Scatter Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can make the following conclusions based on the dex scatter
+plot.
+<ol>
+   <li>Important Factors: Factor 1 (Number of Turns) is clearly
+       important, since when X1 = -1, all 4 senstivities are low (all less than 2)
+       and when X1 = +1, all 4 sensitivities are high (all higher than 3).
+       Factor 2 (Winding Distance) is less important, since the 4 sensitivities for X2 = -1
+       are only slightly higher than the 4 sensitivities for X2 = +1.
+       Factor 3 (Wire Guage) does not appear to be important at all,
+       since the sensitivity is about the same (on the average)
+       regardless of the settings for X3.
+       <p>
+   <li>Best Settings: The best settings depend on the definition of
+       "best" for the response.  In this experiment, we are using
+       the device as a detector, and so high sensitivities are
+       desirable.  Given this, our first pass at best settings
+       yields (X1 = +1, X2 = -1, X3 = either).
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="dexmean">
+<I>
+Check for Main Effects: Dex Mean Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+One of the primary questions is what are the most important
+factors?  One aspect of this is to identify any significant
+main effects.  The
+<a href="../../eda/section3/dexmeanp.htm">dex mean plot</a>
+is an effective tool for this.
+<P>
+<A HREF="splett3/gifs/dexmea_f.gif">
+<img src="splett3/gifs/dexmea_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot shows factor 1 is most significant, factor 2 next most significant, factor 3 least significiant">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions from the DEX Mean Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The dex mean plot (or main effects plot) reaffirms the ordering of
+the dex scatter plot, but additional information is gleaned
+because the eyeball distance between the mean values gives an
+approximation to the least squares estimate for the factor
+effects.
+<p>
+We make the following conclusions from the above dex mean plot:
+<ol>
+   <li>Ranking of Factors: <br>
+       X1 (effect = large   : about 3 ohms) <br>
+       X2 (effect = moderate: about -1 ohm) <br>
+       X3 (effect = small   : about 1/4 ohm) <br>
+       <p>
+   <li>Best Settings: As before, choose those factor settings
+       which (on the average) maximize the sensitivity, namely,
+       <p>
+       <ul>
+          (X1,X2,X3) = (+,-,+)
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Comparison of Plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Both the dex scatter plot and the dex mean plot are useful first
+steps in viewing the data from a factorial experiment.  The dex mean
+plot shows the main effects more clearly than the dex scatter plot.
+However, the dex scatter plot will show more detail, such as the
+presence of outliers, that will be hidden in the dex mean plot.
+We recommend generating both plots in the initial look at the data.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri611.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri613.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

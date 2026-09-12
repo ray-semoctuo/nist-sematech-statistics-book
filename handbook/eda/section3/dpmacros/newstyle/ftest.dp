@@ -1,0 +1,15 @@
+.
+.  Generate sample output for F Test
+.
+dimension 20 variables
+skip 50
+read jahanmi2.dat run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch = 1
+retain y2 subset batch = 2
+echo on
+capture ftest.out
+f  test y1 y2
+end of capture 
+quit

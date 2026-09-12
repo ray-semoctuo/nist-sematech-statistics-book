@@ -1,0 +1,203 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.2.3. Model Estimation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc624.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc622.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.htm">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc62.htm">Negiz Data</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Model Estimation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="ARMAOUT">
+<I>
+Dataplot ARMA Output
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<FONT SIZE=-1>
+Dataplot generated the following output for an AR(3) model.
+<PRE>
+  
+  
+ #############################################################
+ #  NONLINEAR LEAST SQUARES ESTIMATION FOR THE PARAMETERS OF #
+ #  AN ARIMA MODEL USING BACKFORECASTS                       #
+ #############################################################
+  
+  SUMMARY OF INITIAL CONDITIONS
+  ------------------------------
+  
+     MODEL SPECIFICATION
+  
+        FACTOR          (P     D     Q)    S
+             1           3     0     0     1
+  
+  
+  
+ DEFAULT SCALING USED FOR ALL PARAMETERS.
+  
+                                                           ##STEP SIZE FOR
+                                          ######PARAMETER  ##APPROXIMATING
+  #################PARAMETER DESCRIPTION  STARTING VALUES  #####DERIVATIVE
+  INDEX  #########TYPE  ##ORDER  ##FIXED  ##########(PAR)  ##########(STP)
+  
+      1  AR (FACTOR 1)        1       NO   0.10000000E+00   0.22896898E-05
+      2  AR (FACTOR 1)        2       NO   0.10000000E+00   0.22688602E-05
+      3  AR (FACTOR 1)        3       NO   0.10000000E+00   0.22438846E-05
+      4             MU      ###       NO   0.10000000E+01   0.25174593E-05
+  
+  NUMBER OF OBSERVATIONS                  (N)   559
+  MAXIMUM NUMBER OF ITERATIONS ALLOWED                      (MIT)   500
+  MAXIMUM NUMBER OF MODEL SUBROUTINE CALLS ALLOWED                 1000
+  
+  CONVERGENCE CRITERION FOR TEST BASED ON THE
+     FORECASTED RELATIVE CHANGE IN RESIDUAL SUM OF SQUARES (STOPSS)  0.1000E-09
+     MAXIMUM SCALED RELATIVE CHANGE IN THE PARAMETERS       (STOPP)  0.1489E-07
+  
+  MAXIMUM CHANGE ALLOWED IN THE PARAMETERS AT FIRST ITERATION (DELTA)   100.0
+  RESIDUAL SUM OF SQUARES FOR INPUT PARAMETER VALUES                   0.3537E+07
+       (BACKFORECASTS INCLUDED)
+  RESIDUAL STANDARD DEVIATION FOR INPUT PARAMETER VALUES    (RSD)       79.84
+  BASED ON DEGREES OF FREEDOM       559 -   0 -   4 =  555
+  
+  NONDEFAULT VALUES....
+  
+  AFCTOL.... V(31) =  0.2225074-307
+  
+  
+  
+  
+  ##### RESIDUAL SUM OF SQUARES CONVERGENCE #####
+  
+  
+  
+  
+  
+  ESTIMATES FROM LEAST SQUARES FIT (* FOR FIXED PARAMETER)
+  ########################################################
+  
+                PARAMETER     STD DEV OF ###PAR/   ##################APPROXIMATE
+                ESTIMATES  ####PARAMETER ####(SD    95 PERCENT CONFIDENCE LIMITS
+  TYPE ORD    ###(OF PAR)  ####ESTIMATES ##(PAR)    #######LOWER     ######UPPER
+  
+  FACTOR 1
+    AR  1  0.58969407E+00 0.41925732E-01   14.07  0.52061708E+00  0.65877107E+00
+    AR  2  0.23795137E+00 0.47746327E-01    4.98  0.15928434E+00  0.31661840E+00
+    AR  3  0.15884704E+00 0.41922036E-01    3.79  0.89776135E-01  0.22791795E+00
+    MU ##  0.11472145E+03 0.78615948E+00  145.93  0.11342617E+03  0.11601673E+03
+  
+  NUMBER OF OBSERVATIONS                  (N)   559
+  RESIDUAL SUM OF SQUARES                  108.9505
+      (BACKFORECASTS INCLUDED)
+  RESIDUAL STANDARD DEVIATION             0.4430657
+  BASED ON DEGREES OF FREEDOM  559 -   0 -   4 =  555
+  APPROXIMATE CONDITION NUMBER             89.28687
+  
+  
+</PRE>
+<FONT SIZE=+0>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+ 
+   
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first section of the output identifies the model and shows
+the starting values for the fit.  This output is primarily
+useful for verifying that the model and starting values were
+correctly entered.
+<p>
+The section labelled "ESTIMATES FROM LEAST SQUARES FIT" gives
+the parameter estimates, standard errors from the estimates,
+and 95% confidence limits for the parameters.  A confidence
+interval that contains zero indicates that the parameter is
+not statistically significant and could probably be dropped from
+the model.  In this case, the parameters for lags 1, 2, and 3 are
+all statistically significant.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc622.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc624.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

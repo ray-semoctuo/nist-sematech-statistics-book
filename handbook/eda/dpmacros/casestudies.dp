@@ -1,0 +1,949 @@
+. This is Dataplot Program file    casestudies.dp
+. Purpose--Generate WWW Graphics gallery Plots
+. June 1996
+.
+. -----Start Point-----
+.
+device 1 x11
+.
+.  Jim's dplogf.tex settings
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+.
+write " "
+write "--------------- UNIV-1. rand normal random numbers RANDN.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read RANDN.DAT Y
+.
+x3label size 6
+tic label size 6
+character size 4
+x3label automatic
+4-PLOT Y
+x3label
+.
+justification center
+height 5
+move 50 96; text Normal Random Numbers:  4-Plot
+.
+. let string mark = RANDN.DAT
+. call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat randn4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-2. rand uniform random numbers RANDU.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read RANDU.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Rand Uniform Random Numbers:  4-Plot
+.
+let string mark = RANDU.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+.
+system cp dppl1f.dat randu4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-3. random walk RANDWALK.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read RANDWALK.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Random Walk:  4-Plot
+.
+let string mark = RANDWALK.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat randwa4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-4. flicker FLICKER.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read FLICKER.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Flicker Noise:  4-Plot
+.
+let string mark = FLICKER.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat flicke4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-5. josephson junction cryothermometry SOULEN.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read SOULEN.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Josephson Junction Cryothermometry:  4-Plot
+.
+let string mark = SOULEN.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat soulen4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-6. beam deflections LEW.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+x3label size 6
+tic label size 6
+character size 4
+x3label automatic
+major tic mark number 3
+4-PLOT Y
+x3label
+.
+justification center
+height 5
+move 50 96; text Beam Deflections:  4-Plot
+.
+. let string mark = LEW.DAT
+. call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat lew4p.ps
+QUIT
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-7. filter transmittance MAVRO.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read MAVRO.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Filter Transmittance:  4-Plot
+.
+let string mark = MAVRO.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat mavro4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-8. standard resistor DZIUBA.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read DZIUBA.DAT yjunk y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Standard Resistor:  4-Plot
+.
+let string mark = DZIUBA.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat dziuba4p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-9. heat flow meter 1 ZARR13.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read ZARR13.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Heat Flow Meter 1:  4-Plot
+.
+let string mark = ZARR13.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat zarr134p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-10. heat flow meter 2 ZARR14.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read ZARR14.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Heat Flow Meter 2:  4-Plot
+.
+let string mark = ZARR14.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat zarr144p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-11. heat flow meter 3 ZARR15.DAT---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read ZARR15.DAT y
+.
+x3label size 3
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 4 3
+move 50 96; text Heat Flow Meter 3:  4-Plot
+.
+let string mark = ZARR15.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat zarr154p.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-12. normal probability plot NORMAL.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read NORMAL.DAT y
+.
+title Normal Random Numbers:  Normal Probability Plot
+y1label Ordered Response
+x1label Normal N(0,1) Order Statistic Medians
+. x3label automatic
+.
+characters x
+lines blank
+.
+normal probability plot y
+.
+let string mark = NORMAL.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat normnopp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-x. ppcc plot NORMAL.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read NORMAL.DAT y
+.
+title Normal Random Numbers:  (Tukey) PPCC Plot
+y1label Probability Plot Correlation Coefficient
+x1label Tukey Distribution Tail Length (Lambda)
+. x3label automatic
+.
+characters x
+lines blank
+.
+PPCC plot y
+.
+let string mark = NORMAL.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat normppcc.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- UNIV-13. airplane glass failure time FULLER2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read FULLER2.DAT y
+.
+title Airplane Glass Failure Time:  Weibull Plot
+y1label Weibull Probability
+x1label Log(Strength)
+. x3label automatic
+.
+characters x blank
+lines blank solid
+.
+weibull plot y
+.
+let string mark = FULLER2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat fuller2.ps
+.
+reset variables clsb limits
+.
+write "--------------- TIME-1. beam deflections LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+title Beam Deflections:  Spectrum
+y1label Spectral Power
+x1label Frequency (cycles per observation)
+. x3label automatic
+y1label offset 12
+.
+spectrum y
+.
+let string mark = LEW.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat lewspect.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- REGR-1. alaska pipeline BERGER1.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read BERGER1.DAT y x
+.
+title Alaska Pipeline:  Scatter Plot
+y1label In-field Crack Size Reading
+x1label In-lab Crack Size Reading
+. x3label automatic
+.
+characters x
+lines blank
+.
+plot y x
+y1label
+x1label
+.
+let string mark = BERGER1.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat berger1.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- REGR-2. load cell calibration PONTIUS.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read PONTIUS.DAT y x
+.
+title
+. x3label automatic
+.
+linear fit y x
+6-plot y x
+.
+justification center
+hw 4 3
+move 50 92; text Load Cell Calibration:  6-plot
+.
+let string mark = PONTIUS.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat pontius.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- REGR-3. nuclear safeguards SPIEGEL.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read SPIEGEL.DAT y x
+.
+title
+. x3label automatic
+.
+linear fit y x
+6-plot y x
+.
+justification center
+hw 4 3
+move 50 92; text Nuclear Safeguards:  6-plot
+.
+let string mark = SPIEGEL.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat spiegel.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 1FAC-1. wafer thickness TAAM2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read TAAM2.DAT y xpos ypos lab
+.
+title Wafer Thickness:  Scatter Plot
+y1label Thickness
+x1label Lab
+. x3label automatic
+.
+characters x all
+lines solid all
+.
+. xlimits 1 15
+plot y lab lab
+xlimits
+.
+let string mark = TAAM2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat taam2.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 1FAC-2. 1969 draft lottery DRAFT69.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read DRAFT69.DAT rank day month
+.
+title 1969 Draft Lottery:  Mean Plot
+y1label Mean Rank
+x1label Month
+. x3label automatic
+.
+characters x
+lines solid
+.
+xlimits 1 12
+mean plot rank month
+xlimits
+.
+let string mark = DRAFT69.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat draft69.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 1FAC-3. noaa ozone study box plot PBF11.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read PBF11.DAT year day j1 j2 f11 flag wv co2
+retain year day j1 j2 f11 wv co2 flag subset flag 0
+let x = int(day/31)+1
+.
+title NOAA Ozone Study:  Box Plot
+y1label Water Vapor Concentration
+x1label Month
+. x3label automatic
+.
+characters box plot
+lines box plot
+.
+xlimits 1 12
+ylimits 1 1.015
+box plot wv x
+xlimits
+ylimits
+.
+let string mark = PBF11.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat pbf11.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 1FAC-4. ceramic strength JAHANMI2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read JAHANMI2.DAT run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch 1
+retain y2 subset batch 2
+.
+title Ceramic Strength:  Bihistogram
+y1label Counts
+x1label Ceramic Strength
+. x3label automatic
+.
+legend 1 batch 1
+legend 2 batch 2
+legend 1 coordinates 20 84
+legend 2 coordinates 20 23
+.
+bihistogram y1 y2
+.
+legend 1
+legend 2
+.
+let string mark = JAHANMI2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat jahanmbi.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- COMP-1. boys shoe material wear BOXSHOES.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXSHOES.DAT y material boy
+.
+title Boys Shoe Material:  Block Plot
+y1label Wear
+x1label Boy(10)
+. x3label automatic
+.
+characters 1 2
+lines blank blank
+x1tic labels off; x1tics off
+.
+legend 1 Plot Character = Material(2)
+legend 1 coordinates 16 86
+block plot y boy material
+legend 1
+.
+x1tic labels on; x1tics on
+.
+let string mark = BOXSHOES.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat boxshoes.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- COMP-2. defective light bulbs SHEESLE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read SHEESLE2.DAT y weld plant speed shift
+.
+title Defective Light Bulbs:  Block Plot
+y1label Average Defects per Hour
+x1label Plant(2) x Speed(2) X Shift(3)
+. x3label automatic
+.
+characters 1 2
+lines blank blank
+x1tic labels off; x1tics off
+.
+legend 1 Plot Character = Weld Method(2)
+legend 1 coordinates 16 86
+xlimits 0.5 2.5
+block plot y plant speed shift weld
+xlimits
+legend 1
+.
+x1tic labels on; x1tics on
+.
+let string mark = SHEESLE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat sheesle2.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- SCRE-3. bike speed BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title Bike Speed:  DEX Scatter Plot
+y1label Response
+x1label Factors
+. x3label automatic
+.
+characters x blank
+lines blank solid
+.
+dex scatter plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat boxbiksp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- SCRE-4. bike speed BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title Bike Speed:  DEX Mean Plot
+y1label Mean Response
+x1label Factors
+. x3label automatic
+.
+dex mean plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat boxbikmp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- SCRE-4. bike speed BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+LET NUMFAC = 7
+LET STRING STAT = MEAN
+LET DP = 1
+YLIMITS 50 90
+title
+. y1label SD Response
+. x1label Factors
+. x3label automatic
+.
+CALL DEXSTAT2.DP
+YLIMITS
+.
+justification center
+hw 4 3
+move 50 92; text Bike Speed.  DEX Interaction Effects Matrix
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat boxbikip.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- INTL-1. ASTM Stress Corrosion UGIANSKY.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read UGIANSKY.DAT y1 y2 lab
+.
+title ASTM Stress Corrosion:  Youden Plot
+y1label Run 1 Reading
+x1label Run 2 Reading
+. x3label automatic
+.
+characters 1 2 3 4 5 6 7 8 9
+character size 3 all
+lines blank all
+.
+limits 0 5
+youden plot y1 y2 lab
+limits
+character size 2 all
+.
+let string mark = UGIANSKY.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat ugiansky.ps
+.
+reset variables clsb limits
+.
+write " "
+write "(to do)------------ MULV-1. planets PLANETS.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read PLANETS.DAT y1 to y9
+column limits 1 132
+let n = number y1
+let car = sequence 1 1 n
+.
+title 1979 Auto Gas Mileage:  Star Plot
+y1label
+x1label
+. x3label automatic
+.
+lines dotted all
+lines solid
+limits -1.5 1.5
+.
+star plot y1 y2 y3 y4 y5 y6 y7 y8 y9 subset car 1
+.
+limits
+.
+let string mark = PLANETS.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat planets.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- MULV-2. auto gas mileage AUTO79.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+column limits 19 132
+read AUTO79.DAT y1 to y9
+column limits 1 132
+let n = number y1
+let car = sequence 1 1 n
+.
+title 1979 Auto Gas Mileage:  Star Plot
+y1label
+x1label
+. x3label automatic
+.
+lines dotted all
+lines solid
+limits -1.5 1.5
+.
+star plot y1 y2 y3 y4 y5 y6 y7 y8 y9 subset car 1
+.
+limits
+.
+let string mark = AUTO79.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat auto79.ps
+.
+reset variables clsb limits
+.
+write " "

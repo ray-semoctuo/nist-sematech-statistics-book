@@ -1,0 +1,120 @@
+.
+.  Flow chart for "Is A Measurement Process In Statistical Control"
+.
+device 1 x11
+device 2 postscript
+orientation portrait
+erase
+case asis
+box shadow hw 0 0
+device 1 font simplex
+.
+justification center
+height 3
+move 50 95
+text Is a Measurement Process In Statistical Control?
+.
+height
+justification left
+move 40 85
+text Random Drawings
+move 40 82
+text Fixed Distribution
+move 40 79
+text Fixed Location
+move 40 76
+text Fixed Variation
+justification center
+box 38 88 65 74
+.
+justification center
+move 50 63
+text Test Assumptions
+box 38 66 62 61
+hw 1.5 0.75
+region fill on
+arrow 50 74 50 66
+hw
+region fill off
+.
+draw 50 61 50 56
+draw 20 56 80 56
+draw 20 56 20 50
+draw 50 56 50 50
+draw 80 56 80 50
+.
+move 20 46
+text Fixed
+move 20 43
+text Location and
+move 20 40
+text Variation?
+diamond 8 43 20 50 32 43
+.
+move 50 43
+text Random?
+diamond 38 43 50 50 62 43
+.
+move 80 46
+text Fixed
+move 80 43
+text Distribution?
+diamond 68 43 80 50 92 43
+.
+hw 1.5 0.75
+region fill on
+arrow 32 43 38 43
+arrow 62 43 68 43
+arrow 92 43 98 43
+hw
+region fill off
+move 34 43.5
+text Yes
+move 64 43.5
+text Yes
+move 94 43.5
+text Yes
+draw 98 43 98 10
+hw 1.5 0.75
+region fill on
+arrow 98 10 60 10
+hw
+region fill off
+.
+move 50 12
+text Process Is
+move 50 9
+text In Statistical
+move 50 6
+text Control
+box 40 15 60 5
+.
+hw 1.5 0.75
+region fill on
+arrow 20 36 20 31
+arrow 50 36 50 31
+arrow 80 36 80 31
+hw
+region fill off
+justification left
+move 21 34
+text No
+move 51 34
+text No
+move 81 34
+text No
+justification center
+.
+move 20 28
+text Investigate Cause
+box 8 31 32 25
+.
+move 50 28
+text Investigate Cause
+box 38 31 62 25
+.
+move 80 28
+text Investigate Cause
+box 68 31 92 25
+.
+quit

@@ -1,0 +1,80 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+set ipl1na scale.ps
+device 2 postscript
+thickness 0.2
+x1label displacement 10
+frame corner coordinates 15 25 98 95
+.
+let y1 = normal random numbers for i = 1 1 10000
+let a1 = standard deviation y1
+let b1 = mad y1
+let c1 = range y1
+let a1 = round(a1,3)
+let b1 = round(b1,3)
+let c1 = round(c1,3)
+.
+let y2 = double exponential random numbers for i = 1 1 10000
+let a2 = standard deviation y2
+let b2 = mad y2
+let c2 = range y2
+let a2 = round(a2,3)
+let b2 = round(b2,3)
+let c2 = round(c2,3)
+.
+let y3 = cauchy random numbers for i = 1 1 10000
+let a3 = standard deviation y3
+let b3 = mad y3
+let c3 = range y3
+let a3 = round(a3,2)
+let b3 = round(b3,3)
+let c3 = round(c3,1)
+.
+let lambda = 1.2
+let y4 = tukey-lambda random numbers for i = 1 1 10000
+let a4 = standard deviation y4
+let b4 = mad y4
+let c4 = range y4
+let a4 = round(a4,3)
+let b4 = round(b4,3)
+let c4 = round(c4,3)
+.
+multiplot corner coordiantes 2 2 98 98
+multiplot 2 2
+label size 7
+title size 6
+title displacement -8
+tic mark label size 6
+height 7
+xlimits -10 10
+.
+title normal random numbers
+x1label sd = ^a1, mad = ^b1, r= ^c1
+histogram y1
+.
+title double exponential rand numb
+tic offset units screen
+ytic offset 0 3
+x1label sd = ^a2, mad = ^b2, r= ^c2
+histogram y2
+ytic offset 0 0
+.
+title cauchy random numbers
+x1label sd = ^a3, mad = ^b3, r= ^c3
+histogram y3 subset y3 = -10 to 10
+.
+title tukey lambda (l=1.2) rand numb
+x1label sd = ^a4, mad = ^b4, r= ^c4
+ytic offset 0 5
+histogram y4
+.
+end of multiplot
+.
+box 0 0 100 100
+device 2 close
+system cp SCALE.PS scale.ps
+.
+quit

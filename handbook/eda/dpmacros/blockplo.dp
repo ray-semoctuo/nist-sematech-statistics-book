@@ -1,0 +1,58 @@
+.
+.  Create a GIF file for a block plot
+.
+DEVICE 1 X11
+SET IPL1NA BLOCKPLO.PS
+DEVICE 2 POSTSCRIPT
+.
+.  Jim's dplogf.tex defaults
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS DATA
+XTIC OFFSET 0.2 0.2
+YTIC OFFSET 0 3
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+THICKNESS 0.2
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+.
+skip 25
+read SHEESLE2.DAT y weld plant speed shift
+.
+title Block Plot
+y1label Average Defects per Hour
+x1label Plant (2) x Speed (2) X Shift (3)
+.
+CHARACTER SIZE 4 ALL
+characters 1 2
+lines blank blank
+x1tic labels off
+x1tics off
+xlimits 1 2
+xtic offset 0.5 0.5
+.
+legend 1 Plot Character = Weld Method (2)
+legend 1 coordinates 16 86
+block plot y plant speed shift weld
+.
+let string mark = SHEESLE2.DAT
+call mark5.dp
+.
+BOX 0 0 100 100
+DEVICE 2 CLOSE
+SYSTEM mv BLOCKPLO.PS blockplo.ps
+.
+QUIT

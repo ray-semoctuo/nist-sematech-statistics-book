@@ -1,0 +1,9 @@
+device 1 x11
+call data.dp
+call summary.dp
+call location.dp
+call variatio.dp
+call random.dp
+. call distribu.dp
+. call outlier.dp
+call report.dp

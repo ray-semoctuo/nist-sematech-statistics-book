@@ -1,0 +1,188 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   <HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>1.3.3.13.3. Histogram Interpretation: Symmetric, Non-Normal,
+                    Long Tailed</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="eda33d4.htm" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="eda33d2.htm" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+	   <area sharea shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">1.</FONT> <A HREF="../eda.htm"><FONT COLOR="#00105A">Exploratory Data Analysis</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.</FONT> <A HREF="eda3.htm"><FONT COLOR="#00105A">EDA Techniques</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.3.</FONT> <A HREF="eda33.htm"><FONT COLOR="#00105A">Graphical Techniques: Alphabetic</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.3.13.</FONT> <A HREF="eda33d.htm"><FONT COLOR="#00105A">Histogram</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">1.3.3.13.3.</FONT> Histogram Interpretation: Symmetric, Non-Normal,
+                    Long Tailed </H2>
+<FONT SIZE=-1>
+</=-1>
+</=-1>
+</P>
+</FONT></FONT></FONT>
+   </TD>
+   </TR>
+
+   
+
+   
+
+   
+
+   
+
+<!-----paragraph 1----->
+
+<tr>
+   <td width=15% valign=top>
+      &nbsp;
+   </td>
+
+   <td width=85%>
+      <img align = left src = "../gif/histogr3.gif">
+   </td>
+</tr>
+
+<!-----paragraph 2----->
+
+<tr>
+   <td width=15% valign=top>
+      &nbsp;
+   </td>
+
+   <td width=85%>
+For a symmetric distribution,
+the "body" of a distribution
+refers to the "center" of
+the distribution--commonly that region of the distribution
+where most of the probability resides--the "fat" part
+of the distribution.
+The "tail" of a distribution refers to the extreme regions
+of the distribution--both left and right.
+The "tail length" of a distribution is a term which
+indicates how fast these extremes approach zero.
+<p>
+For a short-tailed distribution, the tails approach zero
+very fast.  Such distributions commonoly have a truncated
+("sawed-off") look.  The classical short-tailed distribution is the
+uniform (= rectangular) distribution in which the
+probability is constant over a given range and then drops
+to zero everywhere else--we would speak of this as having
+no tails, or extremely short tails.
+<p>
+For a moderate-tailed distribution, the tails dive to zero
+in a "moderate" fashion.  The classical moderate-tailed
+distribution is the norma (= Gaussian) distribution.
+<p>
+For a long-tailed distribution, the tails dive to zero
+very slowly--and hence one is apt to see probability
+a long way from the body of the distribution.  The classical
+long-tailed distribution is the Cauchy distribution.
+<p>
+In terms of tail-length, the histogram shown above would
+be characteristic of a "long-tailed" distribution,
+such as the Cauchy distribution.
+<p>
+The "who-cares" of all of the above tail-length discussion
+is the little-known statistical fact that the choice of the optimal
+(unbiased and most precise) estimator for location for the
+center of a distribution is heavily dependent on the tail-length
+of the distibution.  The common choice of taking n observations
+and using the calculated sample
+mean as our best estimate for the center of the distribution
+makes perfect sense for the normal distribution (moderate-tailed), but is a
+poor choice for the uniform distribution (short-tailed), and
+is a horrible choice for the Cauchy distribution (long-tailed).
+Although for the normal distribution, the sample mean is as "tight" (precise)
+an estimator as we can get, for the uniform and Cauchy distributions,
+the sample mean is unduly noisy (variable)--other location
+estimators exist which give
+much better (more precise) estimates of location--for the same amount of data.
+<p>
+If you have a sample of n observations from a uniform
+distribution, then do not use the sample mean; do use
+the sample midrange:
+<p>
+<dd> sample midrange = (smallest + largest) / 2
+<p>
+The resulting calculated value will be much closer to the truth
+(the population mean).
+If you have a Cauchy distribution, then also do not use
+the sample median; do instead use the sample median:
+   <p>
+      <dd> sample median = the middle observation <br>
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp of the n ordered data (if n odd).
+      <dd> sample median = the average of the 2 middle <br>
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp observations of the n ordered data
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp (if n even).
+   <p>
+      <b> Recommended Next Step </b> <br>
+      <dd> 1. Do a Cauchy probability plot to check
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbspuniformity--if linear, then uniform.
+      <dd> 2. Do a Tukey Lambda PPCC plot to determine
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbspthe best-fit symmetric distribution--
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbsplook for the curve max which indicates
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbspthe distribution with the most linear
+      <dd> &nbsp&nbsp&nbsp&nbsp&nbspprobability plot.
+
+   </td>
+</tr>
+   
+  
+   
+  
+   
+  
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov">
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="0,19,91,35">
+   </MAP>
+
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="eda33d2.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="eda33d4.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   </HTML>

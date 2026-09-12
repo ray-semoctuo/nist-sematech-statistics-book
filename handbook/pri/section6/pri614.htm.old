@@ -1,0 +1,226 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.4. Estimate Main and Interaction Effects</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri615.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri613.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Estimate Main and Interaction Effects</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="yates">
+<I>
+Effects Estimation
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although the effect estimates were given on the
+<a href="pri613.htm">dex mean interaction plot</a> on the previous
+page, they can also be estimated quantitatively.
+<P>
+The full model for the 2<sup>3</sup> factorial design is
+<P>
+    <img src="splett3/eqns/fullmode.gif">
+<P>
+Factorial designs with two levels can be fit using the Yates
+technique, which is described in 
+<a href="../section7/pri7.htm">Box, Hunter, and Hunter</a>.
+The Yates technique utilizes the special structure of these 
+designs to simplify the computation and presentation of the fit.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Dataplot Output
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+Dataplot generated the following output for the Yates analysis.
+<PRE>
+  
+(NOTE--DATA MUST BE IN STANDARD ORDER)
+NUMBER OF OBSERVATIONS           =        8
+NUMBER OF FACTORS                =        3
+NO REPLICATION CASE
+  
+PSEUDO-REPLICATION STAND. DEV.   =    0.20152531564E+00
+PSEUDO-DEGREES OF FREEDOM        =        1
+(THE PSEUDO-REP. STAND. DEV. ASSUMES ALL
+3, 4, 5, ...-TERM INTERACTIONS ARE NOT REAL,
+BUT MANIFESTATIONS OF RANDOM ERROR)
+  
+STANDARD DEVIATION OF A COEF.    =    0.14249992371E+00
+(BASED ON PSEUDO-REP. ST. DEV.)
+  
+GRAND MEAN                       =    0.26587500572E+01
+GRAND STANDARD DEVIATION         =    0.17410624027E+01
+  
+99% CONFIDENCE LIMITS (+-)       =    0.90710897446E+01
+95% CONFIDENCE LIMITS (+-)       =    0.18106349707E+01
+99.5% POINT OF T DISTRIBUTION    =    0.63656803131E+02
+97.5% POINT OF T DISTRIBUTION    =    0.12706216812E+02
+  
+IDENTIFIER    EFFECT        T VALUE      RESSD:     RESSD:
+                                         MEAN +     MEAN +
+                                         TERM    CUM TERMS
+----------------------------------------------------------
+   MEAN       2.65875                   1.74106    1.74106
+      1       3.10250         21.8*     0.57272    0.57272
+      2      -0.86750         -6.1      1.81264    0.30429
+     23       0.29750          2.1      1.87270    0.26737
+     13       0.24750          1.7      1.87513    0.23341
+      3       0.21250          1.5      1.87656    0.19121
+    123       0.14250          1.0      1.87876    0.18031
+     12       0.12750          0.9      1.87912    0.00000
+  
+
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Description of Yates Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In fitting 2-level factorial designs, Dataplot takes advantage
+of the special structure of these designs in computing the fit
+and printing the results.  Specifically, the main effects and 
+interaction effects are printed in sorted order from most
+significant to least significant.  It also prints the t-value
+for the term and the residual standard deviation obtained by
+fitting the model with that term and the mean (the column
+labeled RESSD MEAN + TERM) and for the model with that term, the
+mean, and all other terms that are more statistically significant
+(the column labeled RESSD MEAN + CUM TERMS).
+<P>
+Of the five columns of output, the most important are the first
+(which is the identifier), the second (which is the least squares
+estimated effect = the difference of means), and the last (which
+is the residuals standard deviation for the cumualtive model, which
+will be discussed in more detail in the next section).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In summary, the Yates analysis provides us with the following
+ranked list of important factors.
+<ol>
+   <li>X1 (Number of Turns): effect estimate =  3.1025 ohms
+   <li>X2 (Winding Distance): effect estimate = -0.8675 ohms
+   <li>X2*X3 (Winding Distance with Wire Guage): effect estimate
+       = .2975 ohms
+   <li>X1*X3 (Number of Turns with Wire Guage): effect estimate
+       = .2475 ohms
+   <li>X3 (Wire Guage): effect estimate =  .2125 ohms
+   <li>X1*X2*X3 (Number of Turns with Winding Distance with Wire
+       Guage): effect estimate = .1425 ohms
+   <li>X1*X2 (Number of Turns with Winding Distance): effect
+      estimate = .1275 ohms
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri613.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri615.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

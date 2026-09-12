@@ -1,0 +1,11 @@
+.
+. Starting Step 3.3 - Generate a Weibull Hazard Plot
+.
+xtic offset 0 0
+title automatic
+y1label Weibull Cumulative Hazard
+x1label Log or Ordered Response
+character x
+line blank
+WEIBULL HAZARD PLOT Y
+. Finished Step 3.3: Page Back for Output

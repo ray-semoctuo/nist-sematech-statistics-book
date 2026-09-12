@@ -1,0 +1,39 @@
+.
+.  Generate sample output for Gamma Cumulative Hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na gamcha4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Cumulative Hazard
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+XLIMITS 0 10
+TITLE Gamma Cumulative Hazard (0.5 df)
+PLOT GAMCHAZ(X,0.5) FOR X = 0.01 0.01 10
+TITLE Gamma Cumulative Hazard (1 df)
+PLOT GAMCHAZ(X,1) FOR X = 0.01 0.01 10
+TITLE Gamma Cumulative Hazard (2 df)
+PLOT GAMCHAZ(X,2) FOR X = 0.01 0.01 10
+TITLE Gamma Cumulative Hazard (5 df)
+PLOT GAMCHAZ(X,5) FOR X = 0.01 0.01 10
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp GAMCHA4.PS gamcha4.ps
+system rm GAMCHA4.PS
+.
+quit

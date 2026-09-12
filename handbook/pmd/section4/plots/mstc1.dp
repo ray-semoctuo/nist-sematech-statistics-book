@@ -1,0 +1,25 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 99 99 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank
+device 2 postscript
+skip 1
+read tcex1.dat x yt y pred
+xlabel Temperature
+y1label Voltage
+xlimits 100 600
+ylimits 0 2000
+tic offset units data
+xtic offset 10 10
+ytic offset 30 30
+plot y x
+device 2 close
+system mv dppl1f.dat mstcex1.ps
+quit

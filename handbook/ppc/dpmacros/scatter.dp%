@@ -1,0 +1,3 @@
+ylabel uc()Thickness
+character .
+plot thk run 

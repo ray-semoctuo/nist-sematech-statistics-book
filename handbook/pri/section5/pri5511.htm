@@ -1,0 +1,319 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.1.1. Single response: Path of steepest ascent</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5512.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri551.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri551.htm">Single response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.1.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single response: Path of steepest ascent</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Starting
+at the current operating conditions, fit a linear model, determine the
+directions of steepest ascent and continue experimenting until no further
+improvement occurs - then iterate the process</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><i>Flow chart of iterative search process</i>
+<br>&nbsp;
+<br>&nbsp;
+<p>&nbsp;</td>
+
+<td WIDTH="85%"><!-- Add main text below -->If experimentation is initially
+performed in a new, poorly understood production process, chances are that
+the initial operating conditions <i>X<sub>1</sub>, X<sub>2</sub>, ...,X<sub>k</sub></i>&nbsp;
+are located far from the region where the factors achieve a maximum or
+minimum for the response of interest
+<b>Y</b>. A first order model will
+serve as a good local approximation in a small region close to the initial
+operating conditions and far from where the process exhibits curvature.
+Therefore, it makes sense to fit a simple first order (or linear polynomial)
+model of the form:
+<p><a NAME="First order"></a><img SRC="gifs/img7.gif" height=18 width=247 align=CENTER>.&nbsp;
+<p>Experimental strategies for fitting this type of models were discussed
+earlier. Usually, a 2<sup>k-p</sup> fractional factorial experiment is
+conducted with repeated runs at the current operating conditions (which
+serve as the origin of coordinates in orthogonally coded factors).
+<p>The idea behind "Phase I'' is to keep experimenting along the direction
+of steepest ascent (or descent, as required) until there is no further
+improvement in the response. At that point, a new fractional factorial
+experiment with center runs is conducted to determine a new search direction.
+This process is repeated until at some point significant curvature in&nbsp;<img SRC="gifs/img15.gif" ALT=""  align=BOTTOM>
+is detected. This implies that the operating conditions <i>X<sub>1</sub>,
+X<sub>2</sub>, ...,X<sub>k</sub></i>&nbsp; are close to where the maximum
+(or minimum, as required) of <b>Y</b> occurs. When significant curvature,
+or lack of fit, is detected, the experimenter should proceed with "Phase
+II". Figure 5.2 illustrates a sequence of line searches when seeking a
+region where curvature exists in a problem with 2 factors (i.e., <b>k=2</b>).
+<p><a NAME="66"></a><a NAME="fig2"></a><img SRC="gifs/img19.gif" ALT=""  align=BOTTOM>
+<blockquote><b>FIGURE 5.2:</b> <b>A Sequence of Line Searches for a 2 Factor
+Optimization Problem</b></blockquote>
+
+<p><br>There are two main decisions an engineer must make in Phase I:
+<ol>
+<li>
+determine the search direction;</li>
+
+<li>
+determine the length of the step to move from the current operating conditions.</li>
+</ol>
+Figure 5.3 shows a flow diagram of the different iterative tasks required
+in Phase I. This diagram is intended as a guideline and should not be automated
+in such a way that the experimenter has no input in the optimization process.
+<p><a NAME="74"></a><a NAME="fig3"></a><img SRC="gifs/img20.gif" ALT=""  align=BOTTOM>
+<br>&nbsp;
+<blockquote>
+<center><b>FIGURE 5.3: Flow Chart for the First Phase of the Experimental
+Optimization Procedure</b></center>
+</blockquote>
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><i>The direction of steepest ascent
+is determined by the gradient of the fitted model and depends on the scaling
+convention - equal variance scaling is recommended</i></td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%"><b>Procedure for Finding the Direction
+of Maximum Improvement.</b>
+<p>Suppose a first order model like <a href="#First order">above</a> has
+been fitted and provides a useful approximation. As long as lack of fit
+(due to pure quadratic curvature and interactions) is small compared to
+the main effects, steepest ascent can be attempted. To determine the direction
+of maximum improvement we use
+<ol>
+<li>
+the estimated direction of steepest ascent, given by the gradient of&nbsp;<img SRC="gifs/img22.gif" ALT=""  align=BOTTOM>,
+if the objective is to <i>maximize</i> <b>Y</b>;</li>
+
+<li>
+the estimated direction of steepest descent, given by the negative of the
+gradient of&nbsp;<img SRC="gifs/img23.gif" ALT=""  align=BOTTOM>, if the
+objective is to <i>minimize</i> <b>Y</b>.</li>
+</ol>
+The direction of the gradient,&nbsp;<img SRC="gifs/img24.gif" ALT=""  align=CENTER>,
+is given by the values of the parameter estimates, that is,&nbsp;<img SRC="gifs/img25.gif" ALT=""  align=CENTER>.
+Since the parameter estimates&nbsp;<img SRC="gifs/img26.gif" ALT=""  align=CENTER>
+depend on the scaling convention for the factors, the steepest ascent (descent)
+direction is also scale dependent. That is, two experimenters using different
+scaling conventions will follow different paths for process improvement.
+This does not diminish the general validity of the method, since the region
+of the search, as given by the signs of the parameter estimates, does not
+change with scale. An equal variance scaling convention, however, is recommended.
+The coded factors&nbsp;<img SRC="gifs/img27.gif" ALT=""  align=CENTER>
+in terms of the factors in the original units of measurement,&nbsp;<img SRC="gifs/img28.gif" ALT=""  align=CENTER>,
+are obtained from the relation
+<p><img SRC="gifs/img29.gif" ALT=""  align=BOTTOM>
+<p>This coding convention is recommended since it provides better parameter
+estimates, and therefore, a more reliable search direction. The coordinates
+of the factor settings on the direction of steepest ascent separated a
+distance&nbsp;<img SRC="gifs/img30.gif" ALT=""  align=CENTER> from the
+origin are given by:
+<p><img SRC="gifs/img31.gif" ALT=""  align=BOTTOM>
+<br><img SRC="gifs/img32.gif" ALT=""  align=BOTTOM>
+<p>This problem can be solved with the aid of an optimization solver (e.g.
+like the solver option of a spreadsheet). However, in this case this is
+not really needed, as the solution is a simple equation which yields the
+coordinates
+<p><a NAME="eq2"></a><img SRC="gifs/img33.gif" ALT=""  align=BOTTOM>
+<p>An engineer can compute this equation for different increasing values
+of&nbsp;<img SRC="gifs/img34.gif" ALT=""  align=CENTER> and get different
+factor settings all on the steepest ascent direction.
+<p>To see the details of why this equation is true, see <a href="pri5511.htm#5.A. Technical">Technical
+Appendix 5A.</a>
+<p>&nbsp;</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><i>Optimization by search example</i></td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%"><a NAME="Example. Optimization of a Chemical"></a><b>Example.
+Optimization of a Chemical Process.</b>
+<p>It has been concluded (perhaps after a factor screening experiment)
+that the yield (<b>Y</b>, in %) of a chemical process is mainly affected
+by the temperature (<img SRC="gifs/img36.gif" ALT=""  align=CENTER>, in&nbsp;<img SRC="gifs/img37.gif" height=7 width=6 align=TEXTTOP>C
+) and by the reaction time (<img SRC="gifs/img38.gif" ALT=""  align=CENTER>,
+in minutes). Due to safety reasons, the region of operation is limited
+to
+<p><img SRC="gifs/img39.gif" ALT=""  align=BOTTOM>
+<p>The process is currently run at a temperature of 200&nbsp;<img SRC="gifs/img40.gif" height=7 width=6 align=TEXTTOP>C
+and a reaction time of 200 minutes. A process engineer decides to run a&nbsp;<img SRC="gifs/img41.gif" ALT=""  align=BOTTOM>
+full factorial experiment with factor levels at
+<p><img SRC="gifs/img42.gif" ALT=""  align=BOTTOM>
+<p>Five repeated runs at the center levels are conducted to assess lack
+of fit. The orthogonally coded factors are
+<p><img SRC="gifs/img43.gif" ALT=""  align=BOTTOM>
+<p>The experimental results were:
+<p><img SRC="gifs/img44.gif" ALT=""  align=BOTTOM>
+<p>The corresponding ANOVA table for a first order polynomial model, obtained
+using the DESIGN EASE statistical software, is
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM OF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MEAN&nbsp;&nbsp;&nbsp; F
+&nbsp; SOURCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQUARES&nbsp;&nbsp; DF&nbsp; SQUARE&nbsp; VALUE&nbsp; PROB>F
+
+MODEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 503.3035&nbsp;&nbsp; 2&nbsp; 251.6517 4.810&nbsp; 0.0684
+CURVATURE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8.1536&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 8.1536 0.1558 0.7093
+RESIDUAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 261.5935&nbsp;&nbsp; 5&nbsp;&nbsp; 52.3187
+&nbsp; LACK OF FIT&nbsp;&nbsp; 37.6382&nbsp;&nbsp; 1&nbsp;&nbsp; 37.6382 0.6722 0.4583
+&nbsp; PURE ERROR&nbsp;&nbsp; 223.9553&nbsp;&nbsp; 4&nbsp;&nbsp; 55.9888
+COR TOTAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 773.0506&nbsp;&nbsp; 8</pre>
+It can be seen from the ANOVA table that there is no significant lack of
+linear fit due to an interaction term, and there is no evidence of curvature.
+Furthermore, there is evidence that the first order model is significant.
+Using the DESIGN EXPERT statistical software we obtain the resulting model
+(in the coded variables) as
+<p><img SRC="gifs/img48.gif" ALT=""  align=BOTTOM>
+<p>Usual diagnostic checks show conformance to the regression assumptions,
+although the R<sup>2</sup> value is not very high:&nbsp; R<sup>2</sup>
+= 0.6580.
+<p>To <i>maximize<img SRC="gifs/img53.gif" ALT=""  align=BOTTOM></i>, we
+use the direction of steepest ascent. The engineer selects&nbsp;<img SRC="gifs/img54.gif" ALT=""  align=CENTER>,
+since a point on the steepest ascent direction distanced one unit (in the
+coded units) from the origin is desired. Then from the equation above for
+the predicted <i>Y</i> response, the coordinates of the factor levels for
+the next run are given by:
+<p><img SRC="gifs/img56.gif" ALT=""  align=BOTTOM>
+<p>and
+<p><img SRC="gifs/img57.gif" ALT=""  align=BOTTOM>
+<p>This means that to improve the process, for every&nbsp;<img SRC="gifs/img58.gif" ALT=""  align=CENTER><img SRC="gifs/img59.gif" height=7 width=6 align=TEXTTOP>C
+that temperature is varied (decreased), the reaction time should be varied
+by&nbsp;<img SRC="gifs/img60.gif" ALT=""  align=CENTER> minutes.
+<br>&nbsp;=======================================================================</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><i>Details of how to determine the
+path of steepest ascent</i></td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+<h3>
+<a NAME="5.A. Technical"></a>Technical Appendix 5A: finding the factor
+settings on the steepest ascent direction a distance from origin</h3>
+The problem of finding the factor settings on the steepest ascent/descent
+direction that are located at a distance&nbsp;<img SRC="gifs/img301.gif" ALT=""  align=CENTER>
+from origin is given by the optimization problem,
+<p><img SRC="gifs/img302.gif" ALT=""  align=BOTTOM>
+<br><img SRC="gifs/img303.gif" ALT=""  align=BOTTOM>
+<p>To solve it, use a Lagrange multiplier. First, add a penalty&nbsp;<img SRC="gifs/img304.gif" ALT=""  align=BOTTOM>
+for solutions not satisfying the constraint (since we want a direction
+of steepest ascent, we maximize, and therefore the penalty is negative.
+For steepest descent we minimize and the penalty term is added instead):
+<p><img SRC="gifs/img305.gif" ALT=""  align=BOTTOM>
+<p>Compute the partials and equate them to zero
+<p><img SRC="gifs/img306.gif" ALT=""  align=BOTTOM>
+<br>&nbsp;
+<br>&nbsp;
+<p><img SRC="gifs/img307.gif" ALT=""  align=BOTTOM>
+<p>These two equations have two unknowns (the vector&nbsp;<img SRC="gifs/img308.gif" ALT=""  align=BOTTOM>
+and the scalar<img SRC="gifs/img309.gif" ALT=""  align=BOTTOM>) and thus
+can be solved yielding the desired solution:
+<p><img SRC="gifs/img310.gif" ALT=""  align=BOTTOM>
+<p>or, in non-vector notation:
+<p><img SRC="gifs/img311.gif" ALT=""  align=BOTTOM>
+<p>From this equation, we can see that any multiple&nbsp;<img SRC="gifs/img312.gif" ALT=""  align=CENTER>
+of the direction of the gradient (given by&nbsp;<img SRC="gifs/img313.gif" ALT=""  align=CENTER>)
+will lead to points on the steepest ascent direction. For steepest descent,
+use instead&nbsp;<img SRC="gifs/img314.gif" ALT=""  align=CENTER> in the
+numerator of the equation above.</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri551.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5512.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

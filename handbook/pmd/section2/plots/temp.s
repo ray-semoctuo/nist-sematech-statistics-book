@@ -1,0 +1,15 @@
+attach(tmp.dat,pos=1)
+set.seed(93)
+x <- rep(seq(0,10,2),rep(5,6))
+yt <- 5 + 8*x 
+nreps <- 500
+ym <- matrix(yt + rnorm(30*nreps,sd=2*x+0.5),ncol=nreps,nrow=30)
+pm <- predict(lm(ym[,1]~x))
+postscript(file="temp.ps",hor=T)
+par(mgp=c(1.75,0.75,0),mar=c(3,3,0,0))
+plot(x,ym[,1],ylim=range(cbind(pm,ym[,1])),ylab="y")
+lines(x,pm)
+abline(c(5,8))
+dev.off()
+assign("htscd1.dat",data.frame(x=x,yt=yt,ym=ym),where=2)
+detach(what=1,save=F)

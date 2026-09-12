@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\begin{document}
+\pagestyle{empty}
+\Large
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+\boldmath
+\[
+D = \beta_0 + \beta_1 L + \epsilon
+\]
+
+\[
+D = \beta_0 + \beta_1 L + \beta_2 L^2 + \epsilon
+\]
+
+\begin{eqnarray*}
+\hat{D} & = & 0.673618\times10^{-3}  \\
+           & + & (0.732059\times10^{-6})L  \\
+           & - & (0.316081\times10^{-14})L^2
+\end{eqnarray*}
+
+\hspace*{.5in}
+
+\[
+\begin{array}{ccl}
+1.239722 & > & \hat{D} + t_{0.975,37} \cdot \hat{\sigma}_p \\
+         &   \Downarrow & \\
+      L  & > & 1704513
+\end{array}
+\]
+
+\hspace*{.5in}
+
+\[
+\begin{array}{ccl}
+1.239722 & < & \hat{D} - t_{0.975,37} \cdot \hat{\sigma}_p \\
+         &   \Downarrow & \\
+      L  & < & 1705697
+\end{array}
+\]
+
+\end{document}    
+

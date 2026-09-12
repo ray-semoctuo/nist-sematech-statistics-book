@@ -1,0 +1,38 @@
+Dataplot commands and output:
+
+YATES Y
+
+> (NOTE--DATA MUST BE IN STANDARD ORDER)
+> NUMBER OF OBSERVATIONS           =        8
+> NUMBER OF FACTORS                =        3
+> NO REPLICATION CASE
+>   
+> PSEUDO-REPLICATION STAND. DEV.   =    0.20152531564E+00
+> PSEUDO-DEGREES OF FREEDOM        =        1
+> (THE PSEUDO-REP. STAND. DEV. ASSUMES ALL
+> 3, 4, 5, ...-TERM INTERACTIONS ARE NOT REAL,
+> BUT MANIFESTATIONS OF RANDOM ERROR)
+>   
+> STANDARD DEVIATION OF A COEF.    =    0.14249992371E+00
+> (BASED ON PSEUDO-REP. ST. DEV.)
+>   
+> GRAND MEAN                       =    0.26587500572E+01
+> GRAND STANDARD DEVIATION         =    0.17410624027E+01
+>   
+> 99% CONFIDENCE LIMITS (+-)       =    0.90710897446E+01
+> 95% CONFIDENCE LIMITS (+-)       =    0.18106349707E+01
+> 99.5% POINT OF T DISTRIBUTION    =    0.63656803131E+02
+> 97.5% POINT OF T DISTRIBUTION    =    0.12706216812E+02
+>   
+> IDENTIFIER    EFFECT        T VALUE      RESSD:     RESSD:
+>                                          MEAN +     MEAN +
+>                                          TERM    CUM TERMS
+> ----------------------------------------------------------
+>    MEAN       2.65875                   1.74106    1.74106
+>       1       3.10250         21.8*     0.57272    0.57272
+>       2      -0.86750         -6.1      1.81264    0.30429
+>      23       0.29750          2.1      1.87270    0.26737
+>      13       0.24750          1.7      1.87513    0.23341
+>       3       0.21250          1.5      1.87656    0.19121
+>     123       0.14250          1.0      1.87876    0.18031
+>      12       0.12750          0.9      1.87912    0.00000

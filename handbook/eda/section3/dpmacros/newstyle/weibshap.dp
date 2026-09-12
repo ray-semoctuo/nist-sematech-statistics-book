@@ -1,0 +1,45 @@
+.
+.  Generate sample output for Weibull PDF plot
+.
+echo on
+device 1 x11
+device 1 font simplex
+set ipl1na weibshap.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE OFFSET 3
+TITLE SIZE 6
+LABEL SIZE 5
+TIC MARK LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+SET MINMAX MIN
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDIANTES 0 0 100 100
+LET GAMMA = 0.5
+TITLE Weibull PDF (Gamma = ^GAMMA)
+PLOT WEIPDF(X,GAMMA) FOR X = 0.01 0.01 4
+.
+LET GAMMA = 1.0
+TITLE Weibull PDF (Gamma = ^GAMMA)
+PLOT WEIPDF(X,GAMMA) FOR X = 0.01 0.01 4
+.
+LET GAMMA = 2.0
+TITLE Weibull PDF (Gamma = ^GAMMA)
+PLOT WEIPDF(X,GAMMA) FOR X = 0.01 0.01 4
+.
+LET GAMMA = 5.0
+TITLE Weibull PDF (Gamma = ^GAMMA)
+PLOT WEIPDF(X,GAMMA) FOR X = 0.01 0.01 4
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp WEIBSHAP.PS weibshap.ps
+system rm WEIBSHAP.PS
+.
+quit

@@ -1,0 +1,70 @@
+. -----Start Point-----
+.
+device 1 x11
+.
+.  Jim's dplogf.tex defaults
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+THICKNESS 0.2
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+character size 4 all
+.
+device 2 postscript
+.
+skip 25
+read SPLETT3.DAT y x1 x2 x3
+.
+title DEX Youden Plot
+.
+let a1 = mean y subset x1 = +1
+let b1 = mean y subset x1 = -1
+let a2 = mean y subset x2 = +1
+let b2 = mean y subset x2 = -1
+let a3 = mean y subset x3 = +1
+let b3 = mean y subset x3 = -1
+let xjunk = x1*x2
+let a4 = mean y subset xjunk = +1
+let b4 = mean y subset xjunk = -1
+let xjunk = x1*x3
+let a5 = mean y subset xjunk = +1
+let b5 = mean y subset xjunk = -1
+let xjunk = x2*x3
+let a6 = mean y subset xjunk = +1
+let b6 = mean y subset xjunk = -1
+let xjunk = x1*x2*x3
+let a7 = mean y subset xjunk = +1
+let b7 = mean y subset xjunk = -1
+.
+let ytemp = data a1 a2 a3 a4 a5 a6 a7
+let xtemp = data b1 b2 b3 b4 b5 b6 b7
+let tag = data 1 2 3 4 5 6 7
+character 1 2 3 12 13 23 123
+.
+y1label Mean of Y for "+" Values
+x1label Mean of Y for "-" Values
+plot ytemp xtemp tag
+.
+let string mark = SPLETT3.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat dexyoud.ps
+.

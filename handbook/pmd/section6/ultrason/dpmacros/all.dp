@@ -1,0 +1,220 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+. call prefit.dp
+.
+. quit
+.
+set ipl1na plot1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call plot1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv PLOT1.PS plot1.ps
+.
+set ipl1na fit1.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call fit1.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv FIT1.PS fit1.ps
+.
+set ipl1na 6plot1.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call 6plot1.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv 6PLOT1.PS 6plot1.ps
+.
+set ipl1na res1.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call res1.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv RES1.PS res1.ps
+.
+set ipl1na transf1.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call transf1.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv TRANSF1.PS transf1.ps
+.
+set ipl1na transf2.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call transf2.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv TRANSF2.PS transf2.ps
+.
+set ipl1na fit2.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call fit2.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv FIT2.PS fit2.ps
+.
+set ipl1na 6plot2.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call 6plot2.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv 6PLOT2.PS 6plot2.ps
+.
+set ipl1na res2.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call res2.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv RES2.PS res2.ps
+.
+set ipl1na wtfunc.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call wtfunc.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv WTFUNC.PS wtfunc.ps
+.
+set ipl1na wtres.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call wtres.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv WTRES.PS wtres.ps
+.
+set ipl1na fit3.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call fit3.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv FIT3.PS fit3.ps
+.
+set ipl1na res3.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call res3.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv RES3.PS res3.ps
+.
+set ipl1na 6plot3.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call 6plot3.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv 6PLOT3.PS 6plot3.ps
+.
+set ipl1na comp.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call comp.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv COMP.PS comp.ps
+.
+quit

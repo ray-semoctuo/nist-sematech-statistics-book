@@ -1,0 +1,28 @@
+.
+. Starting Eddy Current Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read splett3.dat y x1 x2 x3 runseq
+variable label y Sensitivity
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Guage
+. Finished Step 1.1: Page Back for Output

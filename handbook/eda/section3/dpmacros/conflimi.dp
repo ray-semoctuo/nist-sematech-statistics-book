@@ -1,0 +1,11 @@
+.
+.  Generate sample output for confidence limits
+.
+skip 25
+read zarr13.dat y
+set write decimals 5
+echo on
+capture conflimi.out
+confidence limits y
+end of capture 
+quit

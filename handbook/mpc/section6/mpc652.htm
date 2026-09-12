@@ -1,0 +1,466 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.5.2. Create a calibration curve for the rotameter</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc6521.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc651.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.htm">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.htm">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc65.htm">Uncertainty analysis for extinguishing fire</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.5.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Create a calibration curve for the rotameter</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The primary topic of this case study is on computing
+uncertainties.  If you want to skip the model fitting
+stage, you can choose to <a href="mpc6523.htm">view the
+final model</a> only or go directly to the computation of
+<a href="mpc653.htm"> the predicted values and the
+uncertainties of the predicted values</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of the Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first step in the analysis is to create a calibration curve
+for the rotameter.  This is accomplished by
+<a href="../../pmd/section4/pmd4.htm">fitting a curve</a> to the
+data points.
+<P>
+We <a href="../../eda/section3/scatterp.htm">plot the data</a>
+in order to determine an appropriate model.
+<P>
+<A HREF="fireunc/gifs/plot1_f.gif">
+<img src="fireunc/gifs/plot1_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot indicates a linear fit may be appropriate">
+</A>
+<P>
+This plot indicates that a linear model might be approriate.
+It also shows that the replicated points show very little
+deviation.  That is, for each X value it appears that there is a 
+single point when in fact there are 10 points.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Standard Deviation Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can use a <a href="../../eda/section3/sdplot.htm">standard
+deviation plot</a> to get a better view of the variation in the
+data.
+<P>
+<A HREF="fireunc/gifs/sdplot1_f.gif">
+<img src="fireunc/gifs/sdplot1_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot indicates standard deviation increases as value of flux increases">
+</A>
+<P>
+Although the standard deviations are quite small, the standard
+deviation plot shows the standard deviation increasing as the
+value of flux increases.  The increase is particularly notable
+at flux equal 90.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot with Group Means Subtracted
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+It would be interesting to know if this increasing spread is
+due to a few outliers or is indicative of a pattern of increasing
+variation as the value of flux increases.  We can show this
+by subtracting the group mean of the data values at each value
+of flux.
+<P>
+<A HREF="fireunc/gifs/spread1_f.gif">
+<img src="fireunc/gifs/spread1_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot shows an increasing variation as value of flux increases">
+</A>
+<P>
+This plot shows clearly that the variation is increasing as the
+value of flux increases.  This means that we may need to
+use weighting or transformations in developing the calibration
+curve.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Linear Fit
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The initial plot indicated that a linear model might be
+adequate.  Dataplot generated the following output for a
+linear fit (the output has been edited slightly for display).
+<PRE>
+  
+LEAST SQUARES POLYNOMIAL FIT
+SAMPLE SIZE N       =       80
+DEGREE              =        1
+REPLICATION CASE
+REPLICATION STANDARD DEVIATION =     0.2554919757D-01
+REPLICATION DEGREES OF FREEDOM =          72
+NUMBER OF DISTINCT SUBSETS     =           8
+  
+  
+        PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+ 1  A0                   1.09419       (0.6796E-01)          16.
+ 2  A1                  0.164900       (0.1030E-02)         0.16E+03
+  
+RESIDUAL    STANDARD DEVIATION =         0.2523804009
+RESIDUAL    DEGREES OF FREEDOM =          78
+REPLICATION STANDARD DEVIATION =         0.0255491976
+REPLICATION DEGREES OF FREEDOM =          72
+LACK OF FIT F RATIO =    1256.5281 = THE 100.0000% POINT OF THE
+F DISTRIBUTION WITH      6 AND     72 DEGREES OF FREEDOM
+  
+</PRE>
+The linear fit generated the model
+<UL>
+   <img src="fireunc/eqns/fit1.gif" 
+        alt="Y = 1.094 + 0.165*X">
+</UL>
+This model has a residual standard deviation of 0.254.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of Predicted Values with Raw Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To
+<a href="../../pmd/section4/pmd44.htm">assess the validity of
+the fit</a>, we plot the predicted values with the raw data.
+<P>
+<A HREF="fireunc/gifs/fit1_r.gif">
+<img src="fireunc/gifs/fit1_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot shows an apparently good fit">
+</A>
+<P>
+This plot indicates a good fit.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+4-Plot of Residuals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The next step in the model validation is a residual analysis to
+test the <a href="../../pmd/section2/pmd2.htm">model
+assumptions</a>.  We generate a
+<a href="../../eda/section3/4plot.htm">4-plot</a>
+of the residuals to do this.
+<P>
+<A HREF="fireunc/gifs/4plot1_r.gif">
+<img src="fireunc/gifs/4plot1_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="residuals show assumption violations">
+</A>
+<P>
+This 4-plot reveals serious violations of the regression
+assumptions.  Specifically, the run sequence plot in the
+upper left corner shows a non-random pattern and it shows
+a violation of the assumption of constant location for the
+residuals.  The lag plot in the upper right corner shows
+that the residuals have a strong autocorrelation, which
+violates the assumption of randomness for the residuals.
+When the randomness assumption is violated, the
+distributional plots (the histogram in the lower left
+corner and the normal probability plot in the lower
+right corner) are not meaningful.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Quadratic Fit
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To address these assumption violations, we next fit a
+quadratic model.
+<PRE>
+  
+LEAST SQUARES POLYNOMIAL FIT
+SAMPLE SIZE N       =       80
+DEGREE              =        2
+REPLICATION CASE
+REPLICATION STANDARD DEVIATION =     0.2554919757D-01
+REPLICATION DEGREES OF FREEDOM =          72
+NUMBER OF DISTINCT SUBSETS     =           8
+  
+  
+        PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+ 1  A0                 -0.144687       (0.2165E-01)         -6.7
+ 2  A1                  0.217063       (0.8339E-03)         0.26E+03
+ 3  A2                 -0.434694E-03   (0.6847E-05)         -63.
+  
+RESIDUAL    STANDARD DEVIATION =         0.0347798578
+RESIDUAL    DEGREES OF FREEDOM =          77
+REPLICATION STANDARD DEVIATION =         0.0255491976
+REPLICATION DEGREES OF FREEDOM =          72
+LACK OF FIT F RATIO =      14.1379 = THE 100.0000% POINT OF THE
+F DISTRIBUTION WITH      5 AND     72 DEGREES OF FREEDOM
+  
+</PRE>
+The fitted quadratic model is
+<UL>
+   <img src="fireunc/eqns/fit2.gif" 
+        alt="Y = -0.145 + 0.217*X - 0.000435*X**2">
+</UL>
+The residual standard deviation is now 0.035.  This is nearly a
+factor of 10 reduction.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of Predicted Values with Raw Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To assess the model, we generate the plot of the predicted values
+with the raw data.
+<P>
+<A HREF="fireunc/gifs/fit2_f.gif">
+<img src="fireunc/gifs/fit2_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot shows an apparently good fit">
+</A>
+<P>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+4-Plot of Residuals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We again use the 4-plot to do a residual analysis.
+<P>
+<A HREF="fireunc/gifs/4plot2_f.gif">
+<img src="fireunc/gifs/4plot2_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="residuals do not show major violations of the regression assumptions">
+</A>
+<P>
+This 4-plot does not show major violations of the
+regression assumptions.  The run sequence plot of the
+residuals in the upper left corner indicates constant
+location and scale for the residuals.  The lag plot in the
+upper right corner does not show significant
+autocorrelation for the residuals.  The histogram and
+normal probability plot indicate that the residuals are
+reasonably approximated by a normal distribution.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Outliers
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Even though the 4-plot above showed a reasonable fit, all
+four of these plots indicate a few outliers.
+These are due to the increasing standard deviation as the
+value of flux increases.
+<P>
+There are several approaches we can take towards
+addressing the outliers in the residual plots.
+<UL>
+   <LI>We can accept the quadratic fit as an
+       adequate fit.
+   <LI><a href="mpc6521.htm">We can use weighting where
+       the weights are proportional to the variance</a>.
+   <LI><a href="mpc6522.htm">We can use bisquare weighting
+       of the residuals</a>.
+   <LI><a href="mpc6523.htm">We can delete specific
+       points as outliers</a>.
+</UL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Final Model
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+For this particular data set, there is little practical
+difference in the fitted quadratic model regardless of
+which approach was used.  We have taken the trouble to
+show the different approaches because each of these 
+approaches, or some combination of these approaches, may
+be useful for other data sets.
+<P>
+For this case study, we will use the quadratic model
+based on <a href="mpc6523.htm">deleting two outliers</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc651.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc6521.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

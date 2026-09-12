@@ -1,0 +1,104 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+set ipl1na plot1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call plot1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv PLOT1.PS plot1.ps
+.
+set ipl1na qqfit.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call qqfit.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv QQFIT.PS qqfit.ps
+.
+set ipl1na qq6plo.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call qq6plo.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv QQ6PLO.PS qq6plo.ps
+.
+set ipl1na qqres1.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call qqres1.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv QQRES1.PS qqres1.ps
+.
+set ipl1na ccfit.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call ccfit.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv CCFIT.PS ccfit.ps
+.
+set ipl1na cc6plo.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call cc6plo.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv CC6PLO.PS cc6plo.ps
+.
+set ipl1na ccres1.ps
+device 2 postscript
+label size 3
+tic label size 3
+title size 3
+.
+call ccres1.dp
+.
+label size
+tic label size
+title size
+device 2 close
+system mv CCRES1.PS ccres1.ps
+.
+quit

@@ -1,0 +1,27 @@
+.
+.  Generate sample output for Cauchy Survival plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na causur.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Cauchy Survival
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Survival
+X1LABEL X
+.
+PLOT 1-CAUCDF(X) FOR X = -10 0.01 10
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv CAUSUR.PS causur.ps
+.
+quit

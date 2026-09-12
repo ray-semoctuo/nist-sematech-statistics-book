@@ -1,0 +1,163 @@
+Documentation for Course-builder.pl
+
+This script was tested with PERL 5.8.0 in:
+OS
+ Win2k and perl 5.4 
+ WinXP and Perl 5.4 
+ Sun0S 5.7 and perl 5.0
+
+Browsers
+
+ MSIE 6.0
+ Mozilla 1.4
+ Opera 7.1
+
+
+Configuration
+
+Requirements for the installation
+
+Web server: APACHE 1.# or 2.# or IIS or another.. 
+Perl 5.0 or greater
+WinZip plugging for command line support (windows only)
+	http://www.winzip.com/wzcline.htm 
+
+
+To check for syntax of the script 
+perl –c  course-builder.pl   
+
+Change the first line of the script (the shebang (#!))  According 
+to the OS:
+	
+For Windows
+#!c:/Perl/bin/Perl.exe
+For Unix/Linux
+#!/usr/bin/perl or 
+#!/local/bin/perl
+
+
+Configuring apache: examples
+		DocumentRoot 
+The directory out of which you will serve your 
+documents.
+				Windows
+"C:/handbook"
+note: use forward slash always for 
+the path
+				UNIX
+					"/home/www/handbook"
+		Directory 
+This should be set to whatever you set DocumentRoot 
+to. 
+
+		Option Indexes FollowSymLinks MultiViews +Includes
+
+ScriptAlias /cgi-bin/ "C:/handbook/cgi-bin/" 
+note that ends with slash.
+	
+
+Configuring IIS: examples
+      	Computer Management -> Services and Applications ->
+IIS -> Default Website -> Properties -> 
+HomeDirectory 
+
+In the HomeDirectory tab look for local path and write the 
+handbook folder: 
+	i.e.:  c:\handbook
+
+Configuration of the Course-builder
+
+At the beginning of the script there're some variable that have 
+to be change according to the configuration. For all the path use 
+forward slash "/" always in Unix and Windows.
+
+# URL for handbook's starting page without http://server/
+    i.e.
+$HANDBOOK_URL = '/index.html';
+or 
+$HANDBOOK_URL = '/cf/handbook/index.html';
+
+# Working directory- this is were the temporary folders are 
+created for each particular course. 
+$SCRATCH_DIRECTORY = '/handbook/tmp';  
+Or 
+$SCRATCH_DIRECTORY = '/tmp';
+Note for the link…
+
+# Navigation bar image directory (real operating system 
+directory)
+$NAVGIFDIR = 'cbuild'; 
+Or 
+$NAVGIFDIR = $NAVGIFDIR = 
+'/local/home/luser/wwwsed/cf/handbook/cbuild';
+
+Note: don't use forward slash "/" at the end
+
+# Is operating system UNIX? This is to choose between TAR and ZIP 
+file for the creation of the course. Tar for Unix and ZIP for 
+Windows.
+$UNIX = 0; # 1 = TRUE, 0 = FALSE
+
+# Operating system command to package many files into one.
+$PACKAGER_EXE = 'wzzip ';  #windows
+Or
+$PACKAGER_EXE = 'tar cvf'; #UNIX
+
+
+Boundary issue in MSIE (MIME multipart/mixed)
+
+This script had a browser dependent code that separate "pages" 
+from another when printing the HTML code to de browser.
+ie 
+Content-Type: multipart/mixed; boundary="-—Something"
+
+—-Something
+Content-Type: text/plain;
+This is a test.
+
+—-Something
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; filename="testfile.gif"
+
+This is just compatible with Mozilla/Netscape browsers. MS 
+Internet Explorer just prints the file in the screen (garbage). 
+To resolve this problem the scrip detects the browsers, for 
+Mozilla/Netscape it ask to save the file, for MSIE it ask to 
+download the file using a link.
+
+For more info of the MIME multipart/mixed issue follow this link
+
+Is Multipart MIME valid in HTTP?
+http://groups.google.com/groups?hl=en&lr=&ie=UTF-8&oe=utf-
+8&th=6b2ede3bc05d00bf&rnum=13
+
+Zip & Tar issues
+
+The scrip can use any external application to compress the files. It can be 
+configure to compress in Tar, Zip, etc. look for the variable "$PACKAGER_EXE" in 
+top of the script were the "CONFIGURATION VARIABLES" are, and 
+change to the appropriate command. 
+
+There is one limitation; the scrip can use just one compression 
+application. One quick fix is having two scripts one for Win and 
+one for Unix, and let the user decide. 
+
+WinZip plugging for command line support (windows only) is needed 
+in order to create zip files with the script. 
+	http://www.winzip.com/wzcline.htm
+
+WinZIP can open the TAR file created in UNIX/Linux
+
+Logo
+	Is possible to customize the logo that's on top of the 'course'. 
+One option is to replace the image located in 
+ …\…\handbook\cbuild\c-logo.gif to the one you prefer.
+
+
+
+
+
+
+
+	

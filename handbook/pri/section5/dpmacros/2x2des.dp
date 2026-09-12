@@ -1,0 +1,30 @@
+.
+.  Macro to generate geometric representation of 2x2 design
+.  with sample response values
+.
+device 1 x11
+device 2 gd jpeg
+device 2 picture points 200 200
+.
+limits -1 1
+major tic mark number 2
+minor tic mark number 0
+tic offset 0 0
+.
+x1label X1
+y1label X2
+label size 5
+tic label size 5
+.
+read x y tag
+-0.9 -0.9  1
+ 0.9 -0.9  2
+ 0.9  0.9  3
+-0.9  0.9  4
+end of data
+character 2 4 8 6
+character size 5 all
+line bl bl bl bl
+.
+plot y x tag
+.

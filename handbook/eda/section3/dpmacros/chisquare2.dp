@@ -1,0 +1,41 @@
+.
+.  Generate sample output for Chi-Square Goodness of Fit
+.
+let y1 = normal random numbers for i = 1 1 1000
+let y2 = double exponential random numbers for i = 1 1 1000
+let nu = 3
+let y3 = t random numbers for i = 1 1 1000
+let sigma = 1
+let y4 = lognormal random numbers for i = 1 1 1000
+.
+set write decimals 5
+set histogram class width normal corrected
+.
+feedback off
+echo on
+capture chisquare.out
+let yt2 xt2 = binned y1
+let yt3 xt31 xt32 = combine frequency table yt2 xt2
+let ksloc   = mean y1
+let ksscale = sd y1
+normal chi-square goodness of fit test yt3 xt31 xt32
+delete yt2 xt2 yt3 xt31 xt32
+let yt2 xt2 = binned y2
+let yt3 xt31 xt32 = combine frequency table yt2 xt2
+let ksloc   = mean y2
+let ksscale = sd y2
+normal chi-square goodness of fit test yt3 xt31 xt32
+delete yt2 xt2 yt3 xt31 xt32
+let yt2 xt2 = binned y3
+let yt3 xt31 xt32 = combine frequency table yt2 xt2
+let ksloc   = mean y3
+let ksscale = sd y3
+normal chi-square goodness of fit test yt3 xt31 xt32
+delete yt2 xt2 yt3 xt31 xt32
+let yt2 xt2 = binned y4
+let yt3 xt31 xt32 = combine frequency table yt2 xt2
+let ksloc   = mean y4
+let ksscale = sd y4
+normal chi-square goodness of fit test yt3 xt31 xt32
+end of capture 
+quit

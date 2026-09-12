@@ -1,0 +1,16 @@
+.
+. Starting Step 2.1
+.
+multiplot corner coordinates 2 2 98 98
+character x
+line blank
+4-plot y
+height 3.5
+justification center
+move 67 38
+text ppcc = ^ppcc
+move 67 34
+text ppa0 = ^ppa0
+move 67 30
+text ppa1 = ^ppa1
+. Finished Step 2.1: Page Back for Output

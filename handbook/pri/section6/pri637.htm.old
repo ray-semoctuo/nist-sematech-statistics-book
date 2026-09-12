@@ -1,0 +1,108 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.3.7. Dex Contour Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri638.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri636.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri63.htm">Catapult Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.3.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Dex Contour Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<!-- Add marginal notes below -->
+<i>
+DEX Contour Plot
+</i>
+</td>
+
+<td WIDTH="85%">
+<!-- Add main text below -->
+In order to determine the best settings for the factors, we can use
+a dex contour plot. The dex contour plot shows the value of the
+response variable at the vertices (i.e, the -1 and +1 settings for
+the factor variables) and indicates the direction that maximizes or
+minimizes the response variable. The dex contour plot is shown for
+exactly 2 factor variables. If you have more than 2 significant
+factors, you may need to generate a series of dex contour plots
+(each using 2 of the important factors).
+<p>
+The following is the dex contour plot of the X4 (Arm Length)
+and Number of Bands (X3).
+<p>
+<a href="catapult/gifs/dexcon_f.gif">
+<img SRC="catapult/gifs/dexcon_r.gif"
+     ALT="The dex contour plot identifies X3=1 and X4=1 as the optimal settings"
+     BORDER=0 height=425 width=550>
+</a>
+<p>
+The maximum value of the response variable (distance) corresponds
+to X4 (Arm Length) equal to +1 and X3 (Number of Bands) equal to
++1. The thickened line in the contour plot corresponds to the direction
+that maximizes the response variable.
+</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri636.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri638.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

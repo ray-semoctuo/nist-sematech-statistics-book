@@ -1,0 +1,45 @@
+.
+. Starting Step 3.1
+quadratic fit rot flux
+let res2 = res
+quadratic fit rot flux subset res2 <= 0.1
+.
+skip 0
+read dpst4f.dat varcov
+print varcov
+let sa  = varcov(1)
+let sb  = varcov(5)
+let sc  = varcov(9)
+let sab = varcov(2)
+let sac = varcov(3)
+let sbc = varcov(6)
+let s = ressd
+let function ysd1 = 2*sab*fluxnew
+let function ysd2 = (sb+2*sac)*fluxnew**2
+let function ysd3 = 2*sbc*fluxnew**3
+let function ysd4 = sc*fluxnew**4
+let function ysd = sqrt(s*s + sa + ysd1 + ysd2 + ysd3 + ysd4)
+.
+let function f1 = (sa + sab + sac)
+let function f2 = (sab + sb + sbc)*fluxnew**2
+let function f3 = (sac + sbc + sc)*fluxnew**4
+let function f = sqrt(f1 + f2 + f3)
+.
+let b0 = a0
+let b1 = a1
+let b2 = a2
+let function ypred = b0 + b1*fluxnew + b2*fluxnew**2
+.
+skip 25
+read DONNELL2.DAT fluxnew
+skip 0
+let flowpred = ypred
+let flowsd = ysd
+let flowsd2 = f
+.
+CAPTURE YSD.OUT
+print ressd
+set write format f3.0,5x,f12.7,5x,f12.7,5x,f12.7
+write fluxnew  flowpred flowsd flowsd2
+END OF CAPTURE
+. Finished Step 3.1: Page Back for Output

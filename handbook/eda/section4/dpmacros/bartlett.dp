@@ -1,0 +1,10 @@
+.
+.  Generate sample output for confidence limits
+.
+skip 25
+read gear.dat y x
+echo on
+capture bartlett.out
+bartlett test y x
+end of capture 
+quit

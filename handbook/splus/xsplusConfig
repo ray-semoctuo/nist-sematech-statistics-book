@@ -1,0 +1,30 @@
+#  This file contains executable and font specifications for xdp.
+
+#  This file can exist in several locations.  It is searched for in several
+#  directories and the first occurance of the file is the one that will be
+#  used.  This way a user can have a different set of fonts than the default
+#  values.
+
+#  The order of the directories where xdp looks for this file is:
+#  (1) the current directory, (2) the user's home directory, (3) the system
+#  directory for the xdp Tcl files.  The file can be names xdpConfig or .xdpConfig
+
+
+#  The executable specification gives the pathname for Dataplot executables
+#  on different platforms.  The second field contains the name of the platform 
+#  (windows, unix) or operating system (IRIX, AIX, HP-UX, SunOS, etc.).  The 
+#  operating system is usually only specified for unix platforms.  Executable
+#  specifications based on operating system must appear after those specified 
+#  by platform.
+
+#dataplot windows  c:/Dataplot/Dp_cons.exe
+#dataplot unix     dataplot
+dataplot unix     /local/bin/Splus5
+#dataplot unix      gnuplot
+#dataplot SunOS    /net/linden/local/src/dataplot/dataplot_sun
+#dataplot AIX      /mountpts/scratch.blazon/heckert/rs_6000/dataplot_rs6000
+#dataplot HP-UX    /mountpts/scratch.blazon/heckert/hp/dataplot_hp
+
+library  windows  c:/Dataplot
+library  unix     /usr/local/apps/dataplot/lib
+

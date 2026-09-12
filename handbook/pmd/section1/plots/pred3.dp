@@ -1,0 +1,67 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 99 99 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank
+device 2 postscript
+seed 68
+let x = uniform random numbers for i = 1 1 40
+let x = 20 + 50*x
+let yt = 5 + 4*x
+seed 9
+let z = normal random numbers for i = 1 1 40
+let z = 5*z
+let y = yt + z
+write pred3.dat y x
+linear fit y x
+xlabel Temperature
+y1label Pressure 
+xlimits 20 70
+ylimits 0 300
+tic offset units data
+xtic offset 1 1
+ytic offset 5 5
+plot y pred vs x
+let xv = 47
+let pvv = data 1 xv
+read dpst1f.dat coef
+let pv = pvv*coef 
+let pv = sum pv
+let lcb = 190.5893
+let ucb = 194.3419
+region fill on
+hw 0.5 2 
+let haep = xv-0.75
+let vaep = lcb-2
+let 
+arrow data xv -5 xv vaep
+arrow data haep lcb 19 lcb
+. arrow data xv pv 19 pv
+arrow data haep  ucb 19 ucb
+lines solid
+drawdata 47 ucb 47 lcb
+drawdata 46.9 lcb 47.1 lcb
+drawdata 46.9 pv 47.1 pv
+drawdata 46.9 ucb 47.1 ucb
+lines blank 
+justification center
+case asis
+let pvtp = pv+3
+hw  3 3
+movedata 32.5 pvtp
+text Pressure = ^pv +/- 1.8763
+let xvtp = xv-1
+movedata xvtp 100
+angle units degrees
+angle 90 
+text Temperature = ^xv
+device 2 close
+system mv dppl1f.dat pred3.ps
+quit
+

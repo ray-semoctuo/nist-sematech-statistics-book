@@ -1,0 +1,43 @@
+\documentstyle[12pt]{article}
+\begin{document}
+
+\[
+Q = \sum_{i=1}^{n} [y - f(x;\beta)]^2
+\]
+
+\[
+Q = \sum_{i=1}^{n} [y - (\beta_1 + \beta_2x)]^2
+\]
+
+\[
+Q = \sum_{i=1}^{n} [y - (\beta_1 + \beta_2\mbox{sine}(\beta_3 + \beta_4x))]^2
+\]
+
+\[
+Q = \sqrt{\frac{\sum_{i=1}^{n} [y - f(x;\hat{\beta})]^2}{(n-p)}}
+\]
+
+\[
+n
+\]
+
+\[
+y
+\]
+
+\[
+f
+\]
+
+\[
+x_1, x_2, \ldots
+\]
+
+\[
+\beta_1, \beta_2, \ldots
+\]
+
+\[
+y = \beta_1 + \beta_2x + \varepsilon
+\]
+\end{document}

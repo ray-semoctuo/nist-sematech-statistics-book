@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\begin{document}
+\pagestyle{empty}
+\Large
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+\Large
+
+
+\begin{eqnarray*}
+C_d = \frac{\dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{K d^2 F \sqrt{\rho} \sqrt{\Delta P}}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+C_d       &=& \mbox{discharge coefficient} \\
+\dot{m} &=& \mbox{mass flow rate} \\ 
+d          &=& \mbox{orifice diameter} \\
+D         &=& \mbox{pipe diameter} \\
+\rho      &=& \mbox{fluid density} \\
+\Delta P &=& \mbox{differential pressure} \\
+K          &=& \mbox{constant} \\
+F          &=& \mbox{thermal expansion factor (constant)} \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\hspace*{-1.25in}
+s^2_{Cd} = \left[ \frac{\partial C_d}{\partial \dot{m}} \right]^2 s^2_{\dot m} +
+                  \left[ \frac{\partial C_d}{\partial d} \right]^2 s^2_d +
+                  \left[ \frac{\partial C_d}{\partial D} \right]^2 s^2_D +
+                 \left[ \frac{\partial C_d}{\partial \rho} \right]^2 s^2_{\rho} +
+                 \left[ \frac{\partial C_d}{\partial \Delta P} \right]^2 s^2_{\Delta P} 
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\frac{\partial C_d}{\partial \dot{m}} = 
+      \frac{\sqrt{1-\left( \frac{d}{D} \right) ^4}}{K d^2 F \sqrt{\rho} \sqrt{\Delta P}}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\frac{\partial C_d}{\partial d} = 
+      \frac{-2\dot{m} d}{K F D^4 \sqrt{\rho} \sqrt{\Delta P} \sqrt{1-\left( \frac{d}{D} \right) ^4}} - 
+      \frac{2 \dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{K d^3 F \sqrt{\rho} \sqrt{\Delta P}}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\frac{\partial C_d}{\partial D} =   
+      \frac{2 \dot{m} d^2}{K F D^4 \sqrt{\rho} \sqrt{\Delta P} \sqrt{1-\left( \frac{d}{D} \right) ^4}}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\frac{\partial C_d}{\partial \rho} =
+        \frac{- \dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{2 K d^2 F \rho^{\frac{3}{2}} \sqrt{\Delta P}}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\frac{\partial C_d}{\partial \Delta P} =
+      \frac{- \dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{2 K d^2 F \sqrt{\rho} (\Delta P)^{\frac{3}{2}}}
+\end{eqnarray*}
+
+
+\end{document}

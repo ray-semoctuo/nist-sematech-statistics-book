@@ -1,0 +1,33 @@
+dimension 200 columns
+.
+read matrix x
+1 -1 0
+1  0 -1
+0  1 -1
+end of data
+.
+let xt = matrix transpose x
+.
+let xtx = matrix multiplication xt x
+.
+print xtx
+.
+read matrix a
+ 2 -1 -1   1
+-1  2 -1   1
+-1 -1  2   0
+ 1  1  0   0
+end of data
+.
+let ainv = matrix inverse a
+print ainv
+.
+read matrix q
+0.166667  -0.166667  0
+0.166667   0.166667  0
+0          0         0.5
+end of data
+.
+let qx = matrix multiplication x q
+print xq
+.

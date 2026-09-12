@@ -1,0 +1,40 @@
+.
+.  Generate sample output for Tukey-Lambda PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na lamppf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 6
+TIC LABEL SIZE 6
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+Y1LABEL DISPLACEMENT 13
+FRAME CORNER COORDINATES 20 20 90 90
+THICKNESS 0.2
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Tukey-Lambda PPF (Lambda = -1)
+LET TEMP = -1
+PLOT LAMPPF(P,TEMP) FOR P = 0.01 0.01 0.99
+TITLE Tukey-Lambda PPF (Lambda = 0.14)
+PLOT LAMPPF(P,0.14) FOR P = 0.01 0.01 0.99
+TITLE Tukey-Lambda PPF (Lambda = 0.5)
+PLOT LAMPPF(P,0.5) FOR P = 0.01 0.01 0.99
+TITLE Tukey-Lambda PPF (Lambda = 5)
+PLOT LAMPPF(P,5) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+device 2 close
+system mv LAMPPF4.PS lamppf4.ps
+.
+quit

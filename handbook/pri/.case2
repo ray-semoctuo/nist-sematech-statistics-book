@@ -1,0 +1,7 @@
+#!/bin/csh -f
+#
+set echo
+foreach name (`ls *.JPG`)
+   set new_name = `echo $name | tr "[A-Z]" "[a-z]"`
+   cp $name $new_name
+end

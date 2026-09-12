@@ -1,0 +1,209 @@
+.
+.  Create Postscript files (to be converted to gif)
+.  for the Ceramic Strength data.
+.
+device 1 x11
+device 1 font simplex
+thickness 0.2
+box shadow hw 0 0 
+call data.dp
+.
+.
+. Starting Step 2.1 - Summary of Response Variable
+.
+ECHO ON
+capture SUMMARY.OUT
+summary y
+END OF CAPTURE
+ECHO OFF
+.
+device 2 postscript
+tic label size 6
+label size 6
+title size 6
+legend size 6
+call 4plot.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat 4plot.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call bihistog.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat bihistog.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call qqplot.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat qqplot.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+y1label displacement 11
+call boxplot.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat boxplot.ps
+y1label displacement
+.
+device 2 postscript
+tic label size 6
+label size 6
+title size 6
+legend size 6
+character size 6 all
+x1label displacement 10
+call blockpl1.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat blockpl1.ps
+character size 2 all
+x1label displacement
+.
+. Starting Step 3.5 - 2-Sample t-test
+.
+ECHO ON
+capture TTEST.OUT
+t-test y1 y2
+END OF CAPTURE
+ECHO OFF
+. Finished Step 3.5: Page Back for Output
+.
+. Starting Step 3.6 - 2-Sample F-test
+.
+ECHO ON
+capture FTEST.OUT
+f test y1 y2
+END OF CAPTURE
+ECHO OFF
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+y1label displacement 11
+call boxplotl.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat boxplotl.ps
+y1label displacement
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+y1label displacement 11
+call boxpltl1.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat boxpltl1.ps
+y1label displacement
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+y1label displacement 11
+call boxpltl2.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat boxpltl2.ps
+y1label displacement
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call dexscat1.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexscat1.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call dexmean1.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexmean1.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call dexsd1.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexsd1.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call dexscat2.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexscat2.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call dexmean2.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexmean2.ps
+.
+device 2 postscript
+tic label size 4
+label size 4
+title size 4
+legend size 4
+call dexsd2.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexsd2.ps
+.
+device 2 postscript
+tic label size 11
+label size  11
+title size
+legend size
+call dexint1.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexint1.ps
+.
+device 2 postscript
+tic label size 11
+label size 11
+title size
+legend size
+call dexint2.dp
+box 0 0 100 100
+device 2 close
+system mv dppl1f.dat dexint2.ps
+.
+quit

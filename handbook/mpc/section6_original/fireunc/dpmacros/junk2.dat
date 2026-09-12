@@ -1,0 +1,367 @@
+  
+       ******************************
+       **  quadratic fit rot flux  **
+       ******************************
+  
+  
+ LEAST SQUARES POLYNOMIAL FIT
+       SAMPLE SIZE N       =       80
+       DEGREE              =        2
+       REPLICATION CASE
+       REPLICATION STANDARD DEVIATION =     0.2554919757D-01
+       REPLICATION DEGREES OF FREEDOM =          72
+       NUMBER OF DISTINCT SUBSETS     =           8
+  
+  
+               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+        1  A0                 -0.144687       (0.2165E-01)         -6.7
+        2  A1                  0.217063       (0.8339E-03)         0.26E+03
+        3  A2                 -0.434694E-03   (0.6847E-05)         -63.
+  
+       RESIDUAL    STANDARD DEVIATION =         0.0347798578
+       RESIDUAL    DEGREES OF FREEDOM =          77
+       REPLICATION STANDARD DEVIATION =         0.0255491976
+       REPLICATION DEGREES OF FREEDOM =          72
+       LACK OF FIT F RATIO =      14.1379 = THE 100.0000% POINT OF THE
+       F DISTRIBUTION WITH      5 AND     72 DEGREES OF FREEDOM
+  
+       COEF AND SD(COEF) WRITTEN OUT TO FILE DPST1F.DAT
+       SD(PRED),95LOWER,95UPPER,99LOWER,99UPPER
+                         WRITTEN OUT TO FILE DPST2F.DAT
+       REGRESSION DIAGNOSTICS WRITTEN OUT TO FILE DPST3F.DAT
+       PARAMETER VARIANCE-COVARIANCE MATRIX AND
+       INVERSE OF X-TRANSPOSE X MATRIX
+       WRITTEN OUT TO FILE DPST4F.DAT
+  
+       *************************
+       **  let n = size flux  **
+       *************************
+  
+  
+ THE SAMPLE SIZE OF THE       80 OBSERVATIONS =   0.8000000E+02
+  
+ THE COMPUTED VALUE OF THE CONSTANT N             =  0.80000000E+02
+  
+  
+       *********************************
+       **  let wt1 = 1 for i = 1 1 n  **
+       *********************************
+  
+  
+ ***** NOTE--
+       ROW START      =        1
+       ROW INCREMENT  =        1
+       ROW STOP       =       80
+       INPUT  NUMBER OF ROWS   =        0
+       NUMBER OF ROWS AFFECTED =       80
+       OUTPUT NUMBER OF ROWS   =       80
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE WT1      =       80
+  
+ THE FIRST          COMPUTED VALUE OF WT1      =  0.100000E+01 (ROW     1)
+ THE LAST (   80TH) COMPUTED VALUE OF WT1      =  0.100000E+01 (ROW    80)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE WT1      =       15
+ THE CURRENT LENGTH OF  THE VARIABLE WT1      =       80
+  
+  
+       **********************************
+       **  let tag2 = 0 for i = 1 1 n  **
+       **********************************
+  
+  
+ ***** NOTE--
+       ROW START      =        1
+       ROW INCREMENT  =        1
+       ROW STOP       =       80
+       INPUT  NUMBER OF ROWS   =       80
+       NUMBER OF ROWS AFFECTED =       80
+       OUTPUT NUMBER OF ROWS   =       80
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE TAG2     =       80
+  
+ THE FIRST          COMPUTED VALUE OF TAG2     =  0.000000E+00 (ROW     1)
+ THE LAST (   80TH) COMPUTED VALUE OF TAG2     =  0.000000E+00 (ROW    80)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE TAG2     =       11
+ THE CURRENT LENGTH OF  THE VARIABLE TAG2     =       80
+  
+  
+       *************************************
+       **  let tag2 = 1 subset res > 0.1  **
+       *************************************
+  
+  
+ ***** NOTE--
+       SUBSET VARIABLE = RES
+       SUBSET MINIMUM  =  0.1000000983E+00
+       SUBSET MAXIMUM  =  0.3402823061E+39
+       INPUT  NUMBER OF OBSERVATIONS  =       80
+       NUMBER OF OBSERVATIONS IGNORED =       78
+       OUTPUT NUMBER OF OBSERVATIONS  =        2
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE TAG2     =        2
+  
+ THE FIRST          COMPUTED VALUE OF TAG2     =  0.100000E+01 (ROW    34)
+ THE LAST (    2TH) COMPUTED VALUE OF TAG2     =  0.100000E+01 (ROW    35)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE TAG2     =       11
+ THE CURRENT LENGTH OF  THE VARIABLE TAG2     =       80
+  
+  
+       ************************
+       **  let tempx = flux  **
+       ************************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE TEMPX    =       80
+  
+ THE FIRST          COMPUTED VALUE OF TEMPX    =  0.400000E+02 (ROW     1)
+ THE LAST (   80TH) COMPUTED VALUE OF TEMPX    =  0.200000E+02 (ROW    80)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE TEMPX    =       16
+ THE CURRENT LENGTH OF  THE VARIABLE TEMPX    =       80
+  
+  
+       ***********************
+       **  let tempy = rot  **
+       ***********************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE TEMPY    =       80
+  
+ THE FIRST          COMPUTED VALUE OF TEMPY    =  0.787100E+01 (ROW     1)
+ THE LAST (   80TH) COMPUTED VALUE OF TEMPY    =  0.401100E+01 (ROW    80)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE TEMPY    =       17
+ THE CURRENT LENGTH OF  THE VARIABLE TEMPY    =       80
+  
+  
+       **********************************************
+       **  retain tempx tempy wt1 subset tag2 = 0  **
+       **********************************************
+  
+  
+ ***** NOTE--
+       SUBSET VARIABLE = TAG2
+       SUBSET MINIMUM  = -0.9999999975E-06
+       SUBSET MAXIMUM  =  0.9999999975E-06
+       INPUT  NUMBER OF OBSERVATIONS  =       80
+       NUMBER OF OBSERVATIONS IGNORED =        2
+       OUTPUT NUMBER OF OBSERVATIONS  =       78
+  
+  
+ VARIABLE TEMPX   --OLD NUMBER OF ELEMENTS =       80
+                    NEW NUMBER OF ELEMENTS =       78
+                    FIRST VALUE DELETED    =   0.9000000E+02
+                          (DELETED FROM ROW       34)
+                    LAST  VALUE DELETED    =   0.9000000E+02
+                          (DELETED FROM ROW       35)
+                    FIRST VALUE RETAINED   =   0.4000000E+02
+                          (MOVED FROM ROW        1 TO ROW        1  )
+                    LAST  VALUE RETAINED   =   0.2000000E+02
+                          (MOVED FROM ROW       80 TO ROW       78)
+  
+ VARIABLE TEMPY   --OLD NUMBER OF ELEMENTS =       80
+                    NEW NUMBER OF ELEMENTS =       78
+                    FIRST VALUE DELETED    =   0.1601000E+02
+                          (DELETED FROM ROW       34)
+                    LAST  VALUE DELETED    =   0.1598000E+02
+                          (DELETED FROM ROW       35)
+                    FIRST VALUE RETAINED   =   0.7871000E+01
+                          (MOVED FROM ROW        1 TO ROW        1  )
+                    LAST  VALUE RETAINED   =   0.4011000E+01
+                          (MOVED FROM ROW       80 TO ROW       78)
+  
+ VARIABLE WT1     --OLD NUMBER OF ELEMENTS =       80
+                    NEW NUMBER OF ELEMENTS =       78
+                    FIRST VALUE DELETED    =   0.1000000E+01
+                          (DELETED FROM ROW       34)
+                    LAST  VALUE DELETED    =   0.1000000E+01
+                          (DELETED FROM ROW       35)
+                    FIRST VALUE RETAINED   =   0.1000000E+01
+                          (MOVED FROM ROW        1 TO ROW        1  )
+                    LAST  VALUE RETAINED   =   0.1000000E+01
+                          (MOVED FROM ROW       80 TO ROW       78)
+  
+       *****************************
+       **  let n2 = size fluxnew  **
+       *****************************
+  
+  
+ THE SAMPLE SIZE OF THE       21 OBSERVATIONS =   0.2100000E+02
+  
+ THE COMPUTED VALUE OF THE CONSTANT N2            =  0.21000000E+02
+  
+  
+       *************************************
+       **  let rotnew = 0 for i = 1 1 n2  **
+       *************************************
+  
+  
+ ***** NOTE--
+       ROW START      =        1
+       ROW INCREMENT  =        1
+       ROW STOP       =       21
+       INPUT  NUMBER OF ROWS   =        0
+       NUMBER OF ROWS AFFECTED =       21
+       OUTPUT NUMBER OF ROWS   =       21
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE ROTNEW   =       21
+  
+ THE FIRST          COMPUTED VALUE OF ROTNEW   =  0.000000E+00 (ROW     1)
+ THE LAST (   21TH) COMPUTED VALUE OF ROTNEW   =  0.000000E+00 (ROW    21)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE ROTNEW   =       18
+ THE CURRENT LENGTH OF  THE VARIABLE ROTNEW   =       21
+  
+  
+       ************************************
+       **  let wtnew = 0 for i = 1 1 n2  **
+       ************************************
+  
+  
+ ***** NOTE--
+       ROW START      =        1
+       ROW INCREMENT  =        1
+       ROW STOP       =       21
+       INPUT  NUMBER OF ROWS   =        0
+       NUMBER OF ROWS AFFECTED =       21
+       OUTPUT NUMBER OF ROWS   =       21
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE WTNEW    =       21
+  
+ THE FIRST          COMPUTED VALUE OF WTNEW    =  0.000000E+00 (ROW     1)
+ THE LAST (   21TH) COMPUTED VALUE OF WTNEW    =  0.000000E+00 (ROW    21)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE WTNEW    =       19
+ THE CURRENT LENGTH OF  THE VARIABLE WTNEW    =       21
+  
+  
+       ****************************
+       **  extend tempx fluxnew  **
+       ****************************
+  
+  
+ THE NUMBER OF VALUES ADDED TO THE VARIABLE TEMPX    =       21
+  
+ THE FIRST           VALUE ADDED TO TEMPX    =   0.2600000E+02   (ROW     79)
+ THE LAST (   21-TH) VALUE ADDED TO TEMPX    =   0.4700000E+02   (ROW     99)
+  
+ THE NEW     LENGTH OF  THE VARIABLE TEMPX    =       99
+  
+  
+       ***************************
+       **  extend tempy rotnew  **
+       ***************************
+  
+  
+ THE NUMBER OF VALUES ADDED TO THE VARIABLE TEMPY    =       21
+  
+ THE FIRST           VALUE ADDED TO TEMPY    =   0.0000000E+00   (ROW     79)
+ THE LAST (   21-TH) VALUE ADDED TO TEMPY    =   0.0000000E+00   (ROW     99)
+  
+ THE NEW     LENGTH OF  THE VARIABLE TEMPY    =       99
+  
+  
+       ************************
+       **  extend wt1 wtnew  **
+       ************************
+  
+  
+ THE NUMBER OF VALUES ADDED TO THE VARIABLE WT1      =       21
+  
+ THE FIRST           VALUE ADDED TO WT1      =   0.0000000E+00   (ROW     79)
+ THE LAST (   21-TH) VALUE ADDED TO WT1      =   0.0000000E+00   (ROW     99)
+  
+ THE NEW     LENGTH OF  THE VARIABLE WT1      =       99
+  
+  
+       *******************
+       **  weights wt1  **
+       *******************
+  
+  
+ THE WEIGHTS VARIABLE HAS JUST BEEN DESIGNATED AS WT1
+  
+       *********************************
+       **  quadratic fit tempy tempx  **
+       *********************************
+  
+  
+ LEAST SQUARES POLYNOMIAL FIT
+       SAMPLE SIZE N       =       99
+       DEGREE              =        2
+       REPLICATION CASE
+       REPLICATION STANDARD DEVIATION =     0.6544307470D+00
+       REPLICATION DEGREES OF FREEDOM =          76
+       NUMBER OF DISTINCT SUBSETS     =          23
+  
+  
+               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+        1  A0                 -0.144441       (0.1754E-01)         -8.2
+        2  A1                  0.217116       (0.6757E-03)         0.32E+03
+        3  A2                 -0.436235E-03   (0.5553E-05)         -79.
+  
+       RESIDUAL    STANDARD DEVIATION =         0.0281810053
+       RESIDUAL    DEGREES OF FREEDOM =          96
+       REPLICATION STANDARD DEVIATION =         0.6544307470
+       REPLICATION DEGREES OF FREEDOM =          76
+ ***** NON-FATAL DIAGNOSTIC--THE 1ST INPUT ARGUMENT TO THE FCDF   SUBROUTINE IS NEGATIVE *****
+ ***** THE VALUE OF THE ARGUMENT IS -0.37930465E+01 *****
+       LACK OF FIT F RATIO =      -3.7930 = THE   0.0000% POINT OF THE
+       F DISTRIBUTION WITH     20 AND     76 DEGREES OF FREEDOM
+  
+       COEF AND SD(COEF) WRITTEN OUT TO FILE DPST1F.DAT
+       SD(PRED),95LOWER,95UPPER,99LOWER,99UPPER
+                         WRITTEN OUT TO FILE DPST2F.DAT
+       REGRESSION DIAGNOSTICS WRITTEN OUT TO FILE DPST3F.DAT
+       PARAMETER VARIANCE-COVARIANCE MATRIX AND
+       INVERSE OF X-TRANSPOSE X MATRIX
+       WRITTEN OUT TO FILE DPST4F.DAT
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       **************
+       **  skip 0  **
+       **************
+  
+  
+ THE NUMBER OF HEADER LINES TO BE SKIPPED
+     HAS JUST BEEN SET TO        0
+  
+       ***************************
+       **  read dpst2f.dat fsd  **
+       ***************************
+  
+  
+ THE NUMBER OF HEADER LINES
+     BEING SKIPPED =      0
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       31
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =       99
+ NUMBER OF VARIABLES    READ      =        1
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+   0.4358062E-02  0.7833565E+01  0.7850867E+01  0.7830763E+01  0.7853669E+01
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+   0.4750402E-02  0.9086930E+01  0.9105790E+01  0.9083876E+01  0.9108845E+01
+  
+ VARIABLE     COLUMN    OBS/VARIABLE
+ FSD            20           99
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       **********************
+       **  end of capture  **
+       **********************
+  

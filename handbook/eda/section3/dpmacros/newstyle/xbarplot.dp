@@ -1,0 +1,28 @@
+.
+.  Generate sample output for Xbar control chart
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na xbarpl.ps
+device 2 postscript
+.
+SKIP 25
+READ CROARK3.DAT Y X
+.
+TITLE AUTOMATIC
+TITLE SIZE 3
+LABEL CASE ASIS
+X1LABEL DAY
+CHARACTER CONTROL CHART
+LINE CONTROL CHART
+.
+XBAR CHART Y X
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv XBARPL.PS xbarpl.ps
+.
+quit

@@ -1,0 +1,10 @@
+.
+.  Generate sample output for confidence limits
+.
+skip 25
+read auto83b.dat y1 y2
+echo on
+capture ftest.out
+f  test y1 y2
+end of capture 
+quit

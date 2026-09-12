@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Weibull PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na weipdf.jpg
+device 2 gd jpeg
+device 2 picture points 100 75
+.
+TITLE CASE ASIS
+TITLE Weibull PDF (Gamma = 1.5)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability Density
+X1LABEL X
+.
+SET MINMAX MIN
+PLOT WEIPDF(X,1.5) FOR X = 0.01 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system mv weipdf.jpg ../gif100/weipdf.jpg
+.
+quit

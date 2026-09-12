@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Gamma PDF plot
+.
+echo on
+device 1 x11
+device 1 font simplex
+set ipl1na gampdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Gamma PDF (Gamma = 1.5)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT GAMPDF(X,1.5) FOR X = 0.01 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp GAMPDF.PS gampdf.ps
+system rm GAMPDF.PS
+.
+quit

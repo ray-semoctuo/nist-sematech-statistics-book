@@ -1,0 +1,230 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.2.2. Model Identification</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc623.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc621.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.htm">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc62.htm">Aerosol Particle Size</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Model Identification</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Check for Stationarity, Outliers, Seasonality
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first step in the analysis is to generate a
+<a href="../../eda/section3/runseqpl.htm">run sequence plot</a>
+of the response variable.  A run sequence plot can indicate
+<a href="../section4/pmc442.htm">stationarity</a>
+(i.e., constant location and scale), the prescence
+of outliers, and seasonal patterns.
+<p>
+Non-stationary can often be
+removed by differencing the data or fitting some type of trend
+curve.  We would then attempt to fit a Box-Jenkins model to
+the differenced data or the residuals after fitting a trend curve.
+<p>
+Although Box-Jenkins models can estimate seasonal components,
+the analyst needs to specify the seasonal period (for example, 12
+for monthly data).  Seasonal components are common for economic
+time series.  They are less common for engineering and scientific
+data.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RUNSEQPL">
+<I>
+Run Sequence Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="negiz4/gif/runseqpl.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Order of Autoregressive and Moving Average Components
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The next step is to determine the order of the autoregressive and
+moving average terms in the Box-Jenkins model.  We do this by
+examining the sample
+<a href="../../eda/section3/autocopl.htm">autocorrelation</a>
+and partial autocorrelation plots of the response variable.
+We compare these sample plots to theoretical patterns of these plots
+in order to obtain the order of 
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can make the following conclusions from the run sequence plot.
+<ol>
+   <li>There does not seem to be a significant trend.  That is,
+       we do not need to difference the data or fit a trend curve
+       to the original data.
+   <li>The data has an underlying pattern along with some high
+       frequency noise.
+   <li>Although there is some high frequency noise, there does not
+       appear to be data points that are so extreme that we need
+       to delete them from the analysis. 
+   <li>There does not seem to be any obvious seasonal pattern in
+       the data (none would be expected in this case).
+</ol>
+In summary, we will attempt to fit a Box-Jenkins to the original
+response variable without any prior trend removal and we will not
+include a seasonal component to the model.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="AUTOCOPL">
+<I>
+Autocorrelation Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first step in <a href="../section4/pmc446.htm">Box-Jenkins
+model identification</a> is to attempt to identify whether an
+AR model, a MA model, or a mixture of the two is the appropriate
+model.
+<p>
+<img src="negiz4/gif/autocopl.gif">
+<p>
+This autocorrelation plot shows an exponentially decaying pattern.
+This indicates that a AR model is appropriate.
+<p>
+Since an AR process is indicated by the autocorrelation plot,
+we generate a partial autocorrelation plot to identify the
+order.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="PARTAUPL">
+<I>
+Partial Autocorrelation Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="negiz4/gif/partaupl.gif">
+<p>
+The first three lags are statistically significant, which indicates
+that an AR(3) model may be appropriate.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc621.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc623.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

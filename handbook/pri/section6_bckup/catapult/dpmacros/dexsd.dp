@@ -1,0 +1,31 @@
+.
+. Starting Step 2.6
+title DEX SD Plot for Catapult Data
+xlimits 1 5
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label Standard Deviation of Distance
+. ylimits 30 80
+. major ytic mark number 6
+. minor ytic mark number 1
+char circle
+char fill on
+line solid
+dex sd plot y x1 x2 x3 x4 x5 subset cent = 0
+char x
+char fill off
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+xlimits
+xtic mark label format
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.6: Page Back for Output

@@ -1,0 +1,40 @@
+. dpp8.1.6.1.dp
+.
+let icase = 1
+.
+device 1 x11
+if icase = 0
+   set ipl1na epp8.1.6.1.ps
+   device 2 postscript
+end of if
+if icase = 1
+   set ipl1na epp8.1.6.1.jpg
+   device 2 gd jpeg
+   device 2 picture points 600 450
+   font complex
+end of if
+line thickness 0.15
+.
+LET Y = EXPONENTIAL RANDOM NUMBERS FOR I = 1 1 100
+LET Y = 100*Y
+.
+TITLE EXPONENTIAL PROBABILITY PLOT
+X1LABEL THEORETICAL (NORMALIZED) VALUE
+Y1LABEL DATA
+CHARACTER CIRCLE
+CHARACTER HW 1 0.75
+LINE BLANK
+X1TIC MARK OFFSET 0 0.2
+TIC MARK OFFSET UNITS DATA
+.
+EXPONENTIAL PROBABILITY PLOT Y 
+LIMITS FREEZE
+PRE-ERASE OFF
+LINE SOLID
+CHAR BLANK
+LET FUNCTION F = PPA0 + PPA1*X
+PLOT F FOR X = 0.1 0.1 5
+.
+device 2 close
+quit
+.

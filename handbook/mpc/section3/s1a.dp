@@ -1,0 +1,41 @@
+dimension 100 columns
+.
+read matrix q
+1  -1  0
+1   1  0
+0   0  3
+end of data
+loop for k = 1 1 3
+  let q^k = (1/6)*q^k
+end of loop
+.
+read matrix x
+1  -1  0
+1   0 -1
+0   1 -1
+end of data
+let xt = matrix transpose x
+.
+read matrix y
+-0.3800
+-1.5900
+-1.2150
+end of data
+let yt = matrix transpose y
+.
+let iones = sequence 1 1 3
+let id = diagonal matrix iones
+.
+let xq = matrix multiply x q
+let xqxt = matrix multiply xq xt
+let itemp = matrix subtraction id xqxt
+set write decimals 4
+print itemp
+.
+let atemp = matrix multiply yt itemp
+let btemp = matrix multiply atemp y
+.
+print btemp
+let a = btemp1(1)
+let s1 = sqrt(a)
+.

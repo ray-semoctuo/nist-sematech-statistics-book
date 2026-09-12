@@ -1,0 +1,314 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (WinNT; U) [Netscape]">
+   <title>6.3.1.3. Cusum Control Charts</title>
+</head>
+<body bgcolor="#FFFFCC">
+<img ISMAP SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" USEMAP="#MenuBar" ><map name="MenuBar"><area shape="rect" alt="Next Page" href="pmc3131.htm" coords="463,27,504,45"><area shape="rect" alt="Previous Page" href="pmc312.htm" coords="417,28,459,45"><area shape="rect" alt="Home" href="../../" coords="52,0,100,43"><area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46"><area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44"><area sharea shape="default" nohref></map>
+<br><!---<LEFT>--->
+<table CELLSPACING=20 CELLPADDING=0 WIDTH="540" >
+<tr>
+<td VALIGN=TOP COLSPAN="2"><font size=-1><font color="#D60021">6.</font><font color="#00105A"><a href="../pmc.htm">Process
+or Product Monitoring and Control</a></font></font>
+<br><font size=-1><font color="#D60021">6.3.</font> <font color="#00105A"><a href="pmc3.htm">What
+are Univariate Control Charts?</a></font></font>
+<h2>
+<font color="#D60021">6.3.1.3.</font> Cusum Control Charts&nbsp;</h2>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>CUSUM is
+an efficient alternative to Shewhart procedures</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->CUSUM charts, while not as
+intuitive and simple to operate as Shewhart charts, have been shown to
+be more efficient in detecting small shifts in the mean of a process.&nbsp;
+<p>CUSUM works as follows: Let us collect<i> k</i> samples, each of size
+<i>n,</i>and<i>&nbsp;</i> compute the mean of each sample. Then the cumulative
+sum (CUSUM) control chart is formed by plotting one of the following quantities:&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Definition of cumulative Sum and the V-mask</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><img SRC="eqns/cusum.gif" height=92 width=272></center>
+against the sample number<i> m, </i>where <font face="Symbol">m</font><sub>0</sub>
+is the target for the process mean and&nbsp;<img SRC="eqns/sigma.gif" height=21 width=21 align=ABSCENTER>
+is the known (or estimated) standard deviation of the sample means. The
+choice of which of these two quantities is plotted is usually determioned
+by the statistical software package. In either case, as long as the process
+remains in control centered around <i><font face="Symbol">m</font><sub>0</sub></i>,
+the cusum plot will show variation in a random pattern centered about zero.
+If the process mean shifts upward, the charted cusum points will eventually
+drift upwards, and vice-versa if the process mean decreases.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p>In order to determine whether a process is out of control we use the
+V Mask, proposed by Barnhard in 1959. A V Mask is a graph in the form of
+a V on its side that is superimposed on the graph of the cumulative sums.&nbsp;
+<p><img SRC="gifs/vmask2.gif" ALT="{short description of image}" height=300 width=407>
+<br>The distance <i>d</i>, between the vertical line and the apex of the
+V is called the <i>lead-distance</i>. The angle between either arm and
+<i>d</i>
+is referred to as theta (<font face="Symbol">q)</font>. <font face="Symbol">q
+</font>and
+<i>d</i>
+are the parameters of the V Mask.&nbsp;
+<br>It works as follows: Place&nbsp; the V Mask with its vertical axis
+on the&nbsp; last point. If <u>all</u> of the previous points lie within
+the two arms of the mask, the process is in control. Otherwise (even if
+one point lies outside) the process is out of control.&nbsp;
+<p>The performance of the Cusum Chart is determined by the parameters of
+the V mask. The V Mask is defined by the<i> lead distance, d</i>, and the
+<i>angle</i>
+between the arms, <font face="Symbol">q</font>.&nbsp;
+<ul>
+<li>
+Let <font face="Symbol">a</font> be the probability of a false alarm, that
+is: concluding that a shift in the process has occurred, while in fact
+it did not.&nbsp;</li>
+</ul>
+
+<ul>
+<li>
+Let<font face="Symbol"> b</font>&nbsp; be the probability of missing to
+detect a shift in the process mean.&nbsp;</li>
+</ul>
+
+<ul>
+<li>
+Let<font face="Symbol"> d</font> be the shift in the process mean that
+we wish to detect ,&nbsp; then a widely used design (ref) for the cumulative
+control chart is:&nbsp;</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Lead distance, d, and angle <font face="Symbol">q
+</font>for
+a V mask</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Then&nbsp;
+<center><img SRC="eqns/dlead.gif" height=86 width=240></center>
+An alternative set of parameters, derived from the above set, are obtained
+as follows:&nbsp;
+<center><img SRC="eqns/theta.gif" height=233 width=377></center>
+where <font face="Symbol">d </font>is the size of the shift in units of
+standard deviation of the mean.&nbsp;
+<br>If <font face="Symbol">b</font> is small (say less than .05) we obtain:&nbsp;
+<center><img SRC="eqns/d.gif" height=86 width=74></center>
+
+<p>Let us illustrate the construction of a Cusum Control Chart with the
+following set of data:&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Example of CUSUM chart</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><img SRC="eqns/cucumex.gif" ALT="{short description of image}" height=164 width=317>
+:&nbsp;</center>
+
+<p>The sample size, n, = 4.&nbsp;
+<br>That is, each of the above 20 data points is the average of 4 observations.
+We set the target,&nbsp; <font face="Symbol">m</font><sub>0</sub>&nbsp;
+= 325.&nbsp;
+<br>The shift that we wish to detect,&nbsp; <font face="Symbol">d</font>&nbsp;
+= 1.&nbsp;
+<br>The risk,<font face="Symbol"> a</font> = .00135. The <font face="Symbol">b</font>
+risk is very small., so we can ignore it.&nbsp;
+<p>The estimated standard deviation of the process = 1.27. This was obtained
+from averaging the standard deviations of the 20 groups (which were available,
+but are not listed here) and adjusting by the c<sub>4</sub> factor .Then
+the estimate for the standard error of the mean =&nbsp;
+<center><img SRC="eqns/sxbar.gif" height=112 width=192></center>
+Let us construct a <i>non-standardized </i>cusum chart. Using the Cusum
+formula we obtain:&nbsp;
+<p>S<sub>1</sub> = (324.925 - 325) = - 0.0750&nbsp;
+<br>S<sub>2</sub> = S<sub>1 </sub>+ (324.675 - 325) = -.0.400&nbsp;
+<br>S<sub>3</sub> = S<sub>1 </sub>+ S<sub>2</sub> + (324.725 - 325) = -.0.675,&nbsp;&nbsp;&nbsp;
+and so on...&nbsp;
+<p>The cusums in row by row order, are:&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp; -0.075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-0.675&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1.325&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-0.975&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp; -0.750&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.625&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-2.100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1.875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-2.275&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp; -2.650&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -2.500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.825&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5.900&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11.075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13.850&nbsp;&nbsp;&nbsp;&nbsp; 15.725&nbsp;&nbsp;&nbsp;&nbsp;
+19.075&nbsp;
+<p>The lead distance is:&nbsp;
+<center><img SRC="eqns/v1.gif" height=38 width=253></center>
+
+<p>and the angle of the V mask is:&nbsp;
+<center><img SRC="eqns/v2.gif" height=90 width=294></center>
+We will not&nbsp; use this information to construct the V mask because
+of scaling complications (the relation between one unit on the X-axis and
+1 unit on the Y-axis) ,&nbsp; instead we ncorporate the<i> h</i> and <i>k</i>
+parameters, which are&nbsp;
+<br><img SRC="eqns/hk.gif" height=70 width=257>:&nbsp;
+<br><i>k</i> = <font face="Symbol">d/</font>2 = .5 and<i> k</i> (0.635)
+=&nbsp; 0.375&nbsp;
+<br><i>h</i> = d <i>k</i> =&nbsp; 6.6077,&nbsp; and<i> h</i>(0.635) = 4.1959&nbsp;
+<p><b>Now we position the V mask:&nbsp;</b>
+<br>The equation for the rise for any point on the x-axis is&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Rise = <i>h </i>+ (<i>n </i>- <i>p</i>) <i>k</i>
+<br>where&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n = total number of samples&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p = the number of samples
+to the left of the the nth sample&nbsp;
+<p>For example, the rise at the last point is<i> h +</i>(20-20)<i>(k) </i>=
+<i>h</i>
+<br>The rise at the Y-axis, that is at the 0th point on the X--axis , is&nbsp;
+<br><i>h</i> + 20<i>k&nbsp;</i> = 10.54&nbsp;
+<br>Thus we can always find two pints above and below the horizontal line
+from the y-axis at the cusum value of the point under consideration.&nbsp;
+<br>An easier way is offered next:&nbsp;
+<br>Tthe slope ,<i> k</i>,&nbsp; is the&nbsp;<u> rise over run.</u>&nbsp;
+Here, the run is the distance&nbsp;
+<br>from the apex tio the Y-axix.&nbsp; Since <i>d</i> = 13.22 , the apex
+is at a distance of 20 + 13.22 = 33.22 from the Y-axis.&nbsp;
+<p>Draw a horizontal&nbsp; line from (0, 19.08) on&nbsp; the vertical or
+Y-axis to coordinates (33.22,&nbsp; 19.08)&nbsp; on the horizontal axis.
+. (This is optional, it makes the graph look a little nicer...)&nbsp;
+<p>Now we compute the rise as&nbsp; (run)(<i>k</i>) = 33.22 (0.3175) =
+10.54&nbsp;
+<br>Next&nbsp; go a distance of 10.54 up and down&nbsp; from the (0, 19.08)
+point on the Y-axis&nbsp; The coordinates (points) thus obtained are (0,29.62)&nbsp;
+and (0, 8.54)&nbsp;
+<center>
+<p><img SRC="gifs/cusumpos.gif" height=253 width=406></center>
+Cnnect these points to the apex. These are the arms of the V-Mask.&nbsp;
+<br>We now&nbsp; are ready to construct the Cusum Control Chart. In doing
+so, it is customary to NOT show the portion of the V Mask that lies to
+the right of the last point, e.g.&nbsp; the&nbsp; line&nbsp; labeled<i>
+h </i>.&nbsp;
+<br><img SRC="gifs/cusumplt.gif" height=218 width=400>
+<p>Since not all the data points lie within the arms of the V Mask, the
+process is out of control as of the time of the last point.&nbsp;
+<p>Analyzing <a href="pmc3131.htm">ARL's for CUSUM control&nbsp; charts</a>
+shows that they are better than Shewhart control charts when it is desired
+to detect small shifts (2 sigma or less) of the mean.&nbsp;
+<p><b>Tabular form of the V mask</b>
+<br>Many users of control charts prefer tabular charts over the V mask
+.&nbsp;
+<br>To generate the tabular form we use the <i>h </i>and <i>k</i> parameters.&nbsp;
+<br>The following quantities are calculated:&nbsp;
+<center><img SRC="eqns/tabular.gif" height=221 width=325></center>
+The tabular form of the example, using the computer output is
+<p><tt><font size=-1>&nbsp;</font></tt><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+d&nbsp;&nbsp;&nbsp;&nbsp; q(deg)&nbsp; m<sub>0</sub> (TARGET)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+H&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; K (H/d)&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp; 13.2153&nbsp;&nbsp;&nbsp;
+14.0362&nbsp;&nbsp; 325.0000&nbsp;&nbsp;&nbsp;&nbsp; 4.1959&nbsp;&nbsp;&nbsp;&nbsp;
+0.3175&nbsp;</font>
+<p><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Increase in mean&nbsp;&nbsp; decrease in mean&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;Group&nbsp; x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+x-m<sub>0</sub>&nbsp;&nbsp;&nbsp; x-m<sub>0</sub>-k&nbsp;&nbsp;&nbsp; S
+<sub>hi</sub>&nbsp;&nbsp;&nbsp;&nbsp;
+m<sub>0</sub>-k-x&nbsp;&nbsp; S <sub>low</sub>&nbsp; Cusum&nbsp;</font>
+<br><font face="Times New Roman,Times">-------------------------------------------------------------&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;
+324.93&nbsp;&nbsp; -0.07&nbsp;&nbsp;&nbsp; -0.39&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp; -0.24&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp; -0.07&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;
+324.68&nbsp;&nbsp; -0.32&nbsp;&nbsp;&nbsp; -0.64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.01&nbsp;&nbsp;&nbsp; 0.01&nbsp;&nbsp;
+-0.40&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;
+324.73&nbsp;&nbsp; -0.27&nbsp;&nbsp;&nbsp; -0.59&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp; -0.04&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp; -0.67&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;
+324.35&nbsp;&nbsp; -0.65&nbsp;&nbsp;&nbsp; -0.97&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.33&nbsp;&nbsp;&nbsp; 0.33&nbsp;&nbsp;
+-1.32&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;
+325.35&nbsp;&nbsp;&nbsp; 0.35&nbsp;&nbsp;&nbsp;&nbsp; 0.03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.03&nbsp;&nbsp;&nbsp; -0.67&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp; -0.97&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 6&nbsp;
+325.23&nbsp;&nbsp;&nbsp; 0.23&nbsp;&nbsp;&nbsp; -0.09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp; -0.54&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp; -0.75&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 7&nbsp;
+324.13&nbsp;&nbsp; -0.88&nbsp;&nbsp;&nbsp; -1.19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.56&nbsp;&nbsp;&nbsp; 0.56&nbsp;&nbsp;&nbsp;
+-1.62&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;
+324.53&nbsp;&nbsp; -0.48&nbsp;&nbsp;&nbsp; -0.79&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.16&nbsp;&nbsp;&nbsp; 0.72&nbsp;&nbsp;&nbsp;
+-2.10&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; 9&nbsp;
+325.23&nbsp;&nbsp;&nbsp; 0.23&nbsp;&nbsp;&nbsp; -0.09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.00&nbsp;&nbsp;&nbsp;&nbsp; 0.54&nbsp;&nbsp;&nbsp;&nbsp; 0.17&nbsp;&nbsp;&nbsp;
+-1.87&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 10&nbsp; 324.60&nbsp;&nbsp;
+-0.40&nbsp;&nbsp;&nbsp; -0.72&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.08&nbsp;&nbsp;&nbsp; 0.25&nbsp;&nbsp;&nbsp; -2.27&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 11&nbsp; 324.63&nbsp;&nbsp;
+-0.38&nbsp;&nbsp;&nbsp; -0.69&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.06&nbsp;&nbsp;&nbsp; 0.31&nbsp;&nbsp;&nbsp; -2.65&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 12&nbsp; 325.15&nbsp;&nbsp;&nbsp;
+0.15&nbsp;&nbsp;&nbsp; -0.17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp;
+0.47&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp; -2.50&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 13&nbsp; 328.33&nbsp;&nbsp;&nbsp;
+3.32&nbsp;&nbsp;&nbsp;&nbsp; 3.01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.01&nbsp;&nbsp;&nbsp;
+-3.64&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp; 0.83&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 14&nbsp; 327.25&nbsp;&nbsp;&nbsp;
+2.25&nbsp;&nbsp;&nbsp;&nbsp; 1.93&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.94*&nbsp;&nbsp;&nbsp;
+-.57&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp; 3.08&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 15&nbsp; 327.83&nbsp;&nbsp;&nbsp;
+2.82&nbsp;&nbsp;&nbsp;&nbsp; 2.51&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.45*&nbsp;
+-3.14&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp; 5.90&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 16&nbsp; 328.50&nbsp;&nbsp;&nbsp;
+3.50&nbsp;&nbsp;&nbsp;&nbsp; 3.18&nbsp;&nbsp;&nbsp;&nbsp; 10.63*&nbsp;
+-3.82&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp;&nbsp;&nbsp; 9.40&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 17&nbsp; 326.68&nbsp;&nbsp;&nbsp;
+1.68&nbsp;&nbsp;&nbsp;&nbsp; 1.36&nbsp;&nbsp;&nbsp;&nbsp; 11.99*&nbsp;
+-1.99&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp; 11.08&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 18&nbsp; 327.78&nbsp;&nbsp;&nbsp;
+2.77&nbsp;&nbsp;&nbsp;&nbsp; 2.46&nbsp;&nbsp;&nbsp;&nbsp; 14.44*&nbsp;
+-3.09&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp; 13.85&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 19&nbsp; 326.88&nbsp;&nbsp;&nbsp;
+1.88&nbsp;&nbsp;&nbsp;&nbsp; 1.56&nbsp;&nbsp;&nbsp;&nbsp; 16.00*&nbsp;
+-2.19&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp; 15.73&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp; 20&nbsp; 328.35&nbsp;&nbsp;&nbsp;
+3.35&nbsp;&nbsp;&nbsp;&nbsp; 3.03&nbsp;&nbsp;&nbsp;&nbsp; 19.04*&nbsp;
+-3.67&nbsp;&nbsp;&nbsp; 0.00&nbsp;&nbsp; 19.08&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*&nbsp; = out of control&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;</font>
+<br><font face="Times New Roman,Times">&nbsp;</font>
+<p><b><font size=-1>&nbsp;</font></b></td>
+</tr>
+</table>
+<a href="http://www.nist.gov">
+<img SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar" ></a>
+<p>
+<map NAME="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="0,19,91,35">
+</map>
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="url=https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc312.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc3131.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+</body>
+</html>

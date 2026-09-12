@@ -1,0 +1,410 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.9.8. Work This Example Yourself</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda42a.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4297.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.htm">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.htm">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda429.htm">Airplane Polished Window
+      Strength</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.9.8.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Work This Example Yourself</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A HREF="fuller/fuller.htm">
+<I>
+View Dataplot Macro for this Case Study
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This page allows you to repeat the analysis outlined in the
+case study description on the previous page using
+<a href="http://www.itl.nist.gov/div898/handbook/dataplot.htm">Dataplot
+</a>.  It is required that you have already
+<a href="http://www.itl.nist.gov/div898/software/dataplot/ftp/
+homepage.htm"> downloaded and installed</a> Dataplot and
+<a href="http://www.itl.nist.gov/div898/handbook/dpbrows.htm">
+configured your browser</a>. to run Dataplot.  Output from each analysis
+step below will be displayed in one or more of the Dataplot windows.
+The four main windows are the Output window, the Graphics window, the
+Command History window, and the data sheet window.  Across the top of
+the main windows there are menus for executing Dataplot commands.
+Across the bottom is a command entry window where commands can be typed
+in.
+</TD>
+</TR>
+</TABLE>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TABLE WIDTH=540 BORDER=2 CELLPADDING=10>
+<TR>
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Data Analysis Steps
+</FONT>
+</TH>
+
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Results and Conclusions
+</FONT>
+</th>
+</TR>
+
+<TR>
+<TD>
+<BR>
+<I>
+Click on the links below to start
+Dataplot and run this case study yourself.  Each
+step may use results from previous steps, so
+please be patient.  Wait until the software
+verifies that the current step is complete before
+clicking on the next step.
+</I>
+<BR><BR>
+</TD>
+
+<TD>
+<BR>
+<I>The links in this column will connect you with more
+detailed information about each analysis step from the case
+study description.</I>
+<BR><BR>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+1. Invoke Dataplot and read data.
+</PRE>
+<A HREF="fuller/dpmacros/data.dp"><PRE>
+   1. Read in the data.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+                              
+</PRE>
+<A HREf="eda4291.htm"><PRE>
+ 1. You have read 1 column of numbers 
+    into Dataplot, variable Y.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+2. 4-plot of the data.
+</PRE>
+<A HREF="fuller/dpmacros/4plot.dp"><PRE>
+   1. 4-plot of Y.
+
+
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4292.htm#4-PLOT"><PRE>
+ 1. The polished window strengths are in the
+    range 15 to 50.  The histogram and normal
+    probability plot indicate a normal distribution
+    fits the data reasonably well, but we can
+    probably do better.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+3. Generate the Weibull analysis.
+</PRE>
+<A HREF="fuller/dpmacros/weibppcc.dp"><PRE>
+   1. Generate 2 iterations of the
+      Weibull PPCC plot, a Weibull
+      probability plot, and estimate
+      some percent points.
+</PRE></A>
+<A HREF="fuller/dpmacros/weibplot.dp"><PRE>
+   2. Generate a Weibull plot.
+
+
+</PRE></A>
+<A HREF="fuller/dpmacros/weibhaza.dp"><PRE>
+   3. Generate a Weibull hazard plot.
+
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4293.htm"><PRE>
+ 1. The Weibull analysis results in a
+    maximum PPCC value of 0.988.
+
+
+</PRE></A>
+<A HREF="eda4293.htm#WEIBPLOT"><PRE>
+ 2. The Weibull plot permits the
+    estimation of a 2-parameter Weibull
+    model.
+</PRE></A>
+<A HREF="eda4293.htm#WEIBHAZA"><PRE>
+ 3. The Weibull hazard plot is
+    approximately linear, indicating
+    that the Weibull provides a good
+    distributional model for these data.
+</PRE></A>
+
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+4. Generate the lognormal analysis.
+</PRE>
+<A HREF="fuller/dpmacros/lognppcc.dp"><PRE>
+   1. Generate 2 iterations of the
+      lognormal PPCC plot and a
+      lognormal probability plot.
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4294.htm"><PRE>
+ 1. The lognormal analysis results in
+    a maximum PPCC value of 0.986.
+
+</PRE></A>
+
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+5. Generate the gamma analysis.
+</PRE>
+<A HREF="fuller/dpmacros/gammppcc.dp"><PRE>
+   1. Generate 2 iterations of the
+      gamma PPCC plot and a
+      gamma probability plot.
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4295.htm"><PRE>
+ 1. The gamma analysis results in
+    a maximum PPCC value of 0.987.
+
+</PRE></A>
+
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+6. Generate the power normal analysis.
+</PRE>
+<A HREF="fuller/dpmacros/pownppcc.dp"><PRE>
+   1. Generate 2 iterations of the
+      power normal PPCC plot and a
+      power normal probability plot.
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4296.htm"><PRE>
+ 1. The power normal analysis results
+    in a maximum PPCC value of 0.988.
+
+</PRE></A>
+
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+7. Generate the fatigue life analysis.
+</PRE>
+<A HREF="fuller/dpmacros/flppcc.dp"><PRE>
+   1. Generate 2 iterations of the
+      fatigue life PPCC plot and
+      a fatigue life probability
+      plot.
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4297.htm"><PRE>
+ 1. The fatigue life analysis
+    results in a maximum PPCC value
+    of 0.987.
+
+</PRE></A>
+
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+8. Generate quantitative goodness of fit tests
+</PRE>
+<A HREF="fuller/dpmacros/adnorm.dp"><PRE>
+   1. Generate Anderson-Darling test
+      for normality.
+
+
+</PRE></A>
+<A HREF="fuller/dpmacros/adlogn.dp"><PRE>
+   2. Generate Anderson-Darling test
+      for lognormal distribution.
+
+
+</PRE></A>
+<A HREF="fuller/dpmacros/adweib.dp"><PRE>
+   3. Generate Anderson-Darling test
+      for Weibull distribution.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="eda4292.htm#ADNORM"><PRE>
+ 1. The Anderson-Darling normality
+    test indicates the normal
+    distribution provides an adequate
+    fit to the data.
+</PRE></A>
+<A HREF="eda4292.htm#ADLOGN"><PRE>
+ 2. The Anderson-Darling lognormal
+    test indicates the lognormal
+    distribution provides an adequate
+    fit to the data.
+</PRE></A>
+<A HREF="eda4292.htm#ADWEIB"><PRE>
+ 3. The Anderson-Darling Weibull
+    test indicates the lognormal
+    distribution provides an adequate
+    fit to the data.
+</PRE></A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4297.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda42a.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

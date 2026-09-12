@@ -1,0 +1,34 @@
+.
+. Starting Catapult Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 50
+column limits 1 60
+read catapult.dat y z1 to z5 x1 to x5 runseq cent
+skip 0
+column limits
+.
+variable label y Distance
+variable label x1 Bandcr()Height
+variable label x2 Startcr()Angle
+variable label x3 Numbersp()ofcr()Bands
+variable label x4 Armcr()Length
+variable label x5 Stopcr()Point
+. Finished Step 1.1: Page Back for Output

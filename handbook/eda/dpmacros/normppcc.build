@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < normppcc.dp
+mv dppl1f.dat normppcc.ps
+gs -sDEVICE=ppm -sOutputFile=normppcc.ppm  -dNOPAUSE -dBATCH normppcc.ps
+~/bin/pnmrotate  -90 normppcc.ppm > normppcc_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 normppcc_r.ppm > normppcc_s.ppm
+~/bin/ppmtogif  normppcc_s.ppm > normppcc.gif
+mv normppcc.gif ../gif/normppcc.gif
+rm normppcc.ppm normppcc_r.ppm normppcc_s.ppm normppcc.ps
+#

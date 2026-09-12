@@ -1,0 +1,196 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.1.2. Single response: Confidence region for search path</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5513.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5511.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri551.htm">Single response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.1.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single response: Confidence region for search path</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>"Randomness"
+means that the steepest ascent direction is just an estimate and it is
+possible to construct a confidence "cone' around this direction estimate</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->The direction given by the
+gradient&nbsp;<img SRC="gifs/img61.gif" ALT=""  align=CENTER> constitutes
+only a single (point) estimate computed based on a sample of <b>N</b> runs.
+If a different set of <b>N</b> runs is conducted, these will provide different
+parameter estimates, which in turn will give a different gradient. To account
+for this sampling variability, Box and Draper give a formula for constructing
+a "cone'' around the direction of steepest ascent that with certain probability
+contains the true (unknown) system gradient given by&nbsp;<img SRC="gifs/img63.gif" ALT=""  align=CENTER>.
+The width of the confidence cone is useful to assess how reliable an estimated
+search direction is.&nbsp;
+<p>Figure 5.4 shows such a cone for the steepest ascent direction in an
+experiment with two factors. If the cone is so wide that almost every possible
+direction is inside the cone, an experimenter should be very careful in
+moving too far from the current operating conditions along the path of
+steepest ascent or descent. Usually this will happen when the linear fit
+is quite poor (i.e., when the R<sup>2</sup> value is low). Thus plotting
+the confidence cone is not so important as computing its width.
+<p>If you are interested in the details on how to compute such a cone (and
+its width), see <a href="#Technical Appendix">Technical Appendix 5B</a>.
+<br><a NAME="fig4"></a><img SRC="gifs/img66.gif" ALT=""  align=BOTTOM>
+<blockquote>
+<center><b>FIGURE 5.4:</b> <b>A Confidence Cone for the Steepest Ascent
+Direction in an Experiment with 2 Factors</b></center>
+</blockquote>
+=============================================================================</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><i>Details of how to construct a
+confidence cone for the direction of steepest ascent</i></td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+<h3>
+<a NAME="Technical Appendix"></a>Technical Appendix 5B: Computing a Confidence
+Cone on the Direction of Steepest Ascent.</h3>
+Suppose the response of interest is adequately described by a first order
+polynomial model. Consider the inequality
+<center>
+<p><a NAME="Eq3"></a><img SRC="gifs/img316.gif" height=46 width=329></center>
+
+<p>where&nbsp;<img SRC="gifs/img317.gif" ALT=""  align=CENTER>SS<sub>error<img SRC="gifs/img319.gif" ALT=""  align=CENTER></sub>,&nbsp;<img SRC="gifs/img320.gif" ALT=""  align=CENTER>
+is the j-th diagonal element of the matrix<img SRC="gifs/img321.gif" ALT=""  align=CENTER>
+(for&nbsp;<img SRC="gifs/img322.gif" ALT=""  align=CENTER> these values
+are all equal if the experimental design is a 2<sup>k-p</sup> factorial
+of at least Resolution III), and&nbsp;<img SRC="gifs/img325.gif" ALT=""  align=BOTTOM>
+is the design matrix of the experiment (including columns for the intercept
+and 2nd order terms, if any). Any operating conditions with coordinates&nbsp;<img SRC="gifs/img327.gif" ALT=""  align=CENTER>
+that satisfy this inequality generates a direction that lies within the&nbsp;<img SRC="gifs/img328.gif" ALT=""  align=CENTER>%
+confidence cone of steepest <i>ascent</i> if
+<center>
+<p><img SRC="gifs/img329.gif" height=55 width=95></center>
+
+<p>or inside the&nbsp;<img SRC="gifs/img330.gif" ALT=""  align=CENTER>%
+confidence cone of steepest <i>descent</i> if
+<center>
+<p><img SRC="gifs/img331.gif" height=55 width=100></center>
+
+<p><br>
+<br>
+<p>The <a href="#Eq3">inequality</a> defines a cone with the apex at the
+origin and center line located along the gradient of&nbsp;<img SRC="gifs/img332.gif" ALT=""  align=BOTTOM>.
+<p>A measure of "goodness'' of a search direction is given by the fraction
+of directions <i>excluded</i> by the 100<img SRC="gifs/img333.gif" ALT=""  align=CENTER>%
+confidence cone around the steepest ascent/descent direction (see <a href="../section8/pri8.htm#BoxDra">Box
+and Draper, 1987</a> ) which is given by:
+<center>
+<p><a NAME="eq4"></a><img SRC="gifs/img335.gif" height=49 width=380></center>
+
+<p>where&nbsp;<img SRC="gifs/img336.gif" ALT=""  align=CENTER> denotes
+the complement of the Student t distribution function with <b><i>k</i>-1
+</b>degrees of freedom (that is,&nbsp;<img SRC="gifs/img339.gif" ALT=""  align=CENTER>
+and&nbsp;<img SRC="gifs/img340.gif" ALT=""  align=CENTER> denotes an&nbsp;<img SRC="gifs/img341.gif" ALT=""  align=BOTTOM>
+percentage point of the F distribution with <b>k-1</b> and <b>n-p</b> degrees
+of freedom, where <b>n-p </b>is the error degrees of freedom. The value
+of&nbsp;<img SRC="gifs/img344.gif" ALT=""  align=CENTER> represents the
+fraction of directions included by the confidence cone. The smaller&nbsp;<img SRC="gifs/img345.gif" ALT=""  align=CENTER>
+is, the wider the cone is, with&nbsp;<img SRC="gifs/img346.gif" ALT=""  align=CENTER>.
+Note that the <a href="#Eq3">inequality equation</a> and the "<a href="#eq4">goodness
+measure" equation</a> are valid when operating conditions are given in
+coded units.
+<br>&nbsp;
+<p><b>Example: Computing&nbsp;<img SRC="gifs/img347.gif" ALT=""  align=CENTER>.</b>
+<p>From the ANOVA table in the chemical experiment discussed <a href="pri5511.htm">earlier</a>
+<center>
+<p><img SRC="gifs/img349.gif" ALT=""  align=BOTTOM></center>
+
+<p>since&nbsp;<img SRC="gifs/img350.gif" ALT=""  align=CENTER> (<b>j=2,3</b>)
+for a&nbsp;<img SRC="gifs/img351.gif" ALT=""  align=BOTTOM> factorial.
+The fraction of directions excluded by a 95 % confidence cone in the direction
+of steepest ascent is:
+<center>
+<p><img SRC="gifs/img352.gif" ALT=""  align=BOTTOM></center>
+
+<p>since&nbsp;<img SRC="gifs/img353.gif" ALT=""  align=CENTER>. Thus 71.05
+% of the possible directions from the current operating point are excluded
+with 95% confidence. This is useful information that can be used to select
+a step length. The smaller&nbsp;<img SRC="gifs/img354.gif" ALT=""  align=CENTER>
+is, the shorter the step should be, as the steepest ascent direction is
+less reliable. In this example, with high confidence, the true steepest
+ascent direction is within this cone of 29% of possible directions. For
+k=2, 29% of 360<sup>o</sup> = 104.4<sup>o</sup>, so we are 95% confident
+that our estimated steepest ascent path is within plus or minus 52.2<sup>o</sup>
+of the true steepest path. In this case, we should not use a large step
+along the estimated steepest ascent path.</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5511.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5513.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

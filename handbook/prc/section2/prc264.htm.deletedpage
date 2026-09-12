@@ -1,0 +1,150 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.6.4. Two-sided tolerance intervals using EXCEL</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc265.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc263.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.htm">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.htm">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc26.htm">What intervals contain a fixed percentage of the population values?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.6.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Two-sided tolerance intervals</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN="TOP">
+<i>Two-sided tolerance intervals<i>
+</TD>
+
+<td VALIGN=TOP WIDTH="85%">
+<A NAME="k2">One method for computing factors for two-sided
+tolerance intervals makes use of the definition
+<P>
+<center>
+<img src="gifs/tol2.gif" alt="k(2) = r*SQRT((N-1)/Chi-Square(gamma,N-1))">
+</center>
+<P>
+where <i>r</i> is defined by:
+<p>
+<center>
+<img SRC="gifs/tol3.gif" ALT=
+"p = (1/SQRT(2*PI))*INTEGRAL[(1/SQRT(N))-r to (1/SQRT(N))+r]
+[EXP(-t**2/2)]dt">
+</center>
+<P>
+and
+<img align=absmiddle src="gifs/chigamma.gif" alt="Chi-Square(gamma,N-1)">
+is the <A HREF="../../eda/section3/eda3674.htm">critical value of the
+chi-square distribution</A> with <i>N - 1</I> degrees of freedom that is
+exceeded with probability, 
+<img align=abscenter src="gifs/gamma.gif" alt="gamma">.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN="TOP">
+<i>Interative method<i>
+</TD>
+
+<td VALIGN=TOP WIDTH="85%">
+The value of <i>r</i> is estimated from the above integral
+which defines limits within which <i>p</i> percent of the
+<A HREF="../../eda/section7/eda3671.htm">normal distribution</A> lies.
+<p>
+For the same problem shown on the <A HREF="prc253.htm#example">previous
+page</A>, except where <i>N</i> = 220 measurements are made of thickness,
+we estimate a tolerance interval that contain a proportion
+<i>p</i> = 0.90 of the wafers with probability <i>&gamma;</i> = 0.99.
+<p>
+The calculations used in this example can be performed using
+both <a href="prc264.dp">Dataplot code</a> and <a href="prc264.r">R code</a>.
+The final estimates are approximate and depend on the tolerance of the 
+root-finding function or the starting value for <i>r</i>, depending on the
+software being used.  The values of <i>r</i> and <i>k<sub>2</sub></i> are:
+<pre>
+     <i>r</i> = 1.649
+     <i>k<sub>2</sub></i> = 1.853
+</pre>
+  
+
+</TD>
+</TR>
+
+
+
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc263.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc265.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

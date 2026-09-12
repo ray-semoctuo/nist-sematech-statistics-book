@@ -1,0 +1,36 @@
+. Generate PPCC plot for
+.   1) Tukey-Lambda
+.   2) Weibull
+.   3) Lognormal
+.   4) Gamma
+.
+x3label
+title automatic
+character x
+line blank
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+x1label lambda
+tukey-lambda ppcc plot y
+justification center
+move 50 5
+text max ppcc = ^maxppcc, shape = ^shape
+set minmax 1
+x1label gamma
+weibull ppcc plot y
+justification center
+move 50 5
+text max ppcc = ^maxppcc, shape = ^shape
+x1label gamma
+gamma ppcc plot y
+justification center
+move 50 5
+text max ppcc = ^maxppcc, shape = ^shape
+x1label sd
+lognormal ppcc plot y
+justification center
+move 50 5
+text max ppcc = ^maxppcc, shape = ^shape
+end of multiplot
+. Finished

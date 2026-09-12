@@ -1,0 +1,152 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.5.2.1. Weighted fit </TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc6522.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc652.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.htm">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.htm">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc65.htm">Uncertainty analysis for extinguishing fire</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc652.htm">Create a calibration curve for the rotameter/a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.5.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Weighted fit</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Weights Proportional to the Variance
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can use 
+<a href="../../pmd/section1/pmd143.htm">weighting</a>
+to improve the fit where the weights are proportional to
+the variance.  The weights are estimated using the
+<a href="../../pmd/section6/pmd625.htm">power
+function</a>.  That is, we fit
+<UL>
+   <img src="../../pmd/section6/pipeline/eqns/wtfunc.gif">
+</UL>
+where
+<img align=absmiddle
+    src="../../pmd/section6/pipeline/eqns/sisq.gif">
+are the variances from each set of replicates in
+the data.  We then calculate the weights as
+<UL>
+   <img src="../../pmd/section6/pipeline/eqns/power2.gif">
+</UL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of the Power Function
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following is the plot of the power function
+with the corresponding linear fit for this
+data set.
+<P>
+<A HREF="fireunc/gifs/wtfunc_f.gif">
+<img src="fireunc/gifs/wtfunc_r.gif"
+    HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot is dominated by value at flux=90"> 
+</A>
+<P>
+Note that for this data, the plot is dominated
+by the flux=90 group.  Also, the plot does not
+demonstrate a clear linear pattern.  Instead, the
+variances are basically flat for the first five
+values, and then there is a rise for the last
+three values.  Based on this plot, it is reasonable
+to conclude that weighting the fit with this method
+may do more harm than good.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc652.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc6522.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

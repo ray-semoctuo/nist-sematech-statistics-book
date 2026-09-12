@@ -1,0 +1,39 @@
+.
+.  Generate sample output for Weibull PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na weippf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+SET MINMAX MIN
+TITLE Weibull PPF (0.5 df)
+PLOT WEIPPF(P,0.5) FOR P = 0.01 0.01 0.99
+TITLE Weibull PPF (1 df)
+PLOT WEIPPF(P,1) FOR P = 0.0 0.01 0.99
+TITLE Weibull PPF (2 df)
+PLOT WEIPPF(P,2) FOR P = 0.01 0.01 0.99
+TITLE Weibull PPF (5 df)
+PLOT WEIPPF(P,5) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp WEIPPF4.PS weippf4.ps
+system rm WEIPPF4.PS
+.
+quit

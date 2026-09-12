@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < line.dp
+mv dppl1f.dat line.ps
+gs -sDEVICE=ppm -sOutputFile=line.ppm  -dNOPAUSE -dBATCH line.ps
+~/bin/pnmrotate  -90 line.ppm > line_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 line_r.ppm > line_s.ppm
+~/bin/ppmtogif  line_s.ppm > line.gif
+mv line.gif ../gif/line.gif
+:wrm line.ppm line_r.ppm line_s.ppm line.ps
+#

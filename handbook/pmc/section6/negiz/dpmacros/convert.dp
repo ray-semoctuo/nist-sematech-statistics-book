@@ -1,0 +1,9 @@
+.
+.  Convert NEGIZ4.DAT.  READ third column, print out in
+.  consistent (non-exponential format).
+.
+read negiz4.dat j1 j2 y
+set write decimals 5
+write new.dat y
+.
+quit

@@ -1,0 +1,56 @@
+dimension 100 columns
+.
+read matrix q
+1  -1  0
+1   1  0
+0   0  3
+end of data
+loop for k = 1 1 3
+  let q^k = (1/6)*q^k
+end of loop
+.
+read matrix x
+1  -1  0
+1   0 -1
+0   1 -1
+end of data
+let xt = matrix transpose x
+.
+read matrix y
+-0.3800
+-1.5900
+-1.2150
+end of data
+let yt = matrix transpose y
+.
+let xtx = matrix multiply xt x
+let qxtx = matrix multiply q xtx
+let qxtxt = matrix transpose qxtx
+let d = matrix multiply qxtx qxtxt
+set write decimals 4
+print d
+.
+read matrix vi
+0
+0
+1
+end of data
+let vit = matrix transpose vi
+let sdays = 0.02111
+let sdays2 = sdays*sdays
+let s1 = 2.2209
+let s12 = s1*s1
+.
+let atemp = matrix multiply vit q
+let btemp = matrix multiply atemp vi
+print btemp
+let aterm1 = btemp1(1)
+let aterm1 = s12*aterm1
+.
+let ctemp = matrix multiply vit d
+let dtemp = matrix multiply ctemp vi
+let aterm2 = dtemp1(1)
+let aterm2 = sdays2*aterm2
+.
+let sitem3 = sqrt(aterm1 + aterm2)
+.

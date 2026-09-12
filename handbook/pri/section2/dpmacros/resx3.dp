@@ -1,0 +1,54 @@
+.
+.  Macro to generate plot of residuals versus time
+.
+device 1 x11
+device 2 postscript
+.
+thickness 0.15
+tic mark label size 3
+label case asis
+label size 3
+x3label size 4
+x3label Figure 2.10
+.
+read x y
+-1 1.6
+-1 0.6
++1 1.6
++1 0.6
+ 0 -0.4
+ 0 -0.6
+ 0 -1.0
+ 0 -1.5
+end of data
+.
+ylimits -1.6 1.6
+major ytic mark number 9
+ytic offset 0.2 0.2
+xlimits -1 1
+major xtic mark number 3
+xtic offset 0.3 0.3
+label case asis
+x1label Factor Level
+y1label Residuals
+char box
+line blank
+plot y x
+limits freeze
+pre-erase off
+.
+let icount =0
+loop for k = -1 1 1
+   let icount = icount + 1
+   let atemp = mean y subset x = k
+   let xmean(icount) = k
+   let ymean(icount) = atemp
+end of loop
+line solid
+char blank
+plot ymean xmean
+.
+device 2 close
+.
+system cp dppl1f.dat resx3.ps
+.

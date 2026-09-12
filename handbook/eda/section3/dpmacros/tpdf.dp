@@ -1,0 +1,25 @@
+.
+.  Generate sample output for t PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na tpdf.jpg
+device 2 gd jpeg
+device 2 picture points 100 75
+.
+TITLE CASE ASIS
+TITLE t PDF (10 df)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability Density
+X1LABEL X
+.
+PLOT TPDF(X,10) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system mv tpdf.jpg ../gif100/tpdf.jpg
+.
+quit

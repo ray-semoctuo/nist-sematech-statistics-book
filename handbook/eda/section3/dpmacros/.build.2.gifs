@@ -1,0 +1,8 @@
+#!/bin/csh -f
+#
+#  Rebuild gif files to match Will's format
+#
+/var/tmp/heckert/dataplot_solaris < $1 > junk.dat
+gcnvtl *.ps
+mv *.gif ../gif
+rm *.ps

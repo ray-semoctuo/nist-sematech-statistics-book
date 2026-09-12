@@ -1,0 +1,245 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.2.1. Confidence Limits for the Mean</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda353.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda352.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.htm">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.htm">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.htm">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Confidence Limits for the Mean - Example using R </H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Output for Confidence Interval
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The following confidence intervals were generated 
+      using R for the 
+      <a href="../section4/eda4281.htm">ZARR13.DAT</a> 
+      data set.
+      <P>
+<PRE>
+  
+"Two-Sided Confidence Interval for the Mean"
+                        Statistics
+Number of Observations   195.00000
+Mean                       9.26146
+Std. Dev.                  0.02279
+Std. Dev. of Mean          0.00163
+
+
+  Conf.Level  Tvalue Halfwidth   Lower   Upper
+1     50.000 0.67576   0.00110 9.26036 9.26256
+2     75.000 1.15380   0.00188 9.25958 9.26334
+3     90.000 1.65275   0.00270 9.25876 9.26416
+4     95.000 1.97227   0.00322 9.25824 9.26468
+5     99.000 2.60141   0.00425 9.25722 9.26571
+6     99.900 3.34138   0.00545 9.25601 9.26691
+7     99.990 3.97301   0.00648 9.25498 9.26794
+8     99.999 4.53669   0.00740 9.25406 9.26886
+  
+</PRE>
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of the Sample Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first few lines display the sample statistics used in 
+calculating the confidence interval. The table shows the confidence 
+interval for several different significance levels. The first column 
+lists the confidence level (which is 1 - 
+<img align=absmiddle src="eqns/alpha.gif" alt="alpha"> 
+expressed as a percent), 
+the second column lists the <i>t</i>-value (i.e., 
+<img align=absmiddle src="eqns/tcrval.gif" alt="t(alpha/2,N-1)">), the third 
+column lists the <i>t</i>-value times the standard error (the standard error
+is 
+<img align=absmiddle src="eqns/tsderr2.gif" alt="s/SQRT(N)">), 
+the fourth column lists the lower confidence limit, and 
+the fifth column lists the upper confidence limit. For example, for 
+a 95 % confidence interval, we go to the row identified by 95.000 in the 
+first column and extract an interval of (9.25824, 9.26468) from the 
+last two columns.
+<P>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sample Output for t Test
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+
+R software was used to generate the following output for 
+a one-sample, two-sided <i>t</i>-test for the 
+<a href="../section4/eda4281.htm">ZARR13.DAT</a>
+data set.  
+<P>
+<PRE>
+
+        One Sample t-test
+data:  y 
+t = 2611.286, df = 194, p-value < 2.2e-16
+alternative hypothesis: true mean is not equal to 5 
+95 percent confidence interval:
+ 9.258242 9.264679 
+sample estimates:
+mean of x 
+  9.26146 
+  
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of Sample Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We are testing the null hypothesis that the population mean is 5, or 
+<img align=absmiddle src="eqns/h0.gif" alt="H0: mu = 5">,
+using R software. <OL>
+   <LI>The R output displays the results of a two-sided, one-sample 
+       <i>t</i>-test including:  the <i>t</i>-test statistic value, 
+       <i>t</i>, the degrees of freedom, df, and the <i>p</i>-value associated 
+       with the test statistic.  Also shown are a 95 % confidence 
+       interval for the mean and the sample mean. 
+       <P>
+   <LI>There are three possible alternative hypotheses and rejection 
+       regions for the one-sample <i>t</i>-test:
+       <P>
+       <img align=absmiddle src="eqns/hypoth.gif" alt="alt hypoth">
+       <P>
+   <LI>The test statistic for our example is 2611.286, which falls within 
+       the rejection region for two alternative hypotheses, 
+       <img align=absmiddle src="eqns/ha_ne.gif" alt="Ha: mu ne 5 ">
+       and
+       <img align=absmiddle src="eqns/ha_gt.gif" alt="Ha: mu gt 5 ">.
+       Thus, we would reject the null hypothesis and accept the alternative, 
+       concluding that the population mean is not equal to 5 for the two-tailed 
+       test and that the population mean is greater than 5 for the one-tailed test.
+       <P>
+   <LI>Another way to test the hypothesis is to compare the <i>p</i>-value associated 
+       with the test statistic to the level of the test, alpha.  In our example, 
+       the <i>p</i>-value is listed as being less than 2.2e-16.  Since the <i>p</i>-value is 
+       much less than our significance level of 0.05, we would reject the null 
+       hypothesis and conclude that the two means are not equal.  Comparing 
+       the <i>p</i>-value to the significance level eliminates the need to look up 
+       <i>t</i>-table values for the critical region.
+       <P>
+   <LI>The confidence interval listed in the R output provides an alternative 
+       to the hypothesis test.  If the confidence interval contains 5, 
+       then the null hypothesis cannot be rejected.  In our example, the 
+       confidence interval (9.25824, 9.26468) does not contain 5, 
+       indicating that the population mean does not equal 5 at the 0.05 
+       level of significance. 
+
+</OL>
+
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda352.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda353.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

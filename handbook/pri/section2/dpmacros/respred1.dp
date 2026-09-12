@@ -1,0 +1,43 @@
+.
+.  Macro to generate plot of residuals versus predicted
+.  show increasing spread as x increases
+.
+device 1 x11
+device 2 postscript
+.
+thickness 0.15
+tic mark label size 3
+label case asis
+label size 3
+x3label size 4
+x3label Figure 2.6
+.
+skip 25
+read berger1.dat y x
+fit y x
+let res2 = abs(res)
+.
+ylimits 0 25
+ytic offset 2 0
+label case asis
+x1label Predicted Values
+y1label |Residuals|
+char x
+line blank
+plot res2 pred
+limits freeze
+pre-erase off
+.
+let xtemp = xplot
+let ytemp = yplot
+lowess fraction 0.6
+lowess ytemp xtemp
+.
+line dashed
+char blank
+plot pred xtemp
+.
+device 2 close
+.
+system cp dppl1f.dat respred1.ps
+.

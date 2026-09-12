@@ -1,0 +1,10 @@
+.
+.  Generate sample output for confidence limits
+.
+skip 25
+read gear.dat y
+echo on
+capture chisquar.out
+chi-square test y 0.1
+end of capture 
+quit

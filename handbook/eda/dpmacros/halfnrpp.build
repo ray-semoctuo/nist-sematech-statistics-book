@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < halfnrpp.dp
+mv dppl1f.dat halfnrpp.ps
+gs -sDEVICE=ppm -sOutputFile=halfnrpp.ppm  -dNOPAUSE -dBATCH halfnrpp.ps
+~/bin/pnmrotate  -90 halfnrpp.ppm > halfnrpp_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 halfnrpp_r.ppm > halfnrpp_s.ppm
+~/bin/ppmtogif  halfnrpp_s.ppm > halfnrpp.gif
+mv halfnrpp.gif ../gif/halfnrpp.gif
+rm halfnrpp.ppm halfnrpp_r.ppm halfnrpp_s.ppm halfnrpp.ps
+#

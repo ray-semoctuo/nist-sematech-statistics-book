@@ -1,0 +1,566 @@
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<TITLE>Dataplot Commands for Catapult Case Study</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../pri639.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="../pri639.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../../" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Catapult Case Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Set Software Options and Get Started
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Catapult Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 50
+column limits 1 60
+read catapult.dat y z1 to z5 x1 to x5 runseq cent
+skip 0
+column limits
+.
+variable label y Distance
+variable label x1 Bandcr()Height
+variable label x2 Startcr()Angle
+variable label x3 Numbersp()ofcr()Bands
+variable label x4 Armcr()Length
+variable label x5 Stopcr()Point
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Scatter Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.1
+title Catapult Data
+xlimits 1 5
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label ^y
+ylimits 0 125
+major ytic mark number 6
+minor ytic mark number 4
+ytic offset 0 10
+dex scatter plot y x1 x2 x3 x4 x5
+line dash
+drawdata 1.5 0 1.5 130
+drawdata 2.5 0 2.5 130
+drawdata 3.5 0 3.5 130
+drawdata 4.5 0 4.5 130
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+ytic offset 0 0
+xlimits
+x1tic mark label format
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Box Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.2
+title Catapult Data
+xlimits 10 50
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 5 5
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label ^y
+ylimits 0 125
+major ytic mark number 6
+minor ytic mark number 4
+ytic offset 0 10
+char box plot
+line box plot
+fences on
+let xtemp = x1 + 10
+box plot y xtemp
+pre-erase off
+let xtemp = x2 + 20
+box plot y xtemp
+let xtemp = x3 + 30
+box plot y xtemp
+let xtemp = x4 + 40
+box plot y xtemp
+let xtemp = x5 + 50
+box plot y xtemp
+pre-erase on
+char blank all
+line solid all
+char x
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+ytic offset 0 0
+xlimits
+x1tic mark label format
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Mean Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.3
+title Catapult Data
+xlimits 1 5
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label ^y
+ylimits 30 90
+major ytic mark number 7
+minor ytic mark number 1
+char circle
+char fill on 
+line solid
+dex mean plot y x1 x2 x3 x4 x5 subset cent = 0
+char x
+char fill off 
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+xlimits
+xtic mark label format
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Median Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.4
+title Catapult Data
+xlimits 1 5
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label ^y
+ylimits 30 90
+major ytic mark number 7
+minor ytic mark number 1
+char circle
+char fill on
+line solid
+dex median plot y x1 x2 x3 x4 x5 subset cent = 0
+char x
+char fill off
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+xlimits
+xtic mark label format
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex SD Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.5
+title Catapult Data
+xlimits 1 5
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label Standard Deviation of Distance
+. ylimits 30 80
+. major ytic mark number 6
+. minor ytic mark number 1
+char circle
+char fill on
+line solid
+dex sd plot y x1 x2 x3 x4 x5 subset cent = 0
+char x
+char fill off
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+xlimits
+xtic mark label format
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Mean Interaction Effects Plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1
+variable label y Distance
+variable label x1 X1
+variable label x2 X2
+variable label x3 X3
+variable label x4 X4
+variable label x5 X5
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+xtic offset 0.5 0.5
+xtic mark label format numeric
+y1label ^y
+ylabel displacement 16
+char circle blank
+char fill on blank
+line solid solid
+ylimits 30 90
+major ytic mark number 3
+minor ytic mark number 2
+ytic offset 10 0
+line solid
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+set matrix plot x2label effect
+set matrix plot lower diagonal off
+. x2label displacement 16
+x2label displacement 80
+dex mean interaction effects plot y x1 x2 x3 x4 x5 subset cent = 0
+multiplot corner coordinates
+multiplot scale factor 1
+variable label y Distance
+variable label x1 Bandcr()Height
+variable label x2 Startcr()Angle
+variable label x3 Numbersp()ofcr()Bands
+variable label x4 Armcr()Length
+variable label x5 Stopcr()Point
+x2label displacement
+char x
+line blank
+char fill off
+ylimits
+y1label
+ylabel displacement
+ytic offset 0 0
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Block Plots
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2
+char 1 2
+lines solid all
+line blank blank
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+multiplot 3 4
+title Band Height
+block plot y x2 x3 x1 subset cent = 0
+block plot y x4 x5 x1 subset cent = 0
+title Start Angle
+block plot y x1 x3 x2 subset cent = 0
+block plot y x4 x5 x2 subset cent = 0
+title Number of Bands
+block plot y x1 x2 x3 subset cent = 0
+block plot y x4 x5 x3 subset cent = 0
+title Arm Length
+block plot y x1 x2 x4 subset cent = 0
+block plot y x3 x5 x4 subset cent = 0
+title Stop Angle
+block plot y x1 x2 x5 subset cent = 0
+block plot y x3 x4 x5 subset cent = 0
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+char x blank
+line blank solid
+title
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Yates Analysis
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1
+yates y
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Probability Plots of Effects
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.1
+let y2 = y
+retain y2 subset cent = 0
+yates y2
+skip 0
+read dpst1f.dat tag coef t ressd1 ressd2
+let numcoef = size coef
+multiplot scale factor 2
+multiplot corner coordinates 2 2 98 98
+multiplot 2 2
+title Normal Probability Plot of coef
+normal probability plot coef
+let abscoef = abs(coef)
+title Half-Normal Probability Plot of |coef|
+halfnormal probability plot abscoef
+characters automatic tag
+let seq = numcoef -1 1
+title Labeled Half-Normal Probability Plot
+character size 3 all
+plot yplot xplot seq
+end of multiplot
+multiplot scale factor 1
+multiplot corner coordinates
+character x
+character size
+title
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residual Plots for Model Validation
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 6.2
+multiplot scale factor 2
+multiplot corner coordinates 10 10 90 90
+multiplot 2 2
+y1label displacement 15
+major ytic mark number 6
+title normal prob plot
+normal probability plot res
+title run sequence
+let runseq2 = runseq
+y1label res
+plot res runseq
+end of multiplot
+multiplot scale factor 1
+multiplot corner coordinates
+character x
+character size
+title
+title
+y1label
+y1label displacement
+major tic mark number
+minor tic mark number
+. Finished Step 6.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Dex Contour Plot of Factors 3 and 4
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 7.1
+title DEX Contour Plot
+y1label Number of Bands
+x1label Arm Length
+limits -2 2
+tic offset 0 0
+major tic mark number 5
+let levels = sequence 30 10 140
+line solid all
+line blank blank
+line thickness 0.1 0.1 0.3 0.3
+char blank all
+char zval circle circle
+char fill off on on
+dex contour plot y x3 x4 levels
+char x blank blank
+line blank solid
+line thickness 0.1 all
+title
+y1label
+limits
+major tic mark number
+. Finished Step 7.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+</PRE>
+</TD>
+</TR>
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../../" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="../pri639.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../pri639.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

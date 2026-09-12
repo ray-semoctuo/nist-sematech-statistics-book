@@ -1,0 +1,38 @@
+.
+.  Generate sample output for qq plot
+.
+dimension 25 variables
+device 1 x11
+device 1 font simplex
+set ipl1na qqplot.ps
+device 2 postscript
+title case asis
+label case asis
+title size 3
+tic label size 3
+label size 3
+char size 3
+.
+SKIP 50
+read JAHANMI2.DAT run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch 1
+retain y2 subset batch 2
+.
+title Q-Q Plot
+y1label Batch 1
+x1label Batch 2
+.
+character x
+line blank
+quantile-quantile plot y1 y2
+.
+let string mark = JAHANMI2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp QQPLOT.PS qqplot.ps
+.
+. quit

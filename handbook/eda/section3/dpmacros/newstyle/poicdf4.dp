@@ -1,0 +1,41 @@
+.
+.  Generate sample output for Poisson CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na poicdf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+LINE BLANK
+SPIKE ON
+XTIC OFFSET 2 2
+.
+TITLE Poisson CDF (LAMBDA = 5)
+PLOT POICDF(X,5) FOR X = 0 1 50
+TITLE Poisson CDF (LAMBDA = 15)
+PLOT POICDF(X,15) FOR X = 0 1 50
+TITLE Poisson CDF (LAMBDA = 25)
+PLOT POICDF(X,25) FOR X = 0 1 50
+TITLE Poisson CDF (LAMBDA = 35)
+PLOT POICDF(X,35) FOR X = 0 1 50
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp POICDF4.PS poicdf4.ps
+system rm POICDF4.PS
+.
+quit

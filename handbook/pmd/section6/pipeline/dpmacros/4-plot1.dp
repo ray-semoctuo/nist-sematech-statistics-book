@@ -1,0 +1,28 @@
+.
+. Starting Step 2.1
+fit field lab
+title displacement
+x1label ^lab
+y1label ^field
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+pre-erase off
+plot field pred vs lab
+pre-erase on
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+.
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 2.5
+pre-erase off
+4-plot res
+pre-erase on
+multiplot corner coordinates
+multiplot scale factor 1
+. Finished Step 2.1: Page Back for Output

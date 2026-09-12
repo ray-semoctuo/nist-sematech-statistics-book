@@ -1,0 +1,504 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.1.2. Graphical Representation of the Data</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc613.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc611.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.htm">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc61.htm">Lithography Process</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.1.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical Representation of the Data</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first step in analyzing the data is to generate some simple
+plots of the response and then of the response versus the various
+factors.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="4PLOT">
+4-Plot of Data
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/4plot.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This <a href="../../eda/section3/4plot.htm">4-plot</a> shows the
+following.
+<ol>
+   <li>The <a href="../../eda/section3/runseqpl.htm">run sequence
+       plot</a> (upper left) indicate that the location and scale
+       are not constant over time.  This indicates that the 3
+       factors do in fact have an effect of some kind.
+   <li>The <a href="../../eda/section3/lagplot.htm">lag plot</a>
+       (upper right) indicates that there is some mild autocorrelation
+       in the data.  This is not unexpected as the data is grouped
+       in a logical order of the 3 factors (i.e., not randomly)
+       and the run sequence plot indicates that there are factor
+       effects.
+   <li>The <a href="../../eda/section3/histogra.htm">histogram</a>
+       (lower left) shows that most of the data falls between 1 and
+       5 with the center of the data at about 2.2.
+   <li>Due to the non-constant location and scale and autocorrelation
+       in the data, distributional inferences from the 
+       <a href="../../eda/section3/normprpl.htm">normal probability
+       plot</a> (lower right) are not meaningful.
+</ol>
+The run sequence plot is shown at full size to show greater detail.
+In addition, a numerical summary of the data is generated.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="RUNSEQPL">
+Run Sequence Plot of Data
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/runseqpl.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="SUMMARY">
+Numerical Summary
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<FONT SIZE=-1>
+<PRE>
+  
+  
+                                 SUMMARY
+  
+                      NUMBER OF OBSERVATIONS =      450
+  
+  
+ ***********************************************************************
+ *        LOCATION MEASURES         *       DISPERSION MEASURES        *
+ ***********************************************************************
+ *  MIDRANGE     =   0.2957607E+01  *  RANGE        =   0.4422122E+01  *
+ *  MEAN         =   0.2532284E+01  *  STAND. DEV.  =   0.6937559E+00  *
+ *  MIDMEAN      =   0.2393183E+01  *  AV. AB. DEV. =   0.5482042E+00  *
+ *  MEDIAN       =   0.2453337E+01  *  MINIMUM      =   0.7465460E+00  *
+ *               =                  *  LOWER QUART. =   0.2046285E+01  *
+ *               =                  *  LOWER HINGE  =   0.2048139E+01  *
+ *               =                  *  UPPER HINGE  =   0.2971948E+01  *
+ *               =                  *  UPPER QUART. =   0.2987150E+01  *
+ *               =                  *  MAXIMUM      =   0.5168668E+01  *
+ ***********************************************************************
+ *       RANDOMNESS MEASURES        *     DISTRIBUTIONAL MEASURES      *
+ ***********************************************************************
+ *  AUTOCO COEF  =   0.6072572E+00  *  ST. 3RD MOM. =   0.4527434E+00  *
+ *               =   0.0000000E+00  *  ST. 4TH MOM. =   0.3382735E+01  *
+ *               =   0.0000000E+00  *  ST. WILK-SHA =   0.6957975E+01  *
+ *               =                  *  UNIFORM PPCC =   0.9681802E+00  *
+ *               =                  *  NORMAL  PPCC =   0.9935199E+00  *
+ *               =                  *  TUK -.5 PPCC =   0.8528156E+00  *
+ *               =                  *  CAUCHY  PPCC =   0.5245036E+00  *
+ ***********************************************************************
+
+
+</PRE>
+<FONT SIZE=+0>
+From this summary, we see that the mean is 2.53 and the standard
+deviation is 0.69.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot response agains individual factors
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The next step is to plot the response against each individual
+factor.  For comparison, we generate both a 
+<a href="../../eda/section3/scatterp.htm">scatter plot</a> and a
+<a href="../../eda/section3/boxplot.htm">box plot</a> of the data.
+The scatter plot shows more detail.  However, comparisons are usually
+easier to see with the box plot, particularly as the number of data
+points and groups gets larger.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="SCATCASS">
+Scatter plot of width versus cassette
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/scatcass.gif">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="BOXPCASS">
+Box plot of width versus cassette
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/boxpcass.gif">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can make the following conclusions based on the above scatter
+and box plots.
+<ol>
+    <li>There is considerable variation in the location for the
+        various cassettes.  The medians vary from about 1.7 to 4.
+    <li>There is also some variation in the scale.
+    <li>There are a number of outliers.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="SCATWAFE">
+Scatter plot of width versus wafer
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/scatwafe.gif">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="BOXPWAFE">
+Box plot of width versus wafer
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/boxpwafe.gif">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can make the following conclusions based on the above scatter
+and box plots.
+<ol>
+   <li>The locations for the 3 wafers are relatively constant.
+   <li>The scales for the 3 wafers are relatively constant.
+   <li>There are a few outliers on the high side.
+   <li>It is reasonable to treat the wafer factor as homogeneous.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="SCATSITE">
+Scatter plot of width versus site
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/scatsite.gif">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="BOXPSITE">
+Box plot of width versus site
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/boxpsite.gif">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can make the following conclusions based on the above scatter
+and box plots.
+<ol>
+   <li>There is some variation in location based on site.  The center
+       site in particular has a lower median.
+   <li>The scales are relatively constant across site.
+   <li>There are a few outliers.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Dex mean and sd plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can use the <a href="../../eda/section3/dexmeanp.htm">dex mean
+plot</a> and the <a href="../../eda/section3/dexsdplo.htm">dex
+standard deviation plot</a> to show the factor means and standard
+deviations together for better comparison.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="DEXMEANP">
+Dex mean plot
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/dexmean.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="DEXSD">
+Dex sd plot
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lithogra/gif/dexsd.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<!-- Add marginal notes below -->
+<i>
+Summary
+</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+The above graphs show that there are differences between the lots and
+the sites.
+<p>
+There are various ways we can create subgroups of this dataset:
+each lot could be a subgroup, each wafer could be a subgroup or each
+site measured could be a subgroup (with only one data value in each
+subgroup).
+<p>
+Recall that for a classical Shewhart Means chart, the average within
+subgroup standard deviation is used to calculate the control limits for
+the Means chart. However, on the means chart you are monitoring the
+subgroup mean to subgroup mean variation.  There is no problem if you
+are in a continuous processing situation - this becomes an issue if
+you are operating in a batch processing environment.
+<p>
+We will look at various control charts based on different subgroupings
+<a href="pmc613.htm">next</a>.
+</td>
+</tr>
+<!-- end paragraph -->
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc611.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc613.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

@@ -1,0 +1,5 @@
+#!/bin/csh -f
+ex - eda44.htm << end-of-edit
+g/HREF=\"eda3/s//HREF=\"\.\.\/section3\/eda3/g
+wq
+end-of-edit

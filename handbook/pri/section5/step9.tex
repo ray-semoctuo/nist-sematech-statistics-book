@@ -1,0 +1,1625 @@
+-----Step 9: cumulative residual sd plot-----
+
+1. Purpose
+
+The cumulative residual sd plot answers the question:
+
+   What is a good fitted model for the data?
+
+The prior 8 steps in this analysis sequence
+addressed the important 2 goals regarding:
+
+   1. Factors: determining the most important factors
+      which affect the response, and
+
+   2. Settings: determining the best settings for these
+      factors.
+
+In addition to the above, a third goal is of
+interest:
+
+   3. Model: determining a fitted model (that is, a
+      prediction equation) which functionally
+      relates the observed response Y with the
+      various main factors and interactions.
+
+Such a function makes particular sense when all of the
+individual factors are continuous and ordinal (such as
+temperature, pressure, humidity, concentration, etc.)
+as opposed to any of the factors being discrete and
+non-ordinal (such as plant, operator, catalyst,
+supplier).
+
+In the former continuous-factor case, the analyst would
+use such a function for
+
+   1. Reproduction/Smoothing: predict the response
+      at the observed design points;
+
+   2. Interpolation: predict what the response would be
+      at (unobserved) regions between the design
+      points; or
+
+   3. Extrapolation: predict what the response would be
+      at (unobserved) regions beyond the design
+      points.
+
+For the discrete-factor case, the methods
+developed below to arrive at such a function still
+apply, and so the resulting fitted model may be
+used for reproduction, but obviously the
+interpolation and extrapolation aspects do not
+apply.
+
+In modeling, therefore, we thus seek a function f in
+the k factors X1, X2, ..., Xk such that the
+post-fitting predicted values "Yhat"
+
+   Yhat = f(X1,X2,...,Xk)
+
+are "close" to the observed raw data values Y. To
+this end, 2 tasks exist:
+
+   1. Determine a good functional form f;
+
+   2. Determine good estimates for the coefficients in
+      that function f.
+
+Thus, for example, if we had 2 factors X1 and X2,
+then our goal would be to
+
+   1. determine some function Y = f(X1,X2); and
+
+   2. estimate the parameter coefficients in f
+
+such that the resulting fitted model would
+yield predicted values (Yhat) that are as close as
+possible to the observed response values Y.
+If the form f has been properly chosen, and the model
+coefficients have been estimated well, then a good
+model will result and that model will have the
+characteristic that the differences ("residuals" =
+Y-Yhat) will be uniformly near-zero.  On the other
+hand, a poor model (from a poor choice of the form f,
+or a poor job of estimating the model parameters) will
+have the characteristic that (some or all) of the
+residuals Y-Yhat will be "large".
+
+For a given model, a single statistic which summarizes
+the quality of a fit via the typical size of the n
+residuals is the residual standard deviation:
+
+      Sres = sqrt(...)
+
+If all such residuals are small (that is, we have
+a good-fitting model), then Sres will be small; if
+some or all of the residuals are large (that is,
+we have a poor-fitting model), then Sres will be
+large.
+
+For a given data set, each proposed model has its own
+quality of fit, and hence its own residual standard
+deviation.  Clearly, the residual standard deviation is
+more of a model-descripter than a data-descripter.
+Whereas "nature" creates the data, the analyst
+creates the models--theoretically, for the same
+data set, it is possible for the analyst to
+propose an indefinitely large number of models.
+
+In practice, however, an analyst will usually
+foward only a small, finite number of plausible
+models for consideration.  Each such model will
+have its own residual standard deviation.  The
+cumulative residual standard deviation plot is
+simply a graphical representation of this
+collection of residual standard deviations for
+various models.  The plot is beneficial in that
+
+   1. good models are distinguished from bad models;
+
+   2. simple good models are distinguished from
+      complicated good models.
+
+In summary, then, the cumulative residual sd plot is a
+graphical tool to help assess
+
+   1. which models are poor (least desirable); and
+
+   2. which models are good but complex (more desirable); and
+
+   3. which models are good and simple (most desirable).
+
+2. Output
+
+   1. Primary  : A good-fitting prediction
+                 equation consisting of an
+                 additive constant plus the most
+                 important main effects and
+                 interactions.
+
+   2. Secondary: The residual standard deviation
+                 for this good-fitting model.
+
+3. Definition
+
+   1. Vertical Axis    : Ordered (largest to
+                         smallest) residual
+                         standard deviations of a
+                         sequence of progressively
+                         more complicated fitted
+                         models.
+
+
+   2. Horizontal Axis  : Factor/interaction
+                         identification of the last
+                         term included into the cumulative
+                         linear combinatoric model:
+                             1 indicates factor X1;
+                             2 indicates factor X2;
+                             ...
+                             12 indicates the 2-term
+                                X1*X2 interaction
+                             123 indicates the 3-term
+                                X1*X2*X3 interaction
+                             etc.
+
+   3. Far right margin : Factor/interaction
+                         identification (built-in
+                         redundancy):
+
+                             1 indicates factor X1;
+                             2 indicates factor X2;
+                             ...
+                             12 indicates the 2-term
+                                X1*X2 interaction
+                             123 indicates the 3-term
+                                X1*X2*X3 interaction
+                             etc.
+
+                         If the design is a
+                         fractional factorial,
+                         then the confounding
+                         structure is provided for
+                         main factors and 2-term
+                         interactions.
+
+The cumulative residual standard deviations plot
+is thus a Pareto-style--largest to smallest--
+graphical summary of residual standard deviations
+for a selected series of progressively more
+complicated linear combinatoric models.
+
+A linear combinatoric model is a function which starts
+with an additive constant and then sequentially
+augments the model by including--one at a time--
+remaining factors and interactions.  Each factor and
+interaction is incorporated into the model in an
+additive (rather than in a multiplicative or
+logarithmic or power, etc. fashion).  At any stage, the
+ordering of the next term to be added to the model is
+such that it will result in the maximal decrease in the
+resulting residual standard deviation.
+
+4. Motivation:
+
+This section addresses the following 9 questions:
+
+   1. What is a model?
+   2. How do we construct a goodness-of-fit metric for a model?
+   3. How do we construct a good model?
+   4. How do we know when to stop adding terms?
+   5. What is the final form for the model?
+   6. Why is the 1/2 in the model?
+   7. What are the advantages of the linear combinatoric model?
+   8. How do we use the model to generate predicted values?
+   9. How do we use the model beyond the data domain?
+  10. What is the best confirmation point for interpolation?
+  11. How do use the model for interpolation?
+  12. How do use the model for extrapolation?
+
+..............................................
+Question 1: What is a model?
+
+A model is a mathematical functions which relates
+the response Y to the factors X1 to Xk.  A model
+has a
+
+   1. functional form; and
+   2. coefficients.
+
+An excellent and easy-to-use functional form that
+we find particularly useful is a linear
+combination of the main factors and the
+interactions (of all orders).  As for the
+coefficients in this linear combinatoric model,
+high-quality, easy-to-obtain coefficient estimates
+are gotten via application of the least squares
+estimation criterion (regression).  A given
+functional form with estimated coefficients is
+referred to as a "fitted model" or a "prediction
+equation"
+
+For given settings of the factors X1 to Xk, a
+fitted model will yield predicted values.  For
+each (and every) setting of the Xi's, a
+"perfect-fit" model is one in which the yielded
+predicted values are identical to the observed raw
+response Y's at these Xi's.  In other words, a
+perfect-fit model will yield a vector of predicted
+values identical to the observed vector of
+response values.  For these same Xi's (each and
+all), a "good-fitting" model is one which yields
+predicted values "acceptably near"--but not
+necessarily identical to--the observed responses Y.
+
+The residuals (= deviations = error) of a model
+are the vector of differences (Y - Yhat) between
+the raw responses and the predicted values from
+the model.  For a perfect-fit model, the vector of
+residuals will be all zeros.  For a good-fitting
+model, the vector of residuals will be acceptably
+(from an engineering point of view) close to zero.
+
+
+..............................................
+Question 2: How do we construct a goodness-of-fit metric
+            for a model?
+
+This question deals with the issue of how to
+construct a metric--a statistic--which may be used
+to ascertain the quality of the fitted model.  The
+statistic should be such that for one range of
+values, the implication is that the model is good,
+whereas for another range of values, the
+implication is that the model is poor-fitting.
+
+Since a model's adequacy is inversely related to
+the size of its residuals, then one such obvious
+statistic is
+
+   the sum of the absolute residuals.
+
+Clearly, the smaller this sum, the smaller the
+residuals, which implies the closer the predicted
+values (to the raw data Y), and hence the better
+the fitted model.  A disadvantage of this
+statistic is that it may grow larger, simply as
+the sample size n grows larger.
+
+A better metric which does not change (much) with
+increasing sample size is the average absolute
+residual:
+
+   AAR = (sum of absolute residuals) / n
+
+where n is the number of response values.  Again,
+small values for this statistic imply
+better-fitting models.
+
+An alternative, but similar, metric which has
+better statistical properties is
+
+   sqrt((sum of squared residuals) / n)
+
+As with the previous, the smaller this statistic,
+the better the model.
+
+Our final metric which is to be preferred because
+of its excellent statistical properties
+(unbiasedness) is
+
+   sqrt((sum or squared residuals) / (n-p))
+
+where p is the number of fitted coeffients in the
+model.  This final statistic is called the
+"residual standard deviaion--it is the standard
+deviation of the residuals from a given model.
+The smaller this residual standard deviation, the
+better-fitting the model.  We shall use the
+residual standard deviation as our metric of
+choice for evaluating and comparing various
+proposed models.
+
+
+..............................................
+Question 3: How do we construct a good model?
+
+Given that we have a statistic to measure the
+quality of a model--any model--we move to the
+question as to how to construct reasonable models
+for fitting data resulting from 2**k and 2**(k-p)
+designs.
+
+<Initial simple model>
+The simplest such proposed model is
+
+   Y = f(X1,X2,...,Xk) = c + e
+
+that is, the response Y = a constant + random
+error.  This trivial model says that all of the
+factors (and interactions) are in fact worthless
+for prediction and so the best-fit model is one
+which consists of a simple horizontal straight
+line through the body of the data.  The least
+squares estimate for this constant c in the above
+model is the sample mean Ybar:
+
+   estimated c = Ybar = average Y
+
+The prediction equation for this model is thus
+
+   Yhat = Ybar
+
+The predicted values Yhat for this fitted trivial
+model is thus a vector consisting of the same
+value (namely Ybar) throughout.  The residual
+vector for this model will thus consist of simple
+deviations about the mean:
+
+   Y - Ybar
+
+Since the number of fitted coefficients in this
+model is 1 (namely the constant c), then the
+residual standard deviation becomes the following:
+
+   sqrt((sum of squared residuals about Ybar) / (n-1))
+
+which is of course identically the familiar and
+commonly-employed sample standard deviation.  If
+the residual standard deviation for this trivial
+model is "small enough", then we may terminate the
+model-building process right there with no further
+inclusion of terms.  In practice, however, this
+trivial model does NOT usually yield a residual
+standard deivation which is small enough (because
+the common value Ybar is typically not acceptably
+close enough to some of the raw responses Y) and
+so the model must be simply augmented--but how?
+
+<Next-step model>
+The logical next-step proposed model will consist
+of the above additive constant + plus some term
+which will improve the predicted values the most
+(and equivalently will reduce the residuals the
+most, and thus reduce the residual standard
+deviation the most).
+
+<Using the most important effects>
+As it turns out, it is a mathmatical fact that the
+the factor (or interaction) which has the largest
+estimate effect E (= Ybar(+) - Ybar(-)) will
+necessarily-- after being included in the
+model--yield the "biggest bang for the buck" in
+terms of improving the predicted values toward the
+response Y. Hence at this point the model-buiding
+process and the effect estimation process merge.
+
+From all of the previous 8 steps in our analysis,
+and based on the magnitude of the estimated
+effects, we developed a ranked list of factors and
+interactions-- most important to least important.
+We thus have a ready-made ordering of the terms
+which could be added--one at a time--to the model.
+This ranked list of effects is precisely the
+"prescription" we need to cumulatively build more
+complicated--but better fitting--models.
+
+Our procedure will thus be to step down--one by
+one--the ranked list of effects, cumulatively
+augmenting our current model by the next term in
+the list, and then compute (for all n design
+points) predicted values, residuals, and residual
+standard deviation.  We continue this
+one-term-at-a-time augmentation until the
+predicted values are acceptably close to the
+observed responses Y (and hence the residuals and
+residual standard deviation become acceptably
+close to zero).
+
+Starting with the simple average, each cumulative
+model in this iteration process will have its own
+associated residual standard deviation.  In
+practice, the iteration continues until the
+residual standard deviations become sufficiently
+small.
+
+The cumulative residual standard deviation plot is
+a graphical summary of the above model-building
+process.  On the horizontal axis is a series of
+terms (starting with the average, and continuing
+on with various main factors and interactions).
+After the average, the ordering of terms on the
+horizontal axis is identical to the ordering of
+terms based on step 8's ranking based on effect
+magnitude.
+
+On the vertical axis is the corresponding residual
+standard deviation that results when the
+cumulative model has its coefficients fitted (via
+least squares), and then has its predicted values,
+residuals, and residual standard deviations
+computed.  The first residual standard deviation
+(on the far left of the cumulative residual
+standard deviation plot) is that which results
+from the model consisting of
+
+   1) the average.
+
+The second residual standard deviation plotted is
+from the model consisting of
+
+   1) the average, plus
+   2) the term with the largest |effect|.
+
+The third residual standard deviation plotted is
+from the model consisting of
+
+   1) the average, plus
+   2) the term with the largest |effect|, plus
+   3) the term with the second largest |effect|.
+
+and so forth.
+
+..............................................
+Question 4: How do we know when to stop adding terms?
+
+Proceeding left to right, as we add more terms to
+the model, the cumulative residual standard
+deviation "curve" will typically decrease.  At the
+beginning (on the left), as we add large-effect
+terms, the decrease from one residual standard
+deviation to the next residual standard deviation
+will be large.  The incremental improvement
+(decrease) then tends to drop off slightly.  At
+some point the incremental improvement will
+typically slacken off considerably.
+Appearance-wise, it is thus very typical for such
+a curve to have a "hockey stick" appearance:
+
+   1. starting with a series of large decrements
+      between successive residual standard
+      deviations; then
+
+   2. hitting an elbow; then
+
+   3. having a series of gradual incremental
+      decreases thereafter.
+
+<Stopping rule>
+The cumulative residual standard deviation plot
+provides a visual answer to the question:
+
+   What is a good model?
+
+by answering the related question:
+
+   When do we stop adding terms to the cumulative model?
+
+Interpretationally, the most common stopping rule
+for adding terms is to cease immediately upon
+encountering the "elbow".  We include all terms up
+to (and including) the elbow point (after all,
+each of these terms decreased the residual
+standard deviation by a large amount); but we
+exclude any terms afterward (since every
+successive term thereafter does not decrease the
+residual standard deviation fast enough to warrant
+inclusion in the model).
+
+..............................................
+Question 5: What is the final form for the model?
+
+From the above discussion, we thus note and
+recommend a final form for the model which
+consists of an additive constant plus a linear
+combination of main effects and interactions.
+What then is the specific form for the linear
+combination?  We recommend the following:
+
+   For the trivial k = 1 factor case:
+
+      Y = f(X1) = c + (1/2)*(B1*X1)
+
+   For the k = 2 factor case:
+
+      Y = f(X1,X2) = c + (1/2)*(B1*X1 + B2*X2 + B12*X1*X2)
+
+   For the k = 3 factor case:
+
+      Y = f(X1,X2,X3) = c + (1/2)*(B1*X1 + B2*X2 + B3*X3 +
+                                   B12*X1*X2 + B13*X1*X3 +
+                                   B23*X2*X3 + B123*X1*X2*X3)
+
+and for the general k case:
+
+      Y = f(X1,X2,...,Xk) = c + (1/2)*(linear combination
+                                       of all main factors
+                                       and all interactions
+                                       of all orders)
+
+<Ordered linear combination>
+Although the listing above has the terms ordered
+with the main factors, and then the 2-term
+interactions, then the 3-term interactions, etc., in
+practice, it is recommended that the terms be
+re-ordered so that the most important terms
+(whether they be main effects or interactions) be
+listed first, and then other terms listed in
+decreasing order of importance thereafter).  Aside
+from providing a functional representation of the
+response, models should help to functionally
+reinforce what is driving the response, and so
+such a re-ordering helps to assist in that regard.
+Thus for k = 2, if factor 2 is most important, and
+the 2-term interaction is next in importance, and
+factor 1 is least important, then it is
+recommended that the above ordering of
+
+   Y = f(X1,X2) = c + (1/2)*(B1*X1 + B2*X2 + B12*X1*X2)
+
+be rewritten as
+
+   Y = f(X1,X2) = c + (1/2)*(B2*X2 + B12*X1*X2 + B1*X1)
+
+
+..............................................
+Question 6: Why is the 1/2 in the model?
+
+The leading 1/2 is a multiplicative constant that
+we have chosen to include in our expression of the
+linear combinatoric model.  The presence or
+absence of the arbitrary 1/2 term does NOT affect
+the predictive quality of the model after least
+squares fitting.  Clearly, if we choose to exclude
+the 1/2, then the least squares fitting process
+will simply yield estimated values of the
+coefficients B that are twice the size of the
+coefficients B that would result if we included
+the 1/2.
+
+We recommend the inclusion of the 1/2 because of
+an additional property that we would like to
+impose on the model, namely, we desire that:
+
+   The value of the least squares estimated
+   coeffient B for a given factor (and
+   interaction) be visually identical to the
+   estimated effect E for that factor (and
+   interaction).
+
+For a given factor X2 (say), the estimated least
+squares coefficient B2 and the estimated effect
+(E2) are NOT in general identical--either in value
+or in concept.
+
+<Effect>
+For factor X2, the "effect" E2 is defined as the
+change in the mean response as we proceed from the
+- setting of the factor to the + setting of the
+factor, symbolically:
+
+   estimated effect = Ybar(+) - Ybar(-)
+
+Note that the estimated effect E2 value does NOT
+involve a model per se, and is definitionally
+invariant to any other factors and interactions
+that may effect the response.  We examined and
+derived the factor effects E in steps 1 to 8 of
+the general DEX analysis procedure.
+
+On the other hand, the estimated coefficient B2 in
+a model is defined as that value which results
+when we place the model into the least squares
+fitting process (regression).  The value that
+returns for B2 depends--in general--on the form
+for the model, on what other terms are included in
+the model, and on the experiment design that was
+run.  The least squares estimate for B2 is mildly
+complicated--involving a behind-the-scenes design
+matrix multiplication and inversion.  The
+coefficient values B that result are generally
+obscured by the mathematics to make the
+coefficients have the collective property that the
+fitted model as a whole yield a minimum sum of
+squared deviations ("least squares").
+
+<Orthogonality>
+Rather remarkably, these 2 concepts and values:
+
+   1. factor and interaction effect estimates E, and
+
+   2. least squares coefficient estimates B
+
+merge for the class of experiment designs for
+which this 10-step procedure was developed,
+namely, 2-level full and fractional designs which
+are orthogonal.  Orthogonality has been promoted
+and chosen because of its desirable design-side
+properties (every factor is balanced and every
+2-term cross-product is balanced).  But to boot,
+orthogonality has 2 extraordinary properties on
+the data analysis side:
+
+   1. For the above linear combinatoric
+      models, the usually complicated least
+      squares estimates for the coefficients B
+      (which generally involves matrix
+      multiplication and inversion) reduces to a
+      computationally trivial and familiar form,
+      namely,
+
+            B = E = Ybar(+) - Ybar(-)
+
+   2. The usual general modeling property that the
+      least squares estimate for a factor
+      coefficient changes depending on what other
+      factors have been included in (or excluded
+      from) the model is now moot.  With
+      orthogonal designs, the coefficient
+      estimates are invariant-- the estimate
+      (e.g., B2) for a given factor (e.g., X2)
+      will NOT change as other factors and
+      interactions are included in (or excluded
+      from) the model; that is, the estimate for
+      the factor 2 effect (B2) remains the same
+      regardless of what other factors are
+      included in the model.
+
+The net effect of the above two properties is that
+a factor effect can be computed once and for all,
+and that value will hold for any linear
+combinatoric model involving that term--
+regardless of how simple or how complicated the
+model.  This process greatly simplifies the
+model-building process because the need is thus
+eliminated to recalculate all of the model
+coefficients for each new model that gets created
+as new terms are added to or dropped.
+
+Given the calculational simplicity of orthogonal
+designs, why then is 1/2 the appropriate
+multiplicative constant?  Why not 1/3, 1/4, etc.
+To answer this, we revisit our specified desire
+that
+
+   when we view the final fitted model
+   and look at the coefficient associated with X2,
+   say, then it is desirable that the value of that
+   coefficient B2 reflect identically the expected
+   total change delta Y in the response Y as we
+   proceed from the - setting of X2 to the +
+   setting of X2 (that is, we would like the
+   estimated coefficient B2 to be identical to the
+   estimated effect E2 for factor X2).
+
+Thus in glancing at the final model in this form,
+the coefficients B of the final model will
+immediately reflect not only the relative
+importance of the coefficients one to another, but
+will also reflect (absolutely) the effect of the
+associated term (main effect or interaction) on
+the response.
+
+In general, the least squares estimate of a
+coefficient in a linear combinatoric model will
+yield a coefficient which is essentially a slope:
+
+   delta Y / delta X
+
+associated with a given factor X. Thus in order to
+achieve the desired interpretation of the
+coefficients B as being the raw change in the Y
+(delta Y), then we must account for and remove the
+change in X (delta X).
+
+What is the delta X? In our design descriptions,
+we have chosen the notation of Box, Hunter and
+Hunter (1978) and set each (coded) factor to
+levels of - and +. This - and + is a shorthand
+notation for -1 and +1.  The advantage of this
+notation is that 2-term interactions (and any-term
+interaction) also uniformly takes on the closed
+values of -1 and +1, since
+
+   -1*-1 = +1
+   -1*+1 = -1
+   +1*-1 = -1
+   +1*+1 = +1
+
+and hence the set of values that the 2-term
+interactions (and all interactions) take on are
+{-1,+1}.  This -1 and +1 notation is superior in
+its consistency than the 1,2 notation of, say,
+Taguchi in which case the interaction X1*X2, say,
+would take on the values
+
+   1*1 = 1
+   1*2 = 2
+   2*1 = 2
+   2*2 = 4
+
+which yields the set {1,2,4}.  Hence, with the
+-1,+1 values for the main factors, we also have
+-1,+1 values for all interactions which in turn
+yields (for all terms) a consistent delta X of
+
+   delta X = (+1) - (-1) = +2
+
+In summary then,
+
+   B = (delta Y) / (delta X) = (delta Y) / 2
+                             = (1/2) * (delta Y)
+
+and so to achieve our goal of having the final
+coefficients reflect delta Y only, we simply
+gather up all of the 2's in the denominator and
+create a leading multiplicative constant of 1 with
+denominator 2, that is, 1/2.
+
+For example, for the trivial k = 1 case, the
+obvious model
+
+   Y = intercept + slope*X1
+
+   Y = c + ((delta Y)/(delta X))*X1
+
+ becomes
+
+   Y = c + (1/delta X) * (delta Y)*X1
+
+or simply
+
+   Y = c + (1/2) * (delta Y)*X1
+
+   Y = c + (1/2)*(factor 1 effect)*X1
+
+This k = 1 factor result is easily seen to extend
+to the general k case.
+
+..............................................
+Question 7: What are the advantages of the linear
+            combinatoric model?
+
+The recommended linear
+combinatoric model consisting of main factors and all
+interactions has 2 advantages:
+
+   1. Perfect Fit:  If we choose to include in the
+                    model all of the main factors
+                    and all interactions (of all
+                    orders), then the resulting
+                    least squares fitted model
+                    will have the property that
+                    the predicted values will be
+                    IDENTICAL to the raw response
+                    values Y. (We will illustrate
+                    this in the next section.)
+
+   2. Comparable Coefficients:  Since the model fit has
+                    been carried out in the coded
+                    factor (-1,+1) units rather
+                    than the units of the original
+                    factor (temperature, time,
+                    pressure, catalyst
+                    concentration, etc.), then the
+                    factor coefficients
+                    immediately become comparable
+                    to one another, which serves as
+                    an immediate mechanism for the
+                    ranking of the relative
+                    importance of the factors--
+                    scale-free.
+
+To illustrate in detail the above latter point,
+suppose the (-1,+1) factor X1 is really a coding
+of temperature T (with the orginal temperature
+ranging from 300 to 350 degrees), and suppose the
+(-1,+1) factor X2 is really a coding of time t
+(with the original time ranging from 20 to 30
+minutes).  Given that, then a linear combinatoric
+model in the original temperature T and time t
+would yield coefficients whose magnitude depends
+on the magnitude of T (300 to 350) and t (20 to
+30), and whose value would change if we decided to
+change the units of T (from fahrenheit degrees to
+centigrade degrees) and t (from minutes to
+seconds).  All of this is avoided by carrying out
+the fit not in the original units for T (300,350)
+and t (20,30), but in the coded units of X1
+(-1,+1) and X2 (-1,+1).  The resulting
+coefficients become unit-invariant, and thus the
+coefficient magnitudes reflect the true
+contribution of the factors and interactions,
+without regard to unit.
+
+Such coding leads to no loss of generality, since
+the coded factor may be expressed as a simple
+linear relation to the original factor (X1 to T,
+X2 to t), and so the unit-invariant coded
+coefficients may be easily transformed to
+unit-sensitive original coefficients if so
+desired.
+
+..............................................
+Question 8: How do we use the model to generate
+            predicted values?
+
+To illustrate the details as to how a model may be
+used for prediction, let us consider a simple case
+and generalize from it.  Consider the simple
+Yates-order k = 2 factor 2**2 full factorial
+design in X1 and X2:
+
+        X1     X2
+         -      -
+         +      -
+         -      +
+         +      +
+
+We augment this design with a simple (for
+illustration purposes) response vector Y:
+
+
+        X1     X2      Y
+         -      -      2
+         +      -      4
+         -      +      6
+         +      +      8
+
+or geometrically:
+
+       +1 --------------
+          |6          8|
+          |            |
+          |            |
+     X2   |            |
+          |            |
+          |            |
+          |2          4|
+       -1 --------------
+          -1          +1
+                X1
+
+For this k = 2 case, the recommended model as
+discussed before would be
+
+   Y = c + (1/2)(B1*X1 + B2*X2 + B12*X1*X2)
+
+From the above diagram, we may deduce that the
+estimated factor effects must be:
+
+   c   = the average response = Ybar
+       = (2 + 4 + 6 + 8) / 4 = 5
+
+   B1  = average change in the response Y as X1
+         goes from -1 to +1
+       = ((4-2) + (8-6)) / 2 = (2 + 2) / 2 = 2
+
+   B2  = average change in the response Y as X2
+         goes from -1 to +1
+       = ((6-2) + (8-4)) / 2 = (4 + 4) / 2 = 4
+
+   B12 = interaction = (the less obvious) average change
+         in the response Y as X1*X2 goes from -1 to +1
+       = ((2-4) + (8-6)) / 2 = (-2 + 2) / 2 = 0
+
+and so the fitted model (that is, the prediction
+equation) is
+
+   Yhat = 5 + (1/2)*(2*X1 + 4*X2 + 0*X1*X2)
+
+or preferably (with the terms rearranged in
+decending order of importance)
+
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+
+Continuing with the data set and model in hand,
+what predicted values Yhat does this model yield
+at the 4 design points:
+
+        X1     X2      Y      Yhat
+         -      -      2       ?
+         +      -      4       ?
+         -      +      6       ?
+         +      +      8       ?
+
+For the first design point (X1 = -, X2 = -), we
+note that the raw response is Y = +2, but what is
+the predicted value?  To compute this value, note
+that - and + are shorthand for -1 and +1, and so
+the desired predicted value Yhat is
+
+   Yhat(X1 = -1, X2 = -1) =
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   Yhat = 5 + (1/2)(4*(-1) + 2*(-1) + 0*(-1)(-1))
+   Yhat = 5 + (1/2)(-6)
+   Yhat = 5 - 3
+   Yhat = 2
+
+Thus for this case and this model, the predicted
+value (Yhat = 2) is identical to the response
+value (Y = 2):
+
+        X1     X2      Y      Yhat
+         -      -      2       2
+         +      -      4
+         -      +      6
+         +      +      8
+
+Similarly, for the second design point (X1 = +,
+X2= -), the predicted value from this model is
+
+   Yhat(X1 = +1, X2 = -1) =
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   Yhat = 5 + (1/2)(4*(-1) + 2*(+1) + 0*(+1)(-1))
+   Yhat = 5 + (1/2)(-2)
+   Yhat = 5 - 1
+   Yhat = 4
+
+and for the third design point:
+
+   Yhat(X1 = -1, X2 = +1) =
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   Yhat = 5 + (1/2)(4*(+1) + 2*(-1) + 0*(-1)(+1))
+   Yhat = 6
+
+and for the last design point:
+
+   Yhat(X1 = +1, X2 = +1) =
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   Yhat = 5 + (1/2)(4*(+1) + 2*(+1) + 0*(+1)(+1))
+   Yhat = 8
+
+Thus the k = 2 models consisting of all (= 2) main
+factors and all (= 1) interactions has the property
+that the predicted values Yhat are identical to
+the raw response values Y:
+
+        X1     X2      Y     Yhat
+         -      -      2       2
+         +      -      4       4
+         -      +      6       6
+         +      +      8       8
+
+<Perfect fit>
+This is a perfect-fit model.  Such perfect fit
+models will result anytime (in this orthogonal
+2-level design family) when we include all main
+effects and all interactions of all orders.
+Remarkably, this is true not only for k = 2
+factors, but is is true for general k.
+
+<Residuals>
+For a given model (any model), the difference
+between the original response value Y and the
+predicted value Yhat is referred to as the
+"residual":
+
+   residual = Y - Yhat
+
+The perfect-fit full-blown (all main factors and
+all interactions of all orders) combinatoric
+models will have all residuals identically zero.
+
+The perfect fit is a mathematical property that comes
+(free!) if we choose to use the recommended linear
+combinatoric model.  Thus linear combinatoric
+models have the distinct advantage of yielding a
+perfect fit at the data points.
+
+<Price for perfect fit>
+What price is paid for thjis perfection?  The
+obvious price is that to achieve this, we must
+compute and carry the (average and the)
+coefficients of all main factors and all
+interactions of all orders.  Including the
+average, there will in general be 2**k
+coefficients to fully describe the fitting of the
+n = 2**k points.  This is very much akin to the Y
+= f(X) polynomial fitting of n distinct points--
+it is well known that this may be done "perfectly"
+by fitting a polynomial of degree n-1.  It is
+comforting to know that such perfection is
+mathematically attainable, but in practice do we
+want to do such all the time (or anytime)?  The
+answer is frequently "no"--for 2 reasons:
+
+   1. Noise: It is very common that the response
+             data Y has noise (= error) in it.  Do
+             we want to go out of out way to fit
+             such noise?  Or do we want our model
+             to filter out the noise and just fit
+             the "signal"?  For the latter, fewer
+             coefficients may be in order, in the
+             same spirit that we may forego a
+             perfect- fitting (but jagged) 11-th
+             degree polynomial to 12 data points,
+             and opt out instead for an imperfect
+             (but smoother) 3rd degree polynomial
+             through the same 12 points.
+
+   2. Parsimony: For full factorial designs, to fit
+             the n = 2**k points, we would need to
+             compute 2**k coefficients.  We gain
+             information by noting the magnitude
+             and sign of such coefficients, but
+             numerically we have n data values Y
+             as input and n coefficients B as
+             output, and so no numerical reduction
+             has been achieved--we have simply
+             traded one set of n numbers (the
+             data) for another set of n numbers
+             (the coefficients).  Not all of these
+             coefficients will be equally
+             important-- some will be much more
+             important than others.  At times that
+             importance gets clouded by the sheer
+             "volume" of the n = 2**k
+             coefficients.  Parsimony suggests
+             that our result should be simpler and
+             more focused than our n starting
+             points.  Hence fewer retained
+             coefficients are called for.
+
+The net result therefore is that in practice, we
+may voluntarily give up the perfect--but
+unwieldy--model for the imperfect--but
+parsimonious--model.
+
+<Imperfect fit>
+The above calculations illustrated the computation
+of predicted values for the complete model (all
+main factors and all interactions).  On the other
+hand, as discussed above, it may be convenient for
+signal- or parsimony- purposes to deliberately
+omit some (unimportant) factors.  If the analyst
+chooses such a model, we note that the methodology
+for computing predicted values Yhat is precisely
+the same.  In such case, however, the resulting
+predicted values Yhat will in general NOT be
+identical to the original response values Y--that
+is, we no longer get a perfect fit.  Thus, linear
+combinatoric models which omit some terms will
+usually have some residuals non-zero.
+
+..............................................
+Question 9: How do we use the model beyond the
+            data domain?
+
+The previous section illustrated how to compute
+predicted values at the points included in the
+design.  One of the virtues of modelling is that
+the resulting mathematical equation (prediction
+equation) is NOT restricted to the design data
+points.  From the prediction equation, predicted
+values can be computed elsewhere and anywhere:
+
+   1. within the domain of the data (interpolation);
+
+   2. outside of the domain of the data (extrapolation).
+
+In the hands of an expert scientist/engineer/
+analyst, the ability the predict elsewhere is
+extremely valuable.  Based on the fitted model, we
+thus have the ability to compute predicted values
+for the response at an infinite number of
+internal and external points, and thus the analyst
+can go beyond the handful of response values Y
+that he/she has at hand, but rather can get a feel
+(typically via subsequent contour plotting) as to
+what the nature of the entire response surface is.
+
+This added insight into the nature of the response
+is "free" and is an incredibly important benefit
+of the entire model-building exercise.
+
+<Caution>
+Can we be fooled and misled by such a mathematical
+and computational exercise?  After all, is not the
+only thing that is "real" is the data and
+everything else is artifactual?  The answer is
+"yes" and so such interpolation/extrapolation is a
+2-edged sword that must be wielded with care.  The
+best attitude--and especially for extrapolation--
+is that the derived conclusions must be viewed
+with extra caution.
+
+By construction, the recommended fitted models
+will be good at the design points.  If the
+full-blown model is used, the fit will be perfect.
+If the full-blown model is reduced just a bit,
+then the fit will still typically be quite good.
+By continuity one would expect perfection/goodness
+at the design points would lead to goodness in the
+immediate vicinity of the design points.  However,
+such local goodness does NOT guarantee that the
+derived model will be good at some distance from
+the design points.
+
+<Confirmation runs>
+Modeling and prediction allows us to go "beyond"
+the data to gain additional insights, but such
+must be done with great caution.  Interpolation is
+generally safer than extrapolation, but
+mis-prediction, error, and misinterpretation is
+liable to occur occur in either case.
+
+The analyst should definitely do the
+model-building process and enjoy the ability to
+predict elsewhere, but the analyst must always be
+prepared to validate the interpolated and
+extrapolated predictions by collection of
+additional real, confirmatory data.  The general
+empirical model that we recommend knows "nothing"
+about the engineering, physics, or chemistry
+surrounding your particular measurement problem,
+and although the model is the best generic model
+available, it must nonetheless be confirmed by
+additional data.  Such additional data can be done
+pre-emptively or post-experimentally.  If done
+pre-emptively, a recommended procedure for
+checking the validity of the fitted model is to
+augment the usual 2**k or 2**(k-p) designs with
+additional interpolation points--at tne center of
+the design (to be discussed later).
+
+<Continuous factors>
+Of course all such discussion of interpolation and
+extrapolation make sense only in the context of
+continuous ordinal factors (such as temperature,
+time, pressure, size, etd.) Interpolation and
+extrapolation makes no sense for discrete
+non-ordinal facors (such as supplier, operators,
+design types, etc.) and hence is not done.
+
+..............................................
+Question 10: What is the best confirmation point
+            for interpolation?
+
+For the usual continuous factor case, we note in
+passing that the best (most efficient and highest
+leverage) additional model-validation point that
+may be added to a 2**k or 2**(k-p) design is at
+the center point.  This center point augmentation
+"costs" the experimentalist only one additional
+run.  For example, for the k = 2 factor
+(Temperature (300 to 350), and time (20 to 30))
+experiment as discussed before, the usual 4-run
+2***2 full factorial design:
+
+        X1     X2      Y
+         -      -      2
+         +      -      4
+         -      +      6
+         +      +      8
+
+may be augmented by the following 5-run 2**2 full
+factorial design with a center point.  :
+
+        X1     X2      Y
+         -      -      2
+         +      -      4
+         -      +      6
+         +      +      8
+         0      0
+
+Since - stands for -1 and + stands for +1, then it
+is natural to code the center point as (0,0).
+Using the recommended model, it is clear that the
+predicted value Yhat at the center point will be
+
+   Yhat(X1 = 0, X2 = 0) =
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   Yhat = 5 + (1/2)(4*(0) + 2*(0) + 0*(0)(0))
+   Yhat = 5 + (1/2)(0)
+   Yhat = 5 = Ybar
+
+The design, data, and predicted values are thus:
+
+        X1     X2      Y     Yhat
+         -      -      2       2
+         +      -      4       4
+         -      +      6       6
+         +      +      8       8
+         0      0      ?       5  (confirmatory run)
+
+The importance of the confirmatory run cannot be
+overstated.  If the confirmatory run at the center
+point yields a data value of, say, y = 5.1, then
+(since the predicted value at the center is Yhat =
+5 and since we know the model is perfect at the
+corner points) that would give the analyst
+considerable confidence in the quality of the
+fitted model over the entire interior
+(interpolation) domain.  On the other hand, if the
+confirmatory run yielded a center point data value
+quite different (e.g., Y = 7.5) from the center
+point predicted value of Yhat = 5, then that would
+prompt the analyst to NOT trust the fitted
+model--even for interpolation purposes.  Hence
+when our factors are continuous, a single
+confirmatory run at the center point helps
+immensely in assessing the range-of-trust for our
+model.
+
+<Replicated center points>
+In practice, this center point value is frequently
+repeated (2 reps, or even 3 reps) so as to not
+only provide a reference point for assessing the
+interpolatory power of the model at the center,
+but also, the reps allow us to compute model-free
+estimates of the natural error, which in turn
+allows us a more rigorous method for computing the
+uncertainty for individual coefficients in the
+model, and for rigorously carrying out a
+lack-of-fit test for assessing general model
+adequacy.
+
+..............................................
+Question 11: How do we use the model for interpolation?
+
+As for the mechanics of interpolation/
+extrapolation itself, consider a continuation of
+the prior k = 2 factor experiment.  Suppose
+temperature T ranges from 300 to 350 and time t
+ranges from 20 to 30, and the analyst can afford n
+= 4 runs.  A 2**2 full factorial design is run.
+Forming the coded temperature as X1 and the coded
+time as X2, we have the usual:
+
+        Temp    Time    X1     X2     Y
+         300     30     -      -      2
+         350     20     +      -      4
+         300     30     -      +      6
+         350     30     +      +      8
+
+Graphically the design and data are as follows:
+
+    30 +1 --------------
+          |6          8|
+     T    |            |
+     i  X |            |
+     m  2 |            |
+     e    |            |
+          |            |
+          |2          4|
+    20 -1 --------------
+          -1    X1    +1
+          300  Temp  350
+
+As before, from the data, the average
+"perfect-fit" prediction equation is
+
+   Yhat = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+
+We now pose the following typical interpolation
+question:
+
+   From the model, what is the predicted response
+   at, say, temperature = 310 and time = 26?
+
+In short:
+
+   Yhat(T = 310, t = 26) = ?
+
+To solve this problem, we first view the k = 2
+design and data graphically, and note (via a ?) as
+to where the desired (T = 310, t = 26)
+interpolation point is:
+
+    30 +1 --------------
+          |6          8|
+     T    |            |
+     i  X |  ?         |
+     m  2 |            |
+     e    |            |
+          |            |
+          |2          4|
+    20 -1 --------------
+          -1    X1    +1
+          300  Temp  350
+
+The important next step is to convert the raw (in
+units of the original factors T and t)
+interpolation points into coded (in units of X1
+and X2) interpolation points.  From the graph or
+otherwise, we note that a linear translation
+between T and X1, and between t and X2 yields
+
+   T = 300 => X1 = -1
+   T = 350 => X1 = +1
+
+thus
+
+   X1 = 0 is at T = 325
+
+
+        |-------------|-------------|
+       -1     ?       0            +1
+       300   310     325           350
+
+which in turn implies that
+
+   T = 310 => X1 = -0.6
+
+Similarly,
+
+   t = 20 => X2 = -1
+   t = 30 => X2 = +1
+
+therefore,
+
+   X2 = 0 is at t = 25
+
+        |-------------|-------------|
+       -1             0   ?        +1
+       20             25 26        30
+
+thus
+
+   t = 26 => X2 = +0.2
+
+Hence
+
+     Yhat(T = 320, t = 26)
+   = Yhat(X1 = -0.6, X2 = +0.2)
+   = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   = 5 + (1/2)(4*(+0.2) + 2*(-0.6) + 0*(-0.6)(+0.2))
+   = 5 + (1/2)(+0.8 - 1.2)
+   = 5 + (1/2)(-0.4)
+   = 5 + (-0.2)
+   = 4.8
+
+Thus
+
+    30 +1 --------------
+          |6          8|
+     T    |            |
+     i  X | 4.8        |
+     m  2 |            |
+     e    |            |
+          |            |
+          |2          4|
+    20 -1 --------------
+          -1    X1    +1
+          300  Temp  350
+
+..............................................
+Question 12: How do we use the model for extrapolation?
+
+For extrapolation, we do similarly.  For example,
+the predicted value (denoted by ?) at (say) temperature T = 375,
+and time t = 28 is indicated by the "?":
+
+    30 +1 --------------
+          |6          8|
+     T    |            |     ?
+     i  X |            |
+     m  2 |            |
+     e    |            |
+          |            |
+          |2          4|
+    20 -1 --------------
+          -1    X1    +1
+          300  Temp  350
+
+and is computed by
+
+     Yhat(T = 375, t = 28)
+   = Yhat(X1 = +2.0, X2 = +0.8)
+   = 5 + (1/2)(4*X2 + 2*X1 + 0*X1*X2)
+   = 5 + (1/2)(4*(+0.8) + 2*(+2.0) + 0*(+2.0)(+0.8))
+   = 5 + (1/2)((3.2 + 4.0)
+   = 5 + (1/2)(7.2)
+   = 5 + 3.6
+   = 8.6
+
+and thus we have
+
+    30 +1 --------------
+          |6          8|
+     T    |            |   8.6
+     i  X |            |
+     m  2 |            |
+     e    |            |
+          |            |
+          |2          4|
+    20 -1 --------------
+          -1    X1    +1
+          300  Temp  350
+
+<Pseudo-data>
+The predicted value from the modeling effort may
+be viewed as pseudo-data-- an infinite amount of
+"free" data without the experimental effort.  Such
+"free" data can add tremendously to the insight
+via the application of graphical techniques (in
+particular, the contour plots of step 10), and can
+add significant insight and understanding as to
+the nature of the response surface relating Y to
+the X's.
+
+But again a final word of caution: the "pseudo
+data" that results from the modeling process is
+exactly that--pseudo-data-- it is NOT real data,
+and so the model and the model's predicted values
+must be validated by additional confirmatory
+(real) data points.  As John Tukey remarked:
+
+   "Models are to be trusted as real [that is
+   generate predicted values and contour curves],
+   but must always be verified" [that is, by
+   additional confirmatory data points].
+
+The rule of thumb is thus to take advantage of the
+available and recommended model-building mechanics
+for these 2-level designs, but do treat the
+resulting derived model with an equal does of both
+optimism and caution.
+
+In summary, the motivation for model-building is
+that it gives us insight into the nature of the
+response surface along with the ability to do
+interpolation and extrapolation.  Further, the
+motivation for the use of the cumulative residual
+standard deviation plot is that is serves as an
+easy-to-interpret tool for determining such a good
+and parsimonious model.
+
+5. The Plot for the Defective Springs Data
+
+Applying the |Effects| Plot to the defective
+springs yields the following:
+
+   <show plot>
+
+6. How to Interpret
+
+As discussed in detail under question 4 in the
+Motivation section, the cumulative residual
+standard deviation "curve" will characteristically
+decrease left to right as we add more terms to the
+model.  The incremental improvement (decrease)
+tends to be large at the beginning (when important
+factors are being added), but then the decrease
+tends to be marginal at the end (as unimportant
+factors are being added).
+
+Including all terms would yield a perfect fit
+(residual standard deviation = 0) but would also
+result in an unwieldy model.  Including only the
+first term (the average) would yield a simple
+model (only one term!) but typically will fit
+poorly.  Although a formal quantitative stopping
+rule can be developed based on statistical theory,
+a less-rigorous (but good) alternative stopping rule
+that is graphical, easy to use, and highly
+effective in practice is as follows:
+
+   Keep adding terms to the model until the curve's
+   "elbow" is encountered.  The "elbow point" is that
+   value in which there is a consistent, noticeably
+   shallower slope (decrease) in the curve.  Include
+   all terms up to (and including) the elbow point
+   (after all, each of these included terms decreased
+   the residual standard deviation by a large
+   amount).  Exclude any terms AFTER the elbow point
+   (since all such successive terms decreased the
+   residual standard deviation so slowly that the
+   terms were "not worth the complication of
+   keeping").
+
+From the residual standard deviation plot for the
+defective springs data, we note the following:
+
+   1. The residual standard deviation (rsd) for
+      the "baseline" model Yhat = Ybar = 71.25 is
+      sres = 13.7.
+
+   2. As we add the next term (X1), the rsd drops
+      nearly 7 units (from 13.7 to 6.6).
+
+   3. As we add yet another term (X1*X3), the rsd
+      also drops another 3 units (from 6.6 to
+      3.4).
+
+   4. As we add another term (X2), the rsd goes
+      from 3.4 to 1.5-- dropping about another 2
+      units.
+
+   5. When the next term is added (X3), the
+      reduction in the rsd (from about 1.5 to 1.3)
+      is negligible.
+
+   6. Thereafter to the end, the total reduction
+      in the rsd is from only 1.3 to 0.
+
+In this case, the "kink" in the residual standard
+deviation curve is at the X2 term.  Prior to that,
+all added terms (including X2) reduced the rsd by
+a large amount (7, then 3, then 2).  After the
+addition of X2, the reduction to the rsd was small
+(all less than 1): .2, then .8, then .5, then 0.
+
+The final recommended model in this case thus
+involves p = 4 items:
+
+   1. the average
+   2. factor X1
+   3. the X1*X3 interaction
+   4. factor X2
+
+The fitted model thus takes on the form
+
+   Yhat = average + (1/2)*(B1*X1 + B13*X1*X3 + B2*X2)
+
+The least squares estimates for the coefficients
+in this model are
+
+   average = 71.25
+   B1 = 23
+   B13 = 10
+   B2 = -5
+
+The B1 = 23, B13 = 10, and B2 = -5 least squares
+values are, of course, identical to the estimated
+effects E1 = 23, E13 = 10, and E2 = -5 (= Yhat(+)
+- Yhat(-1)) values as previously derived in step 7
+of this recommended 10-step DEX analysis
+procedure.
+
+The final fitted model is thus
+
+   Yhat = 71.25 + (1/2) * (23*X1 + 10*X1*X3 - 5*X2)
+
+Applying this prediction equation to the 8 design
+points yields: predicted values Yhat which are
+close to the data Y, and residuals (Res = Y-Yhat)
+which are close to zero:
+
+        X1     X2     X3       Y    Yhat     Res
+         -      -      -      67    67.25   -0.25
+         +      -      -      79    80.25   -1.25
+         -      +      -      61    62.25   -1.25
+         +      +      -      75    75.25   -0.25
+         -      -      +      59    57.25   +1.75
+         +      -      +      90    90.25   -0.25
+         -      +      +      52    52.25   -0.25
+         +      +      +      87    85.25   +1.75
+
+Computing the residual standard deviation (from
+the formula given under question 2 in the
+Motivation section):
+
+   sres = sqrt(sum of squared residuals / (n-p))
+
+where n = number of data points = 8, and p =
+number of estimated coefficients (including the
+average) = 4 yields
+
+   sres = 1.54
+   sres = 1.5 (if rounded to 1 decimal place).
+
+This detailed res = 1.54 calculation brings us full
+circle for 1.54 is the value given above
+the X3 term on the cumulative residual standard
+deviation plot.
+
+7. Conclusions for the Defective Springs Data
+
+The application of the Cumulative Residual
+Standard Deviation Plot to the defective springs
+data set results in the following conclusions:
+
+   1. Good-fitting Parsimonious (constant + 3
+      terms) Model:
+
+         Y = 71.25 + (1/2) (23*X1 + 10*X1*X2 - 5*X2)
+
+   2. Residual Standard Deviation for this Model
+      (as a measure of the goodness-of-fit for
+      this model):
+
+          sres = 1.54
+
+(control L) 

@@ -1,0 +1,13 @@
+#!/bin/csh -f
+#
+# Make tar files of handbook directories
+#cd apr; tar -cvf ../apr.tar . ;cd ..
+#cd eda; tar -cvf ../eda.tar . ;cd ..
+#cd mpc; tar -cvf ../mpc.tar . ;cd ..
+#cd pmc; tar -cvf ../pmc.tar . ;cd ..
+#cd pmd; tar -cvf ../pmd.tar . ;cd ..
+#cd ppc; tar -cvf ../ppc.tar . ;cd ..
+#cd prc; tar -cvf ../prc.tar . ;cd ..
+#cd pri; tar -cvf ../pri.tar . ;cd ..
+#
+zip -r  ../handbook.zip .

@@ -1,0 +1,24 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 98 98 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank dotted
+xlimits 0 12
+skip 25
+read lnspcg.dat w z d
+let wt = 1/w
+weights wt
+linear fit d w
+x1label True Line Spacing, micrometers
+y1label Measured - True Line Spacing, micrometers
+device 2 postscript
+plot  d pred vs w
+device 2 close
+system mv dppl1f.dat hetsc.ps
+quit

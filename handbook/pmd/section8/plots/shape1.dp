@@ -1,0 +1,77 @@
+dimension 20 variables
+.
+device 1 x11
+set ipl1na shape1.ps
+device 2 postscript
+.
+let function fnum = 1
+let function fden = 1 + x
+let function f = (fnum)/(fden)
+.
+window corner coordiantes 0 0 50 50
+tic marks off
+tic mark labels off
+y2frame off
+x2frame off
+xlabel x
+y1label y
+label size 6
+tic label size 6
+plot f for x = 0.01 0.01 10
+.
+window corner coordiantes 50 0 100 50
+pre-erase off
+tic offset 0 0.2
+x1tic mark labels on
+y1tic mark labels on
+xlabel m
+y1label n
+label size 6
+character size 12
+grid on
+grid pattern solid
+limits 0 5
+major tic mark number 6
+minor tic mark number 0
+lines dash dash blank blank blank blank dash
+character blank circle circle circle circle circle blank
+character fill on all
+let y1 = data 0 5
+let x1 = y1
+let y2 = data 0 1 2 3 4
+let x2 = y2 + 1
+let y3 = data 0 1 2 3
+let x3 = y3 +  2
+let y4 = data 0 1 2
+let x4 = y3 +  3
+let y5 = data 0 1
+let x5 = y3 +  4
+let y6 = data 0
+let x6 = y3 +  5
+let y7 = data 1 0
+let x7 = data 0 1
+plot y1 vs x1 and
+plot y2 vs x2 and
+plot y3 vs x3 and
+plot y4 vs x4 and
+plot y5 vs x5 and
+plot y6 vs x6 and
+plot y7 vs x7
+.
+window corner coordinates 0 50 100 100
+justification left
+height 6
+move 25 80
+text Question 1: 0   n <= m
+move 25 70
+text Question 2: 0   n <= m
+move 25 60
+text Question 3: 0   n >= 0
+move 25 50
+text Question 4: 0   n >= 1 - m
+move 25 40
+text Simplest Case: n = 0, m = 1 (constant/linear)
+.
+device 2 close
+system mv SHAPE1.PS shape1.ps
+.

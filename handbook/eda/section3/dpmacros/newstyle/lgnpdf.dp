@@ -1,0 +1,26 @@
+.
+.  Generate sample output for lognormal PDF plot
+.
+echo on
+device 1 x11
+device 1 font simplex
+set ipl1na lgnpdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Lognormal PDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT LGNPDF(X) FOR X = 0.01 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp LGNPDF.PS lgnpdf.ps
+system rm LGNPDF.PS
+.
+quit

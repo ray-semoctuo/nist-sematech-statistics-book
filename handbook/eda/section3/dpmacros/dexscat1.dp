@@ -1,0 +1,49 @@
+.
+.  Generate a dex interaction effects matrix
+.
+dimension 25 variables
+device 1 x11
+set ipl1na dexscat1.ps
+device 2 postscript
+device 1 font simplex
+thickness 0.2
+.
+SKIP 50
+read JAHANMI2.DAT run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch 1
+retain y2 subset batch 2
+skip 0
+.
+. Generate Matrix of Dex Interaction Effects
+.
+multiplot corner coordinates 10 5 90 95
+retain y x1 x2 x3 subset batch = 1
+tic label size 10
+label size 10
+y1label displacement 20
+y2label displacement 30
+ylimits 500 800
+major ytic mark number 4
+char x
+char size 4
+line blank
+xlimits -1 1
+major xtic mark number 2
+xtic offset 0.2 0.2
+ytic offset 25 25
+xtic marks off
+xtic mark labels off
+.
+set matrix plot type dex interactions
+set matrix plot lower diagonal off
+. set matrix plot corr on
+.
+scatter plot matrix y x1 x2 x3 subset batch = 1
+.
+box 0 0 100 100
+.
+device 2 close
+system mv DEXSCAT1.PS dexscat1.ps
+quit

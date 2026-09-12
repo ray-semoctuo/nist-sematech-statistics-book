@@ -1,0 +1,34 @@
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+.
+set ipl1na mpc625c.ps
+device 1 x11
+device 2 postscript
+.
+skip 14
+read mpc62.dat crystal wafer mo day hour min op hum probe temp y sw df
+let time = mo +(day-1)/31.
+let s = sw*sw
+let spool = mean s
+let spool = spool**.5
+print spool
+let f = fppf(.95, 5, 125)
+let ucl = spool*(f)**.5
+print ucl
+title Control chart for precision
+characters blank blank O
+lines solid dashed blank
+y1label ohm.cm
+x1label Time in days
+x2label Standard deviations with probe #2362
+x3label 5% upper control limit
+let center = sw - sw + spool
+let cl = sw - sw + ucl
+plot center cl sw vs time
+. end of calculations
+device 2 close
+system mv MPC625C.PS mpc625c.ps
+.
+quit

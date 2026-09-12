@@ -1,0 +1,12 @@
+cp m:\pri\*.htm  .
+cp m:\pri\section1\*.htm  section1
+cp m:\pri\section2\*.htm  section2
+cp m:\pri\section3\*.htm  section3
+cp m:\pri\section4\*.htm  section4
+cp m:\pri\section5\*.htm  section5
+cp m:\pri\section6\*.htm  section6
+cp m:\pri\section7\*.htm  section7
+cp m:\pri\section8\*.htm  section8
+cp m:\pri\section6\catapult\*.htm  section6\catapult
+cp m:\pri\section6\inn\*.htm  section6\inn
+cp m:\pri\section6\splett3\*.htm  section6\splett3

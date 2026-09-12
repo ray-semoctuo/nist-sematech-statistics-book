@@ -1,0 +1,11 @@
+.
+.  Generate sample output for confidence limits
+.
+skip 25
+read zarr13.dat y
+set write decimals 5
+echo on
+capture grubbs.out
+maximum grubbs test y
+end of capture 
+quit

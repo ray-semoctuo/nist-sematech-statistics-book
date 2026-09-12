@@ -1,0 +1,57 @@
+.
+.  Macro to generate geometric representation of contour
+.  plot with line of steepest ascent
+.
+device 1 x11
+device 2 gd jpeg
+device 2 picture points 300 300
+.
+y1label displacement 10
+tic marks off
+label size 3
+tic label size 3
+char size 3 3 3 3
+xlimits -1 +1
+ylimits -1 +1
+major tic mark number 2
+minor tic mark number 0
+tic mark label format alpha
+x1tic mark label content -1cr()1450  +1cr()1600
+y1tic mark label content 70cr()-1  120cr()+1
+ytic offset 0.1 0.7
+xtic offset 0.1 1
+tic offset units data
+.
+frame pattern blank
+label case asis
+x1label sp()cr()Oven Temperature
+y1label Quench Temperature
+.
+read x y tag
+-0.8 -0.8  1
+0.8 -0.8   2
+0.8  0.8   3
+-0.8 0.8   4
+1.5  1.3   5
+end of data
+character 64 77 88.5 55.5 X
+line bl bl bl bl bl
+.
+plot y x tag
+line solid
+box shadow hw 0 0
+box data -1 -1 1 1
+.  drawdata 290 19 360 19 360 31 290 31 290 19
+let function f = 2.8 - x2
+let x2 = data 1.2 1.8
+let y2 = f
+pre-erase off
+limits freeze
+char blank
+line dotted
+plot y2 x2
+.
+device 2 close
+system mv dppl1f.dat  2x2des7.jpeg
+.
+. quit

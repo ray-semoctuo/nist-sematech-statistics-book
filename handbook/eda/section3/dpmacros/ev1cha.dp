@@ -1,0 +1,28 @@
+.
+.  Generate sample output for EV1 Cumulative Hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na ev1cha.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Extreme Value Type I (Minimum) Cumulative Hazard
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Cumulative Hazard
+X1LABEL X
+.
+SET MINMAX 1
+PLOT EV1CHAZ(X) FOR X = -4 0.01 4
+. PLOT EXP(X) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp EV1CHA.PS ev1cha.ps
+system rm EV1CHA.PS
+.
+quit

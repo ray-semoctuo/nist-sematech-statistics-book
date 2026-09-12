@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+#  Make the gif files from the Postscript files
+#
+gcnvtl  batch1.ps
+gcnvtl  batch2.ps
+gcnvtl  6plot1.ps
+gcnvtl  fit1.ps
+gcnvtl  res1.ps
+#
+mv *.gif ../plots

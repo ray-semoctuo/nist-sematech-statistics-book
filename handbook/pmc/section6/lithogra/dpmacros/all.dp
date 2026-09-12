@@ -1,0 +1,531 @@
+.
+.  Create Postscript files (to be converted to gif)
+.  for the Lithographic data.
+.
+device 1 x11
+device 1 font simplex
+device 3 close
+device 3 xxxx
+call data.dp
+.
+thickness 0.2
+tic label size 3.5
+label size 4
+title size 4
+height 4
+.
+. Starting Step 2.1 - Summary of Response Variable
+.
+ECHO ON
+capture SUMMARY.OUT
+summary width
+END OF CAPTURE
+ECHO OFF
+. Finished Step 2.1: Page Back for Output
+set ipl1na 4plot.ps
+device 2 postscript
+tic label size 6
+label size 6
+title size 6
+.
+. Starting Step 2.2 - Generate a 4-plot
+.
+x3label displacement 12
+4-plot width
+x3label displacement
+. Finished Step 2.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv 4PLOT.PS 4plot.ps
+.
+tic label size 3.5
+label size 4
+title size 4
+.
+set ipl1na runseqpl.ps
+device 2 postscript
+.
+. Starting Step 2.3 - Generate a run sequence plot
+.
+y1label width
+x1label sequence
+run sequence plot width
+. Finished Step 3.1: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv RUNSEQPL.PS runseqpl.ps
+.
+set ipl1na scatcass.ps
+device 2 postscript
+.
+. Starting Step 3.1 - Generate a scatter plot of response versus
+.                     cassette
+.
+y1label width
+x1label cassette
+line blank all
+character x all
+xlimits 0 30
+xtic offset 0 1
+plot width cassette cassette
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 3.1: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv SCATCASS.PS scatcass.ps
+.
+set ipl1na boxpcass.ps
+device 2 postscript
+.
+. Starting Step 3.2 - Generate a box plot of response versus
+.                     cassette
+.
+y1label width
+x1label cassette
+line box plot
+character box plot
+xlimits 0 30
+xtic offset 0 1
+fences on
+box plot width cassette
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 3.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv BOXPCASS.PS boxpcass.ps
+.
+set ipl1na scatwafe.ps
+device 2 postscript
+.
+. Starting Step 3.3 - Generate a scatter plot of response versus
+.                     wafer
+.
+y1label width
+x1label wafer
+line blank all
+character x all
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+plot width wafer wafer
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.3: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv SCATWAFE.PS scatwafe.ps
+.
+set ipl1na boxpwafe.ps
+device 2 postscript
+.
+. Starting Step 3.4 - Generate a box plot of response versus
+.                     wafer
+.
+y1label width
+x1label wafer
+line box plot
+character box plot
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+fences on
+box plot width wafer
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.4: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv BOXPWAFE.PS boxpwafe.ps
+.
+set ipl1na scatsite.ps
+device 2 postscript
+.
+. Starting Step 3.5 - Generate a scatter plot of response versus
+.                     site
+.
+y1label width
+x1label site
+line blank all
+character x all
+xlimits 1 5
+xtic offset 1 1
+major xtic mark number 5
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content top left center right bottom
+plot width site site
+line solid all
+character blank all
+xlimits 
+xtic offset
+minor xtic mark number
+xtic mark label format 
+xtic mark label content
+. Finished Step 3.5: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv SCATSITE.PS scatsite.ps
+.
+set ipl1na boxpsite.ps
+device 2 postscript
+.
+. Starting Step 3.6 - Generate a box plot of response versus
+.                     site
+.
+y1label width
+x1label site
+line box plot
+character box plot
+xlimits 1 5
+xtic offset 1 1
+major xtic mark number 5
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content top left center right bottom
+fences on
+box plot width site
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.6: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv BOXPSITE.PS boxpsite.ps
+.
+set ipl1na dexmean.ps
+device 2 postscript
+.
+. Starting Step 3.7 - Generate a dex mean plot of response versus
+.                     all 3 factors
+.
+y1label width
+x1label factors
+line blank solid
+character x BLANK
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content cassette wafer site
+dex mean plot width cassette wafer site 
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.7: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv DEXMEAN.PS dexmean.ps
+.
+set ipl1na dexsd.ps
+device 2 postscript
+.
+. Starting Step 3.8 - Generate a dex sd plot of response versus
+.                     all 3 factors
+.
+y1label width
+x1label factors
+line blank solid
+character x BLANK
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content cassette wafer site
+dex sd plot width cassette wafer site 
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.8: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv DEXSD.PS dexsd.ps
+ECHO ON
+capture ANOVA.OUT
+.
+. Starting Step 4.1 - ANOVA
+.
+anova width cassette wafer site
+. Finished Step 4.1: Page Back for Output
+END OF CAPTURE
+ECHO OFF
+.
+set ipl1na movemean.ps
+device 2 postscript
+.
+. Starting Step 4.2 - Moving mean control chart
+.
+y1label mean of line width
+x1label
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 450
+xtic offset 4 5
+moving mean control chart width
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 10
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv MOVEMEAN.PS movemean.ps
+.
+set ipl1na moverang.ps
+device 2 postscript
+.
+. Starting Step 4.3 - Moving range control chart
+.
+y1label range of line width
+x1label 
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 450
+xtic offset 4 5
+ytic offset 0.2 0.2
+moving range control chart width 
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 10
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+ytic offset
+. Finished Step 4.3: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv MOVERANG.PS moverang.ps
+.
+set ipl1na wafemean.ps
+device 2 postscript
+.
+. Starting Step 4.4 - Mean control chart for wafer
+.
+y1label mean of line width
+x1label wafer
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+let xwafer = sequence 1 5 1 90
+mean control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.4: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv WAFEMEAN.PS wafemean.ps
+.
+set ipl1na wafesd.ps
+device 2 postscript
+.
+. Starting Step 4.5 - SD control chart for wafer
+.
+y1label sd of line width
+x1label wafer
+line solid all
+line solid solid solid blank
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+ytic offset 0.05 0.05
+let xwafer = sequence 1 5 1 90
+s control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+. movedata a1 a4
+. text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.5: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv WAFESD.PS wafesd.ps
+.
+set ipl1na cassmean.ps
+device 2 postscript
+.
+. Starting Step 4.6 - Mean control chart for cassette
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 2.5
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.6: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv CASSMEAN.PS cassmean.ps
+.
+set ipl1na casssd.ps
+device 2 postscript
+.
+. Starting Step 4.7 - SD control chart for cassette
+.
+y1label sd of line width
+x1label wafer
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+s control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 2.5
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.7: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv CASSSD.PS casssd.ps
+.
+set ipl1na cass2mea.ps
+device 2 postscript
+.
+. Starting Step 4.8 - Mean control chart for cassette,
+.                     but use cassette-cassette variation
+.                     for control limits.
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+device 1 off
+device 2 off
+mean plot width cassette
+device 1 on
+device 2 on
+let ytemp = yplot
+retain ytemp  subset tagplot = 1
+let a = standard deviation ytemp
+let target = mean width
+let usl = target + 3*a
+let lsl = target - 3*a
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 2.5
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+let a6 = maximum yplot subset tagplot = 6
+let a7 = maximum yplot subset tagplot = 7
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+movedata a1 a6
+text UCL: LL
+movedata a1 a7
+text LCL: LL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.8: Page Back for Output
+box 0 0 100 100
+device 2 close
+system mv CASS2MEA.PS cass2mea.ps
+.
+quit

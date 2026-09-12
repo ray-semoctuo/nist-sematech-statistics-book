@@ -1,0 +1,20 @@
+.
+. Starting Step 3.2
+char 1 2
+lines blank blank
+multiplot scale factor 2
+multiplot corner coordinates 2 2 98 98
+multiplot 2 2
+title Primary Factor - Turns
+block plot y x2 x3 x1
+title Primary Factor - Winding Distance
+block plot y x1 x3 x2
+title Primary Factor - Wire Guage
+block plot y x1 x2 x3
+end of multiplot
+multiplot scale factor 1
+multiplot corner coordinates
+char x blank
+line blank solid
+title
+. Finished Step 3.2: Page Back for Output

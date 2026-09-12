@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Cauchy Cumulative Hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na caucha.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Cauchy Cumulative Hazard
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Cumulative Hazard
+X1LABEL X
+.
+PLOT -LOG(1-CAUCDF(X)) FOR X = -10 0.01 10
+.
+box 0 0 100 100
+.
+device 2 close
+system cp CAUCHA.PS caucha.ps
+system rm CAUCHA.PS
+.
+quit

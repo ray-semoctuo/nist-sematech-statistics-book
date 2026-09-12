@@ -1,0 +1,13 @@
+#!/bin/csh -f
+#
+#dataplot < control.dp
+#mv dppl1f.dat control.ps
+gs -sDEVICE=ppm -sOutputFile=control.ppm  -dNOPAUSE -dBATCH control.ps
+~/bin/pnmscale  -xscale 0.6 -yscale 0.6 control.ppm > control_s.ppm
+~/bin/ppmtogif  control_s.ppm > control.gif
+rm eq4.gif
+~guthrie/software/giftrans -t \#ffffff -o eq4.gif control.gif
+#~/bin/ppmtogif  control.ppm > control.gif
+#mv control.gif ../gif/4-plot.gif
+#rm control.ppm control_r.ppm control_s.ppm control.ps
+#

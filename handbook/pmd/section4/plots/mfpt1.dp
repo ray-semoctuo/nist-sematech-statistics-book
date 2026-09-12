@@ -1,0 +1,44 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 99 99 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank solid dash
+device 2 postscript
+seed 68
+let x = uniform random numbers for i = 1 1 40
+let x = 20 + 50*x
+let yt = 5 + 4*x
+seed 9
+let z = normal random numbers for i = 1 1 40
+let z = 5*z
+let y = yt + z
+xlabel Temperature
+y1label Pressure
+xlimits 20 70
+ylimits 80 300
+tic offset units data
+xtic offset 1 1
+ytic offset 10 10
+linear fit y x
+plot y pred yt vs x
+lines solid
+drawdata 20 295 25 295
+movedata 26 293
+justification left
+case asis
+text Line Based on Parameter Estimates 
+lines dash
+drawdata 20 285 25 285
+movedata 26 283
+justification left
+case asis
+text Line Based on True Parameters 
+device 2 close
+system mv dppl1f.dat mfpt1.ps
+quit

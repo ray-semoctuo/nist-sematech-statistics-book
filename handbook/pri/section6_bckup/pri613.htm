@@ -1,0 +1,175 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.3. Interaction Effects</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri614.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri612.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Interaction Effects</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="dexinte">
+<I>
+Check for Interaction Effects: Dex Mean Interaction Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+In addition to the main effects, it is also important to check
+for interaction effects, especially 2-term interaction effects.
+The
+<a href="../../eda/section3/dexmeanp.htm#dexinteractioneffects">dex
+mean interaction effects plot</a> is an effective tool for this.
+<P>
+The three plots on the diagonal below are a replotting of the main effects
+from the prior dex mean plot; they
+are plots of the average response versus each of the three
+factors.  The off-diagonal plots display the average response
+(vertically) versus the interaction (here = the cross-product)
+horizontally.  These interaction plots are possible because of the
++1, -1 scaling that was chosen for the individual factors.  In such case
+when the individual factors are +1 and -1, then the cross-product X1*X2
+also takes on values of +1 and -1, and so the interactions may
+be treated, plotted, interpreted, and compared in exactly
+the same fashion as the main effects.
+Thus for the middle plot on the top, the horizontal
+axis is X1*X2, where X1 takes on values -1 and +1, X2
+takes on -1 and +1, and thus X1*X2 takes on values -1 and +1.
+Comparing the average response at these 2 levels, it is seen
+that they are near-identical and so the X1*X2 interaction effect
+is near zero (-0.1275 to be exact).
+<P>
+The legend within each plot is the least squares estimate of the
+factor (or interaction) effect.  Note that in this 2-level orthogonal design case, the
+least squares effect estimates remarkably degenerate to a simple difference of
+the 2 mean values, high and low.
+<P>
+<A HREF="splett3/gifs/dexeff_f.gif">
+<img src="splett3/gifs/dexeff_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="the dex mean interaction effects reveals no significant interaction effects">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions from the DEX Interaction Effects Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We make the following conclusions from the dex interaction
+effects plot:
+<ol>
+   <li>Ranking of Factors: Looking for the plots which have steepest
+       lines (that is, largest effects), we note that:
+       <P>
+       <UL>
+          <li>X1 (number of turns) is the most important effect:
+              estimated effect = -3.1025;
+          <li>X2 (winding distance) is the next most important factor:
+              estimated effect = -0.8675;
+          <li>X3 (wire guage) is relatively unimportant;
+              estimated effect = -0.2125;
+          <li>All three 2-term interactions are relatively
+              unimporant; estimated effects all less than 0.30
+              in magnitude.
+       </UL>
+       <P>
+   <li>Best Settings: As with the main effects plot, the best
+       settings to maximize the (average) sensitivity are
+       <P>
+       <UL>
+          (X1,X2,X3) = (+1,-1,+1)
+       </UL>
+       <P>
+       but with the X3 setting of +1 mattering little.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri612.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri614.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

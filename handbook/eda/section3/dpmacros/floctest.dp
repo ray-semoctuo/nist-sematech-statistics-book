@@ -1,0 +1,10 @@
+.
+.  Generate sample output for F location test
+.
+skip 25
+read gear.dat y x
+echo on
+capture floctest.out
+f location test y x
+end of capture 
+quit

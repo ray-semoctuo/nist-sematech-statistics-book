@@ -1,0 +1,120 @@
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ****************************************************
+       **  . Starting Step 3.1 - Generate ARMA analysis  **
+       ****************************************************
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ********************
+       **  arma y 0 0 1  **
+       ********************
+  
+  
+ #############################################################
+ #  NONLINEAR LEAST SQUARES ESTIMATION FOR THE PARAMETERS OF #
+ #  AN ARIMA MODEL USING BACKFORECASTS                       #
+ #############################################################
+  
+  SUMMARY OF INITIAL CONDITIONS
+  ------------------------------
+  
+     MODEL SPECIFICATION
+  
+        FACTOR          (P     D     Q)    S
+             1           0     0     1     1
+  
+  
+  
+ DEFAULT SCALING USED FOR ALL PARAMETERS.
+  
+                                                           ##STEP SIZE FOR
+                                          ######PARAMETER  ##APPROXIMATING
+  #################PARAMETER DESCRIPTION  STARTING VALUES  #####DERIVATIVE
+  INDEX  #########TYPE  ##ORDER  ##FIXED  ##########(PAR)  ##########(STP)
+  
+      1             MU      ###       NO   0.10000000E+00   0.20727910E-05
+      2  MA (FACTOR 1)        1       NO   0.10000000E+00   0.38761339E-07
+  
+  NUMBER OF OBSERVATIONS                  (N)   558
+  MAXIMUM NUMBER OF ITERATIONS ALLOWED                      (MIT)   500
+  MAXIMUM NUMBER OF MODEL SUBROUTINE CALLS ALLOWED                 1000
+  
+  CONVERGENCE CRITERION FOR TEST BASED ON THE
+     FORECASTED RELATIVE CHANGE IN RESIDUAL SUM OF SQUARES (STOPSS)  0.1000E-09
+     MAXIMUM SCALED RELATIVE CHANGE IN THE PARAMETERS       (STOPP)  0.1489E-07
+  
+  MAXIMUM CHANGE ALLOWED IN THE PARAMETERS AT FIRST ITERATION (DELTA)   100.0
+  RESIDUAL SUM OF SQUARES FOR INPUT PARAMETER VALUES                    127.6
+       (BACKFORECASTS INCLUDED)
+  RESIDUAL STANDARD DEVIATION FOR INPUT PARAMETER VALUES    (RSD)      0.4791
+  BASED ON DEGREES OF FREEDOM       558 -   0 -   2 =  556
+  
+  NONDEFAULT VALUES....
+  
+  AFCTOL.... V(31) =  0.2225074-307
+  
+  
+  
+  ##### PARAMETER AND RESIDUAL SUM OF SQUARES CONVERGENCE #####
+  
+  
+  
+  
+  
+  ESTIMATES FROM LEAST SQUARES FIT (* FOR FIXED PARAMETER)
+  ########################################################
+  
+                PARAMETER     STD DEV OF ###PAR/   ##################APPROXIMATE
+                ESTIMATES  ####PARAMETER ####(SD    95 PERCENT CONFIDENCE LIMITS
+  TYPE ORD    ###(OF PAR)  ####ESTIMATES ##(PAR)    #######LOWER     ######UPPER
+  
+  FACTOR 1
+    MU ## -0.51160770E-02 0.11431228E-01   -0.45 -0.23950155E-01  0.13718001E-01
+    MA  1  0.39275693E+00 0.39028474E-01   10.06  0.32845367E+00  0.45706020E+00
+  
+  NUMBER OF OBSERVATIONS                  (N)   558
+  RESIDUAL SUM OF SQUARES                        109.6880
+      (BACKFORECASTS INCLUDED)
+  RESIDUAL STANDARD DEVIATION                   0.4441628
+  BASED ON DEGREES OF FREEDOM  558 -   0 -   2 =  556
+  AKAIKE INFORMATION CRITERION (AIC)            -901.7055
+  AKAIKE INFORMATION CRITERION (AICC)           -901.6839
+  APPROXIMATE CONDITION NUMBER             3.414208
+  
+       PARAMETERS,  SD(PARAMETERS), 1/SD(PAR), LOWER AND UPPER
+       95% CONFIDENCE INTERVAL WRITTEN OUT TO FILE DPST1F.DAT
+       ORDER IS:
+          1. AUTO_REGRESSIVE TERMS
+          2. SEASONAL AUTO_REGRESSIVE TERMS
+          3. MU (MEAN TERM)
+          4. MOVING AVERAGE TERMS
+          5. SEASONAL MOVING AVERAGE TERMS
+       FOLLOWING WRITTEN OUT TO FILE DPST2F.DAT
+          1. ROW NUMBER
+          2. PREDICTED VALUES
+          3. STANDARD DEVIATION OF PREDICTED VALUES
+          4. RESIDUALS
+          5. STANDARDIZED RESIDUALS
+       RESULTS OF ITERATIONS WRITTEN OUT TO FILE DPST3F.DAT
+       PARAMETER VARIANCE-COVARIANCE MATRIX  WRITTEN OUT TO FILE DPST4F.DAT
+       FORECAST, STANDARD DEVIATION OF FORECASTS, AND
+       95% CONFIDENCE INTERVAL FOR FORECAST WRITTEN TO FILE DPST5F.DAT
+  
+       *************************************************
+       **  . Finished Step 3.1: Page Back for Output  **
+       *************************************************
+  
+  
+       **********************
+       **  end of capture  **
+       **********************
+  

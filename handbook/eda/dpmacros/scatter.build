@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < scatter.dp
+mv dppl1f.dat scatter.ps
+gs -sDEVICE=ppm -sOutputFile=scatter.ppm  -dNOPAUSE -dBATCH scatter.ps
+~/bin/pnmrotate  -90 scatter.ppm > scatter_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 scatter_r.ppm > scatter_s.ppm
+~/bin/ppmtogif  scatter_s.ppm > scatter.gif
+mv scatter.gif ../gif/scatter.gif
+rm scatter.ppm scatter_r.ppm scatter_s.ppm scatter.ps
+#

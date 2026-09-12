@@ -1,0 +1,231 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.2.3. Interaction Effects</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri624.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri622.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri62.htm">Catapult Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Interaction Effects</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><a NAME="dexinte"></a><i>Check
+for Interaction Effects: Dex Mean Interaction Plot</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->In addition to the
+main effects, it is also important to check for interaction effects. The
+<a href="../../eda/section3/dexmeanp.htm">dex
+mean interaction plot</a> is an effective tool for viewing all 2-term interaction
+effects. The diagonal plots in the matrix are<a href="../../eda/section3/meanplot.htm">
+mean plots</a> of each main factor. The off-diagonal plots are mean plots
+versus each of the C(k,2) = C(5,2) = 10 2-term interactions. All plots
+have the same vertical axis limits and so all are comparable.Like usual,
+steep lines imply a strong effects while flat lines imply no effects. The
+least squares estimate of the effect is given via annotation within each
+plot. The matrix is scanned by searching for steep lines (important factors)
+to flat lines (unimportant factors).
+<p><a href="catapult/gifs/dexeff_f.gif"><img SRC="catapult/gifs/dexeff_r.gif" ALT="the dex mean interaction effects shows that the X3-X4 interaction is the most notable 2-term interaction" BORDER=0 height=425 width=550></a></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Conclusions</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->We can make the following conclusions
+based on the dexinteraction effects plot.
+<ol>&nbsp;
+<li>
+Ranked List of Factors:&nbsp;</li>
+
+<ol>
+<li>
+X4 (arm length) (effect = 40.3 inches)&nbsp;</li>
+
+<li>
+X3 (number of bands) (effect = 35.9 inches)&nbsp;</li>
+
+<li>
+X1 (band height) (effect = 27.0 inches)&nbsp;</li>
+
+<li>
+X5 (start point) (effect = 24.0 inches)&nbsp;</li>
+
+<li>
+X2 (stop angle) (effect = -22.2 inches)&nbsp;</li>
+
+<li>
+X3*X4 interaction (effect = 15.2 inches)&nbsp;</li>
+
+<li>
+X1*X4 interaction (effect = 9.4 inches)&nbsp;</li>
+
+<li>
+X1*X3 interaction (effect = 9.3 inches)&nbsp;</li>
+
+<li>
+the remaining effects are not listed.&nbsp;</li>
+</ol>
+
+<li>
+Interactions: The most important interaction is X3*X4 (number of bands)*(arm
+length). The estimated interaction is 15.2 units, which is more than 10%
+of the total spread (8 to 126.5) of the data, and hence is relatively large
+from a simple numeric point of view. The 15.2 is to be interpreted as follows:
+the X3 effect changes by 15.2 units depending on whether X4 is -1 or +1.
+The X3 effect of 35.9 is a single number integrated over all of the data.
+Since the X3*x4 effect is 15.2, this implies that the X3 effect for X4
+= -1 equals 35.9 - 15.2/2 = 28.3 and the X3 effect for X4 = +1 equals 35.9
++ 15.2/2 = 43.5.</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><a NAME="blockplot"></a><i>Limitations
+of Block Plots for Fractional Factorial Designs</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->As with the full
+factorial designs, the <a href="../../eda/section3/blockplo.htm">block
+plot</a> is a useful supplement to the dex mean plot and the dex mean interaction
+effects plot.
+<p>However, there are a few caveats for using block plots with fractional
+factorial designs.
+<ul>&nbsp;
+<li>
+Block plots are not possible in the full set of factors for fractional
+factorial designs. They are only possible for full factorial designs.&nbsp;</li>
+
+<li>
+Full factorials are embedded in <i>any</i> 2<sup>k-p</sup> design.&nbsp;</li>
+
+<li>
+A resolution R, 2<sup>k-p</sup> design has full factorials (possibly replicated)
+in <i>any</i> R-1 factors, i.e. R-1 balance.&nbsp;</li>
+
+<li>
+We can generate block plots in any subset of R-1 factors.</li>
+</ul>
+In general, block plots are not as useful for fractional factorial designs
+as they are for full factorial designs. However, they are still a useful
+supplemental technique.
+<p>For the current design, the full set of block plots would use each factor
+as the primary factor, and then each combination of the remaining factors
+with one left out. For a 2<sup>5-1</sup>design, this would result in 5*4
+= 20 block plots. As this can become overwhelming for routine use, we can
+often generate just a subset of these plots. For the current case, we generate
+twoblock plots for each factor (2*5=10 block plots) as the primary factor.
+On each of these plots, two of the remaining four factors are used as the
+nusiance factors.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Block Plots&nbsp;</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Plots 1 and 2 address the question:
+Is factor X1 important? The plot character (1 and 2) represent the 2 settings
+of factor 1.The horizontal axis of plot 1 is the 4 combinations of X1 and
+X2.The horizontal axis of plot 2 is the 4 combinations of X4 and X5. Similarly,
+plots 3 and 4 ask: Is factor X2 important? Plots 5 and 6 ask: Is factor
+X3 important? Plots 7 and 8 ask: Is factor X4 important? Plots 9 and 10
+ask: Is factor X5 important?
+<p><a href="catapult/gifs/blockp_f.gif"><img SRC="catapult/gifs/blockp_r.gif" ALT="the block plots show that factors X1, X3, and X4 are statistically significant" BORDER=0 height=425 width=550></a></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Conclusions</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->We can make the following conclusions
+based on the block plots.
+<ol>&nbsp;
+<li>
+X1 is statistically significant. 2 is larger than 1 in 7 out of 8 cases.
+The probability of that (or worse) happening by chance is (8 + 1) / 256
+= 3.5%.&nbsp;</li>
+
+<li>
+From plots 3 and 4, factor X2 has 2 > 1 in 3 out of 8 cases. This is not
+statistically significant.&nbsp;</li>
+
+<li>
+From plots 5 and 6, factor X3 has 2 > 1 in 8 out of 8 cases. This is statistically
+significant at the 1% level.&nbsp;</li>
+
+<li>
+From plots 7 and 8, factor X4 has 2 > 1 in 8 out of 8 cases. This is also
+statistically significant.&nbsp;</li>
+
+<li>
+From plots 9 and 10, factor X5 has 2 > 1 in 4 out of 8 cases. This is not
+statistically significant.&nbsp;</li>
+
+<li>
+From plots 5 and 6, the height of the vertical bar (the local factor 3
+estimated effect) is large when X1*X2 = -1 and small when X1*X2 = +1 thereby
+implying an X3*X1*X2 interaction.</li>
+</ol>
+In summary, the block plot reinforces the conclusions from the dex interaction
+effects plot above.</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri622.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri624.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

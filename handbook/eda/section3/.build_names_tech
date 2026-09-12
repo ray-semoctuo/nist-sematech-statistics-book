@@ -1,0 +1,68 @@
+#!/bin/csh -f
+#
+#  Make duplicate files for ordering by technique
+#
+set echo
+ ln -s  eda441.htm zrunseqp.htm   
+ ln -s  eda442.htm zlagplot.htm   
+ ln -s  eda4421.htm zlagplo1.htm   
+ ln -s  eda4422.htm zlagplo2.htm   
+ ln -s  eda4423.htm zlagplo3.htm   
+ ln -s  eda4424.htm zlagplo4.htm   
+ ln -s  eda443.htm zhistogr.htm   
+ ln -s  eda4431.htm zhistog1.htm   
+ ln -s  eda4432.htm zhistog2.htm   
+ ln -s  eda4433.htm zhistog3.htm   
+ ln -s  eda4434.htm zhistog4.htm   
+ ln -s  eda4435.htm zhistog5.htm   
+ ln -s  eda4436.htm zhistog6.htm   
+ ln -s  eda4437.htm zhistog7.htm   
+ ln -s  eda4438.htm zhistog8.htm   
+ ln -s  eda444.htm znormprp.htm   
+ ln -s  eda445.htm z4plot.htm     
+ ln -s  eda446.htm zppccplo.htm   
+ ln -s  eda447.htm zweibplo.htm   
+ # 
+ ln -s  eda448.htm zzrunseq.htm   
+ ln -s  eda449.htm zspectru.htm   
+ ln -s  eda44a.htm zautocop.htm   
+ ln -s  eda44b.htm zcompdea.htm   
+ ln -s  eda44c.htm zcompdep.htm   
+ ln -s  eda44d.htm zscattep.htm   
+ ln -s  eda44d1.htm zscatte1.htm   
+ ln -s  eda44d2.htm zscatte2.htm   
+ ln -s  eda44d3.htm zscatte3.htm   
+ ln -s  eda44d4.htm zscatte4.htm   
+ ln -s  eda44d5.htm zscatte5.htm   
+ ln -s  eda44d6.htm zscatte6.htm   
+ ln -s  eda44d7.htm zscatte7.htm   
+ ln -s  eda44d8.htm zscatte8.htm   
+ ln -s  eda44d9.htm zscatte9.htm   
+ ln -s  eda44da.htm zscattea.htm   
+ ln -s  eda44e.htm zboxplot.htm   
+ ln -s  eda44f.htm zbihisto.htm   
+ ln -s  eda44g.htm zsdplot.htm    
+ ln -s  eda44h.htm zblockpl.htm   
+ # 
+ ln -s  eda44i.htm zdexmean.htm   
+ ln -s  eda44j.htm zcontou.htm    
+ # 
+ ln -s  eda44k.htm zzscattp.htm   
+ ln -s  eda44k1.htm zzscatt1.htm   
+ ln -s  eda44k2.htm zzscatt2.htm   
+ ln -s  eda44k3.htm zzscatt3.htm   
+ ln -s  eda44k4.htm zzscatt4.htm   
+ ln -s  eda44k5.htm zzscatt5.htm   
+ ln -s  eda44k6.htm zzscatt6.htm   
+ ln -s  eda44k7.htm zzscatt7.htm   
+ ln -s  eda44k8.htm zzscatt8.htm   
+ ln -s  eda44k9.htm zzscatt9.htm   
+ ln -s  eda44ka.htm zzscatta.htm   
+ ln -s  eda44l.htm z6plot.htm     
+ ln -s  eda44m.htm zlinecor.htm   
+ ln -s  eda44n.htm zlineint.htm   
+ ln -s  eda44o.htm zlineslo.htm   
+ ln -s  eda44p.htm zlinress.htm   
+ ln -s  eda44q.htm zyoudplo.htm   
+ ln -s  eda44r.htm zstarplo.htm   
+ # 

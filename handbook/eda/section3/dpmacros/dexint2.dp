@@ -1,0 +1,25 @@
+.
+. Starting Step 6.2 - Generate Matrix of Dex Interaction Effects
+.
+multiplot corner coordinates 10 5 95 95
+x3label
+let ytemp = y
+let xtemp1 = x1
+let xtemp2 = x2
+let xtemp3 = x3
+retain y x1 x2 x3 subset batch = 2
+let numfac = 3
+let string stat = mean
+let dp = 2
+ylimits 575 725
+let string s0 = strength
+let string s1 = tablesp()speed
+let string s2 = downsp()feed
+let string s3 = wheelsp()grit
+call dexstat2.dp
+ylimits
+let y = ytemp
+let x1 = xtemp1
+let x2 = xtemp2
+let x3 = xtemp3
+. Finished Step 6.2: Page Back for Output

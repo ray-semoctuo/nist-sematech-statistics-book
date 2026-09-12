@@ -1,0 +1,44 @@
+.
+.  Macro to generate plot of residuals versus time
+.
+device 1 x11
+device 2 postscript
+.
+thickness 0.15
+tic mark label size 3
+label case asis
+label size 3
+x3label size 4
+x3label Figure 2.5
+.
+let y = norm rand numb for i = 1 1 30
+let y = 2*y
+.
+xlimits 0 30
+xtic offset 0 4
+label case asis
+x1label Sequence Number
+y1label Residuals
+char +
+line blank
+plot y
+limits freeze
+pre-erase off
+.
+let xtemp = xplot
+let ytemp = yplot
+lowess fraction 0.6
+lowess ytemp xtemp
+.
+line dashed
+char blank
+plot pred xtemp
+line dotted
+let n = size xtemp
+let ytemp = 0 for i = 1 1 n
+plot ytemp xtemp
+.
+device 2 close
+.
+system cp dppl1f.dat restime2.ps
+.

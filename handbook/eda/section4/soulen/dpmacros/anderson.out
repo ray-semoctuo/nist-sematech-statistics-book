@@ -1,0 +1,21 @@
+  
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =      140
+       MEAN                                  =    2898.721
+       STANDARD DEVIATION                    =    1.235377
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =    3.839233
+       ADJUSTED TEST STATISTIC VALUE         =    3.944029
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6560000
+       95         % POINT    =   0.7870000
+       97.5       % POINT    =   0.9180000
+       99         % POINT    =    1.092000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO NOT COME FROM A NORMAL DISTRIBUTION.
+  

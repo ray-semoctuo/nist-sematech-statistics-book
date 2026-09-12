@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < dex_youd.dp
+mv dppl1f.dat dex_youd.ps
+gs -sDEVICE=ppm -sOutputFile=dex_youd.ppm  -dNOPAUSE -dBATCH dex_youd.ps
+~/bin/pnmrotate  -90 dex_youd.ppm > dex_youd_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 dex_youd_r.ppm > dex_youd_s.ppm
+~/bin/ppmtogif  dex_youd_s.ppm > dex_youd.gif
+mv dex_youd.gif ../gif/dex_youd.gif
+# rm dex_youd.ppm dex_youd_r.ppm dex_youd_s.ppm dex_youd.ps
+#

@@ -1,0 +1,55 @@
+skip 25
+set read format 5f10.6
+serial read randu.dat y
+skip 0
+set read format
+device 1 x11
+set ipl1na bootstra.ps
+device 2 postscript
+. Generate bootstrap plots
+.
+title
+thickness 0.2
+label size 7
+tic label size 6
+multiplot 2 3
+multiplot corner coordinates 2 2 98 98
+major xtic mark number 3
+x2label bootstrap mean
+bootstrap mean plot y
+let a1 = b025
+let a1 = round(a1,2)
+let a2 = b975
+let a2 = round(a2,2)
+let y1 = yplot
+x2label bootstrap median
+bootstrap median plot y
+let y2 = yplot
+let b1 = b025
+let b1 = round(b1,2)
+let b2 = b975
+let b2 = round(b2,2)
+x2label bootstrap midrange
+bootstrap midrange plot y
+let y3 = yplot
+let c1 = b025
+let c1 = round(c1,3)
+let c2 = b975
+let c2 = round(c2,3)
+x2label
+xlimits 0.45 0.55
+xtic mark decimal 2
+x2label b025 = ^a1, b975 = ^a2
+histogram y1
+x2label b025 = ^b1, b975 = ^b2
+histogram y2
+x2label b025 = ^c1, b975 = ^c2
+histogram y3
+x2label
+label size
+tic label size
+end of multiplot
+. Finished
+box 0 0 100 100
+device 2 close
+system mv BOOTSTRA.PS bootstra.ps

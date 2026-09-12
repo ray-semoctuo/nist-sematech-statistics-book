@@ -1,0 +1,181 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.5.3. Fit with deleted points</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc653.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc6522.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.htm">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.htm">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc65.htm">Uncertainty analysis for extinguishing fire</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc652.htm">Create a calibration curve for the rotameter/a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.5.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Fit with deleted points</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Fit with Deleted Points
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Instead of the bisquare weighting, we can simply choose
+to delete specific points from the analysis.  Based on
+the 4-plots above, we can delete points with an absolute
+value for the residual greater than 0.1.  This resulted in
+two points being deleted from the analysis.  Dataplot
+generated the following output for the fit.
+<PRE>
+LEAST SQUARES POLYNOMIAL FIT
+SAMPLE SIZE N       =       78
+DEGREE              =        2
+REPLICATION CASE
+REPLICATION STANDARD DEVIATION =     0.1954713464D-01
+REPLICATION DEGREES OF FREEDOM =          70
+NUMBER OF DISTINCT SUBSETS     =           8
+  
+  
+        PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+ 1  A0                 -0.144441       (0.1754E-01)         -8.2
+ 2  A1                  0.217116       (0.6757E-03)         0.32E+03
+ 3  A2                 -0.436235E-03   (0.5553E-05)         -79.
+  
+RESIDUAL    STANDARD DEVIATION =         0.0281810053
+RESIDUAL    DEGREES OF FREEDOM =          75
+</PRE>
+
+The fitted quadratic model with the points deleted is
+<UL>
+   <img src="fireunc/eqns/fit4.gif" 
+        alt="Y = -0.144 + 0.217*X - 0.000436*X**2">
+</UL>
+The residual standard deviation is 0.028.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of Predicted Values with Raw Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To assess the model, we generate the plot of the predicted values
+with the raw data.
+<P>
+<A HREF="fireunc/gifs/fit4_f.gif">
+<img src="fireunc/gifs/fit4_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="plot shows an apparently good fit">
+</A>
+<P>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+4-Plot of Residuals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We again use the 4-plot to do a residual analysis.
+<P>
+<A HREF="fireunc/gifs/4plot4_f.gif">
+<img src="fireunc/gifs/4plot4_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="residuals do not show major violations of the regression assumptions">
+</A>
+<P>
+This 4-plot shows that there are no major violations
+of the regression assumptions.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc6522.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc653.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

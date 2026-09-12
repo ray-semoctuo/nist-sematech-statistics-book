@@ -1,0 +1,11 @@
+.
+.  Generate sample output for an ANOVA
+.
+skip 25
+read gear.dat y x
+echo on
+set write decimals 5
+capture anova1.out
+anova y x
+end of capture 
+quit

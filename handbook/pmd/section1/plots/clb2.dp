@@ -1,0 +1,44 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 99 99 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank
+device 2 postscript
+read clb2.dat x yt y pred
+xlabel Temperature
+y1label Voltage
+xlimits 100 600
+ylimits 0 2000
+tic offset units data
+xtic offset 5 5
+ytic offset 10 10 
+plot y pred vs x
+let ynew = 736.0165
+let pe = 387.3708
+region fill on
+hw 0.5 2 
+arrow data 95 ynew pe ynew
+arrow data pe ynew pe -12
+justification center
+case asis
+let ynewtp = ynew + 10 
+hw  3 3
+movedata 220 ynewtp
+text Observed Voltage = ^ynew
+let petp = pe - 10 
+movedata petp 375
+angle units degrees
+angle 90 
+text Temperature =
+let petp = pe + 8 
+movedata petp 375
+text ^pe
+device 2 close
+system mv dppl1f.dat clb2.ps
+quit

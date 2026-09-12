@@ -1,0 +1,34 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 99 99 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank
+device 2 postscript
+seed 68
+let x = uniform random numbers for i = 1 1 40
+let x = 20 + 50*x
+let yt = 5 + 4*x
+seed 9
+let z = normal random numbers for i = 1 1 40
+let z = 5*z
+let y = yt + z
+linear fit y x
+xlabel Temperature
+y1label Residuals from Straight Line Model
+xlimits 20 70
+ylimits -10 10
+tic offset units data
+xtic offset 1 1
+ytic offset 1 1
+plot res x
+lines dash
+drawdata 19 0 71 0
+device 2 close
+system mv dppl1f.dat mvpt1.ps
+quit

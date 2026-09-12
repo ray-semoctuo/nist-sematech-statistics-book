@@ -1,0 +1,205 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.2.1. Multiple response: Path of steepest ascent</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5522.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri552.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri552.htm">Multiple response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Multiple response: Path of steepest ascent</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>A weighted
+priority strategy is described using the path of steepest ascent for each
+response</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><i>An example using the weighted priority method</i>
+<br>&nbsp;
+<br>&nbsp;
+<p>&nbsp;</td>
+
+<td WIDTH="85%"><!-- Add main text below -->When the responses exhibit
+adequate linear fit (i.e., the response models are all linear) the question
+is to find a direction or path that simultaneously considers the individual
+paths of maximum improvement and balances them in some way. This case is
+addressed next.&nbsp;
+<p>When there is a mix of linear and higher order responses, or when all
+empirical response models are of higher order, see sections <a href="pri5522.htm">5.5.5.2.2
+</a>and
+<a href="pri5523.htm">5.5.5.2.3</a>.
+The desirability method (section
+<a href="pri5522.htm">5.5.5.2.2
+</a>)
+can also be used when all response models are linear.
+<p><b>Procedure: Path of Steepest Ascent, Multiple Responses.</b>
+<ol>
+<li>
+Compute the gradients&nbsp;<img SRC="gifs/img174.gif" ALT=""  align=CENTER>
+of all responses as explained in section <a href="pri5511.htm">5.5.5.1.1</a>.
+If one of the responses is clearly of primary interest compared to all
+the others, use only the gradient of this response and follow the procedure
+of section <a href="pri5511.htm">5.5.5.1.1</a>. Otherwise, continue with
+step 2.</li>
+
+<li>
+Determine relative priorities&nbsp;<img SRC="gifs/img177.gif" ALT=""  align=CENTER>
+for each of the <b>k</b> responses. Then, the weighted gradient for the
+search direction is given by</li>
+
+<br>&nbsp;
+<p>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><img SRC="gifs/img178.gif" ALT=""  align=BOTTOM>
+<p>&nbsp;and the weighted direction is
+<p><img SRC="gifs/img179.gif" ALT=""  align=BOTTOM></ol>
+The confidence cone for the direction of maximum improvement explained
+in section 5.6.1.1 can be used to weight down "poor'' response models that
+provide very wide cones and unreliable directions. Since the width of the
+cone is proportional to&nbsp;<img SRC="gifs/img180.gif" ALT=""  align=CENTER>,
+we can use
+<p><img SRC="gifs/img181.gif" ALT=""  align=BOTTOM>
+<p>Given a weighted direction of maximum improvement we can follow the
+single response steepest ascent procedure as in section <a href="pri5511.htm">5.5.5.1.1</a>.
+by selecting points with coordinates&nbsp;<img SRC="gifs/img182.gif" ALT=""  align=CENTER>
+. These and related issues are explained more fully in <a href="../section8/pri8.htm#DelC">Del
+Castillo (1996)</a>.
+<p><b>Example: Path of Steepest Ascent, Multiple Response Case</b>
+<p>Suppose the response model:
+<p><img SRC="gifs/img183.gif" ALT=""  align=BOTTOM>
+<p>with&nbsp;<img SRC="gifs/img184.gif" ALT=""  align=CENTER>, represents
+the average yield of a production process obtained from a replicated factorial
+experiment in the two controllable factors (in coded units). From the same
+experiment, a second response model for the process standard deviation
+of the yield is obtained and given by
+<p><img SRC="gifs/img185.gif" ALT=""  align=BOTTOM>
+<p>with&nbsp;<img SRC="gifs/img186.gif" ALT=""  align=CENTER>. We wish
+to maximize the mean yield while minimizing the standard deviation of the
+yield.
+<p><b>Step 1: compute the gradients:</b>
+<p><img SRC="gifs/img187.gif" ALT=""  align=BOTTOM>
+<br>&nbsp;
+<br>&nbsp;
+<p><img SRC="gifs/img188.gif" ALT=""  align=BOTTOM>
+<p>(recall we wish to <i>minimize&nbsp;<img SRC="gifs/img189.gif" ALT=""  align=CENTER></i>).
+<p><b>Step 2: find relative priorities.</b>
+<p>Since there are no clear priorities, we use the quality of fit as priority:
+<p><img SRC="gifs/img190.gif" ALT=""  align=BOTTOM>
+<p><img SRC="gifs/img191.gif" ALT=""  align=BOTTOM>
+<p>Then, the weighted gradient is
+<p><img SRC="gifs/img192.gif" ALT=""  align=BOTTOM>
+<p>which, after normalizing it (by dividing each coordinate by&nbsp;<img SRC="gifs/img193.gif" ALT=""  align=CENTER>)
+gives the weighted direction
+<p><img SRC="gifs/img194.gif" ALT=""  align=BOTTOM>
+<p>Thus, if we want to move&nbsp;<img SRC="gifs/img195.gif" ALT=""  align=CENTER>
+coded units along the path of maximum improvement, we will set
+<p><img SRC="gifs/img196.gif" ALT=""  align=BOTTOM>
+<p>in the next run or experiment.&nbsp;</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri552.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5522.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

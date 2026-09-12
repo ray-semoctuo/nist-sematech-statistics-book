@@ -1,0 +1,62 @@
+. This is Dataplot Program file    graphicsgallery.dp
+. Purpose--Generate WWW Graphics gallery Plots
+. June 1996
+.
+. -----Start Point-----
+.
+device 1 x11
+.
+.  Jim's dplogf.tex defaults
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 17. linear ressd plot HSU12.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read HSU12.DAT y x batch
+.
+title Linear RESSD Plot
+y1label Linear Fit(Y,X) Residual SD
+x1label Batch
+. x3label automatic
+y1label offset 12
+.
+characters x blank
+lines dotted solid
+.
+xlimits 1 15
+linear ressd plot y x batch
+xlimits
+.
+let string mark = HSU12.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat linressd.ps
+.

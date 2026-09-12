@@ -1,0 +1,6 @@
+. Starting Step 8.3
+.
+let y2 = y - 15.9
+let gamma = 2.13
+anderson-darling weibull test y2
+. Finished Step 8.3: Page Back for Output

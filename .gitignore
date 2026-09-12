@@ -1,0 +1,8 @@
+# Full-tree backup archive (167MB, exceeds GitHub's 100MB file limit;
+# also redundant with the handbook/ directory already tracked below)
+/handbook.zip
+
+# Editor backup files and Windows thumbnail cache cruft
+*~
+Thumbs.db
+handbook/pmd/section4/junk.htm

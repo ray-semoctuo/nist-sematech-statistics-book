@@ -1,0 +1,129 @@
+device 1 x11
+substitute character @
+.
+let function fnum = P1 + P2*x
+let function fden = 1 + P3*x + P4*x**2
+let function f = (fnum)/(fden)
+.
+xlabel x
+y1label y
+x1label displacement 11
+y1label displacement 10
+multiplot scale factor 2.5
+.
+set ipl1na r12p1.ps
+device 2 postscript
+.
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+.
+let p1 = 1
+let p2 = 2
+let p3 = (-1/12)
+let p4 = (-1/12)
+title y = (1+2x)/(1 - (1/12)x - (1/12)x^2)
+let aymin = -20
+let aymax = 20
+ylimits aymin aymax
+.
+plot f for x = -10 .1 -4.1 and
+plot f for x = -3.9 .1 2.9 and
+plot f for x = 3.1 .1 10
+line dash
+drawdata -10 0 10 0
+drawdata -4 aymin -4 aymax
+drawdata 3 aymin 3 aymax
+line solid
+ylimits
+.
+let p1 = 1
+let p2 = 2
+let p3 = 2
+let p4 = 1
+title y = (1+2x)/(1 + 2x + x^2)
+let aymin = -20
+let aymax = 5
+ylimits aymin aymax
+.
+plot f for x = -10 .1 -1.1 and
+plot f for x = -0.9 .1 10
+line dash
+drawdata -10 0 10 0
+drawdata -1 aymin -1 aymax
+line solid
+ylimits
+.
+let p1 = 1
+let p2 = 2
+let p3 = (1/15)
+let p4 = (1/15)
+title y = (1+2x)/(1 + (1/15)x + (1/15)x^2)
+.
+ylimits
+plot f for x = -100 0.1 100
+line dash 
+drawdata -99 0 99 0
+line solid
+ylimits
+.
+end of multiplot
+.
+device 2 close
+system mv R12P1.PS r12p1.ps
+.
+set ipl1na r12p2.ps
+device 2 postscript
+.
+let p1 = 1
+let p2 = 2
+let p3 = -0.5
+let p4 = -0.5
+title y = (1+2x)/(1 - 0.5x - 0.5x^2)
+plot f for x = 1.1 .1 10
+pause
+.
+device 2 close
+system mv R12P2.PS r12p2.ps
+.
+set ipl1na r12p3.ps
+device 2 postscript
+.
+let p1 = 1
+let p2 = 2
+let p3 = -0.5
+let p4 = -0.5
+title y = (1+2x)/(1 - 0.5x - 0.5x^2)
+plot f for x = -10 -0.1 -2.2
+pause
+.
+device 2 close
+system mv R12P3.PS r12p3.ps
+.
+set ipl1na r12p4.ps
+device 2 postscript
+.
+let p1 = 1
+let p2 = 2
+let p3 = -5
+let p4 = 2
+title y = (1+2x)/(1 - 5x + 2x^2)
+plot f for x = 2.5 0.1 10
+pause
+.
+device 2 close
+system mv R12P4.PS r12p4.ps
+.
+set ipl1na r12p5.ps
+device 2 postscript
+.
+let p1 = 1
+let p2 = -0.5
+let p3 = -0.5
+let p4 = -0.5
+title y = (1-0.5x)/(1 - 0.5x - 0.5x^2)
+plot f for x = 1.1 0.1 10
+pause
+.
+device 2 close
+system mv R12P5.PS r12p5.ps
+.

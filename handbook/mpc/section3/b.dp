@@ -1,0 +1,105 @@
+capture b.out
+echo on
+dimension 200 columns
+. set write decimals 4
+.
+read matrix x
+1  -1  0
+1   0 -1
+0   1 -1
+end of data
+let xt = matrix transpose x
+.
+read matrix y
+-0.3800
+-1.5900
+-1.2150
+end of data
+.
+read matrix r
+1
+1
+0
+end of data
+.
+read matrix a
+2 -1 -1 1
+-1 2 -1 1
+-1 -1 2 0
+1 1 0 0
+end of data
+.
+let ainv = matrix inverse a
+let c = 6
+let ainvc = matrix multiply ainv  c
+.
+let q = matrix definition ainv 3 3
+let qc = matrix multiply q  c
+print qc
+let qxt = matrix multiply q xt
+let qxtc = matrix multiply qxt c
+print qxtc
+.
+. let h1 = data 3 3 3
+let h1 = data 0.5 0.5 0.5
+.
+let h1 = 0.82329*h1
+.
+let b = matrix multiply qxt y
+. let bc = matrix multiply b c
+print b1
+.
+let b1 = b1 + h1
+.
+print b1
+.
+.  Now compute (I - XQX')
+.
+let xqxt = matrix multiply x qxt
+print xqxt
+let ones = 1 for i = 1 1 3
+let ident = diagonal matrix ones
+let ixqxt = matrix subtraction ident xqxt
+print ixqxt
+.
+let yt = matrix transpose y
+let ytxqt = matrix multiply yt ixqxt
+let ytxqty = matrix multiply ytxqt y
+print ytxqty
+.
+let atemp = matrix element ytxqty 1 1
+let n = 3
+let m = 3
+let s1 = sqrt(atemp/(n-m+1))
+print s1
+.
+.  Now compute D matrix
+.
+let qxtx = matrix multiply qxt x
+let qxtxt = matrix transpose qxtx
+let d = matrix multiply qxtx qxtxt
+print d
+.
+read matrix vi
+ 0
+ 0
+ 1
+end of data
+.
+let vit = matrix transpose vi
+let vitq = matrix multiply vit q
+let vitqvi = matrix multiply vitq vi
+print vitqvi
+.
+let vitd = matrix multiply vit d
+let vitdvi = matrix multiply vitd vi
+print vitdvi
+let c1 = vitdvi1(1)
+let c2 = vitqvi1(1)
+.
+let sitemi = sqrt(c2*s1**2 + c1*(0.0211)**2)
+.
+end of capture
+echo off
+.
+quit

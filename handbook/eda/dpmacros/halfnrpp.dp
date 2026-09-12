@@ -1,0 +1,20 @@
+.
+.  Create a GIF file for a run sequence plot
+.
+DEVICE 1 OFF
+DEVICE 2 POSTSCRIPT
+.
+LET Y = HALF NORMAL RANDOM NUMBERS FOR I = 1 1 1000
+.
+TITLE AUTOMATIC
+TITLE SIZE 3
+LABEL CASE ASIS
+Y1LABEL Ordered Data (1,000 Half-Normal Random Numbers)
+X1LABEL Half-Normal N(0,1) Order Statistics Medians
+LABEL SIZE 3
+TIC LABEL SIZE 3
+.
+PRE-ERASE OFF
+HALF NORMAL PROBABILITY PLOT Y
+.
+QUIT

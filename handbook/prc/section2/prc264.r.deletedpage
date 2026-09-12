@@ -1,0 +1,29 @@
+R commands and output:
+
+## Define the parameter values for a p=0.9 and gamma=0.99 
+## tolerance interval.
+N = 220
+p = 0.90
+g = 0.99
+
+## Define function, r, such that 
+## (pnorm(1/sqrt(N)+r) - pnorm(1/sqrt(N)-r)) equals p=0.90
+estimating_r = function(r)
+{
+ return(p - (pnorm(1/sqrt(N)+r) - pnorm(1/sqrt(N)-r)))
+}
+
+## Call the function and print the value of r.
+R = uniroot(estimating_r, c(-100,100))
+r = R[1]$root
+r
+
+##> [1] 1.648598
+
+## Calculate the k factor from the equation above.
+k2 = r*sqrt((N-1)/(qchisq(1-g,N-1)))
+k2
+
+##> [1] 1.853417
+
+

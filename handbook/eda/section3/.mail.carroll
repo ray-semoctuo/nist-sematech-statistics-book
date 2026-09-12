@@ -1,0 +1,30 @@
+Carroll,
+
+I have made the last set of edits you gave me.  A few minor
+points.
+
+  1) The DEX MEAN and DEX SD plots are not limited to 2 levels
+     per factor.
+
+  2) I left in the discussion about how relative histograms
+     are normalized.  This discussion is not Dataplot specific.
+     Although most packages probably do it one or the other,
+     it is actually relevant to know which way they do it and
+     to understand that there actually is a difference.
+
+  3) Will does not currently have a page on the correlation
+     coefficient.  I talked to him about this and he seemed
+     willing to add it.  If and when he does, I will activate
+     these links.
+
+  4) There is currently no explicit discussion in any of the
+     pages about the central limit thereom.  An appropriate
+     place might be in the gallery of probability distributions
+     under the normal distribution page.
+
+  5) There is currently no 2-sample chi-square or 2-sample K-S
+     test pages to link to.  I could either add these pages
+     in the quantitative techniques section or delete reference
+     to them altogether.
+
+Alan

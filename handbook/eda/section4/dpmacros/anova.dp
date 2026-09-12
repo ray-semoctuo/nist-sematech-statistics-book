@@ -1,0 +1,10 @@
+.
+.  Generate sample output for a t test
+.
+skip 25
+read sheesley.dat y x1 x2 x3 x4
+echo on
+capture anova.out
+anova y x1 x2 x3 x4
+end of capture 
+quit

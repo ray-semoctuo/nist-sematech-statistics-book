@@ -1,0 +1,67 @@
+.
+. Starting Step 7.1 - Generate PPCC plot for Power Lognormal
+.
+line solid all
+char blank all
+title case upper
+y1label PPCC
+multiplot 2 2
+multiplot corner coordinates 0 0 100 100
+x1label p (curves represent different values of sd)
+. ylimits 0.90 1.0
+power lognormal ppcc plot y
+justification left
+let maxppcc2 = round(maxppcc,4)
+move 18 28
+text max ppcc = ^maxppcc2
+move 18 21
+text p = ^shape2, sd = ^shape1
+let p1 = 0.1
+let p2 = 2
+let sd1 = 0.5
+let sd2 = 3
+. ylimits 0.95 1.0
+power lognormal ppcc plot y
+delete p1 p2
+ylimits
+let maxppcc2 = round(maxppcc,4)
+let shape2 = round(shape,3)
+move 18 28
+text max ppcc = ^maxppcc2
+move 18 21
+text p = ^shape2, sd = ^shape1
+let sd = shape1
+let p = shape2
+line blank
+char x
+justification right
+y1label DATA
+x1label THEORETICAL
+power lognormal probability plot y
+let ppa02 = round(ppa0,3)
+let ppa12 = round(ppa1,3)
+move 88 31
+text location = ^ppa02
+move 88 24
+text slope = ^ppa12
+set relative histogram area
+title histogram with overlaid pdf
+y1label AREA
+x1label POLISHED WINDOW STRENGTH
+xlimits 10 50
+ytic offset 0 5
+relative histogram y
+multiplot 2 2 4
+limits freeze
+line solid
+char BLANK
+let xstart = ppa0 + 0.1
+plot plnpdf(x,p,sd,ppa0,ppa1) for x = xstart 0.1 45
+limits
+end of multiplot
+title case asis
+title automatic
+ytic offset 5 5
+x1label
+y1label
+. Finished Step 7.1: Page Back for Output

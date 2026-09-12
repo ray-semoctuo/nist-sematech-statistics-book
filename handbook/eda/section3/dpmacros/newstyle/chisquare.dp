@@ -1,0 +1,16 @@
+.
+.  Generate sample output for Chi-Square Goodness of Fit
+.
+echo on
+capture chisquare.out
+let y1 = normal random numbers for i = 1 1 1000
+let y2 = double exponential random numbers for i = 1 1 1000
+let nu = 3
+let y3 = t random numbers for i = 1 1 1000
+let y4 = lognormal random numbers for i = 1 1 1000
+normal chi-square goodness of fit test y1
+normal chi-square goodness of fit test y2
+normal chi-square goodness of fit test y3
+normal chi-square goodness of fit test y4
+end of capture 
+quit

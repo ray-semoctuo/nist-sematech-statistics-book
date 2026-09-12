@@ -1,0 +1,10 @@
+.
+.  Generate sample output for 1-sample t-test
+.
+skip 25
+read zarr13.dat y
+echo on
+capture ttest1s.out
+t test y 5
+end of capture 
+quit

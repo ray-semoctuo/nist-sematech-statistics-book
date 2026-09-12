@@ -1,0 +1,27 @@
+.
+.  Generate sample output for Cauchy Inverse Survival plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na cauisu.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Cauchy Inverse Survival
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Inverse Survival
+X1LABEL X
+.
+PLOT CAUPPF(1-P) FOR P = 0.01 0.01 0.99
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv CAUISU.PS cauisu.ps
+.
+quit

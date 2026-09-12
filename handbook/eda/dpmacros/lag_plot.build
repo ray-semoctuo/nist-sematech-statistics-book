@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < lag_plot.dp
+mv dppl1f.dat lag_plot.ps
+gs -sDEVICE=ppm -sOutputFile=lag_plot.ppm  -dNOPAUSE -dBATCH lag_plot.ps
+~/bin/pnmrotate  -90 lag_plot.ppm > lag_plot_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 lag_plot_r.ppm > lag_plot_s.ppm
+~/bin/ppmtogif  lag_plot_s.ppm > lag_plot.gif
+mv lag_plot.gif ../gif/lag_plot.gif
+rm lag_plot.ppm lag_plot_r.ppm lag_plot_s.ppm lag_plot.ps
+#

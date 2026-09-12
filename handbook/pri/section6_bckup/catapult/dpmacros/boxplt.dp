@@ -1,0 +1,45 @@
+.
+. Starting Step 2.2
+title Box Plot for Catapult Data
+xlimits 10 50
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 5 5
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label ^y
+ylimits 0 125
+major ytic mark number 6
+minor ytic mark number 4
+ytic offset 0 10
+char box plot
+line box plot
+fences on
+let xtemp = x1 + 10
+box plot y xtemp
+pre-erase off
+let xtemp = x2 + 20
+box plot y xtemp
+let xtemp = x3 + 30
+box plot y xtemp
+let xtemp = x4 + 40
+box plot y xtemp
+let xtemp = x5 + 50
+box plot y xtemp
+pre-erase on
+char blank all
+line solid all
+char x
+line blank
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+ytic offset 0 0
+xlimits
+x1tic mark label format
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.2: Page Back for Output

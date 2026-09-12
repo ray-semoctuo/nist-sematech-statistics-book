@@ -1,0 +1,309 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.5.1. Background and data</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc652.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc65.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.htm">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.htm">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc65.htm">Uncertainty analysis for extinguishing fire</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.5.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Background and data</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Background
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The data for this case study is taken from a study
+conducted by Michele Donnelly of the Fire Science Division,
+Building and Fire Research Laboratory, of the National
+Institute of Standards and Technology.
+<P>
+The data relates to the volume fraction of nitrogen
+required to extinguish flame on the surface of a plastic
+cylinder.  Measurements of flux (X) are made on the
+surface of the object, and corresponding rotameter
+readings (Y) are converted to flowrate (Y') from a
+calibration curve for the rotameter.   Flowrate is then
+converted to nitrogen volume fraction.
+<P>
+The case study demonstrates the analysis of uncertainty
+for values predicted from a calibration curve where there
+is uncertainty in both the predictors and the predicted
+values. 
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Steps in the Analysis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The steps in the analysis are as follows. 
+<OL>
+   <LI><a href="mpc652.htm">Create a calibration curve
+       for the rotatmeter</a>.
+   <LI><a href="mpc653.htm#predict">Compute predicted
+       values of nitrogen flowrate from rotameter readings
+       on the twenty-one cylinders in the study</a>.
+   <LI><a href="mpc653.htm#sdpredict">Compute the standard
+       deviations of the predicted values of flowrate</a>.
+   <LI><a href="mpc654.htm">Convert the flowrates to
+       nitrogen volume fractions (%)</a>.
+   <LI><a href="mpc655.htm">Calculate the uncertainties
+       due to the calibration curve for the nitrogen
+       volume fractions</a>.
+   <LI><a href="mpc656.htm">Calulate the uncertainties due
+       to flux measurements for the nitrogen volume
+       fractions</a>.
+   <LI><a href="mpc657.htm">Combine the last two
+       components into a total uncertainty</a>.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Data Used to Compute the Calibration Curve
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following is the data used to compute the calibration
+curve.  In this case, we have measurements for both
+the flux and the rotameter reading.
+<PRE>
+
+         Rotameter
+   Flux  Readings
+    (X)       (Y)
+   ====   =======
+     40     7.871
+     40     7.877
+     40     7.863
+     40     7.877
+     40     7.871
+     40     7.877
+     40     7.863
+     40     7.874
+     40     7.871
+     40     7.865
+
+     50     9.608
+     50     9.591
+     50     9.600
+     50     9.582
+     50     9.582
+     50     9.600
+     50     9.587
+     50     9.587
+     50     9.608
+     50     9.600
+     
+     70    12.94
+     70    12.93
+     70    12.94
+     70    12.93
+     70    12.94
+     70    12.94
+     70    12.91
+     70    12.92
+     70    12.95
+     70    12.94
+     
+     90    15.94
+     90    15.84
+     90    15.91
+     90    16.01
+     90    15.98
+     90    15.89
+     90    15.82
+     90    15.89
+     90    15.88
+     90    15.90
+     
+     30     5.981
+     30     5.980
+     30     5.983
+     30     5.985
+     30     5.985
+     30     5.981
+     30     5.981
+     30     5.978
+     30     5.981
+     30     5.977
+     
+     80    14.40
+     80    14.39
+     80    14.40
+     80    14.41
+     80    14.42
+     80    14.39
+     80    14.43
+     80    14.37
+     80    14.44
+     80    14.37
+     
+    100    17.23
+    100    17.17
+    100    17.23
+    100    17.17
+    100    17.15
+    100    17.19
+    100    17.21
+    100    17.24
+    100    17.23
+    100    17.22
+
+     20     4.012
+     20     4.014
+     20     4.015
+     20     4.011
+     20     4.013
+     20     4.011
+     20     4.020
+     20     4.014
+     20     4.009
+     20     4.011
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+New Flux Measurements
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We also have measurements for 21 new data points.  In
+this case, we only have the flux measurements.  We
+use the computed calibration curve to estimate
+the nitrogen volume fraction and the associated
+standard deviation.
+<PRE>
+
+  Flux
+   X 
+======
+   26.
+   30.
+   27.
+   44.
+   16.
+   21.
+   14.
+   24.
+   22.
+   43.
+   41.
+   47.
+   45.
+   42.
+   14.
+   14.
+   32.
+   29.
+   47.
+   44.
+   47.
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc65.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc652.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

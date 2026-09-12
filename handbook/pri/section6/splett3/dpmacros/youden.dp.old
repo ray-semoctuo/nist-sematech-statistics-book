@@ -1,0 +1,37 @@
+.
+. Starting Step 5.2
+let a1 = mean y subset x1 = +1
+let b1 = mean y subset x1 = -1
+let a2 = mean y subset x2 = +1
+let b2 = mean y subset x2 = -1
+let a3 = mean y subset x3 = +1
+let b3 = mean y subset x3 = -1
+let xjunk = x1*x2
+let a4 = mean y subset xjunk = +1
+let b4 = mean y subset xjunk = -1
+let xjunk = x1*x3
+let a5 = mean y subset xjunk = +1
+let b5 = mean y subset xjunk = -1
+let xjunk = x2*x3
+let a6 = mean y subset xjunk = +1
+let b6 = mean y subset xjunk = -1
+let xjunk = x1*x2*x3
+let a7 = mean y subset xjunk = +1
+let b7 = mean y subset xjunk = -1
+.
+let ytemp = data a1 a2 a3 a4 a5 a6 a7
+let xtemp = data b1 b2 b3 b4 b5 b6 b7
+let tag = data 1 2 3 4 5 6 7
+character 1 2 3 12 13 23 123
+.
+label font simplex
+y1label Ybarsub()+
+x1label Ybarsub()-
+plot ytemp xtemp tag
+char blank all
+char x
+line solid all
+line blank
+label
+label font tektronix
+. Finished Step 5.2: Page Back for Output

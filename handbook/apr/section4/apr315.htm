@@ -1,0 +1,209 @@
+
+<HTML>
+   <HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+      <TITLE>8.3.1.5.  Bayesian Gamma Prior Model                                                                                                                                                                                                                                   </TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+   <!-- check check -->
+   <!--- <BODY BGCOLOR="FFFFEF"> --->
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="../section4/apr4.htm" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="apr314.htm" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">8.</FONT> <A HREF="../apr.htm"><FONT COLOR="#00105A"> Assessing Product Reliability                                                                                                                                                                                                                                </a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">8.3.</FONT> <A HREF="apr3.htm"><FONT COLOR="#00105A"> Reliability Data Collection                                                                                                                                                                                                                                  </a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">8.3.1.</FONT> <A HREF="apr31.htm"><FONT COLOR="#00105A"> How do you Plan a Reliability Assessment Test?                                                                                                                                                                                                               </a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">8.3.1.5.</FONT>  Bayesian Gamma Prior Model                                                                                                                                                                                                                                    </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->How to plan
+a Bayesian test to confirm a system meets its MTBF objective&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P>Excel will easily do the required calculations</TD>
+
+<TD WIDTH="85%"><!-- Add main text below -->Review <A HREF="../section1/apr110.htm">Bayesian
+basics</A> and <A HREF="../section2/apr25.htm#Assumptions">assumptions</A>,
+if needed. We start at the point where gamma prior parameters "a" and "b"
+have already been determined. Assume we have a given MTBF objective, say
+M, and a desired confidence level, say 100x(1-<FONT FACE="Symbol">a</FONT>).
+We want to confirm the system will have at least an MTBF of M at the 100x(1-<FONT FACE="Symbol">a</FONT>)
+confidence level. As in the section on <A HREF="apr311.htm">classical
+(HPP) test plans</A>, we pick a number of failures, r, we can allow on
+the test. We need a test time T such that we can see up to r failures,
+and still "pass" the test. If the test time is too long (or too short),
+we can iterate with a different choice of r.&nbsp;
+
+<P>When the test ends, the posterior gamma distribution will have (worst
+case - assuming exactly r failures) new parameters of&nbsp;
+<UL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+a' = a + r,&nbsp; b' = b + T</UL>
+and passing the test means that the failure rate <FONT FACE="Symbol">l</FONT><SUB>1-<FONT FACE="Symbol">a</FONT></SUB>,
+the upper<FONT FACE="Symbol"> 100</FONT>x<FONT FACE="Symbol">(1-a) </FONT>percentile
+for the posterior gamma, has to equal the target failure rate 1/M<FONT FACE="Symbol">.
+</FONT>But this percentile is, by definition, G<SUP>-1</SUP>(1-<FONT FACE="Symbol">a;</FONT>a',b'),
+where G<SUP>-1</SUP> is the inverse of the gamma distribution with parameters
+a', b'. We can find the value of T that satisfies {G<SUP>-1</SUP>(1-<FONT FACE="Symbol">a;</FONT>a',b')
+= 1/M} by trial and error, or by using "Goal Seek" in EXCEL. However, based
+on the properties of the gamma distribution, it turns out that we can calculate
+T directly, by using&nbsp;
+<BLOCKQUOTE>
+<BLOCKQUOTE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T = .5M x G<SUP>-1</SUP>(1-<FONT FACE="Symbol">a</FONT>; 2a',.5) - b.</BLOCKQUOTE>
+</BLOCKQUOTE>
+<B><U>Solving For T = Bayesian Test Time Using EXCEL or Dataplot</U></B>&nbsp;
+<BR>&nbsp;
+<BR>The EXCEL expression for the required Bayesian test time to confirm
+a goal of M at 100x(1-a)% confidence, allowing r failures and assuming
+gamma prior parameters of a and b is&nbsp;
+<BLOCKQUOTE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = .5*M*GAMMAINV((1-<FONT FACE="Symbol">a</FONT>),((a+r)),2)
+- b</BLOCKQUOTE>
+and the equivalent Dataplot expression is&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LET BAYESTIME = M*GAMPPF((1-<FONT FACE="Symbol">a</FONT>),(a+r)) - b.&nbsp;
+
+<P><B><U>Special Case: The Prior Has a = 1 (The "Weak" Prior)</U></B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%">When the prior is a <I>weak prior</I> with a
+= 1, the Bayesian test is always shorter than the classical test&nbsp;</TD>
+
+<TD VALIGN=TOP WIDTH="85%">There is a very simple way to calculate the
+required Bayesian test time, when the prior is a <I><A HREF="../section2/apr25.htm#weak">weak
+prior</A></I> with a = 1. Just use the <A HREF="apr311.htm">Test Length
+Guide Table</A> to calculate the classical test time. Call this T<SUB>c</SUB>.
+The Bayesian test time T is just T<SUB>c</SUB> minus the prior parameter
+b (i.e. T = T<SUB>c</SUB> - b). If the b parameter was set equal to&nbsp;
+<BR>(ln 2) x MTBF<SUB>50</SUB>&nbsp; (where MTBF<SUB>50</SUB> is the consensus
+choice for an "even money" MTBF), then&nbsp;
+<BR>&nbsp;
+<BLOCKQUOTE>T = T<SUB>c</SUB> - (ln 2) x MTBF<SUB>50</SUB>.&nbsp;</BLOCKQUOTE>
+This shows that when a weak prior is used, the Bayesian test time is always
+less then the corresponding classical test time. That is why this prior
+is also known as a <I>friendly prior</I>.&nbsp;
+
+<P><B><U>NOTE:</U></B>&nbsp; <I>In general, Bayesian test times can be
+shorter, or longer, than the corresponding classical test times, depending
+on the choice of prior parameters. However, the Bayesian time will always
+be shorter when the prior parameter a is less than, or equal to, 1.</I>&nbsp;
+
+<P><A NAME="Example:Calculating a Bayesian Test Time"></A><B><U>Example:
+Calculating a Bayesian Test Time&nbsp;</U></B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%">EXCEL example&nbsp;</TD>
+
+<TD VALIGN=TOP WIDTH="85%">A new piece of equipment has to meet a MTBF
+requirement of 500 hours at 80% confidence. A group of engineers decide
+to use their collective experience to come up with a Bayesian gamma prior
+using the 50/95 method described in <A HREF="../section2/apr25.htm#Assumptions">Section
+2</A>. They think 600 hours is a likely MTBF value and they are very confident
+that the MTBF will exceed 250. Following the <A HREF="../section2/apr25.htm#Example">example</A>
+in Section 2, they determine that the gamma prior parameters are a = 2.863
+and b = 1522.46.&nbsp;
+
+<P>Now they want to determine an appropriate test time, so that they can
+confirm a MTBF of 500 with at least 80% confidence, provided they have
+no more than 2 failures.&nbsp;
+
+<P>Using an EXCEL spreadsheet, type the expression&nbsp;
+
+<P>= .5*500*GAMMAINV(.8,((a+r)),2) - 1522.46&nbsp;
+
+<P>and the required test time of 1756 hours will appear (as shown below).&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;<IMG SRC="gifs/excplan.gif" HEIGHT=284 WIDTH=406>&nbsp;
+<BR>&nbsp;
+<BR>Using Dataplot, the same result would be obtained from&nbsp;
+<BLOCKQUOTE>LET BAYESTIME = 500*GAMPPF(.8,4.863) - 1522.46</BLOCKQUOTE>
+To compare this result to the classical test time required,&nbsp; use the
+<A HREF="apr311.htm">Test Length Guide Table.</A> The table factor is
+4.28, so the test time needed is 500 x 4.28 = 2140 hours for a non Bayesian
+test. The Bayesian test saves about 384 hours, or an 18% savings. If the
+test is run for 1756 hours, with no more than 2 failures, then (at least)
+an MTBF of 500 has been confirmed at 80% confidence.&nbsp;
+
+<P>If, instead, the engineers had decided to use a weak prior with an MTBF<SUB>50
+</SUB>of 600, the required test time would have been&nbsp;
+<BLOCKQUOTE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2140 - 600 x ln 2 = 1724 hours.</BLOCKQUOTE>
+&nbsp;</TD>
+</TR>
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov">
+   <IMG SRC="../../gifs/nvgtbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="0,19,91,35">
+   </MAP>
+
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http:/../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="apr314.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../section4/apr4.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   </HTML>

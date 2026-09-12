@@ -1,0 +1,556 @@
+%!PS-Adobe-2.0
+%%Creator: Dataplot
+%%Title: Dataplot Postscript File
+%%CreationDate: NULL
+%%Pages: (atend)
+%%DocumentFonts: Times-Roman Times-Bold Times-Italic Times-BoldItalic
+%%+ Helvetica Helvetica-Bold Helvetica-Oblique Helvetica-BoldOblique Courier
+%%+ Courier-Bold Courier-Oblique  Courier-BoldOblique
+%%+ AvantGarde-Book AvantGarde-BookOblique AvantGarde-Demi AvantGarde-DemiOblique
+%%+ Bookman-Demi Bookman-DemiItalic       Bookman-Light Bookman-LightItalic      
+%%+ Helvetica-Narrow Helvetica-Narrow-Bold Helvetica-Narrow-BoldOblique          
+%%+ Helvetica-Narrow-Oblique              NewCentury-Schlbk-Bold                 
+%%+ NewCentury-Schlbk-Italic              NewCenturySchlbk-BoldItalic            
+%%+ Palatino-Roman Palatino-Bold          Palatino-Italic Palatino-BoldItalic    
+%%+ ZapfChancery-MediumItalic  Symbol                                            
+%%BoundingBox: 0 0 792 792
+% DATAPLOT POSTSCRIPT DRIVER, JANUARY, 1990
+% PROLOG SECTION: DATAPLOT DEFINITIONS     
+%DEFINE PROCEDURE "rightshow" TO PRINT RIGHT JUSTIFIED STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% (STRING) rightshow
+/rightshow
+  {dup stringwidth pop
+   IX exch sub
+   IY moveto
+   show} def
+%DEFINE PROCEDURE "centshow" TO PRINT CENTER JUSTIFIED STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% (STRING) centshow
+/centshow
+  {dup stringwidth pop
+   2 div
+   IX exch sub
+   IY moveto
+   show} def
+%DEFINE PROCEDURE "leftshow" TO PRINT LEFT   JUSTIFIED STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% (STRING) leftshow
+/leftshow
+  {IX IY moveto show} def
+%DEFINE PROCEDURE "vrightshow" TO PRINT RIGHT JUSTIFIED VERTICAL STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% newpath IX IY moveto gsave
+% (STRING) vrightshow grestore
+/vrightshow
+  {dup stringwidth pop
+   IY exch sub
+   IX exch moveto
+    90 rotate
+   show} def
+%DEFINE PROCEDURE "vcentshow" TO PRINT CENTER JUSTIFIED VERTICAL STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% newpath IX IY moveto gsave
+% (STRING) vcentshow grestore
+/vcentshow
+  {dup stringwidth pop
+   2 div
+   IY exch sub
+   IX exch moveto
+     90 rotate
+   show} def
+%DEFINE PROCEDURE "vleftshow" TO PRINT LEFT   JUSTIFIED VERTICAL STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% newpath IX IY moveto gsave
+% (STRING) vleftshow grestore
+/vleftshow
+  {IX IY moveto 90 rotate show} def 
+%DEFINE PROCEDURE "setpsfont" TO DEFINE THE POSTSCRIPT FONT NAME AND SIZE.  CALL BY:
+%  /PSFONT <FONTNAME> def /PSSIZE <FONTSIZE> def setpsfont
+/setpsfont
+  {PSFONT  findfont  PSSIZE  scalefont  setfont} def
+%DEFINE PROCEDURE "psstringwidthr" TO MOVE THE STARTING POSITION OF A RIGHT JUSTIFIED STRING.
+%CALL BY:
+%  (STRING) psstringwidthr
+/psstringwidthr
+  {dup stringwidth pop 0 exch sub 0 rmoveto} def
+%DEFINE PROCEDURE "psstringwidthc" TO MOVE THE STARTING POSITION OF A CENTER JUSTIFIED STRING.
+%CALL BY:
+%  (STRING) psstringwidthc
+/psstringwidthc
+  {dup stringwidth pop 2 div 0 exch sub 0 rmoveto}  def
+%DEFINE PROCEDURE "psstringwidthtv" TO MOVE THE STARTING POSITION OF A TOP JUSTIFIED VERTICA STRING.
+%CALL BY:
+%  (STRING) psstringwidthtv
+/psstringwidthtv
+  {dup stringwidth pop 0 exch sub 0 exch    rmoveto} def
+%DEFINE PROCEDURE "psstringwidthcv" TO MOVE THE STARTING POSITION OF A CENTER JUSTIFIEDVERTICAL STRING.
+%CALL BY:
+%  (STRING) psstringwidthcv
+/psstringwidthcv
+  {dup stringwidth pop 2 div 0 exch sub 0 exch rmoveto} def
+%DEFINE PROCEDURE "leftshow2" TO PRINT LEFT  JUSTIFIED STRING AT CURRENT POSITION.  CALL BY: 
+% (STRING) leftshow2
+/leftshow2
+  {show} def
+%DEFINE PROCEDURE "vleftshow2" TO PRINT BOTTOM  JUSTIFIED VERTICAL STRING.  CALL BY:
+% (STRING) vleftshow2
+/vleftshow2
+  {90 rotate show -90 rotate} def
+% DEFINE PROCEDURE "l" AS ABBREVIATION OF lineto    
+/l {lineto} def
+% DEFINE PROCEDURE "m" AS ABBREVIATION OF moveto    
+/m {moveto} def
+/Helvetica-Bold                           findfont  47 scalefont setfont
+gsave    % SAVE INITIAL GRAPHICS STATE   
+%%EndProlog
+%%Page: 1 1
+0 0 moveto    0.24000    0.24000 scale  2465    85 translate 90 rotate 
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   804   752 m   800   751 l   798   750 l   795   748 l   793   746 l   791   743 l   790   741 l   789   737 l 
+  789   732 l   790   728 l   791   726 l   793   723 l   795   721 l   798   719 l   800   718 l   804   717 l 
+  808   717 l   812   718 l   815   719 l   818   721 l   820   723 l   822   726 l   823   728 l   824   732 l 
+  824   737 l   823   741 l   822   743 l   820   746 l   818   748 l   815   750 l   812   751 l   808   752 l 
+  804   752 l stroke
+  804   752 m
+  800   751 l
+  798   750 l
+  795   748 l
+  793   746 l
+  791   743 l
+  790   741 l
+  789   737 l
+  789   732 l
+  790   728 l
+  791   726 l
+  793   723 l
+  795   721 l
+  798   719 l
+  800   718 l
+  804   717 l
+  808   717 l
+  812   718 l
+  815   719 l
+  818   721 l
+  820   723 l
+  822   726 l
+  823   728 l
+  824   732 l
+  824   737 l
+  823   741 l
+  822   743 l
+  820   746 l
+  818   748 l
+  815   750 l
+  812   751 l
+  808   752 l
+  804   752 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1104   758 m  1100   757 l  1098   756 l  1095   754 l  1093   752 l  1091   749 l  1090   747 l  1089   743 l 
+ 1089   739 l  1090   734 l  1091   732 l  1093   729 l  1095   727 l  1098   725 l  1100   724 l  1104   723 l 
+ 1108   723 l  1112   724 l  1115   725 l  1118   727 l  1120   729 l  1122   732 l  1123   734 l  1124   739 l 
+ 1124   743 l  1123   747 l  1122   749 l  1120   752 l  1118   754 l  1115   756 l  1112   757 l  1108   758 l 
+ 1104   758 l stroke
+ 1104   758 m
+ 1100   757 l
+ 1098   756 l
+ 1095   754 l
+ 1093   752 l
+ 1091   749 l
+ 1090   747 l
+ 1089   743 l
+ 1089   739 l
+ 1090   734 l
+ 1091   732 l
+ 1093   729 l
+ 1095   727 l
+ 1098   725 l
+ 1100   724 l
+ 1104   723 l
+ 1108   723 l
+ 1112   724 l
+ 1115   725 l
+ 1118   727 l
+ 1120   729 l
+ 1122   732 l
+ 1123   734 l
+ 1124   739 l
+ 1124   743 l
+ 1123   747 l
+ 1122   749 l
+ 1120   752 l
+ 1118   754 l
+ 1115   756 l
+ 1112   757 l
+ 1108   758 l
+ 1104   758 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1308   777 m  1304   776 l  1302   775 l  1298   773 l  1296   770 l  1294   767 l  1293   765 l  1292   761 l 
+ 1292   757 l  1293   753 l  1294   751 l  1296   747 l  1298   745 l  1302   743 l  1304   742 l  1308   741 l 
+ 1312   741 l  1316   742 l  1318   743 l  1321   745 l  1323   747 l  1325   751 l  1326   753 l  1327   757 l 
+ 1327   761 l  1326   765 l  1325   767 l  1323   770 l  1321   773 l  1318   775 l  1316   776 l  1312   777 l 
+ 1308   777 l stroke
+ 1308   777 m
+ 1304   776 l
+ 1302   775 l
+ 1298   773 l
+ 1296   770 l
+ 1294   767 l
+ 1293   765 l
+ 1292   761 l
+ 1292   757 l
+ 1293   753 l
+ 1294   751 l
+ 1296   747 l
+ 1298   745 l
+ 1302   743 l
+ 1304   742 l
+ 1308   741 l
+ 1312   741 l
+ 1316   742 l
+ 1318   743 l
+ 1321   745 l
+ 1323   747 l
+ 1325   751 l
+ 1326   753 l
+ 1327   757 l
+ 1327   761 l
+ 1326   765 l
+ 1325   767 l
+ 1323   770 l
+ 1321   773 l
+ 1318   775 l
+ 1316   776 l
+ 1312   777 l
+ 1308   777 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1481   794 m  1476   793 l  1474   792 l  1471   790 l  1469   788 l  1467   785 l  1466   783 l  1465   779 l 
+ 1465   774 l  1466   770 l  1467   768 l  1469   765 l  1471   763 l  1474   761 l  1476   760 l  1481   759 l 
+ 1485   759 l  1489   760 l  1491   761 l  1494   763 l  1496   765 l  1498   768 l  1499   770 l  1500   774 l 
+ 1500   779 l  1499   783 l  1498   785 l  1496   788 l  1494   790 l  1491   792 l  1489   793 l  1485   794 l 
+ 1481   794 l stroke
+ 1481   794 m
+ 1476   793 l
+ 1474   792 l
+ 1471   790 l
+ 1469   788 l
+ 1467   785 l
+ 1466   783 l
+ 1465   779 l
+ 1465   774 l
+ 1466   770 l
+ 1467   768 l
+ 1469   765 l
+ 1471   763 l
+ 1474   761 l
+ 1476   760 l
+ 1481   759 l
+ 1485   759 l
+ 1489   760 l
+ 1491   761 l
+ 1494   763 l
+ 1496   765 l
+ 1498   768 l
+ 1499   770 l
+ 1500   774 l
+ 1500   779 l
+ 1499   783 l
+ 1498   785 l
+ 1496   788 l
+ 1494   790 l
+ 1491   792 l
+ 1489   793 l
+ 1485   794 l
+ 1481   794 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1645   825 m  1641   824 l  1639   823 l  1636   821 l  1634   819 l  1632   815 l  1631   813 l  1630   809 l 
+ 1630   805 l  1631   801 l  1632   799 l  1634   795 l  1636   793 l  1639   791 l  1641   790 l  1645   789 l 
+ 1649   789 l  1654   790 l  1656   791 l  1659   793 l  1661   795 l  1663   799 l  1664   801 l  1665   805 l 
+ 1665   809 l  1664   813 l  1663   815 l  1661   819 l  1659   821 l  1656   823 l  1654   824 l  1649   825 l 
+ 1645   825 l stroke
+ 1645   825 m
+ 1641   824 l
+ 1639   823 l
+ 1636   821 l
+ 1634   819 l
+ 1632   815 l
+ 1631   813 l
+ 1630   809 l
+ 1630   805 l
+ 1631   801 l
+ 1632   799 l
+ 1634   795 l
+ 1636   793 l
+ 1639   791 l
+ 1641   790 l
+ 1645   789 l
+ 1649   789 l
+ 1654   790 l
+ 1656   791 l
+ 1659   793 l
+ 1661   795 l
+ 1663   799 l
+ 1664   801 l
+ 1665   805 l
+ 1665   809 l
+ 1664   813 l
+ 1663   815 l
+ 1661   819 l
+ 1659   821 l
+ 1656   823 l
+ 1654   824 l
+ 1649   825 l
+ 1645   825 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1818   826 m  1814   825 l  1812   824 l  1809   821 l  1807   819 l  1805   816 l  1804   814 l  1803   810 l 
+ 1803   806 l  1804   802 l  1805   799 l  1807   796 l  1809   794 l  1812   792 l  1814   791 l  1818   790 l 
+ 1822   790 l  1826   791 l  1828   792 l  1832   794 l  1834   796 l  1836   799 l  1837   802 l  1838   806 l 
+ 1838   810 l  1837   814 l  1836   816 l  1834   819 l  1832   821 l  1828   824 l  1826   825 l  1822   826 l 
+ 1818   826 l stroke
+ 1818   826 m
+ 1814   825 l
+ 1812   824 l
+ 1809   821 l
+ 1807   819 l
+ 1805   816 l
+ 1804   814 l
+ 1803   810 l
+ 1803   806 l
+ 1804   802 l
+ 1805   799 l
+ 1807   796 l
+ 1809   794 l
+ 1812   792 l
+ 1814   791 l
+ 1818   790 l
+ 1822   790 l
+ 1826   791 l
+ 1828   792 l
+ 1832   794 l
+ 1834   796 l
+ 1836   799 l
+ 1837   802 l
+ 1838   806 l
+ 1838   810 l
+ 1837   814 l
+ 1836   816 l
+ 1834   819 l
+ 1832   821 l
+ 1828   824 l
+ 1826   825 l
+ 1822   826 l
+ 1818   826 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2022   832 m  2018   831 l  2015   830 l  2012   828 l  2010   826 l  2008   823 l  2007   820 l  2006   816 l 
+ 2006   812 l  2007   808 l  2008   806 l  2010   803 l  2012   801 l  2015   798 l  2018   797 l  2022   796 l 
+ 2026   796 l  2030   797 l  2032   798 l  2035   801 l  2037   803 l  2039   806 l  2040   808 l  2041   812 l 
+ 2041   816 l  2040   820 l  2039   823 l  2037   826 l  2035   828 l  2032   830 l  2030   831 l  2026   832 l 
+ 2022   832 l stroke
+ 2022   832 m
+ 2018   831 l
+ 2015   830 l
+ 2012   828 l
+ 2010   826 l
+ 2008   823 l
+ 2007   820 l
+ 2006   816 l
+ 2006   812 l
+ 2007   808 l
+ 2008   806 l
+ 2010   803 l
+ 2012   801 l
+ 2015   798 l
+ 2018   797 l
+ 2022   796 l
+ 2026   796 l
+ 2030   797 l
+ 2032   798 l
+ 2035   801 l
+ 2037   803 l
+ 2039   806 l
+ 2040   808 l
+ 2041   812 l
+ 2041   816 l
+ 2040   820 l
+ 2039   823 l
+ 2037   826 l
+ 2035   828 l
+ 2032   830 l
+ 2030   831 l
+ 2026   832 l
+ 2022   832 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2322  2037 m  2318  2036 l  2315  2035 l  2312  2033 l  2310  2031 l  2308  2027 l  2307  2025 l  2306  2021 l 
+ 2306  2017 l  2307  2013 l  2308  2011 l  2310  2007 l  2312  2005 l  2315  2003 l  2318  2002 l  2322  2001 l 
+ 2326  2001 l  2330  2002 l  2332  2003 l  2335  2005 l  2337  2007 l  2339  2011 l  2340  2013 l  2341  2017 l 
+ 2341  2021 l  2340  2025 l  2339  2027 l  2337  2031 l  2335  2033 l  2332  2035 l  2330  2036 l  2326  2037 l 
+ 2322  2037 l stroke
+ 2322  2037 m
+ 2318  2036 l
+ 2315  2035 l
+ 2312  2033 l
+ 2310  2031 l
+ 2308  2027 l
+ 2307  2025 l
+ 2306  2021 l
+ 2306  2017 l
+ 2307  2013 l
+ 2308  2011 l
+ 2310  2007 l
+ 2312  2005 l
+ 2315  2003 l
+ 2318  2002 l
+ 2322  2001 l
+ 2326  2001 l
+ 2330  2002 l
+ 2332  2003 l
+ 2335  2005 l
+ 2337  2007 l
+ 2339  2011 l
+ 2340  2013 l
+ 2341  2017 l
+ 2341  2021 l
+ 2340  2025 l
+ 2339  2027 l
+ 2337  2031 l
+ 2335  2033 l
+ 2332  2035 l
+ 2330  2036 l
+ 2326  2037 l
+ 2322  2037 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   754 m   470   754 l stroke
+newpath   422  1031 m   470  1031 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1587 m   470  1587 l stroke
+newpath   422  1864 m   470  1864 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   615 m   470   615 l stroke
+newpath   446   893 m   470   893 l stroke
+newpath   446  1170 m   470  1170 l stroke
+newpath   446  1448 m   470  1448 l stroke
+newpath   446  1726 m   470  1726 l stroke
+newpath   446  2003 m   470  2003 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/Helvetica-Bold                           findfont    48 scalefont setfont
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(190)
+rightshow
+/IX   391 def /IY   730 def
+(200)
+rightshow
+/IX   391 def /IY  1007 def
+(210)
+rightshow
+/IX   391 def /IY  1285 def
+(220)
+rightshow
+/IX   391 def /IY  1563 def
+(230)
+rightshow
+/IX   391 def /IY  1840 def
+(240)
+rightshow
+/IX   391 def /IY  2118 def
+(250)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/Helvetica-Bold                           findfont    71 scalefont setfont
+/IX  1565 def /IY  2190 def
+(Normal Probability Plot of Mass Spectrometer Measurements)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   214 def
+(Theoretical)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   207 def /IY  1309 def newpath IX IY moveto gsave
+(Data)
+vcentshow 
+grestore
+newpath   157  2261 moveto stroke
+newpath   157  2237 moveto stroke
+showpage
+grestore
+%%Trailer
+%%Pages:     1
+% END OF DATAPLOT POSTSCRIPT FILE

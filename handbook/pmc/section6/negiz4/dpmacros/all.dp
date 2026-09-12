@@ -1,0 +1,184 @@
+.
+.  Create Postscript files (to be converted to gif)
+.  for the Negiz4 data.
+.
+device 1 x11
+device 1 font simplex
+call data.dp
+thickness 0.2
+tic label size 3.5
+label size 4
+title size 4
+height 3.5
+.
+. Starting Step 2 - Model Identification Plots
+.
+. device 2 postscript
+set ipl1na runseqpl.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+
+.
+. Starting Step 2.1 - Generate a run sequence plot
+.
+call runseqpl.dp
+. Finished Step 2.1: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat runseqpl.ps
+.
+. device 2 postscript
+set ipl1na autocopl.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+device 2 color on
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 2.2 - Generate an autocorrelation plot
+.
+call autocopl.dp
+. Finished Step 2.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat autocopl.ps
+.
+. Starting Step 2.3 - Generate a run sequence plot of Differenced Data
+.
+. device 2 postscript
+set ipl1na runseqp2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+call runseqp2.dp
+. Finished Step 2.1: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat runseqp2.ps
+.
+. device 2 postscript
+set ipl1na autocop2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+device 2 color on
+.
+. Starting Step 2.4 - Generate autocorrelation plot of differenced data
+.
+call autocop2.dp
+. Finished Step 2.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat autocop2.ps
+.
+. device 2 postscript
+set ipl1na partaupl.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+device 2 color on
+.
+. Starting Step 2.5 - Generate a partial autocorrelation plot of
+.                     the differenced data
+.
+call partaupl.dp
+. Finished Step 2.5: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat partaupl.ps
+.
+. Starting Step 3 - Model Estimation
+.
+. Starting Step 3.1 - Generate ARMA analysis
+.
+call arma.dp
+.
+. Starting Step 4.1 - 4-Plot of Residuals
+.
+tic label size 5
+label size 5
+title size 5
+.
+. device 2 postscript
+set ipl1na res4plot.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+call res4plot.dp
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat res4plot.ps
+.
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 4.2 - Autocorrelation Plot of Residuals
+.
+. device 2 postscript
+set ipl1na autores1.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+device 2 color on
+call autores1.dp
+.
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat autores1.ps
+.
+. Starting Step 4.3 - Lujan-Box Test of Residuals
+.
+call lujan1.dp
+.
+. Starting Step 4.4 - 4-Plot of Residuals
+.
+tic label size 5
+label size 5
+title size 5
+.
+. device 2 postscript
+set ipl1na res4plo2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+call res4plo2.dp
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat res4plo2.ps
+.
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 4.5 - Autocorrelation Plot of Residuals
+.
+. device 2 postscript
+set ipl1na autores2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+device 2 color on
+call autores2.dp
+.
+box 0 0 100 100
+device 2 close
+. system cp dppl1f.dat autores2.ps
+.
+. Starting Step 4.6 - Lujan-Box Test of Residuals
+.
+call lujan2.dp
+.
+quit

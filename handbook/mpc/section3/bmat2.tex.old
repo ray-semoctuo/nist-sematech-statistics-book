@@ -1,0 +1,8 @@
+\documentstyle[12pt]{article}
+\begin{document}
+
+\[
+B = \left[ \begin{array}{c} \mbox{1.3349} \\ \mbox{-0.3351} \\ \mbox{10.8849} \end{array} \right]
+\]
+
+\end{document}

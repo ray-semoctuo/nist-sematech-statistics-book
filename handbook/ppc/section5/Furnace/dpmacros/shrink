@@ -1,0 +1,6 @@
+for file in $*
+do
+giftopnm $file > temp.pnm
+ppmtogif temp.pnm > $file
+done
+rm temp.pnm

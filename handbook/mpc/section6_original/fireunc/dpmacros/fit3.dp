@@ -1,0 +1,30 @@
+.
+. Starting Step 2.9
+let wt = 1/(flux**chat)
+weight wt
+CAPTURE FIT3.OUT
+quadratic fit rot flux
+let w = biweight res
+weight w
+quadratic fit rot flux
+END OF CAPTURE
+. let res = w*res
+weight
+.
+title displacement 7
+title size 3
+title Weighted Quadratic Fit Extinguish Fire Data
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot rot pred vs flux
+character blank all
+line solid all
+line blank
+character x
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 2.9: Page Back for Output

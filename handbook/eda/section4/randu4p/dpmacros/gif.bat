@@ -1,0 +1,9 @@
+#!/bin/csh -f
+will.bat  4plot.ps*
+will.bat  autocorr.ps
+will.bat  histnorm.ps
+will.bat  histunif.ps
+will.bat  lagplot.ps*
+will.bat  normprpl.ps
+will.bat  runseq.ps
+will.bat  unifprpl.ps

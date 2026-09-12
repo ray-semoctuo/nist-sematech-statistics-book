@@ -1,0 +1,262 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.4. Extreme Vertices Designs/Constrained Mixture Designs</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri555.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri553.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">What is a mixture design?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Extreme Vertices Designs/Constrained Mixture Designs</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->There are other mixture designs
+that cover only a subportion or smaller space within the simplex. This
+situation occurs when additional constraints in the form of upper and /
+or lower bounds are placed on the component proportions, or, perhaps when
+the experimenter is interested only in a group of mixtures that are located
+in some small region inside the simplex. These types of mixture designs
+are referred to as extreme vertices designs. (see chapters 4, 3 of Myers
+and Montgomery (1995), respectively).&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->In mixture designs where there
+are constraints on the component proportions, these are often upper- and
+/ or lower-bound constraints of the form Li xi Ui, i=1,2,...,q, where Li
+is the lower bound for the ith component and Ui is the upper bound for
+the ith component. The general form of the constrained mixture problem
+is&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><img SRC="eqns/terri11.gif" height=113 width=190>.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Consider the following case
+where only the lower bounds in the above equation are imposed, so that
+the constrained mixture problem becomes&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"></td>
+
+<td WIDTH="85%">,&nbsp;<img SRC="eqns/terri12.gif" height=141 width=448></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"></td>
+
+<td WIDTH="85%"></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"></td>
+
+<td WIDTH="85%">&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->The feasible mixture space
+is shown in the figure below. Note that the existence of lower bounds does
+not affect the shape of the mixture region, it is still a simplex region.
+In general, this will always be the case if only lower bounds are imposed
+on any of the component proportions.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<center><img SRC="gifs/simplex5.gif" height=300 width=323>
+<br><b>FIGURE 5.4&nbsp; The Feasible Mixture Space (Shaded Region) for
+Three Components with Lower Bounds</b></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Since the new region of the
+experiment is still a simplex, it is possible to define a new set of components
+that take on the values from 0 to 1 over the feasible region. This will
+make the design construction and the model fitting easier over the constrained
+region of interest. These new components (X*i) are called pseudocomponents
+and are defined using the following formula&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%">
+<center><img SRC="eqns/terri13.gif" height=134 width=350></center>
+&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->In the three-component example
+above, the pseudocomponents are&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%">
+<center><img SRC="eqns/terri14.gif" height=86 width=298></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Constructing a design in the
+pseudocomponents is done by specifying the design points in terms of the
+X*<sub>i </sub>and then converting them to the original component settings
+using&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%">
+<center>&nbsp;x<sub>i </sub>= L<sub>i</sub> + (1 - L) x*<sub>i</sub></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->In terms of the pseudocomponents,
+the experimenter has the choice of selecting a Simplex-Lattice or a Simplex-Centroid
+design, depending on the objectives of the experiment.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Suppose, we decided to use
+a Simplex-centroid design for the three-component experiment. The table
+below shows the design points in the pseudocomponents, along with the corresponding
+setting for the original components.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<hr>
+<center><b><font face="Arial">TABLE 5.5&nbsp; Pseudocomponent Settings
+and Original Component Settings, Three-Component Simplex-Centroid Design</font></b>
+<br><img SRC="eqns/terri15.gif" height=261 width=296></center>
+
+<p><br>
+<br>
+<br>
+<p>
+<hr></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->It is recommended that the
+pseudocomponents be used to fit the mixture model. This is due to the fact
+that the constrained design space will usually have relatively high levels
+of multicollinearity among the predictors. Once the final predictive model
+for the pseudocomponents has been determined, then the equation in terms
+of the original components can be determined by substituting in the relationship
+between x<sub>i</sub> and x*<sub>i.</sub></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Computer-aided designs (<a href="pri53.htm">D-optimal</a>
+for example) can be used to select points for a mixture design in a constrained
+region. See Myers and Montgomery (1995) for more details on using D-optimal
+designs in mixture experiments.&nbsp;</td>
+</tr>
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri553.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri555.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

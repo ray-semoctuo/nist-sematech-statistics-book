@@ -1,0 +1,450 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.3.5. Model Selection Criterion</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri636.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri634.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri63.htm">Catapult Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.3.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Model Selection Criterion</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Criterion for Including Terms in the Model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<!-- Add main text below -->
+The <a href="pri615.htm">Eddy current probe sensitivity case
+study</a> gave a number of critierion for determining which terms
+to include in our model.  These critierion are valid for fractional
+factorial models as well.
+
+As with the <a href="pri615.htm">Eddy current probe sensitivity</a>
+full factorial case study, the criterion for fractional
+factorial designs as to the ordering of terms to be
+added in the model is the same, namely, add terms in
+the order of the ranked list of important factors.
+Hence our model will include X4 (arm length), followed by
+X3 (number of bands), followed by X1 (band height), etc.
+<p>
+The questions is: when does one stop adding terms?  The
+guidelines are the same as with full factorial designs; namely,
+<ol>
+   <li>Generate a halfnormal
+       <a href="../../eda/section3/probplot.htm">probability
+       plot</a> of the absolute value of the effects.  Add the
+       terms which stand out in the halfnormal probability
+       plot.
+       <p>
+   <li>Minimum Engineering Signficant Difference: add those
+       terms which are bigger than the engineer's prespecified
+       minimum engineering significant difference (e.g., 10%
+       of the total range of the data = 10% (126.5 - 8) =
+       12 inches = 1 foot.  In fact, no such cutoff value was
+       pre-specified in this experiment, so this criterion
+       cannot be applied.
+       <p>
+   <li>Minimum Engineering Residual Standard Deviation: Add
+       terms until the residual standard deviation gets
+       smaller that the engineer's pre-specified value for
+       how good he/she wants the model to be.  That is, how
+       small does he/she want the fitted model to be (e.g.,
+       5% of the total range = 5% (126.5 - 8) = 6 inches).
+       In fact, no such apriori value was pre-set, so
+       this criterion cannot be applied.
+       <p>
+   <li>Replication Standard Deviation: Add terms until the
+       residual standard deviation is smaller than the
+       replicated standard deviation.  Since this
+       experiment has by design built-in replication, this
+       criterion may be applied.  The replication standard
+       deviations were computed from the 2 pseudo-center
+       points and had the values 5.3 and 9.75 with
+       a pooled value of 8.162.  The logic of this is that we
+       can demand of our model to fit with at least
+       the precision of replicated points, but no further
+       (else we would be fitting noise).  Thus keep adding
+       terms to the model until the residual standard
+       deviation drops below 8.2.
+       <p>
+   <li>Generate a normal probability plot of the residuals. 
+       Keep adding terms (and computing residuals) until the
+       normal probability plot of the residuals is "sufficiently"
+       linear.
+</ol>
+The above 5 criterion may not all agree in terms of
+what terms to include in the model.  Criterion 4 is an
+absolute lower bound and so adding terms beyond that is
+senseless.  Further, since this is essentially a
+modeling exercise, then criterion 3 (how small do you
+want the residual standard deviation to be?) is the
+definitive criterion.  In the absense of an answer to
+that question, then criterion 1 along with criterion 5
+is often used in combination.
+<p>
+For the experiment at hand, we use criteria 1, 4, and 5.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="normprob">
+<I>
+Normal and Halfnormal Probablity Plots of Effects
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+The following plots show the normal probability plot of
+the effects and the halfnormal probability plot of the
+absolute value of the effects (both without and with
+the coded effect tags).  The halfnormal probability
+plot is more informative than the normal probability
+plot since the halfnormal plot does not change
+depending on how the original factor settings were coded.
+For example, for factor 1, do we define 2.25 and 4.75
+to be coded as -1 and +1, or conversely as +1 and -1?
+Depending on what we do, this will change the sign of
+the effect.  This changes the appearance of the
+normal probability plot, but the halfnormal plot is
+unchanged since it only focuses on the magnitude.
+<P>
+<A HREF="catapult/gifs/normpr_f.gif">
+<img src="catapult/gifs/normpr_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="probability plots are inconclusive">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plots Not Conclusive
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The plots are not conclusive.  The normal probability plot is
+roughly linear, which implies no factors are important.  The
+halfnormal probability plot is also roughly linear with the same
+implication.  In practice, such plots usually have a linear
+sub-portion (consisting of factors we leave out of the model)
+and then a displaced set of factors (which we include in the
+model).  Here the situation is not clear.  From the halfnormal
+probability plot, we can extract the upper six factors as
+(slightly) different from the lower linear nine factors, but
+little justification exists for this and less justification
+exists for adding more terms beyond the six.  As from our ranked
+list, the six terms are X4 (arm length), X3 (number of bands),
+X1 (band height), X5 (stop angle), X2 (start angle), and X3*X4.
+<p>
+Carrying out the usual least squares fit for this model, we
+obtain the following fitted model (prediction equation):
+<UL>
+   <img src="catapult/eqns/partmode.gif">
+</UL>
+Regarding adequacy of this model, two approaches are carried out:
+<ol>
+   <li>Quantitatively: compute the residual standard deviation
+       and compare it to the replication deviation (step 4 above);
+       <p>
+   <li>Graphically: generate a normal probability plot of the
+       residuals so as to achieve linearity (step 5 above).
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Residual Standard Deviation and Normal Probability Plot of the
+Residuals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Quantitatively, the residual standard deviation for this model
+is 12.48.  This is 50% larger than the replication standard
+deviation of 8.16 which suggests that the model is inadequate
+(and so additional terms must be added).  Graphically, the
+normal probability plot of the residuals is presented below.
+<P>
+<A HREF="catapult/gifs/fitpar_f.gif">
+<img src="catapult/gifs/fitpar_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="normal probability plot of residuals">
+</A>
+This plot by itself suggests that the model is
+adequate, but the normal probability plot is a
+secondary tool relative to the computed residual
+standard deviation.  The bottom line is that the
+given model has a "typical residual" of the order of
+12 inches, and so the usual
+<img valign=absmiddle src="catapult/eqns/pm2.gif">
+standard deviations will yield a rough 95% error of prediction
+of 24 inches.  This is probably too large in practice and
+suggests that more terms need to be added to drive the error
+of prediction down.
+<p>
+How many more terms need to be added?  To determine
+this we need the following table which provides
+effect estimates and residual standard deviations
+for cumulatively more complicated models.  One of
+the saving graces of orthogonal designs (such as the
+2<sup>5-1</sup> fractional factorial design used here) is
+that the effect estimates do <b>not</b> change as we add
+additional terms.  The following table thus serves
+the two-fold purpose of giving the ranked list of
+factors and also giving the goodness of fit of the
+correspoinding cumulative fitted models.  Specifically, the
+last column in the table is residual standard deviation of the
+model that includes the term on that line plus all the terms
+above that line.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Yates Table
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+IDENTIFIER    EFFECT        T VALUE      RESSD:     RESSD:
+                                         MEAN +     MEAN +
+                                         TERM    CUM TERMS
+----------------------------------------------------------
+   MEAN      55.29688                  37.56807   37.56807
+      4      40.28125          3.5*    32.38174   32.38174
+      3      35.90625          3.1*    33.82029   27.06551
+      1      26.96875          2.3     36.11603   23.47657
+   1234      24.09375          2.1     36.69212   19.75246
+      2     -22.15625         -1.9     37.03936   15.25831
+     34      15.21875          1.3     38.02627   12.47985
+     14       9.40625          0.8     38.56024   11.44448
+     13       9.28125          0.8     38.56889   10.02313
+     23      -6.34375         -0.5     38.73853    9.50675
+    123       6.28125          0.5     38.74143    8.76873
+    124       5.65625          0.5     38.76894    8.00750
+     12      -5.53125         -0.5     38.77409    6.68584
+    134       5.34375          0.5     38.78160    3.15269
+     24      -2.21875         -0.2     38.86856    0.43301
+    234       0.21875          0.0     38.88647    0.00000
+  
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+As seen above, the model with a constant + six terms has
+a residual standard deviation of 12.48.  Adding two
+additional terms (X1*X4 and X1*x3) brings the residual
+standard deviation down to 10.02.  It would take three more
+terms beyond that (a constant + nine terms) to drive the
+residual standard deviation below the replication
+standard deviation of 8.16.  The normal probability
+plot of the residuals of this model (not shown) would
+be acceptable (that is, linear) but the problem we have
+is 4-fold:
+<ol>
+  <li>Have we used the wrong form?  If the form (linear
+      + interaction terms) is wrong, then no amount of 
+      additional terms will improve things.  For 
+      example, trying to fit an asymptotic exponential 
+      function via a polynomial.  
+      <p>
+  <li>Is the model too complicated?  Such a model 
+      (constant + nine terms) is always suspicious.  This
+      suggests that perhaps another functional
+      approach/form should have been used (e.g,
+      transforming before fitting).
+      <p>
+  <li>Were the underlying assumptions for least squares
+      fitting adhered to when estimating the
+      coefficients of this model?  The answer to this
+      is no because of the non-constant variance
+      problem (low responses have low variation, but
+      high responses have high variation).  In such
+      case, the regression coefficients of the model
+      are incorrect.  The corrective action for this is
+      twofold:
+      <p>
+      <ol>
+         <li>weighted least squares;
+         <li>transformations of the response.
+      </ol>
+      <p>
+      This latter point will be developed and pursued
+      in the next section.
+      <p>
+  <li>Does this model have good interpolatory
+      properties?  Recall that the purpose of this
+      model is not as an end in itself, but to assist
+      in deriving good settings for Y = 30, 60, and 90.
+      In this context, we ask how well does this
+      model do at the pseudo-center points (such
+      interpolatory testing is why these points were
+      included in the design in the first place).
+      <P>
+      <ul>
+         <li>At pseudo-center point 1: (0,0,-1,0,0), Y = 37.5
+             and 45.0, with a mean of 41.25.  The fitted model
+             yields a predicted value of
+             Y = 55.30 + 0.5 (26.97*(-1)) = 41.82
+             which is excellent compared to the mean of 41.25.
+             <p>
+         <li>At pseudo-center point 2: (0,0,+1,0,0),
+             Y = 84.5 and 99, with a mean of 91.75.
+             The fitted model yields a predicted value of
+             Y = 55.30 + 0.5 (26.97*(+1)) = 68.79
+             which is terrible compared to the mean of 91.75.
+      </ul>
+      <P>
+</ol>
+We thus conclude that this model cannot be freely and
+universally used for interpolation, in particular for
+the X3 = +1 (that is, the number of rubber bands = 2) case.
+We are thus led to the prospect of a model whose adequacy is
+conditional.  It is based on the setting of a discrete
+variable (X3).  As a matter of experience, this is a quite
+common occurrence when discrete variables are involved in the
+analysis.  When a factor is important, discrete, and the two
+levels of such a factor behave drastically differently, then
+the suggestive corrective action is to split the analysis
+and carry out two parallel analyses, each with their own models
+and settings, based on the different levels of the factor.  Int
+this case, one model would be based on X3 = -1 and the other
+one would be based on X3 = +1.
+<P>
+Four added benefits of such an approach are
+<ol>
+  <li>Simplified Sub-models: the resulting tso
+      sub-models are each frequently quite simple
+      (since all of the interaction terms
+      involving X3 (in this case) disappear with
+      the subsetting;
+      <p>
+  <li>Improved Predicted values: the prediction
+      equations yield better (more accurate)
+      predicted values;
+      <p>
+  <li>Improved best settings: This follows from
+      the above.  This line of analysis will be
+      pursued later.
+      <p>
+  <li>Improved Insight: Separating out a dominant
+      discrete terms encourages a separation of
+      engineering cause-effect into 2 separate
+      camps, both devoid of complicated
+      interactions;
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri634.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri636.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

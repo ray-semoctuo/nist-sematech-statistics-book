@@ -1,0 +1,33 @@
+.
+.  Macro to generate "out-of-control" process.  Just use normal
+.  random numbers
+.
+device 1 x11
+device 2 postscript
+.
+thickness 0.15
+tic mark label size 3
+label case asis
+label size 3
+x3label size 4
+x3label Figure 1.2 Process before variation reduced
+.
+let y = normal random numbers for i = 1 1 300
+let loc = 38
+let scale = 5
+let y = loc + scale*y
+.
+xlimits 0 300
+major xtic mark number 7
+ylimits 30 45
+major ytic mark number 4
+.
+let usl = 41.29
+let lsl = 34.43
+line solid solid blank blank solid solid
+moving average control chart y
+.
+device 2 close
+.
+system cp dppl1f.dat control2.ps
+.

@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < meanplot.dp
+mv dppl1f.dat meanplot.ps
+gs -sDEVICE=ppm -sOutputFile=meanplot.ppm  -dNOPAUSE -dBATCH meanplot.ps
+~/bin/pnmrotate  -90 meanplot.ppm > meanplot_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 meanplot_r.ppm > meanplot_s.ppm
+~/bin/ppmtogif  meanplot_s.ppm > meanplot.gif
+mv meanplot.gif ../gif/meanplot.gif
+rm meanplot.ppm meanplot_r.ppm meanplot_s.ppm meanplot.ps
+#

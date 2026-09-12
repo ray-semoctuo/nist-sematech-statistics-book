@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Tukey-Lambda PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na lampdf.jpg
+device 2 gd jpeg
+device 2 picture points 100 75
+.
+TITLE CASE ASIS
+TITLE Tukey-Lambda PDF (Lambda = 0.14)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability Density
+X1LABEL X
+.
+PLOT LAMPDF(X,0.14) FOR X = -3 0.01 3
+.
+box 0 0 100 100
+.
+device 2 close
+system mv lampdf.jpg ../gif100/lampdf.jpg
+.
+quit

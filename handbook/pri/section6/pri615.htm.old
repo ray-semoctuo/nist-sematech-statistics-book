@@ -1,0 +1,197 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.5. Model Selection Criterion</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri616.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri614.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Model Selection Criterion</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Criterion for Including Terms in the Model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<!-- Add main text below -->
+There are several criterion that we can use in determining which terms
+to include in our model.
+<OL>
+   <LI><img align=absmiddle src="splett3/eqns/absbeta.gif">
+       &nbsp;>&nbsp; the minimum engineering significant
+       <img align=absmiddle src="splett3/eqns/delta.gif">
+       <P>
+   <LI>look for natural spacing and gaps in the 
+       <img align=absmiddle src="splett3/eqns/absbeta.gif">
+       <P>
+   <LI><img align=absmiddle src="splett3/eqns/absbeta2.gif">
+       <P>
+   <LI><img align=absmiddle src="splett3/eqns/absbeta3.gif">
+       <P>
+       where <img align=absmiddle src="splett3/eqns/sigma.gif">
+       can be estimated from:
+       <OL>
+          <LI>An a priori engineering judgement.
+          <LI>The data if replication is present.
+          <LI>The standard deviation of the residuals if we
+              ignore all 3-term and higher interactions.
+          <LI>The <img align=absmiddle src="splett3/eqns/sdbeta.gif">
+              are estimated from a simple standard deviation 
+              calculated from all
+              <img align=absmiddle src="splett3/eqns/betaijk.gif">
+              from 3-term interactions and higher.
+       </OL>
+       <P>
+   <LI>A <a href="../../eda/section3/normprpl.htm">normal probability
+       plot</a> of
+       <img align=absmiddle src="splett3/eqns/betahat.gif">.
+       <P>
+   <LI>A halfnormal
+       <a href="../../eda/section3/probplot.htm">probability plot</a>
+       of <img align=absmiddle src="splett3/eqns/absbeta.gif">.
+       <P>
+   <LI>A <a href="../../eda/section3/youdplot.htm">Youden plot</a>
+       of the factor means.
+       <P>
+   <LI>The cumulative residual standard deviaition is less than
+       the minimum engineering residual standard deviation.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="normprob">
+<I>
+Normal Probablity Plot of Effects and Halfnormal Probability
+Plot of Effects
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+The following plot shows the normal probability plot of the
+effects and the halfnormal probability plot of the absolute value
+of the effects.
+<P>
+<A HREF="splett3/gifs/normpr_f.gif">
+<img src="splett3/gifs/normpr_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="probability plots indicate that model should include main effects for factor 1 and factor 2 with no interaction terms">
+</A>
+<P>
+The halfnormal probability plot indicates that we should include main
+effect terms for factor 1 and factor 2 with no interaction terms.
+The normal probability plot is more ambiguous.  Although the factor 1
+main effect term clearly stands out, the next 5 terms line up in
+a fairly linear fashion.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="youden">
+<I>
+Youden Plot of Effects
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following is the Youden plot of the effects.
+<P>
+<A HREF="splett3/gifs/youden_f.gif">
+<img src="splett3/gifs/youden_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="Youden plot show factor 1 and factor 2 main effects stand out">
+</A>
+<P>
+The Youden plot of the effects shows that the main effects for
+factor 1 and factor 2 stand out.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri614.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri616.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

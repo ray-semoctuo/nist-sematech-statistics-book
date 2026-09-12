@@ -1,0 +1,11 @@
+.
+. Starting Step 4.3 - Lag Plot of Residuals
+.
+y1label res(i)
+x1label res(i-1)
+character *
+line blank
+lag plot res
+character BLANK
+line solid
+. Finished Step 4.3: Page Back for Output

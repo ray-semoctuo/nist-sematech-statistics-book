@@ -1,0 +1,28 @@
+.
+. Starting Step 2.11
+quadratic fit rot flux
+let n = size flux
+let tag2 = 0 for i = 1 1 n
+let tag2 = 1 subset res > 0.1
+CAPTURE FIT4.OUT
+quadratic fit rot flux subset tag2 = 0
+END OF CAPTURE
+system mv dpst4f.dat varcov.dat
+.
+title displacement 7
+title size 3
+title Quadratic Fit Extinguish Fire Data (Outliers Deleted)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot rot pred vs flux subset tag = 0
+character blank all
+line solid all
+line blank
+character x
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 2.11: Page Back for Output

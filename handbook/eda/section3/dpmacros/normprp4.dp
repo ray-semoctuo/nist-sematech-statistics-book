@@ -1,0 +1,58 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+set ipl1na normprp4.ps
+device 2 postscript
+.
+SKIP 25
+READ SUNSPOT.DAT Y
+.
+TITLE Sunspot Data
+TITLE SIZE 4
+TITLE DISPLACEMENT 2
+LABEL CASE ASIS
+X1LABEL Theoretical
+Y1LABEL Data
+LABEL SIZE 4
+TIC LABEL SIZE 4
+CHARACTER SIZE 1.5
+CHARACTER CIRCLE BLANK
+LINE BLANK SOLID
+THICKNESS 0.2
+.
+NORMAL PROBABILITY PLOT Y
+LINE SOLID
+CHARACTER BLANK
+.  LET FUNCTION F = PPA0 + PPA1*X
+.  LET X = DATA -3 3
+.  LET Y2 = F
+.  LIMITS FREEZE
+.  PRE-ERASE OFF
+.  PLOT Y2 X
+LET X1 = XPLOT(1)
+LET Y1 = YPLOT(1)
+LET NTEMP = SIZE XPLOT
+LET X2 = XPLOT(NTEMP)
+LET Y2 = YPLOT(NTEMP)
+DRAWDATA X1 Y1 X2 Y2
+HEIGHT 4
+JUSTIFICATION CENTER
+MOVE 50 4
+LET A1 = ROUND(PPCC,4)
+LET A2 = ROUND(PPA0,4)
+LET A3 = ROUND(PPA1,4)
+TEXT CORRELATION = ^A1, INTERCEPT = ^A2, SLOPE = ^A3
+.
+box 0 0 100 100
+.
+device 2 close
+system mv NORMPRP4.PS normprp4.ps
+.
+capture junk.dat
+echo on
+let a = mean y
+let a = sd y
+end of capture
+quit

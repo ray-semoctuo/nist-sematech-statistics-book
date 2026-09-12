@@ -1,0 +1,27 @@
+  
+               GRUBBS TEST FOR OUTLIERS
+               (ASSUMPTION: NORMALITY)
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS      =      500
+       MINIMUM                     =   0.2490000E-02
+       MEAN                        =   0.5078304
+       MAXIMUM                     =   0.9970800
+    STANDARD DEVIATION          =   0.2943252
+  
+    GRUBBS TEST STATISTIC       =    1.716946
+  
+ 2. PERCENT POINTS OF THE REFERENCE DISTRIBUTION
+    FOR GRUBBS TEST STATISTIC
+       0          % POINT    =   0.0000000E+00
+       50         % POINT    =    3.274338
+       75         % POINT    =    3.461431
+       90         % POINT    =    3.695134
+       95         % POINT    =    3.863087
+       99         % POINT    =    4.228033
+  
+         -4184.099      % POINT:        1.716946
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THERE ARE NO OUTLIERS.
+  

@@ -1,0 +1,188 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.4. Main and Interaction Effects: Block Plots</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri615.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri613.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Main and Interaction Effects: Block Plots</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="blockplot">
+<I>
+Block Plots
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+<a href="../../eda/section3/blockplo.htm">Block plots</a> are a
+useful adjunct to the dex mean plot and the dex interaction effects
+plot to confirm the importance of factors, to establish the
+robustness of main effect conclusions, and to determine the
+existence of interactions.  Specifically,
+<ol>
+   <li>The first plot below answers the question: Is factor 1
+       important (robust over the 4 combinations of settings of X2 and X3)?
+       <p>
+   <li>The second plot answers the question: Is factor 2 important
+       (robust over the 4 combinations of settings of X1 and X3)?
+       <p>
+   <li>The third plot answers the question: Is factor 3 important
+       (robust over the 4 combinations of settings of X1 and X2)?
+</ol>
+For block plots, it is the height of the bars which is important,
+not the relative positioning of each bar.  Hence we focus on the
+size and internals of the blocks, not where the blocks are one
+relative to another.
+<P>
+In a block plot,
+each of the 4 bar heights within a plot represent local effect estimates
+of the factor being focused on.  Thus for the first
+plot below (which focuses on factor 1), the 4 bars all have level 2 of factor 1
+higher than level 1 (and thus all 4 effect estimates will be positive), and 
+further, the 4 bars have approximate heights of 2.5, 3, 3, and 3.5,
+respectively (depending on the X2 and X3 combination).
+These are 4 local estimates of the factor 1 effect, and
+these 4 local estimates
+coalesce into a single global least squares estimate for factor 1 (already given) of +3.1025.
+Thus from this first plot we see that the least squares estimate for the
+factor 1 effect is "robust" over the other 4 settings, that is, it does not
+appear to change (that is, interact) with the other 2 factors, and hence
+we conclude that the X1*X2 and X1*X3 interaction effects will also be relatively small.
+<P>
+Plot 2 below focuses on the factor 2 effect.  Note how all 4 bars
+have level 1 above level 2 (hence the factor 2 effect will be negative), and note how the 4 bar heights are
+approximately 1, .75, 1, and .5.  These coalesce into the global least
+squares estimate for factor 2 (given previously) of -0.8675.
+Note further that when X1 = -1, the bar heights decrease from 1 to .75,
+and when X1 = +1, the bar heights also decrease (from 1 to .5)
+Thus regardless of the X1 setting, we see
+that the X2 effect (the bar height) changes depending on whether
+X3 is -1 or +1, this is a manifestation of a X2*X3 interaction,
+and the 2 approximated decreases (-.25 and -.50) coalesce into
+the exact least squares estimate for the X2*X3 effect of -0.2975.
+<P>
+In summary, the value of the block plot is that is provides additional supporting evidence
+of the relative importance
+of the main effects, and also gives a concrete illustration of the existence and
+magnitude of various interactions.
+<P>
+<A HREF="splett3/gifs/blockp_f.gif">
+<img src="splett3/gifs/blockp_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="the block plot shows no significant interactions">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions from the Block Plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We make the following conclusions from the block plots:
+<ol>
+   <li>Relative Importance of Factors: All of the bar heights in
+       plot 1 are bigger than the bar heights in plots 2 and 3.
+       Hence factor 1 is more important than factors 2 and 3.
+       <p>
+   <li>Important Factors: For plot 1, level 2 is higher than level 1
+       for all four bars.  Likewise. for plot 2, level 1 is higher
+       than level 2 for all four bars.  For plot 3, neither level
+       consisitently dominates.  This is additional evidence that
+       factors 1 and 2 are important, and this importance is robust
+       across the various settings of all the factors.
+       <p>
+   <li>Interactions: Although there is some evidence of 2-term interactions
+   in all of the plots, the effects are all considerably smaller than
+   the factor 1 and factor 2 main effects.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri613.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri615.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+#  Run diff on all the htm files against the public versions
+# to see where they differ
+#
+set a = /mnt/wwwsed/handbook/pmc/section6
+foreach name (`ls *.htm`)
+   diff -w -c -b  $name   $a/$name > $name.diff
+   lpr $name.diff
+end
+#

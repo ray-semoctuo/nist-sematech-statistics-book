@@ -1,0 +1,27 @@
+.
+.  Generate sample output for EV1 PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na ev1pdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Extreme Value Type I (Minimum) PDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability Density
+X1LABEL X
+.
+SET MINMAX 1
+PLOT EV1PDF(X) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp EV1PDF.PS ev1pdf.ps
+system rm EV1PDF.PS
+.
+quit

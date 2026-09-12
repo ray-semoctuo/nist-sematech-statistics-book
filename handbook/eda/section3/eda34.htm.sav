@@ -1,0 +1,586 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   <HEAD>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>1.3.4. Graphical Techniques: By Problem Category</TITLE>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="eda35.htm" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="eda33x.htm" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+	   <area sharea shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">1.</FONT> <A HREF="../eda.htm"><FONT COLOR="#00105A">Exploratory Data Analysis</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.</FONT> <A HREF="eda3.htm"><FONT COLOR="#00105A">EDA Techniques</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">1.3.4.</FONT> Graphical Techniques: By Problem Category </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+   
+
+   
+
+   
+
+   
+
+<!-----begin jjf----->
+
+<!-----univariate----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>Univariate</I><br>
+y = c + e
+</td>
+
+<td width=100 valign=top>
+<a href="runseqpl.htm">
+<IMG SRC="../gif100/runseqpl.gif">
+<center>
+Run Sequence Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="lagplot.htm">
+<IMG SRC="../gif100/lagplot.gif">
+<center>
+Lag Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="histogra.htm">
+<IMG SRC="../gif100/histogra.gif">
+<center>
+Histogram
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width =15% valign=top>
+&nbsp
+</td>
+
+<td width=100 valign=top>
+<a href="normprpl.htm">
+<IMG SRC="../gif100/normprpl.gif">
+<center>
+Normal Probability Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="4plot.htm">
+<IMG SRC="../gif100/4plot.gif">
+<center>
+4-Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="ppccplot.htm">
+<IMG SRC="../gif100/ppccplot.gif">
+<center>
+PPCC Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width =15% valign=top>
+&nbsp
+</td>
+
+<td width=100 valign=top>
+<a href="weibplot.htm">
+<IMG SRC="../gif100/weibullp.gif">
+<center>
+Weibull Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="probplot.htm">
+<IMG SRC="gif100/probplot.gif">
+<center>
+Probability Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="boxcoxli.htm">
+<IMG SRC="gif100/boxcoxli.gif">
+<center>
+Box-Cox Linearity Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width =15% valign=top>
+&nbsp
+</td>
+
+<td width=100 valign=top>
+<a href="boxcox.htm">
+<IMG SRC="gif100/boxcox.gif">
+<center>
+Box-Cox Normality Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="bootplot.htm">
+<IMG SRC="gif100/bootstra.gif">
+<center>
+Bootstrap Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----time series----->
+
+
+<tr>
+
+<td width =15% valign=top>
+<I>Time Series</I><br>
+y = f(t) + e
+</td>
+
+<td width=100 valign=top>
+<a href="runseqpl.htm">
+<IMG SRC="../gif100/runseqpl.gif">
+<center>
+Run Sequence Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="spectrum.htm">
+<IMG SRC="../gif100/spectrum.gif">
+<center>
+Spectrum
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="autocopl.htm">
+<IMG SRC="../gif100/autocopl.gif">
+<center>
+Autocorrelation Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width =15% valign=top>
+&nbsp
+</td>
+
+<td width=100 valign=top>
+<a href="compdeam.htm">
+<IMG SRC="../gif100/cdampplo.gif">
+<center>
+Complex Demodulation Amplitude Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="compdeph.htm">
+<IMG SRC="../gif100/cdphasep.gif">
+<center>
+Complex Demodulation Phase Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----1 factor----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>1 Factor </I> <br>
+y = f(x) + e
+</td>
+
+<td width=100 valign=top>
+<a href="scattepl.htm">
+<IMG SRC="../gif100/scatterp.gif">
+<center>
+Scatter Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="boxplot.htm">
+<IMG SRC="../gif100/boxplot.gif">
+<center>
+Box Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="bihistog.htm">
+<IMG SRC="../gif100/bihistog.gif">
+<center>
+Bihistogram
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width =15% valign=top>
+&nbsp
+</td>
+
+<td width=100 valign=top>
+<a href="qqplot.htm">
+<IMG SRC="gif100/qqplot.gif">
+<center>
+Quantile-Quantile Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="meanplot.htm">
+<IMG SRC="../gif100/meanplot.gif">
+<center>
+Mean Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="sdplot.htm">
+<IMG SRC="../gif100/sdplot.gif">
+<center>
+Standard Deviation Plot
+</center>
+</a>
+</td>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----multi-factor/comparative----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>Multi-Factor/Comparative</I><br>>
+y = f(xp,&nbsp;&nbsp;x1,x2,...,xk) + e
+</td>
+
+<td width=100 valign=top>
+<a href="blockplo.htm">
+<IMG SRC="../gif100/blockplo.gif">
+<center>
+Block Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----multi-factor/screening----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>Multi-Factor/Screening</I><br>
+y = f(x1,x2,x3,...,xk) + e
+</td>
+
+<td width=100 valign=top>
+<a href="dexsplot.htm">
+<IMG SRC="../gif100/dexscatp.gif">
+<center>
+DEX Scatter Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="dexmeanp.htm">
+<IMG SRC="../gif100/dexmeanp.gif">
+<center>
+DEX Mean Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="dexsdplo.htm">
+<IMG SRC="gif100/dexsdplo.gif">
+<center>
+DEX Standard Deviation Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width =15% valign=top>
+
+</td>
+
+<td width=100 valign=top>
+<a href="contour.htm">
+<IMG SRC="../gif100/contourp.gif">
+<center>
+Contour Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----regression----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>Regression </I> <br>
+y = f(x1,x2,x3,...,xk) + e
+</td>
+
+<td width=100 valign=top>
+<a href="zzscattp.htm">
+<IMG SRC="../gif100/scatterp.gif">
+<center>
+Scatter Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="z6plot.htm">
+<IMG SRC="../gif100/6plot.gif">
+<center>
+6-Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="zlinecor.htm">
+<IMG SRC="../gif100/lincorrp.gif">
+<center>
+Linear Correlation Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+
+<td width = 15%>
+&nbsp
+</td>
+
+<td width=100 valign=top>
+<a href="zlineint.htm">
+<IMG SRC="../gif100/linintpl.gif">
+<center>
+Linear Intercept Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="zlineslo.htm">
+<IMG SRC="../gif100/linslopl.gif">
+<center>
+Linear Slope Plot
+</center>
+</a>
+</td>
+
+<td width=100 valign=top>
+<a href="zlinress.htm">
+<IMG SRC="../gif100/linrsdpl.gif">
+<center>
+Linear Residual Standard Deviation Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----interlab----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>Interlab </a> <br>
+(y1,y2) = f(x) + e
+</td>
+
+<td width=100 valign=top>
+<a href="zyoudplo.htm">
+<IMG SRC="../gif100/youdenpl.gif">
+<center>
+Youden Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<tr>
+<td width = 100% colspan = 4>
+<hr>
+</td>
+</tr>
+
+<!-----multivariate----->
+
+<tr>
+
+<td width =15% valign=top>
+<I>Multivariate </I> <br>
+(y1,y2,...,yp)
+</td>
+
+<td width=100 valign=top>
+<a href="zstarplo.htm">
+<IMG SRC="../gif100/starplot.gif">
+<center>
+Star Plot
+</center>
+</a>
+</td>
+
+</tr>
+
+<!-----end jjf----->
+
+
+   
+  
+   
+  
+   
+  
+   
+  
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov">
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org" coords="0,19,91,35">
+   </MAP>
+
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="eda33x.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="eda35.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   </HTML>

@@ -1,0 +1,16 @@
+#!/bin/csh -f
+#
+/var/tmp/heckert/dataplot_solaris < flcdf4.dp
+will.bat flcdf4.ps
+/var/tmp/heckert/dataplot_solaris < flcha4.dp
+will.bat flcha4.ps
+/var/tmp/heckert/dataplot_solaris < flhaz4.dp
+will.bat flhaz4.ps
+/var/tmp/heckert/dataplot_solaris < flisur4.dp
+will.bat flisur4.ps
+/var/tmp/heckert/dataplot_solaris < flpdf4.dp
+will.bat flpdf4.ps
+/var/tmp/heckert/dataplot_solaris < flppf4.dp
+will.bat flppf4.ps
+/var/tmp/heckert/dataplot_solaris < flsur4.dp
+will.bat flsur4.ps

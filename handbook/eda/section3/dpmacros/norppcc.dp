@@ -1,0 +1,16 @@
+.  Macro to generate the table for the normal PPCC table
+. 
+skip 25
+read NORPPCCS.DAT  n a01 a05 a95 a99
+.
+set write format  f5.0,8x,f6.4,8x,f6.4
+.
+let ntot = size a01
+let tag = 0 for i = 1 1 ntot
+let tag = 1 for i = 1 1 48
+let tag = 1 for i = 53 5 98
+let tag = 1 for i = 108 10 498
+let tag = 1 for i = 523 25 998
+retain n a01 a05 a95 a99 subset tag = 1
+.
+write norppcc.out  n a01 a05

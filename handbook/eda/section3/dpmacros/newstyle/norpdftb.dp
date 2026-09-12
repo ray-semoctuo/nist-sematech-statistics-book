@@ -1,0 +1,31 @@
+.
+.  Plot for Normal CDF table
+.
+device 1 x11
+device 1 font simplex
+set ipl1na norpdftb.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Normal PDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+SET X11 HARDWARE FILL OFF
+REGION FILL OFF ON
+REGION BASE 0 ALL
+.
+PLOT NORPDF(X) FOR X = -4 0.01 4 AND
+PLOT NORPDF(X) FOR X = 0 0.01 0.5
+.
+box 0 0 100 100
+.
+device 2 close
+system cp NORPDFTB.PS norpdftb.ps
+system rm NORPDFTB.PS
+.
+. quit

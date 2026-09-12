@@ -1,0 +1,300 @@
+.
+.  Plots for Univariate time series section
+.
+device 1 x11
+device 1 font simplex
+skip 25
+read mlco2mon.dat co2 date year month
+title displacement 4
+title size 4
+label size 4
+height 4
+x2label displacement 13
+tic mark label size 3.5
+xtic offset units data
+thickness 0.20
+. pre-erase off
+.
+.  Start with run sequence plot
+.
+. erase
+set ipl1na co2runsq.ps
+device 2 postscript
+title case asis
+label case asis
+tic mark label case asis
+legend case asis
+title CO2 Concentrations for Mauna Loa Observatory
+xminimum 1974
+xmaximum 1989
+major xtic mark number 6
+minor xtic mark number 2
+xtic offset 1 0
+x1label Time
+y1label CO2 Concentrations
+plot co2 date
+box 0 0 100 100
+device 2 close
+system mv CO2RUNSQ.PS co2runsq.ps
+.
+.  Linear Fit to Detrend Data
+.
+. erase
+set ipl1na co2res.ps
+device 2 postscript
+fit co2 date
+let co2res = res
+title CO2 Concentrations with Linear Trend Removed
+x1label Date
+y1label Residuals
+plot co2res date
+xminimum
+xmaximum
+major xtic mark number
+minor xtic mark number
+xtic offset 0 0
+x1label
+y1label
+box 0 0 100 100
+device 2 close
+system mv CO2RES.PS co2res.ps
+.
+.  Autocorrelation plot
+.
+. erase
+set ipl1na co2auto.ps
+device 2 postscript
+device 2 color on
+title CO2 Concentrations for Mauna Loa Observatory
+y1label Autocorrelation
+x1label Lag
+xtic offset 1 1
+ylimits -1 1
+ytic offset 0.2 0.2
+major ytic mark number 5
+line blank
+spike on
+set autocorrelation band plot box-jenkins
+set autocorrelation lag zero off
+line color black black blue blue red red
+autocorrelation plot co2res
+line solid
+case asis
+line color blue
+draw 20 87 25 87
+move 26 86
+text 95% Confidence Band
+line color red
+draw 20 83 25 83
+move 26 82
+text 99% Confidence Band
+line color black all
+spike off
+xtic offset 0 0
+major ytic mark number
+ylimits
+ytic offset
+box 0 0 100 100
+device 2 close
+system mv CO2AUTO.PS co2auto.ps
+.
+.  Partial Autocorrelation plot
+.
+. erase
+set ipl1na co2part.ps
+device 2 postscript
+device 2 color on
+title CO2 Concentrations for Mauna Loa Observatory
+y1label Partial Autocorrelation
+x1label Lag
+xtic offset 1 1
+xminimum
+xmaximum
+line blank
+spike on
+ylimits -1 1
+major ytic mark number 5
+ytic offset 0.2 0.2
+line color black black blue blue red red
+partial autocorrelation plot co2res
+line solid
+case asis
+line color blue
+draw 20 87 25 87
+move 26 86
+text 95% Confidence Band
+line color red
+draw 20 83 25 83
+move 26 82
+text 99% Confidence Band
+line color black all
+spike off
+xtic offset 0 0
+major ytic mark number
+ylimits
+ytic offset
+box 0 0 100 100
+device 2 close
+system mv CO2PART.PS co2part.ps
+.
+.  Seasonal Subseries Plot
+.
+. erase
+xminimum
+xmaximum
+set ipl1na co2seas.ps
+device 2 postscript
+xlimits 7 167
+xtic offset 7 7
+major xtic mark number 12
+minor xtic mark number 0
+x1tic mark label format alpha
+x1tic mark label content Jan sp()cr()Feb Mar sp()cr()Apr May ...
+sp()cr()June July sp()cr()Aug Sep sp()cr()Oct Nov sp()cr()Dec
+x1label
+x2label Month
+y1label CO2 Concentrations
+let period = 12
+let start = 5
+title Seasonal Subseries Plot of CO2 Concentrations
+seasonal subseries plot co2res
+x2label
+xlimits
+xtic offset 0 0
+x1tic mark label format
+major xtic mark number
+minor xtic mark number
+x2label
+box 0 0 100 100
+device 2 close
+system mv CO2SEAS.PS co2seas.ps
+.
+.  Box Plot
+.
+. erase
+set ipl1na co2boxpl.ps
+device 2 postscript
+line box plot
+character box plot
+fences on
+xlimits 1 12
+xtic offset 1 1
+major xtic mark number 12
+minor xtic mark number 0
+x1tic mark label format alpha
+x1tic mark label content Jan sp()cr()Feb Mar sp()cr()Apr May ...
+sp()cr()June July sp()cr()Aug Sep sp()cr()Oct Nov sp()cr()Dec
+x1label
+x2label Month
+y1label CO2 Concentrations
+title Box Plot of CO2 Concentrations
+box plot co2res month
+lines solid all
+character BLANK all
+xlimits
+xtic offset 0 0
+x1tic mark label format
+major xtic mark number
+minor xtic mark number
+x2label
+box 0 0 100 100
+device 2 close
+system mv CO2BOXPL.PS co2boxpl.ps
+.
+.  Take seasonal difference of 12 and re-generate Autocorrelation plot
+.
+. erase
+set ipl1na co2sauto.ps
+device 2 postscript
+device 2 color on
+title displacement
+title CO2 Concentrations for Mauna Loa Observatory
+x2label (Seasonally Differenced)
+legend size 4
+major ytic mark number 5
+ylimits -1 1
+ytic offset 0.2 0.2
+y1label Autocorrelation
+x1label Lag
+xtic offset 1 1
+xminimum
+xmaximum
+line blank
+spike on
+.
+let k = 12
+let co2y1 = co2res
+let co2y2 = co2res
+let n = size co2y1
+let n1 = k + 1
+let n2 = n - k
+retain co2y1 for i = n1 1 n
+retain co2y2 for i = 1 1 n2
+let co2sres = co2y1 - co2y2
+.
+set autocorrelation band plot box-jenkins
+set autocorrelation lag zero off
+set autocorrelation lag zero off
+line color black black blue blue red red
+autocorrelation plot co2sres
+line solid
+case asis
+line color blue
+draw 20 87 25 87
+move 26 86
+text 95% Confidence Band
+line color red
+draw 20 83 25 83
+move 26 82
+text 99% Confidence Band
+line color black all
+spike off
+major ytic mark number
+ylimits
+ytic offset
+xtic offset 0 0
+box 0 0 100 100
+device 2 close
+system mv CO2SAUTO.PS co2sauto.ps
+.
+.  Partial Autocorrelation plot
+.
+. erase
+set ipl1na co2spart.ps
+device 2 postscript
+device 2 color on
+title CO2 Concentrations for Mauna Loa Observatory
+y1label Partial Autocorrelation
+x1label Lag
+xtic offset 1 1
+xminimum
+xmaximum
+major ytic mark number 5
+ylimits -1 1
+ytic offset 0.2 0.2
+line blank
+spike on
+set autocorrelation lag zero off
+line color black black blue blue red red
+partial autocorrelation plot co2sres
+line solid
+case asis
+line color blue
+draw 20 87 25 87
+move 26 86
+text 95% Confidence Band
+line color red
+draw 20 83 25 83
+move 26 82
+text 99% Confidence Band
+line color black all
+spike off
+xtic offset 0 0
+major ytic mark number
+ylimits
+ytic offset
+box 0 0 100 100
+device 2 close
+system mv CO2SPART.PS co2spart.ps
+.
+quit

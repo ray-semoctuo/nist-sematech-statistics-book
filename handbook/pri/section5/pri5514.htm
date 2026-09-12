@@ -1,0 +1,564 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.1.4. Single response: Optimization when there is adequate quadratic fit</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5515.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5513.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri551.htm">Single response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.1.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single response: Optimization when there is adequate quadratic fit</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Regions
+where quadratic models or even cubic models are needed occur in many cases
+in industry</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><i>Steps to find optimal operating conditions</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><i>Example</i>
+<p>&nbsp;</td>
+
+<td WIDTH="85%"><!-- Add main text below -->After a few steepest ascent
+(or descent) searches a first order model will eventually lead to no further
+improvement or it will exhibit lack of fit. The latter case typically occurs
+when operating conditions have been changed to a region where there are
+quadratic (second order) effects present in the response. A second order
+polynomial can be used as a local approximation of the response in a small
+region where, hopefully, optimal operating conditions exist. However, while
+a quadratic fit is appropriate in most of the cases in industry, there
+will be a few times when a quadratic fit will not be sufficiently flexible
+to explain a given response. In such cases the analyst generally does one
+of the following:
+<blockquote>
+<ol>
+<li>
+Uses a transformation of Y or the X<sub>i</sub>'s to improve the fit.</li>
+
+<li>
+Limits use of the model to a smaller region in which the model does fit.</li>
+
+<li>
+Adds other terms to the model.</li>
+</ol>
+</blockquote>
+
+<p><br><b>Procedure: obtaining the estimated optimal operating conditions</b>
+<p>Once a linear model exhibits lack of fit or when significant curvature
+is detected, the experimental design used in Phase I (recall that a&nbsp;<img SRC="gifs/img117.gif" ALT=""  align=BOTTOM>
+factorial experiment was recommended) should be augmented with axial runs
+on each factor to form what is called a central composite design. This
+experimental design allows estimation of a second order polynomial of the
+form&nbsp;
+<p><img SRC="gifs/img120.gif" ALT=""  align=BOTTOM>
+<p>If the corresponding analysis of variance table indicates no lack of
+fit for this model, the engineer can proceed to determine the estimated
+optimal operating conditions.&nbsp;
+<ol>
+<li>
+Using some graphics software, get a contour plot of the fitted response.
+If the number of factors (<b>k</b>) is greater than 2, then plot contours
+in all planes corresponding to all the possible pairs of factors. For <b>k</b>
+greater than, say, 5, this could be too cumbersome (unless the graphic
+software plots all pairs automatically). In such case a "canonical analysis''
+of the surface is recommended (see <a href="#Technical Appendix">Technical
+Appendix 5 D</a>).</li>
+
+<li>
+Use an optimization solver to maximize or minimize (as desired) the estimated
+response&nbsp;<img SRC="gifs/img123.gif" ALT=""  align=BOTTOM>.</li>
+
+<li>
+Perform a confirmation experiment at the estimated optimal operating conditions
+given by the solver in step 2.</li>
+</ol>
+We illustrate these steps with the DESIGN EXPERT software and our chemical
+experiment discussed before. For a technical description of a formula that
+provides the coordinates of the stationary point of the surface, see <a href="#Technical Appendix 5">Technical
+Appendix 5C.</a>
+<p><b>Example: Second Phase Optimization of Chemical Process.</b>
+<p>Recall that in the <a href="pri5511.htm#Example. Optimization of a Chemical">chemical
+experiment</a>, the <a href="pri5513.htm#Five center">ANOVA table</a>,
+obtained from using an experiment run around the coordinates&nbsp;<img SRC="gifs/img126.gif" ALT=""  align=CENTER>,&nbsp;<img SRC="gifs/img127.gif" ALT=""  align=CENTER>,
+indicated significant curvature effects. Augmenting the&nbsp;<img SRC="gifs/img128.gif" ALT=""  align=BOTTOM>
+factorial experiment with axial runs at&nbsp;<img SRC="gifs/img129.gif" ALT=""  align=CENTER>
+to achieve a rotatable central composite experimental design, the following
+experimental results were obtained:&nbsp;
+<p><img SRC="gifs/img132.gif" ALT=""  align=BOTTOM>
+<br>&nbsp;
+<p>The corresponding ANOVA table for the different effects, based on the
+sequential sum of squares procedure of the DESIGN EXPERT software, gives&nbsp;
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM OF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MEAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F
+<u>SOURCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQUARES&nbsp;&nbsp; DF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQUARE&nbsp;&nbsp; VALUE&nbsp; PROB > F
+
+
+</u>MEAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 51418.2&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 51418.2
+
+Linear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1113.7&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 556.8&nbsp;&nbsp;&nbsp; 5.56&nbsp;&nbsp;&nbsp; 0.024
+
+Quadratic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 768.1&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 256.0&nbsp;&nbsp;&nbsp; 7.69&nbsp;&nbsp;&nbsp; 0.013
+
+Cubic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.9&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.0&nbsp;&nbsp;&nbsp; 0.11&nbsp;&nbsp;&nbsp; 0.897
+</pre>
+
+<pre>RESIDUAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 223.1&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 44.6
+
+TOTAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 53533.0&nbsp;&nbsp; 13</pre>
+From the table, the linear and quadratic effects are significant. The lack
+of fit tests and auxiliary diagnostic statistics are:&nbsp;
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM OF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MEAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F
+<u>MODEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQUARES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DF&nbsp;&nbsp;&nbsp; SQUARE&nbsp;&nbsp; VALUE&nbsp; PROB > F
+
+
+</u>Linear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 827.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp;&nbsp; 138.0&nbsp;&nbsp;&nbsp; 3.19&nbsp;&nbsp;&nbsp; 0.141
+
+Quadratic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 59.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.0&nbsp;&nbsp;&nbsp; 0.46&nbsp;&nbsp;&nbsp; 0.725
+
+Cubic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 49.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 49.9&nbsp;&nbsp;&nbsp; 1.15&nbsp;&nbsp;&nbsp; 0.343
+
+PURE ERROR&nbsp;&nbsp;&nbsp;&nbsp; 173.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 43.3
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ROOT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ADJ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PRED
+<u>SOURCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R-SQR&nbsp;&nbsp;&nbsp;&nbsp; R-SQR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R-SQR&nbsp;&nbsp;&nbsp; PRESS
+
+
+</u>Linear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.01&nbsp;&nbsp;&nbsp; 0.5266&nbsp;&nbsp;&nbsp; 0.4319&nbsp;&nbsp;&nbsp;&nbsp; 0.2425&nbsp;&nbsp;&nbsp; 1602.02
+
+Quadratic&nbsp;&nbsp;&nbsp;&nbsp; 5.77&nbsp;&nbsp;&nbsp; 0.8898&nbsp;&nbsp;&nbsp; 0.8111&nbsp;&nbsp;&nbsp;&nbsp; 0.6708&nbsp;&nbsp;&nbsp;&nbsp; 696.25
+
+Cubic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.68&nbsp;&nbsp;&nbsp; 0.8945&nbsp;&nbsp;&nbsp; 0.7468&nbsp;&nbsp;&nbsp; -0.6393&nbsp;&nbsp;&nbsp; 3466.71</pre>
+The quadratic model has a larger <i>p</i>-value for the lack of fit test,
+higher adjusted R<sup>2</sup>, and a lower PRESS&nbsp; statistic, thus
+it should provide a reliable model. The fitted quadratic equation, in coded
+units, is&nbsp;
+<p><img SRC="gifs/img138.gif" ALT=""  align=BOTTOM>
+<p><b>Step 1:</b>
+<p>A contour plot of this function (Figure 5.5) shows that it appears to
+have a single optimum point in the region of the experiment (this optimum
+is calculated below to be (-.9285,.3472), in coded <b><i>x<sub>1</sub></i></b>,
+<b><i>x<sub>2</sub></i></b>
+units, with a response value of 77.59).&nbsp;
+<center>
+<p><a NAME="245"></a><a NAME="fig5"></a><img SRC="gifs/img139.gif" height=481 width=575>
+<br><b>FIGURE 5.5:</b> <b>Contour Plot of the Fitted Response in the Example</b></center>
+
+<p><br>
+<br>
+<p>Since there are only two factors in this example, we can also get a
+3D plot of the fitted response against the two factors (Figure 5.6).&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>
+<br>
+<center>
+<p><a NAME="252"></a><a NAME="fig6"></a><img SRC="gifs/img141.gif" ALT=""  align=BOTTOM>
+<br><b>FIGURE 5.6:</b> <b>3D Plot of the Fitted Response in the Example</b></center>
+
+<p><br>
+<p><b>Step 2:</b>
+<p>The optimization routine in DESIGN EXPERT was invoked for maximizing&nbsp;<img SRC="gifs/img142.gif" ALT=""  align=BOTTOM>.
+The results are&nbsp;<img SRC="gifs/img143.gif" ALT=""  align=CENTER><img SRC="gifs/img144.gif" height=7 width=6 align=TEXTTOP>C
+,&nbsp;<img SRC="gifs/img145.gif" ALT=""  align=CENTER> minutes. The estimated
+yield at the optimal point is&nbsp;<img SRC="gifs/img146.gif" ALT=""  align=CENTER>
+%.&nbsp;
+<p><b>Step 3:</b>
+<p>A confirmation experiment was conducted by the process engineer at settings&nbsp;<img SRC="gifs/img147.gif" ALT=""  align=CENTER>,&nbsp;<img SRC="gifs/img148.gif" ALT=""  align=CENTER>.
+The observed response was&nbsp;<img SRC="gifs/img149.gif" ALT=""  align=CENTER>
+% which is satisfactorily close to the estimated optimum.&nbsp;
+<br>======================================================================</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><i>Details of how to find the maximum
+or minimum point for a quadratic response</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>&nbsp;</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+<h3>
+<a NAME="Technical Appendix 5"></a>Technical Appendix 5C: Finding the Factor
+Settings for the Stationary Point of a Quadratic Response.</h3>
+
+<ol>
+<li>
+Rewrite the fitted equation using matrix notation as</li>
+
+<center>
+<p><br><img SRC="gifs/img355.gif" ALT=""  align=BOTTOM></center>
+&nbsp;where&nbsp;<img SRC="gifs/img356.gif" ALT=""  align=CENTER> is a
+vector of first order parameter estimates,&nbsp;
+<center>
+<p><img SRC="gifs/img357.gif" ALT=""  align=BOTTOM></center>
+is a matrix of second-order parameter estimates and&nbsp;<img SRC="gifs/img358.gif" ALT=""  align=CENTER>
+is the vector of controllable factors. Notice that the off diagonal elements
+of&nbsp;<img SRC="gifs/img359.gif" ALT=""  align=BOTTOM> are equal to half
+the two-factor interaction coefficients.&nbsp;
+<li>
+Equating the partial derivatives of&nbsp;<img SRC="gifs/img360.gif" ALT=""  align=BOTTOM>
+with respect to&nbsp;<img SRC="gifs/img361.gif" ALT=""  align=BOTTOM> to
+zeroes, the coordinates of the stationary point of the response are given
+by</li>
+</ol>
+
+<ol>
+<center><img SRC="gifs/img362.gif" ALT=""  align=BOTTOM></center>
+</ol>
+The nature of the stationary point (whether it is a point of maximum response,
+minimum response, or a saddle point) is determined by the matrix&nbsp;<img SRC="gifs/img363.gif" ALT=""  align=BOTTOM>.
+The two-factor interactions do not, in general, let us "see'' what type
+of point&nbsp;<img SRC="gifs/img364.gif" ALT=""  align=BOTTOM> is. One
+thing that can be said is that if the diagonal elements of&nbsp;<img SRC="gifs/img365.gif" ALT=""  align=BOTTOM>
+(the&nbsp;<img SRC="gifs/img366.gif" ALT=""  align=CENTER>) have mixed
+signs,&nbsp;<img SRC="gifs/img367.gif" ALT=""  align=BOTTOM> <i>is</i>
+a saddle point. Otherwise, it is necessary to look at the characteristic
+roots or eigenvalues of&nbsp;<img SRC="gifs/img368.gif" ALT=""  align=BOTTOM>
+to see whether&nbsp;<img SRC="gifs/img369.gif" ALT=""  align=BOTTOM> is
+"positive definite'' (so&nbsp;<img SRC="gifs/img370.gif" ALT=""  align=BOTTOM>
+is a point of minimum response) or "negative definite'' (the case where&nbsp;<img SRC="gifs/img371.gif" ALT=""  align=BOTTOM>
+is a point of minimum response). This task is easier if the two-factor
+interactions are "eliminated'' from the fitted equation as is described
+in <a href="#Technical Appendix">Technical Appendix 5D</a>..&nbsp;
+<p><b>Example: computing the stationary point, Chemical Process experiment.</b>
+<p>The fitted quadratic equation in the chemical experiment discussed in
+Section <a href="pri5511.htm">5.5.5.1.1</a>, in coded units, is&nbsp;
+<center>
+<p><img SRC="gifs/img374.gif" ALT=""  align=BOTTOM></center>
+
+<p>&nbsp;from which we obtain&nbsp;<img SRC="gifs/img375.gif" ALT=""  align=CENTER>,&nbsp;
+<center>
+<p><img SRC="gifs/img376.gif" ALT=""  align=BOTTOM></center>
+
+<p>&nbsp;and&nbsp;
+<center>
+<p><img SRC="gifs/img377.gif" ALT=""  align=BOTTOM></center>
+
+<p>&nbsp;Transforming back to the original units of measurement, the coordinates
+of the stationary point are&nbsp;
+<center>
+<p><img SRC="gifs/img378.gif" ALT=""  align=BOTTOM></center>
+
+<p>&nbsp;Notice this is the same solution as obtained by using the optimization
+routine of DESIGN EXPERT (see section <a href="pri5511.htm">5.5.5.1.1</a>).
+The predicted response at the stationary point is&nbsp;<img SRC="gifs/img380.gif" ALT=""  align=CENTER>
+%.&nbsp;
+<h3>
+<a NAME="Technical Appendix"></a>Technical Appendix 5D: "Canonical Analysis''
+of Quadratic Responses.</h3>
+Whether the stationary point&nbsp;<img SRC="gifs/img381.gif" ALT=""  align=BOTTOM>
+represents a point of maximum or minimum response, or just a saddle point,
+is determined by the matrix of second order coefficients,<img SRC="gifs/img382.gif" ALT=""  align=BOTTOM>.
+In the simpler case of just a single controllable factor (<b>k=1</b>),&nbsp;<img SRC="gifs/img383.gif" ALT=""  align=BOTTOM>
+is a scalar proportional to the second derivative of&nbsp;<img SRC="gifs/img384.gif" ALT=""  align=CENTER>
+with respect to <b>x</b>. If&nbsp;<img SRC="gifs/img385.gif" ALT=""  align=CENTER>
+is positive, recall that from calculus the function&nbsp;<img SRC="gifs/img386.gif" ALT=""  align=CENTER>
+is convex ("bowl shaped'') and then&nbsp;<img SRC="gifs/img387.gif" ALT=""  align=BOTTOM>
+is a point of maximum response.&nbsp;
+<p>Unfortunately, the multiple factor case (<b>k>1</b>) is not so easy
+since the two factor interactions (the off diagonal elements of&nbsp;<img SRC="gifs/img389.gif" ALT=""  align=BOTTOM>)
+obscure the picture of what is going on. A recommended procedure for analyzing
+whether&nbsp;<img SRC="gifs/img390.gif" ALT=""  align=BOTTOM> is "positive
+definite'' (we have a min.) or "negative definite'' (we have a max.) is
+to rotate the axis&nbsp;<img SRC="gifs/img391.gif" ALT=""  align=CENTER>
+so that the two factor interactions disappear. It is also customary (<a href="../section8/pri8.htm#BoxDra">Box
+and Draper</a>, 1987; <a href="../section8/pri8.htm#KuCo">Khuri and Cornell</a>,
+1987; <a href="../section8/pri8.htm#MyMo">Myers and Montgomery</a>, 1995)
+to translate the origin of coordinates to the stationary point, so that
+the intercept terms are eliminated from the equation of&nbsp;<img SRC="gifs/img392.gif" ALT=""  align=CENTER>.
+This procedure is called the canonical analysis of&nbsp;<img SRC="gifs/img393.gif" ALT=""  align=CENTER>.&nbsp;
+<p><b>Procedure: Canonical Analysis</b>
+<ol>
+<li>
+Define new axis&nbsp;<img SRC="gifs/img394.gif" ALT=""  align=CENTER> (translation
+step). The fitted equation becomes<img SRC="gifs/img395.gif" height=38 width=190 align=CENTER>.</li>
+
+<li>
+Define new axis&nbsp;<img SRC="gifs/img396.gif" ALT=""  align=BOTTOM>,
+where&nbsp;<img SRC="gifs/img397.gif" ALT=""  align=BOTTOM> and&nbsp;<img SRC="gifs/img398.gif" ALT=""  align=BOTTOM>
+is a diagonal matrix to be defined (rotation step). The fitted equation
+becomes&nbsp;<img SRC="gifs/img399.gif" ALT=""  align=CENTER>. This is
+the so-called canonical form of the model. The elements on the diagonal
+of&nbsp;<img SRC="gifs/img400.gif" ALT=""  align=BOTTOM>,&nbsp;<img SRC="gifs/img401.gif" ALT=""  align=CENTER>
+are the eigenvalues of&nbsp;<img SRC="gifs/img402.gif" ALT=""  align=BOTTOM>.
+The columns of&nbsp;<img SRC="gifs/img403.gif" ALT=""  align=BOTTOM>,&nbsp;<img SRC="gifs/img404.gif" ALT=""  align=CENTER>,
+are the <i>orthonormal eigenvectors</i> of&nbsp;<img SRC="gifs/img405.gif" ALT=""  align=BOTTOM>,
+which means that the&nbsp;<img SRC="gifs/img406.gif" ALT=""  align=CENTER>
+satisfy&nbsp;<img SRC="gifs/img407.gif" ALT=""  align=CENTER>,&nbsp;<img SRC="gifs/img408.gif" ALT=""  align=CENTER>
+for&nbsp;<img SRC="gifs/img409.gif" ALT=""  align=CENTER>, and&nbsp;<img SRC="gifs/img410.gif" ALT=""  align=CENTER>.</li>
+
+<li>
+If all the&nbsp;<img SRC="gifs/img411.gif" ALT=""  align=CENTER> are negative,&nbsp;<img SRC="gifs/img412.gif" ALT=""  align=BOTTOM>
+corresponds to a point of minimum response. If all&nbsp;<img SRC="gifs/img413.gif" ALT=""  align=CENTER>
+are positive,&nbsp;<img SRC="gifs/img414.gif" ALT=""  align=BOTTOM> corresponds
+to a point of maximum response. Finally, if the&nbsp;<img SRC="gifs/img415.gif" ALT=""  align=CENTER>
+are of mixed signs, the response is a saddle function and&nbsp;<img SRC="gifs/img416.gif" ALT=""  align=BOTTOM>
+is the saddle point.</li>
+</ol>
+If some&nbsp;<img SRC="gifs/img417.gif" ALT=""  align=CENTER>, the fitted
+ellipsoid&nbsp;<img SRC="gifs/img418.gif" ALT=""  align=CENTER> is elongated
+(i.e., it is flat) along the direction of the&nbsp;<img SRC="gifs/img419.gif" ALT=""  align=CENTER>
+axis. Points along the&nbsp;<img SRC="gifs/img420.gif" ALT=""  align=CENTER>
+axis will have an estimated response close to optimal, thus the process
+engineer has flexibility in choosing "good'' operating conditions. If two
+eigenvalues (say&nbsp;<img SRC="gifs/img421.gif" ALT=""  align=CENTER>
+and&nbsp;<img SRC="gifs/img422.gif" ALT=""  align=CENTER>) are close to
+zero, then a plane in the&nbsp;<img SRC="gifs/img423.gif" ALT=""  align=CENTER>
+coordinates will have close to optimal operating conditions, etc.&nbsp;
+<p>It is nice to know that the SAS software (PROC RSREG) computes the eigenvalues&nbsp;<img SRC="gifs/img424.gif" ALT=""  align=CENTER>
+and the orthonormal eigenvectors&nbsp;<img SRC="gifs/img425.gif" ALT=""  align=CENTER>,
+thus there is no need to do a canonical analysis by hand.&nbsp;
+<p><b>Example: Canonical Analysis of Yield Response in Chemical Experiment
+using SAS.</b>
+<p>Let us return to the chemical experiment example in section <a href="pri5511.htm">5.5.5.1.1</a>.
+This will serve us for illustration of the method, but keep in mind that
+when the number of factors is small (e.g., <b>k=2</b> as in this example)
+canonical analysis is not recommended in practice since simple contour
+plotting will provide sufficient information. The fitted equation of the
+model yields&nbsp;
+<center>
+<p><img SRC="gifs/img427.gif" ALT=""  align=BOTTOM></center>
+
+<p>To compute the eigenvalues&nbsp;<img SRC="gifs/img428.gif" ALT=""  align=CENTER>,
+we have to find all roots of the expression that results from equating
+the determinant of&nbsp;<img SRC="gifs/img429.gif" ALT=""  align=CENTER>
+to zero. Since&nbsp;<img SRC="gifs/img430.gif" ALT=""  align=BOTTOM> is
+symmetric and has real coefficients, there will be <b>k</b> real roots&nbsp;<img SRC="gifs/img431.gif" ALT=""  align=CENTER>.
+To find the orthonormal eigenvectors, solve the simultaneous equations&nbsp;<img SRC="gifs/img432.gif" ALT=""  align=CENTER>
+and&nbsp;<img SRC="gifs/img433.gif" ALT=""  align=CENTER>. This is the
+hard way, of course. These computations are easily done using the SAS software
+PROC RSREG. The SAS program applied to our example is:&nbsp;
+<pre>data;
+
+input x1 x2 y;
+
+cards;
+
+-1&nbsp;&nbsp;&nbsp; -1&nbsp;&nbsp;&nbsp;&nbsp; 64.33
+
+&nbsp;1&nbsp;&nbsp;&nbsp; -1&nbsp;&nbsp;&nbsp;&nbsp; 51.78
+
+-1&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 77.30
+
+&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 45.37
+
+&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 62.08
+
+&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 79.36
+
+&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 75.29
+
+&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 73.81
+
+&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 69.45
+
+-1.414 0&nbsp;&nbsp;&nbsp;&nbsp; 72.58
+
+&nbsp;1.414 0&nbsp;&nbsp;&nbsp;&nbsp; 37.42
+
+&nbsp;0&nbsp;&nbsp;&nbsp; -1.414 54.63
+
+&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp; 1.414 54.18
+
+;
+
+proc rsreg;
+
+model y=x1 x2 /nocode/lackfit;
+
+run;</pre>
+The "nocode'' option was entered since the factors were already input in
+coded form. The corresponding output from SAS canonical analysis is as
+follows:&nbsp;
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Canonical Analysis of Response Surface
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Critical
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Factor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Value
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.927852
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.346800
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Predicted value at stationary point&nbsp;&nbsp;&nbsp;&nbsp; 77.589146
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Canonical Analysis of Response Surface
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Eigenvectors
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Eigenvalues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X2
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -4.973187&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.728460&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.685089
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -9.827317&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.685089&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.728460
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stationary point is a maximum.</pre>
+Notice that the eigenvalues are the two roots of&nbsp;
+<p><img SRC="gifs/img434.gif" ALT=""  align=CENTER>. As mentioned in section
+<a href="pri5514.htm">5.5.5.1.4</a>,
+the stationary point is&nbsp;<img SRC="gifs/img436.gif" ALT=""  align=CENTER>
+which corresponds to&nbsp;<img SRC="gifs/img437.gif" ALT=""  align=CENTER>.
+Since both eigenvalues are negative,&nbsp;<img SRC="gifs/img438.gif" ALT=""  align=BOTTOM>
+is a point of maximum response. To get the directions of the axis of the
+fitted ellipsoid, compute&nbsp;
+<p><img SRC="gifs/img439.gif" ALT=""  align=BOTTOM>
+<p>&nbsp;and&nbsp;
+<p><img SRC="gifs/img440.gif" ALT=""  align=BOTTOM>
+<p>&nbsp;Since&nbsp;<img SRC="gifs/img441.gif" ALT=""  align=CENTER>, there
+is somewhat more elongation in the&nbsp;<img SRC="gifs/img442.gif" ALT=""  align=CENTER>
+direction. However, since both eigenvalues are quite far from zero, there
+is not much flexibility in choosing operating conditions. It can be seen
+from Figure 5.5 that the fitted ellipses do not have a great elongation
+in the&nbsp;<img SRC="gifs/img444.gif" ALT=""  align=CENTER> direction,
+the direction of the major axis. It is important to emphasize that confirmation
+experiments at&nbsp;<img SRC="gifs/img445.gif" ALT=""  align=BOTTOM> should
+be performed to check the validity of the estimated optimal solution.&nbsp;</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5513.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5515.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

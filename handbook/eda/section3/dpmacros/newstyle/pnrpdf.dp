@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Power Normal PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na pnrpdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Power Normal PDF (P = 2)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT PNRPDF(X,2) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp PNRPDF.PS pnrpdf.ps
+system rm PNRPDF.PS
+.
+quit

@@ -1,0 +1,156 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+                id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.2.5.2. What is the Average Sample Number (ASN) curve?</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc253.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc251.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc2.htm">Methods of Process Monitoring and 
+Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc25.htm">What are Sequential Plans and Average Run Length (ARL)?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.2.5.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>What is the Average Sample Number (\(ASN\)) curve?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --></TD>
+
+<TD WIDTH="85%">
+<CENTER><!-- Add main text below --></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP WIDTH="15%"><I>The Average Sample Number</I></TD>
+
+<TD VALIGN=TOP WIDTH="85%">In single sampling, the sample size remains
+constant, while in double sampling the sample size depends on whether or
+not a second sample is required. The probability of a second sample will
+vary with \(p'\), the true fraction defective in an incoming lot.
+
+<P>
+Consider a double-sampling plan \(n_1 = 50\), \(c_1 = 2\), \(n_2 = 100\), \(c_2 = 6\),
+<!-- &nbsp; <I>n</I><SUB>1 </SUB>= 50,&nbsp;
+<I>c</I><SUB>1 </SUB>= 2, <I>n</I><SUB>2 </SUB>= 100,&nbsp;<I> c</I><SUB>2</SUB>
+= 6, where n<SUB>1</SUB> -->
+is the sample size for plan 1, with accept number \(c_1\),
+<!-- c<SUB>1</SUB>, -->
+and \(n_2\), \(c_2\),
+<!-- n<SUB>2</SUB>, c<SUB>2</SUB>, -->
+are the sample size and accept number for plan 2.
+<P>
+Let \(p' = 0.06\). Then the chance of acceptance on the first sample which
+is the chance of getting two or less defectives = 0.416 (using binomial
+tables). The chance of rejection on the second sample, which is the chance
+of getting more than six defectives is \(1-0.971 = 0.029\). The probability of
+making a decision on the first sample is 0.445, equal to the sum of 0.416
+and 0.029. With complete inspection of the second sample the <I>average size</I>
+sample is equal to the size of the first sample times the
+probability that there will only be one sample plus the size of the combined
+samples times the probability that a second sample will be necessary. For
+the sampling plan under consideration the average sample number (\(ASN\)) with
+complete inspection of the second sample for a \(p'\) of 0.06 is
+
+
+$$ 50(0.445) + 150(0.555) = 106 \, . $$
+
+<!-- 
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+50(.445) + 100(.555) =&nbsp; 106&nbsp;
+<P>
+-->
+The general formula for an average sample number curve of a double-sampling
+plan with complete inspection of the second sample is&nbsp;
+
+$$ ASN = n_1 P_1 + (n_1 + n_2)(1-P_1) = n_1 + n_2(1-P_1) \, . $$
+<!--
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ASN = <I>n</I><SUB>1</SUB><I>P</I><SUB>1</SUB> + (<I>n</I><SUB>1 </SUB>+
+<I>n</I><SUB>2</SUB>)(1 - <I>P</I><SUB>1</SUB>) = <I>n</I><SUB>1 </SUB>+
+<I>n</I><SUB>2</SUB>(1 - <I>P</I><SUB>1</SUB>)&nbsp;
+<P>
+-->
+where \(P_1\)
+<!-- <I>P</I><SUB>1</SUB> -->
+is the probability of a decision on the first
+sample. The graph below shows a plot of the \(ASN\) versus \(p'\).
+<CENTER><IMG SRC="gifs/asn.gif" HEIGHT=300 WIDTH=449></CENTER>
+&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P>&nbsp;</TD>
+</TR>
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc251.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc253.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

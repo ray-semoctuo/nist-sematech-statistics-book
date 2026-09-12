@@ -1,0 +1,39 @@
+.
+.  Generate sample output for Tukey-Lambda CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na lamcdf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Tukey-Lambda CDF (Lambda = -1)
+LET TEMP = -1
+PLOT LAMCDF(X,TEMP) FOR X = -5 0.01 5
+TITLE Tukey-Lambda CDF (Lambda = 0.14)
+PLOT LAMCDF(X,0.14) FOR X = -5 0.01 5
+TITLE Tukey-Lambda CDF (Lambda = 0.5)
+PLOT LAMCDF(X,0.5) FOR X = -2 0.01 2
+TITLE Tukey-Lambda CDF (Lambda = 1)
+PLOT LAMCDF(X,5) FOR X = -0.2 0.01 0.2
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp LAMCDF4.PS lamcdf4.ps
+system rm LAMCDF4.PS
+.
+quit

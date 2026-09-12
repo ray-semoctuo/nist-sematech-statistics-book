@@ -1,0 +1,913 @@
+  
+ THE ECHO SWITCH HAS JUST BEEN SET TO ON
+  
+       *****************************
+       **  dimension 200 columns  **
+       *****************************
+  
+  
+ DIMENSION INFORMATION--
+           MAXIMUM DATA ARRAY SIZE            =   200000
+           MAXIMUM NUMBER OBS/VARIABLE (ROWS) =     1000
+           MAXIMUM NUMBER VARIABLES (COLUMNS) =      200
+     NOTE--NO DATA TRUNCATION OCCURRED FOR ANY VARIABLES
+           (COLUMNS) IN THE PROCESS OF REDIMENSIONING
+     NOTE--NO VARIABLES WERE DELETED
+           IN THE PROCESS OF REDIMENSIONING
+  
+       ******************************
+       **  . set write decimals 4  **
+       ******************************
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *********************
+       **  read matrix x  **
+       *********************
+  
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       35
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =        3
+ NUMBER OF VARIABLES    READ      =        3
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+ 1  -1  0
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+ 0   1 -1
+  
+         MATRIX X       --            3 ROWS
+                        --            3 COLUMNS
+  
+      VARIABLES        COLUMN    OBS/VARIABLE
+ (= COLUMN VECTORS)
+         X1              1            3
+         X2              2            3
+         X3              3            3
+  
+       ***********************************
+       **  let xt = matrix transpose x  **
+       ***********************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   XT       =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   XT       =        3
+  
+ THE FIRST           COMPUTED ROW   OF XT       =
+  0.100E+01 0.100E+01 0.000E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF XT       =
+  0.000E+00-0.100E+01-0.100E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX XT      ARE XT1       XT2       XT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX XT      ARE        4 TO       6
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *********************
+       **  read matrix y  **
+       *********************
+  
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       35
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =        3
+ NUMBER OF VARIABLES    READ      =        1
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+ -0.3800
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+ -1.2150
+  
+         MATRIX Y       --            3 ROWS
+                        --            1 COLUMNS
+  
+      VARIABLES        COLUMN    OBS/VARIABLE
+ (= COLUMN VECTORS)
+         Y1              7            3
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *********************
+       **  read matrix r  **
+       *********************
+  
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       35
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =        3
+ NUMBER OF VARIABLES    READ      =        1
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+ 1
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+ 0
+  
+         MATRIX R       --            3 ROWS
+                        --            1 COLUMNS
+  
+      VARIABLES        COLUMN    OBS/VARIABLE
+ (= COLUMN VECTORS)
+         R1              8            3
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *********************
+       **  read matrix a  **
+       *********************
+  
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       35
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =        4
+ NUMBER OF VARIABLES    READ      =        4
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+ 2 -1 -1 1
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+ 1 1 0 0
+  
+         MATRIX A       --            4 ROWS
+                        --            4 COLUMNS
+  
+      VARIABLES        COLUMN    OBS/VARIABLE
+ (= COLUMN VECTORS)
+         A1              9            4
+         A2             10            4
+         A3             11            4
+         A4             12            4
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ***********************************
+       **  let ainv = matrix inverse a  **
+       ***********************************
+  
+  
+ THE RECIPROCAL CONDITION NUMBER FOR THE MATRIX =   0.1866667E+00
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   AINV     =        4
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   AINV     =        4
+  
+ THE FIRST           COMPUTED ROW   OF AINV     =
+  0.167E+00-0.167E+00 0.000E+00 0.500E+00
+ THE LAST (    4-TH) COMPUTED ROW   OF AINV     =
+  0.500E+00 0.500E+00 0.500E+00 0.000E+00
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX AINV    ARE AINV1     AINV2     AINV3    ...
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX AINV    ARE       13 TO      16
+  
+       *****************
+       **  let c = 6  **
+       *****************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT C        =   0.6000000E+01
+  
+  
+       *******************************************
+       **  let ainvc = matrix multiply ainv  c  **
+       *******************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   AINVC    =        4
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   AINVC    =        4
+  
+ THE FIRST           COMPUTED ROW   OF AINVC    =
+  0.100E+01-0.100E+01 0.000E+00 0.300E+01
+ THE LAST (    4-TH) COMPUTED ROW   OF AINVC    =
+  0.300E+01 0.300E+01 0.300E+01 0.000E+00
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX AINVC   ARE AINVC1    AINVC2    AINVC3   ...
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX AINVC   ARE       17 TO      20
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ******************************************
+       **  let q = matrix definition ainv 3 3  **
+       ******************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   Q        =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   Q        =        3
+  
+ THE FIRST           COMPUTED ROW   OF Q        =
+  0.167E+00-0.167E+00 0.000E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF Q        =
+  0.000E+00 0.000E+00 0.500E+00
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX Q       ARE Q1        Q2        Q3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX Q       ARE       21 TO      23
+  
+       *************************************
+       **  let qc = matrix multiply q  c  **
+       *************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   QC       =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   QC       =        3
+  
+ THE FIRST           COMPUTED ROW   OF QC       =
+  0.100E+01-0.100E+01 0.000E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF QC       =
+  0.000E+00 0.000E+00 0.300E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX QC      ARE QC1       QC2       QC3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX QC      ARE       24 TO      26
+  
+       ****************
+       **  print qc  **
+       ****************
+  
+  
+         MATRIX QC      --            3 ROWS
+                        --            3 COLUMNS
+
+ VARIABLES--QC1            QC2            QC3     
+
+   0.1000000E+01 -0.1000000E+01  0.0000000E+00
+  -0.1000000E+01  0.1000000E+01  0.0000000E+00
+   0.0000000E+00  0.0000000E+00  0.3000000E+01
+  
+       **************************************
+       **  let qxt = matrix multiply q xt  **
+       **************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   QXT      =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   QXT      =        3
+  
+ THE FIRST           COMPUTED ROW   OF QXT      =
+  0.333E+00 0.167E+00-0.167E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF QXT      =
+  0.000E+00-0.500E+00-0.500E+00
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX QXT     ARE QXT1      QXT2      QXT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX QXT     ARE       27 TO      29
+  
+       ****************************************
+       **  let qxtc = matrix multiply qxt c  **
+       ****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   QXTC     =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   QXTC     =        3
+  
+ THE FIRST           COMPUTED ROW   OF QXTC     =
+  0.200E+01 0.100E+01-0.100E+01
+ THE LAST (    3-TH) COMPUTED ROW   OF QXTC     =
+  0.000E+00-0.300E+01-0.300E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX QXTC    ARE QXTC1     QXTC2     QXTC3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX QXTC    ARE       30 TO      32
+  
+       ******************
+       **  print qxtc  **
+       ******************
+  
+  
+         MATRIX QXTC    --            3 ROWS
+                        --            3 COLUMNS
+
+ VARIABLES--QXTC1          QXTC2          QXTC3   
+
+   0.2000000E+01  0.1000000E+01 -0.1000000E+01
+  -0.2000000E+01 -0.1000000E+01  0.1000000E+01
+   0.0000000E+00 -0.3000000E+01 -0.3000000E+01
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ***************************
+       **  let h1 = data 3 3 3  **
+       ***************************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE H1       =        3
+  
+ THE FIRST           COMPUTED VALUE OF H1       =   0.3000000E+01   (ROW      1)
+ THE LAST (    3-TH) COMPUTED VALUE OF H1       =   0.3000000E+01   (ROW      3)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE H1       =       33
+ THE CURRENT LENGTH OF  THE VARIABLE H1       =        3
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ***************************
+       **  let h1 = 0.82329*h1  **
+       ***************************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE H1       =        3
+  
+ THE FIRST          COMPUTED VALUE OF H1       =  0.246987E+01 (ROW     1)
+ THE LAST (    3TH) COMPUTED VALUE OF H1       =  0.246987E+01 (ROW     3)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE H1       =       33
+ THE CURRENT LENGTH OF  THE VARIABLE H1       =        3
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *************************************
+       **  let b = matrix multiply qxt y  **
+       *************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   B        =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   B        =        1
+  
+ THE FIRST           COMPUTED ROW   OF B        =
+ -0.189E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF B        =
+  0.140E+01
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX B       ARE B1
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX B       ARE       34 TO      34
+  
+       **************************************
+       **  . let bc = matrix multiply b c  **
+       **************************************
+  
+  
+       ****************
+       **  print b1  **
+       ****************
+  
+
+ VARIABLES--B1      
+
+  -0.1891667E+00
+   0.1891667E+00
+   0.1402500E+01
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ************************
+       **  let b1 = b1 + h1  **
+       ************************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE B1       =        3
+  
+ THE FIRST          COMPUTED VALUE OF B1       =  0.228070E+01 (ROW     1)
+ THE LAST (    3TH) COMPUTED VALUE OF B1       =  0.387237E+01 (ROW     3)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE B1       =       34
+ THE CURRENT LENGTH OF  THE VARIABLE B1       =        3
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ****************
+       **  print b1  **
+       ****************
+  
+
+ VARIABLES--B1      
+
+   0.2280703E+01
+   0.2659037E+01
+   0.3872370E+01
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *********************************
+       **  .  Now compute (I - XQX')  **
+       *********************************
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ****************************************
+       **  let xqxt = matrix multiply x qxt  **
+       ****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   XQXT     =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   XQXT     =        3
+  
+ THE FIRST           COMPUTED ROW   OF XQXT     =
+  0.667E+00 0.333E+00-0.333E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF XQXT     =
+ -0.333E+00 0.333E+00 0.667E+00
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX XQXT    ARE XQXT1     XQXT2     XQXT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX XQXT    ARE       35 TO      37
+  
+       ******************
+       **  print xqxt  **
+       ******************
+  
+  
+         MATRIX XQXT    --            3 ROWS
+                        --            3 COLUMNS
+
+ VARIABLES--XQXT1          XQXT2          XQXT3   
+
+   0.6666667E+00  0.3333333E+00 -0.3333333E+00
+   0.3333333E+00  0.6666667E+00  0.3333333E+00
+  -0.3333333E+00  0.3333333E+00  0.6666667E+00
+  
+       **********************************
+       **  let ones = 1 for i = 1 1 3  **
+       **********************************
+  
+  
+ ***** NOTE--
+       ROW START      =        1
+       ROW INCREMENT  =        1
+       ROW STOP       =        3
+       INPUT  NUMBER OF ROWS   =        0
+       NUMBER OF ROWS AFFECTED =        3
+       OUTPUT NUMBER OF ROWS   =        3
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE ONES     =        3
+  
+ THE FIRST          COMPUTED VALUE OF ONES     =  0.100000E+01 (ROW     1)
+ THE LAST (    3TH) COMPUTED VALUE OF ONES     =  0.100000E+01 (ROW     3)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE ONES     =       38
+ THE CURRENT LENGTH OF  THE VARIABLE ONES     =        3
+  
+  
+       ****************************************
+       **  let ident = diagonal matrix ones  **
+       ****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   IDENT    =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   IDENT    =        3
+  
+ THE FIRST           COMPUTED ROW   OF IDENT    =
+  0.100E+01 0.000E+00 0.000E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF IDENT    =
+  0.000E+00 0.000E+00 0.100E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX IDENT   ARE IDENT1    IDENT2    IDENT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX IDENT   ARE       39 TO      41
+  
+       *************************************************
+       **  let ixqxt = matrix subtraction ident xqxt  **
+       *************************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   IXQXT    =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   IXQXT    =        3
+  
+ THE FIRST           COMPUTED ROW   OF IXQXT    =
+  0.333E+00-0.333E+00 0.333E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF IXQXT    =
+  0.333E+00-0.333E+00 0.333E+00
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX IXQXT   ARE IXQXT1    IXQXT2    IXQXT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX IXQXT   ARE       42 TO      44
+  
+       *******************
+       **  print ixqxt  **
+       *******************
+  
+  
+         MATRIX IXQXT   --            3 ROWS
+                        --            3 COLUMNS
+
+ VARIABLES--IXQXT1         IXQXT2         IXQXT3  
+
+   0.3333333E+00 -0.3333333E+00  0.3333333E+00
+  -0.3333333E+00  0.3333333E+00 -0.3333333E+00
+   0.3333333E+00 -0.3333333E+00  0.3333333E+00
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ***********************************
+       **  let yt = matrix transpose y  **
+       ***********************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   YT       =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   YT       =        3
+  
+ THE FIRST           COMPUTED ROW   OF YT       =
+ -0.380E+00-0.159E+01-0.122E+01
+ THE LAST (    1-TH) COMPUTED ROW   OF YT       =
+ -0.380E+00-0.159E+01-0.122E+01
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX YT      ARE YT1       YT2       YT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX YT      ARE       45 TO      47
+  
+       ********************************************
+       **  let ytxqt = matrix multiply yt ixqxt  **
+       ********************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   YTXQT    =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   YTXQT    =        3
+  
+ THE FIRST           COMPUTED ROW   OF YTXQT    =
+ -0.167E-02 0.167E-02-0.167E-02
+ THE LAST (    1-TH) COMPUTED ROW   OF YTXQT    =
+ -0.167E-02 0.167E-02-0.167E-02
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX YTXQT   ARE YTXQT1    YTXQT2    YTXQT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX YTXQT   ARE       48 TO      50
+  
+       ********************************************
+       **  let ytxqty = matrix multiply ytxqt y  **
+       ********************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   YTXQTY   =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   YTXQTY   =        1
+  
+ THE FIRST           COMPUTED ROW   OF YTXQTY   =
+  0.833E-05
+ THE LAST (    1-TH) COMPUTED ROW   OF YTXQTY   =
+  0.833E-05
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX YTXQTY  ARE YTXQTY1
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX YTXQTY  ARE       51 TO      51
+  
+       ********************
+       **  print ytxqty  **
+       ********************
+  
+  
+         MATRIX YTXQTY  --            1 ROWS
+                        --            1 COLUMNS
+
+ VARIABLES--YTXQTY1 
+
+   0.8333333E-05
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *********************************************
+       **  let atemp = matrix element ytxqty 1 1  **
+       *********************************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT ATEMP         =  0.83333333E-05
+  
+  
+       *****************
+       **  let n = 3  **
+       *****************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT N        =   0.3000000E+01
+  
+  
+       *****************
+       **  let m = 3  **
+       *****************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT M        =   0.3000000E+01
+  
+  
+       ************************************
+       **  let s1 = sqrt(atemp/(n-m+1))  **
+       ************************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT S1       =   0.2886751E-02
+  
+  
+       ****************
+       **  print s1  **
+       ****************
+  
+
+ PARAMETERS AND CONSTANTS--
+
+     S1      --  0.2886751E-02
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *******************************
+       **  .  Now compute D matrix  **
+       *******************************
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ****************************************
+       **  let qxtx = matrix multiply qxt x  **
+       ****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   QXTX     =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   QXTX     =        3
+  
+ THE FIRST           COMPUTED ROW   OF QXTX     =
+  0.500E+00-0.500E+00 0.555E-16
+ THE LAST (    3-TH) COMPUTED ROW   OF QXTX     =
+ -0.500E+00-0.500E+00 0.100E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX QXTX    ARE QXTX1     QXTX2     QXTX3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX QXTX    ARE       52 TO      54
+  
+       *****************************************
+       **  let qxtxt = matrix transpose qxtx  **
+       *****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   QXTXT    =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   QXTXT    =        3
+  
+ THE FIRST           COMPUTED ROW   OF QXTXT    =
+  0.500E+00-0.500E+00-0.500E+00
+ THE LAST (    3-TH) COMPUTED ROW   OF QXTXT    =
+  0.555E-16 0.555E-16 0.100E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX QXTXT   ARE QXTXT1    QXTXT2    QXTXT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX QXTXT   ARE       55 TO      57
+  
+       ******************************************
+       **  let d = matrix multiply qxtx qxtxt  **
+       ******************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   D        =        3
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   D        =        3
+  
+ THE FIRST           COMPUTED ROW   OF D        =
+  0.500E+00-0.500E+00 0.833E-16
+ THE LAST (    3-TH) COMPUTED ROW   OF D        =
+  0.833E-16 0.833E-16 0.150E+01
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX D       ARE D1        D2        D3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX D       ARE       58 TO      60
+  
+       ***************
+       **  print d  **
+       ***************
+  
+  
+         MATRIX D       --            3 ROWS
+                        --            3 COLUMNS
+
+ VARIABLES--D1             D2             D3      
+
+   0.5000000E+00 -0.5000000E+00  0.8326673E-16
+  -0.5000000E+00  0.5000000E+00  0.8326673E-16
+   0.8326673E-16  0.8326673E-16  0.1500000E+01
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       **********************
+       **  read matrix vi  **
+       **********************
+  
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       35
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =        3
+ NUMBER OF VARIABLES    READ      =        1
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+  0
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+  1
+  
+         MATRIX VI      --            3 ROWS
+                        --            1 COLUMNS
+  
+      VARIABLES        COLUMN    OBS/VARIABLE
+ (= COLUMN VECTORS)
+         VI1            61            3
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *************************************
+       **  let vit = matrix transpose vi  **
+       *************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   VIT      =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   VIT      =        3
+  
+ THE FIRST           COMPUTED ROW   OF VIT      =
+  0.000E+00 0.000E+00 0.100E+01
+ THE LAST (    1-TH) COMPUTED ROW   OF VIT      =
+  0.000E+00 0.000E+00 0.100E+01
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX VIT     ARE VIT1      VIT2      VIT3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX VIT     ARE       62 TO      64
+  
+       ****************************************
+       **  let vitq = matrix multiply vit q  **
+       ****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   VITQ     =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   VITQ     =        3
+  
+ THE FIRST           COMPUTED ROW   OF VITQ     =
+  0.000E+00 0.000E+00 0.500E+00
+ THE LAST (    1-TH) COMPUTED ROW   OF VITQ     =
+  0.000E+00 0.000E+00 0.500E+00
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX VITQ    ARE VITQ1     VITQ2     VITQ3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX VITQ    ARE       65 TO      67
+  
+       ********************************************
+       **  let vitqvi = matrix multiply vitq vi  **
+       ********************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   VITQVI   =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   VITQVI   =        1
+  
+ THE FIRST           COMPUTED ROW   OF VITQVI   =
+  0.500E+00
+ THE LAST (    1-TH) COMPUTED ROW   OF VITQVI   =
+  0.500E+00
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX VITQVI  ARE VITQVI1
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX VITQVI  ARE       68 TO      68
+  
+       ********************
+       **  print vitqvi  **
+       ********************
+  
+  
+         MATRIX VITQVI  --            1 ROWS
+                        --            1 COLUMNS
+
+ VARIABLES--VITQVI1 
+
+   0.5000000E+00
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ****************************************
+       **  let vitd = matrix multiply vit d  **
+       ****************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   VITD     =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   VITD     =        3
+  
+ THE FIRST           COMPUTED ROW   OF VITD     =
+  0.833E-16 0.833E-16 0.150E+01
+ THE LAST (    1-TH) COMPUTED ROW   OF VITD     =
+  0.833E-16 0.833E-16 0.150E+01
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX VITD    ARE VITD1     VITD2     VITD3
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX VITD    ARE       69 TO      71
+  
+       ********************************************
+       **  let vitdvi = matrix multiply vitd vi  **
+       ********************************************
+  
+  
+ THE NUMBER OF ROWS    GENERATED FOR THE MATRIX   VITDVI   =        1
+ THE NUMBER OF COLUMNS GENERATED FOR THE MATRIX   VITDVI   =        1
+  
+ THE FIRST           COMPUTED ROW   OF VITDVI   =
+  0.150E+01
+ THE LAST (    1-TH) COMPUTED ROW   OF VITDVI   =
+  0.150E+01
+  
+ CAUTION--THIS MATRIX HAS ONLY 1 ROW AND 1 COLUMN
+  
+ THE COLUMN VECTOR NAMES ASSIGNED TO MATRIX VITDVI  ARE VITDVI1
+ THE WORKSHEET COLUMNS   ASSIGNED TO MATRIX VITDVI  ARE       72 TO      72
+  
+       ********************
+       **  print vitdvi  **
+       ********************
+  
+  
+         MATRIX VITDVI  --            1 ROWS
+                        --            1 COLUMNS
+
+ VARIABLES--VITDVI1 
+
+   0.1500000E+01
+  
+       ***************************
+       **  let c1 = vitdvi1(1)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT C1       =   0.1500000E+01
+  
+  
+       ***************************
+       **  let c2 = vitqvi1(1)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT C2       =   0.5000000E+00
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ****************************************************
+       **  let sitemi = sqrt(c2*s1**2 + c1*(0.0211)**2)  **
+       ****************************************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SITEMI   =   0.2592261E-01
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       **********************
+       **  end of capture  **
+       **********************
+  

@@ -1,0 +1,39 @@
+. This is file    spectral.dp
+.  Create a GIF file for a spectral plot
+.
+DEVICE 1 X11
+device 2 postscript
+.
+TITLE 
+TITLE SIZE 4
+TITLE DISPLACEMENT 2
+LABEL CASES ASIS
+TITLE CASES ASIS
+LABEL SIZE 4
+TIC LABEL SIZE 4
+THICKNESS 0.2
+.
+PRE-ERASE OFF
+.
+skip 25
+read LEW.DAT y
+.
+title Spectrum
+y1label Spectral Power
+x1label Frequency (cycles per observation)
+y1label displacement 16
+frame corner coordinates 20 20 90 90
+.
+spectrum y
+.
+HEIGHT 4
+MOVE 99 1
+JUST RIGHT
+TEXT LEW.DAT
+BOX 0 0 100 100
+DEVICE 2 CLOSE
+.
+. -----DONE-----
+.
+system mv dppl1f.dat spectrum.ps
+EXIT

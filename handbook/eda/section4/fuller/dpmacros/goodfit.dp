@@ -1,0 +1,22 @@
+. Starting Step 4.5
+.
+echo on
+capture ADWEIB.OUT
+Anderson-Darling Weibull test y
+END OF CAPTURE
+capture ADLOGN.OUT
+Anderson-Darling lognormal test y
+END OF CAPTURE
+capture ADNORM.OUT
+Anderson-Darling normal test y
+END OF CAPTURE
+capture KSWEIB.OUT
+SET MINMAX 1
+LET GAMMA = 2.13
+WEIBULL KOLMOGOROV-SMIRNOV GOODNESS OF FIT Y
+END OF CAPTURE
+capture KSLOGN.OUT
+LET SD =. 0.2
+LOGNORMAL KOLMOGOROV-SMIRNOV GOODNESS OF FIT Y
+END OF CAPTURE
+. Finished Step 4.5: Page Back for Output

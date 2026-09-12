@@ -1,0 +1,7 @@
+.
+. Starting Step 4.4 - Histogram of Residuals
+.
+y1label counts
+x1label residualss
+histogram res
+. Finished Step 4.4: Page Back for Output

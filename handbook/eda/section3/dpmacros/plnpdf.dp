@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Power Lognormal PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na plnpdf.jpg
+device 2 gd jpeg
+device 2 picture points 100 75
+.
+TITLE CASE ASIS
+TITLE Power Lognormal PDF (P = 2)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability Density
+X1LABEL X
+.
+PLOT PLNPDF(X,2) FOR X = 0.01 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system mv plnpdf.jpg ../gif100/plnpdf.jpg
+.
+quit

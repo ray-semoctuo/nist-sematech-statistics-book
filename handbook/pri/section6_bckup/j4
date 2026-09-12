@@ -1,0 +1,18 @@
+In most cases of least squares fitting, the model
+coefficient estimates for previously-added terms
+change change depending on what was successively
+added--hence the estimate for the X1 coefficient
+might change depending on whether or not an X2
+term was included in the model.  This is NOT the
+case for when the design is orthogonal (as is this
+2**3)--in such case, the estimates for the
+previously-included terms are invariant of
+successively added terms.  Hence the ranked list
+of effect estimates in the above table
+simultanously serves as the least squares
+coefficient estimates for progressively more
+complicated models.
+
+The last column of the above table gives the
+residual standard deviation for 8 possible
+models--each one progressively more complicated.

@@ -1,0 +1,86 @@
+.
+.  Generate sample output for box-cox normality plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na boxcli.ps
+device 2 postscript
+.
+.
+.  Jim's dplogf.tex settings
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+XTIC OFFSET 5 5
+YTIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+skip 25
+read JONES.DAT Y X
+.
+multiplot corner coordiantes 2 2 98 98
+multiplot 2 2
+label size 6
+x1label size 6
+title size 6
+tic mark label size 6
+height 6
+.
+fit y x
+line solid blank
+character BLANK X
+title Linear Fit of Original Data
+let a = ressd
+let a = round(a,3)
+x2label Residual Standard Deviaition = ^a
+plot pred y vs x
+x2label
+.
+y1label Correlation Coefficient
+y1label displacement 18
+. x1label Lambda
+Box-Cox Linearity Plot Y X
+y1label
+x1label
+.
+let temp = xplot
+let atemp = extreme yplot
+retain temp subset yplot = atemp
+let lambda = temp(1)
+justification center
+move 50 5
+text max lambda = ^lambda
+.
+let x2 = (x**lambda-1)/lambda
+title Transformed Data
+fit y x2
+.
+let a = ressd
+let a = round(a,3)
+x2label Residual Standard Deviation = ^a
+title Linear Fit of Transformed Data
+xlimits 0 800
+major xtic mark number 5
+plot pred y vs x2
+.
+end of multiplot
+.
+let string mark = JONES.DAT
+call mark5.dp
+. box 0 0 100 100
+.
+device 2 close
+system cp BOXCLI.PS boxcli.ps
+.
+quit

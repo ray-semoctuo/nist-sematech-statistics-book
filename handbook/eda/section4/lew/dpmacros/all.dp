@@ -1,0 +1,132 @@
+.
+.  Create Postscript files (to be converted to gif)
+.  for the Lew data.
+.
+device 1 x11
+thickness 0.2
+box shadow hw 0 0
+call data.dp
+.
+set ipl1na 4plot.ps
+device 2 postscript
+label size 6
+tic mark label size 6
+call 4plot.dp
+box 0 0 100 100
+device 2 close
+system mv 4PLOT.PS 4plot.ps
+label size 3
+tic mark label size 3
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+y1label displacement 11
+set ipl1na runseq.ps
+device 2 postscript
+call runseq.dp
+box 0 0 100 100
+device 2 close
+system mv RUNSEQ.PS runseq.ps
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+y1label displacement 11
+set ipl1na lagplot.ps
+device 2 postscript
+call lagplot.dp
+box 0 0 100 100
+device 2 close
+system mv LAGPLOT.PS lagplot.ps
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+set ipl1na autocorr.ps
+device 2 postscript
+call autocorr.dp
+box 0 0 100 100
+device 2 close
+system mv AUTOCORR.PS autocorr.ps
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+y1label displacement 15
+frame corner coordinates 20 20 90 90
+set ipl1na spectrum.ps
+device 2 postscript
+call spectrum.dp
+box 0 0 100 100
+device 2 close
+system mv SPECTRUM.PS spectrum.ps
+.
+label size 13
+tic label size 13
+legend size 4
+title size 4
+x2label displacement 15
+frame corner coordinates 15 25 95 95
+set ipl1na compdeph.ps
+device 2 postscript
+call compdeph.dp
+box 0 0 100 100
+device 2 close
+system mv COMPDEPH.PS compdeph.ps
+x2label displacement
+frame corner coordinates 15 20 85 90
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+x2label displacement 10
+x3label displacement 15
+set ipl1na compdeam.ps
+device 2 postscript
+call compdeam.dp
+box 0 0 100 100
+device 2 close
+system mv COMPDEAM.PS compdeam.ps
+x2label displacement
+x3label displacement
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+call ar.dp
+.
+set ipl1na 4plotres.ps
+device 2 postscript
+call 4plotres.dp
+box 0 0 100 100
+device 2 close
+system mv 4PLOTRES.PS 4plotres.ps
+.
+label size 4
+tic label size 4
+legend size 4
+title size 4
+call ar.2.dp
+.
+set ipl1na 4plotre2.ps
+device 2 postscript
+call 4plotre2.dp
+box 0 0 100 100
+device 2 close
+system mv 4PLOTRE2.PS 4plotre2.ps
+.
+. set ipl1na normprpl.ps
+. set ipl1na normprpl.ps
+. device 2 postscript
+. call normprpl.dp
+. device 2 close
+. system mv NORMPRPL.PS normprpl.ps
+.
+quit

@@ -1,0 +1,8 @@
+let ybar2=mean y subset t > 85
+let sd2=standard deviation y subset t > 85
+let cc2=y-y+ybar2
+let ul2=cc2+3*sd2
+let ll2=cc2-3*sd2
+plot y cc ul ll vs t subset t < 85 and
+plot y cc2 ul2 ll2 vs t subset t > 85
+.end of calculations                                

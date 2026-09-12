@@ -1,0 +1,401 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.11. Final Conclusions</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri61c.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri61a.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.11.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Final Conclusions</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Goals of This Case Study
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The output and goals of this case study were:
+<OL>
+    <LI>Determine the most important factors.
+    <LI>Determine the best settings for the factors.
+    <LI>Determine a good predicition equation for the data.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Most Important Factors and Prediction Equation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The various dex plots and Yates analysis showed that the number
+of turns (X1) and the winding distance (X2) were the most
+important factors.  The Yates analysis gave us a good prediction
+equation for the data
+<P>
+<img src="splett3/eqns/partmode.gif"
+     alt="Yhat = 2.65875 + 1/2 (3.10250*X1 - .86750*X2)">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Best Settings
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+At this point it is good to review the conclusions
+regarding goal 2 (determine best settings) for
+this case study.  If we are trying to determine
+settings of the factors which maximize the
+response, as in the this eddy current case study,
+then there are several approaches which lay claim
+title to yielding "best" settings:
+<P>
+<OL>
+   <li>Average-based
+   <li>Model-based
+   <li>Data-based
+</OL>
+<P>
+Methods 1 and 3 yield answers within the current -1 and +1
+domain of the data.  Method 2 yields an answer that frequently
+extrapolates beyond the domain of the executed experiment
+<P>
+This eddy current case study was drawn from an research and
+development environment, and so heavier emphasis was placed on
+understanding and insight (that is, what factors are important)
+than with best settings.  On the other hand, in a production
+environment, both goals are still in play, but the emphasis
+goes slightly heavier to the best settings goal as opposed to
+the important factors goal.  In a general engineering
+environment (either research and development or production), the
+above two goals frequently have, in practice, much greater
+interest to the engineer than the third enumerated goal (good
+model/prediction equation).
+<P>
+What then, are the final recommended best settings for this
+case study, and how do they compare with one another?
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Average Based
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the main effects plot (or equivalently
+from the signs of the estimated effects), it
+was seen that the comparison of the average
+response for each individual factor at the -1
+and + levels, and the choosing of the setting
+that yielded the larger average response
+yielded
+<P>
+<UL>
+   (X1 = +1, X2 = -1, X3 = +1)
+</UL>
+<P>
+From step 1 of the contour plot analysis, we
+saw that the best of the four vertices for the two
+dominant factors (X1 and X2):
+<P>
+<UL>
+   (X1 = +1, X2 = -1)
+</UL>
+<P>
+which agrees in part with the above seetings
+but leaves the question of X3 undone.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Model Based
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Also from the contour plot, we were able to
+draw 2-factor model-based contour curves which yielded
+<P>
+<UL>
+   (X1 = +2, X2 = -2, X3 = ?)
+</UL>
+<P>
+as the global estimate of the best setting
+(with the setting of X3 left undetermined).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Data Based
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Finally, a different, assumption-free, and
+simple (= no estimation and no modeling)
+data-based estimate of the best settings is
+always of interest to pursue.  If one takes the
+decidedly anti-statistical attitude that all of
+the previously-described statistical estimation
+and statistical modeling is nice but is a bit
+artificial and indirect, and that the only
+thing real is the eight data values on hand, then
+an argument could be forwarded that a simple
+sort of the eight data values (carrying along the three
+factor settings) should yield interesting
+information and optimal values all by itself.
+Proceeding in this fashion, such a simple sort
+(smallest to largest) of the data was carried
+out, yielding:
+<PRE>
+
+    Y         X1          X2          X3
+  Probe     Number      Winding      Wire
+Impedance  of Turns     Distance     Guage
+-------------------------------------------
+   0.55       -1          +1          -1
+   0.67       -1          +1          +1
+   1.51       -1          -1          +1
+   1.70       -1          -1          -1
+   3.39       +1          +1          -1
+   4.29       +1          +1          +1
+   4.57       +1          -1          -1
+   4.59       +1          -1          +1
+
+</PRE>
+The following conclusions can be drawn from the sort:
+<P>
+<OL>
+   <li>Best Settings: The largest response is 4.59 and so the
+       corresponding factor settings:
+       <P>
+       <UL>
+         (X1 = +1, X2 = -1, X3 = +1)
+       </UL>
+       <P>
+       can lay valid claim to being the best settings.  Note
+       interestingly enough that worst data point (0.55) has the
+       exact opposite signs:
+       <P>
+       <UL>
+         (X1 = -1, X2 = +1, X3 = -1)
+       </UL>
+       <P>
+       which further reinforces our choice for the (+1,-1,+1)
+       best setting.  That happened in this case; it does not
+       happen in most cases.
+       <P>
+   <li>Important factors:
+       Note that the largest value (4.59) has
+       settings (+,-,+).  Note that the next
+       largest (and nearly identical) value is
+       (4.57) and it has settings (+,-,-).  The
+       2 common settings for the 2 largest
+       values are X1 (+) and X2 (-) which
+       supports the fact that they are indeed
+       important factors, while X3 is relegated
+       to being an unimportant factor-- as per
+       agreement with the extensive previous
+       statistical analyses.
+       <P>
+       Note also that in the sorted table, the four
+       largest values all had X1 = +1 and the four
+       smallest values had X1 = -1, thus
+       reaffirming that factor X1 is in fact the
+       most important factor.  Further, within
+       the largest four responses with X1 = +1,
+       note that X2 is +1 for the two largest values
+       and -1 for the next two values.  Similarly,
+       for the four smallest values, the same
+       pattern for X2 (two +'s followed by two -'s)
+       persist, thus supporting the prior
+       conclusion that X2 is the second most
+       important factor.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Comparing Best Settings: Average Based Versus Data Based
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Based on the averages, the derived best setting was (+ -,+).
+Based on the sorted data, the derived best setting was (+,-,+).
+Fortuitously in this case, the two different approaches yielded
+the same conclusion, and so our final unambiguous estimate for
+the best setting within the domain of the data is
+<P>
+<UL>
+   (X1 = +1, X2 = -1, X3 = +1)
+</UL>
+<P>
+Because two different methods converged to the same conclusion,
+our confidence in the validity of that conclusion is greatly
+enhanced.
+<P>
+In other case studies, the two approaches may not agree in all
+of the settings.  In this author's experience, however, the
+two methods will <b>always</b> agree for the important factors
+(factors X1 and X2 here) and disagreement (if any) shows up in
+the unimportant factors.  In such cases, the recommendation
+course of action is to
+<ol>
+   <li>Important factors: Use the common best settings as given
+       by either and both approaches.
+       <P>
+   <li>Unimportant Factors:
+       <P>
+       <ol>
+         <li>If there is a difference in cost or set-up time
+             for the unimportant factors, then use the least
+             expensive or most hassle-free settings for these
+             factors.
+             <P>
+         <li>If there is no difference in factor cost or set-up
+             time, and the analyst must decide on the
+             average-based settings for the unimportant factors,
+             or the data-based settings for the unimportant
+             factors, then this author would recommend using the
+             average-based for the following two reasons:
+             <P>
+             <ol>
+                <li>The scope is broader for average-based.  The
+                    settings depend on averages across two or
+                    more observations, as opposed to having the
+                    noisiness of just a single observation in
+                    the data-based method.
+                    <P>
+                <li>The settings for the unimportant factors
+                    will always exist for full factorial designs
+                    (as is our present case study) but for
+                    other studies using a fractional factorial
+                    design, the use of average-based estimates
+                    for the settings of unimportant factors can
+                    yield settings for which data may not yet
+                    exist, and so is a step beyond the settings
+                    based just on the sorted data.
+             </ol>
+       </ol>
+</OL>
+
+</TD>
+</TR>
+
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri61a.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri61c.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

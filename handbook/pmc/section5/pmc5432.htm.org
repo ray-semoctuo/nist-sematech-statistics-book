@@ -1,0 +1,278 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.5.4.3.2. Example 1 (continued)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc5433.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc5431.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc5.htm">Tutorials</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc54.htm">Elements of Multivariate Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc543.htm">Hotelling's <i>T</i> squared</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.5.4.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Example 1 (continued)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This page continues the example begun on the
+<a href="pmc5431.htm">last page</a></i>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+The S matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <b>S</b> matrix for the production measurement data (three
+measurements made thirteen times) is
+<p>
+<center>
+<img SRC="eqns/smatrix.gif" height=74 width=256
+     ALT="S = [1.07692  -0.03205  0.16026;
+ -0.03205  0.75641  -0.03205;
+ 0.16026  -0.03205  0.41026]">
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Means of the deviations and the<br> <b>S</b><sup> -1</sup> matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The means of the deviations and the <b>S<sup>-</sup></b><sup>1</sup>
+matrix are
+<p>
+<center>
+<table width=300>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center>
+      &nbsp;
+   </th>
+   <th valign=top align=center>
+      a
+   </th>
+   <th valign=top align=center>
+      b
+   </th>
+   <th valign=top align=center>
+      c
+   </th>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      Means(<img align=absmiddle src="eqns/xbar.gif" alt="xbar">)
+   </td>
+   <td valign=top align=center>
+      -1.077
+   </td>
+   <td valign=top align=center>
+      0.615
+   </td>
+   <td valign=top align=center>
+      0.923
+   </td>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      &nbsp;
+   </td>
+   <td valign=top align=center>
+      0.9952
+   </td>
+   <td valign=top align=center>
+      0.0258
+   </td>
+   <td valign=top align=center>
+      -0.3867
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      S<sup>-1</sup> Matrix
+   </td>
+   <td valign=top align=center>
+      0.0258
+   </td>
+   <td valign=top align=center>
+      1.3271
+   </td>
+   <td valign=top align=center>
+      0.0936
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      &nbsp;
+   </td>
+   <td valign=top align=center>
+      -0.3867
+   </td>
+   <td valign=top align=center>
+      0.0936
+   </td>
+   <td valign=top align=center>
+      2.5959
+   </td>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/mvar16.gif" height=146 width=261 ALT=
+"Means(Xbar) = -1.077  0.615  0.923;
+  S**(-1) Matrix = [0.9952  0.0258  -0.3867;
+ 0.0258  1.3271  0.0936;
+ -0.3867  0.0936  2.5959]"> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Computation of the T<sup> 2</sup> statistic
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The sample set consists of n = 13 observations, so
+<p>
+<img SRC="eqns/mvar17.gif" height=222 width=446 ALT=
+"T(0)**2 = 13*(Xbar-0)*S**(-1)*(Xbar-0
+ = 13*[-1.077  0.615  0.923]*[0.9952  0.0258  -0.3867;
+ 0.0258  1.3271  0.0936; -0.3867  0.0936  2.5959]*[-1.077  0.615  0.923]
+ = 13*[-1.400  0.876  2.87][-1.077  0.615  0.923] = 60.99">
+<p>
+The corresponding <i>F</i> value =
+(T<sub>0</sub><sup>2</sup>)(<i>n-p)/[p(n-1)]</i>=60.99(10)/3(12)
+=16.94.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>We reject that the sample met the target mean</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <i>p</i>-value at 16.94 for <i>F</i> <sub>3,10</sub> = .00030.
+Since this is considerably smaller than an
+<img align=absmiddle src="eqns/alpha.gif" alt="alpha"> of, say,
+.01, we must reject <i>H</i><sub>0</sub> at least a 1% level of
+significance.  Therefore, we conclude that, on the average, the
+sample did not meet the targets for the means.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc5431.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc5433.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

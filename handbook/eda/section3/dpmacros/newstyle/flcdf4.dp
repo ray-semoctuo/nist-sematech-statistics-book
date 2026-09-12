@@ -1,0 +1,39 @@
+.
+.  Generate sample output for Fatigue Life CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na flcdf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+SET MINMAX MIN
+TITLE Fatigue Life CDF (0.5 df)
+PLOT FLCDF(X,0.5) FOR X = 0.01 0.01 5
+TITLE Fatigue Life CDF (1 df)
+PLOT FLCDF(X,1) FOR X = 0.0 0.01 5
+TITLE Fatigue Life CDF (2 df)
+PLOT FLCDF(X,2) FOR X = 0.01 0.01 5
+TITLE Fatigue Life CDF (5 df)
+PLOT FLCDF(X,5) FOR X = 0.01 0.01 5
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp FLCDF4.PS flcdf4.ps
+system rm FLCDF4.PS
+.
+quit

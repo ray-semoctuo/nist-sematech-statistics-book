@@ -1,0 +1,12 @@
+.
+. Starting Step 2.10
+title automatic
+y1label
+x1label
+.
+multiplot scale factor 3
+4-plot res
+multiplot scale factor 1
+y1label ^rot
+x1label ^flux
+. Finished Step 2.10: Page Back for Output

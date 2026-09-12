@@ -1,0 +1,1313 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List
+href="./Weibull%20and%20Lognormal%20JMP%20Templates_files/filelist.xml">
+<title>Using the Weibull and Lognormal JMP Templates</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>TOBIAS</o:Author>
+  <o:LastAuthor>TOBIAS</o:LastAuthor>
+  <o:Revision>6</o:Revision>
+  <o:TotalTime>211</o:TotalTime>
+  <o:LastPrinted>2001-10-11T21:08:00Z</o:LastPrinted>
+  <o:Created>2001-10-11T21:05:00Z</o:Created>
+  <o:LastSaved>2001-10-12T13:45:00Z</o:LastSaved>
+  <o:Pages>5</o:Pages>
+  <o:Words>2037</o:Words>
+  <o:Characters>11614</o:Characters>
+  <o:Company>International SEMATECH</o:Company>
+  <o:Lines>96</o:Lines>
+  <o:Paragraphs>23</o:Paragraphs>
+  <o:CharactersWithSpaces>14262</o:CharactersWithSpaces>
+  <o:Version>9.4402</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:ActiveWritingStyle Lang="EN-US" VendorID="64" DLLVersion="131077"
+   NLCheck="1">1</w:ActiveWritingStyle>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:FootnoteLayoutLikeWW8/>
+   <w:ShapeLayoutLikeWW8/>
+   <w:AlignTablesRowByRow/>
+   <w:ForgetLastTabAlignment/>
+   <w:LayoutRawTableWidth/>
+   <w:LayoutTableRowsApart/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:553679495 -2147483648 8 0 66047 0;}
+@font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;
+	mso-font-charset:128;
+	mso-generic-font-family:modern;
+	mso-font-pitch:variable;
+	mso-font-signature:-1 -369098753 63 0 4129023 0;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	mso-font-charset:128;
+	mso-generic-font-family:modern;
+	mso-font-pitch:variable;
+	mso-font-signature:-1 -369098753 63 0 4129023 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	mso-font-kerning:0pt;
+	font-weight:normal;}
+h2
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	font-weight:bold;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoList2, li.MsoList2, div.MsoList2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{margin:0in;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	background:navy;
+	font-size:10.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial Unicode MS";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:1422793127;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-232069162 1947127880 -1161758446 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Times New Roman";
+	mso-ascii-font-family:"Arial Unicode MS";
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:"Arial Unicode MS";
+	mso-bidi-font-family:"Times New Roman";}
+@list l0:level2
+	{mso-level-number-format:roman-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoTitle><b>Using the Weibull and Lognormal JMP Templates<o:p></o:p></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h1><b>I – Template Purpose<o:p></o:p></b></h1>
+
+<p class=MsoBodyText>The Weibull and Lognormal Templates are JMP worksheets
+designed to use the method of maximum likelihood estimation to analyze reliability
+time to failure data. The templates will handle multi-censored and/or readout
+data and also fit acceleration models with Arrhenius temperature and/or voltage
+terms. The voltage acceleration model can be either the Power Law model or an
+exponential voltage term model. The templates make use of the JMP Non-Linear
+Fit platform to do these analyses, and a good choice of starting values for the
+unknown parameters is often critical.</p>
+
+<p class=MsoBodyText>After fitting either the Weibull or lognormal life
+distribution model, the templates can be used to calculate projected cumulative
+failures (CDF’s) at user selected times (and for user selected stresses, if an
+acceleration model has been fit). In addition, the templates can next be used
+to calculate approximate confidence bounds for these CDF projections. The
+Weibull Template calculates bounds on CDF’s directly, while the Lognormal
+Template projects CDF’s but calculates confidence bounds in terms of the normal
+Z values that correspond to these CDF’s.</p>
+
+<p class=MsoBodyText><u>Note</u>: The JMP Survival Platform (Parametric
+Regression option) will also fit Weibull and lognormal models and acceleration
+models if the data contain only exact failure times and censoring times. Both
+the templates and the JMP Survival Platform will give the same answers for these
+kinds of data. The JMP Survival Platform, however, will not accommodate readout
+(also known as “interval”) data and does not calculate CDF’s . </p>
+
+<h1><b>II– Template Description<o:p></o:p></b></h1>
+
+<p class=MsoBodyText>Each Template has 33 columns with the same column
+headings. In a typical application, however, a user will only input numbers in
+somewhere between 6 to 13 columns and run the non-linear fit platform on 2
+calculated columns. The extra template columns are there to accommodate any of
+4 user chosen acceleration models, as well as a choice of “no model”. </p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width=655 style='width:491.4pt;
+ border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <thead>
+  <tr style='height:.25in'>
+   <td width=157 valign=top style='width:117.9pt;border-top:.5pt;border-left:
+   .5pt;border-bottom:.75pt;border-right:.75pt;border-color:windowtext;
+   border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:.25in'>
+   <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Column
+   Heading<o:p></o:p></span></b></p>
+   </td>
+   <td width=306 valign=top style='width:229.5pt;border-top:solid windowtext .5pt;
+   border-left:none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+   mso-border-left-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt;
+   height:.25in'>
+   <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Weibull
+   Analysis Notes<o:p></o:p></span></b></p>
+   </td>
+   <td width=192 valign=top style='width:2.0in;border-top:solid windowtext .5pt;
+   border-left:none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+   mso-border-left-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt;
+   height:.25in'>
+   <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Lognormal
+   Analysis Notes<o:p></o:p></span></b></p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h1><![if !supportEmptyParas]>&nbsp;<![endif]><b><o:p></o:p></b></h1>
+  </td>
+ </tr>
+ <tr style='height:36.45pt'>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt;
+  height:36.45pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(1)
+  Start Time<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt;height:36.45pt'>
+  <p class=MsoNormal><b><u><span style='font-size:12.0pt;mso-bidi-font-size:
+  10.0pt'>Mandatory</span></u></b><b><span style='font-size:12.0pt;mso-bidi-font-size:
+  10.0pt'> – enter exact failure times or censor times or start time of a
+  readout interval<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt;height:36.45pt'>
+  <h2>Same as Weibull</h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(2)
+  Stop Time<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Only
+  used for readout data – enter end of readout interval<o:p></o:p></span></b></p>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(3)
+  Censor<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h3>Mandatory</h3>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>0
+  = exact failure time<o:p></o:p></span></b></p>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1
+  = censoring time<o:p></o:p></span></b></p>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>2
+  = readout interval <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(4)
+  Freq<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Mandatory
+  – enter number of failures or censored units at that “Start Time” or during
+  the readout interval <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(5)
+  Temp in C<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Use
+  for Arrhenius model and several temperature cells<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(6)
+  Volt<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Use
+  for Voltage model and several voltage cells<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(7)
+  1/kT<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(8)
+  ln V<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(9)
+  Loss(w/o Stress)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template – calculates Weibull “Charlife” and “shape” <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull – but calculates a “mu” = ln T50 and “shape” = sigma<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='height:13.95pt'>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt;
+  height:13.95pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(10)
+  Loss (w/Temp)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.95pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template – use when working with temperature stress cells and an Arrhenius
+  model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.95pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(11)
+  Loss (w/Ln Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template – use when working with voltage stress cells and an inverse Power
+  Law model (V**Beta term)<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(12)
+  Loss (w/Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template - use when working with voltage stress cells and an exponential
+  voltage term model (Exp V*Beta)<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(13)
+  Loss (Temp/Ln Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template – use when working with both temperature and voltage cells and an
+  Arrhenius/Inverse Power Law model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(14)
+  Loss (Temp/Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculated
+  by Template – use when working with both temperature and voltage cells and an
+  Arrhenius/exponential voltage model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(15)
+  Use Time<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input for CDF calculations<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(16)
+  Use Temp<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input for use temp CDF projections after fitting Arrhenius model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(17)
+  Use Volts<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input for use voltage CDF projections after fitting voltage model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(18)
+  constant<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input for CDF calculations – either the constant term after fitting a model
+  or the (natural) log of the Char. Life for “no model” calculations <o:p></o:p></span></b></p>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull – but input the (natural) log of the T50 for “no model”
+  calculations<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(19)
+  Delta H<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input for use temperature CDF projections after fitting an Arrhenius model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(20)
+  Beta<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input for use voltage CDF projections after fitting voltage model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(21)
+  Shape<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input of Weibull shape parameter<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>User
+  input of lognormal shape = sigma<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(22)
+  Use CDF (no Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “constant” = log Char. Life and “Shape”
+  have been entered <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “constant” = log T50 Life and “Shape” = sigma
+  have been entered <o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(23)
+  Use CDF (Temp)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “user Temp”, “constant”, “Shape” and “Delta
+  H” have been entered <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(24)
+  Use CDF (Ln Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “user Volts”, “constant”, “Shape” and
+  “Beta” have been entered – use for Power law model <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(25)
+  Use CDF (Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “user Volts”, “constant”, “Shape” and
+  “Beta” have been entered – use for exponential voltage term model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(26)
+  Use CDF (T/Ln Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “user Temp”,“user Volts”, “constant”, “Shape”
+  and “Beta” have been entered – use for Arrhenius/Power law model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(27)
+  Use CDF (T/Volt)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s at user inputted times when “user Temp”,“user Volts”, “constant”,
+  “Shape” and “Beta” have been entered – use for Arrhenius/exponential voltage
+  term model<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(28)
+  CDF Bds (No Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s with bounds via non-linear platform when “use time”, “Shape” and a good
+  starting CDF estimate have been entered into the non-linear platform. Get a
+  good CDF starting value by running ” Use CDF (no Model)”.<span
+  style="mso-spacerun: yes">  </span><o:p></o:p></span></b></p>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull except instead of a starting CDF value input you must convert the
+  input to a corresponding normal distribution “Z” value (and convert the
+  answers back again)<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(29)
+  CDF Bds (Temp Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s with bounds via non-linear platform when “use time”,<span
+  style="mso-spacerun: yes">  </span>“use Temp”,“Shape”, “Delta H” and a good
+  starting CDF estimate have been entered into the non-linear platform. Get a
+  good CDF starting value by running ” Use CDF (Temp)”.<span
+  style="mso-spacerun: yes">  </span><o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull except instead of a starting CDF value input you must convert the
+  input to a corresponding normal distribution “Z” value (and convert the
+  answers back again)<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(30)
+  CDF Bds (Ln Volt Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s with bounds via non-linear platform when “use time”,<span
+  style="mso-spacerun: yes">  </span>“use Volts”,“Shape”, “Beta” and a good
+  starting CDF estimate have been entered into the non-linear platform. Get a
+  good CDF starting value by first running “ Use CDF (Ln Volt)”.<span
+  style="mso-spacerun: yes">  </span>Voltage model is the inverse Power Law. <o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull except instead of a starting CDF value input you must convert the
+  input to a corresponding normal distribution “Z” value (and convert the
+  answers back again)<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(31)
+  CDF Bds (Volt Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s with bounds via non-linear platform when “use time”,<span
+  style="mso-spacerun: yes">  </span>“use Volts”,“Shape”, “Beta” and a good
+  starting CDF estimate have been entered into the non-linear platform. Get a
+  good CDF starting value by running “ Use CDF (Volt)”.<span
+  style="mso-spacerun: yes">  </span>Voltage model is the exponential term
+  model.<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull except instead of a starting CDF value input you must convert the
+  input to a corresponding normal distribution “Z” value (and convert the
+  answers back again)<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(32)
+  CDF Bds (T/Ln Volt Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s with bounds via non-linear platform when “use time”, “use Temp”, “use
+  Volts”,“Shape”, “Delta H”,“Beta” and a good starting CDF estimate have been
+  entered into the non-linear platform. Get a good CDF starting value by first
+  running “ Use CDF (Temp/Ln Volt)”.<span style="mso-spacerun: yes"> 
+  </span>Voltage model is the inverse Power Law.<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull except instead of a starting CDF value input you must convert the
+  input to a corresponding normal distribution “Z” value (and convert the
+  answers back again)<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=157 valign=top style='width:117.9pt;border-top:none;border-left:
+  solid windowtext .5pt;border-bottom:solid windowtext .5pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(33)
+  CDF Bds (T/Volt Model)<o:p></o:p></span></b></p>
+  </td>
+  <td width=306 valign=top style='width:229.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .75pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Calculates
+  CDF’s with bounds via non-linear platform when “use time”, “use Temp”, “use
+  Volts”,“Shape”, “Delta H”,“Beta” and a good starting CDF estimate have been
+  entered into the non-linear platform. Get a good CDF starting value by
+  running “ Use CDF (Temp/Ln Volt)”.<span style="mso-spacerun: yes"> 
+  </span>Voltage model is the exponential term model.<o:p></o:p></span></b></p>
+  </td>
+  <td width=192 valign=top style='width:2.0in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  mso-border-top-alt:solid windowtext .75pt;mso-border-left-alt:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Same
+  as Weibull except instead of a starting CDF value input you must convert the
+  input to a corresponding normal distribution “Z” value (and convert the
+  answers back again)<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2>III – Steps for Using The Templates</h2>
+
+<p style='margin-left:.5in;text-indent:-.5in;mso-list:l0 level1 lfo2;
+tab-stops:list 22.5pt .5in'><![if !supportLists]><span style='mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>Load the
+Template corresponding to your choice of a life distribution model.<o:p></o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.5in;mso-list:l0 level1 lfo2;
+tab-stops:-9.0pt list 22.5pt .5in'><![if !supportLists]><span style='mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>Typical
+Data Entry <o:p></o:p></span></p>
+
+<p style='margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>i)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>Any kind of
+censored or truncated or readout data can be entered. The rules are as<span
+style="mso-spacerun: yes">    </span>follows for the common case of (right)
+censored&nbsp;reliability data: <br>
+&nbsp; <o:p></o:p></span></p>
+
+<p class=MsoList2 style='margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]>ii)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Enter <i>exact</i> failure times in the “Start Time” column,
+with “0” in the “Censor” column and the number of failures at that exact time
+in the “Freq” column. </p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>iii)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>Enter
+temperature in degrees Celsius for the row entry in “Temp in C”, whenever data
+from several different operating temperatures are present and an Arrhenius
+model fit is desired. <o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>iv)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>Enter
+voltages in “Volt” for each row entry whenever data from several different
+voltages are present and either an Inverse Power Law model or an exponential
+term voltage model fit is desired. If both temperatures and voltages are
+entered for all data rows, a combined two-stress model can be fit. <o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>v)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>Put censor
+times (where an unfailed units are removed from test, or no longer
+observed)&nbsp;in<span style="mso-spacerun: yes">  </span>“Start Time” column,
+and enter&nbsp; “1” in the “Censor” column. Put the number of censored units in
+the “Freq” column. <o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>vi)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>If readout
+(also known as interval) data is present, put the interval “Start time” and “Stop
+time” in the corresponding columns and “2” in the “Censor” column. Put the
+number of failures during the interval in the “Freq” column. If the number of
+failures is zero, it doesn’t matter if you include the interval, or not.&nbsp;<o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:.5in;text-indent:-.5in;mso-list:l0 level1 lfo2;
+tab-stops:list 27.0pt .5in'><![if !supportLists]><span style='mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>After all
+the data have been entered, pick the appropriate “Loss” column and use the Non
+Linear Fit JMP analysis platform. When using this platform, enter only this
+column as “Loss”, choose “OK” and choose “Loss is Neg LogLikelihood”.<o:p></o:p></span></p>
+
+<p class=MsoList2 style='margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]>i)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>The “Loss (w/o Stress)” column is appropriate when only a
+straight life distribution fit is desired, with no acceleration model.&nbsp; </p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>ii)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>The “Loss
+(w/Temp)” column handles an Arrhenius model (no other stress taken into
+account). The “Loss (w/ Ln Volts)” column handles an Inverse Voltage Power Law
+model (no other stress taken into account). <o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>iii)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>The “Loss
+(w/ Ln Volts)” column handles an Inverse Voltage Power Law model (no other
+stress taken into account).<o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>iv)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>The “Loss
+(w/Volts)” column handles an exponential Voltage term acceleration model (no
+other stress taken into account).<o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>v)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>The “Loss
+(w/Temp/Ln Volts)” column handles a two-stress Arrhenius/Inverse Voltage Power
+Law model. <o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.25in'><![if !supportLists]><span style='font-family:"Times New Roman"'>vi)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>The “Loss
+(w/Temp/Volts)” column handles a two-stress Arrhenius/exponential voltage term
+model.<o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:1.25in;text-indent:-.5in;mso-list:l0 level2 lfo2;
+tab-stops:22.5pt list 1.25in'><![if !supportLists]><span style='font-family:
+"Times New Roman"'>vii)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>You may
+have to iterate on your choice of starting parameter values in the non-linear
+platform in order to obtain convergence to acceptable estimates (non-negative,
+reasonable values for Shape, Beta, Delta H). See the JMP Help for the
+non-linear platform for additional tips when you have convergence problems.
+Note that the way the models were set up in the Templates, the Beta parameter
+should be non-negative.<o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:.5in;text-indent:-.5in;mso-list:l0 level1 lfo2;
+tab-stops:.5in'><![if !supportLists]><span style='mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman"'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>If you next
+want to use the Template to project CDF values at your choice of (Use) time and
+for your choice of (Use) Temp and/or Voltage (assuming you fit an acceleration
+model to multi-stress cell data), then you have to put the appropriate inputs
+obtained for your chosen model in columns 15 through 21 (leave blank those
+columns not needed for your model). The projected CDF value will appear in whichever
+of columns 22 to 27 describes your chosen model.<o:p></o:p></span></p>
+
+<p style='margin-right:.5in;margin-left:.5in;text-indent:-.5in;mso-list:l0 level1 lfo2;
+tab-stops:.5in'><![if !supportLists]><span style='mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman"'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span style='font-family:"Times New Roman"'>To obtain
+confidence bounds for a CDF projection you must choose the “CDF Bd” column that
+corresponds to your fitted model and use the non-linear platform. Enter only
+this column as “Loss”, choose “OK” and choose “Loss is Neg LogLikelihood”.
+Check the starting values and set them to approximately the values you obtained
+for your model. Set CDF (for the Weibull Template) approximately to the
+projected value and click “reset” and “go”. The routine should now converge
+almost exactly the projected CDF value and you can click on “confidence limits”
+to obtain bounds. For the Lognormal Template you have to first convert the
+approximate projected CDF value to a normal “Z” value and use this as a
+starting value. After convergence, you will have to convert Z values (and
+bounds) back to CDF values using a normal distribution calculator or table.<o:p></o:p></span></p>
+
+<p class=MsoBodyText><b style='mso-bidi-font-weight:normal'>IV - JMP Template
+Data Entry For Truncated or Left Censored Weibull or Lognormal Data <o:p></o:p></b></p>
+
+<p style='margin-right:2.25in;tab-stops:10.25in'><b><span style='font-family:
+"Times New Roman"'>Left censored data</span></b><span style='font-family:"Times New Roman"'>
+means all exact times of failure below a lower cut off time T<sub>0 </sub>are
+unknown, but the number of these failures is known. Merely enter an interval
+with start time 0 and stop time T<sub>0</sub> on the appropriate template and put
+“2” in the “Censor” column and the number in the “Freq” column. <o:p></o:p></span></p>
+
+<p><b><span style='font-family:"Times New Roman"'>Left truncated data</span></b><span
+style='font-family:"Times New Roman"'> means all data points below a lower cut
+off point T<sub>0</sub> are unknown, and even the number of such points is
+unknown. This situation occurs commonly for measurement data, when the
+measuring instrument has a lower threshold detection limit at T<sub>0</sub>.
+Assume there are <i>n</i> data points (all above T<sub>0</sub>) actually
+observed. Enter the <i>n</i> points as you normally would on the appropriate
+template (“Censor” gets 0 and “Freq” gets 1) and add a start time of T<sub>0</sub>
+with a “Censor” value of 1 and a “Freq” value of -<i>n</i> (yes, minus <i>n</i>!).&nbsp;
+<o:p></o:p></span></p>
+
+<p><b><span style='font-family:"Times New Roman"'>Right truncated data</span></b><span
+style='font-family:"Times New Roman"'> means all data points above an upper cut
+off point T<sub>1 </sub>are unknown, and even the number of such points is
+unknown. Assume there are <i>n</i> data points (all below T<sub>1</sub>)
+actually observed. Enter the <i>n </i>points as you normally would on the
+appropriate template (“Censor” gets 0 and “Freq” gets 1) and add a start time
+of&nbsp;0 and a stop time of T<sub>1</sub> with a “Censor” value of 2 and a
+“Freq” value of -<i>n</i> (yes, minus <i>n</i>!)<o:p></o:p></span></p>
+
+<p style='margin-right:.5in'><span style='font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p style='margin-right:.5in'><span style='font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p style='margin:0in;margin-bottom:.0001pt'><span style='mso-bidi-font-size:
+10.0pt;font-family:"Times New Roman";mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

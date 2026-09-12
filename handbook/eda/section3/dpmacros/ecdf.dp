@@ -1,0 +1,40 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+set ipl1na ecdf.ps
+device 2 postscript
+title size 5
+label size 5
+legend size 5
+tic label size 4
+title offset 3
+.
+let y1 = normal random numbers for i = 1 1 100
+segment 1 coordinates 20 82 26 82
+segment 2 coordinates 20 78 26 78
+segment 1 pattern solid
+segment 2 pattern dash
+legend case asis
+legend 1 coordinates 28 81
+legend 1 ECDF
+legend 2 coordinates 28 77
+legend 2 Normal CDF
+title 100 normal random numbers
+y1label cumulative probability
+x1label x
+.
+empirical cdf plot y1
+.
+line dash
+pre-erase off
+limits freeze
+plot norcdf(x) for x = -3.5 .01 3.5
+.
+box 0 0 100 100
+.
+device 2 close
+system mv ECDF.PS ecdf.ps
+.
+quit

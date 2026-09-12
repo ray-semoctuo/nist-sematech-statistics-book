@@ -1,0 +1,495 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.5.4.3. Hotelling's <i>T</i> squared</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc5431.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc542.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc5.htm">Tutorials</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc54.htm">Elements of Multivariate Analysis</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.5.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Hotelling's <i>T</i> squared</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<a NAME="The Hotelling   T2"></a>
+<b>The Hotelling <i>T</i> <sup>2</sup> distance</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Measures "distance" from target using covariance matrix</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A measure that takes into account multivariate covariance structure
+was proposed by Harold Hotelling in 1947 and is called Hotelling's
+<i>T</i> <sup>2</sup>.  It may be thought of as the multivariate
+counterpart of the Student's <i>t</i>.  The <i>T</i><sup> 2</sup>
+distance is a constant multiplied times a <i>quadratic form</i>.
+For <u>one</u> group (or subgroup), this quadratic form
+is obtained as follows:
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Definition of T<sup> 2</sup></i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Start from the data matrix, <b>X</b><sub><i>n</i>x<i>p</i></sub>
+(<i>n </i>x<i> p</i> element observations)
+<ul>
+   <li>Define a 1 x <i>p</i> target vector, <b>m</b>
+       <p>
+   <li>Compute the 1 x <i>p</i> vector of column averages,
+       <b><i>x</i></b>
+       <p>
+   <li>Compute the covariance matrix, <b>S</b> and its inverse,
+       <b>S</b><sup>-1</sup>.  Here <b>S</b> is the unbiased
+       covariance estimate defined by
+       <p>
+       <ul>
+       <!-- <img SRC="eqns/scovar.gif" height=45 width=194 ALT= -->
+       <img SRC="eqns/hotel1b.gif" height=45 width=205 ALT=
+"S(jh) = (1/(n-1))*SUM[i=1 to n](X(ij)-Xbar(j))*(X(ih)-Xbar(h))">
+       </ul>
+       <p>
+   <li>Compute the matrix of deviations <b>(X-m )</b> and
+       its transpose, <b>(X-m)<sup>'</sup></b>
+       <p>
+   <li>The quadratic form is computed by
+       <b>Q</b> = <b>(X-m)<sup>'</sup>S</b><sup>-1</sup><b>(X-m)</b>
+</ul>
+The formula for the Hotelling <i>T</i><sup> 2</sup> is:
+<ul>
+   <i>T</i><sup> 2</sup> = <i>n</i><b>Q</b> = <i>n</i>
+   <b>(x-m)'S</b><sup>-1</sup><b>(x-m)</b>
+</ul>
+The constant <i>n</i> is the size of the sample from which the
+covariance matrix was estimated.  If no targets are available, use
+the grand mean, which for one subgroup is the mean of the <i>p</i>
+column means.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Theoretical covariance matrix is diagonal
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+It should be mentioned that for independent variables the theoretical
+covariance matrix is a diagonal matrix and Hotelling's
+<i>T</i><sup> 2</sup> becomes proportional to the sum of the squared
+standardized variables.
+<p>
+In general, the higher the <i>T</i><sup> 2</sup> value, the more
+distant is the observation from the target.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Estimation formulas for m subgroups, each having n observations
+on p variables
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A summary of the estimation procedure for the mean vector and
+the covariance matrix for more than one subgroup follows.
+<p>
+Let <i>m</i> be the number of available subgroups (or samples).
+Each subgroup has <i>n</i> observations on <i>p</i> variables.  The
+subgroup means and variances are calculated from
+<p>
+<center>
+<img SRC="eqns/hotel1.gif" BORDER=0 height=124 width=266 ALT=
+"xbar(jk) = (1/n)*SUM[i=1 to n][x(ijk)]  for j = 1, 2, ..., p and
+ k = 1, 2, ..., m;
+ s(jk)^2 = (1/(n-1)*SUM[i=1 to n][(x(ijk) - xbar(jk))^2]
+ for j = 1, 2, ..., p and k = 1, 2, ..., m">
+</center>
+<p>
+x<sub><i>ijk</i></sub> is the <i>i</i>th observation on the
+<i>j</i>th variable in subgroup <i>k</i>.  The covariance between
+variable <i>j</i> and variable <i>h</i> in subgroup <i>k</i> is:
+<p>
+<img SRC="eqns/hotel1a.gif" height=48 width=324 alt=
+"s(jhk) = (1/(n-1))*SUM[i=1 to n]
+[(x(ijk) - xbar(jk))*(x(ijk) - xbar(hk))]
+ for k = 1, 2, ..., m and j not equal h">
+<p>
+The statistics
+<img align=absmiddle src="eqns/xbarjk.gif" alt="xbar(jl)">,
+<img align=absmiddle src="eqns/s2jk.gif" alt="s(jk)^2">, and
+<img align=absmiddle src="eqns/s2jhk.gif" alt="s(jhk)">
+are averaged over all <i>m</i> samples:
+<ul>
+<!-- <img SRC="eqns/hotel2.gif" height=216 width=314> -->
+<img SRC="eqns/xbarbarj.gif" ALT=
+"xbarbar(j) = (1/m)*SUM[i=1 to m][xbar(jk)]   j = 1, 2, ..., p">
+<p>
+<img SRC="eqns/sbarj2.gif" ALT=
+"sbar(j)^2 = (1/m)*SUM[i=1 to m][S(jk)^2]   j = 1, 2, ..., p">
+</ul>
+and
+<ul>
+<img SRC="eqns/sbarjk.gif" ALT=
+"sbar(jk) = (1/m)*SUM[k=1 to m][S(jhk)]   j not equal h">
+</ul>
+The
+<img align=absmiddle src="eqns/xbarbarj2.gif" alt="(xbarbar(j)">
+are the elements of the vector
+<img align=absmiddle src="eqns/xbarbar.gif" alt="(xbarbar">
+and the <i>p</i> x <i>p</i> average of the sample covariance
+matrix <b><i>S</i></b> is
+<ul>
+<!-- <img SRC="eqns/hotel3.gif" height=204 width=325> -->
+<img SRC="eqns/smat.gif" ALT=
+"{sbar(1)^2  sbar(12) sbar(13) .... sbar(13);
+  sbar(12) sbar(2)^2 sbar(22) ... sbar(2p);
+  sbar(13) sbar(23) sbar(3)^2 ... sbar(3p);
+     ..... ;
+  sbar(1p)  ...   sbar(p)^2]">
+</ul>
+<b><i>S</i></b> is an unbiased estimate of
+<img align=absmiddle src="eqns/sigmauc.gif" alt="SIGMA">
+when the process is in control.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+T<sup> 2</sup> lends itself to graphical display
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <i>T</i><sup> 2</sup> distances lend themselves readily to
+graphical displays and, as a result, the <i>T</i><sup> 2</sup>-chart
+is the most popular among all multivariate control charts.  Let us
+examine how this works: For <b>one</b> group (or subgroup) we have:
+<ul>
+   <i>T</i><sup>2</sup> =
+   <i>n</i>(<i><b>X</b></i> -
+   <i><b>m</b></i>)' <b><i>S</i><sup>-1</sup></b>
+   (<i><b>X</b></i> - <i><b>m</b></i>)
+</ul>
+where
+<ul>
+   <li><b><i>X</i></b> = (<i>x</i><sub>1</sub>, ...,
+       <i>x<sub>p</sub></i> is an individual vector measurement
+       <p>
+   <li><b>m</b> = (m<sub>1</sub>, ... , m<sub>p</sub>)
+       is the vector of targets
+       <p>
+   <li><b><i>S</i><sup>-1</sup></b> is the inverse of the
+       covariance matrix
+       <p>
+   <li><i>n</i> is the sample size
+</ul>
+When observations are grouped into <i>k</i> (rational) subgroups,
+each of size <i>n</i>, we can compute a statistic,
+<i>T</i><sup>2</sup>, for each subgroup that measures the deviations
+of the subgroup averages from the target vector <b>m</b> where
+<ul>
+   <li><img align=absmiddle src="eqns/t2m.gif" alt=
+            "T(j)^2 = n*(xbar(j)-m)'*S(p)^(-1)*(xbar(j)-m)">
+       <p>
+   <li><img align=absmiddle src="eqns/xbarj.gif" alt="xbar(j)">
+       is the 1x<i>p</i> vector of the averages of subgroup
+       <i>j</i>
+       <p>
+   <li><img align=absmiddle src="eqns/sp.gif" alt=
+            "S(p) = (1/k)*SUM[i=1 to k][S(j)]">
+       is the pooled covariance matrix 
+       <p>
+   <li><b><i>m</i></b> is the 1x<i>p</i> target vector
+       <p>
+   <li><i>n</i> is the subgroup sample size
+</ul>
+<a NAME="eqns/hotel"></a>
+<!-- <img SRC="eqns/hotel5.gif" height=153 width=298> -->
+<!--  <img SRC="eqns/mvar9.gif" height=136 width=353> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Hotelling<br> T<sup> 2</sup> upper control limit (there is no
+lower limit)</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The Upper Control Limit (UCL) on the control chart is
+<ul>
+   <!-- <img align=absmiddle src="eqns/chi.gif" alt="Chi">
+   <sup>2</sup>
+   <sub> <img align=bottom src="eqns/alpha.gif" alt="alpha">,
+   <i>p</i></sub> -->
+   <img src="eqns/uclhot.gif" alt=
+        "UCL = [p*(n-1)/(n-p)}*F(p,n-p;alpha)">
+</ul>
+where
+<img align=absmiddle src="eqns/fnnmp.gif" alt="F(p,n-p;alpha)">
+is the upper 100
+<img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+percentile of the <i>F</i>-distribution with
+<i>p</i> and <i>n</i>-<i>p</i> degrees of freedom.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Case where no target is available
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+If no target <b>m</b> is available, we may substitute the grand mean
+vector of the averages of the sample mean vectors.  We also might
+choose to do this when the grand mean vector differs more than
+slightly from the target vector.  A target vector may be unrealistic
+relative to the current state of a multivariate process.  In this
+case the formula becomes
+<ul>
+   <!-- <img SRC="eqns/mvar12.gif" height=94 width=373 -->
+   <img SRC="eqns/t2j2.gif"
+     ALT="T(j)**2 = n*(Xbar(j) - Xbar)'*S(p)^(-1)*(Xbar(j) -Xbar)">
+</ul>
+where
+<ul>
+   <img align=absmiddle src="eqns/xbarbar2.gif"
+        alt="Xbarbar = (1/k)*SUM[j=1 to k][xbar(j)]">
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Upper control limit for no target case
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The Upper Control Limit (UCL) is given by
+<ul>
+<img SRC="eqns/mvar11.gif" height=94 width=214 ALT=
+     "UCL = {p*(k-1)*(n-1)/(k*(n-1)+1-p)}*F(alpha,p,k*(n-1)+1-p)">
+</ul>
+where <img align=absmiddle SRC="eqns/uclhot3.gif"
+ALT="F(alpha,p,k*(n-1)+1-p)"> is the upper 100
+<img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+percentile of the <i>F</i>-distribution with <i>p</i> and
+<i>k</i>(<i>n</i>-<i>1</i>)+1-<i>p</i> degrees of freedom,
+ <i>p</i> is the number of variables, <i>n</i> is the size
+of the subgroup, and <i>k</i> is the number of subgroups in the
+sample.  There is no lower control limit, as is the case for most
+multivariate control charts.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>There is also a dispersion chart (similar to an s or R univariate
+control chart)</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+As in the univariate case, for grouped data, the
+Hotelling T<sup> 2</sup> chart may be accompanied by a chart that
+displays and monitors a measure of dispersion within the subgroups.
+The statistic that fulfills this obligation is
+<ul>
+   <!-- <img SRC="eqns/mvar12a.gif" height=149 width=378 ALT= -->
+   <img SRC="eqns/tdsq.gif" ALT=
+"T(D)**2 = SUM[i=1 to n)(X(ij)-Xbar(j))'*S(p)**(-1)*(X(ij)-Xbar(j))">
+</ul>
+for each subgroup <i>j</i>.
+<p>
+The UCL for dispersion statistics is given by Alt (1985) as
+<ul>
+   <img SRC="eqns/dispucl.gif"
+        ALT="Chi-Square(alpha,p*(p+1)/2)">
+</ul>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Correspondence between univariate t and multivariate T<sup> 2</sup>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To illustrate the correspondence between the univariate <i>t</i> and
+the multivariate T<sup>2</sup> observe the following:
+<ul>
+<img SRC="eqns/hotel12.gif" height=44 width=66
+     alt="t = (xbar - u0)/s/SQRT(N)">
+</ul>
+follows a <i>t</i> distribution.  If we test the hypothesis that
+<img align=absmiddle src="eqns/mu.gif" alt="mu"> =
+<img align=absmiddle src="eqns/mu.gif" alt="mu"><sub>0</sub> we get:
+<ul>
+<img SRC="eqns/hotel12.gif" height=44 width=66
+     alt="t = (xbar - mu0)/(s/SQRT(N))">
+</ul>
+then
+<ul>
+<img SRC="eqns/t2a.gif"
+     alt="t^2 = (xbar - mu0)^2/(s^2/n)">
+</ul>
+or
+<ul>
+<img SRC="eqns/t2b.gif"
+     alt="t^2 = n(xbar - mu0*(s^2)^(-1)(xbar - mu0)">
+</ul>
+<!-- <img SRC="eqns/hotel14.gif" height=172 width=180> -->
+<p>
+Generalizing to <i>p</i> variables yields
+<a href="#hotel">Hotelling's T<sup>2</sup></a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Other dispersion charts
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Other multivariate charts for dispersion have been proposed; see
+<a href="../section7/pmc7.htm#Ryan,">Ryan (2000, pp. 269-270)</a>.
+<p>
+The principles outlined above will be illustrated next with examples.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc542.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc5431.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

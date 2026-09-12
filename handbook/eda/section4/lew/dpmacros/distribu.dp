@@ -1,0 +1,10 @@
+. Starting Step 4.4
+.
+anderson-darling normal test y
+let string inorm = YES
+normal probability plot y
+if PPCC < .987
+  let string inorm = NO
+end of if
+.
+. Finished Step 4.4: Page Back for Output

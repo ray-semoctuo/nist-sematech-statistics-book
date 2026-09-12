@@ -1,0 +1,5 @@
+.
+. Starting Step 4.1
+yates y subset cent = 0 subset X3 = -1
+yates y subset cent = 0 subset X3 = +1
+. Finished Step 4.1: Page Back for Output

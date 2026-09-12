@@ -1,0 +1,6 @@
+device 1 x11
+device 2
+let x = normal random numbers for i = 1 1 100
+let x = 3*x
+let y = normal random numbers for i = 1 1 100
+let y = 2*y

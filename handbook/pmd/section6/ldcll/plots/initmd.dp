@@ -1,0 +1,20 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 98 98 
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank
+skip 25
+read pontius.dat y x
+x1label Load
+y1label Deflection
+device 2 postscript
+plot y x 
+device 2 close
+system mv dppl1f.dat initmd.ps
+quit

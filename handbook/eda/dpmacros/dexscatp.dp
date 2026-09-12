@@ -1,0 +1,55 @@
+. This is file    dexscatp.dp
+.  Create a GIF file for a dex scatter plot
+.
+DEVICE 1 X11
+device 2 postscript
+.
+TITLE 
+TITLE SIZE 4
+TITLE DISPLACEMENT 2
+LABEL CASES ASIS
+TITLE CASES ASIS
+LABEL SIZE 4
+TIC LABEL SIZE 4
+THICKNESS 0.2
+.
+PRE-ERASE OFF
+.
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title DEX Scatter Plot
+y1label Response
+x1label Factors
+xlimits 1 7
+xtic offset 0.5 0.5
+major xtic mark number 7
+minor xtic mark number 0
+ylimits 50 90
+ytic offset 2 2
+.
+characters x blank
+lines blank solid
+.
+dex scatter plot y x1 x2 x3 x4 x5 x6 x7
+.
+line dotted
+loop for k = 1 1 6
+   let xcoor = k + 0.5
+   let ycoor1 = 48
+   let ycoor2 = 92
+   drawdata xcoor ycoor1 xcoor ycoor2
+end of loop
+.
+HEIGHT 4
+MOVE 99 1
+JUST RIGHT
+TEXT BOXBIKE2.DAT
+BOX 0 0 100 100
+DEVICE 2 CLOSE
+.
+. -----DONE-----
+.
+system mv dppl1f.dat dexscatp.ps
+EXIT

@@ -1,0 +1,38 @@
+   <LI><img align=absmiddle src="splett3/eqns/absbeta.gif">
+       &nbsp;>&nbsp; the minimum engineering significant
+       <img align=absmiddle src="splett3/eqns/delta.gif">
+       <P>
+   <LI>look for natural spacing and gaps in the 
+       <img align=absmiddle src="splett3/eqns/absbeta.gif">
+       <P>
+   <LI><img align=absmiddle src="splett3/eqns/absbeta2.gif">
+       <P>
+   <LI><img align=absmiddle src="splett3/eqns/absbeta3.gif">
+       <P>
+       where <img align=absmiddle src="splett3/eqns/sigma.gif">
+       can be estimated from:
+       <OL>
+          <LI>An a priori engineering judgement.
+          <LI>The data if replication is present.
+          <LI>The standard deviation of the residuals if we
+              ignore all 3-term and higher interactions.
+          <LI>The <img align=absmiddle src="splett3/eqns/sdbeta.gif">
+              are estimated from a simple standard deviation 
+              calculated from all
+              <img align=absmiddle src="splett3/eqns/betaijk.gif">
+              from 3-term interactions and higher.
+       </OL>
+       <P>
+   <LI>A <a href="../../eda/section3/normprpl.htm">normal probability
+       plot</a> of
+       <img align=absmiddle src="splett3/eqns/betahat.gif">.
+       <P>
+   <LI>A halfnormal
+       <a href="../../eda/section3/probplot.htm">probability plot</a>
+       of <img align=absmiddle src="splett3/eqns/absbeta.gif">.
+       <P>
+   <LI>A <a href="../../eda/section3/youdplot.htm">Youden plot</a>
+       of the factor means.
+       <P>
+   <LI>The cumulative residual standard deviaition is less than
+       the minimum engineering residual standard deviation.

@@ -1,0 +1,10 @@
+.
+.  Generate sample output for confidence limits
+.
+skip 25
+read lew.dat y
+echo on
+capture runs.out
+runs y
+end of capture 
+quit

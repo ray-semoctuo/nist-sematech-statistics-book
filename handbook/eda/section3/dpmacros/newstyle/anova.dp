@@ -1,0 +1,11 @@
+.
+.  Generate sample output for a t test
+.
+dimension 20 variables
+skip 50
+read jahanmi2.dat run lab bar set y x1 to x8 batch
+echo on
+capture anova.out
+anova y x1 x2 x3 batch
+end of capture 
+quit

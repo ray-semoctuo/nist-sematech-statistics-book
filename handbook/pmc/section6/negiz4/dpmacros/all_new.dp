@@ -1,0 +1,260 @@
+.
+.  Create Postscript files (to be converted to gif)
+.  for the Negiz4 data.
+.
+device 1 x11
+device 1 font simplex
+call data.dp
+.
+. Starting Step 2 - Model Identification Plots
+.
+. set ipl1na runseqpl.ps
+. device 2 postscript
+set ipl1na runseqpl.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+thickness 0.2
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 2.1 - Generate a run sequence plot
+.
+y1label Particle Size
+x1label Sequence
+title Run Sequece Plot - Original Data
+run sequence plot y
+. Finished Step 2.1: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv RUNSEQPL.PS runseqpl.ps
+. system lpr runseqpl.ps
+.
+.  Starting Step 2.1a - Difference the data
+.
+. set ipl1na runseqp2.ps
+. device 2 postscript
+set ipl1na runseqp2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+.
+let ydiff = difference y
+delete y
+let y = ydiff
+title Run Sequence Plot - Differenced Data
+run sequence plot y
+box 0 0 100 100
+device 2 close
+. system mv RUNSEQP2.PS runseqp2.ps
+. system lpr runseqp2.ps
+.
+. set ipl1na autocopl.ps
+. device 2 postscript
+set ipl1na autocopl.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 2.2 - Generate an autocorrelation plot
+.
+y1label Autocorrelation
+x1label Lag
+set autocorrelation band plot box-jenkins
+xtic offset 1 1
+xlimits 0 50
+line blank
+spike on
+title Autocorrelation Plot - Differenced Data
+autocorrelation plot y
+xtic offset 0 0
+xlimits
+line solid
+spike off
+. Finished Step 2.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv AUTOCOPL.PS autocopl.ps
+. system lpr autocopl.ps
+.
+. set ipl1na partaupl.ps
+. device 2 postscript
+set ipl1na partaupl.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 2.3 - Generate a partial autocorrelation plot
+.
+y1label Partial Autocorrelation
+x1label Lag
+xtic offset 1 1
+xlimits 0 50
+line blank
+spike on
+. title Partial Autocorrelation Plot - Differenced Data
+title
+partial autocorrelation plot y
+xtic offset 0 0
+xlimits
+line solid
+spike off
+. Finished Step 2.3: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv PARTAUPL.PS partaupl.ps
+. system lpr partaupl.ps
+.
+. Starting Step 3 - Model Estimation
+.
+echo on
+capture ARMA.OUT
+.
+. Starting Step 3.1 - Generate ARMA analysis
+.
+let arpar = data 0.1 0.1 0.1
+arma y 2 0 0
+. Finished Step 3.1: Page Back for Output
+end of capture
+. system lpr ARMA.OUT
+.
+.
+. Starting Step 4 - Model Validation Plots
+.
+. set ipl1na res4plot.ps
+. device 2 postscript
+set ipl1na res4plot.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+tic label size 6
+label size 6
+title size 6
+.
+. Starting Step 4.1 - 4-Plot of Residuals
+.
+y1label
+x1label
+title Residuals from AR(2) Model
+4-plot res
+. Finished Step 4.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv RES4PLOT.PS res4plot.ps
+. system lpr res4plot.ps
+.
+. set ipl1na resauto1.ps
+. device 2 postscript
+set ipl1na resauto1.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 4.2 - Autocorrelation Plot of Residuals
+.
+y1label Autocorrelation
+x1label Lag
+set autocorrelation band plot box-jenkins
+xtic offset 1 1
+xlimits 0 50
+line blank
+spike on
+title Autocorrelation Plot of Residuals from AR(2) Model
+autocorrelation plot res
+xtic offset 0 0
+xlimits
+line solid
+spike off
+. Finished Step 4.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv RESAUTO1.PS resauto1.ps
+. system lpr resauto1.ps
+.
+. Starting Step 3 - Model Estimation
+.
+echo on
+capture MA.OUT
+.
+. Starting Step 3.1 - Generate ARMA analysis
+.
+arma y 0 0 1
+. Finished Step 3.1: Page Back for Output
+end of capture
+. system lpr MA.OUT
+.
+.
+. Starting Step 4 - Model Validation Plots
+.
+. set ipl1na res4plot2.ps
+. device 2 postscript
+set ipl1na res4plot2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+tic label size 6
+label size 6
+title size 6
+.
+. Starting Step 5.1 - 4-Plot of Residuals
+.
+y1label
+x1label
+title Residuals from MA(1) Model
+4-plot res
+. Finished Step 5.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv RES4PLOT2.PS res4plot2.ps
+. system lpr res4plot2.ps
+.
+. set ipl1na resauto2.ps
+. device 2 postscript
+set ipl1na resauto2.gif
+device 2 gd gif
+device 2 font tektronix
+device 2 picture points 400 300
+set gd font mediumbold
+tic label size 3.5
+label size 4
+title size 4
+.
+. Starting Step 5.2 - Autocorrelation Plot of Residuals
+.
+y1label Autocorrelation
+x1label Lag
+set autocorrelation band plot box-jenkins
+xtic offset 1 1
+xlimits 0 50
+line blank
+spike on
+title Autocorrelation of Residuals from MA(1) Model
+autocorrelation plot res
+xtic offset 0 0
+xlimits
+line solid
+spike off
+. Finished Step 5.2: Page Back for Output
+box 0 0 100 100
+device 2 close
+. system mv RESAUTO2.PS resauto2.ps
+. system lpr resauto2.ps
+.
+quit

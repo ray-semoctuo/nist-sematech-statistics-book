@@ -1,0 +1,363 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   <HEAD>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>5.5.9.9.6. Motivation: Why is the 1/2 in the Model?</TITLE>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="pri5997.htm" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="pri5995.htm" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">5.</FONT> <A HREF="../pri.htm"><FONT COLOR="#00105A">Process Improvement</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">5.5.</FONT> <A HREF="pri5.htm"><FONT COLOR="#00105A">Advanced topics</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">5.5.9.</FONT> <A HREF="pri59.htm"><FONT COLOR="#00105A">An EDA approach to experimental design</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">5.5.9.9.</FONT> <A HREF="pri599.htm"><FONT COLOR="#00105A">Cumulative residual standard deviation plot</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">5.5.9.9.6.</FONT> Motivation: Why is the 1/2 in the Model? </H2>
+<FONT SIZE=-1>
+</=-1>
+</=-1>
+</P>
+</FONT></FONT></FONT>
+   </TD>
+   </TR>
+
+   
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Presence of 1/2 term does not affect predictive quality of model
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The leading 1/2 is a multiplicative constant that we have chosen to
+include in our expression of the linear model.  Some authors and
+software prefer to "simplify" the model by omitting this leading 1/2.
+It is our preference to include the 1/2. This follows a hint
+given on page 334 of
+<a href="../section8/pri8.htm#Box, G.E.P., Hunter,">Box, Hunter, and
+Hunter (1978)</a> where they note that the coefficients that appear
+in the equations are half the estimated effects.
+<p> 
+The presence or absence of the arbitrary 1/2 term
+does <b>not</b> affect the predictive quality of the model after least
+squares fitting.  Clearly, if we choose to exclude the 1/2, then the
+least squares fitting process will simply yield estimated values of the
+coefficients that are twice the size of the coefficients that would
+result if we included the 1/2.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Included so least squares coefficient estimate equal to estimated effect
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+We recommend the inclusion of the 1/2 because of an additional property
+that we would like to impose on the model; namely, we desire that:
+<ul>
+   the value of the least squares estimated coefficient B for a given
+   factor (or interaction) be visually identical to the estimated
+   effect E for that factor (or interaction).
+</ul>
+<p>
+For a given factor, say X2, the estimated least squares coefficient B2
+and the estimated effect E2 are <b>not</b> in general identical
+in either value or concept.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Effect
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+For factor X2, the effect E2 is defined as the change in the mean
+response as we proceed from the "-" setting of the factor to the
+"+" setting of the factor.  Symbolically:
+<ul>
+   <img src="eqns/effest.gif"
+        alt="estimated effect = Ybar(+) - Ybar(-)">
+</ul>
+Note that the estimated effect E2 value does <b>not</b> involve a
+model per se, and is definitionally invariant to any other factors
+and interactions that may affect the response.  We examined and
+derived the factor effects E in the previous steps of the general
+DOE analysis procedure.
+<p>
+On the other hand, the estimated coefficient B2 in a model is defined
+as the value that results when we place the model into the least
+squares fitting process (regression).  The value that returns for B2
+depends, in general, on the form of the model, on what other terms
+are included in the model, and on the experimental design that was
+run.  The least squares estimate for B2 is mildly complicated since it
+involves a behind-the-scenes design matrix multiplication and
+inversion.  The coefficient values B that result are generally obscured
+by the mathematics to make the coefficients have the collective property
+that the fitted model as a whole yield a minimum sum of squared
+deviations ("least squares").
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Orthogonality
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Rather remarkably, these two concepts and values:
+<ol>
+   <li>factor and interaction effect estimates E, and
+   <li>least squares coefficient estimates B
+</ol>
+merge for the class of experimental designs for which this 10-step
+procedure was developed, namely, 2-level full and fractional designs
+that are orthogonal.  Orthogonality has been promoted and chosen
+because of its desirable design properties.  That is, every factor is
+balanced (every level of a factor occurs an equal number of times) and
+every 2-factor cross-product is balanced.  But to boot, orthogonality has
+2 extraordinary properties on the data analysis side:
+<ol>
+   <li>For the above linear models, the usual matrix solution for the
+       least squares estimates for the coefficients B reduce to a
+       computationally trivial and familiar form, namely,
+       <p>
+       <ul>
+          <img src="eqns/effestb.gif"
+               alt="B = E = Ybar(+) - Ybar(-)">
+       </ul>
+       <p>
+   <li>The usual general modeling property that the least squares
+       estimate for a factor coefficient changes depending on what other
+       factors have been included in or excluded from the model is now
+       moot.  With orthogonal designs, the coefficient estimates are
+       invariant in the sense that the estimate (e.g., B2) for a given
+       factor (e.g., X2) will <b>not</b> change as other factors and
+       interactions are included in or excluded from the model.  That
+       is, the estimate of the factor 2 effect (B2) remains the same
+       regardless of what other factors are included in the model.
+</ol>
+The net effect of the above two properties is that a factor effect can
+be computed once, and that value will hold for any linear model
+involving that term regardless of how simple or complicated the model
+is, provided that the design is orthogonal.  This process greatly
+simplifies the model-building process because the need to recalculate
+all of the model coefficients for each new model is eliminated.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Why is 1/2 the appropriate multiplicative term in these orthogonal
+models?
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Given the computational simplicity of orthogonal designs, why then is
+1/2 the appropriate multiplicative constant?  Why not 1/3, 1/4, etc.?
+To answer this, we revisit our specified desire that
+<ul>
+   when we view the final fitted model and look at the coefficient
+   associated with X2, say, we want the value of the coefficient B2 to
+   reflect identically the expected total change
+   <img align=absmiddle src="eqns/delta.gif" alt="delta"><i>Y</i> in
+   the response <i>Y</i> as we proceed from the "-" setting
+   of X2 to the "+" setting of X2 (that is, we would like the estimated
+   coefficient B2 to be identical to the estimated effect E2 for factor
+   X2).
+</ul>
+Thus in glancing at the final model with this form, the coefficients B
+of the model will immediately reflect not only the relative importance
+of the coefficients, but will also reflect (absolutely) the effect
+of the associated term (main effect or interaction) on the response.
+<p>
+In general, the least squares estimate of a coefficient in a linear
+model will yield a coefficient that is essentially a slope:
+<ul>
+   <img align=absmiddle src="eqns/deltayx.gif" alt="delta Y/ delta X">
+   = (change in response)/(change in factor levels)
+</ul>
+associated with a given factor <i>X</i>. Thus in order to achieve the
+desired interpretation of the coefficients B as being the raw change
+in the <i>Y</i>
+(<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>Y</i>), we
+must account for and remove the change in <i>X</i>
+(<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>X</i>).
+<p>
+What is the
+<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>X</i>?  In our
+design descriptions, we have chosen the notation of
+<a href="../section8/pri8.htm#BoxHun">Box, Hunter and Hunter (1978)</a>
+and set each (coded) factor to levels of "-" and "+".  This "-" and
+"+" is a shorthand notation for -1 and +1.  The advantage of this
+notation is that 2-factor interactions (and any higher-order
+interactions) also uniformly take on the closed values of -1 and +1,
+since
+<PRE>
+   -1*-1 = +1
+   -1*+1 = -1
+   +1*-1 = -1
+   +1*+1 = +1
+</PRE>
+and hence the set of values that the 2-factor interactions (and all
+interactions) take on are in the closed set {-1,+1}.  This -1 and +1
+notation is superior in its consistency to the (1,2) notation of Taguchi
+in which the interaction, say  X1*X2, would take on the values
+<PRE>
+   1*1 = 1
+   1*2 = 2
+   2*1 = 2
+   2*2 = 4
+</PRE>
+which yields the set {1,2,4}.
+To circumvent this, we would need to replace multiplication with
+modular multiplication (see page 440 of
+<a href="../section8/pri8.htm#Ryan">Ryan (2000)</a>).  Hence, with the
+-1,+1 values for the main factors, we also have -1,+1 values for all
+interactions which in turn yields (for all terms) a consistent
+<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>X</i> of
+<ul>
+   <img align=bottom src="eqns/delta.gif" alt="delta"><i>X</i> =
+   (+1) - (-1) = +2
+</ul>
+In summary then,
+<ul>
+<pre>
+   B = (<img align=absmiddle src="eqns/deltayx.gif" alt="delta Y/delta X">)
+     = (<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>Y</i>) / 2
+     = (1/2) * (<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>Y</i>)
+</pre>
+</ul>
+and so to achieve our goal of having the final coefficients reflect
+<img align=absmiddle src="eqns/delta.gif" alt="delta"> <i>Y</i> only,
+we simply gather up all of the 2's in the denominator and create a
+leading multiplicative constant of 1 with denominator 2, that is, 1/2.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Example for k = 1 case
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+For example, for the trivial <i>k</i> = 1 case, the obvious model
+<ul>
+   <i>Y</i> = intercept + slope*X1
+   <br>
+   <i>Y</i> = <i>c</i> +
+   (<img align=absmiddle src="eqns/deltayx.gif" alt="delta Y/delta X">)*X1
+</ul>
+becomes
+<ul>
+   <i>Y</i> = <i>c</i> +
+   (1/<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>X</i>)
+   * (<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>Y</i>)*X1
+</ul>
+or simply
+<ul>
+   <i>Y</i> = <i>c</i> + (1/2) *
+   (<img align=absmiddle src="eqns/delta.gif" alt="delta"><i>Y</i>)*X1
+   <br>
+   <i>Y</i> = <i>c</i> + (1/2)*(factor 1 effect)*X1
+   <br>
+   <i>Y</i> = <i>c</i> + (1/2)*(B<sup>*</sup>)*X1, with
+   B<sup>*</sup> = 2B = E
+</ul>
+This <i>k</i> = 1 factor result is easily seen to extend to the general
+<i>k</i>-factor case.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov">
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org" coords="0,19,91,35">
+   </MAP>
+
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.htm" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="pri5995.htm" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="pri5997.htm" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   </HTML>

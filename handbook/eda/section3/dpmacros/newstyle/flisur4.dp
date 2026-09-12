@@ -1,0 +1,38 @@
+.
+.  Generate sample output for Fatigue Life Inverse Survival plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na flisur4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Fatigue Life Inverse Survival (0.5 df)
+PLOT FLPPF(1-P,0.5) FOR P = 0.01 0.01 0.99
+TITLE Fatigue Life Inverse Survival (1 df)
+PLOT FLPPF(1-P,1) FOR P = 0.0 0.01 0.99
+TITLE Fatigue Life Inverse Survival (2 df)
+PLOT FLPPF(1-P,2) FOR P = 0.01 0.01 0.99
+TITLE Fatigue Life Inverse Survival (5 df)
+PLOT FLPPF(1-P,5) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp FLISUR4.PS flisur4.ps
+system rm FLISUR4.PS
+.
+quit

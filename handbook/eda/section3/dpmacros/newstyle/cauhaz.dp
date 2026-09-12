@@ -1,0 +1,27 @@
+.
+.  Generate sample output for Cauchy Hazard plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na cauhaz.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Cauchy Hazard
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Hazard
+X1LABEL X
+.
+PLOT CAUPDF(X)/(1-CAUCDF(X)) FOR X = -10 0.01 10
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv CAUHAZ.PS cauhaz.ps
+.
+quit

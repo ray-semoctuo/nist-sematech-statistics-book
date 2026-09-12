@@ -1,0 +1,41 @@
+.
+.  Generate sample output for Gamma Hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na gamhaz4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 6
+TIC LABEL SIZE 6
+LABEL CASE ASIS
+Y1LABEL Hazard
+X1LABEL X
+Y1LABEL DISPLACEMENT 13
+FRAME CORNER COORDINATES 20 20 90 90
+THICKNESS 0.2
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+XLIMITS 0 10
+TITLE Gamma Hazard (gamma = 0.5)
+PLOT GAMHAZ(X,0.5) FOR X = 0.01 0.01 10
+TITLE Gamma Hazard (gamma = 1)
+LET FUNCTION F = X/X
+PLOT F FOR X = 0.01 0.01 10
+TITLE Gamma Hazard (gamma = 2)
+PLOT GAMHAZ(X,2) FOR X = 0.01 0.01 10
+TITLE Gamma Hazard (gamma = 5)
+PLOT GAMHAZ(X,5) FOR X = 0.01 0.01 10
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+device 2 close
+system mv GAMHAZ4.PS gamhaz4.ps
+.
+quit

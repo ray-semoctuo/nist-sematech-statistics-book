@@ -1,0 +1,417 @@
+  
+       ******************************
+       **  quadratic fit rot flux  **
+       ******************************
+  
+  
+ LEAST SQUARES POLYNOMIAL FIT
+       SAMPLE SIZE N       =       80
+       DEGREE              =        2
+       REPLICATION CASE
+       REPLICATION STANDARD DEVIATION =     0.2554919757D-01
+       REPLICATION DEGREES OF FREEDOM =          72
+       NUMBER OF DISTINCT SUBSETS     =           8
+  
+  
+               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+        1  A0                 -0.144687       (0.2165E-01)         -6.7
+        2  A1                  0.217063       (0.8339E-03)         0.26E+03
+        3  A2                 -0.434694E-03   (0.6847E-05)         -63.
+  
+       RESIDUAL    STANDARD DEVIATION =         0.0347798578
+       RESIDUAL    DEGREES OF FREEDOM =          77
+       REPLICATION STANDARD DEVIATION =         0.0255491976
+       REPLICATION DEGREES OF FREEDOM =          72
+       LACK OF FIT F RATIO =      14.1379 = THE 100.0000% POINT OF THE
+       F DISTRIBUTION WITH      5 AND     72 DEGREES OF FREEDOM
+  
+       COEF AND SD(COEF) WRITTEN OUT TO FILE DPST1F.DAT
+       SD(PRED),95LOWER,95UPPER,99LOWER,99UPPER
+                         WRITTEN OUT TO FILE DPST2F.DAT
+       REGRESSION DIAGNOSTICS WRITTEN OUT TO FILE DPST3F.DAT
+       PARAMETER VARIANCE-COVARIANCE MATRIX AND
+       INVERSE OF X-TRANSPOSE X MATRIX
+       WRITTEN OUT TO FILE DPST4F.DAT
+  
+       *************************
+       **  let n = size flux  **
+       *************************
+  
+  
+ THE SAMPLE SIZE OF THE       80 OBSERVATIONS =   0.8000000E+02
+  
+ THE COMPUTED VALUE OF THE CONSTANT N             =  0.80000000E+02
+  
+  
+       **********************************
+       **  let tag2 = 0 for i = 1 1 n  **
+       **********************************
+  
+  
+ ***** NOTE--
+       ROW START      =        1
+       ROW INCREMENT  =        1
+       ROW STOP       =       80
+       INPUT  NUMBER OF ROWS   =       80
+       NUMBER OF ROWS AFFECTED =       80
+       OUTPUT NUMBER OF ROWS   =       80
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE TAG2     =       80
+  
+ THE FIRST          COMPUTED VALUE OF TAG2     =  0.000000E+00 (ROW     1)
+ THE LAST (   80TH) COMPUTED VALUE OF TAG2     =  0.000000E+00 (ROW    80)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE TAG2     =       11
+ THE CURRENT LENGTH OF  THE VARIABLE TAG2     =       80
+  
+  
+       *************************************
+       **  let tag2 = 1 subset res > 0.1  **
+       *************************************
+  
+  
+ ***** NOTE--
+       SUBSET VARIABLE = RES
+       SUBSET MINIMUM  =  0.1000000983E+00
+       SUBSET MAXIMUM  =  0.3402823061E+39
+       INPUT  NUMBER OF OBSERVATIONS  =       80
+       NUMBER OF OBSERVATIONS IGNORED =       78
+       OUTPUT NUMBER OF OBSERVATIONS  =        2
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE TAG2     =        2
+  
+ THE FIRST          COMPUTED VALUE OF TAG2     =  0.100000E+01 (ROW    34)
+ THE LAST (    2TH) COMPUTED VALUE OF TAG2     =  0.100000E+01 (ROW    35)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE TAG2     =       11
+ THE CURRENT LENGTH OF  THE VARIABLE TAG2     =       80
+  
+  
+       **********************************************
+       **  quadratic fit rot flux subset tag2 = 0  **
+       **********************************************
+  
+  
+ ***** NOTE--
+       SUBSET VARIABLE = TAG2
+       SUBSET MINIMUM  = -0.9999999975E-06
+       SUBSET MAXIMUM  =  0.9999999975E-06
+       INPUT  NUMBER OF OBSERVATIONS  =       80
+       NUMBER OF OBSERVATIONS IGNORED =        2
+       OUTPUT NUMBER OF OBSERVATIONS  =       78
+  
+ LEAST SQUARES POLYNOMIAL FIT
+       SAMPLE SIZE N       =       78
+       DEGREE              =        2
+       REPLICATION CASE
+       REPLICATION STANDARD DEVIATION =     0.1954713464D-01
+       REPLICATION DEGREES OF FREEDOM =          70
+       NUMBER OF DISTINCT SUBSETS     =           8
+  
+  
+               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+        1  A0                 -0.144441       (0.1754E-01)         -8.2
+        2  A1                  0.217116       (0.6757E-03)         0.32E+03
+        3  A2                 -0.436235E-03   (0.5553E-05)         -79.
+  
+       RESIDUAL    STANDARD DEVIATION =         0.0281810053
+       RESIDUAL    DEGREES OF FREEDOM =          75
+       REPLICATION STANDARD DEVIATION =         0.0195471346
+       REPLICATION DEGREES OF FREEDOM =          70
+       LACK OF FIT F RATIO =      17.1773 = THE 100.0000% POINT OF THE
+       F DISTRIBUTION WITH      5 AND     70 DEGREES OF FREEDOM
+  
+       COEF AND SD(COEF) WRITTEN OUT TO FILE DPST1F.DAT
+       SD(PRED),95LOWER,95UPPER,99LOWER,99UPPER
+                         WRITTEN OUT TO FILE DPST2F.DAT
+       REGRESSION DIAGNOSTICS WRITTEN OUT TO FILE DPST3F.DAT
+       PARAMETER VARIANCE-COVARIANCE MATRIX AND
+       INVERSE OF X-TRANSPOSE X MATRIX
+       WRITTEN OUT TO FILE DPST4F.DAT
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       **************
+       **  skip 0  **
+       **************
+  
+  
+ THE NUMBER OF HEADER LINES TO BE SKIPPED
+     HAS JUST BEEN SET TO        0
+  
+       ******************************
+       **  read dpst4f.dat varcov  **
+       ******************************
+  
+  
+ THE NUMBER OF HEADER LINES
+     BEING SKIPPED =      0
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       31
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =        0
+ NUMBER OF DATA   LINES READ      =        9
+ NUMBER OF VARIABLES    READ      =        1
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+   0.3076035E-03   0.3873274E+00
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+  
+  
+ VARIABLE     COLUMN    OBS/VARIABLE
+ VARCOV         12            9
+  
+       ********************
+       **  print varcov  **
+       ********************
+  
+
+ VARIABLES--VARCOV  
+
+   0.3076036E-03
+  -0.1132122E-04
+   0.8771890E-07
+  -0.1132122E-04
+   0.4565592E-06
+  -0.3695745E-08
+   0.8771890E-07
+  -0.3695745E-08
+   0.3083866E-10
+  
+       ***************************
+       **  let sa  = varcov(1)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SA       =   0.3076036E-03
+  
+  
+       ***************************
+       **  let sb  = varcov(5)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SB       =   0.4565592E-06
+  
+  
+       ***************************
+       **  let sc  = varcov(9)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SC       =   0.3083866E-10
+  
+  
+       ***************************
+       **  let sab = varcov(2)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SAB      =  -0.1132122E-04
+  
+  
+       ***************************
+       **  let sac = varcov(3)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SAC      =   0.8771890E-07
+  
+  
+       ***************************
+       **  let sbc = varcov(6)  **
+       ***************************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT SBC      =  -0.3695745E-08
+  
+  
+       *********************
+       **  let s = ressd  **
+       *********************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT S        =   0.2818101E-01
+  
+  
+       *****************************************
+       **  let function ysd1 = 2*sab*fluxnew  **
+       *****************************************
+  
+  
+ INPUT FUNCTION        = 2*SAB*FLUXNEW
+ OUTPUT FUNCTION       = 2*SAB*FLUXNEW
+  
+ THE NAME YSD1     HAS JUST BEEN EQUIVALENCED
+ TO THE FUNCTION      -- 2*SAB*FLUXNEW
+  
+  
+       *************************************************
+       **  let function ysd2 = (sb+2*sac)*fluxnew**2  **
+       *************************************************
+  
+  
+ INPUT FUNCTION        = (SB+2*SAC)*FLUXNEW**2
+ OUTPUT FUNCTION       = (SB+2*SAC)*FLUXNEW**2
+  
+ THE NAME YSD2     HAS JUST BEEN EQUIVALENCED
+ TO THE FUNCTION      -- (SB+2*SAC)*FLUXNEW**2
+  
+  
+       ******************************************
+       **  let function ysd3 = sbc*fluxnew**3  **
+       ******************************************
+  
+  
+ INPUT FUNCTION        = SBC*FLUXNEW**3
+ OUTPUT FUNCTION       = SBC*FLUXNEW**3
+  
+ THE NAME YSD3     HAS JUST BEEN EQUIVALENCED
+ TO THE FUNCTION      -- SBC*FLUXNEW**3
+  
+  
+       *****************************************
+       **  let function ysd4 = sc*fluxnew**4  **
+       *****************************************
+  
+  
+ INPUT FUNCTION        = SC*FLUXNEW**4
+ OUTPUT FUNCTION       = SC*FLUXNEW**4
+  
+ THE NAME YSD4     HAS JUST BEEN EQUIVALENCED
+ TO THE FUNCTION      -- SC*FLUXNEW**4
+  
+  
+       *********************************************************************
+       **  let function ysd = s*sqrt(1 + sa + ysd1 + ysd2 + ysd3 + ysd4)  **
+       *********************************************************************
+  
+  
+ INPUT FUNCTION        = S*SQRT(1+SA+YSD1+YSD2+YSD3+YSD4)
+ OUTPUT FUNCTION       = S*SQRT(1+SA+(2*SAB*FLUXNEW)+((SB+2*SAC)*FLUXNEW**2)+(SBC*FLUXNEW**3)+(SC*FLUXNEW**4))
+  
+ THE NAME YSD      HAS JUST BEEN EQUIVALENCED
+ TO THE FUNCTION      -- S*SQRT(1+SA+(2*SAB*FLUXNEW)+((SB+2*SAC)*FLUXNEW**2)+(SBC*FLUXNEW**3)+(SC*FLUXNEW**4))
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       *******************
+       **  let b0 = a0  **
+       *******************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT B0       =  -0.1444408E+00
+  
+  
+       *******************
+       **  let b1 = a1  **
+       *******************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT B1       =   0.2171158E+00
+  
+  
+       *******************
+       **  let b2 = a2  **
+       *******************
+  
+  
+ THE COMPUTED VALUE OF THE CONSTANT B2       =  -0.4362347E-03
+  
+  
+       ************************************************************
+       **  let function ypred = b0 + b1*fluxnew + b2*fluxnew**2  **
+       ************************************************************
+  
+  
+ INPUT FUNCTION        = B0+B1*FLUXNEW+B2*FLUXNEW**2
+ OUTPUT FUNCTION       = B0+B1*FLUXNEW+B2*FLUXNEW**2
+  
+ THE NAME YPRED    HAS JUST BEEN EQUIVALENCED
+ TO THE FUNCTION      -- B0+B1*FLUXNEW+B2*FLUXNEW**2
+  
+  
+       *********
+       **  .  **
+       *********
+  
+  
+       ***************
+       **  skip 25  **
+       ***************
+  
+  
+ THE NUMBER OF HEADER LINES TO BE SKIPPED
+     HAS JUST BEEN SET TO       25
+  
+       *********************************
+       **  read DONNELL2.DAT fluxnew  **
+       *********************************
+  
+  
+ THE NUMBER OF HEADER LINES
+     BEING SKIPPED =     25
+  
+ INPUT DATA FILE SUMMARY INFORMATION--
+ INPUT UNIT DEVICE NUMBER         =       31
+ INPUT FILE COLUMN     LIMITS     =        1         132
+ INPUT FILE ROW        LIMITS     =        1    INFINITY
+ NUMBER OF HEADER LINES SKIPPED   =       25
+ NUMBER OF DATA   LINES READ      =       21
+ NUMBER OF VARIABLES    READ      =        1
+ THE SCANNED REGION OF THE FIRST DATA LINE READ =
+      26.        9.3
+ THE SCANNED REGION OF THE LAST  DATA LINE READ =
+      47.       27.1
+  
+ VARIABLE     COLUMN    OBS/VARIABLE
+ FLUXNEW         4           21
+  
+       **************
+       **  skip 0  **
+       **************
+  
+  
+ THE NUMBER OF HEADER LINES TO BE SKIPPED
+     HAS JUST BEEN SET TO        0
+  
+       ****************************
+       **  let flowpred = ypred  **
+       ****************************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE FLOWPRED =       21
+  
+ THE FIRST          COMPUTED VALUE OF FLOWPRED =  0.520568E+01 (ROW     1)
+ THE LAST (   21TH) COMPUTED VALUE OF FLOWPRED =  0.909636E+01 (ROW    21)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE FLOWPRED =       13
+ THE CURRENT LENGTH OF  THE VARIABLE FLOWPRED =       21
+  
+  
+       ************************
+       **  let flowsd = ysd  **
+       ************************
+  
+  
+ THE NUMBER OF VALUES GENERATED FOR THE VARIABLE FLOWSD   =       21
+  
+ THE FIRST          COMPUTED VALUE OF FLOWSD   =  0.281823E-01 (ROW     1)
+ THE LAST (   21TH) COMPUTED VALUE OF FLOWSD   =  0.281867E-01 (ROW    21)
+  
+ THE CURRENT COLUMN FOR THE VARIABLE FLOWSD   =       14
+ THE CURRENT LENGTH OF  THE VARIABLE FLOWSD   =       21
+  
+  
+       **********************
+       **  end of capture  **
+       **********************
+  

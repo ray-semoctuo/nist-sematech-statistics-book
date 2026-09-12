@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\begin{document}
+\pagestyle{empty}
+\Large 
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+\boldmath 
+\vspace*{-1.75in}
+\begin{eqnarray*}
+H_0\mbox{:}  & & \sigma^2 = \sigma_0^2 \\   
+                    & & \\
+H_a\mbox{:}  & & \sigma^2 < \sigma_0^2 \mbox{\bf \,\, for a lower one-tailed test} \\
+                    & &    \\
+                    & & \sigma^2 > \sigma_0^2 \mbox{\bf \,\, for an upper one-tailed test} \\
+                    & &    \\
+                    & & \sigma^2 \ne \sigma_0^2 \mbox{\bf \,\, for a two-tailed test} \\
+\end{eqnarray*}
+
+\[
+T = (N-1)(s/\sigma_0)^2
+\]
+\vspace*{.05in} 
+
+\[
+\sqrt{\frac{(N-1)s^2}{\chi^2_{1-\alpha/2, \, N-1}}} \le \sigma \le \sqrt{\frac{(N-1)s^2}{\chi^2_{\alpha/2, \, N-1}}}
+\]
+\vspace*{.05in}
+
+\[
+\frac{(N-1)s^2}{\chi^2_{1-\alpha/2, \, N-1}} \le \sigma^2 \le \frac{(N-1)s^2}{\chi^2_{\alpha/2, \, N-1}}
+\]
+\vspace*{.05in}
+
+$\chi^2_{., \, N-1}$ 
+ 
+
+\begin{eqnarray*}
+T  > &  \chi^2_{1-\alpha, \, N-1} &  \mbox{\bf \,\, for an upper one-tailed alternative}  \\   
+                 &  &   \\
+T  <  & \chi^2_{\alpha, \, N-1} &  \mbox{\bf \,\, for a lower one-tailed alternative} \\
+                 &  &      \\
+T  < & \chi^2_{\alpha/2, \, N-1} & \mbox{\bf \,\, for a two-tailed test} \\
+\mbox{\bf or}                 &  &      \\
+T  > & \chi^2_{1-\alpha/2, \, N-1} &  
+\end{eqnarray*}
+
+\end{document}
+  
+   

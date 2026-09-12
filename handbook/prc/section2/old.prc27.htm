@@ -1,0 +1,173 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.7. How can we determine whether the proportion of defectives produced by a process
+has changed from the "nominal" value?</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc271.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc26.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.htm">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.htm">Comparisons based on data vrom one process</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can we determine whether the proportion of defectives produced by a process
+has changed from the "nominal" value?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Testing
+proportions is based on the binomial distribution</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->The proportion defective produced
+by a process is usually monitored using statistics based on the binomial
+distribution.&nbsp;
+<p><b>The Binomial Distribution</b>
+<p>The observed number of defective, <i>x</i>, when a random sample of
+size n is selected from a continuous manufacturing process (or a large
+population or lot), is a random variable that follows the binomial distribution.&nbsp;
+<center><img SRC="eqns/binom1.gif" height=166 width=296></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><a NAME="Binomial"></a><i>Binomial example</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Let us do an example:&nbsp;
+<blockquote>Consider tossing a coin and betting on "tails". Equating getting
+a "head" with "defective", we might ask what is the probability of getting
+exactly 2 heads in six tosses of a coin?&nbsp;</blockquote>
+
+<blockquote>With n = 6, x = 2, p = 1/2, we get&nbsp;</blockquote>
+
+<center><img SRC="eqns/binom2.gif" ></center>
+
+<p>What is the probability of get 2 heads or less?&nbsp;
+<p>This is the probability of 0 heads, or 1 head, or 2 heads, which is
+p(0) + p(1) + p(2) = 1/64 + 6/64 + 15/64 = 22/64 or 11/32.&nbsp;
+<p>The formulas for the mean and variance of the binomial distribution
+are
+<i>np</i> and <i>np(1-p)</i> respectively. Usually one writes <i>q</i>
+instead of <i>1-p</i>. So for <i>n</i> = 6 and <i>p</i> = .5 the mean =
+3 and the variance = 1.5&nbsp;
+<p>For large samples (n > 30) the normal distribution is used to approximate
+the binomial distribution.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>How to test proportions</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b>Testing the Proportion Defective</b>
+<p>To test if the fraction defectives has changed from a nominal or long
+established value, we test the null hypothesis:
+<p>H<sub>o</sub>: <i>p = p<sub>o</sub></i>, the nominal value vs
+<br>H<sub>a</sub>: <i>p > p<sub>o</sub> or p &lt; p<sub>o</sub></i> (or
+<i>p
+</i>is different from <i>p</i><sub>o</sub>)&nbsp;
+<p>The test statistic is
+<center>
+<p><img SRC="eqns/binom3.gif" height=78 width=85></center>
+and we compare this test statistic to normal distribution tail values for
+the appropriate one or two sided hypothesis test with total error
+<font face="Symbol">a</font>.
+If the magnitude of z is too large, we reject H<sub>o</sub> and conclude
+p has changed.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Example of testing proportions</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b>Example</b>
+<p>A new way of processing wafers was introduced. Of 200 tested wafers,
+26 show some type of defect. That is a proportion of 0.13.&nbsp;
+<p>Since the old method had demonstrated a 0.10 proportion of defectives
+over a long period of time, management questioned the reliability of the
+new method. To validate the ineffectiveness of the new way, the following
+hypothesis was tested:&nbsp;
+<blockquote>H<sub>o</sub>: <i>p = p<sub>o</sub></i>, the new process has
+the same defect level as the old process vs.
+<br>H<sub>a</sub>: <i>p > 0.10</i>, the new process has a greater proportion
+of defectives.</blockquote>
+As stated above, this is a one-tail test since we are most concerned about
+protecting against a switch to a less reliable process. Choosing <font face="Symbol">a</font>
+= 0.05, we will reject the null, when the test statistic <i>z</i> is greater
+than the critical value 1.645.&nbsp;
+<p>Substituting the numerical values into the test statistic, we get
+<center>
+<p><img SRC="eqns/binom4.gif" height=61 width=181></center>
+
+<p>Since the test statistic (1.41) is less than the critical value (1.645)
+we cannot reject the null hypothesis of equality and conclude that the
+new way of processing produces more defectives. The new process may, indeed,
+be worse - but we need more evidence before we can make that conclusion
+at the 95% confidence level.&nbsp;</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc26.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc271.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

@@ -1,0 +1,29 @@
+.
+.  Generate sample output for EV1 HAZ plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na ev1ha2.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Extreme Value Type I (Maximum) Hazard
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Hazard
+X1LABEL X
+.
+SET MINMAX 2
+PLOT EV1HAZ(X) FOR X = -4 0.01 4
+. PLOT EXP(X) FOR X = -4 0.01 4
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv EV1HA2.PS ev1ha2.ps
+.
+quit

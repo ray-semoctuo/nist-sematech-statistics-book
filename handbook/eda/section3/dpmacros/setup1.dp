@@ -1,0 +1,9 @@
+.
+.  Set size, thickness, etc., for generating gif files of plots.
+.
+title size 4
+label size 4
+height 4
+tic mark label size 3.5
+thickness 0.2
+.

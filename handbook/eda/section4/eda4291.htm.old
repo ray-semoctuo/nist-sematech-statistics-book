@@ -1,0 +1,215 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.9.1. Background and Data</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4292.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda429.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.htm">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.htm">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda429.htm">Airplane Polished Window
+      Strength</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.9.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Background and Data</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Generation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This data set was provided by Ed Fuller of the NIST Ceramics
+Division in December, 1993.  It contains polished window strength
+data that was used with two other sets of data (constant
+stress-rate data and strength of indented glass data).  A paper
+by <a href="eda43.htm#Fuller">Fuller, et. al.</a> describes the
+use of all three data sets to predict lifetime and confidence
+intervals for a glass airplane window. A paper by
+<a href="eda43.htm#Pepi">Pepi</a> describes the all-glass
+airplane window design.
+<p>
+For this case study, we restrict ourselves to the problem of
+finding a good distributional model of the polished window
+strength data.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose of Analysis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this case study is to find a good distributional model
+for the polished window strength data.  Once a good distributional
+model has been determined, various percent points for the polished
+widow strength will be computed.
+<p>
+Since the data were used in a study to predict failure times, this
+case study is a form of reliability analysis.  The
+<a href="../../apr/apr.htm">assessing product reliability</a>
+chapter contains a more complete discussion of reliabilty methods.
+This case study is meant to complement that chapter by showing the
+use of graphical techniques in one aspect of reliability modeling.
+<P>
+Data in reliability analysis do not typically follow a
+normal distribution; non-parametric methods (techniques that do
+not rely on a specific distribution) are frequently recommended
+for developing confidence intervals for failure data.  One problem
+with this approach is that sample sizes are often small due to the
+expense involved in collecting the data, and non-parametric methods
+do not work well for small sample sizes.  For this reason, a
+parametric method based on a specific distributional model of the
+data is preferred if the data can be shown to follow a specific
+distribution.  Parametric models typically have greater efficiency
+at the cost of more specific assumptions about the data, but, it
+is important to verify that the distributional assumption is indeed
+valid.  If the distributional assumption is not justified, then the
+conclusions drawn from the model may not be valid.
+<P>
+This file can be read by Dataplot with the following commands:
+<UL>
+    SKIP 25<BR>
+    READ FULLER2.DAT Y<BR>
+</UL>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Resulting Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following are the data used for this case study.  The data are
+in ksi (= 1,000 psi).
+<p>
+<pre>
+18.830
+20.800
+21.657
+23.030
+23.230
+24.050
+24.321
+25.500
+25.520
+25.800
+26.690
+26.770
+26.780
+27.050
+27.670
+29.900
+31.110
+33.200
+33.730
+33.760
+33.890
+34.760
+35.750
+35.910
+36.980
+37.080
+37.090
+39.580
+44.045
+45.290
+45.381
+</pre>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda429.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4292.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

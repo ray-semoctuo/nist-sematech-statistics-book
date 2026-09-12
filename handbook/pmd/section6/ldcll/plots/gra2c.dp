@@ -1,0 +1,23 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 12 10 99.5 99 
+ylabel offset units absolute
+ylabel offset 11
+char size 1
+label size 3
+tic mark label size 3
+char fill on
+char circle 
+lines blank
+device 2 postscript
+skip 25
+read pontius.dat y x
+x1label Predicted Values from Quadratic Model
+y1label Residuals
+quadratic fit y x
+plot res pred
+device 2 close
+system mv dppl1f.dat gra2c.ps
+quit

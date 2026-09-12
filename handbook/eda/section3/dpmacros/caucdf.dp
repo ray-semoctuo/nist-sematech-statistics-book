@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Cauchy CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na caucdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Cauchy CDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT CAUCDF(X) FOR X = -10 0.01 10
+.
+box 0 0 100 100
+.
+device 2 close
+system cp CAUCDF.PS caucdf.ps
+system rm CAUCDF.PS
+.
+quit

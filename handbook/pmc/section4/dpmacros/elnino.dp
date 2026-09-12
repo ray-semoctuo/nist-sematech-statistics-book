@@ -1,0 +1,217 @@
+.
+.  Plots for Univariate time series section
+.
+device 1 x11
+device 1 font simplex
+skip 25
+read elnino.dat osc date year month
+title size 4
+label size 4
+height 4
+tic mark label size 3.5
+thickness 0.2
+tic mark offset units data
+title displacement 4
+.
+.  Start with run sequence plot
+.
+set ipl1na oscrunsq.ps
+device 2 postscript
+title case asis
+label case asis
+tic mark label case asis
+title Southern Oscillations
+major xtic mark number 5
+xminimum 1955
+xmaximum 1995
+plot osc date
+major xtic mark number
+xminimum
+xmaximum
+box 0 0 100 100
+device 2 close
+system mv OSCRUNSQ.PS oscrunsq.ps
+.
+.  Autocorrelation plot
+.
+set ipl1na oscauto.ps
+device 2 postscript
+device 2 color on
+title Southern Oscillations
+y1label Autocorrelation
+x1label Lag
+xminimum 0
+xmaximum 100
+major xtic mark number 5
+xtic offset 3 25
+line blank
+spike on
+set autocorrelation band plot box-jenkins
+set autocorrelation lag zero off
+line color black black blue blue red red
+autocorrelation plot osc
+line solid
+case asis
+line color blue
+draw 20 87 25 87
+move 26 86
+text 95% Confidence Band
+line color red
+draw 20 83 25 83
+move 26 82
+text 99% Confidence Band
+line color black all
+spike off
+xtic offset 0 0
+xminimum
+xmaximum
+major xtic mark number
+box 0 0 100 100
+device 2 close
+system mv OSCAUTO.PS oscauto.ps
+.
+.  Partial Autocorrelation plot
+.
+set ipl1na oscpart.ps
+device 2 postscript
+device 2 color on
+title Southern Oscillations
+y1label Partial Autocorrelation
+x1label Lag
+xtic offset 1 1
+xminimum
+xmaximum
+xlimits 0 100
+xtic offset 3 10
+line blank
+spike on
+set autocorrelation lag zero off
+line color black black blue blue red red
+partial autocorrelation plot osc
+line solid
+case asis
+line color blue
+draw 20 87 25 87
+move 26 86
+text 95% Confidence Band
+line color red
+draw 20 83 25 83
+move 26 82
+text 99% Confidence Band
+line color black all
+spike off
+xtic offset 0 0
+box 0 0 100 100
+device 2 close
+system mv OSCPART.PS oscpart.ps
+.
+.  Seasonal Subseries Plot
+.
+xminimum
+xmaximum
+set ipl1na oscseas.ps
+device 2 postscript
+let n = size osc
+let n2 = n + 12
+let ntemp = int((n2/12)/2)
+let last = (n2 - ntemp)
+xlimits ntemp last
+let nfudge = ntemp + 3
+xtic offset nfudge nfudge
+major xtic mark number 12
+minor xtic mark number 0
+x1tic mark label format alpha
+x1tic mark label content Jan sp()cr()Feb Mar sp()cr()Apr May ...
+sp()cr()June July sp()cr()Aug Sep sp()cr()Oct Nov sp()cr()Dec
+x1label
+x2label Month
+y1label OSC Concentrations
+let period = 12
+let start = 1
+title Seasonal Subseries Plot of Southern Oscillations
+seasonal subseries plot osc
+major xtic mark number
+minor xtic mark number
+xtic offset 0 0
+box 0 0 100 100
+device 2 close
+system mv OSCSEAS.PS oscseas.ps
+.
+.  Box Plot
+.
+set ipl1na oscboxpl.ps
+device 2 postscript
+line box plot
+character box plot
+fences on
+xlimits 1 12
+xtic offset 1 1
+major xtic mark number 12
+minor xtic mark number 0
+x1tic mark label format alpha
+x1tic mark label content Jan Feb Mar Apr May June July Aug Sep ...
+Oct Nov Dec
+x1label Month
+x2label
+y1label OSC Concentrations
+title Box Plot of Southern Oscillations
+box plot osc month
+limits
+major xtic mark number
+minor xtic mark number
+x1tic mark label format
+.
+box 0 0 100 100
+device 2 close
+system mv OSCBOXPL.PS oscboxpl.ps
+.
+.  Perform ARMA fit
+.
+capture oscarma.out
+ARMA OSC 2 0 0
+end of capture
+.
+.  4-Plot of Residuals
+.
+set ipl1na osc4plot.ps
+device 2 postscript
+tic mark label size 5
+line solid all
+character BLANK all
+x1label
+y1label
+title
+4-plot res
+.
+move 50 97
+just center
+text Residuals from AR(2) Model for Southern Oscillations
+box 0 0 100 100
+device 2 close
+system mv OSC4PLOT.PS osc4plot.ps
+.
+.
+.  Perform ARMA fit
+.
+capture oscarma2.out
+
+LET ARPAR = DATA 0.3 0.3 0.3 0.3 0.3
+ARMA OSC 2 0 0 1 0 0 12
+end of capture
+.
+.  4-Plot of Residuals
+.
+set ipl1na osc4plo2.ps
+device 2 postscript
+line solid all
+character BLANK all
+tic mark label size 5
+x1label
+y1label
+title
+4-plot res
+.
+box 0 0 100 100
+device 2 close
+system mv OSC4PLO2.PS osc4plo2.ps
+.

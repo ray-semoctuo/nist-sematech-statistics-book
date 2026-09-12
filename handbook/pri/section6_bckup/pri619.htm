@@ -1,0 +1,313 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.9. Validate the Fitted Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri61a.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri618.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.9.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Validate the Fitted Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="partmodel">
+<I>
+Model Validation
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The previous sections have led us to the model
+<UL>
+    <img src="splett3/eqns/partmode.gif"
+         alt="Yhat = 2.65875 + 1/2 (3.10250*X1 - .86750*X2)">
+</UL>
+The residual standard deviation of this model is 0.30429.
+<P>
+The next step is to 
+<a href="../../pmd/section4/pmd44.htm">validate the model</a>.
+The primary method of model validation is graphical residual
+analysis, that is, through an assortment of plots of the
+differences between the observed data Y and the predicted value
+<img src="splett3/eqns/yhat.gif" alt="yhat"> from the model.
+For example, the design point (-1,-1,-1) has an observed data
+point (from <a href="pri611.htm#datatable">the Background and
+data</a> section) of Y = 1.70, while the predicted value from
+the above fitted model for this design point is
+<UL>
+   <img src="splett3/eqns/yhateq3a.gif"
+         alt="Yhat = 2.65875 + 1/2 (3.10250*(-1) - .86750*(-1))">
+</UL>
+which leads to the residual 0.15875.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table of Residuals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If the model fits well, then
+<img valign=absmiddle src="splett3/eqns/yhat.gif" alt="yhat">
+should be near Y for all 8 design points.  Hence the 8 residuals
+should all be near zero.  The 8 predicted values
+and residuals for this data and model are:
+<PRE>
+   X1   X2   X3  Observed Predicted  Residual
+----------------------------------------------
+   -1   -1   -1    1.70    1.54125    0.15875
+   +1   -1   -1    4.57    4.64375   -0.07375
+   -1   +1   -1    0.55    0.67375   -0.12375
+   +1   +1   -1    3.39    3.77625   -0.38625
+   -1   -1   +1    1.51    1.54125   -0.03125
+   +1   -1   +1    4.59    4.64375   -0.05375
+   -1   +1   +1    0.67    0.67375   -0.00375
+   +1   +1   +1    4.29    3.77625    0.51375
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Residual Standard Deviation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+What is the magnitude of the typical residual? There are several
+ways to compute this, but the statistically optimal measure is
+the residual standard deviation:
+<UL>
+   <img src="splett3/eqns/ressd.gif"
+        alt="sres = sqrt(sum of squared residuals)/(n-p)">
+</UL>
+where <b><i>R<sub>i</sub></i></b> is the ith residual,
+<b><i>N</i></b> = 8 is the number of observations, and
+<b><i>P</i></b> = 3 is the number of fitted parameters.
+As noted at the beginning of this section, from previous
+calculations the residual standard deviation is 0.30429.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How Should Residuals Behave?
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If the prediction equation is adequate as is, then the residuals
+from that equation should behave like
+<a href="../../eda/section2/eda21.htm">random drawings</a>
+(typically from a normal distribution), and should, since
+presumably random, have no structural relationship with any factor.
+This includes any and all potential terms (X1, X2, X3, X1*X2,
+X1*X3, X2*X3, X1*X2*X3).
+<P>
+Further, if the model is adequate and complete, then the
+residuals should have no structural relationship with <b>any</b>
+other variables that may have been recorded.  In particular, this
+includes the run sequence (time), which is really serving as a
+surrogate for any physical or environmental variable correlated
+with time.  Ideally, all such residual scatter plots should appear
+structureless.  Any scatter plot which exhibits structure suggests
+that that factor should have been formally included as part of
+the prediction equation.
+<P>
+Validating the prediction equation thus means that we do a final
+check as to whether any other variables may have been inadvertantly
+left out of the prediction equation, including variables
+drifting with time.
+<p>
+The graphical residual analysis thus consists of scatter plots
+of the residuals versus all 3 main factors and 4 interactions
+(all such plots should be structureless), a scatter plot of the
+residuals versus run sequence (which also should be structureless),
+and a normal probability plot of the residuals (which should be
+near linear).  We present such plots below.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="resplots">
+<I>
+Residual Plots
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+<P>
+<A HREF="splett3/gifs/part_f.gif">
+<img src="splett3/gifs/part_r.gif"
+     HEIGHT=425 WIDTH=550 BORDER=0
+     alt="various residual plots do not indicate any serious problems with the model">
+</A>
+<P>
+The first plot is a
+<a href="../../eda/section3/normprpl.htm">normal probability
+plot</a> of the residuals.  The second plot is a
+<a href="../../eda/section3/runseqpl.htm">run sequence plot</a>
+of the residuals.  The remaining plots are plots of the residuals
+against each of the factors and each of the interaction terms.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="conclusions">
+<I>
+Conclusions
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We make the following conclusions based on the above plots.
+<ol>
+<li>Main Effects and Interactions: The X1 and X2 scatter plots
+    are "flat" (as they must be since X1 and X2 were explicitly
+    included in the model).  The X3 plot shows some structure
+    as does the X1*X3, the X2*X3, and the X1*X2*X3 plots.  The
+    X1*X2 shows little structure.  The net effect is that the
+    relative ordering of these scatter plots is very much in
+    agreement (again, as they must be) with the relative ordering
+    of the "unimportant" factors given on lines 3 to 7 of the
+    <a href="pri615.htm#yatestable">Yates table</a>.  From
+    the Yates table and the X2*X3 plot, it is seen that the
+    next most influential term to be added to the model would
+    be X2*X3.  In effect, these plots offer a higher-resolution
+    confirmation of the ordering that was in the Yates table.
+    On the other hand, none of these other factors "passed" the
+    five criteria as given in the previous section and so these
+    factors, suggestively influential as they might be, are
+    still not influential enough to be added to the model.
+    <p>
+<li>Time Drift: The run sequence scatter plot is random.  Hence
+    there does not appear to be a drift, either from time, or
+    any factor (e.g., temperature, humidity, pressure, etc.)
+    possibly correlated with time.
+    <p>
+<li>Normality: The normal probability plot of the 8 residuals
+    has some curvature which suggests that additional terms be
+    added.  On the other hand, the correlation coeffient of the
+    8 ordered residuals and the 8 theoretical normal N(0,1)
+    order statistic medians (which define the two axes of the
+    plot) has the value 0.934, which is
+    well within acceptable (5%) limits of the
+    <a href="../../eda/section3/eda3676.htm">normal probability
+    plot correlation coefficient</a> test for normality.  In
+    effect, therefore the plot is not so non-linear as to reject
+    normality.
+</ol>
+In summary, therefore, we end up accepting the model
+<UL>
+   <img src="splett3/eqns/yhateq3.gif"
+        alt="Yhat = 2.65875 + 1/2 (3.10250*X1 - .86750*X2)">
+</UL>
+as a parsimonious, but good, representation of the
+sensitivity phenomenon under study.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri618.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri61a.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

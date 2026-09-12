@@ -1,0 +1,78 @@
+dimension 20 variables
+.
+device 1 x11
+set ipl1na shape5.ps
+device 2 postscript
+.
+let function fnum = (1.56 - 0.135*x + 0.00256*x**2)
+let function fden = (1 - 0.00175*x + 0.0000215*x**2)
+let function f = fnum/fden
+.
+window corner coordiantes 0 0 50 50
+tic marks off
+tic mark labels off
+y2frame off
+x2frame off
+xlabel x
+y1label y
+ylimits -20 125
+xlimits 0 400
+label size 6
+tic label size 6
+plot f for x = 0 .1 400
+line dash
+let yval = 0.00256/0.0000215
+drawdata 0 yval 400 yval
+let yval = yval - 2
+movedata -20 yval
+height 6
+text c
+line solid all
+limits
+.
+window corner coordiantes 50 0 100 50
+pre-erase off
+tic offset 0 0.2
+x1tic mark labels on
+y1tic mark labels on
+xlabel m
+y1label n
+label size 6
+character size 12
+grid on
+grid pattern solid
+limits 0 5
+major tic mark number 6
+minor tic mark number 0
+lines dash blank dash
+character blank circle blank
+character fill on all
+let y1 = data 0 5
+let x1 = y1
+let y2 = data 1 2 3 4 5
+let x2 = y2
+let y3 = data 2 0
+let x3 = data 0 2
+plot y1 vs x1 and
+plot y2 vs x2 and
+plot y3 vs x3
+.
+window corner coordinates 0 50 100 100
+justification left
+height 6
+move 25 80
+text Question 1: C   n = m
+move 25 70
+text Question 2: 0   n <= m
+move 25 60
+text Question 3: 0   n >= 0
+move 25 50
+text Question 4: 1   n >= 2 - m
+move 25 40
+text Simplest Case: n = 1, m = 1
+move 30 33
+text (linear/linear) and (quadratic/quadratic)
+.
+device 2 close
+system mv SHAPE5.PS shape5.ps
+.

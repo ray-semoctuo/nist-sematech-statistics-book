@@ -1,0 +1,77 @@
+device 1 close
+pre-erase off
+tic offset units absolute
+tic offset 2 2
+label case asis
+set postscript ppi 800
+char size 12
+char .
+lines blank
+label size 8
+tic mark label size 8
+device 2 postscript
+seed 68
+let x = uniform random numbers for i = 1 1 40
+let x = 20 + 50*x
+let yt = 5 + 4*x
+seed 9
+let z = normal random numbers for i = 1 1 40
+let z = 5*z
+let y = yt + z
+linear fit y x
+multiplot corner coordinates 5 5 95 95
+multiplot 3 3
+xlabel Temperature
+xlabel displacement 15
+y1label Pressure 
+y1label displacement 15 
+major ytic mark number 4
+plot y x
+xlabel 
+ylabel 
+lines solid
+char blank
+plot pred x
+char . 
+lines blank
+ylimits -12 12
+major ytic mark number 5
+plot z x
+ylimits
+major ytic mark number 4
+multiplot 3 3 2 2
+char blank
+lines solid
+plot pred x
+bar fill on
+bar width 0.95
+xlimits -12 12
+ylimits 0 0.15
+major xtic mark number 5
+relative histogram z
+xlimits
+ylimits
+major xtic mark number
+multiplot 3 3 3 2
+plot pred x
+ xlimits -12 12
+ ylimits 0 0.15
+ major xtic mark number 5
+ let zn = sequence -12 0.2 12
+ let p = (1/(4.35*sqrt(2*pi)))*exp(-0.5*(zn/4.35)**2)
+ char blank
+ lines solid 
+ plot p vs zn 
+ xlimits
+ ylimits
+ major xtic mark number 
+multiplot off
+move 33 80; text = 
+move 33 50; text = 
+move 33 20; text = 
+move 63 80; text + 
+move 63 50; text + 
+move 63 20; text + 
+device 2 close
+system mv dppl1f.dat gipm1.ps
+quit

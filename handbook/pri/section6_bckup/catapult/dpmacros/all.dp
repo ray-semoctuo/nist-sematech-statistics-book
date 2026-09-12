@@ -1,0 +1,217 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+set ipl1na dexsct.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexsct.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXSCT.PS dexsct.ps
+.
+set ipl1na boxplt.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call boxplt.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BOXPLT.PS boxplt.ps
+.
+set ipl1na dexme2.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexme2.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXME2.PS dexme2.ps
+.
+set ipl1na dexmea.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexmea.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXMEA.PS dexmea.ps
+.
+set ipl1na dexmed.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexmed.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXMED.PS dexmed.ps
+.
+set ipl1na dexsd.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexsd.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXSD.PS dexsd.ps
+.
+set ipl1na dexeff.ps
+device 2 postscript
+.
+title size 4
+label size 4.5
+tic label size 4
+call dexeff.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXEFF.PS dexeff.ps
+.
+set ipl1na blockp.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call blockp.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BLOCKP.PS blockp.ps
+.
+call yates.dp
+.
+set ipl1na normpr.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call normpr.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv NORMPR.PS normpr.ps
+.
+. set ipl1na youden.ps
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. call youden.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv YOUDEN.PS youden.ps
+.
+. set ipl1na fitpar.ps
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. call fitpar.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv FITPAR.PS fitpar.ps
+. .
+. set ipl1na part.ps
+. device 2 postscript
+. .
+. title size 3
+. label size 3
+. tic label size 3
+. call part.dp
+. title size 
+. label size
+. tic label size
+. .
+. device 2 close
+. system mv PART.PS part.ps
+.
+set ipl1na dexcon.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexcon.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXCON.PS dexcon.ps
+.
+set ipl1na dexco2.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexco2.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXCO2.PS dexco2.ps
+.
+set ipl1na dexco3.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call dexco3.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv DEXCO3.PS dexco3.ps
+.

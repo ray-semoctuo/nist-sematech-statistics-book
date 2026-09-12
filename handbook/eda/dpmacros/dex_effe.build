@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < dex_effe.dp
+mv dppl1f.dat dex_effe.ps
+gs -sDEVICE=ppm -sOutputFile=dex_effe.ppm  -dNOPAUSE -dBATCH dex_effe.ps
+~/bin/pnmrotate  -90 dex_effe.ppm > dex_effe_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 dex_effe_r.ppm > dex_effe_s.ppm
+~/bin/ppmtogif  dex_effe_s.ppm > dex_effe.gif
+mv dex_effe.gif ../gif/dex_effe.gif
+# rm dex_effe.ppm dex_effe_r.ppm dex_effe_s.ppm dex_effe.ps
+#

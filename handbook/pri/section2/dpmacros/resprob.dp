@@ -1,0 +1,44 @@
+.
+.  Macro to generate normal probability plot of residuals with overlaid
+.  dot plot
+.
+device 1 x11
+device 2 postscript
+.
+thickness 0.15
+tic mark label size 3
+label case asis
+label size 3
+x3label size 4
+x3label Figure 2.3
+.
+skip 25
+read berger1.dat y x
+linear fit y x
+.
+label case asis
+x1label Theoretical
+y1label Data
+char x
+line blank
+normal probability plot res
+limits freeze
+pre-erase off
+.
+let ytemp = yplot
+let n = size ytemp
+let xtemp = -2.8 for i = 1 1 n
+char size 1.5
+char circle
+char fill on
+plot ytemp xtemp
+.
+line dotted
+char blank
+let function f = ppa0 + ppa1*z
+plot f for z = -3 0.01 3
+.
+device 2 close
+.
+system cp dppl1f.dat normprob.ps
+.

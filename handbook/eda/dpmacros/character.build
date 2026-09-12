@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < character.dp
+mv dppl1f.dat character.ps
+gs -sDEVICE=ppm -sOutputFile=character.ppm  -dNOPAUSE -dBATCH character.ps
+~/bin/pnmrotate  -90 character.ppm > character_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 character_r.ppm > character_s.ppm
+~/bin/ppmtogif  character_s.ppm > character.gif
+mv character.gif ../gif/character.gif
+rm character.ppm character_r.ppm character_s.ppm character.ps
+#

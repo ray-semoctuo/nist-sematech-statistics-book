@@ -1,0 +1,9 @@
+cp m:\ppc\*.htm  .
+cp m:\ppc\section1\*.htm  section1
+cp m:\ppc\section2\*.htm  section2
+cp m:\ppc\section3\*.htm  section3
+cp m:\ppc\section4\*.htm  section4
+cp m:\ppc\section5\*.htm  section5
+cp m:\ppc\section6\*.htm  section6
+cp m:\ppc\section5\Furnace\*.htm  section5\Furnace
+cp m:\ppc\section5\Machine\*.htm  section5\Machine

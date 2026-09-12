@@ -1,0 +1,15 @@
+.
+.  Generate sample output for Anderson-Darling
+.
+echo on
+capture anderson.out
+let y1 = normal random numbers for i = 1 1 1000
+let y2 = double exponential random numbers for i = 1 1 1000
+let y3 = cauchy random numbers for i = 1 1 1000
+let y4 = lognormal random numbers for i = 1 1 1000
+anderson darling normal test y1
+anderson darling normal test y2
+anderson darling normal test y3
+anderson darling normal test y4
+end of capture 
+quit

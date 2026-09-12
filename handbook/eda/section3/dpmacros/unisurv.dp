@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Uniform Survival plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na unisurv.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Uniform Survival
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+PLOT 1 - UNICDF(X) FOR X = 0 0.1 1
+.
+box 0 0 100 100
+.
+device 2 close
+system cp UNISURV.PS unisurv.ps
+system rm UNISURV.PS
+.
+quit

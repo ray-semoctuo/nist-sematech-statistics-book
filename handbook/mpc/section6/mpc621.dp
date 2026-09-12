@@ -1,0 +1,84 @@
+Dataplot commands and output:
+
+
+. Histogram for check standard #137 to test 
+. assumption of normality 	
+
+reset data
+reset plot control
+reset i/o
+dimension 30 colummns
+skip 25
+read MPC62.DAT crystal wafer mo day hour min op hum probe temp y sw df
+histogram y
+
+. Normal probability plot for check standard #137 
+. to test assumption of normality 	
+
+reset data
+reset plot control
+reset i/o
+dimension 30 columns
+skip 25
+read MPC62.DAT crystal wafer mo day hour min op hum probe temp y sw df
+skip 0
+normal probabilty plot y
+
+. Control chart for precision of probe #2372 and 
+. computation of control parameter estimates 	
+
+reset data
+reset plot control
+reset i/o
+dimension 30 columns
+skip 25
+read MPC62.DAT crystal wafer mo day hour min op hum probe temp y sw df
+skip 0
+let time = mo +(day-1)/31.
+let s = sw*sw
+let spool = mean s
+let spool = spool**.5
+print spool
+let f = fppf(.95, 5, 125)
+let ucl = spool*(f)**.5
+print ucl
+title Control chart for precision
+characters blank blank O
+lines solid dashed blank
+y1label ohm.cm
+x1label Time in days
+x2label Standard deviations with probe #2362
+x3label 5% upper control limit
+let center = sw - sw + spool
+let cl = sw - sw + ucl
+plot center cl sw vs time
+
+. Shewhart control chart for check standard #137 with 
+. computation of control chart parameters 	
+
+reset data
+reset plot control
+reset i/o
+dimension 30 columns
+skip 50
+read MPC62.DAT crystal wafer mo day hour min op hum probe temp y sw df
+skip 0
+let time = mo +(day-1)/31.
+let avg = mean y
+let sprocess = standard deviation y
+let ucl = avg + 2*sprocess
+let lcl = avg - 2*sprocess
+print avg
+print sprocess
+print ucl lcl
+title Shewhart control chart
+characters O blank blank blank
+lines blank dashed solid dashed
+y1label ohm.cm
+x1label Time in days
+x2label Check standard 137 with probe 2362
+x3label 2-sigma control limits
+let ybar = y - y + avg
+let lc1 = y - y + lcl
+let lc2 = y - y + ucl
+plot y lc1 ybar lc2 vs time

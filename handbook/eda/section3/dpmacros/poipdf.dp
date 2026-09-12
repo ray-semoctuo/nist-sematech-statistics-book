@@ -1,0 +1,28 @@
+.
+.  Generate sample output for Poisson PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na poipdf.jpg
+device 2 gd jpeg
+device 2 picture points 100 75
+.
+TITLE CASE ASIS
+TITLE Poisson PDF (Lambda = 5)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability Mass
+X1LABEL X
+LINE BLANK
+SPIKE ON
+XTIC OFFSET 1 1
+.
+PLOT POIPDF(X,5) FOR X = 0 1 20
+.
+box 0 0 100 100
+.
+device 2 close
+system mv poipdf.jpg ../gif100/poipdf.jpg
+.
+quit

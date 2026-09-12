@@ -1,0 +1,147 @@
+. This is Dataplot macro file    CONFOUND.DP
+. Purpose--Compute confounding structure for
+.          2-level factorial designs as formed
+.          via Box, Hunter, & Hunter, page 410
+. Date--January 2001
+. Input--k (number of factors)
+.        n (number of runs)
+. Output--n strings con.. which contain the dominant counfounding
+. Note--Do NOT use the name TAG.. anywhere else in the calling routine
+.       or other subroutines.
+.
+. -----start point-----
+.
+. -----n = 4-----
+.
+if n = 4; if k = 2
+      read string con1 con2 con12
+      1 2 12
+      read string cop1 cop2 cop12
+      1 2 12
+end if; end if
+.
+if n = 4; if k = 3
+      read string con1 con2 con12
+      1 2 3
+      read string cop1 cop2 cop12
+      1+23 2+13 3+12
+end if; end if
+.
+. -----n = 8-----
+.
+if n = 8; if k = 3
+      read string con1 con2 con3
+      1 2 3
+      read string con12 con13 con23 con123
+      12 13 23 123
+      read string cop1 cop2 cop3
+      1 2 3
+      read string cop12 cop13 cop23 cop123
+      12 13 23 123
+end if; end if
+.
+if n = 8; if k = 4
+   read string con1 con2 con3
+   1 2 3
+   read string con12 con13 con23 con123
+   12 13 23 4
+   read string cop1 cop2 cop3
+   1 2 3
+   read string cop12 cop13 cop23 cop123
+   12+34 13+24 23+14 4
+end if; end if
+.
+if n = 8; if k = 6
+   read string con1 con2 con3
+   1 2 3
+   read string con12 con13 con23 con123
+   4 5 6 16
+   read string cop1 cop2 cop3
+   1+24+35 2+14+36 3+15+26
+   read string cop12 cop13 cop23 cop123
+   4+12+56 5+13+46 6+23+45 16+25+34
+end if; end if
+.
+if n = 8; if k = 7
+   read string con1 con2 con3
+   1 2 3
+   read string con12 con13 con23 con123
+   4 5 6 7
+   read string cop1 cop2 cop3
+   1+24+35+67 2+14+36+57 3+15+26+47
+   read string cop12 cop13 cop23 cop123
+   4+12+56+37 5+13+46+17 6+23+45+17 7+16+25+34
+end if; end if
+.
+. -----n = 16-----
+.
+if n = 16; if k = 4
+   read string con1 con2 con3 con4
+   1 2 3 4
+   read string con12 con13 con14 con23 con24 con34
+   12 13 14 23 24 34
+   read string con123 con124 con134 con234 con1234
+   123 124 134 234 1234
+   read string cop1 cop2 cop3 cop4
+   1 2 3 4
+   read string cop12 cop13 cop14 cop23 cop24 cop34
+   12 13 14 23 24 34
+   read string cop123 cop124 cop134 cop234 cop1234
+   123 124 134 234 1234
+end if; end if
+.
+if n = 16; if k = 5
+   read string con1 con2 con3 con4
+   1 2 3 4
+   read string con12 con13 con14 con23 con24 con34
+   12 13 14 23 24 34
+   read string con123 con124 con134 con234 con1234
+   45 35 25 15 5
+   read string cop1 cop2 cop3 cop4
+   1 2 3 4
+   read string cop12 cop13 cop14 cop23 cop24 cop34
+   12 13 14 23 24 34
+   read string cop123 cop124 cop134 cop234 cop1234
+   45 35 25 15 5
+   end if; end if
+.
+if n = 16; if k = 7
+   read string con1 con2 con3 con4
+   1 2 3 4
+   read string con12 con13 con14 con23 con24 con34
+   12 13 14 23 24 34
+   read string con123 con124 con134 con234 con1234
+   7 124 6 5 15
+   read string cop1 cop2 cop3 cop4
+   1 2 3 4
+   read string cop12 cop13 cop14 cop23 cop24 cop34
+   12+37+56 13+27+46 14+36+57 15+26+47 16+25+34 17+23+45
+   read string cop123 cop124 cop134 cop234 cop1234
+   7 124 6 5 15+26+47
+end if; end if
+.
+. -----n = 32-----
+.
+if n = 32; if k = 5
+   read string con1 con2 con3 con4 con5
+   1 2 3 4 5
+   read string con12 con13 con14 con15 con23 con24 con25 con34 con35 con45
+   12 13 14 15 23 24 25 34 35 45
+   read string con123 con124 con125 con134 con135 con145
+   123 124 125 134 135 145
+   read string con234 con235 con245 con345
+   234 235 245 345
+   read string con1234 con1235 con1245 con1345 con2345 con12345
+   1234 1235 1245 1345 2345 12345
+   read string cop1 cop2 cop3 cop4 cop5
+   1 2 3 4 5
+   read string cop12 cop13 cop14 cop15 cop23 cop24 cop25 cop34 cop35 cop45
+   12 13 14 15 23 24 25 34 35 45
+   read string cop123 cop124 cop125 cop134 cop135 cop145
+   123 124 125 134 135 145
+   read string cop234 cop235 cop245 cop345
+   234 235 245 345
+   read string cop1234 cop1235 cop1245 cop1345 cop2345 cop12345
+   1234 1235 1245 1345 2345 12345
+end if; end if
+.

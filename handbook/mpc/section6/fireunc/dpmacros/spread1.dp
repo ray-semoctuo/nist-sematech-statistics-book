@@ -1,0 +1,16 @@
+.
+. Starting Step 2.3
+y1label ^rot (minus group mean)
+title Extinguish Fire Data
+let fluxdist = distinct flux
+let rotadj = rot
+let ngroup = size fluxdist
+loop for k = 1 1 ngroup
+    let tag = fluxdist(k)
+    let a = mean rot subset flux = tag
+    let rotadj = rotadj - a subset flux = tag
+end of loop
+plot rotadj flux
+title
+y1label ^rot
+. Finished Step 2.3: Page Back for Output

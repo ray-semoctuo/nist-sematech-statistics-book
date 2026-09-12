@@ -1,0 +1,27 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2008.2.13)  10 APR 2009 16:06
+entering extended mode
+**nps1new.tex
+(/usr/share/texmf/tex/latex/tools/e.tex
+! Interruption.
+<to be read again> 
+                   \begingroup 
+l.1 
+    %%
+? 
+! Emergency stop.
+<to be read again> 
+                   \begingroup 
+l.1 
+    %%
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 11 strings out of 94500
+ 214 string characters out of 1176732
+ 48348 words of memory out of 1000000
+ 3273 multiletter control sequences out of 10000+50000
+ 3640 words of font info for 14 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 1000
+ 3i,0n,1p,25b,6s stack positions out of 1500i,500n,5000p,200000b,5000s
+No pages of output.

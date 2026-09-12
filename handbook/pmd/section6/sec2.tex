@@ -1,0 +1,1340 @@
+\documentstyle[twoside,12pt]{article}
+\topmargin-0.5in
+\textheight9.0in
+\oddsidemargin0in
+\evensidemargin0in
+\textwidth6.5in
+\pagestyle{myheadings}
+\begin{document}
+\input{psfig}
+\input{rotate}
+\newbox\rbox
+% set up general text format for slides
+{\raggedright
+{\huge  
+% end set up
+\setcounter{page}{101}
+\begin{center}
+Section Outline
+\end{center}
+\vspace{0.5in}
+\begin{enumerate}
+\item Non-Constant Variation
+\item Outliers
+\end{enumerate}
+\newpage
+\markboth{Non-Constant Variation}{Non-Constant Variation}
+\begin{center}
+Non-Constant Variation
+\end{center}
+\vspace{0.75in}
+Non-constant variation across the levels of the predictor
+variables violates one of the usual assumptions of least
+squares regression. \\
+\vspace{0.5in}
+However non-constant variation is often found in data
+used for building regression models as an inherent part
+of the measurement or other type of process. \\
+\vspace{0.5in}
+Because non-constant variation is frequently encountered, techniques 
+to improve the validity of the standard assumptions and techniques 
+based on alternative assumptions have been developed to lessen
+the impact of this problem. 
+\newpage
+\begin{center}
+Effect of Non-Constant Standard Deviation on Function Fitting
+\end{center}
+\vspace{0.75in}
+If all of the other assumptions for the analysis are met,
+except for constant standard deviation across all combinations
+of the predictors, the usual parameter estimates will still
+be correct on average, or unbiased. \\
+\vspace{0.5in}
+However, the deviation of the fitted function from the true function
+will be larger, on average, than that from other techniques, unlike 
+the case of constant standard deviation.
+\newpage
+\begin{center}
+Effect of Non-Constant Standard Deviation on Function Fitting
+\end{center}
+\vspace{0.5in}
+The least squares estimates are found by minimizing
+the sum of the squared differences of the predicted values and the observed $y$'s, Q,
+to find the $\hat{\beta}$'s.
+\vspace{0.35in}
+\[
+Q=\sum_{i=1}^{n}[y_i-f(x_{1i},x_{2i},\ldots,x_{ki};\hat{\beta}_1,\hat{\beta}_2,\ldots,\hat{\beta}_p)]^2
+\] \\
+\vspace{0.5in}
+All deviations count the same using the LSS fitting criterion, even if the variation
+differs across the data. \\
+\vspace{0.5in}
+However, where the variation is larger, the deviations of the data from their corresponding
+means will also be larger, indicating that the regression function should not be constrained
+to be as near that data as it is to data that varies less.
+\newpage
+\begin{center}
+Effect of Non-Constant Standard Deviation on Prediction
+\end{center}
+\vspace{0.75in}
+In addition to increasing the variance of estimating the regression
+function, non-constant standard deviation impacts the uncertainty of
+predictions, if unaccounted for. \\
+\vspace{0.5in}
+Predictions made where variation is relatively low, will tend to have larger 
+stated uncertainties than necessary. Predictions made where uncertainty is 
+relatively large will have smaller stated uncertainties than necessary.
+%\newpage
+\begin{figure}
+\psfig{file=hetsc1.ps,width=6.5in}
+\end{figure}
+\newpage
+\begin{center}
+Improved Fitting Methods
+\end{center}
+\vspace{0.75in}
+There are basically two approaches to getting improved parameter
+estimates for data with non-constant standard deviations:
+\vspace{0.5in}
+\begin{enumerate}
+\item transformation of the data so it meets the standard assumptions, and
+\vspace{0.15in}
+\item use of weights in parameter estimation to account for the unequal 
+standard deviations.
+\end{enumerate}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc2.ps,width=6.5in}
+\end{figure}
+\newpage
+\begin{center}
+Transformations
+\end{center}
+\vspace{0.6in}
+The basic steps for using transformations to handle data with
+unequal subpopulation standard deviations are:
+\vspace{0.4in}
+\begin{enumerate}
+\item Transform the response variable to equalize the variation
+across the levels of the predictor variables
+\vspace{0.15in}
+\item Transform the predictor variables if necessary to attain
+or restore a simple functional form for the regression function.
+\vspace{0.15in}
+\item Fit and validate the model in the transformed variables.
+\vspace{0.15in}
+\item Transform the function back into the original units, if 
+necessary, using the inverse of the transformation originally 
+applied to the response variable.
+\end{enumerate}
+\newpage
+\begin{center}
+Transformations
+\end{center}
+\vspace{0.75in}
+Appropriate transformations to stabilize the 
+variability may be suggested by scientific knowledge
+or selected using the data. \\
+\vspace{0.5in}
+Three transformations that are often effective is
+equalizing the standard deviations across the
+values of the predictor are:
+\vspace{0.5in}
+\begin{enumerate}
+\item $\sqrt{y}$
+\item $\log(y)$, and
+\item $1/y$.
+\end{enumerate}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc3.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc4.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc5.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc6.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc7.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc8.ps,width=6.5in}
+\end{figure}
+\newpage
+\begin{center}
+Weighted Least Squares
+\end{center}
+\vspace{0.5in}
+Weighted least squares estimates are found by minimizing:
+\vspace{0.5in}
+\[
+Q=\sum_{i=1}^{n}w_i[y_i-f(x_{1i},x_{2i},\ldots,x_{ki};\hat{\beta}_1,\hat{\beta}_2,\ldots,\hat{\beta}_p)]^2
+\] \\
+\vspace{0.25in}
+where  \\
+\vspace{0.25in}
+\[ w_i \propto \frac{1}{\sigma^2_i} \] \\
+\vspace{0.5in}
+These relative weights give optimal results, when known.
+\newpage
+\begin{center}
+Weighted Least Squares
+\end{center}
+\vspace{0.5in}
+Unfortunately the true weights are rarely known, so they
+have to be estimated. \\
+\vspace{0.5in}
+The obvious way to estimate the $w_i$, if there are replicates
+in the data, is
+\[ w_i = \frac{1}{\hat{\sigma}^2_i} = \frac{1}{s^2_i} = 
+         [\frac{\sum_{i=1}^{n_i}(y_{ij}-\bar{y}_i)^2}{n_i-1}]^{-1} \]
+for the $i^{th}$ set of replicates in the data set. \\
+\vspace{0.5in}
+However, this rarely works well because the weights are
+extremely variable when estimate this way.
+\newpage
+\begin{center}
+Weighted Least Squares
+\end{center}
+\vspace{0.5in}
+A better strategy for estimating the weights is to find a function which relates
+$s_i^2$ to $x_i$. \\
+\vspace{0.5in}
+If \[ s_i^2 \propto f(x_{1i},x_{2i},\ldots,x_{ki}) \] \\
+then use \\
+\[ w_i = \frac{1}{f(x_{1i},x_{2i},\ldots,x_{ki})} \] \\
+as the weights. \\
+\vspace{0.5in}
+One model that {\em often} works well for modeling the variances is
+\[ s_i^2 \propto x_i^c \]
+%\newpage
+\begin{figure}
+\psfig{file=hetsc9.ps,width=6.5in}
+\end{figure}
+\newpage
+\begin{center}
+Estimation of the Weights - Replicates Available
+\end{center}
+\vspace{0.5in}
+To estimate the weights using the power function
+shown above, fit the function
+\[ \log(s_i^2) = \beta_1 + \beta_2\log(x_i) \]
+to the variances from each set of replicates in the
+data. \\
+\vspace{0.5in}
+The use $\hat{c} = \hat{\beta}_2$ (the slope of the fit)
+to estimate $c$, and \\
+\[ w_i = \frac{1}{x^{\hat{c}}_i} \] \\
+to as the weights. \\
+\vspace{0.5in}
+Check the residuals from the fit used to estimate $c$ just
+to make sure everything looks reasonable.  The fit does not
+have to meet the standards usually used, however. 
+\newpage
+\begin{center}
+Estimation of the Weights - No Replicates Available
+\end{center}
+\vspace{0.5in}
+If there are few or no replicates in the data, divide the
+data into several ranges in which the responses have 
+fairly similar means. \\
+\vspace{0.5in}
+Treat each range as replicates and
+compute $\bar{x_i}$ and $s_i^2$ for each range. \\
+\vspace{0.5in}
+Then fit 
+\[ \log(s_i^2) = \beta_1 + \beta_2\log(\bar{x}_i) \]
+and define the weights by
+\[ w_i = \frac{1}{x^{\hat{\beta}_2}_i} \]
+%\newpage
+\begin{figure}
+\psfig{file=hetsc10.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Output from Fit for Weight Estimation
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+
+N = 10
+
+Residual Standard Error = 0.7821
+
+Multiple R-Square = 0.8046
+
+F-statistic = 32.9428 on 1 and 8 df, p-value = 4e-04
+
+             coef std.err  t.stat p.value 
+Intercept  0.5554  1.3785  0.4029  0.6976
+        X  2.0414  0.3557  5.7396  0.0004 
+\end{verbatim}
+}
+%\clearpage
+%\newpage
+%\begin{center}
+%Output from Fit for Weight Estimation
+%\end{center}
+%\vspace{0.5in}
+%{\large
+%\begin{verbatim}
+%
+%N = 10
+%
+%Residual Standard Error = 1.08
+%
+%Multiple R-Square = 0.806
+%
+%F-statistic = 33.2333 on 1 and 8 df, p-value = 4e-04
+%
+%             coef std.err  t.stat p.value 
+%Intercept -3.2265  1.9035 -1.6950  0.1285
+%        X  2.8312  0.4911  5.7648  0.0004
+%\end{verbatim}
+%}
+\clearpage
+\newpage
+\begin{figure}
+\psfig{file=hetsc11.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc12.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Weighted Residuals
+\end{center}
+\vspace{0.5in}
+One complication with weighted analyses is the
+fact that the distribution of the residuals can 
+vary substantially with the different values of the 
+predictor variables. \\
+\vspace{0.5in}
+This necessitates the use of weighted residuals when
+plotting residuals. \\
+\vspace{0.5in}
+The weighted residuals are given by
+\[ e_i = \sqrt{w_i}(y_i-f(x_{1i},\ldots,x_{ki};\hat{\beta}_1,\ldots,\hat{\beta}_p)) \]
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=hetsc13.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc14.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=hetsc15.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger1.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger2.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+AK Pipeline Data \\
+Output from  Unweighted Fit
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+
+N = 107
+
+Residual Standard Error = 6.080924
+
+Multiple R-Square = 0.8941251
+
+F-statistic = 886.7366 on 1 and 105 df, p-value = 0
+
+               coef    std.err    t.stat      p.value 
+Intercept 4.9936799 1.12565780  4.436233 2.263517e-05
+        X 0.7311111 0.02455195 29.778123 0.000000e+00
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=berger3.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger4.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger5.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger6.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger7.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+AK Pipeline Data \\
+Output from Fit on Transformed Variables
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+
+N = 107
+
+Residual Standard Error = 0.1682604
+
+Multiple R-Square = 0.9337104
+
+F-statistic = 1478.958 on 1 and 105 df, p-value = 0
+
+               coef    std.err    t.stat      p.value 
+Intercept 0.2813838 0.08092894  3.476924 0.0007390395
+        X 0.8851754 0.02301714 38.457221 0.0000000000
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=berger8.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger9.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger10.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+AK Pipeline Data \\
+Output from Weight Estimation Fit 
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+
+N = 27
+
+Residual Standard Error = 0.8545392
+
+Multiple R-Square = 0.6286482
+
+F-statistic = 42.32161 on 1 and 25 df, p-value = 8.178602e-07
+
+               coef   std.err    t.stat      p.value 
+Intercept -2.696496 0.8250090 -3.268444 3.140569e-03
+        X  1.522101 0.2339712  6.505506 8.178602e-07
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=berger11.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger12.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=berger13.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+AK Pipeline Data \\
+Output from Weighted Fit 
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+
+N = 107
+
+Residual Standard Error = 0.3646
+
+Multiple R-Square = 0.9235
+
+F-statistic = 1267.024 on 1 and 105 df, p-value = 0
+
+            coef std.err  t.stat p.value 
+Intercept 2.3523  0.5431  4.3312       0
+        X 0.8064  0.0227 35.5953       0
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=berger14.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut1.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut2.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Ultrasonic Calibration Data \\
+Output from Unweighted Exp/Linear Fit
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+Parameters:
+
+        Value  Std. Error  t value 
+b1 0.19027400 0.021938300  8.67312
+b2 0.00613137 0.000345001 17.77200
+b3 0.01053100 0.000792818 13.28300
+
+Residual standard error: 3.36167 on 211 degrees of freedom
+
+Correlation of Parameter Estimates:
+
+       b1     b2 
+b2  0.839       
+b3 -0.950 -0.949
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=chwirut3.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut4.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut5.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut6.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut7.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Ultrasonic Calibration Data \\
+Output from Fit to Transformed Data 
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+Parameters:
+
+        Value Std. Error   t value 
+b1 -0.0154274 0.00861101  -1.79159
+b2  0.0806725 0.00150574  53.57670
+b3  0.0638570 0.00288001  22.17250
+
+Residual standard error: 0.29715 on 211 degrees of freedom
+
+Correlation of Parameter Estimates:
+
+       b1     b2 
+b2  0.793       
+b3 -0.960 -0.899
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=chwirut8.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut9.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Ultrasonic Calibration Data \\
+Output from Weight Estimation Fit
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+
+N = 22
+
+Residual Standard Error = 0.6099457
+
+Multiple R-Square = 0.6712342
+
+F-statistic = 40.83357 on 1 and 20 df, p-value = 3.10602e-06
+
+               coef   std.err     t.stat      p.value 
+Intercept  2.536866 0.1919360  13.217253 2.421219e-11
+        X -1.112763 0.1741382  -6.390115 3.106020e-06
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=chwirut10.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut11.ps,width=6.5in}
+\end{figure}
+%\newpage
+\begin{figure}
+\psfig{file=chwirut12.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Ultrasonic Calibration Data \\
+Output from Weighted Fit
+\end{center}
+\vspace{0.5in}
+{\large
+\begin{verbatim}
+LEAST SQUARES NON-LINEAR FIT
+SAMPLE SIZE N =      214
+MODEL--Y =EXP(-B1*X)/(B2+B3*X)
+REPLICATION CASE
+REPLICATION STANDARD DEVIATION =     0.3281762600D+01
+REPLICATION DEGREES OF FREEDOM =         192
+NUMBER OF DISTINCT SUBSETS     =          22
+  
+  
+FINAL PARAMETER 
+      ESTIMATES     (APPROX. ST. DEV.)    T VALUE
+1  B1  0.143378       (0.1476E-01)          9.7
+2  B2  0.518479E-02   (0.4191E-03)          12.
+3  B3  0.125719E-01   (0.7508E-03)          17.
+  
+RESIDUAL    STANDARD DEVIATION =         4.2653684616
+RESIDUAL    DEGREES OF FREEDOM =         211
+REPLICATION STANDARD DEVIATION =         3.2817625999
+REPLICATION DEGREES OF FREEDOM =         192
+LACK OF FIT F RATIO =  8.6545 = THE 100.0000% POINT OF THE
+F DISTRIBUTION WITH     19 AND    192 DEGREES OF FREEDOM
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=chwirut13.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\markboth{Outliers}{Outliers}
+\begin{center}
+Outliers
+\end{center}
+\vspace{0.5in}
+In a broad sense, outliers are points that do 
+not follow the general pattern or structure in the data. \\
+\vspace{0.5in}
+If present in the data, outliers can unduly affect
+the model-building process and invalidate
+predictions or calibrations. \\
+\newpage
+\begin{center}
+More Specifically $\ldots$
+\end{center}
+\vspace{0.5in}
+\begin{description}
+\item[outlier] - an observed value of the response variable that
+appears to be unusually large or small relative to its apparent population.
+\vspace{0.15in}
+\item[high leverage point] - a point from the observed set of predictor
+variables that is unusual in size or structure relative to the other 
+predictor variable points. 
+\vspace{0.15in}
+\item[influential observation] - an observation that has a large effect on
+the model derived from the data.
+\end{description}
+\vspace{0.5in}
+Note: Not all outliers or high leverage points are influential observations.
+%\newpage
+\begin{figure}
+\psfig{file=infl1.ps,height=9.0in}
+\end{figure}
+\clearpage
+\begin{center}
+Regression Output for Data with Outlier
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 10
+
+Residual Standard Error = 2.6986
+
+Multiple R-Square = 0.9252
+
+F-statistic = 98.9308 on 1 and 8 df, p-value = 0
+
+            coef std.err t.stat p.value 
+Intercept 6.6162  1.8435 3.5889  0.0071
+    x     2.9552  0.2971 9.9464  0.0000
+\end{verbatim}
+}
+\vspace{0.5in}
+\begin{center}
+Regression Output for Data with Outlier Omitted
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 9
+
+Residual Standard Error = 1.4547
+
+Multiple R-Square = 0.9803
+
+F-statistic = 349.0913 on 1 and 7 df, p-value = 0
+
+            coef std.err  t.stat p.value 
+Intercept 5.6882  1.0146  5.6063   8e-04
+    x     2.9974  0.1604 18.6840   0e+00
+\end{verbatim}
+}
+\clearpage
+%\newpage
+\begin{figure}
+\psfig{file=infl2.ps,height=9.0in}
+\end{figure}
+\clearpage
+\begin{center}
+Regression Output for Data with Leverage Point
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 10
+
+Residual Standard Error = 1.4046
+
+Multiple R-Square = 0.9934
+
+F-statistic = 1199.086 on 1 and 8 df, p-value = 0
+
+            coef std.err  t.stat p.value 
+Intercept 5.5567  0.7175  7.7444   1e-04
+    x     3.0020  0.0867 34.6278   0e+00
+\end{verbatim}
+}
+\vspace{0.5in}
+\begin{center}
+Regression Output for Data with LP Omitted
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 9
+
+Residual Standard Error = 1.5016
+
+Multiple R-Square = 0.9717
+
+F-statistic = 240.0134 on 1 and 7 df, p-value = 0
+
+            coef std.err  t.stat p.value 
+Intercept 5.5512  1.0909  5.0888  0.0014
+    x     3.0032  0.1939 15.4924  0.0000
+\end{verbatim}
+}
+%\newpage
+\begin{figure}
+\psfig{file=infl3.ps,height=9.0in}
+\end{figure}
+\clearpage
+\begin{center}
+Regression Output for Data with Influential Point
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 10
+
+Residual Standard Error = 6.5626
+
+Multiple R-Square = 0.9512
+
+F-statistic = 156.0045 on 1 and 8 df, p-value = 0
+
+             coef std.err   t.stat p.value 
+Intercept -3.8147  3.3524  -1.1379  0.2881
+    x      5.0591  0.4050  12.4902  0.0000
+\end{verbatim}
+}
+\vspace{0.5in}
+\begin{center}
+Regression Output for Data with IP Omitted
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 9
+
+Residual Standard Error = 1.5016
+
+Multiple R-Square = 0.9717
+
+F-statistic = 240.0134 on 1 and 7 df, p-value = 0
+
+            coef std.err  t.stat p.value 
+Intercept 5.5512  1.0909  5.0888  0.0014
+    x     3.0032  0.1939 15.4924  0.0000
+\end{verbatim}
+}
+\newpage
+\begin{center}
+Why Outliers Affect LS Regression
+\end{center}
+\vspace{0.5in}
+As we've seen before, the least squares estimates are found by minimizing
+the quantity Q to find the $\hat{\beta}$'s. \\
+\vspace{0.35in}
+\[
+Q=\sum_{i=1}^{n}[y_i-f(x_{1i},x_{2i},\ldots,x_{ki};\hat{\beta}_1,\hat{\beta}_2,\ldots,\hat{\beta}_p)]^2
+\] \\
+\vspace{0.5in}
+However, when a few deviations are much larger than the rest (in absolute value), and
+all of the deviations are squared and added up, the few large deviations
+tend to dominate the total. \\ 
+\vspace{0.5in}
+As a result, the values of the $\hat{\beta}$'s that minimize of the least squares 
+criterion are often the values that eliminate large deviations from the model. 
+\newpage
+\begin{center}
+Why Outliers Affect LS Regression
+\end{center}
+\vspace{0.5in}
+The LSS estimates for the straight line regression function 
+$y = \beta_1 + \beta_2x$ 
+show in detail how both outliers and high leverage points 
+affect the parameter estimates. \\ 
+\vspace{0.15in}
+\[ \hat{\beta}_2=\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^{n}(x_i-\bar{x})^2} \] \\
+\vspace{0.15in}
+\[ \hat{\beta}_1=\bar{y} - \hat{\beta}_2\bar{x} \] \\
+\vspace{0.5in}
+$\hat{\beta}_2$ is a linear combination of the deviations of the
+data points, $y_i$, from their sample mean, $\bar{y}$, `weighted' proportional to the
+deviation of $x_i$ from $\bar{x}$.  Large values of either $(x_i-\bar{x})$ or 
+$(y_i-\bar{y})$ will impact the estimates of both $\beta_1$ and $\beta_2$. \\
+\vspace{0.5in}
+The effects of leverage points and outliers are analogous in more complicated models.
+\newpage
+\begin{center}
+General Steps for Handling Outliers 
+\end{center}
+\vspace{0.5in}
+The basic steps for dealing with outliers in regression analysis are:
+\vspace{0.5in}
+\begin{enumerate}
+\item identify the outlying and influential points
+\item determine the reason each of these points was observed, if possible
+\item eliminate any points that can be shown to be irrelevant to the analysis
+\item reanalyze the data, both with and without any remaining influential points
+\end{enumerate}
+\vspace{0.5in}
+Steps 1 and 4 in this general procedure are statistical in nature, while steps
+2 and 3 require knowledge of specific experimental details and a thorough understanding
+of the underlying science.
+\newpage
+\begin{center}
+Outliers Detection Methods
+\end{center}
+\vspace{0.5in}
+Fortunately, outliers can usually be found using
+standard model validation procedures.
+However, in complicated, multivariate data, they can be 
+sometimes be difficult to pick out. \\
+\vspace{0.5in}
+Use of more specialized outlier detection procedures 
+in linear regression problems can help ensure that 
+all outliers are found, and can lead to a deeper 
+understanding of the data and model. \\
+\vspace{0.5in}
+The use and interpretation of the specialized outlier detection
+methods is harder in nonlinear least squares, though logically
+possible.  As a result, residual plots are the primary means of 
+identifying influential points in nonlinear problems.
+\newpage
+\begin{center}
+Two Classes of Specialized Outlier Detection Methods
+\end{center}
+\vspace{0.5in}
+There are basically two classes of outlier detection methods: 
+\vspace{0.5in}
+\begin{enumerate}
+\item methods that rely on the usual LS model fitting criteria,
+but may (effectively) delete observations from the fit, one-at-a-time,
+to help determine their influence (LS Methods), and
+\vspace{0.15in}
+\item methods in which the model fitting criterion is changed to
+reduce the effect of outliers on model estimation (Robust Methods)
+\end{enumerate}
+\newpage
+\begin{center}
+Advantages and Disadvantages of LS Methods
+\end{center}
+\vspace{0.5in}
+Advantages: \\
+\begin{enumerate}
+\item use the same software as for regular regression analysis
+\item work reasonably well with small and large data sets 
+\item provide a relatively large amount of information about unusual data points 
+\item are part of a relatively well-developed area of statistical research
+\item are computationally efficient
+\end{enumerate}
+\vspace{0.5in}
+Disadvantages: \\
+\begin{enumerate}
+\item do not work well with clusters of unusual points 
+\item require use of many different diagnostic statistics
+\end{enumerate}
+\newpage
+\begin{center}
+Advantages and Disadvantages of Robust Methods
+\end{center}
+\vspace{0.5in}
+Advantages: \\
+\begin{enumerate}
+\item work well with arbitrary numbers and clusters of unusual points 
+\item identify influential points in one step 
+\end{enumerate}
+\vspace{0.5in}
+Disadvantages: \\
+\begin{enumerate}
+\item require specialized software
+\item require medium-sized to large data sets
+\item may not identify non-influential outlying points
+\item are part of a relatively new area of statistical research
+\item can be computationally difficult
+\end{enumerate}
+\newpage
+\begin{center}
+LS Methods for Outlier Detection
+\end{center}
+\vspace{0.5in}
+Four of the main LS statistics for outlier detection are:
+\begin{description}
+\item[leverages] - which are used to identify high
+leverage points (unusual predictor variable values), regardless of their
+influence,
+\item[studentized deleted residuals] -  which are used
+to identify outliers (unusual response variable values)
+which may or may not be influential,
+\item[Cook's distances] - which are used to identify points that
+influence one or more of the estimated parameters, and
+\item[DFFITS] - which are used to identify points which influence
+one or more of the predicted values. 
+\end{description}
+\newpage
+\begin{center}
+Leverage Values (aka Hat Values)
+\end{center}
+\vspace{0.5in}
+Leverage values are the diagonal values of the Hat matrix, $H$,
+which is given by:
+\[ H = X(X^TX)^{-1}X^T \] \\
+where $X$ is the matrix with $n$ rows and $p = k+1$ columns,
+the first of which is a column of $1$'s for the intercept term, and 
+each of the other columns given by the values of 
+one of the $k$ variables in the model, 
+ \[ X = [1 | x_1 | x_2 | \ldots | x_k] \] \\
+\vspace{0.5in}
+For the straight line model 
+\[ h_{ii} = \frac{1}{n} + \frac{(x_i-\bar{x})^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \] \\
+\vspace{0.5in}
+Leverages for more complicated models are conceptually analogous to the straight line case. 
+\newpage
+\begin{center}
+Leverage Values (aka Hat Values)
+\end{center}
+\vspace{0.5in}
+The sum of the leverage values is $p$, the number of parameters in the model, for all multivariable linear regression functions. \\
+\vspace{0.5in}
+Therefore, when an individual leverage value is much larger than the mean leverage $p/n$, it
+indicates a high leverage point. \\
+\vspace{0.5in}
+A good cut-off for leverage values is $2.5p/n$.  Points with values larger than this are
+likely to be contributing to the fitted model more heavily than most. \\
+\vspace{0.5in}
+High leverage doesn't necessarily indicate an influential point, however.  A high leverage
+point with a $y$ value that is right on target will produce a fit that is similar to 
+one using only low leverage points.
+\newpage
+\begin{center}
+Studentized Deleted Residuals
+\end{center}
+\vspace{0.5in}
+The $i^{th}$ studentized deleted residual is conceptually obtained by: 
+\begin{enumerate}
+\item deleting the $i^{th}$ point from the data,
+\item fitting the model with the other $n-1$ observations,
+\item computing the deleted residual, which is the difference of the
+$i^{th}$ response and corresponding prediction from the fit made without the $i^{th}$
+response.
+\item computing the residual standard deviation using the
+fit to the $n-1$ other points, and
+\item dividing the deleted residual by its standard deviation, which
+depends on the residual standard deviation with the $i^{th}$ point
+deleted and the $i^{th}$ leverage value computed using all of the data. \\
+\end{enumerate}
+\newpage
+\begin{center}
+Studentized Deleted Residuals
+\end{center}
+\vspace{0.5in}
+The conceptual formula for the $i^{th}$ studentized deleted residual is 
+\vspace{0.15in}
+\[  T_i = \frac{y_i-\hat{y}_{(-i)}(x_{1i},\ldots,x_{ki})}{s_{(-i)}/\sqrt{1-h_{ii}}} \] \\
+\vspace{0.15in}
+where $\hat{y}_{(-i)}(x_{1i},\ldots,x_{ki})$ is the predicted value based on the fit without
+the $i^{th}$ point, and $s_{(-i)}$ is the corresponding residual standard deviation.  \\
+\vspace{0.5in}
+The computational formula is:
+\vspace{0.15in}
+\[ T_i = e_i\sqrt{\frac{n-p-1}{(n-p)s^2(1-h_{ii}) - e_i^2}} \] \\
+\vspace{0.15in}
+where the computations are done using all of the data.
+\newpage
+\begin{center}
+Studentized Deleted Residuals
+\end{center}
+\vspace{0.5in}
+Technically, $T_i$ has a t distribution with $n-p-1$ degrees of 
+freedom, and t distribution cut-off values can be used to determine
+if a particular point is an outlier. \\
+\vspace{0.5in}
+Practically speaking, 
+studentized deleted residuals greater than $2.5$ in absolute value 
+indicate that a point is likely to be an outlier. \\
+\vspace{0.5in}
+Remember, however, that large studentized deleted residuals do not 
+necessarily offer any information about the influence
+of the outlier on the fit of the model.
+\newpage
+\begin{center}
+Cook's Distance 
+\end{center}
+\vspace{0.5in}
+Conceptually, the $i^{th}$ Cook's Distance measures the difference
+between the values of the parameters estimated using all $n$ observations
+and the values of the parameters estimated without the $i^{th}$ observation. \\
+\vspace{0.5in}
+It provides an aggregate measure of the difference for all of the parameters
+simultaneously. \\
+\vspace{0.5in}
+The computational formula for Cook's Distance is: 
+\vspace{0.15in}
+\[ c_i = \frac{h_{ii}}{p}(\frac{e_i}{s(1-h_{ii})})^2 \] \\
+\vspace{0.15in}
+computed using all of the data.
+\newpage
+\begin{center}
+Cook's Distance 
+\end{center}
+\vspace{0.5in}
+Points with Cook's Distance values greater than the 50\% F distribution cut-off
+with $p$ and $n-p$ degrees of freedom are likely to influence the estimated
+parameters in the model. \\
+\vspace{0.5in}
+That is, if a point with a large Cook's Distance is eliminated from the 
+data set, the values of one or more of the parameters will change 
+significantly. \\
+\vspace{0.5in}
+Influential points should be studied carefully
+to determine if they are valid data points.  If not, they should be excluded from the
+analysis.  If there is no evidence that the influential points are invalid, further
+work will be required to obtain conclusive results from the data.
+\newpage
+\begin{center}
+DFFITS
+\end{center}
+\vspace{0.5in}
+Conceptually, the $i^{th}$ DFFITS value measures the difference
+between the $i^{th}$ predicted value estimated using all $n$ observations
+and estimated without the $i^{th}$ observation. \\
+\vspace{0.5in}
+The conceptual formula for DFFITS is: 
+\vspace{0.15in}
+\[ \mbox{DFFITS}_i = \frac{\hat{y}_i(x_{1i},\ldots,x_{ki}) - \hat{y}_{(-i)}(x_{1i},\ldots,x_{ki})}{s_{(-i)}\sqrt{h_{ii}}}  \] \\
+\vspace{0.5in}
+The computational formula for DFFITS is: 
+\vspace{0.15in}
+\[ \mbox{DFFITS}_i = T_i\sqrt{\frac{h_{ii}}{1-h_{ii}}} \] \\
+\vspace{0.15in}
+computed using all of the data.
+\newpage
+\begin{center}
+DFFITS
+\end{center}
+\vspace{0.5in}
+Points with DFFITS values greater than $2.5\sqrt{p/n}$ are likely to influence 
+the predicted values from the model. \\
+\vspace{0.5in}
+That is, if a point with a large DFFITS value is eliminated from the data set, the 
+value of the one or more of the predicted values will change significantly. \\
+\vspace{0.5in}
+As with influential points identified using Cook's Distance, the validity of 
+points picked out by DFFITS should be examined carefully.  If assignable causes
+are found that indicate the point is not valid, it should be dropped from the
+analysis.  If not, further work will required to obtain conclusive results.
+%newpage
+\begin{figure}
+\psfig{file=infl4.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl5.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl6.ps,width=6.5in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl7.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl8.ps,height=9.0in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Regression Output Using n Points
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 30
+
+Residual Standard Error = 0.1859
+
+Multiple R-Square = 1
+
+F-statistic = 1121069 on 2 and 27 df, p-value = 0
+
+              coef std.err    t.stat p.value 
+Intercept   4.7251  0.2153   21.9480       0
+   x1     -11.9502  0.0345 -346.3767       0
+   x2      10.0313  0.0674  148.9384       0
+\end{verbatim}
+}
+\vspace{0.5in}
+\begin{center}
+Regression Output Using with the High Leverage Point Deleted
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 29
+
+Residual Standard Error = 0.1895
+
+Multiple R-Square = 1
+
+F-statistic = 1065271 on 2 and 26 df, p-value = 0
+
+              coef std.err    t.stat p.value 
+Intercept   4.6989  0.3511   13.3843       0
+   x1     -11.9458  0.0577 -206.9284       0
+   x2      10.0405  0.1181   85.0499       0
+\end{verbatim}
+}
+%newpage
+\begin{figure}
+\psfig{file=infl9.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl10.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl11.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl12.ps,width=6.5in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl13.ps,height=9.0in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=infl14.ps,height=9.0in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Regression Output Using n Points
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 30
+
+Residual Standard Error = 1.2939
+
+Multiple R-Square = 0.9994
+
+F-statistic = 22959.24 on 2 and 27 df, p-value = 0
+
+              coef std.err   t.stat p.value 
+Intercept  14.3252  1.4980   9.5630       0
+   x1     -13.5540  0.2401 -56.4605       0
+   x2       6.6670  0.4686  14.2261       0
+\end{verbatim}
+}
+\vspace{0.5in}
+\begin{center}
+Regression Output Using with the Influential Point Deleted
+\end{center}
+{\large
+\begin{verbatim}
+
+N = 29
+
+Residual Standard Error = 0.1895
+
+Multiple R-Square = 1
+
+F-statistic = 1065271 on 2 and 26 df, p-value = 0
+
+              coef std.err    t.stat p.value 
+Intercept   4.6989  0.3511   13.3843       0
+   x1     -11.9458  0.0577 -206.9284       0
+   x2      10.0405  0.1181   85.0499       0
+\end{verbatim}
+}
+\clearpage
+%newpage
+\begin{figure}
+\psfig{file=infl15.ps,width=6.5in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=chwirut_out1.ps,width=6.5in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=chwirut_out2.ps,width=6.5in}
+\end{figure}
+%newpage
+\begin{figure}
+\psfig{file=chwirut_out3.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\begin{center}
+Ultrasonic Data Regression Output: \\ n Points
+\end{center}
+{\large
+\begin{verbatim}
+
+Formula: sqrt(ur) ~ exp( - b1 * md)/(b2 + b3 * md)
+
+Parameters:
+
+        Value Std. Error   t value 
+b1 -0.0154274 0.00861101  -1.79159
+b2  0.0806725 0.00150574  53.57670
+b3  0.0638570 0.00288001  22.17250
+
+Residual standard error: 0.29715 on 211 degrees of freedom
+\end{verbatim}
+}
+\vspace{0.5in}
+\begin{center}
+Ultrasonic Data Regression Output: \\ n-2 Points
+\end{center}
+{\large
+\begin{verbatim}
+
+Formula: sqrt(ur) ~ exp( - b1 * md)/(b2 + b3 * md)
+
+Parameters:
+
+        Value Std. Error   t value 
+b1 -0.0155610 0.00799912  -1.94533
+b2  0.0803004 0.00140502  57.15260
+b3  0.0644030 0.00268723  23.96630
+
+Residual standard error: 0.276145 on 209 degrees of freedom
+\end{verbatim}
+}
+\clearpage
+%newpage
+\begin{figure}
+\psfig{file=chwirut_out4.ps,width=6.5in}
+\end{figure}
+\clearpage
+\newpage
+\markboth{}{}
+\begin{center}
+Section 2: Summary
+\end{center}
+\vspace{0.5in}
+Two problems that often occur when carrying out
+a regression analysis are:
+\vspace{0.15in}
+\begin{enumerate}
+\item finding non-constant standard deviations 
+across different predictor variable values, and
+\vspace{0.15in}
+\item finding outliers, high leverage points, and/or influential
+points in the data.
+\end{enumerate}
+\vspace{0.5in}
+Outliers, leverage points and influential points can be identified 
+using either graphical residual analysis or more specialized detection 
+methods. \\
+\vspace{0.5in}
+Non-constant standard deviation across the predictors can be 
+corrected using either transformation of the data or weighted least
+squares.
+\vspace{0.5in}
+
+%close out general text format for slides
+}
+}
+% end close out
+\end{document}

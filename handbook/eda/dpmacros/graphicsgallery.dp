@@ -1,0 +1,882 @@
+. This is Dataplot Program file    graphicsgallery.dp
+. Purpose--Generate WWW Graphics gallery Plots
+. June 1996
+.
+. -----Start Point-----
+.
+device 1 x11
+.
+.  Jim's dplogf.tex defaults
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 5 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+title size 4
+label cases asis
+label size 4
+tic label size 4
+legend size 4
+.
+write " "
+write "---------------1. 4-plot LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+x3label automatic
+4-plot y
+x3label
+.
+justification center
+hw 5 4
+move 50 95; text 4-plot
+.
+let string mark = LEW.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat 4plot.ps
+. copy dppl1f.dat 4plot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 2. 6-plot PONTIUS.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read PONTIUS.DAT y x
+.
+title
+. x3label automatic
+.
+linear fit y x
+6-plot y x
+.
+justification center
+hw 5 4
+move 50 95; text 6-plot
+.
+let string mark = PONTIUS.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat 6plot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 3. autocorrelation plot FLICKER.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read FLICKER.DAT Y
+.
+title Autocorrelation Plot
+y1label Autocorrelation
+x1label Lag
+. x3label automatic
+.
+autocorrelation plot y
+.
+let string mark = FLICKER.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat autocopl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 3. bihistogram JAHANMI2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read JAHANMI2.DAT run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch 1
+retain y2 subset batch 2
+.
+title Bihistogram
+y1label Counts
+x1label Ceramic Strength
+. x3label automatic
+.
+legend 1 batch 1
+legend 2 batch 2
+legend 1 coordinates 20 84
+legend 2 coordinates 20 23
+.
+bihistogram y1 y2
+.
+legend 1
+legend 2
+.
+let string mark = JAHANMI2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat bihistog.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 4. block plot SHEESLE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read SHEESLE2.DAT y weld plant speed shift
+.
+title Block Plot
+y1label Average Defects per Hour
+x1label Plant(2) x Speed(2) X Shift(3)
+. x3label automatic
+.
+characters 1 2
+lines blank blank
+x1tic labels off; x1tics off
+.
+legend 1 Plot Character = Weld Method(2)
+legend 1 coordinates 16 86
+block plot y plant speed shift weld
+legend 1
+.
+x1tic labels on; x1tics on
+.
+let string mark = SHEESLE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat blockplo.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 5. box plot PBF11.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read PBF11.DAT year day j1 j2 f11 flag wv co2
+retain year day j1 j2 f11 wv co2 flag subset flag 0
+let x = int(day/31)+1
+.
+title Box Plot
+y1label Water Vapor Concentration
+x1label Month
+. x3label automatic
+.
+characters box plot
+lines box plot
+.
+xlimits 1 12
+box plot wv x
+xlimits
+.
+let string mark = PBF11.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat boxplot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 6. complex demod amp plot LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+title Complex Demodulation Amplitude Plot
+y1label Estimated Amplitude
+x1label Time
+. x3label automatic
+.
+demodulation frequency .31
+complex demodulation amplitude plot y
+.
+let string mark = LEW.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat cdampplo.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 7. complex demo phase plot LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+title Complex Demodulation Phase Plot
+y1label Estimated Phase
+x1label Time
+. x3label automatic
+.
+characters x
+lines blank
+.
+demodulation frequency .31
+complex demodulation phase plot y
+.
+let string mark = LEW.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat cdphasep.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 8. contour plot XX.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+. skip 25
+. SERIAL READ WOOLLEY.DAT Y
+. LET SECTOR = 1 31 1 31
+. LET BAND = 1 1 31 FOR I = 1 1 961
+. LET Y2 = SEQUENCE 14 .1 15
+let x = sequence 1 10 1 10
+let y = sequence 1 1 10 for i = 1 1 100
+let z = (x-5.5)**2 + (y-5.5)**2
+let z0 = sequence 0 5 200
+.
+title Contour Plot
+y1label Y
+x1label X
+. x3label automatic
+.
+contour plot z x y z0
+.
+. let string mark = WOOLLEY.DAT
+. call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat contourp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 9. dex scatter plot BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title DEX Scatter Plot
+y1label Response
+x1label Factors
+. x3label automatic
+.
+characters x blank
+lines blank solid
+.
+dex scatter plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat dexscatp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 10. dex mean plot BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title DEX Mean Plot
+y1label Mean Response
+x1label Factors
+. x3label automatic
+.
+dex mean plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat dexmeanp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 11. dex sd plot BOXBIKE2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read BOXBIKE2.DAT y x1 x2 x3 x4 x5 x6 x7
+.
+title DEX Standard Deviation Plot
+y1label SD Response
+x1label Factors
+. x3label automatic
+.
+dex sd plot y x1 x2 x3 x4 x5 x6 x7
+.
+let string mark = BOXBIKE2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat dexsdplo.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 12. histogram LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+title Histogram
+y1label Counts
+x1label Beam Deflection
+. x3label automatic
+.
+histogram y
+.
+let string mark = LEW.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat histogra.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 13. lag plot LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+title Lag Plot
+y1label Beam Deflection (Time i)
+x1label Beam Deflection (Time i-1)
+let string mark = LEW.DAT
+call mark5.dp
+. x3label automatic
+.
+characters x
+lines blank
+.
+lag plot y
+.
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat lagplot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 14. linear correlation plot HSU12.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read HSU12.DAT y x batch
+.
+title Linear Correlation Plot
+y1label Correlation(Y,X)
+x1label Batch
+let string mark = HSU12.DAT
+call mark5.dp
+. x3label automatic
+y1label offset 12
+.
+characters x blank
+lines dotted solid
+.
+xlimits 1 15
+linear correlation plot y x batch
+xlimits
+.
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat lincorrp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 15. linear intercept plot HSU12.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read HSU12.DAT y x batch
+.
+title Linear Intercept Plot
+y1label Intercept(Y,X)
+x1label Batch
+let string mark = HSU12.DAT
+call mark5.dp
+. x3label automatic
+y1label offset 12
+.
+characters x blank
+lines dotted solid
+.
+xlimits 1 15
+linear intercept plot y x batch
+xlimits
+
+.
+let string mark = HSU12.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat linintpl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 16. linear slope plot HSU12.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read HSU12.DAT y x batch
+.
+title Linear Slope Plot
+y1label Slope(Y,X)
+x1label Batch
+. x3label automatic
+y1label offset 12
+.
+characters x blank
+lines dotted solid
+.
+xlimits 1 15
+linear slope plot y x batch
+xlimits
+.
+let string mark = HSU12.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat linslopl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 17. linear ressd plot HSU12.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read HSU12.DAT y x batch
+.
+title Linear Intercept Plot
+y1label Linear Fit(Y,X) Residual SD
+x1label Batch
+. x3label automatic
+y1label offset 12
+.
+characters x blank
+lines dotted solid
+.
+xlimits 1 15
+linear ressd plot y x batch
+xlimits
+.
+let string mark = HSU12.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat linrsdpl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 18. mean plot DRAFT69.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read DRAFT69.DAT rank day month
+.
+title Mean Plot
+y1label Mean Rank
+x1label Month
+. x3label automatic
+.
+characters x
+lines solid
+.
+xlimits 1 12
+mean plot rank month
+xlimits
+.
+let string mark = DRAFT69.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat meanplot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 19. normal probability plot NORMAL.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read NORMAL.DAT y
+.
+title Normal Probability Plot
+y1label Ordered Response
+x1label Normal N(0,1) Order Statistic Medians
+. x3label automatic
+.
+characters x
+lines blank
+.
+normal probability plot y
+.
+let string mark = NORMAL.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat normprpl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 20. ppcc plot NORMAL.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read NORMAL.DAT y
+.
+title (Tukey) PPCC Plot
+y1label Probability Plot Correlation Coefficient
+x1label Tukey Distribution Tail Length (Lambda)
+. x3label automatic
+.
+characters x
+lines blank
+.
+PPCC plot y
+.
+let string mark = NORMAL.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat ppccplot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 21. run sequence plot MAVRO.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read MAVRO.DAT y
+.
+title Run Sequence Plot
+y1label Transmittance
+x1label Dummy "Time" Index i
+. x3label automatic
+.
+characters x
+lines blank
+.
+plot y
+.
+let string mark = MAVRO.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat runseqpl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 22. scatter plot BERGER1.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read BERGER1.DAT y x
+.
+title Scatter Plot
+y1label In-field Crack Size Reading
+x1label In-lab Crack Size Reading
+. x3label automatic
+.
+characters x
+lines blank
+.
+plot y x
+.
+let string mark = BERGER1.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat scatterp.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 23. sd plot PBF11.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 50
+read PBF11.DAT year day j1 j2 f11 flag wv co2
+retain year day j1 j2 f11 wv co2 flag subset flag 0
+let x = int(day/31)+1
+.
+title Standard Deviation Plot
+y1label Standard Deviation Water Vapor Concentration
+x1label Month
+. x3label automatic
+y1label offset 12
+.
+characters x
+lines blank
+.
+xlimits 1 12
+sd plot wv x
+xlimits
+.
+let string mark = PBF11.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat sdplot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 24. spectrum LEW.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read LEW.DAT y
+.
+title Spectrum
+y1label Spectral Power
+x1label Frequency (cycles per observation)
+. x3label automatic
+y1label offset 12
+.
+spectrum y
+.
+let string mark = LEW.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat spectrum.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 25. star plot AUTO79.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+column limits 19 132
+read AUTO79.DAT y1 to y9
+column limits 1 132
+let n = number y1
+let car = sequence 1 1 n
+.
+title Star Plot
+y1label
+x1label
+. x3label automatic
+.
+lines dotted all
+lines solid
+limits -1.5 1.5
+.
+star plot y1 y2 y3 y4 y5 y6 y7 y8 y9 subset car 1
+.
+limits
+.
+let string mark = AUTO79.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat starplot.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 26. Youden plot UGIANSKY.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read UGIANSKY.DAT y1 y2 lab
+.
+title Youden Plot
+y1label Run 1 Reading
+x1label Run 2 Reading
+. x3label automatic
+.
+characters 1 2 3 4 5 6 7 8 9
+character size 3 all
+lines blank all
+.
+limits 0 5
+youden plot y1 y2 lab
+limits
+character size 2 all
+.
+let string mark = UGIANSKY.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat youdenpl.ps
+.
+reset variables clsb limits
+.
+write " "
+write "--------------- 27. Weibull plot FULLER2.DAT ---------------"
+write " "
+.
+device 2 postscript
+. orientation portrait
+.
+skip 25
+read FULLER2.DAT y
+.
+title Weibull Plot
+y1label Weibull Probability
+x1label Log(Strength)
+. x3label automatic
+.
+characters x blank
+lines blank solid
+.
+weibull plot y
+.
+let string mark = FULLER2.DAT
+call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp dppl1f.dat weibullp.ps
+.
+reset variables clsb limits
+.

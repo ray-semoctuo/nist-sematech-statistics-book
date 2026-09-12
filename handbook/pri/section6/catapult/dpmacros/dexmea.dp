@@ -1,0 +1,33 @@
+.
+. Starting Step 2.4
+title displacement 6
+title DEX Mean Plot for Catapult Datacr()(Center Points Excluded)
+xlimits 1 5
+major x1tic mark number 5
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5
+y1label ^y
+ylimits 30 90
+major ytic mark number 7
+minor ytic mark number 1
+char circle
+char fill on 
+line solid
+dex mean plot y x1 x2 x3 x4 x5 subset cent = 0
+char x
+char fill off 
+line blank
+title displacement 1.5
+title
+y1label
+ylimits
+major y1tic mark number
+minor y1tic mark number
+xlimits
+xtic mark label format
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.4: Page Back for Output

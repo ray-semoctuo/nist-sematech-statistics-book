@@ -1,0 +1,49 @@
+.
+.  Generate sample output for Anderson-Darling
+.
+.  Note that for the Anderson-Darling, Dataplot supports
+.  two options:
+.
+.    1. Dataplot can use published tables for critical values
+.       for about a dozen distributions.  Alternatively, you
+.       can request that the critical values be generated
+.       dynamically via simulation (simulation will be used
+.       when published tables are not available).
+.
+.    2. You can specify a "fully specified" distribution (i.e.,
+.       the parameters are known) or you can assume the parameters
+.       are not known (which they typically will not be).  This
+.       affects how the simulation is performed.
+.
+.  Note that we can either test for a fixed location and scale
+.  parameter (e.g., loc = 0, scale = 1) or we can estimate the
+.  parameters from the data (for the normal, we can just use the
+.  sample mean and sample standard deviation).  The values for
+.  KSLOC and KSSCALE determine which test we are performing.
+.
+set anderson darling critical values simulation
+set goodness of fit fully specified off
+.
+let y1 = normal random numbers for i = 1 1 1000
+let y2 = double exponential random numbers for i = 1 1 1000
+let y3 = cauchy random numbers for i = 1 1 1000
+let sigma = 1
+let y4 = lognormal random numbers for i = 1 1 1000
+set write decimals 5
+feedback off
+echo on
+capture anderson.out
+let ksloc   = mean y1
+let ksscale = sd   y1
+normal anderson darling goodness of fit test y1
+let ksloc   = mean y2
+let ksscale = sd   y2
+normal anderson darling goodness of fit test y2
+let ksloc   = mean y3
+let ksscale = sd   y3
+normal anderson darling goodness of fit test y3
+let ksloc   = mean y4
+let ksscale = sd   y4
+normal anderson darling goodness of fit test y4
+end of capture 
+quit

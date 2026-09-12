@@ -1,0 +1,24 @@
+. Starting Step 6.3
+y1label X1: Band Height
+x1label X4: Arm Length
+limits -2 2
+tic offset 0 0
+major tic mark number 5
+. let levels = sequence 30 10 140
+let levels = sequence 30 10 90
+line solid all
+line blank blank
+. line thickness .1 .1 .3 .3
+char blank all
+char zval circle
+char fill off on
+title DEX Contour Plot (Subset: X3 = +1)
+dex contour plot y x1 x4 levels subset x3 +1
+char x blank blank
+line blank solid
+line thickness 0.1 all
+title
+y1label
+limits
+major tic mark number
+. Finished Step 6.3: Page Back for Output

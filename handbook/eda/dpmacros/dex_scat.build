@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < dex_scat.dp
+mv dppl1f.dat dex_scat.ps
+gs -sDEVICE=ppm -sOutputFile=dex_scat.ppm  -dNOPAUSE -dBATCH dex_scat.ps
+~/bin/pnmrotate  -90 dex_scat.ppm > dex_scat_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 dex_scat_r.ppm > dex_scat_s.ppm
+~/bin/ppmtogif  dex_scat_s.ppm > dex_scat.gif
+mv dex_scat.gif ../gif/dex_scat.gif
+rm dex_scat.ppm dex_scat_r.ppm dex_scat_s.ppm dex_scat.ps
+#

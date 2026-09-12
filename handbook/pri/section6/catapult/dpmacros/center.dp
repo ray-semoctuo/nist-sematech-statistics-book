@@ -1,0 +1,9 @@
+. compute center point statistics
+.
+let s1 = sd y subset cent 1
+let s2 = sd y subset cent 2
+.
+let m1 = mean y subset cent 1
+let m2 = mean y subset cent 2
+.
+let spool = sqrt((s1*s1+s2*s2)/2)

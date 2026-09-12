@@ -1,0 +1,55 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+set ipl1na normprp1.ps
+device 2 postscript
+.
+SKIP 25
+READ ZARR13.DAT Y
+.
+TITLE Heat Flow Meter Data
+TITLE SIZE 3
+LABEL CASE ASIS
+X1LABEL Theoretical
+Y1LABEL Data
+LABEL SIZE 3
+TIC LABEL SIZE 2.2
+CHARACTER SIZE 1.5
+CHARACTER CIRCLE BLANK
+LINE BLANK SOLID
+.
+NORMAL PROBABILITY PLOT Y
+LINE SOLID
+CHARACTER BLANK
+LET FUNCTION F = PPA0 + PPA1*X
+LET X = DATA -3 3
+LET Y2 = F
+LIMITS FREEZE
+PRE-ERASE OFF
+PLOT Y2 X
+.  LET X1 = XPLOT(1)
+.  LET Y1 = YPLOT(1)
+.  LET NTEMP = SIZE XPLOT
+.  LET X2 = XPLOT(NTEMP)
+.  LET Y2 = YPLOT(NTEMP)
+.  DRAWDATA X1 Y1 X2 Y2
+HEIGHT 3
+JUSTIFICATION CENTER
+MOVE 50 6
+TEXT CORRELATION = ^PPCC
+MOVE 50 2
+TEXT INTERCEPT = ^PPA0, SLOPE = ^PPA1
+.
+box 0 0 100 100
+.
+device 2 close
+system mv NORMPRP1.PS normprp1.ps
+.
+capture junk.dat
+echo on
+let a = mean y
+let a = sd y
+end of capture
+quit

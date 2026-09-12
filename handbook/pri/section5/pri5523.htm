@@ -1,0 +1,179 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.2.3. Multiple response: The mathematical programming approach</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri56.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5522.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri552.htm">Multiple response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Multiple response: The mathematical programming approach</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>The mathematical
+programming approach maximizes or minimizes a primary response, subject
+to appropriate constraints on all other responses</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->The analysis of multiple response
+systems usually involves some type of optimization problem. When one response
+can be chosen as the "primary'', or most important response, and bounds
+or targets can be defined on all other responses, a mathematical programming
+approach can be taken. If this is not possible, the desirability approach
+should be used instead.
+<p>In the mathematical programming approach the primary response is maximized
+or minimized, as desired, subject to appropriate constraints on all other
+responses. The case of two responses ("dual'' responses) has been studied
+in more detail by some authors and is presented first. Then, the case of
+more than 2 responses is illustrated.
+<blockquote>
+<blockquote>
+<li>
+<a NAME="tex2html174" href="#Dual response"></a><a NAME="tex2html174" href="#Dual response"></a><a href="#Dual response" NAME="tex2html174">Dual
+response systems</a></li>
+
+<li>
+<a href="#More than 2">More than 2 responses</a></li>
+</blockquote>
+</blockquote>
+<a NAME="Dual response"></a><b>Dual response systems</b>
+<p>The optimization of dual response systems (DRS) consists of finding
+operating conditions&nbsp;<img SRC="gifs/img251.gif" ALT=""  align=BOTTOM>
+that
+<p><img SRC="gifs/img252.gif" ALT=""  align=BOTTOM>
+<p>where <b>T</b> is the target value for the secondary response and&nbsp;<img SRC="gifs/img253.gif" ALT=""  align=CENTER>
+is the radius of a spherical constraint that limits the region in the controllable
+factor space where the search should be undertaken. The value of&nbsp;<img SRC="gifs/img254.gif" ALT=""  align=CENTER>
+should be chosen with the purpose of avoiding solutions that extrapolate
+too far outside of the region where the experimental data were obtained.
+For example, if the experimental design is a central composite design,
+choosing&nbsp;<img SRC="gifs/img255.gif" ALT=""  align=CENTER> (axial distance)
+is a logical choice. Bounds of the form&nbsp;<img SRC="gifs/img256.gif" ALT=""  align=CENTER>
+can be used instead if a cubical experimental region was used (e.g., when
+using a factorial experiment). Note that a Ridge Analysis problem is nothing
+but a DRS problem where the secondary constraint is absent. Thus, any algorithm
+or solver for DRS's will also work for the Ridge Analysis of single response
+systems.
+<p>In a DRS, the response models&nbsp;<img SRC="gifs/img258.gif" ALT=""  align=CENTER>
+and&nbsp;<img SRC="gifs/img259.gif" ALT=""  align=CENTER> can be linear,
+quadratic or even cubic polynomials. A nonlinear programming algorithm
+has to be used for the optimization of a DRS. For the particular case of
+quadratic responses, an equality constraint for the secondary response,
+and a spherical region of experimentation, specialized optimization algorithms
+exist that guarantee global optimal solutions. In such case, the algorithm
+DRSALG can be used (download from http://www.stat.cmu.edu/jqt/29-3) but
+a Fortran compiler is necessary.
+<p>In the more general case of inequality constraints or a cubical region
+of experimentation, a general purpose nonlinear solver must be used and
+several starting points should be tried to avoid local optima. This is
+illustrated in the next section.
+<h3>
+<a NAME="More than 2"></a>More than 2 responses</h3>
+<b>Example:</b>
+<p>3 components&nbsp;<img SRC="gifs/img261.gif" ALT=""  align=CENTER> of
+a propellant need to be selected to maximize a primary response, burning
+rate&nbsp;<img SRC="gifs/img262.gif" ALT=""  align=CENTER> subject to satisfactory
+levels of two secondary reponses, namely, the variance of the burning rate&nbsp;<img SRC="gifs/img263.gif" ALT=""  align=CENTER>
+and the cost&nbsp;<img SRC="gifs/img264.gif" ALT=""  align=CENTER>. The
+three components must add up to 100% of the mixture. The fitted models
+were:
+<p><img SRC="gifs/img2651.gif" height=22 width=607>
+<br><img SRC="gifs/img2652.gif" height=22 width=167>
+<p><img SRC="gifs/img266.gif" ALT=""  align=BOTTOM>
+<p><img SRC="gifs/img267.gif" ALT=""  align=BOTTOM>
+<p>The optimization problem is therefore:
+<p><img SRC="gifs/img268.gif" ALT=""  align=BOTTOM>
+<br>&nbsp;
+<br>&nbsp;
+<p>We can use Microsoft Excel's "solver'' to solve this problem. The table
+below shows an Excel spreadsheet that has been setup with the problem above.
+Cells B1:B3 contain the decision variables (cells to be changed), cell
+E1 is to be maximized, and all the constraints need to be entered appropriately.
+The figure shows the spreadsheet after the solver completes the optimization.
+The solution is&nbsp;<img SRC="gifs/img269.gif" ALT=""  align=CENTER> which
+provides&nbsp;<img SRC="gifs/img270.gif" ALT=""  align=CENTER>,&nbsp;<img SRC="gifs/img271.gif" ALT=""  align=CENTER>,
+and&nbsp;<img SRC="gifs/img272.gif" ALT=""  align=CENTER>. Therefore, both
+secondary responses meet the desired bounds. The solver should be run from
+a variety of starting points (i.e., try different initial values in cells
+B1:B3 prior to start the solver) to avoid local optima. Once again, confirmatory
+experiments should be conducted at the estimated optimal operating conditions.
+<p><img SRC="gifs/img273.gif" ALT=""  align=BOTTOM></td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5522.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri56.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

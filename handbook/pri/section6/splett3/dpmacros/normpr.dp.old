@@ -1,0 +1,26 @@
+.
+. Starting Step 5.1
+yates y
+skip 0
+read dpst1f.dat tag coef t ressd1 ressd2
+let numcoef = size coef
+multiplot scale factor 2
+multiplot corner coordinates 2 2 98 98
+multiplot 2 2
+title Normal Probability Plot of coef
+normal probability plot coef
+let abscoef = abs(coef)
+title Half-Normal Probability Plot of |coef|
+halfnormal probability plot abscoef
+characters automatic tag
+let seq = numcoef -1 1
+title Labeled Half-Normal Probability Plot
+character size 3 all
+plot yplot xplot seq
+end of multiplot
+multiplot scale factor 1
+multiplot corner coordinates
+character x
+character size
+title
+. Finished Step 5.1: Page Back for Output

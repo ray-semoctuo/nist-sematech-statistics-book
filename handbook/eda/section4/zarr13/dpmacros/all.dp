@@ -1,0 +1,91 @@
+.
+.  Generate plots for gif images
+.
+device 1 x11
+thickness 0.2
+box shadow hw 0 0
+.
+call data.dp
+.
+title size 4
+label size 4
+tic label size 4
+legend size 4
+set ipl1na 4plot.ps
+device 2 post
+label size 6
+tic label size 6
+call 4plot.dp
+box 0 0 100 100
+label size 3
+tic label size 3
+box 0 0 100 100
+device 2 close
+system mv 4PLOT.PS 4plot.ps
+.
+title size 4
+label size 4
+tic label size 4
+legend size 4
+y1label displacement 11
+set ipl1na runseq.ps
+device 2 post
+call runseq.dp
+box 0 0 100 100
+device 2 close
+system mv RUNSEQ.PS runseq.ps
+y1label displacement
+.
+title size 4
+label size 4
+tic label size 4
+legend size 4
+y1label displacement 11
+set ipl1na lagplot.ps
+device 2 post
+call lagplot.dp
+box 0 0 100 100
+device 2 close
+system mv LAGPLOT.PS lagplot.ps
+y1label displacement
+.
+title size 4
+label size 4
+tic label size 4
+legend size 4
+y1label displacement 11
+x2label displacement 15
+set ipl1na hist.ps
+device 2 post
+call hist.dp
+box 0 0 100 100
+device 2 close
+system mv HIST.PS hist.ps
+y1label displacement
+x2label displacement
+.
+title size 4
+label size 4
+tic label size 4
+legend size 4
+y1label displacement 11
+set ipl1na normprpl.ps
+device 2 post
+call normprpl.dp
+box 0 0 100 100
+device 2 close
+system mv NORMPRPL.PS normprpl.ps
+y1label displacement
+.
+title size 4
+label size 4
+tic label size 4
+legend size 4
+set ipl1na autocorr.ps
+device 2 post
+call random.dp
+box 0 0 100 100
+device 2 close
+system mv AUTOCORR.PS autocorr.ps
+.
+quit

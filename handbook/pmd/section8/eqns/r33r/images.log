@@ -1,0 +1,234 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 1999.7.14)  28 JAN 2002 17:24
+**./images.tex
+(./images.tex
+LaTeX2e <1998/12/01> patch level 1
+Babel <v3.6x> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+
+(/itl/apps/tetex-1.0/texmf/tex/latex/base/latex209.def
+File: latex209.def 1998/05/13 v0.52 Standard LaTeX file
+
+          Entering LaTeX 2.09 COMPATIBILITY MODE
+ *************************************************************
+    !!WARNING!!    !!WARNING!!    !!WARNING!!    !!WARNING!!   
+ 
+ This mode attempts to provide an emulation of the LaTeX 2.09
+ author environment so that OLD documents can be successfully
+ processed. It should NOT be used for NEW documents!
+ 
+ New documents should use Standard LaTeX conventions and start
+ with the \documentclass command.
+ 
+ Compatibility mode is UNLIKELY TO WORK with LaTeX 2.09 style
+ files that change any internal macros, especially not with
+ those that change the FONT SELECTION or OUTPUT ROUTINES.
+ 
+ Therefore such style files MUST BE UPDATED to use
+          Current Standard LaTeX: LaTeX2e.
+ If you suspect that you may be using such a style file, which
+ is probably very, very old by now, then you should attempt to
+ get it updated by sending a copy of this error message to the
+ author of that file.
+ *************************************************************
+
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+\@cla=\count79
+\@clb=\count80
+\mscount=\count81
+(/itl/apps/tetex-1.0/texmf/tex/latex/base/tracefnt.sty
+Package: tracefnt 1997/05/29 v3.0j Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 83.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 275.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 276.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 277.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 283.
+LaTeX Info: Redefining \em on input line 293.
+(/itl/apps/tetex-1.0/texmf/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 29.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 357.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 359.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 361.
+(/itl/apps/tetex-1.0/texmf/tex/latex/config/latex209.cfg) (/itl/apps/tetex-1.0/
+texmf/tex/latex/tools/rawfonts.sty
+Package: rawfonts 1994/05/08 Low-level LaTeX 2.09 font compatibility
+(/itl/apps/tetex-1.0/texmf/tex/latex/tools/somedefs.sty
+Package: somedefs 1994/06/01 Toolkit for optional definitions
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 34.
+(/itl/apps/tetex-1.0/texmf/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2eLaTeX symbol font definitions
+))) (/itl/apps/tetex-1.0/texmf/tex/latex/base/article.cls
+Document Class: article 1999/01/07 v1.4a Standard LaTeX document class
+(/itl/apps/tetex-1.0/texmf/tex/latex/base/size12.clo
+File: size12.clo 1999/01/07 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@subparagraph=\count88
+\c@figure=\count89
+\c@table=\count90
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+Compatibility mode: definition of \rm ignored.
+Compatibility mode: definition of \sf ignored.
+Compatibility mode: definition of \tt ignored.
+Compatibility mode: definition of \bf ignored.
+Compatibility mode: definition of \it ignored.
+Compatibility mode: definition of \sl ignored.
+Compatibility mode: definition of \sc ignored.
+LaTeX Info: Redefining \cal on input line 488.
+LaTeX Info: Redefining \mit on input line 489.
+\bibindent=\dimen105
+)
+\sizebox=\box26
+\lthtmlwrite=\write3
+No file images.aux.
+\openout1 = `images.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+latex2htmlLength hsize=468.0pt
+latex2htmlLength vsize=628.0pt
+latex2htmlLength hoffset=0.0pt
+latex2htmlLength voffset=0.0pt
+latex2htmlLength topmargin=0.0pt
+latex2htmlLength topskip=0.00003pt
+latex2htmlLength headheight=0.0pt
+latex2htmlLength headsep=0.0pt
+latex2htmlLength parskip=0.0pt plus 1.0pt
+latex2htmlLength oddsidemargin=39.5pt
+latex2htmlLength evensidemargin=39.5pt
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 92.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 92.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 92.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.92 \begin{displaymath}\par
+                             y = \frac{\beta_4}{\beta_7}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Display math should end with $$.
+<to be read again> 
+                   \par 
+l.92 \begin{displaymath}\par
+                             y = \frac{\beta_4}{\beta_7}
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.92 ...splaymath}\par y = \frac{\beta_4}{\beta_7}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.92 ...splaymath}\par y = \frac{\beta_4}{\beta_7}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.92 ...splaymath}\par y = \frac{\beta_4}{\beta_7}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+\frac #1#2->{\begingroup #1\endgroup \over #2}
+                                              
+l.92 ...splaymath}\par y = \frac{\beta_4}{\beta_7}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.93 \par
+         \end{displaymath}%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.93 \par\end{displaymath}
+                          %
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.93 \par\end{displaymath}
+                          %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+l2hSize :displaymath6:29.0pt::5.69365pt::468.0pt.
+[1
+
+
+] (images.aux) ) 
+Here is how much of TeX's memory you used:
+ 521 strings out of 10901
+ 5552 string characters out of 72281
+ 46848 words of memory out of 263001
+ 3472 multiletter control sequences out of 10000+0
+ 22500 words of font info for 84 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 25i,4n,22p,261b,215s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on images.dvi (1 page, 460 bytes).

@@ -1,0 +1,38 @@
+.
+.  Generate sample output for Power Lognormal Hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na plnhaz4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Hazard
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Power Lognormal Hazard (p = 0.5, sd = 1)
+PLOT PLNHAZ(X,0.5) FOR X = 0.01 0.01 5
+TITLE Power Lognormal Hazard (p = 1, sd = 1)
+PLOT PLNHAZ(X,1) FOR X = 0.01 0.01 5
+TITLE Power Lognormal Hazard (p = 5, sd = 1)
+PLOT PLNHAZ(X,5) FOR X = 0.01 0.01 5
+TITLE Power Lognormal Hazard (p = 10, sd = 1)
+PLOT PLNHAZ(X,10) FOR X = 0.01 0.01 5
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp PLNHAZ4.PS plnhaz4.ps
+system rm PLNHAZ4.PS
+.
+quit

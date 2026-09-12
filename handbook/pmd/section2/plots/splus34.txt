@@ -1,0 +1,106 @@
+Script started on Thu Jan 28 14:47:51 1999
+bluegrass:plots: Spluse[K -c[Ke[K[K3.4 -e
+S-PLUS : Copyright (c) 1988, 1996 MathSoft, Inc.
+S : Copyright AT&T.
+Version 3.4 Release 1 for Sun SPARC, SunOS 5.3 : 1996 
+Working data will be in .Data 
+> source("temp")
+
+Call: lm(formula = y ~ x)
+Residuals:
+    Min      1Q  Median    3Q   Max 
+ -2.001 -0.8197 -0.4307 1.283 1.996
+
+Coefficients:
+              Value Std. Error t value Pr(>|t|) 
+(Intercept)  7.3565  1.0231     7.1901  0.0001 
+          x  7.6034  0.1649    46.1109  0.0000 
+
+Residual standard error: 1.498 on 8 degrees of freedom
+Multiple R-Squared: 0.9963 
+F-statistic: 2126 on 1 and 8 degrees of freedom, the p-value is 5.407e-11 
+
+Correlation of Coefficients:
+  (Intercept) 
+x -0.8864    
+> > source("temp")> 
+
+Call: lm(formula = y ~ x)
+Residuals:
+    Min      1Q  Median    3Q   Max 
+ -2.001 -0.8197 -0.4307 1.283 1.996
+
+Coefficients:
+              Value Std. Error t value Pr(>|t|) 
+(Intercept)  7.3565  1.0231     7.1901  0.0001 
+          x  7.6034  0.1649    46.1109  0.0000 
+
+Residual standard error: 1.498 on 8 degrees of freedom
+Multiple R-Squared: 0.9963 
+F-statistic: 2126 on 1 and 8 degrees of freedom, the p-value is 5.407e-11 
+
+Correlation of Coefficients:
+  (Intercept) 
+x -0.8864    
+> > source("temp")> 
+
+Call: lm(formula = y ~ x)
+Residuals:
+    Min      1Q  Median    3Q   Max 
+ -2.001 -0.8197 -0.4307 1.283 1.996
+
+Coefficients:
+              Value Std. Error t value Pr(>|t|) 
+(Intercept)  7.3565  1.0231     7.1901  0.0001 
+          x  7.6034  0.1649    46.1109  0.0000 
+
+Residual standard error: 1.498 on 8 degrees of freedom
+Multiple R-Squared: 0.9963 
+F-statistic: 2126 on 1 and 8 degrees of freedom, the p-value is 5.407e-11 
+
+Correlation of Coefficients:
+  (Intercept) 
+x -0.8864    
+> > source("temp")> 
+
+Call: lm(formula = y ~ x)
+Residuals:
+    Min      1Q  Median    3Q   Max 
+ -2.001 -0.8197 -0.4307 1.283 1.996
+
+Coefficients:
+              Value Std. Error t value Pr(>|t|) 
+(Intercept)  7.3565  1.0231     7.1901  0.0001 
+          x  7.6034  0.1649    46.1109  0.0000 
+
+Residual standard error: 1.498 on 8 degrees of freedom
+Multiple R-Squared: 0.9963 
+F-statistic: 2126 on 1 and 8 degrees of freedom, the p-value is 5.407e-11 
+
+Correlation of Coefficients:
+  (Intercept) 
+x -0.8864    
+> > source("temp")> 
+
+Call: lm(formula = y ~ x)
+Residuals:
+    Min      1Q  Median    3Q   Max 
+ -2.001 -0.8197 -0.4307 1.283 1.996
+
+Coefficients:
+              Value Std. Error t value Pr(>|t|) 
+(Intercept)  7.3565  1.0231     7.1901  0.0001 
+          x  7.6034  0.1649    46.1109  0.0000 
+
+Residual standard error: 1.498 on 8 degrees of freedom
+Multiple R-Squared: 0.9963 
+F-statistic: 2126 on 1 and 8 degrees of freedom, the p-value is 5.407e-11 
+
+Correlation of Coefficients:
+  (Intercept) 
+x -0.8864    
+> q()
+Warning: Modified object in working data not saved
+bluegrass:plots: ^Dexit
+
+script done on Thu Jan 28 14:48:49 1999

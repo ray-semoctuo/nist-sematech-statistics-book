@@ -1,0 +1,246 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.4.2. Sample sizes required</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc25.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc241.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.htm">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.htm">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc24.htm">Does the proportion of defectives meet requirements?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.4.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Sample sizes required</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Derivation of formula for required sample
+size when testing proportions</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The method of determining sample sizes for testing proportions is
+similar to the method for <a href="prc222.htm">determining sample
+sizes for testing the mean</a>. Although the sampling distribution
+for proportions actually follows a binomial distribution, the normal
+approximation is used for this derivation.
+</td>
+</tr>
+
+<!--
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Definition of allowable deviation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+If we are interested in detecting a change in the proportion defective
+of size<img SRC="gifs/delta.gif" ALT="delta"  align=ABSCENTER>
+in either direction, the corresponding confidence interval for
+<i>p</i> can be written
+<center>
+<p>
+<img SRC="gifs/pss1.gif" ALT="phat - delta <= p <= phat + delta" >
+</center>
+</td>
+</tr>
+-->
+
+<!--
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Relationship to confidence interval</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+For a (1-<img SRC="gifs/alpha.gif" ALT="alpha"  align=ABSCENTER>)%
+confidence interval based on the normal distribution, where
+<img SRC="gifs/zalpha2.gif" ALT="z(alpha/2"  align=ABSCENTER>
+is the <a href="../../eda/section3/eda3671.htm">upper critical value of
+the normal distribution</a> which is exceeded with probability
+<img SRC="gifs/alpha2.gif" ALT="alpha/2"  align=ABSCENTER>,
+<center>
+<p>
+<img SRC="gifs/pss2.gif" ALT="delta = SQRT(p*(1-p)/N)*z(alpha/2)">
+</center>
+</td>
+</tr>
+-->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Minimum sample size</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+If we are interested in detecting a change in the proportion
+defective of size
+<img align=absmiddle src="eqns/delta.gif" alt="delta"> in either
+direction, the minimum sample size is
+<!-- <img align =absmiddle src="gifs/pss3.gif"> -->
+<ol>
+   <li>For a two-sided test
+       <p>
+       <img align=absmiddle SRC="eqns/np2s.gif"
+            ALT="N >= [p(1-p)/delta**2]*z(alpha/2)**2">
+       <p>
+   <li>For a one-sided test
+       <p>
+       <img align=absmiddle SRC="eqns/np1s.gif"
+            ALT="N >= [p(1-p)/delta**2]*z(alpha)**2">
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Interpretation and sample size for high probability
+of detecting a change</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+This requirement on the sample size only guarantees that a change of
+size <img SRC="gifs/delta.gif" ALT="delta" align=ABSCENTER> is
+detected with 50% probability. The derivation of the sample size when
+we are interested in protecting against a change
+<img SRC="gifs/delta.gif" ALT="delta" align=ABSCENTER>
+with probability 1 -<img SRC="gifs/beta.gif" ALT="beta" align=ABSCENTER>
+(where <img SRC="gifs/beta.gif" ALT="beta" align=ABSCENTER> is small)
+is
+<!-- <img src="gifs/pss4.gif"> -->
+<ol>
+   <li>For a two-sided test
+       <p>
+       <img align=absmiddle SRC="eqns/np2s2.gif" ALT=
+       "N >= (z(alpha/2) + z(beta))**2*[p(1-p)/delta**2]*z(alpha/2)**2">
+       <p>
+   <li>For a one-sided test
+       <p>
+       <img align=absmiddle SRC="eqns/np1s2.gif" ALT=
+       "N >= (z(alpha) + z(beta))**2*[p(1-p)/delta**2]*z(alpha)**2">
+</ol>
+where <img SRC="gifs/zbeta.gif" ALT="z(beta)" align=ABSCENTER> is
+the <a href="../../eda/section3/eda3671.htm">upper critical value from
+the normal distribution</a> that is exceeded with probability
+<img SRC="gifs/beta.gif" ALT="beta" align=ABSCENTER>.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Value for the true proportion defective</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The equations above require that <i>p</i> be
+known. Usually, this is not the case. If we are interested in detecting
+a change relative to an historical or hypothesized value, this value is
+taken as the value of <i>p</i> for this purpose. Note that taking the value
+of the proportion defective to be 0.5 leads to the largest possible sample
+size.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example of calculating sample size for testing
+proportion defective</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Suppose that a department manager needs to be able to detect any change
+above 0.10 in the current proportion defective of his product line,
+which is running at approximately 10% defective. He is interested in a
+one-sided test and does not want to stop the line except when the
+process has clearly degraded and, therefore, he chooses a significance
+level for the test of 5%. Suppose, also, that he is willing to take a
+risk of 10% of failing to detect a change of this magnitude. With these
+criteria:
+<ol>
+   <li><i>z</i><sub>.05</sub> = 1.645; z<sub>.10</sub>=1.282</li>
+   <li><img SRC="gifs/delta.gif" ALT="delta"> = 0.10</li>
+   <li><i>p</i> = 0.10</li>
+</ol>
+and the minimum sample size for a <a href="prc24.htm">one-sided test
+procedure</a> is
+<center>
+<p>
+<!-- <img SRC="gifs/pss5.gif" ALT= -->
+<img SRC="eqns/pss5.gif" ALT=
+"N >= [p(1-p)/delta**2]*[z(.05)+z(.10)]**2 = 0.10*0.90*2.927**2/0.10**2
+ is approximately 77">
+</center>
+</td>
+</tr>
+
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc241.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc25.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

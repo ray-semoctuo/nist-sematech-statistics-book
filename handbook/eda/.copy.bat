@@ -1,0 +1,15 @@
+cp m:\eda\*.htm  .
+cp m:\eda\section1\*.htm  section1
+cp m:\eda\section2\*.htm  section2
+cp m:\eda\section3\*.htm  section3
+cp m:\eda\section4\*.htm  section4
+cp m:\eda\section4\fuller\*.htm  section4\fuller
+cp m:\eda\section4\jahanmi2\*.htm  section4\jahanmi2
+cp m:\eda\section4\lew\*.htm  section4\lew
+cp m:\eda\section4\mavro\*.htm  section4\mavro
+cp m:\eda\section4\randn4p\*.htm  section4\randn4p
+cp m:\eda\section4\randu4p\*.htm  section4\randu4p
+cp m:\eda\section4\randwalk\*.htm  section4\randwalk
+cp m:\eda\section4\resistor\*.htm  section4\resistor
+cp m:\eda\section4\soulen\*.htm  section4\soulen
+cp m:\eda\section4\zarr13\*.htm  section4\zarr13

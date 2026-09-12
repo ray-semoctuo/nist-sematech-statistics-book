@@ -1,0 +1,2041 @@
+%!PS-Adobe-2.0
+%%Creator: Dataplot
+%%Title: Dataplot Postscript File
+%%CreationDate: NULL
+%%Pages: (atend)
+%%DocumentFonts: Times-Roman Times-Bold Times-Italic Times-BoldItalic
+%%+ Helvetica Helvetica-Bold Helvetica-Oblique Helvetica-BoldOblique Courier
+%%+ Courier-Bold Courier-Oblique  Courier-BoldOblique
+%%+ AvantGarde-Book AvantGarde-BookOblique AvantGarde-Demi AvantGarde-DemiOblique
+%%+ Bookman-Demi Bookman-DemiItalic       Bookman-Light Bookman-LightItalic      
+%%+ Helvetica-Narrow Helvetica-Narrow-Bold Helvetica-Narrow-BoldOblique          
+%%+ Helvetica-Narrow-Oblique              NewCentury-Schlbk-Bold                 
+%%+ NewCentury-Schlbk-Italic              NewCenturySchlbk-BoldItalic            
+%%+ Palatino-Roman Palatino-Bold          Palatino-Italic Palatino-BoldItalic    
+%%+ ZapfChancery-MediumItalic  Symbol                                            
+%%BoundingBox: 0 0   792   792
+%%EndComments
+% DATAPLOT POSTSCRIPT DRIVER, JANUARY, 1990
+% PROLOG SECTION: DATAPLOT DEFINITIONS     
+%DEFINE PROCEDURE "rightshow" TO PRINT RIGHT JUSTIFIED STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% (STRING) rightshow
+/rightshow
+  {dup stringwidth pop
+   IX exch sub
+   IY moveto
+   show} def
+%DEFINE PROCEDURE "centshow" TO PRINT CENTER JUSTIFIED STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% (STRING) centshow
+/centshow
+  {dup stringwidth pop
+   2 div
+   IX exch sub
+   IY moveto
+   show} def
+%DEFINE PROCEDURE "leftshow" TO PRINT LEFT   JUSTIFIED STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% (STRING) leftshow
+/leftshow
+  {IX IY moveto show} def
+%DEFINE PROCEDURE "vrightshow" TO PRINT RIGHT JUSTIFIED VERTICAL STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% newpath IX IY moveto gsave
+% (STRING) vrightshow grestore
+/vrightshow
+  {dup stringwidth pop
+   IY exch sub
+   IX exch moveto
+    90 rotate
+   show} def
+%DEFINE PROCEDURE "vcentshow" TO PRINT CENTER JUSTIFIED VERTICAL STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% newpath IX IY moveto gsave
+% (STRING) vcentshow grestore
+/vcentshow
+  {dup stringwidth pop
+   2 div
+   IY exch sub
+   IX exch moveto
+     90 rotate
+   show} def
+%DEFINE PROCEDURE "vleftshow" TO PRINT LEFT   JUSTIFIED VERTICAL STRING.  CALL BY:
+%  /IX <XCOOR> def /IY <YCOOR> def 
+% newpath IX IY moveto gsave
+% (STRING) vleftshow grestore
+/vleftshow
+  {IX IY moveto 90 rotate show} def 
+% DEFINE PROCEDURE "l" AS ABBREVIATION OF lineto    
+/l {lineto} def
+% DEFINE PROCEDURE "m" AS ABBREVIATION OF moveto    
+/m {moveto} def
+/Helvetica-Bold                           findfont  47 scalefont setfont
+gsave    % SAVE INITIAL GRAPHICS STATE   
+%%EndProlog
+%%Page: 1 1
+0 0 moveto    0.24000    0.24000 scale  2465    85 translate 90 rotate 
+grestore
+%%Page:     9     9
+gsave
+0 0 moveto    0.24000    0.24000 scale  2465    85 translate 90 rotate 
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157  1000 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   928 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   857 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2227  2142 m  2250  2136 l  2277  2129 l  2304  2123 l  2332  2116 l  2359  2110 l  2387  2104 l  2414  2098 l 
+ 2441  2092 l  2469  2087 l  2496  2082 l  2524  2077 l  2551  2072 l  2578  2067 l  2606  2063 l  2633  2058 l 
+ 2661  2054 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   785 moveto stroke
+0. setgray
+    2 setlinewidth
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  1424 m   497  1397 l   524  1364 l   552  1326 l   579  1279 l   606  1222 l   634  1150 l   661  1056 l 
+  689   928 l   716   744 l   742   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1193  2142 m  1209  2125 l  1236  2101 l  1264  2079 l  1291  2060 l  1319  2044 l  1346  2029 l  1373  2016 l 
+ 1401  2004 l  1428  1993 l  1455  1983 l  1483  1974 l  1510  1966 l  1538  1958 l  1565  1951 l  1592  1945 l 
+ 1620  1939 l  1647  1933 l  1675  1928 l  1702  1923 l  1729  1918 l  1757  1914 l  1784  1910 l  1811  1906 l 
+ 1839  1902 l  1866  1898 l  1894  1895 l  1921  1892 l  1948  1889 l  1976  1886 l  2003  1884 l  2031  1881 l 
+ 2058  1879 l  2085  1876 l  2113  1874 l  2140  1872 l  2168  1870 l  2195  1868 l  2222  1866 l  2250  1864 l 
+ 2277  1862 l  2304  1861 l  2332  1859 l  2359  1857 l  2387  1856 l  2414  1854 l  2441  1853 l  2469  1852 l 
+ 2496  1850 l  2524  1849 l  2551  1848 l  2578  1847 l  2606  1845 l  2633  1844 l  2661  1843 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   714 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1038   476 m  1045   521 l  1072   670 l  1099   787 l  1127   882 l  1154   960 l  1182  1025 l  1209  1081 l 
+ 1236  1129 l  1264  1171 l  1291  1208 l  1319  1240 l  1346  1269 l  1373  1295 l  1401  1318 l  1428  1339 l 
+ 1455  1359 l  1483  1376 l  1510  1393 l  1538  1408 l  1565  1421 l  1592  1434 l  1620  1446 l  1647  1457 l 
+ 1675  1468 l  1702  1477 l  1729  1486 l  1757  1495 l  1784  1503 l  1811  1511 l  1839  1518 l  1866  1525 l 
+ 1894  1531 l  1921  1537 l  1948  1543 l  1976  1548 l  2003  1554 l  2031  1559 l  2058  1564 l  2085  1568 l 
+ 2113  1573 l  2140  1577 l  2168  1581 l  2195  1585 l  2222  1588 l  2250  1592 l  2277  1595 l  2304  1599 l 
+ 2332  1602 l  2359  1605 l  2387  1608 l  2414  1611 l  2441  1614 l  2469  1616 l  2496  1619 l  2524  1621 l 
+ 2551  1624 l  2578  1626 l  2606  1628 l  2633  1630 l  2661  1633 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   643 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1334   476 m  1346   509 l  1373   574 l  1401   633 l  1428   686 l  1455   734 l  1483   779 l  1510   819 l 
+ 1538   857 l  1565   892 l  1592   924 l  1620   954 l  1647   981 l  1675  1007 l  1702  1032 l  1729  1055 l 
+ 1757  1076 l  1784  1096 l  1811  1115 l  1839  1133 l  1866  1151 l  1894  1167 l  1921  1182 l  1948  1197 l 
+ 1976  1211 l  2003  1224 l  2031  1236 l  2058  1249 l  2085  1260 l  2113  1271 l  2140  1282 l  2168  1292 l 
+ 2195  1302 l  2222  1311 l  2250  1320 l  2277  1328 l  2304  1337 l  2332  1345 l  2359  1352 l  2387  1360 l 
+ 2414  1367 l  2441  1374 l  2469  1381 l  2496  1387 l  2524  1393 l  2551  1400 l  2578  1405 l  2606  1411 l 
+ 2633  1417 l  2661  1422 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   571 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1629   476 m  1647   506 l  1675   547 l  1702   586 l  1729   623 l  1757   657 l  1784   690 l  1811   720 l 
+ 1839   749 l  1866   777 l  1894   802 l  1921   827 l  1948   850 l  1976   873 l  2003   894 l  2031   914 l 
+ 2058   934 l  2085   952 l  2113   970 l  2140   987 l  2168  1003 l  2195  1018 l  2222  1033 l  2250  1048 l 
+ 2277  1062 l  2304  1075 l  2332  1088 l  2359  1100 l  2387  1112 l  2414  1123 l  2441  1135 l  2469  1145 l 
+ 2496  1156 l  2524  1166 l  2551  1175 l  2578  1185 l  2606  1194 l  2633  1203 l  2661  1211 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   500 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1924   476 m  1948   504 l  1976   535 l  2003   564 l  2031   592 l  2058   619 l  2085   644 l  2113   668 l 
+ 2140   692 l  2168   714 l  2195   735 l  2222   756 l  2250   776 l  2277   795 l  2304   813 l  2332   831 l 
+ 2359   848 l  2387   864 l  2414   880 l  2441   895 l  2469   910 l  2496   924 l  2524   938 l  2551   951 l 
+ 2578   964 l  2606   977 l  2633   989 l  2661  1001 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   428 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2220   476 m  2222   478 l  2250   504 l  2277   528 l  2304   551 l  2332   573 l  2359   595 l  2387   616 l 
+ 2414   636 l  2441   656 l  2469   674 l  2496   693 l  2524   710 l  2551   727 l  2578   744 l  2606   760 l 
+ 2633   775 l  2661   790 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   357 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2515   476 m  2524   482 l  2551   503 l  2578   523 l  2606   542 l  2633   561 l  2661   579 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   286 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   214 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157   143 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157    71 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157  2237 moveto stroke
+0. setgray
+    2 setlinewidth
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1015   910 m  1011   909 l  1008   908 l  1005   906 l  1003   904 l  1001   901 l  1000   899 l   998   895 l 
+  998   890 l  1000   886 l  1001   884 l  1003   881 l  1005   879 l  1008   877 l  1011   876 l  1015   875 l 
+ 1019   875 l  1024   876 l  1026   877 l  1029   879 l  1032   881 l  1034   884 l  1035   886 l  1036   890 l 
+ 1036   895 l  1035   899 l  1034   901 l  1032   904 l  1029   906 l  1026   908 l  1024   909 l  1019   910 l 
+ 1015   910 l stroke
+ 1015   910 m
+ 1011   909 l
+ 1008   908 l
+ 1005   906 l
+ 1003   904 l
+ 1001   901 l
+ 1000   899 l
+  998   895 l
+  998   890 l
+ 1000   886 l
+ 1001   884 l
+ 1003   881 l
+ 1005   879 l
+ 1008   877 l
+ 1011   876 l
+ 1015   875 l
+ 1019   875 l
+ 1024   876 l
+ 1026   877 l
+ 1029   879 l
+ 1032   881 l
+ 1034   884 l
+ 1035   886 l
+ 1036   890 l
+ 1036   895 l
+ 1035   899 l
+ 1034   901 l
+ 1032   904 l
+ 1029   906 l
+ 1026   908 l
+ 1024   909 l
+ 1019   910 l
+ 1015   910 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2111   910 m  2106   909 l  2104   908 l  2101   906 l  2098   904 l  2096   901 l  2095   899 l  2094   895 l 
+ 2094   890 l  2095   886 l  2096   884 l  2098   881 l  2101   879 l  2104   877 l  2106   876 l  2111   875 l 
+ 2115   875 l  2119   876 l  2122   877 l  2125   879 l  2127   881 l  2129   884 l  2130   886 l  2132   890 l 
+ 2132   895 l  2130   899 l  2129   901 l  2127   904 l  2125   906 l  2122   908 l  2119   909 l  2115   910 l 
+ 2111   910 l stroke
+ 2111   910 m
+ 2106   909 l
+ 2104   908 l
+ 2101   906 l
+ 2098   904 l
+ 2096   901 l
+ 2095   899 l
+ 2094   895 l
+ 2094   890 l
+ 2095   886 l
+ 2096   884 l
+ 2098   881 l
+ 2101   879 l
+ 2104   877 l
+ 2106   876 l
+ 2111   875 l
+ 2115   875 l
+ 2119   876 l
+ 2122   877 l
+ 2125   879 l
+ 2127   881 l
+ 2129   884 l
+ 2130   886 l
+ 2132   890 l
+ 2132   895 l
+ 2130   899 l
+ 2129   901 l
+ 2127   904 l
+ 2125   906 l
+ 2122   908 l
+ 2119   909 l
+ 2115   910 l
+ 2111   910 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2111  1743 m  2106  1742 l  2104  1741 l  2101  1739 l  2098  1737 l  2096  1734 l  2095  1732 l  2094  1728 l 
+ 2094  1723 l  2095  1719 l  2096  1717 l  2098  1714 l  2101  1712 l  2104  1710 l  2106  1709 l  2111  1708 l 
+ 2115  1708 l  2119  1709 l  2122  1710 l  2125  1712 l  2127  1714 l  2129  1717 l  2130  1719 l  2132  1723 l 
+ 2132  1728 l  2130  1732 l  2129  1734 l  2127  1737 l  2125  1739 l  2122  1741 l  2119  1742 l  2115  1743 l 
+ 2111  1743 l stroke
+ 2111  1743 m
+ 2106  1742 l
+ 2104  1741 l
+ 2101  1739 l
+ 2098  1737 l
+ 2096  1734 l
+ 2095  1732 l
+ 2094  1728 l
+ 2094  1723 l
+ 2095  1719 l
+ 2096  1717 l
+ 2098  1714 l
+ 2101  1712 l
+ 2104  1710 l
+ 2106  1709 l
+ 2111  1708 l
+ 2115  1708 l
+ 2119  1709 l
+ 2122  1710 l
+ 2125  1712 l
+ 2127  1714 l
+ 2129  1717 l
+ 2130  1719 l
+ 2132  1723 l
+ 2132  1728 l
+ 2130  1732 l
+ 2129  1734 l
+ 2127  1737 l
+ 2125  1739 l
+ 2122  1741 l
+ 2119  1742 l
+ 2115  1743 l
+ 2111  1743 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1015  1743 m  1011  1742 l  1008  1741 l  1005  1739 l  1003  1737 l  1001  1734 l  1000  1732 l   998  1728 l 
+  998  1723 l  1000  1719 l  1001  1717 l  1003  1714 l  1005  1712 l  1008  1710 l  1011  1709 l  1015  1708 l 
+ 1019  1708 l  1024  1709 l  1026  1710 l  1029  1712 l  1032  1714 l  1034  1717 l  1035  1719 l  1036  1723 l 
+ 1036  1728 l  1035  1732 l  1034  1734 l  1032  1737 l  1029  1739 l  1026  1741 l  1024  1742 l  1019  1743 l 
+ 1015  1743 l stroke
+ 1015  1743 m
+ 1011  1742 l
+ 1008  1741 l
+ 1005  1739 l
+ 1003  1737 l
+ 1001  1734 l
+ 1000  1732 l
+  998  1728 l
+  998  1723 l
+ 1000  1719 l
+ 1001  1717 l
+ 1003  1714 l
+ 1005  1712 l
+ 1008  1710 l
+ 1011  1709 l
+ 1015  1708 l
+ 1019  1708 l
+ 1024  1709 l
+ 1026  1710 l
+ 1029  1712 l
+ 1032  1714 l
+ 1034  1717 l
+ 1035  1719 l
+ 1036  1723 l
+ 1036  1728 l
+ 1035  1732 l
+ 1034  1734 l
+ 1032  1737 l
+ 1029  1739 l
+ 1026  1741 l
+ 1024  1742 l
+ 1019  1743 l
+ 1015  1743 l
+closepath fill 0. setgray
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1015   910 m  1011   909 l  1008   908 l  1005   906 l  1003   904 l  1001   901 l  1000   899 l   998   895 l 
+  998   890 l  1000   886 l  1001   884 l  1003   881 l  1005   879 l  1008   877 l  1011   876 l  1015   875 l 
+ 1019   875 l  1024   876 l  1026   877 l  1029   879 l  1032   881 l  1034   884 l  1035   886 l  1036   890 l 
+ 1036   895 l  1035   899 l  1034   901 l  1032   904 l  1029   906 l  1026   908 l  1024   909 l  1019   910 l 
+ 1015   910 l stroke
+ 1015   910 m
+ 1011   909 l
+ 1008   908 l
+ 1005   906 l
+ 1003   904 l
+ 1001   901 l
+ 1000   899 l
+  998   895 l
+  998   890 l
+ 1000   886 l
+ 1001   884 l
+ 1003   881 l
+ 1005   879 l
+ 1008   877 l
+ 1011   876 l
+ 1015   875 l
+ 1019   875 l
+ 1024   876 l
+ 1026   877 l
+ 1029   879 l
+ 1032   881 l
+ 1034   884 l
+ 1035   886 l
+ 1036   890 l
+ 1036   895 l
+ 1035   899 l
+ 1034   901 l
+ 1032   904 l
+ 1029   906 l
+ 1026   908 l
+ 1024   909 l
+ 1019   910 l
+ 1015   910 l
+closepath fill 0. setgray
+[     8    17 ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1017   893 m  2113   893 l  2113  1726 l  1017  1726 l  1017   893 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   476 m  2661   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661   476 m  2661  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2661  2142 m   470  2142 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470  2142 m   470   476 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   470   428 m   470   476 l stroke
+newpath  1017   428 m  1017   476 l stroke
+newpath  1565   428 m  1565   476 l stroke
+newpath  2113   428 m  2113   476 l stroke
+newpath  2661   428 m  2661   476 l stroke
+newpath   743   452 m   743   476 l stroke
+newpath  1291   452 m  1291   476 l stroke
+newpath  1839   452 m  1839   476 l stroke
+newpath  2387   452 m  2387   476 l stroke
+0. setgray
+newpath   422   476 m   470   476 l stroke
+newpath   422   893 m   470   893 l stroke
+newpath   422  1309 m   470  1309 l stroke
+newpath   422  1726 m   470  1726 l stroke
+newpath   422  2142 m   470  2142 l stroke
+newpath   446   684 m   470   684 l stroke
+newpath   446  1101 m   470  1101 l stroke
+newpath   446  1517 m   470  1517 l stroke
+newpath   446  1934 m   470  1934 l stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+/IX   470 def /IY   357 def
+(-2)
+centshow 
+/IX  1017 def /IY   357 def
+(-1)
+centshow 
+/IX  1565 def /IY   357 def
+(0)
+centshow 
+/IX  2113 def /IY   357 def
+(1)
+centshow 
+/IX  2661 def /IY   357 def
+(2)
+centshow 
+0. setgray
+/IX   391 def /IY   452 def
+(-2)
+rightshow
+/IX   391 def /IY   869 def
+(-1)
+rightshow
+/IX   391 def /IY  1285 def
+(0)
+rightshow
+/IX   391 def /IY  1702 def
+(1)
+rightshow
+/IX   391 def /IY  2118 def
+(2)
+rightshow
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2190 def
+( Contour Plot of the 2 Dominant Factors: X1 and X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY   238 def
+(X2)
+centshow 
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   211 def /IY  1309 def newpath IX IY moveto gsave
+(X1)
+vcentshow 
+grestore
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   563 def /IY  2023 def
+( )
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157  2166 moveto stroke
+[     8    17 ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   962   809 m stroke
+newpath   157  2261 moveto stroke
+newpath   157  2094 moveto stroke
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   962 def /IY   809 def
+(87.025)
+rightshow
+newpath   157  2261 moveto stroke
+newpath   157  2023 moveto stroke
+[     8    17 ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2168   809 m stroke
+newpath   157  2261 moveto stroke
+newpath   157  2023 moveto stroke
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  2168 def /IY   809 def
+(212.8)
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157  1952 moveto stroke
+[     8    17 ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath   962  1767 m stroke
+newpath   157  2261 moveto stroke
+newpath   157  1952 moveto stroke
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX   962 def /IY  1767 def
+(67.975)
+rightshow
+newpath   157  2261 moveto stroke
+newpath   157  1880 moveto stroke
+[     8    17 ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  2168  1767 m stroke
+newpath   157  2261 moveto stroke
+newpath   157  1880 moveto stroke
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  2168 def /IY  1767 def
+(74.625)
+leftshow 
+newpath   157  2261 moveto stroke
+newpath   157  1809 moveto stroke
+[ ] 0 setdash
+    2 setlinewidth
+0. setgray
+newpath  1565  2261 m stroke
+newpath   157  2261 moveto stroke
+newpath   157  1809 moveto stroke
+[ ] 0 setdash
+0. setgray
+    2 setlinewidth
+/IX  1565 def /IY  2261 def
+(SONOLUMINESCENT LIGHT INTENSITY \(INN/WILCOX\))
+centshow 
+newpath   157  2261 moveto stroke
+newpath   157  1737 moveto stroke
+showpage
+grestore
+%%Trailer
+%%Pages:     1
+% END OF DATAPLOT POSTSCRIPT FILE

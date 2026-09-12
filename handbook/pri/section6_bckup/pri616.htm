@@ -1,0 +1,185 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.6. Modeling and Prediction Equations</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri617.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri615.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.htm">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Modeling and Prediction Equations</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="yates">
+<I>
+Parameter Estimates Don't Change as Additional Terms Added
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In most cases of least squares fitting, the model coefficient
+estimates for previously added terms change depending on what
+was successively added.  For example, the estimate for the X1
+coefficient might change depending on whether or not an X2 term
+was included in the model.  This is <b>not</b> the case when the
+design is orthogonal, as is this 2<sup>3</sup> full factorial
+design.  In such case, the estimates for the previously included
+terms do not change as additional terms are added.  This means
+the ranked list of effect estimates in the
+<a href="pri615.htm#yatestable">Yates table</a> simultaneously
+serves as the least squares coefficient estimates for
+progressively more complicated models.
+<p>
+The last column of the Yates table gave the residual standard
+deviation for 8 possible models, each one progressively more
+complicated.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Default Model: Grand Mean
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+At the top of the Yates table, if none of the factors are important,
+then the prediction equation defaults to the mean of all 8 response
+values (the overall or grand mean).  That is,
+<UL>
+   <img src="splett3/eqns/yhateq.gif"
+        alt="Yhat = 2.65875">
+</UL>
+<p>
+From the last column of the Yates table, it was seen that this
+simplest of all models has a residual standard deviation (a
+measure of goodness of fit) of 1.74106 ohms.  Finding a
+good-fitting model was <b>not</b> one of the stated goals of
+this experiment, but the determination of a good-fitting model is
+"free" along with the rest of the analysis and so it is included.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the last column of the Yates table, we summarize
+the quality of the following prediction equations:
+<ul>
+   <li><img src="splett3/eqns/yhateq.gif"
+            alt="Yhat = 2.65875">
+       <p>
+       has a residual standard deviation of 1.74106 ohms.
+       <p>
+   <li><img src="splett3/eqns/yhateq2.gif"
+            alt="Yhat = 2.65875 + 0.5*(3.1025*X1)">
+       <p>
+       has a residual standard deviation of 0.57272 ohms.
+       <p>
+   <li><img src="splett3/eqns/yhateq3.gif"
+            alt="Yhat = 2.65875 + 0.5*(3.1025*X1 - 0.8675*X2)">
+       <p>
+       has a residual standard deviation of 0.30429 ohms.
+       <p>
+   <li><img src="splett3/eqns/yhateq4.gif"
+            alt="Yhat = 2.65875 + 0.5*(3.1025*X1 - 0.8675*X2 + 
+0.2975*X2*X3)">
+       <p>
+       has a residual standard deviation 0.29750 ohms
+       <p>
+   <li>The remaining models can be listed in a similar fashion.
+       Note that the full-blown model provides a perfect predictive
+       fit for the data.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri615.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri617.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

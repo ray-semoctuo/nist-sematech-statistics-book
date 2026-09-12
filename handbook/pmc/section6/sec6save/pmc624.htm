@@ -1,0 +1,211 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.2.4. Model Validation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc625.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc623.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.htm">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc62.htm">Negiz Data</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.2.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Model Validation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Residuals 
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+After fitting the model, we should
+<a href="../section4/pmc448.htm">validate</a> the time series model.
+<p>
+As with standard non-linear least squares fitting, the primary tool
+for validating the model is residual analysis.  As this topic is
+covered in detail in the process modeling chapter, we do not discuss
+it in detail here.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RES4PLOT">
+<I>
+4-Plot of Residuals
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The <a href="../../eda/section3/4plot.htm">4-plot</a> is a convenient
+graphical technique for model validation in that it tests the
+assumptions for the residuals on a single graph.
+<p>
+<img src="negiz4/gif/res4plot.gif">
+<p>
+<ol>
+   <li>The <a href="../../eda/section3/runseqpl.htm">run sequence 
+       plot</a> shows that the residuals do not violate the
+       assumption of constant location and scale.  It also shows
+       that most of the residuals are in the range (-1,1).
+   <li>The <a href="../../eda/section3/lagplot.htm">lag plot</a>
+       indicates that the residuals appear to be random.
+   <li>The <a href="../../eda/section3/histogra.htm">histogram</a>
+       and <a href="../../eda/section3/normprpl.htm">normal
+       probability plot</a> indicate that the normal distribution
+       provides an adequate fit for this model.
+</OL>
+This 4-plot of the residuals indicates that the fitted model
+is an adequate model for this data.
+<P>
+We generate the individual plots from the 4-plot as separate
+plots to show more detail.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RESRUNSQ">
+<I>
+Run Sequence Plot of Residuals
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="negiz4/gif/resrunsq.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RESLAG">
+<I>
+Lag Plot of Residuals
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="negiz4/gif/reslag.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RESHIST">
+<I>
+Histogram of Residuals
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="negiz4/gif/reshist.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RESNPRPL">
+<I>
+Normal Probability Plot of Residuals
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="negiz4/gif/resnprpl.gif">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc623.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc625.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

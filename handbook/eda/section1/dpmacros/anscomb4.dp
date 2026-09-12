@@ -1,0 +1,37 @@
+.
+.  Anscombe plots
+.
+device 1 x11
+device 1 font simplex
+set ipl1na anscomb4.ps
+device 2 postscript
+title size 4
+.
+skip 25
+read anscombe.dat x1 y1 x2 y2 x3 y3 x4 y4
+multiplot corner coordinates 2 2 98 98
+multiplot 2 2
+tic offset units data
+tic offset 0.5 0.5
+character hw 6 4.5
+character circle BLANK
+character fill on
+line blank solid
+title size 6
+tic mark label size 6
+loop for k = 1 1 4
+  title data set ^k
+  fit y^k x^k
+  let a = correlation y^k x^k
+  print "k = ^k, ressd = ^ressd, corr = ^a"
+  plot y^k x^k and
+  plot pred x^k
+end of loop
+end of multiplot
+.
+box 0 0 100 100
+.
+device 2 close
+system mv ANSCOMB4.PS anscomb4.ps
+.
+quit

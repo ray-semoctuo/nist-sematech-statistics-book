@@ -1,0 +1,23 @@
+.
+. Starting Step 2.4
+CAPTURE FIT1.OUT
+linear fit rot fluX
+END OF CAPTURE
+.
+title displacement 7
+title size 3
+title Linear FIt Extinguish Fire Data
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot rot pred vs flux
+character blank all
+line solid all
+line blank
+character x
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 2.4: Page Back for Output

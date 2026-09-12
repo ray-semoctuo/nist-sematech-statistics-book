@@ -1,0 +1,25 @@
+.
+.  Generate sample output for t PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na tppf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE t PPF (10 df)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+.
+PLOT TPPF(P,10) FOR P = 0.01 0.01 0.99
+.
+box 0 0 100 100
+.
+device 2 close
+system cp TPPF.PS tppf.ps
+system rm TPPF.PS
+.
+quit

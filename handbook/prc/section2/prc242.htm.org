@@ -1,0 +1,361 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.4.2. Confidence intervals for small sample sizes</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc243.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc241.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.htm">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.htm">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc24.htm">Does the proportion of defectives meet requirements?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.4.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Confidence intervals for small sample sizes</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Exact binomial confidence limits</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+If the <A HREF="prc241.htm">sample size, <i>N</i>, is small</A>,
+confidence limits that are approximated using the normal
+distribution may not be accurate enough for some applications.  An
+"exact" method based on the binomial distribution is discussed on
+this page.  
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Constrution of exact two-sided confidence intervals based on
+the binomial distribution</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+To construct a two-sided confidence interval at the
+100(1 - <img align=absmiddle src="gifs/alpha.gif">)% confidence
+level for the true proportion defective <i>p</i> where
+<i>N<sub>d</sub></i> defects are found in a sample of
+size <i>N</i> follow the steps below.
+<p>
+<OL>
+   <LI>Solve the equation
+       <p> <center>
+       <img SRC="gifs/pueq.gif" alt=
+"SUM[k=0 to Nd][(N k)*p(U)**k*(1-p(U))**(N-k)] \= alpha/2">
+       </center> <p>
+       for <i>p<sub>U</sub></i> to obtain the upper
+       100(1-<img align=absmiddle src="gifs/alpha.gif">)% limit for
+       <i>p</i>.
+       <p>
+   <LI>Next solve the equation
+       <center> <p>
+       <img SRC="gifs/pleq.gif" alt=
+"SUM[k=0 to Nd-1][(N k)*p(L)**k*(1-p(L))**(N-k)] \= 1 - alpha/2">
+      </center> <p>
+      for <i>p<sub>L</sub></i> to obtain the lower 
+      100(1 - <img align=absmiddle src="gifs/alpha.gif" alt="alpha">)%
+      limit for <i>p</i>.
+</OL>
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Note</i>
+</td>
+<td VALIGN=TOP WIDTH="85%">
+The interval {<i>p<sub>L</sub></i>, <i>p<sub>U</sub></i>} is an exact
+100(1 - <img align=absmiddle src="gifs/alpha.gif" alt="alpha">)%
+confidence interval for <i>p</i>.  However, it is not symmetric
+about the observed proportion defective,
+<img align=absmiddle src="gifs/pnd.gif" alt="phat = Nd/N">.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example of calculation of upper limit for binomial confidence
+intervals using EXCEL</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The equations above that determine <i>p<sub>L</sub></i> and 
+<i>p<sub>U</sub></i> can easily be solved using functions built
+into EXCEL.  Take as an example the situation where twenty units
+are sampled from a continuous production line and four items are
+found to be defective.  The proportion defective is estimated to be
+<img align=middle SRC="gifs/phat.gif"alt="phat"> = 4/20 = 0.20.
+The calculation of a 90% confidence interval for the true proportion
+defective, <i>p</i>, is demonstrated using EXCEL spreadsheets.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Upper confidence limit from EXCEL</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+To solve for <i>p<sub>U</sub></i>:
+<ol>
+   <li>Open an EXCEL spreadsheet and put the starting value of 0.5
+       in the A1 cell.
+       <p>
+   <li>Put =BINOMDIST(<i>Nd</i>, <i>N</i>, <i>A1</i>, <i>TRUE</i>)
+       in B1, where <i>Nd</i> = 4  and <i>N</i> = 20.
+       <p>
+   <li>Open the Tools menu and click on GOAL SEEK.  The GOAL SEEK
+       box requires 3 entries.
+       <p>
+       <UL>
+          <li>B1 in the "Set Cell" box
+          <li><img align=absmiddle
+              src="gifs/alpha.gif" alt="alpha">/2
+              = 0.05 in the "To Value" box
+          <li>A1 in the "By Changing Cell" box.
+       </UL>
+       <p>
+       The picture below shows the steps in the procedure.
+</ol>
+</td>
+</tr>
+
+</table>
+
+<img SRC="gifs/binome4.gif" height=388 width=542
+     ALT="Excel spread sheet showing initial values">
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Final step</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<ol start=4>
+   <li>Click OK in the GOAL SEEK box.  The number in A1 will change
+       from 0.5 to <i>P<sub>U</sub></i>.  The picture below shows
+       the final result.
+</ol>
+</td>
+</tr>
+
+</table>
+
+<img SRC="gifs/binome5.gif" height=388 width=542
+     ALT="Excel spread sheet showing the computation of P(U)">
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example of calculation of lower limit for binomial confidence
+limits using EXCEL</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The calculation of the lower limit is similar. To solve for
+<i>p<sub>L</sub></i>:
+<ol>
+   <li>Open an EXCEL spreadsheet and put the starting value of 0.5
+       in the A1 cell.
+       <p>
+   <li>Put =BINOMDIST(<i>Nd</i> -1, <i>N</i>, <i>A1</i>, <i>TRUE</i>)
+       in B1, where <i>Nd</i> -1 = 3  and <i>N</i> = 20.
+       <p>
+   <li>Open the Tools menu and click on GOAL SEEK.  The GOAL SEEK
+       box requires 3 entries.
+       <p>
+       <UL>
+          <LI>B1 in the "Set Cell" box
+          <li>1 - <img align=absmiddle src="gifs/alpha.gif"
+              alt="alpha">/2 = 1 - 0.05 = 0.95 in the "To Value" box
+          <li>A1 in the "By Changing Cell" box.
+       </UL>
+       <p>
+       The picture below shows the steps in the procedure.
+</ol>
+</td>
+</tr>
+
+</table>
+
+<img SRC="gifs/binome6.gif" height=388 width=542
+     ALT="Excel spread sheet showing the initial values">
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Final step
+</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<ol start=4>
+   <li>Click OK in the GOAL SEEK box.  The number in A1 will change
+       from 0.5 to <i>p<sub>L</sub></i>.  The picture below shows
+       the final result.
+</ol>
+</td>
+</tr>
+
+</table>
+
+<img SRC="gifs/binome7.gif" height=388 width=542
+     ALT="Excel spread sheet showing the comptation of p(L)">
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Interpretation of result</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A 90% confidence interval for the proportion defective, p, is
+{0.071, 0.400}.  Whether or not the interval is truly "exact"
+depends on the software.  Notice in the screens above that GOAL SEEK
+is not able to find upper and lower limits that correspond to exact
+0.05 and 0.95 confidence levels; the calculations are correct to two
+significant digits which is probably sufficient for confidence
+intervals.  The calculations using a package called SEMSTAT agree
+with the EXCEL results to two significant digits.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Calculations using SEMSTAT</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The downloadable software package <a href=
+"http://www.sematech.org/public/resources/stats/Handbook/semstat.htm">
+SEMSTAT</a> contains a menu item "Hypothesis Testing and Confidence
+Intervals."  Selecting this item brings up another menu that
+contains "Confidence Limits on Binomial Parameter." This option can
+be used to calculate binomial confidence limits as shown in the
+screen shot below.
+</td>
+</tr>
+
+</table>
+
+<img SRC="gifs/binome8.gif" height=300 width=542
+     ALT="SEMSTAT output for exact confidence interval">
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Calculations using Dataplot
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This computation can also be performed using the following
+Dataplot program.
+<PRE>
+. Initalize
+let p = 0.5
+let nd = 4
+let n = 20
+. Define the functions
+let function fu = bincdf(4,p,20) - 0.05
+let function fl = bincdf(3,p,20) - 0.95
+. Calculate the roots
+let pu = roots fu wrt p  for p = .01 .99
+let pl = roots fl wrt p  for p = .01 .99
+. print the results
+let pu1 = pu(1)
+let pl1 = pl(1)
+print "PU = ^pu1"
+print "PL = ^pl1"
+</PRE>
+Dataplot generated the following results.
+<PRE>
+ PU = 0.401029
+ PL = 0.071354
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc241.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc243.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

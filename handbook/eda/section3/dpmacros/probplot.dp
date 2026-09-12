@@ -1,0 +1,46 @@
+.
+.  Generate sample output for confidence limits
+.
+device 1 x11
+device 1 font simplex
+set ipl1na probplot.ps
+device 2 postscript
+.
+.  Jim's dplogf.tex settings
+.
+SET MINMAX MIN
+CHARACTER MAPPING RANK
+TIC OFFSET UNITS SCREEN
+XTIC OFFSET 5 5
+YTIC OFFSET 0 5
+TITLE DISPLACEMENT 2
+DIMENSION 40 VARIABLES
+SET WRITE DECIMALS 2
+CASE ASIS
+TITLE CASE ASIS
+LABEL CASE ASIS
+TIC LABEL CASE ASIS
+CHARACTER CASE ASIS ALL
+LEGEND CASE ASIS
+.
+TITLE SIZE 4
+LABEL SIZE 4
+TIC MARK LABEL SIZE 4
+.
+SET MINMAX 1
+LET GAMMA = 2
+LET Y = WEIBULL RANDOM NUMBERS FOR I = 1 1 500
+Y1LABEL Ordered Response
+X1LABEL Weibull Order Statistic Medians
+TITLE Weibull Probability Plot
+WEIBULL PROBABILITY PLOT Y
+.
+. let string mark = Weibull Random Numbers
+. call mark5.dp
+box 0 0 100 100
+.
+device 2 close
+system cp PROBPLOT.PS probplot.ps
+system rm PROBPLOT.PS
+.
+quit

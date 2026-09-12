@@ -1,0 +1,11 @@
+.
+. Starting Step 4.2 - Run Sequence Plot of Residuals
+.
+y1label residuals
+x1label sequence
+character *
+line blank
+run sequence plot res
+line solid
+character BLANK
+. Finished Step 4.2: Page Back for Output

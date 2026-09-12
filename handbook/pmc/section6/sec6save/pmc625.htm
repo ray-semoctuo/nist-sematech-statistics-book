@@ -1,0 +1,328 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.2.5. Work This Example Yourself</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section7/pmc7.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc624.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.htm">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.htm">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc62.htm">Negiz Data</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.2.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Work This Example Yourself</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A HREF="negiz4/negiz4.htm">
+<I>
+View Dataplot Macro for this Case Study
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This page allows you to repeat the analysis outlined in the
+case study description on the previous page using Dataplot.
+It is required that you have already downloaded and installed
+Dataplot.  Output from each analysis step below will be displayed
+in one or more of the Dataplot windows.  The four main windows
+are the Output Window, the Graphics window, the Command History
+window, and the data sheet window.  Across the top of the main
+windows there are menus for executing Dataplot commands.  Across
+the bottom is a command entry window where commands can be typed
+in.
+</TD>
+</TR>
+</TABLE>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TABLE WIDTH=540 BORDER=2 CELLPADDING=10>
+<TR>
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Data Analysis Steps
+</FONT>
+</TH>
+
+<TH ALIGN=CENTER>
+<FONT SIZE=4>
+Results and Conclusions
+</FONT>
+</th>
+</TR>
+
+<TR>
+<TD>
+<BR>
+<I>
+Click on the links below to start
+Dataplot and run this case study yourself.  Each
+step may use results from previous steps, so
+please be patient.  Wait until the software
+verifies that the current step is complete before
+clicking on the next step.
+</I>
+<BR><BR>
+</TD>
+
+<TD>
+<BR>
+<I>The links in this column will connect you with more
+detailed information about each analysis step from the case
+study description.</I>
+<BR><BR>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+1. Invoke Dataplot and read data.
+</PRE>
+<A HREF="negiz4/dpmacros/data.dp"><PRE>
+   1. Read in the data.
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREf="pmc621.htm"><PRE>
+ 1. You have read 1 column of numbers 
+    into Dataplot, variable Y.
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+2. Model identification plots
+</PRE>
+<A HREF="negiz4/dpmacros/runseqpl.dp"><PRE>
+   1. Run sequence plot of Y.
+
+
+
+</PRE></A>
+<A HREF="negiz4/dpmacros/autocopl.dp"><PRE>
+   2. Autocorrelation plot of Y.
+
+
+
+</PRE></A>
+<A HREF="negiz4/dpmacros/partaupl.dp"><PRE>
+   3. Partial autocorrelation plot of Y.
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="pmc622.htm#RUNSEQPL"><PRE>
+ 1. The run sequence plot shows that the
+    data appear to be stationary and do
+    not exhibit seasonality.
+
+</PRE></A>
+<A HREF="pmc622.htm#AUTOCOPL"><PRE>
+ 2. The autocorrelation plot indicates an
+    AR process.
+
+
+</PRE></A>
+<A HREF="pmc622.htm#PARTAUPL"><PRE>
+ 3. The partial autocorrelation plot indicates
+    that an AR(3) model may be appropriate.
+
+</PRE></A>
+</TD>
+</TR>
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+3. Estimate the model.
+
+</PRE>
+<A HREF="negiz4/dpmacros/arma.dp"><PRE>
+   1. ARMA fit of Y.
+
+
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+
+</PRE>
+<A HREF="pmc623.htm#ARMAFIT"><PRE>
+ 1. The arma fit  shows that all 3
+    parameters are statistically
+    significant.
+
+</PRE></A>
+</TD>
+</TR>
+
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+
+<TR>
+<TD ALIGN=left VALIGN=top>
+<PRE>
+4. Model validation.
+</PRE>
+<A HREF="negiz4/dpmacros/res4plot.dp"><PRE>
+   1. Generate a 4-plot of the residuals.
+
+
+
+</PRE></A>
+<A HREF="negiz4/dpmacros/resrunsq.dp"><PRE>
+   2. Generate a run sequence plot of
+      the residuals.
+
+
+
+</PRE></A>
+<A HREF="negiz4/dpmacros/reslag.dp"><PRE>
+   3. Generate a lag plot for the
+      residuals.
+
+
+</PRE></A>
+<A HREF="negiz4/dpmacros/reshist.dp"><PRE>
+   4. Generate a histogram for the
+      residuals.
+
+
+
+</PRE></A>
+<A HREF="negiz4/dpmacros/resnprpl.dp"><PRE>
+   5. Generate a normal probability
+      plot for the residuals.
+
+</PRE></A>
+</TD>
+
+<TD ALIGN=left VALIGN=top>
+<PRE>
+
+</PRE>
+<A HREF="pmc624.htm#RES4PLOT"><PRE>
+ 1. The 4-plot shows that the
+    assumptions for the residuals
+    are satisfied.
+
+</PRE></A>
+<A HREF="pmc624.htm#RESRUNSQ"><PRE>
+ 2. The run sequence plot of the
+    residuals shows that the residuals
+    have constant location and scale and
+    are in the range (-1,1).
+
+</PRE></A>
+<A HREF="pmc624.htm#LAGPLOT"><PRE>
+ 3. The lag plot of the residuals
+    indicates that the residuals are
+    random.
+
+</PRE></A>
+<A HREF="pmc624.htm#RESHIST"><PRE>
+ 4. The histogram of the residuals
+    indicates that the residuals are
+    adequately modeled by a normal
+    distribution.
+
+</PRE></A>
+<A HREF="pmc624.htm#RESNPRPL"><PRE>
+ 5. The normal probability plot
+    of the residuals also indicates
+    that the residuals are adequately
+    modeled by a normal distribution.
+
+</PRE></A>
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc624.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section7/pmc7.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

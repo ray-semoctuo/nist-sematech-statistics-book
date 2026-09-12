@@ -1,0 +1,14 @@
+.
+. Starting Step 2.1
+.
+y1label Counts
+x1label Polished Window Strength (ksi)
+xlimits 10 60
+ytic offset 0 5
+HISTOGRAM Y
+xlimits
+y1label
+x1label
+title
+ytic offset 5 5
+. Finished Step 2.1: Page Back for Output

@@ -1,0 +1,14 @@
+dimension 200 columns
+set write decimals 4
+.
+read matrix x
+1  -1  0
+1   0 -1
+0   1 -1
+end of data
+let xt = matrix transpose x
+let xtx = matrix multiply xt  x
+.
+print xt
+print xtx
+.

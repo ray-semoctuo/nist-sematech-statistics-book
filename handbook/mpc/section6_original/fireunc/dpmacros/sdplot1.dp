@@ -1,0 +1,10 @@
+.
+. Starting Step 2.2
+y1label Standard Deviation of ^rot
+title Extinguish Fire Data
+ylimits 0 0.1
+standard deviation plot rot flux
+title
+y1label ^rot
+ylimits
+. Finished Step 2.2: Page Back for Output

@@ -1,0 +1,36 @@
+.
+.  Macro to generate histogram of residuals with overlaid
+.  normal pdf
+.
+set postscript font helb
+device 1 x11
+device 2 postscript
+.
+thickness 0.2
+tic mark label size 3
+label case asis
+label size 3
+x3label size 4
+x3label Figure 2.2
+y1tic mark label decimal 3
+y1label displacement 12
+.
+skip 25
+read berger1.dat y x
+linear fit y x
+.
+xlimits -25 25
+x1label Residuals
+y1label Relative Frequency
+relative histogram res
+limits freeze
+pre-erase off
+let m = mean res
+let s = sd res
+plot norpdf(z,m,s) for z = -25 0.1 25
+.
+device 2 close
+.
+system cp dppl1f.dat reshist.ps
+.
+quit

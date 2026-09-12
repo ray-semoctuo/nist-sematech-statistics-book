@@ -1,0 +1,39 @@
+.
+.  Generate sample output for Lognormal Survival plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na lgnsurv4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 6
+TIC LABEL SIZE 6
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+Y1LABEL DISPLACEMENT 13
+FRAME CORNER COORDINATES 20 20 90 90
+THICKNESS 0.2
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Lognormal Survival (sigma = 0.5)
+PLOT 1 - LGNCDF(X,0.5) FOR X = 0.01 0.01 5
+TITLE Lognormal Survival (sigma = 1)
+PLOT 1 - LGNCDF(X,1) FOR X = 0.0 0.01 5
+TITLE Lognormal Survival (sigma = 2)
+PLOT 1 - LGNCDF(X,2) FOR X = 0.01 0.01 5
+TITLE Lognormal Survival (sigma = 5)
+PLOT 1 - LGNCDF(X,5) FOR X = 0.01 0.01 5
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+device 2 close
+system mv LGNSURV4.PS lgnsurv4.ps
+.
+quit

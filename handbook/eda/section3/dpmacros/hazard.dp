@@ -1,0 +1,24 @@
+.
+.  Generate sample output for hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na hazard.ps
+device 2 postscript
+.
+SKIP 25
+READ VANGEL5.DAT Y
+.
+TITLE AUTOMATIC
+TITLE SIZE 3
+LABEL CASE ASIS
+.
+WEIBULL HAZARD PLOT Y
+.
+box 0 0 100 100
+.
+device 2 close
+system cp HAZARD.PS hazard.ps
+system rm HAZARD.PS
+.
+quit

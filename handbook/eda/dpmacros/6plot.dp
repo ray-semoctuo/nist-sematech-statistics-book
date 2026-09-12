@@ -1,0 +1,91 @@
+.
+.  Create a GIF file for a 4-plot plot
+.
+DEVICE 1 X11
+DEVICE 2 POSTSCRIPT
+PRE-ERASE OFF
+.
+TITLE SIZE 8
+TITLE DISPLACEMENT 2
+LABEL CASE ASIS
+X3LABEL AUTOMATIC
+LABEL SIZE 7
+TIC LABEL SIZE 7
+X3LABEL DISPLACEMENT 12
+THICKNESS 0.2
+TIC OFFSET UNITS SCREEN
+TIC OFFSET 1 1
+.
+echo on
+.
+skip 25
+read PONTIUS.DAT y x
+.
+major xtic mark number 4
+linear fit y x
+. 6-plot y x
+multiplot 2 3
+multiplot corner coordinates 0 0 100 100
+frame corner coordinates 24 20 94 90
+.
+line bl solid
+char x blank
+.
+major ytic mark number 4
+tic offset units data
+ytic offset 0 0
+xtic offset 1000000 1000
+xlimits 1000000 3000000
+major xtic mark number 2
+.
+plot y pred vs x
+.
+ylimits -0.005 0.003
+major ytic mark number 5
+.
+plot res x
+.
+ylimits -0.005 0.003
+major ytic mark number 5
+xlimits 0 3
+major xtic mark number 4
+xtic offset 0 0
+.
+plot res pred
+.
+tic mark label decimals 3
+limits -0.004 0.002
+tic offset 0.001 0.001
+major ytic mark number 4
+major xtic mark number 3
+.
+lag plot res
+.
+tic mark label decimals
+tic offset 0 0
+limits
+major ytic mark number 6
+major xtic mark number 3
+xlimits -0.01 0.01
+.
+histogram res
+.
+ylimits -0.005 0.003
+major ytic mark number 5
+xlimits -3 3
+xtic offset 0.5 0.5
+major xtic mark number 7
+.
+norm prob plot res
+.
+end of multiplot
+.
+justification center
+height 4
+move 50 96
+text 6-plot (PONTIUS.DAT)
+.
+BOX 0 0 100 100
+DEVICE 2 CLOSE
+system mv dppl1f.dat 6plot.ps
+QUIT

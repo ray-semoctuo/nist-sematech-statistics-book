@@ -1,0 +1,179 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+set ipl1na plot1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call plot1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv PLOT1.PS plot1.ps
+.
+set ipl1na sdplot1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call sdplot1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv SDPLOT1.PS sdplot1.ps
+.
+set ipl1na spread1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call spread1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv SPREAD1.PS spread1.ps
+.
+set ipl1na fit1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call fit1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv FIT1.PS fit1.ps
+.
+set ipl1na 4plot1.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call 4plot1.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv 4PLOT1.PS 4plot1.ps
+.
+set ipl1na fit2.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call fit2.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv FIT2.PS fit2.ps
+.
+set ipl1na 4plot2.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call 4plot2.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv 4PLOT2.PS 4plot2.ps
+.
+set ipl1na wtfunc.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call wtfunc.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv WTFUNC.PS wtfunc.ps
+.
+set ipl1na fit3.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call fit3.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv FIT3.PS fit3.ps
+.
+set ipl1na 4plot3.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call 4plot3.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv 4PLOT3.PS 4plot3.ps
+.
+set ipl1na fit4.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call fit4.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv FIT4.PS fit4.ps
+.
+set ipl1na 4plot4.ps
+device 2 postscript
+.
+title size 3
+label size 3
+tic label size 3
+call 4plot4.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv 4PLOT4.PS 4plot4.ps
+.
+call flowpred.dp
+.
+call flowpre2.dp
+.
+call z.dp
+.

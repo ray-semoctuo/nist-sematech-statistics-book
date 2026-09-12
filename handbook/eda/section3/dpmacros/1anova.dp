@@ -1,0 +1,10 @@
+.
+.  Generate sample output for 1-Way ANOVA
+.
+skip 25
+read gear.dat y x
+echo on
+capture 1anova.out
+anova y x
+end of capture 
+quit

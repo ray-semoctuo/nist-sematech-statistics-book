@@ -1,0 +1,93 @@
+device 1 x11
+device 1 font simplex
+.
+call data.dp
+.
+set ipl1na init.ps
+device 2 postscript
+pre-erase off
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call init.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv INIT.PS init.ps
+.
+call percent.dp
+.
+call capabili.dp
+.
+erase
+set ipl1na bprun.ps
+device 2 postscript
+pre-erase off
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call bprun.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BPRUN.PS bprun.ps
+.
+erase
+set ipl1na bpzone.ps
+device 2 postscript
+pre-erase off
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call bpzone.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BPZONE.PS bpzone.ps
+.
+erase
+set ipl1na bpwafe.ps
+device 2 postscript
+pre-erase off
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call bpwafe.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BPWAFE.PS bpwafe.ps
+.
+erase
+set ipl1na blockp.ps
+device 2 postscript
+pre-erase off
+.
+title size 3
+label size 3
+tic label size 3
+char size 3 all
+call blockp.dp
+title size 
+label size
+tic label size
+.
+device 2 close
+system mv BLOCKP.PS blockp.ps
+.

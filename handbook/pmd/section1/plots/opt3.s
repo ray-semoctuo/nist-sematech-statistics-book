@@ -1,0 +1,27 @@
+postscript("opt3.ps",hor=T)
+ps.options(colors = ps.colors.rgb[c("black","blue","red"),])
+par(mfrow=c(1,1),oma=c(0,0,0,0),mar=c(4,4,3,3),
+    mgp=c(1.75,0.5,0),lwd=3,pch=16,lab=c(3,3,3))
+if(search()[1]!="opt.dat") attach(opt.dat,pos=1)
+set.seed(324)
+x1 <- c(-1,-1,1,1,-1.414214,1.414214,0,0,0,0,0,0,0)
+x2 <- c(-1,1,-1,1,0,0,-1.414214,1.414214,0,0,0,0,0)
+yt <- 203 + 8*x1 - 30*x2 - 4*x1*x2 - 16*x1^2 - 24*x2^2
+y <- yt + rnorm(13,sd=5)
+#x1 <- 50*x1 + 100
+#x2 <- 100*x2 + 300
+X <- cbind(1,x1,x2,x1^2,x2^2,x1*x2)                         
+lf <- lm(y~x1+x2+x1^2+x2^2+x1*x2)
+gv <- list(x1=seq(-1.5,1.5,length=20),x2=seq(-1.5,1.5,length=20))
+#gv <- list(x1=seq(25,175,length=20),x2=seq(150,450,length=20))
+pred <- matrix(predict(lf,expand.grid(gv)),ncol=20,nrow=20)
+contour(gv$x1,gv$x2,pred,xlab="Temperature",ylab="Pressure",cex=1.2,ylim=c(-1.5,1.5),xlim=c(-1.5,1.5),axes=F)
+axis(1,seq(-1.5,1.5,0.5),labels=50*seq(-1.5,1.5,0.5)+100,cex=1.2)
+axis(2,seq(-1.5,1.5,0.5),labels=100*seq(-1.5,1.5,0.5)+300,cex=1.2,srt=90)
+box()
+#optv <- optfq(lf,gv2)
+points(optv$sp[1],optv$sp[2],pch=3)
+gv2 <- list(x1=seq(0,1,length=20),x2=seq(-1.5,-0.5,length=20))
+#gv2 <- list(x1=seq(100,150,length=20),x2=seq(150,250,length=20))
+contour(gv2$x1,gv2$x2,optv$crz,add=T,levels=0,labex=F,lty=3)
+dev.off()

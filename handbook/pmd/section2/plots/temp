@@ -1,0 +1,6 @@
+if(search()[1]!="tmp.dat") attach(tmp.dat,pos=1)         
+x <- 1:10                     
+set.seed(2)                   
+y <- 5 + 8*x + rnorm(10,sd=2) 
+lf <- lm(y~x)
+print(summary(lf))

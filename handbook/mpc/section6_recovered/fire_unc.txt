@@ -1,0 +1,212 @@
+This analysis demonstrates the analysis of uncertainty for values predicted from a calibration 
+curve where there is uncertainty in both the predictors and the predicted values.  The example is 
+taken from a study conducted by Michele Donnelly of the Fire Science Division of the National 
+Institute of Standards and Technology.  It relates to the volume fraction of nitrogen required to 
+extinguish flame on the surface of a plastic cylinder.  Measurements of flux (X) are made on the 
+surface of the object, and corresponding rotameter readings (Y) are converted to flowrate (Y') 
+from a calibration curve for the rotameter.   Flowrate is then converted to nitrogen volume 
+fraction.  The steps in the analysis are as follows. 
+
+1.	Create a calibration curve for the rotatmeter.
+2.	Compute predicted values of nitrogen flowrate from rotameter readings on twenty-one 
+cylinders in the study.
+3.	Compute the standard deviations of the predicted values of flowrate.
+4.	Convert the flowrates to nitrogen volume fractions (%).
+5.	Calculate the uncertainties due to the calibration curve for the nitrogen volume fractions.
+6.	Calulate the uncertainties due to flux measurements for the nitrogen volume fractions.
+7.	Combine the last two components into a total uncertainty.
+
+1. A calibration curve is created for the rotameter.  This calibration curve is used to convert 
+future rotameter readings to flowrate.  Data for estimating the coefficients of the calibration 
+curve consist of ten repetitions at eight ball settings.   
+
+  X    Y
+40  7.871 
+40  7.877 
+40  7.863 
+40  7.877 
+40  7.871 
+40  7.877 
+40  7.863 
+40  7.874 
+40  7.871 
+40  7.865
+
+50  9.608
+50  9.591 
+50  9.600 
+50  9.582 
+50  9.582 
+50  9.600 
+50  9.587 
+50  9.587
+50  9.608
+50  9.600
+
+70   12.94
+70   12.93
+70   12.94
+70   12.93
+70   12.94
+70   12.94
+70  12.91
+70  12.92
+70  12.95
+70  12.94
+
+90  15.94
+90  15.84
+90  15.91
+90  16.01
+90  15.98
+90  15.89
+90  15.82
+90  15.89
+90  15.88
+90  15.90
+
+30  5.981
+30  5.980
+30  5.983
+30  5.985
+30  5.985
+30  5.981
+30  5.981
+30  5.978
+30  5.981
+30  5.977
+
+80  14.40
+80  14.39
+80  14.40
+80  14.41
+80  14.42
+80  14.39
+80  14.43
+80  14.37
+80  14.44
+80  14.37
+
+100  17.23
+100  17.17
+100  17.23
+100  17.17
+100  17.15
+100  17.19
+100  17.21
+100  17.24
+100  17.23
+100  17.22
+
+20  4.012
+20  4.014
+20  4.015
+20  4.011
+20  4.013
+20  4.011
+20  4.020
+20  4.014
+20  4.009
+20  4.011
+
+
+The Omnitab output from a quadratic fit to the data where two of the measurements have been 
+excluded as outliers follows.  
+
+
+ESTIMATES FROM LEAST SQUARES FIT
+
+
+ TERM     COEFFICIENT     S.D. OF COEFF.        RATIO     ACCURACY*
+-------------------------------------------------------------------
+   0    -.14444077        .017538628            -8.24       5.32
+   1     .21711582        .00067569158         321.32       6.69
+   2    -.00043623472     .0000055532573       -78.55       6.10
+-------------------------------------------------------------------
+ RESIDUAL STANDARD DEVIATION =            .028181005
+   BASED ON DEGREES OF FREEDOM            78 -   3 =  75
+
+
+Plots for assessing the adequacy of the quadratic model are shown below.  The F statistic and 
+the standardized residuals and normal probability plot indicate that there is some variation that is 
+not accounted for by the quadratic model.  These may be caused by inaccuracies in the ball 
+readings which we cannot identify.   In general, the fit is satisfactory.
+
+
+2. Calibrated values of nitrogen flowrate (LPM) are computed as a function of flux from the 
+calibration curve: 
+ 
+
+The standard deviations for the predicted values of flow from the quadratic calibration curve are 
+combined with the residual standard deviation of the fit,  , to estimate the uncertainty for 
+flowrate.  
+ 
+
+ 
+
+
+3.  The flowrate is converted to nitrogen volume fraction (%), Z, where
+  
+
+and C = 10 LPM for air is considered to be a constant.  
+
+4. The uncertainty of the nitrogen value fraction due to the uncertainty of the calibration curve is 
+calculated by propagation of error to be:
+
+
+  
+
+
+5.  The uncertainty of the nitgroen volume fraction due to flux is calculated.  The measured flux 
+is considered to have an expanded uncertainty of at most ± 3%.  If we assume that 3% 
+represents the outer limits of a normal distribution, this corresponds to a standard deviation for 
+flux of
+
+ 
+
+The uncertainty in nitrogen volume fraction due to the uncertainty in the flux measurement is 
+calculated by propagation of error to be:
+
+ 
+
+
+6.  The standard deviation for nitrogen volume is the root-sum-square of the uncertainties due to 
+the calibration curve and error in the measurement of flux as follows:
+
+ 
+
+
+For the samples in the study, the measured values of flux, nitrogen volume fractions and 
+associated uncertainties are shown in the table below.  The portion of the uncertainty due to the 
+calibration curve is shown in the 3rd column.  The portion of the uncertainty due to flux is shown 
+in the 4th column.  The total standard uncertainty is shown in the fifth column.   
+
+Table of measured values of flux ( ) and nitrogen volume fraction (%) 
+and associated components of uncertainty 
+
+  Flux    Cal N2 Vol  SD N2 Vol   Due to flux   Total SD
+   X         Z                                     
+
+   9.3    34.23508     0.06576     0.20946       0.30488
+  10.0    37.40776     0.06259     0.22584       0.30575
+   9.6    35.06355     0.06494     0.21647       0.30672
+  19.3    46.13260     0.05387     0.45153       0.48476
+   4.3    24.34408     0.07566     0.09497       0.29604
+   5.0    29.68942     0.07031     0.11074       0.27073
+   4.6    21.93403     0.07807     0.10172       0.31322
+   5.0    32.50115     0.06750     0.11074       0.25605
+   5.4    30.65654     0.06934     0.11979       0.26944
+  19.3    45.60766     0.05439     0.45153       0.48527
+  17.0    44.51841     0.05548     0.39431       0.43377
+  21.4    47.63400     0.05237     0.50458       0.53324
+  21.4    46.64503     0.05335     0.50458       0.53408
+  30.0    45.06976     0.05493     0.72987       0.75156
+   2.1    21.93403     0.07807     0.04598       0.29979
+   1.8    21.93403     0.07807     0.03936       0.29884
+  12.9    38.86245     0.06114     0.29460       0.35600
+  12.5    36.64890     0.06335     0.28503       0.35379
+  24.3    47.63400     0.05237     0.57911       0.60424
+  25.7    46.13260     0.05387     0.61561       0.64039
+  27.1    47.63400     0.05237     0.65246       0.67486
+
+ 

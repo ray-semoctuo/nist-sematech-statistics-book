@@ -1,0 +1,38 @@
+.
+.  Generate sample output for t PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na tppf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE t PPF (1 df)
+PLOT TPPF(P,1) FOR P = 0.01 0.01 0.99
+TITLE t PPF (10 df)
+PLOT TPPF(P,10) FOR P = 0.01 0.01 0.99
+TITLE t PPF (20 df)
+PLOT TPPF(P,20) FOR P = 0.01 0.01 0.99
+TITLE t PPF (30 df)
+PLOT TPPF(P,30) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp TPPF4.PS tppf4.ps
+system rm TPPF4.PS
+.
+quit

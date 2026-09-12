@@ -1,0 +1,38 @@
+.
+.  Generate sample output for F PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na fppf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE F PPF (1, 1 df)
+PLOT FPPF(P,1,1) FOR P = 0.01 0.01 0.99
+TITLE F PPF (1, 10 df)
+PLOT FPPF(P,1,10) FOR P = 0.01 0.01 0.99
+TITLE F PPF (10, 1 df)
+PLOT FPPF(P,10,1) FOR P = 0.01 0.01 0.99
+TITLE F PPF (10, 10 df)
+PLOT FPPF(P,10,10) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp FPPF4.PS fppf4.ps
+system rm FPPF4.PS
+.
+quit

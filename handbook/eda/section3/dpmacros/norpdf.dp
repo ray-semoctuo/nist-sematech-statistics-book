@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Normal PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na norpdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Normal PDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability Density
+X1LABEL X
+.
+PLOT NORPDF(X) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp NORPDF.PS norpdf.ps
+system rm NORPDF.PS
+.
+quit

@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\begin{document}
+\pagestyle{empty}
+\Large
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+\bf
+\boldmath
+
+\hspace*{-.5in}
+\begin{tabular}{ll}
+PDF:                 & $\displaystyle{f(t) = \frac{1}{\sigma t \sqrt{2 \pi}} \, e^{- \left( \frac{1}{2 \sigma^2} \right) \left( \mbox{\normalsize ln } t - \mbox{\normalsize ln T}_{50}\right)^2 }}$ \\
+                       & \\
+CDF:                 & $\displaystyle{F(t) = \int_{0}^{T} \frac{1}{\sigma t \sqrt{2 \pi}} \, e^{- \left( \frac{1}{2 \sigma^2} \right) \left( \mbox{\normalsize ln } t - \mbox{\normalsize ln T}_{50}\right)^2} dt} $ \\
+                     & \\
+                     & $\displaystyle{F(t) = \Phi \left( \frac{\mbox{ln }t - \mbox{ln T}_{50}}{\sigma}\right)}$ \\
+                     & \\
+                     & $\Phi(z)$ denotes the standard normal CDF.\\
+                     & \\
+Reliability:         & $ R(t) = 1-F(t) $ \\
+                     & \\
+Failure Rate: \,\,   & $\displaystyle{h(t) =  \frac{f(t)}{R(t)}}$ \\
+                     & \\
+Mean:                & T$\displaystyle{_{50} \, e^{\frac{\sigma^2}{2}}}$ \\
+                     & \\
+Median:             & T$\displaystyle{_{50}}$ \\
+                       & \\
+Variance:            & T$\displaystyle{_{50}^2 \, e^{\sigma^2} \left(e^{\sigma^2} -1 \right) }$ 
+\end{tabular}
+ 
+    
+\end{document}
+
+

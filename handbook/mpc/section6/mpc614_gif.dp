@@ -1,0 +1,63 @@
+dimension 30 columns
+device 1 x11
+.
+frame thickness 0.2
+tic mark thickness 0.2
+label size 4
+title size 4
+title displacement 2
+tic label size 4
+legend size 4
+label case asis
+legend case asis
+char x x
+line solid solid
+y1label ohm.cm
+y1label displacement 12
+x1label Time in months
+legend 1 run 1
+legend 2 run 2
+legend 1 coordinates 33 25
+legend 2 coordinates 65 25
+.
+skip 25
+read mpc61b.dat  wafer probe mo1 day1 y1 mo2 day2 y2 diff
+skip 0
+let t = mo1+(day1-1)/31.
+let t2= mo2+(day2-1)/31.
+.
+device 2 postscript
+title Wafer 138, Probe 2362
+plot y1 t subset wafer 138 and
+plot y2 t2 subset wafer 138
+device 2 close
+system mv dppl1f.dat mpc614a.ps
+.
+device 2 postscript
+title Wafer 139, Probe 2362
+plot y1 t subset wafer 139 and
+plot y2 t2 subset wafer 139
+device 2 close
+system mv dppl1f.dat mpc614b.ps
+.
+device 2 postscript
+title Wafer 140, Probe 2362
+plot y1 t subset wafer 140 and
+plot y2 t2 subset wafer 140
+device 2 close
+system mv dppl1f.dat mpc614c.ps
+.
+device 2 postscript
+title Wafer 141, Probe 2362
+plot y1 t subset wafer 141 and
+plot y2 t2 subset wafer 141
+device 2 close
+system mv dppl1f.dat mpc614d.ps
+.
+device 2 postscript
+title Wafer 142, Probe 2362
+plot y1 t subset wafer 142 and
+plot y2 t2 subset wafer 142
+device 2 close
+system mv dppl1f.dat mpc614e.ps
+.

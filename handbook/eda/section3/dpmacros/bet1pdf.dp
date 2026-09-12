@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Beta PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na bet1pdf.jpg
+device 2 gd jpeg
+device 2 picture points 100 75
+.
+TITLE CASE ASIS
+TITLE Beta(0.5,0.5) PDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability Density
+X1LABEL X
+.
+PLOT BETPDF(X,0.5,0.5) FOR X = 0.01 0.01 0.99
+.
+box 0 0 100 100
+.
+device 2 close
+system mv bet1pdf.jpg ../gif100/bet1pdf.jpg
+.
+quit

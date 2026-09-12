@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Normal Inverse Survival plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na norisurv.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Normal Inverse Survival
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+X1LABEL Probability
+Y1LABEL X
+.
+PLOT NORPPF(1-P) FOR P = 0.01 0.01 0.99
+.
+box 0 0 100 100
+.
+device 2 close
+system cp NORISURV.PS norisurv.ps
+system rm NORISURV.PS
+.
+quit

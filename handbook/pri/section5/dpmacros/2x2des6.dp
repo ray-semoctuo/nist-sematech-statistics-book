@@ -1,0 +1,45 @@
+.
+.  Macro to generate geometric representation of 2x2 design
+.  with sample response values
+.
+device 1 x11
+device 2 gd jpeg
+device 2 picture points 200 200
+.
+xlimits 300 350
+ylimits 20 30
+major tic mark number 2
+minor tic mark number 0
+tic mark label format alpha
+x1tic mark label content -1cr()300  +1cr()350
+y1tic mark label content -1cr()20  +1cr()30
+ytic offset 1 1
+xtic offset 10 30
+tic offset units data
+.
+frame pattern blank
+label case asis
+x1label sp()cr()X1: Temperature
+y1label X2: Time
+label size 5
+tic label size 5
+.
+read x y tag
+300 20 2
+350 20 3
+350 30 4
+300 30 5
+375 28 1
+end of data
+character 8.6 2 4 8 6
+character size 5 all
+line bl bl bl bl bl
+.
+plot y x tag
+line solid
+drawdata 290 19 360 19 360 31 290 31 290 19
+.
+device 2 close
+system mv dppl1f.dat  2x2des6.jpeg
+.
+quit

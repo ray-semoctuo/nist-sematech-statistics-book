@@ -1,0 +1,586 @@
+<HTML>
+
+<HEAD>
+<TITLE>Acknowledgements</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" coords="463,27,504,45" href="" Target="_top">
+<area shape="rect" alt="Previous Page" coords="417,28,459,45" href="" Target="_top">
+<area shape="rect" alt="Home" coords="52,0,100,43" href="" Target="_top">
+<area shape="rect" alt="Tools & Aids" coords="165,27,264,46" href="main.htm" Target="_top">
+<area shape="rect" alt="Search Handbook" coords="307,28,366,44" href="search.htm" Target="_top">
+<area shape="default" nohref>
+</map>
+
+<TABLE WIDTH=540>
+
+<tr>
+<td colspan=2>
+<H2>Acknowledgements for the Handbook</H2>
+<HR>
+</td>
+</tr>
+
+<TR>
+<TD COLSPAN=2><BIG><BIG><B>Technical Editors</B></BIG></BIG>
+<UL>
+<LI>Carroll Croarkin - 
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A><BR>
+
+<LI>Paul Tobias -
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+</UL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Chapter Editors</B></BIG></BIG>
+
+<OL>
+
+<LI>
+
+<A HREF="eda/eda.htm">Exploratory Data Analysis</A>:
+
+<UL>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/filliben.html">James J. Filliben</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+</UL>
+
+<LI>
+
+<A HREF="mpc/mpc.htm">Measurement Process Characterization</A>:
+
+<UL>
+
+<LI>
+
+Carroll Croarkin -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+</UL>
+
+<LI>
+
+<A HREF="ppc/ppc.htm">Production Process Characterization</A>:
+
+<UL>
+
+<LI>
+
+Barry Hembree -
+
+<A HREF="http://www.amd.com">AMD</A>
+
+</UL>
+
+<LI>
+
+<A HREF="pmd/pmd.htm">Process Modeling</A>:
+
+<UL>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/guthrie.html">William Guthrie</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+</UL>
+
+<LI>
+
+<A HREF="pri/pri.htm">Process Improvement</A>:
+
+<UL>
+
+<LI>
+
+Paul Tobias -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+<LI>
+
+Ledi Trutna -
+
+<A HREF="http://www.amd.com/">Advanced Micro Devices</A>
+</UL>
+
+<LI>
+
+<A HREF="pmc/pmc.htm">Process or Product Monitoring and Control</A>:
+
+<UL>
+
+<LI>
+
+Jack Prins -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+<LI>
+
+<A HREF="prc/prc.htm">Product and Process Comparisons</A>:
+
+<UL>
+
+<LI>
+
+Jack Prins -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+</UL>
+
+<LI>
+
+<A HREF="apr/apr.htm">Assessing Product Reliability</A>:
+
+<UL>
+
+<LI>
+
+Paul Tobias -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+</OL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Project Coordinator</B></BIG></BIG>
+
+<UL>
+
+<LI>
+
+Chelli Zey -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Chapter Authors</B></BIG></BIG>
+
+<OL>
+
+<LI>
+
+<A HREF="eda/eda.htm">Exploratory Data Analysis</A>:
+
+<UL>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/filliben.html">James J. Filliben</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/heckert.html">Alan Heckert</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+</UL>
+
+<LI>
+
+<A HREF="mpc/mpc.htm">Measurement Process Characterization</A>:
+
+<UL>
+
+<LI>
+
+Carroll Croarkin -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+</UL>
+
+<LI>
+
+<A HREF="ppc/ppc.htm">Production Process Characterization</A>:
+
+<UL>
+<LI>Barry Hembree -
+<A HREF="http://www.amd.com">AMD</A>
+</UL>
+
+<LI>
+
+<A HREF="pmd/pmd.htm">Process Modeling</A>:
+
+<UL>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/guthrie.html">William Guthrie</A>-
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+
+<A HREF="http://www.nist.gov">NIST</A>
+
+</UL>
+
+<LI>
+
+<A HREF="pri/pri.htm">Process Improvement</A>:
+
+<UL>
+
+<LI>
+
+Ledi Trutna -
+
+<A HREF="http://www.amd.com/">Advanced Micro Devices</A>
+
+<LI>
+
+Pat Spagon -
+
+<A HREF="http://www.mot.com/MU/">Motorola University</A>
+
+<LI>
+
+<A HREF="http://www.ie.psu.edu/people/faculty/castillo.htm">Dr.
+    Enrique del Castillo</A> - Associate Professor,
+    <A HREF="http://www.ie.psu.edu/">
+    Department of Industrial & Manufacturing Engineering</A>,
+
+<A HREF="http://www.psu.edu/">Pennsylvania State University</A>
+
+<LI>
+
+      Terri Moore -
+
+      Motorola
+
+<LI>
+
+      Sam Hartley -
+
+      Motorola
+
+<LI>
+
+      Arnon Hurwitz - QualTech
+
+      Motorola
+
+</UL>
+
+<LI>
+
+<A HREF="pmc/pmc.htm">Process or Product Monitoring and Control</A>:
+
+<UL>
+
+<LI>
+
+Jack Prins -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+<LI>
+
+<A HREF="prc/prc.htm">Product and Process Comparisons</A>:
+
+<UL>
+
+<LI>
+
+Jack Prins -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+<LI>
+
+<A HREF="mailto:don.mccormack@SEMATECH.Org">Don McCormack</A> -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+<LI>
+
+<A HREF="mailto:di.michelson@SEMATECH.Org">Di Michelson</A> -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+<LI>
+
+<A HREF="mailto:karen.horrell@SEMATECH.Org">Karen Horrell</A> -
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+<LI>
+
+<A HREF="apr/apr.htm">Assessing Product Reliability</A>:
+
+<UL>
+
+<LI>
+
+Paul Tobias -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+</OL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Review and Management Contributors</B></BIG></BIG>
+
+<UL>
+
+<LI><A HREF="mailto:tpr42345@aol.com">Tom Ryan</A> - NIST: external staff
+
+<LI>Keith Eberhardt - Nabisco
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/vecchia.html">Dom Vecchia</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/zhang.html">Nien-Fan Zhang</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/wang.html">Jack Wang</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>David Banks - Food and Drug Administration
+<LI>
+
+Mark Levenson -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+
+<A HREF="http://www.nist.gov">NIST</A>
+
+</UL>
+
+<P>
+</UL>
+
+<P>
+</UL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>HTML Developers/Coders</B></BIG></BIG>
+
+<UL>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/heckert.html">Alan Heckert</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>
+
+<A HREF="mailto:cai@ciris.net">Cesar Iriarte</A>-
+
+Iris Visual Design
+
+<LI>
+
+<A HREF="mailto:george.kaupus@amd.com">George Kaupus</A>-
+
+<A HREF="http://www.amd.com">AMD</A>
+
+<LI>Mark Reeder
+<LI>
+
+<A HREF="mailto:Chelli.Zey@SEMATECH.Org">Chelli Zey</A> -
+
+<A HREF="http://www.sematech.org/public/resources/stats/index.htm">Statistical Methods Group,</A>
+<A HREF="http://www.sematech.org">SEMATECH</A>
+
+</UL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Graphic Artist</B></BIG></BIG>
+
+<UL>
+
+<LI>
+
+<A HREF="mailto:cai@ciris.net">Cesar Iriarte</A> -
+
+Iris Visual Design
+
+</UL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Dataplot Developers</B></BIG></BIG>
+
+<UL>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/filliben.html">James J. Filliben</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>
+
+<A HREF="http://www.itl.nist.gov/div898/bios/heckert.html">Alan Heckert</A> -
+
+<A HREF="http://www.itl.nist.gov/div898">Statistical Engineering Division,</A>
+<A HREF="http://www.itl.nist.gov">Information Technology Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+
+<LI>
+
+<A HREF="http://www.bfrl.nist.gov/biographies/rlipman.html">Robert Lipman</A> -
+
+<A HREF="http://www.bfrl.nist.gov">Building and Fire Research
+    Laboratory,</A>
+<A HREF="http://www.nist.gov">NIST</A>
+</UL>
+
+<P>
+
+<HR>
+
+<BIG><BIG><B>Case Study Contributors</B></BIG></BIG>
+
+<UL>
+
+<LI>
+
+  James Ehrstein -<A HREF="http://www.nist.gov">NIST</A>:
+
+<A HREF="mpc/section6/mpc63.htm">Check standard for resistivity measurements</A>
+
+<LI>
+
+  James Ehrstein -<A HREF="http://www.nist.gov">NIST</A>:
+
+<A HREF="mpc/section6/mpc61.htm">Gauge study of resistivity probes</A>
+
+<LI>
+
+  Paul Pontius -<A HREF="http://www.nist.gov">NIST</A>:
+
+<A HREF="pmd/section6/pmd611.htm">Load cell calibration</A>
+
+</UL>
+
+<P>
+
+<HR>
+
+      This work was supported in part by the High Performance Computing and
+
+      Communications/Systems Integration for Manufacturing Applications
+
+      (<A HREF="http://www.hpcc.gov">HPCC</A>/<A HREF="http://www.nist.gov/mel/div826/msid/sima/sima.htm">SIMA</A>).
+
+</TD>
+</TR>
+
+</TABLE>
+
+<IMG SRC="gifs/nvgtbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" coords="22,6,67,20" href="http://www.nist.gov" Target="_top">
+<area shape="rect" coords="3,23,92,40" href="http://www.sematech.org" Target="_top">
+<area shape="rect" alt="Home" coords="114,12,165,31" href="" Target="Top" Target="_top">
+<area shape="rect" alt="Tools & Aids" coords="190,12,290,31" href="main.htm" Target="_top">
+<area shape="rect" alt="Search Handbook" coords="318,14,376,30" href="search.htm" Target="_top">
+<area shape="rect" alt="Previous Page" coords="428,15,471,29" href="" Target="_top">
+<area shape="rect" alt="Next Page" coords="476,15,517,30" href="" Target="_top">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

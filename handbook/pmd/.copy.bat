@@ -1,0 +1,17 @@
+cp m:\pmd\*.htm  .
+cp m:\pmd\section1\*.htm  section1
+cp m:\pmd\section2\*.htm  section2
+cp m:\pmd\section3\*.htm  section3
+cp m:\pmd\section4\*.htm  section4
+cp m:\pmd\section5\*.htm  section5
+cp m:\pmd\section6\*.htm  section6
+cp m:\pmd\section7\*.htm  section7
+cp m:\pmd\section8\*.htm  section8
+cp m:\pmd\section1\dep\*.htm  section1\dep
+cp m:\pmd\section4\dep\*.htm  section4\dep
+cp m:\pmd\section6\copper\*.htm  section6\copper
+cp m:\pmd\section6\ldcll\*.htm  section6\ldcll
+cp m:\pmd\section6\lnspcg\*.htm  section6\lnspcg
+cp m:\pmd\section6\lnwdth\*.htm  section6\lnwdth
+cp m:\pmd\section6\pipeline\*.htm  section6\pipeline
+cp m:\pmd\section6\ultrason\*.htm  section6\ultrason

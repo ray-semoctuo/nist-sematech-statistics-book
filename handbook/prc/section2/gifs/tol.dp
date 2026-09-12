@@ -1,0 +1,24 @@
+.
+.  Initialize
+.
+let r = 0
+let n = 220
+let c1 = 1/sqrt(n)
+.
+.  Compute R
+.
+let function f = norcdf(c+r) - norcdf(c-r) - 0.9
+let z = roots f wrt r  for r = -4  4
+let r = z(1)
+.
+.  Compute K2
+.
+let c2 = (n-1)
+let k2 = r*sqrt(c2/chsppf(0.01,c2))
+.
+. Print results
+.
+capture tol.out
+print "R    = ^r"
+print "K2   = ^k2"
+end of capture

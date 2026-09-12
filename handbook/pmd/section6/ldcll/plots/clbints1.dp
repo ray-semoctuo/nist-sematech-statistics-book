@@ -1,0 +1,41 @@
+device 1 close
+pre-erase off
+label case asis
+set postscript ppi 800
+frame coordinates 10 10 98 98
+label size 3
+tic mark label size 3
+skip 25
+read pontius.dat y x
+xlimits 0 3000000
+ylimits 0 3
+tic offset units data
+xtic offset 100000 100000
+ytic offset 0.1 0.1
+quadratic fit y x
+x1label Load
+y1label Deflection
+lines solid 
+char blank
+device 2 postscript
+plot pred x
+let ynew = 1.239722
+let pe = 1705106
+region fill on
+hw 0.5 2 
+arrow data -100000 ynew pe ynew
+arrow data pe ynew pe -0.1
+justification center
+case asis
+let ynewtp = ynew + 0.05
+hw  3 3
+movedata 852553 ynewtp
+text Deflection = ^ynew
+let petp = pe + 45000
+movedata petp 0.62
+angle units degrees
+angle 90
+text Load = ???
+device 2 close
+system cp dppl1f.dat clbints1.ps
+quit

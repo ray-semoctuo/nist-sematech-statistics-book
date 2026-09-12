@@ -1,0 +1,20 @@
+.
+.  Generate sample output for autocorrelation plot
+.
+skip 25
+read lew.dat y
+echo on
+capture autocorr.out
+let a = autocorrelation y
+autocorrelation plot y
+let ac = yplot
+let lag = xplot
+retain ac lag subset tagplot = 1
+set write format f4.0,5x,f5.2
+echo off
+print " "
+print " "
+print "lag     autocorrelation"
+print lag ac
+end of capture 
+quit

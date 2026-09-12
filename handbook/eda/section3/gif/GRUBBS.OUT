@@ -1,0 +1,44 @@
+ 
+            Grubbs Test for Outliers: Test for Maximum
+                     (Assumption: Normality)
+ 
+Response Variable: Y
+ 
+H0: There are no outliers
+Ha: The maximum point is an outlier
+Potential Outlier Value Tested:                245.5699
+ 
+Summary Statistics:
+Number of Observations:                               8
+Sample Minimum:                                199.3100
+ID for Sample Minimum:                                1
+Sample Maximum:                                245.5699
+ID for Sample Maximum:                                8
+Sample Mean:                                   206.4337
+Sample SD:                                      15.8525
+ 
+Grubbs Test Statistic Value:                     2.4687
+ 
+ 
+Percent Points of the Reference Distribution
+-----------------------------------
+  Percent Point               Value
+-----------------------------------
+            0.0    =          0.000
+           50.0    =          1.455
+           75.0    =          1.688
+           90.0    =          1.909
+           95.0    =          2.032
+           97.5    =          2.126
+           99.0    =          2.221
+          100.0    =          2.475
+ 
+Conclusions (Upper 1-Tailed Test)
+----------------------------------------------
+  Alpha    CDF   Critical Value     Conclusion
+----------------------------------------------
+    10%    90%            1.909      Reject H0
+     5%    95%            2.032      Reject H0
+   2.5%  97.5%            2.126      Reject H0
+     1%    99%            2.221      Reject H0
+ 

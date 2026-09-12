@@ -1,0 +1,5 @@
+ylabel uc()Thickness
+character circle x
+line solid solid
+line color red blue
+plot thk run wafer

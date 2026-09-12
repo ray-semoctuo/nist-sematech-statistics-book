@@ -1,0 +1,568 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.9.2. Graphical Output and Interpretation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4293.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4291.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.htm">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.htm">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.htm">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda429.htm">Airplane Polished Window
+      Strength</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.9.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical Output and Interpretation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Goal
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this analysis is to determine a good distributional
+model for these data.  A secondary goal is to provide estimates for
+various percent points of the data.  Percent points provide an answer
+to questions of the type "What is the polished window strength
+for the weakest 5% of the data?".
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="INITIALPLOTS">
+<I>
+Initial Plots of the Data
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first step is to generate a
+<a href="../section3/histogra.htm">histogram</a> to get an
+overall feel for the data.
+<p>
+<IMG SRC="fuller/gif/hist.gif" alt="histogram of the data">
+<p>
+The histogram shows the following:
+<ul>
+   <li>The polished window strength ranges between slightly greater
+       than 15 to slightly less than 50.
+   <li>There are modes at approximately 28 and 38 with a gap
+       in-between.
+   <li>The data are somewhat symmetric, but with a gap in the
+       middle.
+</ul>
+We next generate a
+<a href="../section3/normprpl.htm">normal probability plot</a>.
+<p>
+<IMG SRC="fuller/gif/normprpl.gif"
+     alt="normal probability plot of the data">
+<p>
+The normal probability plot has a correlation coefficient of
+0.980.  We can use this number as a reference baseline when
+comparing the performance of other distributional fits.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Other Potential Distributions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+There is a large number of distributions that would be
+distributional model candidates for the data.  However, we will
+restrict ourselves to consideration of the following
+distributional models because these have proven to be useful in
+reliability studies.
+<ol>
+   <li>Normal distribution
+   <li>Exponential distribution
+   <li>Weibull distribution
+   <li>Lognormal distribution
+   <li>Gamma distribution
+   <li>Power normal distribution
+   <li>Fatigue life distribution
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Approach
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+There are two basic questions that need to be addressed.
+<ol>
+   <li>Does a given distributional model provide an adequate fit
+       to the data?
+   <li>Of the candidate distributional models, is there one
+       distribution that fits the data better than the other
+       candidate distributional models?
+</ol>
+The use of <a href="../section3/probplot.htm">probability plots</a>
+and <a href="../section3/ppccplot.htm">probability plot correlation
+coefficient (PPCC) plots</a> provide answers to both of
+these questions.
+<p>
+If the distribution does not have a shape parameter, we simply
+generate a probability plot.
+<ol>
+   <li>If we fit a straight line to the points on the probability
+       plot, the intercept and slope of that line provide estimates
+       of the location and scale parameters, respectively.
+   <li>Our critierion for the "best fit" distribution is the one
+       with the most linear probability plot.  The correlation
+       coefficient of the fitted line of the points on the
+       probability plot, referred to as the PPCC value,  provides
+       a measure of the linearity of the probability plot, and thus
+       a measure of how well the  distribution fits the data.  The
+       PPCC values for multiple distributions can be compared to
+       address the second question above.
+</ol>
+<p>
+If the distribution does have a shape parameter, then we are
+actually addressing a family of distributions rather than a single
+distribution.  We first need to find the optimal value of the
+shape parameter.  The PPCC plot can be used to determine the
+optimal parameter.  We will use the PPCC plots in two stages.
+The first stage will be over a broad range of parameter values
+while the second stage will be in the neighborhood of the largest
+values.  Although we could go further than two stages, for
+practical purposes two stages is sufficient.  After determining
+an optimal value for the shape parameter, we use the probability
+plot as above to obtain estimates of the location and scale
+parameters and to determine the PPCC value.  This PPCC value can
+be compared to the PPCC values obtained from other distributional
+models.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Analyses for Specific Distributions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We analyzed the data using the approach described above for the
+following distributional models:
+<ol>
+   <li>Normal distribution - from the 4-plot above, the PPCC
+       value was 0.980.
+   <li>Exponential distribution - the exponential distribution is
+       a special case of the Weibull with shape parameter equal to
+       1.  If the Weibull analysis yields a shape parameter close
+       to 1, then we would consider using the simpler exponential
+       model.
+   <li><a href="eda4293.htm">Weibull distribution</a>
+   <li><a href="eda4294.htm">Lognormal distribution</a>
+   <li><a href="eda4295.htm">Gamma distribution</a>
+   <li><a href="eda4296.htm">Power normal distribution</a>
+   <li><a href="eda4297.htm">Power lognormal distribution</a>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Summary of Results
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The results are summarized below.
+<ul>
+    Normal Distribution
+    <ul>
+       Max PPCC = 0.980<br>
+       Estimate of location = 30.81<br>
+       Estimate of scale = 7.38<br>
+    </ul>
+    Weibull Distribution
+    <ul>
+       Max PPCC = 0.988<br>
+       Estimate of shape = 2.13<br>
+       Estimate of location = 15.9<br>
+       Estimate of scale = 16.92<br>
+    </ul>
+    Lognormal Distribution
+    <ul>
+       Max PPCC = 0.986<br>
+       Estimate of shape = 0.18<br>
+       Estimate of location = -9.96<br>
+       Estimate of scale = 40.17<br>
+    </ul>
+    Gamma Distribution
+    <ul>
+       Max PPCC = 0.987<br>
+       Estimate of shape = 11.8<br>
+       Estimate of location = 5.19<br>
+       Estimate of scale = 2.17<br>
+    </ul>
+    Power Normal Distribution
+    <ul>
+       Max PPCC = 0.988<br>
+       Estimate of shape = 0.05<br>
+       Estimate of location = 19.0<br>
+       Estimate of scale = 2.4<br>
+    </ul>
+    Fatigue Life Distribution
+    <ul>
+       Max PPCC = 0.987<br>
+       Estimate of shape = 0.18<br>
+       Estimate of location = -11.0<br>
+       Estimate of scale = 41.3<br>
+    </ul>
+</ul>
+These results indicate that several of these distributions provide
+an adequate distributional model for the data.  We choose the
+3-parameter Weibull distribution as the most appropriate model
+because it provides the best balance between simplicity and best
+fit.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Percent Point Estimates
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The final step in this analysis is to compute
+<a href="../section3/eda362.htm#PPF">percent point</a> estimates
+for the 1%, 2.5%, 5%, 95%, 97.5%, and 99% percent points.
+A percent point estimate is an estimate of the strength at
+which a given percentage of units will be weaker.
+For example, the 5% point is the strength at which we estimate
+that 5% of the units will be weaker.
+
+<!--
+  A
+percent point estimate is an estimate of the time by which a given
+percentage of the units will have failed.  For example, the 5%
+point is the time at which we estimate 5% of the units will have
+failed.
+-->
+<p>
+To calculate these values, we use the Weibull percent point
+function with the appropriate estimates of the
+<a href="../section3/eda363.htm">shape</a>,
+<a href="../section3/eda364.htm">location, and scale</a>
+parameters.  The Weibull percent point function can be computed
+in many general purpose statistical software programs, including
+<A href="eda44.htm#WEIBDIST">Dataplot</a>.
+<P>
+Dataplot generated the following estimates for the percent points:
+<PRE>
+ Estimated percent points using Weibull Distribution
+  
+ PERCENT POINT        POLISHED WINDOW STRENGTH
+ 0.01                 17.86
+ 0.02                 18.92
+ 0.05                 20.10
+ 0.95                 44.21
+ 0.97                 47.11
+ 0.99                 50.53
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Quantitative Measures of Goodness of Fit
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although it is generally unnecessary, we can include quantitative
+measures of distributional goodness-of-fit.  Three of the commonly
+used measures are:
+<ol>
+   <li><a href="../section3/eda35f.htm">Chi-square</a>
+       goodness-of-fit.
+   <li><a href="../section3/eda35g.htm">Kolmogorov-Smirnov</a>
+       goodness-of-fit.
+   <li><a href="../section3/eda35e.htm">Anderson-Darling</a>
+       goodness-of-fit.
+</ol>
+In this case, the sample size of 31 precludes the use of
+the chi-square test since the chi-square approximation is not
+valid for small sample sizes.  Specifically, the smallest expected
+frequency should be at least 5.  Although we could combine classes,
+we will instead use one of the other tests.  The
+Kolmogorov-Smirnov test requires a fully specified distribution.
+Since we need to use the data to estimate the shape, location, and
+scale parameters, we do not use this test here.  The
+Anderson-Darling test is a refinement of the Kolmogorov-Smirnov
+test.  We run this test for the normal, lognormal, and Weibull
+distributions.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<A NAME="ADNORM">
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Normal Anderson-Darling Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<FONT SIZE=-1>
+<PRE>
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =       31
+       MEAN                                  =    30.81142
+       STANDARD DEVIATION                    =    7.253381
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =   0.5321903
+       ADJUSTED TEST STATISTIC VALUE         =   0.5870153
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6160000
+       95         % POINT    =   0.7350000
+       97.5       % POINT    =   0.8610000
+       99         % POINT    =    1.021000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO COME FROM A NORMAL DISTRIBUTION.
+</PRE>
+</FONT>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<A NAME="ADLOGN">
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Lognormal Anderson-Darling Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<FONT SIZE=-1>
+<PRE>
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A LOGNORMAL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =       31
+       MEAN OF LOG OF DATA                   =    3.401242
+       STANDARD DEVIATION OF LOG OF DATA     =   0.2349026
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =   0.3888340
+       ADJUSTED TEST STATISTIC VALUE         =   0.4288908
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6160000
+       95         % POINT    =   0.7350000
+       97.5       % POINT    =   0.8610000
+       99         % POINT    =    1.021000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO COME FROM A LOGNORMAL DISTRIBUTION.
+</PRE>
+</FONT>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<A NAME="ADWEIB">
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Weibull Anderson-Darling Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<FONT SIZE=-1>
+<PRE>
+               ANDERSON-DARLING 1-SAMPLE TEST
+               THAT THE DATA CAME FROM A WEIBULL DISTRIBUTION
+  
+ 1. STATISTICS:
+       NUMBER OF OBSERVATIONS                =       31
+       MEAN                                  =    14.91142
+       STANDARD DEVIATION                    =    7.253381
+       SHAPE PARAMETER                       =    2.237495
+       SCALE PARAMETER                       =    16.87868
+  
+       ANDERSON-DARLING TEST STATISTIC VALUE =   0.3623638
+       ADJUSTED TEST STATISTIC VALUE         =   0.3753803
+  
+ 2. CRITICAL VALUES:
+       90         % POINT    =   0.6370000
+       95         % POINT    =   0.7570000
+       97.5       % POINT    =   0.8770000
+       99         % POINT    =    1.038000
+  
+ 3. CONCLUSION (AT THE 5% LEVEL):
+       THE DATA DO COME FROM A WEIBULL DISTRIBUTION.
+</PRE>
+</FONT>
+Note that for the Weibull distribution, the Anderson-Darling
+test is actually testing the 2-parameter Weibull distribution
+(based on
+<a href="../../apr/section4/apr412.htm">maximum likelihood</a>
+estimates), not the 3-parameter Weibull distribution.  To give a
+more accurate comparison, we subtract the location parameter (15.9)
+as estimated by the PPCC plot/probability plot technique before
+applying the Anderson-Darling test.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The Anderson-Darling test passes all three of these distributions.
+Note that the value of the Anderson-Darling test statistic is
+the smallest for the Weibull distribution with the value for
+the lognormal distribution just slightly larger.  The test
+statistic for the normal distribution is noticeably higher
+than for the Weibull or lognormal.
+<p>
+This provides additional confirmation that either the Weibull or
+lognormal distribution fits this data better than the normal
+distribution with the Weibull providing a slightly better fit
+than the lognormal.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4291.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4293.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

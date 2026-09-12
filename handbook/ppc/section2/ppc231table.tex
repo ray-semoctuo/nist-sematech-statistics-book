@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+\usepackage{color}
+\begin{document}
+\pagestyle{empty}
+\large
+\definecolor{ehandbook}{rgb}{1,1,0.8}
+\pagecolor{ehandbook}
+
+%\renewcommand{\bfdefault}{sb}
+
+\hspace{-1.75in}
+\renewcommand*\arraystretch{1.5}
+\begin{tabular}{|c|c|c|c|c|} \hline 
+{\bf Source}        & {\bf Sum of Squares} & {\bf DoF} & {\bf Mean Square} & {\bf \it{F}$_0$} \\ \hline
+{\bf Factor} & $SS_{F} = J\sum{{(\bar{y}_{i\cdot} - \bar{y}_{\cdot \cdot}})^2}$ & $I-1$ & $MSF = SS_F/(I-1)$ & $MSF / MSE$\\ \hline
+{\bf Residual}     & $SS_{E} = \sum \sum{({y_{ij}} - \bar{y}_{i\cdot} )^2}$  & $I(J-1)$ & $MSE = SS_E/(I(J-1))$ & \\ \hline
+{\bf Corr. Total} & $SST  = \sum \sum{{(y_{ij} - \bar{y}_{\cdot \cdot})^2}} $ & $IJ-1$ &  &\\ \hline
+\end{tabular}
+
+\vspace*{.5in}
+
+\begin{eqnarray*}
+\bar{y}_{i\cdot} =  \frac{1}{J} \sum_{j=1}^{J}{y_{ij}}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\bar{y}_{\cdot \cdot} = \frac{1}{IJ} \sum_{i=1}^{I}{\sum_{j=1}^{J}{{y_{ij}}}}
+\end{eqnarray*}
+
+\end{document} 
+
+
+

@@ -1,0 +1,27 @@
+.
+.  Macro to generate Normal CDF Table.  List to 5
+.  digits.
+.
+let x = sequence 0.00 0.01 0.09
+set write rewind off
+set write format f3.1,5x,10(f7.5,1x)
+.
+feedback off
+loop for k = 0.0 0.1 4.0
+   let base = k
+   let xtemp = x + base
+   let ytemp = norcdf(xtemp) - 0.5
+   let b1 = ytemp(1)
+   let b2 = ytemp(2)
+   let b3 = ytemp(3)
+   let b4 = ytemp(4)
+   let b5 = ytemp(5)
+   let b6 = ytemp(6)
+   let b7 = ytemp(7)
+   let b8 = ytemp(8)
+   let b9 = ytemp(9)
+   let b10 = ytemp(10)
+   write normcdf.out base b1 b2 b3 b4 b5 b6 b7 b8 b9 b10
+end of loop
+.
+quit

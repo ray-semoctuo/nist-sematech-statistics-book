@@ -1,0 +1,30 @@
+#!/bin/csh -f
+#
+#  Convert from encapsulated Postsccipt (landscape wordperfect
+#  orientation).
+#
+#  1) Run Dataplot macro
+#     Be sure to use ORIENTATION LANDSCAPE WORDPERFECT
+#     assume macro writes to Postscript file of appropriate name
+#  2) Ghostscript to convert to PNM format
+#     (Need to re-activate showpage!)
+#  3) pnmtogif to convert to gif format
+#
+dataplot < $1.dp
+#
+#  Edit Postscript file to activate showpage command
+#
+ex - $1.ps << end-of-edit
+g/\/showpage/s//\%\/showpage/g
+wq! temp.ps
+end-of-edit
+#
+#  Run Ghostscript to convert to ppm
+#
+gs -sDEVICE=ppm -sOutputFile=temp.ppm  -dNOPAUSE -dBATCH temp.ps
+pnmcrop  -white temp.ppm > temp_c.ppm
+pnmscale  -xscale 0.67 -yscale 0.67 temp_c.ppm > temp_s.ppm
+ppmtogif  temp_s.ppm > $1.gif
+mv $1.gif ../gif/$1.gif
+#rm $1.ppm $1_r.ppm $1_s.ppm $1.ps
+

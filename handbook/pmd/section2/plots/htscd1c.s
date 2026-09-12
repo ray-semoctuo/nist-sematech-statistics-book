@@ -1,0 +1,12 @@
+attach(htscd1.dat,pos=1)
+nreps <- 500
+ym <- as.matrix(htscd1.dat[,3:(nreps+2)])
+pm <- matrix(NA,nrow=30,ncol=nreps)
+for(i in 1:nreps) pm[,i] <- predict(lm(ym[,i]~x,weights=1/(x+0.001)^2))
+postscript(file="htscd1c.ps",hor=T)
+par(mgp=c(1.75,0.75,0),mar=c(3,3,0,0))
+plot(x,pm[,1],ylab="y",ylim=range(cbind(pm,ym.1)),type="n")
+for(i in 1:100) lines(x,pm[,i],lty=1)
+lines(x,yt,col=0,lty=3,lwd=5)
+dev.off()
+detach(what=1,save=F)

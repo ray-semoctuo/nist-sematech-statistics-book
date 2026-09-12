@@ -1,0 +1,274 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.5.1.3. Single response: Choosing the step length</TITLE>
+<link rel="stylesheet" href="../../nist-header-footer/css/nist-combined.css">
+<script src="../../nist-header-footer/js/jquery-1.9.0.min.js"
+        type="text/javascript" defer="defer"></script>
+<script src="../../nist-header-footer/js/nist-header-footer.js"
+        type="text/javascript" defer="defer"></script>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5514.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5512.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.htm">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri55.htm">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.5.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri551.htm">Single response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.5.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single response: Choosing the step length</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>A procedure
+for choosing how far along the direction of steepest ascent to go for the
+next trial run</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><i>An example</i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>&nbsp;</td>
+
+<td WIDTH="85%"><!-- Add main text below -->Once the search direction is
+determined, the second decision needed in Phase I relates to how far in
+that direction the process should be "moved''. The most common procedure
+for selecting a step length is based on choosing a step size in one factor
+and then compute step lengths in other factors proportional to their parameter
+estimates. This provides a point on the direction of maximum improvement.
+The procedure is given below. A similar approach is obtained by choosing
+increasing values of&nbsp;<img SRC="gifs/img67.gif" ALT=""  align=CENTER>
+in&nbsp;<img SRC="gifs/img33.gif" height=48 width=231 align=CENTER>. However,
+the procedure below considers the original units of measurement which are
+easier to deal with than the coded "distance''&nbsp;<img SRC="gifs/img69.gif" ALT=""  align=CENTER>.
+<p><b>Procedure: selection of step length.</b>
+<ol>
+<li>
+Choose a step length&nbsp;<img SRC="gifs/img70.gif" ALT=""  align=CENTER>
+(in natural units of measurement) for some factor <b>j</b>. Usually, factor
+<b>j</b>
+is chosen to be the one engineers feel more comfortable varying, or the
+one with the largest&nbsp;<img SRC="gifs/img71.gif" ALT=""  align=CENTER>.
+The value of&nbsp;<img SRC="gifs/img72.gif" ALT=""  align=CENTER> can be
+based on the width of the confidence cone around the steepest ascent/descent
+direction . Very wide cones indicate that the estimated steepest ascent/descent
+direction is not reliable, and thus&nbsp;<img SRC="gifs/img74.gif" ALT=""  align=CENTER>
+should be small. This usually occurs when the R<sup>2</sup> value is low.
+In such case, prior to moving from the current experimental region, additional
+experiments can be conducted to obtain a better model fit and a better
+search direction.</li>
+
+<li>
+Transform to coded units:&nbsp;<img SRC="gifs/img76.gif" ALT=""  align=CENTER>
+where&nbsp;<img SRC="gifs/img77.gif" ALT=""  align=CENTER> is the scale
+factor used for factor <b>j</b> (e.g.&nbsp;<img SRC="gifs/img78.gif" ALT=""  align=CENTER>).</li>
+
+<li>
+Set&nbsp;<img SRC="gifs/img79.gif" ALT=""  align=CENTER> for all other
+factors <b>i</b>.</li>
+
+<li>
+Transform all the&nbsp;<img SRC="gifs/img80.gif" ALT=""  align=CENTER>'s
+to natural units:&nbsp;<img SRC="gifs/img81.gif" ALT=""  align=CENTER>.</li>
+</ol>
+<b>Example: Step Length Selection.</b>
+<ul>
+<li>
+For the chemical process experiment described <a href="pri5511.htm#Example. Optimization of a Chemical">previously</a>,
+the process engineer selected&nbsp;<img SRC="gifs/img82.gif" ALT=""  align=CENTER>
+minutes. This was based on process engineering considerations. It was also
+felt that&nbsp;<img SRC="gifs/img83.gif" ALT=""  align=CENTER> does not
+move the process too far away from the current region of experimentation.
+This was desired since the R<sup>2</sup> value of 0.6580 for the fitted
+model is quite low, providing a not very reliable steepest ascent direction
+(and a wide confidence cone, see <a href="pri5512.htm#Technical Appendix">Technical
+Appendix 5B</a>).</li>
+</ul>
+
+<ul>
+<li>
+<img SRC="gifs/img86.gif" ALT=""  align=CENTER>.</li>
+
+<li>
+<img SRC="gifs/img87.gif" ALT=""  align=CENTER>.</li>
+
+<li>
+<img SRC="gifs/img88.gif" ALT=""  align=CENTER>&nbsp;<img SRC="gifs/img89.gif" height=7 width=6 align=TEXTTOP><b>C
+.</b></li>
+</ul>
+Thus the step size is&nbsp;<img SRC="gifs/img90.gif" ALT=""  align=CENTER><img SRC="gifs/img91.gif" height=7 width=6 align=TEXTTOP><b>C</b>
+, <b>50 minutes</b>).
+<p><b>Procedure: Conducting Experiments Along the Direction of Maximum
+Improvement.</b>
+<ol>
+<li>
+Given current operating conditions&nbsp;<img SRC="gifs/img92.gif" ALT=""  align=CENTER>
+and a step size&nbsp;<img SRC="gifs/img93.gif" ALT=""  align=CENTER>&nbsp;<img SRC="gifs/img94.gif" ALT=""  align=CENTER>,
+perform experiments at factor levels&nbsp;<img SRC="gifs/img95.gif" ALT=""  align=CENTER>
+as long as improvement in the response <b>Y</b> (decrease or increase,
+as desired) is observed.</li>
+
+<li>
+Once a point has been reached where there is no further improvement, a
+new first order experiment (e.g. a&nbsp;<img SRC="gifs/img97.gif" ALT=""  align=BOTTOM>
+fractional factorial) should be performed with repeated center runs to
+assess lack of fit. If there is no significant evidence of lack of fit,
+the new first order model will provide a new search direction, and another
+iteration is performed as indicated in Figure 5.3. Otherwise (there is
+evidence of lack of fit) the experimental design is augmented and a 2nd
+order model should be fitted. That is, the experimenter should proceed
+to "Phase II".</li>
+</ol>
+<b>Example: Experimenting Along the Direction of Maximum Improvement.</b>
+<p><b>Step 1:</b>
+<p>Given&nbsp;<img SRC="gifs/img101.gif" ALT=""  align=CENTER><img SRC="gifs/img102.gif" height=7 width=6 align=TEXTTOP><b>C
+, 200</b> minutes) and&nbsp;<img SRC="gifs/img103.gif" ALT=""  align=CENTER><img SRC="gifs/img104.gif" height=7 width=6 align=TEXTTOP><b>C,
+50</b> minutes), next experiments were performed as follows (the step size
+in temperature was rounded to -3.5&nbsp;<img SRC="gifs/img105.gif" height=7 width=6 align=TEXTTOP>C
+for practical reasons):
+<p><img SRC="gifs/img106.gif" ALT=""  align=BOTTOM>
+<p>Since the goal is to maximize <b>Y</b>, the point of maximum observed
+response is<img SRC="gifs/img107.gif" ALT=""  align=CENTER><img SRC="gifs/img108.gif" height=7 width=6 align=TEXTTOP>C
+,&nbsp;<img SRC="gifs/img109.gif" ALT=""  align=CENTER> minutes. Notice
+that the search was stopped after 2 consecutive drops in response, to assure
+we have passed by the "peak'' of the "hill''.
+<p><b>Step 2:</b>
+<p>A new&nbsp;<img SRC="gifs/img110.gif" ALT=""  align=BOTTOM> factorial
+experiment is performed with&nbsp;<img SRC="gifs/img111.gif" ALT=""  align=CENTER>
+as the origin. Using the same scaling factors as before, the new scaled
+controllable factors are:
+<p><img SRC="gifs/img112.gif" ALT=""  align=BOTTOM>
+<p><a NAME="Five center"></a>Five center runs (at&nbsp;<img SRC="gifs/img113.gif" ALT=""  align=CENTER>)
+were repeated to assess lack of fit. The experimental results were:
+<p><img SRC="gifs/img114.gif" ALT=""  align=BOTTOM>
+<p>The corresponding ANOVA table for a linear model, obtained using the
+DESIGN EASE statistical software, is
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM OF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MEAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F
+&nbsp; SOURCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQUARES&nbsp;&nbsp;&nbsp; DF&nbsp;&nbsp;&nbsp;&nbsp; SQUARE&nbsp;&nbsp; VALUE&nbsp; PROB > F
+
+MODEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 505.300&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp; 252.650&nbsp; 4.731&nbsp;&nbsp; 0.0703
+CURVATURE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 336.309&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 336.309&nbsp; 6.297&nbsp;&nbsp; 0.0539
+RESIDUAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 267.036&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; 53.407
+&nbsp; LACK OF FIT&nbsp;&nbsp; 93.857&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 93.857&nbsp; 2.168&nbsp;&nbsp; 0.2149
+&nbsp; PURE ERROR&nbsp;&nbsp; 173.179&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; 43.295
+COR TOTAL&nbsp;&nbsp;&nbsp;&nbsp; 1108.646&nbsp;&nbsp;&nbsp;&nbsp; 8</pre>
+From the table, the linear effects (model) are significant and there is
+no evidence of lack of fit. However, there is a significant curvature effect
+(at the 5.4% significance level), which implies that the optimization should
+proceed with Phase II, that is, the fit and optimization of a second order
+model.</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5512.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5514.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

@@ -1,0 +1,23 @@
+.
+. Starting Step 5.2
+skip 0
+read dpst1f.dat tag coef t ressd1 ressd2
+.
+let mu = mean y
+let b1 = coef(1)
+let b2 = coef(2)
+let b3 = coef(3)
+let b4 = coef(4)
+let b5 = coef(5)
+let b6 = coef(6)
+let ressd = ressd2(6)
+.
+let function f1 = b1*x4 + b2*x3 + b3*x1 + b4*x5 + b5*x2 + b6*x3*x4
+let function f = mu + 0.5*(f1)
+let pred = f
+let res = y - pred
+title Normal Probability Plot of Residuals
+normal probability plot res
+title
+.
+. Finished Step 5.2: Page Back for Output

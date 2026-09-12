@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < ganova.dp
+mv dppl1f.dat ganova.ps
+gs -sDEVICE=ppm -sOutputFile=ganova.ppm  -dNOPAUSE -dBATCH ganova.ps
+~/bin/pnmrotate  -90 ganova.ppm > ganova_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 ganova_r.ppm > ganova_s.ppm
+~/bin/ppmtogif  ganova_s.ppm > ganova.gif
+mv ganova.gif ../gif/ganova.gif
+rm ganova.ppm ganova_r.ppm ganova_s.ppm ganova.ps
+#

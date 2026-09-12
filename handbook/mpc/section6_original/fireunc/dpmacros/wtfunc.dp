@@ -1,0 +1,31 @@
+.
+. Starting Step 2.8
+device 1 off
+device 2 off
+variance plot rot flux
+device 1 on
+device 2 on
+let sisq = yplot
+let xi = xplot
+retain sisq xi subset tagplot = 1
+CAPTURE WTFUNC.OUT
+fit sisq xi
+END OF CAPTURE
+let chat = a1
+.
+title displacement 7
+title size 3
+title Fit for Weight Function
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+x2label chat = ^chat
+plot sisq pred vs xi
+character x
+character fill off all
+character hw
+x2label
+title displacement 1.5
+.
+. Finished Step 2.8: Page Back for Output

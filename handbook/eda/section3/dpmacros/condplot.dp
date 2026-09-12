@@ -1,0 +1,47 @@
+.
+.  Generate a conditioning plot
+.
+device 1 x11
+set ipl1na condplot.ps
+device 2 postscript
+device 1 font simplex
+.
+skip 1
+read pr1.dat time temp torque y
+skip 0
+.
+label case asis
+multiplot 2 3
+multiplot corner coordinates 8 8 92 92
+multiplot scale factor 2
+label size 3
+tic label size 3
+title size 3
+char size 2
+.
+char fill on
+char circle 
+lines blank
+.
+x1label Time (minutes)
+x1label displacement 12
+y1label Torque
+ylabel displacement 12
+ylimits 5 8
+major ytic mark number 4
+minor ytic mark number 1
+xlimits 0 150
+major xtic mark number 4
+minor xtic mark number 1
+tic offset units data
+xtic offset 5 0
+ytic offset 0.2 0.5
+.
+set condition plot frame default
+condition plot torque time temp
+.
+box 0 0 100 100
+.
+device 2 close
+system mv CONDPLOT.PS condplot.ps
+. quit

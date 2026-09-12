@@ -1,0 +1,504 @@
+device 1 x11
+substitute character @
+.
+let function fnum = P1 + P2*x + P3*x**2 + P4*x**3
+let function fden = 1 + P5*x + P6*x**2 + P7*x**3
+let function f = (fnum)/(fden)
+.
+xlabel x
+y1label y
+x1label displacement 11
+y1label displacement 10
+multiplot scale factor 2.5
+. title size 2.3
+.
+pre-erase off
+erase
+device 2 postscript
+.
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+.
+Let p1 = -2.3
+let p2 = 0.35
+let p3 = -0.014
+let p4 = 0.00018
+let p5 = -0.034
+let p6 = 0.00011
+let p7 = 0.0000079
+.
+let aymin = -25
+let aymax = 50
+let axmin = -1000
+let axmax = 1000
+ylimits aymin aymax
+.
+let nr = 0
+let r = roots fden wrt x for x = axmin to axmax
+let nr = size r
+.
+echo on
+.
+if nr = 0
+  plot f for x = axmin 0.5 axmax
+  line dash
+end of if
+if nr = 1
+  let atemp = r(1)
+  let a1 = atemp - 0.5
+  let a2 = atemp + 0.5
+  plot f for x = axmin 0.5 a1 and
+  plot f for x = a2 0.5 axmax
+  line dash
+  drawdata atemp aymin atemp aymax
+end of if
+if nr = 2
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let a1 = atemp1 - 0.5
+  let a2 = atemp1 + 0.5
+  let a3 = atemp2 - 0.5
+  let a4 = atemp2 + 0.5
+  plot f for x = axmin 0.5 a1 and
+  plot f for x = a2 0.5 a3 and
+  plot f for x = a4 0.5 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+end of if
+if nr = 3
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let atemp3 = r(3)
+  let a1 = atemp1 - 0.5
+  let a2 = atemp1 + 0.5
+  let a3 = atemp2 - 0.5
+  let a4 = atemp2 + 0.5
+  let a5 = atemp3 - 0.5
+  let a6 = atemp3 + 0.5
+  plot f for x = axmin 0.5 a1 and
+  plot f for x = a2 0.5 a3 and
+  plot f for x = a4 0.5 a5 and
+  plot f for x = a6 0.5 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+  drawdata atemp3 aymin atemp3 aymax
+end of if
+.
+let ycoor = p4/p7
+drawdata axmin ycoor axmax ycoor
+line solid
+ylimits
+delete r
+just center
+move 50 98
+text y = (-2.3+0.35x-0.014x^2+0.018x^3)/
+move 50 93
+text (1-0.034+0.00011x^2+0.0000079x^3)
+just left
+.
+Let p1 = 2
+let p2 = -5
+let p3 = 1
+let p4 = 2
+let p5 = -0.2
+let p6 = -1
+let p7 = 0.2
+title y = (2-5x+x^2+2x^3)/(1-0.2x-x^2+0.2x^3)
+.
+let aymin = -50
+let aymax = 50
+let axmin = -20
+let axmax = 20
+ylimits aymin aymax
+.
+let nr = 0
+let r = roots fden wrt x for x = axmin to axmax
+let nr = size r
+.
+if nr = 0
+  plot f for x = axmin 0.1 axmax
+  line dash
+end of if
+if nr = 1
+  let atemp = r(1)
+  let a1 = atemp - 0.1
+  let a2 = atemp + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 axmax
+  line dash
+  drawdata atemp aymin atemp aymax
+end of if
+if nr = 2
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+end of if
+if nr = 3
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let atemp3 = r(3)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  let a5 = atemp3 - 0.1
+  let a6 = atemp3 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 a5 and
+  plot f for x = a6 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+  drawdata atemp3 aymin atemp3 aymax
+end of if
+.
+let ycoor = p4/p7
+drawdata axmin ycoor axmax ycoor
+line solid
+ylimits
+delete r
+.
+let p1 = -1.5
+let p2 = 2.5
+let p3 = 1
+let p4 = -2
+let p5 = 2
+let p6 = 4
+let p7 = 0.3
+title y = (-1.5+2.5x+x^2-2x^3)/(1 + 2x + 4x^2 + 0.3x^3)
+.
+let aymin = -50
+let aymax = 50
+let axmin = -50
+let axmax = 50
+ylimits aymin aymax
+.
+let nr = 0
+let r = roots fden wrt x for x = axmin to axmax
+let nr = size r
+.
+if nr = 0
+  plot f for x = axmin 0.1 axmax
+  line dash
+end of if
+if nr = 1
+  let atemp = r(1)
+  let a1 = atemp - 0.1
+  let a2 = atemp + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 axmax
+  line dash
+  drawdata atemp aymin atemp aymax
+end of if
+if nr = 2
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+end of if
+if nr = 3
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let atemp3 = r(3)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  let a5 = atemp3 - 0.1
+  let a6 = atemp3 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 a5 and
+  plot f for x = a6 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+  drawdata atemp3 aymin atemp3 aymax
+end of if
+.
+let ycoor = p4/p7
+drawdata axmin ycoor axmax ycoor
+line solid
+ylimits
+delete r
+.
+let p1 = 8
+let p2 = 6
+let p3 = 1
+let p4 = -2
+let p5 = 1
+let p6 = 1
+let p7 = 0.1
+title y = (8+6x+x^2-2x^3)/(1 + x + x^2 + 0.1x^3)
+.
+let aymin = -50
+let aymax = 50
+let axmin = -50
+let axmax = 50
+ylimits aymin aymax
+xlimits axmin axmax
+.
+let nr = 0
+let r = roots fden wrt x for x = axmin to axmax
+let nr = size r
+.
+if nr = 0
+  plot f for x = axmin 0.1 axmax
+  line dash
+end of if
+if nr = 1
+  let atemp = r(1)
+  let a1 = atemp - 0.1
+  let a2 = atemp + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 axmax
+  line dash
+  drawdata atemp aymin atemp aymax
+end of if
+if nr = 2
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+end of if
+if nr = 3
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let atemp3 = r(3)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  let a5 = atemp3 - 0.1
+  let a6 = atemp3 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 a5 and
+  plot f for x = a6 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+  drawdata atemp3 aymin atemp3 aymax
+end of if
+.
+let ycoor = p4/p7
+drawdata axmin ycoor axmax ycoor
+line solid
+ylimits
+xlimits
+delete r
+.
+end of multiplot
+title size
+.
+device 2 close
+system cp dppl1f.dat r33p1.ps
+.
+erase
+device 2 postscript
+.
+let p1 = 25
+let p2 = -0.7869
+let p3 = 0.008226
+let p4 = -0.00002832
+let p5 = -0.03442
+let p6 = 0.0003968
+let p7 = -0.000001531
+.
+title
+.
+let aymin = 0
+let aymax = 110
+let axmin = 0
+let axmax = 85
+. ylimits aymin aymax
+ylimits
+xlimits
+.
+let nr = 0
+let r = roots fden wrt x for x = axmin to axmax
+let nr = size r
+.
+if nr = 0
+  plot f for x = axmin 0.1 axmax
+  line dash
+end of if
+if nr = 1
+  let atemp = r(1)
+  let a1 = atemp - 0.1
+  let a2 = atemp + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 axmax
+  line dash
+  drawdata atemp aymin atemp aymax
+end of if
+if nr = 2
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+end of if
+if nr = 3
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let atemp3 = r(3)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  let a5 = atemp3 - 0.1
+  let a6 = atemp3 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 a5 and
+  plot f for x = a6 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+  drawdata atemp3 aymin atemp3 aymax
+end of if
+.
+let ycoor = p4/p7
+. drawdata axmin ycoor axmax ycoor
+line solid
+ylimits
+delete r
+.
+just center
+move 50 98
+text y = (@p1 - 0.7869 x + 0.008226 x^2 - 0.00002832 x^3)/
+move 50 93
+text (1 - 0.03442 + 0.0003968 x^2 - 0.000001531 x^3)
+just left
+.
+device 2 close
+system cp dppl1f.dat r33p2.ps
+.
+erase
+device 2 postscript
+.
+let p1 = 1287.8
+let p2 = 1437.1
+let p3 = 545.75
+let p4 = 68.14
+let p5 = 0.9401
+let p6 = 0.386
+let p7 = 0.04
+.
+title
+.
+let aymin = 0
+let aymax = 1500
+let axmin = -4
+let axmax = 3
+ylimits aymin aymax
+ytic offset 100 0
+xlimits axmin axmax
+xtic offset 0.1 0.1
+.
+let nr = 0
+let r = roots fden wrt x for x = axmin to axmax
+let nr = size r
+.
+if nr = 0
+  plot f for x = axmin 0.1 axmax
+  line dash
+end of if
+if nr = 1
+  let atemp = r(1)
+  let a1 = atemp - 0.1
+  let a2 = atemp + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 axmax
+  line dash
+  drawdata atemp aymin atemp aymax
+end of if
+if nr = 2
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+end of if
+if nr = 3
+  let atemp1 = r(1)
+  let atemp2 = r(2)
+  let atemp3 = r(3)
+  let a1 = atemp1 - 0.1
+  let a2 = atemp1 + 0.1
+  let a3 = atemp2 - 0.1
+  let a4 = atemp2 + 0.1
+  let a5 = atemp3 - 0.1
+  let a6 = atemp3 + 0.1
+  plot f for x = axmin 0.01 a1 and
+  plot f for x = a2 0.01 a3 and
+  plot f for x = a4 0.01 a5 and
+  plot f for x = a6 0.01 axmax
+  line dash
+  drawdata atemp1 aymin atemp1 aymax
+  drawdata atemp2 aymin atemp2 aymax
+  drawdata atemp3 aymin atemp3 aymax
+end of if
+.
+let ycoor = p4/p7
+. drawdata axmin ycoor axmax ycoor
+line solid
+ylimits
+xlimits
+xtic offset 0 o
+ytic offset 0 o
+delete r
+.
+just center
+move 50 98
+text y = (1287.8 + 1437.1 x + 545.75 x^2 + 68.14 x^3)/
+move 50 93
+text (1 + 0.9401 + 0.386 x^2 + 0.04 x^3)
+just left
+.
+device 2 close
+system cp dppl1f.dat r33p3.ps
+.

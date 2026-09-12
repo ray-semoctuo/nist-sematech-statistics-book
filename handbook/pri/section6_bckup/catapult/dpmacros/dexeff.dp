@@ -1,0 +1,52 @@
+.
+. Starting Step 3.1
+variable label y Distance
+variable label x1 X1
+variable label x2 X2
+variable label x3 X3
+variable label x4 X4
+variable label x5 X5
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+xtic offset 0.5 0.5
+xtic mark label format numeric
+y1label ^y
+ylabel displacement 16
+char circle blank
+char fill on blank
+line solid solid
+ylimits 30 90
+major ytic mark number 3
+minor ytic mark number 2
+ytic offset 10 0
+line solid
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3
+set matrix plot x2label effect
+set write decimals 1
+set matrix plot lower diagonal off
+. x2label displacement 16
+x2label displacement 80
+dex mean interaction effects plot y x1 x2 x3 x4 x5 subset cent = 0
+multiplot corner coordinates
+multiplot scale factor 1
+set write decimals
+variable label y Distance
+variable label x1 Bandcr()Height
+variable label x2 Startcr()Angle
+variable label x3 Numbersp()ofcr()Bands
+variable label x4 Armcr()Length
+variable label x5 Stopcr()Point
+x2label displacement
+char x
+line blank
+char fill off
+ylimits
+y1label
+ylabel displacement
+ytic offset 0 0
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.1: Page Back for Output

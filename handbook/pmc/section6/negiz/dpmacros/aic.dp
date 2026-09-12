@@ -1,0 +1,36 @@
+.
+. Starting Step 2.6 - Generate AIC for various ARMA models
+.
+. let ydiff = sequential difference y
+let icount = 0
+capture aic_fit.out
+feedback off
+loop for k = 0 1 3
+   loop for l = 0 1 3
+      let icount = icount + 1
+      let ar(icount) = k
+      let ma(icount) = l
+      feedback on
+      echo on
+      arma y ^k 1 ^l
+      echo off
+      feedback off
+      let aicarr(icount) = aic
+      let aiccarr(icount) = aicc
+      let ressdarr(icount) = ressd
+      let npartmp = 1 + k + l
+      let npararr(icount) = npartmp
+   end of loop
+end of loop
+end of capture
+echo off
+feedback off
+capture aic.out
+write "          Summary of AIC Results"
+write "  AR         MA"
+write "ORDER      ORDER          AIC         AICC
+write "-------------------------------------------"
+set write format  2x,f2.0,8x,f2.0,5x,f12.3,5x,f12.3
+write ar ma aicarr aiccarr
+end of capture
+. Finished Step 3.1: Page Back for Output

@@ -1,0 +1,19 @@
+Jim,
+
+The following are the lines I added to the dexplot.dp macro.
+
+Alan
+
+.
+.  Following implement Jim Filliben's default settings
+.
+title displacement 2
+tic offset units screen
+tic offset 5 5
+set write decimals 2
+box shadow hw 0 0
+title case asis
+legend case asis
+tic label case asis
+character case asis all
+tic label case asis

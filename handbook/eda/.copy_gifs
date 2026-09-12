@@ -1,0 +1,37 @@
+#!/bin/csh -f
+#
+#  Copy gif files from handbook directory to cf/handbook directory
+#
+set old = ~/wwwsed/handbook/eda
+set new = ~/wwwsed/cf/handbook/eda
+#
+cp $old/gif/* $new/gif
+cp $old/gif100/* $new/gif100
+cp $old/dpmacros/* $new/dpmacros
+#
+cp $old/section1/gif/* $new/section1/gif
+cp $old/section1/eqns/* $new/section1/eqns
+cp $old/section1/dpmacros/* $new/section1/dpmacros
+#
+cp $old/section2/gif/* $new/section2/gif
+cp $old/section2/eqns/* $new/section2/eqns
+cp $old/section2/dpmacros/* $new/section2/dpmacros
+#
+cp $old/section3/gif/* $new/section3/gif
+cp $old/section3/eqns/* $new/section3/eqns
+cp $old/section3/dpmacros/* $new/section3/dpmacros
+#
+cp $old/section4/gif/* $new/section4/gif
+cp $old/section4/eqns/* $new/section4/eqns
+cp $old/section4/dpmacros/* $new/section4/dpmacros
+#
+cp -r $old/section4/fuller/*  $new/section4/fuller
+cp -r $old/section4/jahanmi2/*  $new/section4/jahanmi2
+cp -r $old/section4/lew/*  $new/section4/lew
+cp -r $old/section4/mavro/*  $new/section4/mavro
+cp -r $old/section4/randn4p/*  $new/section4/randn4p
+cp -r $old/section4/randu4p/*  $new/section4/randu4p
+cp -r $old/section4/randwalk/*  $new/section4/randwalk
+cp -r $old/section4/resistor/*  $new/section4/resistor
+cp -r $old/section4/soulen/*  $new/section4/soulen
+cp -r $old/section4/zarr13/*  $new/section4/zarr13

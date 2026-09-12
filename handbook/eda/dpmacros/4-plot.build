@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < 4-plot.dp
+mv dppl1f.dat 4-plot.ps
+gs -sDEVICE=ppm -sOutputFile=4-plot.ppm  -dNOPAUSE -dBATCH 4-plot.ps
+~/bin/pnmrotate  -90 4-plot.ppm > 4-plot_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 4-plot_r.ppm > 4-plot_s.ppm
+~/bin/ppmtogif  4-plot_s.ppm > 4-plot.gif
+mv 4-plot.gif ../gif/4-plot.gif
+rm 4-plot.ppm 4-plot_r.ppm 4-plot_s.ppm 4-plot.ps
+#

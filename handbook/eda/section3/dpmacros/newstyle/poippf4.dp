@@ -1,0 +1,38 @@
+.
+.  Generate sample output for Poisson PPF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na poippf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+X1LABEL Probability
+Y1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE Poisson PPF (LAMBDA = 5)
+PLOT POIPPF(P,5) FOR P = 0.01 0.01 0.99
+TITLE Poisson PPF (LAMBDA = 15)
+PLOT POIPPF(P,15) FOR P = 0.01 0.01 0.99
+TITLE Poisson PPF (LAMBDA = 25)
+PLOT POIPPF(P,25) FOR P = 0.01 0.01 0.99
+TITLE Poisson PPF (LAMBDA = 35)
+PLOT POIPPF(P,35) FOR P = 0.01 0.01 0.99
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp POIPPF4.PS poippf4.ps
+system rm POIPPF4.PS
+.
+quit

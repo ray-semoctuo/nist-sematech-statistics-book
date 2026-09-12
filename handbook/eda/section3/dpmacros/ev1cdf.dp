@@ -1,0 +1,27 @@
+.
+.  Generate sample output for EV1 CDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na ev1cdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Extreme Value Type I (Minimum) CDF
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Probability
+X1LABEL X
+.
+SET MINMAX 1
+PLOT EV1CDF(X) FOR X = -4 0.01 4
+.
+box 0 0 100 100
+.
+device 2 close
+system cp EV1CDF.PS ev1cdf.ps
+system rm EV1CDF.PS
+.
+quit

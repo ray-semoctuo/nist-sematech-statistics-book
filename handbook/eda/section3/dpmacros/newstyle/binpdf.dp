@@ -1,0 +1,29 @@
+.
+.  Generate sample output for Binomial PDF plot
+.
+device 1 x11
+device 1 font simplex
+pre-erase off
+erase
+set ipl1na binpdf.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Binomial PDF (N=100, P=0.3)
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+LINE BLANK
+SPIKE ON
+XTIC OFFSET 1 1
+.
+PLOT BINPDF(X,0.3,100) FOR X = 0 1 100
+.
+. box 0 0 100 100
+.
+device 2 close
+system mv BINPDF.PS binpdf.ps
+.
+quit

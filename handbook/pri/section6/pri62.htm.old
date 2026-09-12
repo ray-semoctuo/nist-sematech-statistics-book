@@ -1,0 +1,119 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.2. Catapult Case Study</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri621.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri61c.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index.htm" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.htm">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.htm">Case Studies</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Catapult Case Study</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Analysis
+of a 2<sup>5-1</sup> Fractional Factorial Design</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->This case study
+demonstrates the analysis of a 2<sup>5-1 </sup>fractional factorial design.
+<p>This case study is a Dataplot analysis of the <a href="../section4/pri472.htm">catapult
+data</a> discussed in the analysis section. The analysis section analyzed
+the data using the JMP software.
+<p>This case study will complement the material in the <a href="../section4/pri411.htm">analysis
+chapter</a> by showing some additional graphical and analytical techniques
+for analyzing fractional factorial experiments.Although different software
+packages may provide somewhat different tools and techniques for analyzing
+data from designed experiments, the fundamental goals are the same. That
+is, we want to identify the important factors, determine best settings
+for these factors, and find a good prediction equation using the important
+factors.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Contents</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->The case study is
+divided into the following sections:
+<ol>&nbsp;
+<li>
+<a href="pri621.htm">Background and data</a>&nbsp;</li>
+
+<li>
+<a href="pri622.htm">Main effects</a>&nbsp;</li>
+
+<li>
+<a href="pri623.htm">Interaction effects</a>&nbsp;</li>
+
+<li>
+<a href="pri624.htm">Estimate main and interaction effects</a>&nbsp;</li>
+
+<li>
+<a href="pri625.htm">Model selection criterion</a>&nbsp;</li>
+
+<li>
+<a href="pri626.htm">Best settings</a>&nbsp;</li>
+
+<li>
+<a href="pri627.htm">Conclusions and next step</a></li>
+</ol>
+</td>
+</tr>
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index.htm" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri61c.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri621.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+</HTML>

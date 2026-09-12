@@ -1,0 +1,79 @@
+
+
+ ITERATION NUMBER    1
+ ----------------------
+     MODEL                                                     FORECASTED
+     CALLS         RSD             RSS        REL CHNG RSS    REL CHNG RSS    REL CHNG PAR
+                                                              VALUE   CHKD    VALUE   CHKD
+         2      0.4477           111.4          0.1268      0.1353       Y  0.6698       Y
+
+      CURRENT PARAMETER VALUES
+          INDEX    1              2
+          VALUE -0.3916514E-01  0.3889155    
+
+
+
+ ITERATION NUMBER    2
+ ----------------------
+     MODEL                                                     FORECASTED
+     CALLS         RSD             RSS        REL CHNG RSS    REL CHNG RSS    REL CHNG PAR
+                                                              VALUE   CHKD    VALUE   CHKD
+         3      0.4442           109.7          0.1553E-01  0.1553E-01   Y  0.1466       Y
+
+      CURRENT PARAMETER VALUES
+          INDEX    1              2
+          VALUE -0.4873291E-02  0.3932787    
+
+
+
+ ITERATION NUMBER    3
+ ----------------------
+     MODEL                                                     FORECASTED
+     CALLS         RSD             RSS        REL CHNG RSS    REL CHNG RSS    REL CHNG PAR
+                                                              VALUE   CHKD    VALUE   CHKD
+         4      0.4442           109.7          0.1169E-05  0.1225E-05   Y  0.1022E-02   Y
+
+      CURRENT PARAMETER VALUES
+          INDEX    1              2
+          VALUE -0.5115903E-02  0.3926865    
+
+
+
+ ITERATION NUMBER    4
+ ----------------------
+     MODEL                                                     FORECASTED
+     CALLS         RSD             RSS        REL CHNG RSS    REL CHNG RSS    REL CHNG PAR
+                                                              VALUE   CHKD    VALUE   CHKD
+         5      0.4442           109.7          0.6531E-08  0.7550E-08   Y  0.1018E-03   Y
+
+      CURRENT PARAMETER VALUES
+          INDEX    1              2
+          VALUE -0.5116068E-02  0.3927665    
+
+
+
+ ITERATION NUMBER    5
+ ----------------------
+     MODEL                                                     FORECASTED
+     CALLS         RSD             RSS        REL CHNG RSS    REL CHNG RSS    REL CHNG PAR
+                                                              VALUE   CHKD    VALUE   CHKD
+         6      0.4442           109.7          0.1213E-09  0.1214E-09   Y  0.1211E-04   Y
+
+      CURRENT PARAMETER VALUES
+          INDEX    1              2
+          VALUE -0.5116077E-02  0.3927569    
+
+ ***** X- AND RELATIVE FUNCTION CONVERGENCE *****
+
+
+ ITERATION NUMBER    6
+ ----------------------
+     MODEL                                                     FORECASTED
+     CALLS         RSD             RSS        REL CHNG RSS    REL CHNG RSS    REL CHNG PAR
+                                                              VALUE   CHKD    VALUE   CHKD
+         7      0.4442           109.7         -0.3887E-15  0.1019E-16   Y  0.3527E-08   Y
+
+      CURRENT PARAMETER VALUES
+          INDEX    1              2
+          VALUE -0.5116077E-02  0.3927569    
+

@@ -1,0 +1,38 @@
+. This is Dataplot macro   DIGIT.DP
+. Purpose--Strip out the individual digits
+.          of a positive integer.
+. Date--December 2000
+. Input--a scalar positive integer (posint)
+. Output--a vector (digit(.)) consisting of the digits
+.
+. -----start point----
+.
+print "***** At beginning of digit.dp:   posint = ^posint *****"
+delete digit
+let string sdigit = sp()
+.
+let numdig = log10(posint)
+let numdig = int(numdig)
+let numdig = numdig+1
+.
+let rem = posint
+loop for jz = 1 1 numdig
+   let jzrev = numdig-jz+1
+   let zd1 = rem/10
+   let zd2 = int(zd1)
+   let zd3 = 10*zd2
+   let zd4 = rem-zd3
+   let digit(jzrev) = zd4
+   let rem = zd2
+end loop
+.
+loop for jz = 1 1 numdig
+   let digitjz = digit(jz)
+   let string sdigit = ^sdigit X^digitjz
+   if jz <> numdig
+      let string sdigit = ^sdigit *
+   end if
+end loop
+.
+print "***** At end of digit.dp:   numdig = ^numdig *****"
+print digit

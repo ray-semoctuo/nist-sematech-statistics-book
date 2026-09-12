@@ -1,0 +1,19 @@
+.
+. Starting Step 3.2 - Generate a Weibull Plot
+.
+print y
+limits
+xtic offset 0 0
+y1label Weibull Cumulative Probability (%)
+x1label Log or Ordered Response
+character x
+line blank
+WEIBULL PLOT Y
+justification left
+let beta = round(beta,3)
+let eta = round(eta,3)
+move 22 65
+text shape = ^beta
+move 22 60
+text scale = ^eta
+. Finished Step 3.2: Page Back for Output

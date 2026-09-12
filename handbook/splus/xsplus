@@ -1,0 +1,156 @@
+#!/itl/links/generic/bin/wish
+# ^^^^^^^^^^^^^^^^^^^^^^ <-- For UNIX systems, change this path for the 
+#                            location of expectk or wish at your site
+#
+#  xsplus (splus from handbook)
+#  adapted from xdp scripts written by Bob Lipman
+#
+#--------------------------------------------------------------------
+
+
+global xsplus env tcl_platform
+
+option add *Dialog.msg.wrapLength 750
+option add *foreground                black
+
+#  check version of tcl
+
+set minTcl 8.0
+if {[info tclversion] < $minTcl} {
+   puts "\nWrong version of Tcl"
+   puts "Found Tcl [info tclversion], expecting at least Tcl $minTcl"
+   exit
+}
+set xsplus(TCL) [info patchlevel]
+
+
+#  initialize
+
+set xsplus(DEBUG)      0   ;#  0 or 1
+set xsplus(INDEX_FILE) 0
+set xsplus(PLATFORM) $tcl_platform(platform)
+set xsplus(OS) $tcl_platform(os)
+set xsplus(OSVERSION) $tcl_platform(osVersion)
+set os4 [string range $xsplus(OS) 0 3]
+if {$os4 == "IRIX"} {set xsplus(OS) $os4}
+
+
+#  communicate between xsplus and Splus
+#  use pipe instead of expect (keep this a Tcl/Tk only
+#  script for simplicity)
+
+if {$xsplus(PLATFORM) == "unix"} {
+   set xsplus(COMM) pipe    ;#  expect or pipe or file
+
+#  under Windows a command pipeline will be tried
+
+} elseif {$xsplus(PLATFORM) == "windows"} {
+   catch {console show}
+   set xsplus(COMM) pipe
+}
+
+#  usage message
+
+set usageTxt "\nUsage: xsplus \[OPTIONS\] \[FILENAME\]
+ FILENAME is an optional Dataplot macro file
+ OPTIONS can be any of the following:
+  -debug : turn debugging messages on
+  -help  : this message\n"
+
+
+#  command line arguments
+
+set inFile $argv
+foreach arg $argv {
+   if {$arg == "-debug"} {
+      set xsplus(DEBUG) 1
+   } elseif {$arg == "-help" || $arg == "-h"} {
+      puts $usageTxt
+      exit
+   } else {
+      if {[string range $arg 0 0] == "-"} {
+        tk_messageBox -type ok -message "Unknown command line argument: $arg\n$usageTxt" \
+           -icon error -title Error
+      }
+   }
+   if {[string range $arg 0 0] == "-"} {set inFile [lreplace $inFile 0 0]}
+}
+set inFile [join [string trim $inFile] " "]
+
+#  Check if xsplus has already been started with [tk appname], 
+#  then use the Tk `send' commands to existing xsplus.  This was setup for the 
+#  handbook so clicking on subsequent macros would send them to the existing 
+#  instance of xsplus.
+#
+#  The send command only works under Unix for Tcl 8.0 and lower.  In Tcl 8.1
+#  the send command has been updated to work with Windows.
+
+set nsnderr 0
+set pound [string first # [tk appname]]
+if {$pound != -1} {
+   set appname [string range [tk appname] 0 [expr {$pound - 2}]]
+   foreach w {.} {
+      catch {send $appname [list raise $w]}
+   }
+   if {$inFile != ""} {
+      if {[file exists $inFile]} {
+        puts "\nSending commands to existing $appname"
+        set f [open "$inFile" r]
+        while {[gets $f line] >= 0} {
+           if {[catch {send $appname [list sendDP $line]} cmdout] != 0} {
+              incr nsnderr
+              if {$nsnderr == 1} {
+                 puts "\nERROR sending Dataplot commands to existing xsplus\n$cmdout"
+              }
+           }
+        }
+        close $f
+      }
+      exit
+   }
+}
+
+
+#  check environment variables
+#  XSPLUS_CODE - directory with the Tcl files for xsplus
+
+foreach i {XSPLUS_CODE} {
+   if {![info exists env($i)]} {
+      set msg "$i environment variable has not been set"
+      puts $msg
+      tk_messageBox -type ok -message $msg -icon error -title Error
+      exit
+   } elseif {($i == "XSPLUS_CODE" && [file exists [file join $env($i) tclIndex]] == 0)} {
+      set msg "$i environment variable: cannot find directory $env($i) OR file tclIndex in $env($i)"
+      puts $msg
+      tk_messageBox -type ok -message $msg -icon error -title Error
+      exit
+   }
+}
+
+set xsplus(DP_TCL) [file native $env(XSPLUS_CODE)]
+set auto_path [linsert $auto_path 0 $env(XSPLUS_CODE)]
+winParam
+
+#  spawn dataplot (or Splus)
+spawnDataplot
+
+#  if command line macro file exists, open file and send commands
+
+if {$inFile != ""} {
+   if {[file exists $inFile]} {
+      set msg "Reading macro file: [file tail $inFile]"
+      puts $msg
+      set f [open "$inFile" r]
+      puts $f
+      while {[gets $f line] >= 0} {sendDP $line}
+      close $f
+
+#  file not found
+   } else {
+      set errMsg "ERROR: Macro file not found: $inFile"
+      errorMsg $errMsg
+      tk_messageBox -type ok -message $errMsg -icon error -title Error
+   }
+}
+

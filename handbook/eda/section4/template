@@ -1,0 +1,155 @@
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+      <img align = left src = "../gif/histogr0.gif">
+   </td>
+</tr>
+
+
+<!-----begin section: Importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+   </td>
+</tr>
+
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      
+   </td>
+</tr>
+
+<!-----begin section: input -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Input:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+       The xxx plot is formed by:
+       <ul>
+          <li>Vertical axis:
+          <li>Horizontal axis:
+       </ul>
+   </td>
+</tr>
+
+<!-----begin section: stat category -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Stat Category:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      
+   </td>
+</tr>
+
+<!-----begin section: usage -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Usage:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      
+   </td>
+</tr>
+
+<!-----begin section: references -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Reference</I>
+   </td>
+   <td width=85% valign=top>
+      Chambers, Cleveland, Kleiner, and Tukey (1983).  <I>Graphical Methods
+      for Data Analysis.</I>  Wadsworth International, chapter 2.
+   </td>
+</tr>
+
+<!-----begin section: dataplot command -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Dataplot Command</I>
+   </td>
+   <td width=85% valign=top>
+      HISTOGRAM Y
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      Frequency Plot<br>
+      Stem and Leaf Plot<br>
+      Density Trace<br>
+   </dl>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      xxx
+   </td>
+</tr>
+
+<!-----end jjf----->

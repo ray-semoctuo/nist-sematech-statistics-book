@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#
+dataplot < blockplt.dp
+mv dppl1f.dat blockplt.ps
+gs -sDEVICE=ppm -sOutputFile=blockplt.ppm  -dNOPAUSE -dBATCH blockplt.ps
+~/bin/pnmrotate  -90 blockplt.ppm > blockplt_r.ppm
+~/bin/pnmscale  -xscale 0.5 -yscale 0.5 blockplt_r.ppm > blockplt_s.ppm
+~/bin/ppmtogif  blockplt_s.ppm > blockplt.gif
+mv blockplt.gif ../gif/blockplt.gif
+rm blockplt.ppm blockplt_r.ppm blockplt_s.ppm blockplt.ps
+#

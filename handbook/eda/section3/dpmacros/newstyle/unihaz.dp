@@ -1,0 +1,26 @@
+.
+.  Generate sample output for Uniform Hazard plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na unihaz.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE Uniform Hazard
+TITLE SIZE 3
+LABEL SIZE 3
+LABEL CASE ASIS
+TIC LABEL SIZE 3
+Y1LABEL Hazard
+X1LABEL X
+.
+PLOT UNIHAZ(X) FOR X = 0 0.01 0.99
+.
+box 0 0 100 100
+.
+device 2 close
+system cp UNIHAZ.PS unihaz.ps
+system rm UNIHAZ.PS
+.
+quit

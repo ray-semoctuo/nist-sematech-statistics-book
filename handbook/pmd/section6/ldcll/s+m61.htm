@@ -1,0 +1,206 @@
+<HTML>
+
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-37115410-50&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<TITLE>Splus Commands for Load Cell Calibration Case Study</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../pmd61b.htm" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="../pmd61b.htm" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../../" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.htm" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../../search.htm" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Splus Commands for Load Cell Calibration Case Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Set Software Options and Get Started</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+while(sum(search()=="esihb.cs")) detach(what=1,save=F)
+esihb.cs <- data.frame()
+attach(esihb.cs,pos=1)
+split.screen(c(1,1),erase=T)
+par(par.default)
+
+pontius.dat <- read.table("pontius.dat",header=T)
+attach(pontius.dat,pos=1)
+cbind(Load,Deflection)
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit and Validate Initial Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+plot(Load,Deflection,xlab="Load",ylab="Deflection",pch="x")
+title(cex=0.667,"Scatter Plot of Deflection vs. Load")
+
+lf <- lm(Deflection~Load)
+lfs <- summary(lf)
+lfs
+
+plot(Load,Deflection,xlab="Load",ylab="Deflection",pch="x")
+lines(Load[order(Load)],predict(lf,data.frame(Load=Load[order(Load)])))
+title(cex=0.667,"Data & Predicted Values from Straight Line Fit vs. Load")
+
+plot(Load,lf$res,xlab="Load",ylab="Residuals",pch="x")
+title(cex=0.667,"Residuals vs. Load")
+
+plot(lf$fitted.values,lf$res,xlab="Predicted Values",ylab="Residuals",pch="x")
+title(cex=0.667,"Residuals vs. Predicted Values from Straight Line Fit")
+
+vl <- "Residuals"
+par(mfrow=c(2, 2), mgp=c(2.5, 0.5, 0))
+plot(lf$res, xlab="Observation Number", ylab=vl)
+abline(h=0)
+title(cex=0.667, "\n Run Order Plot")
+
+par(pty="s")
+vlp <- paste(vl, "Lag 1")
+plot(tsmatrix(lf$res, lag(lf$res)), xlab=vl, ylab=vlp)
+title(cex=0.667, "\n Lag Plot")
+
+par(pty="")
+hist(lf$res, xlab=vl, ylab="Frequency")
+title(cex=0.667, "\n Histogram")
+
+par(pty="s")
+qqnorm(lf$res, ylab=vl)
+title(cex=0.667, "\n Normal Probability Plot")
+
+sse <- sum(lf$res^2)
+df.sse <- lf$df
+sspe <- sum((tapply(lf$res,Load,length)-1)*tapply(lf$res,Load,var))
+df.sspe <- sum((tapply(lf$res,Load,length)-1))
+sslf <- sse-sspe
+df.sslf <- df.sse-df.sspe
+lf.fstat <- (sslf/df.sslf)/(sspe/df.sspe)
+lf.fstat
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit and Validate Refined Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+par(par.default)
+split.screen(c(1,1),erase=T)
+plot(Load,lf$res,xlab="Load",ylab="Residuals")
+title(cex=0.667,"Residuals vs. Load")
+
+lf <- lm(Deflection~Load+Load^2)
+lfs <- summary(lf)
+lfs
+
+plot(Load,Deflection,xlab="Load",ylab="Deflection",pch="x")
+lines(Load[order(Load)],predict(lf,data.frame(Load=Load[order(Load)])))
+title(cex=0.667,"Data & Predicted Values from Quadratic Fit vs. Load")
+
+plot(Load,lf$res,xlab="Load",ylab="Residuals",pch="x")
+title(cex=0.667,"Residuals vs. Load")
+
+plot(lf$fitted.values,lf$res,xlab="Predicted Values",ylab="Residuals",pch="x")
+title(cex=0.667,"Residuals vs. Predicted Values from Quadratic Fit")
+
+vl <- "Residuals"
+par(mfrow=c(2, 2), mgp=c(2.5, 0.5, 0))
+plot(lf$res, xlab="Observation Number", ylab=vl)
+abline(h=0)
+title(cex=0.667, "\n Run Order Plot")
+
+par(pty="s")
+vlp <- paste(vl, "Lag 1")
+plot(tsmatrix(lf$res, lag(lf$res)), xlab=vl, ylab=vlp)
+title(cex=0.667, "\n Lag Plot")
+
+par(pty="")
+hist(lf$res, xlab=vl, ylab="Frequency")
+title(cex=0.667, "\n Histogram")
+
+par(pty="s")
+qqnorm(lf$res, ylab=vl)
+title(cex=0.667, "\n Normal Probability Plot")
+par(par.default)
+
+sse <- sum(lf$res^2)
+df.sse <- lf$df
+sspe <- sum((tapply(lf$res,Load,length)-1)*tapply(lf$res,Load,var))
+df.sspe <- sum((tapply(lf$res,Load,length)-1))
+sslf <- sse-sspe
+df.sslf <- df.sse-df.sspe
+lf.fstat <- (sslf/df.sslf)/(sspe/df.sspe)
+lf.fstat
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Use the Model to Make a Calibrated Measurement</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+nd <- rnorm(1,mean=1.239600,sd=0.0002051768)
+nd
+
+f <- function(load) {lf$coef%*%c(1,load,load^2)-nd}
+nl <- uniroot(f,c(1500000,2000000))$root
+nl
+
+flb <- function(load) 
+  {
+  rsdm <- sqrt(1 + c(1,load,load^2)%*%lfs$cov.unscaled%*%c(1,load,load^2))
+  f(load) + qt(0.975,lf$df)*lfs$sigma*rsdm
+  }
+nllb <- uniroot(flb,c(1500000,2000000))$root
+fub <- function(load) 
+  {
+  rsdm <- sqrt(1 + c(1,load,load^2)%*%lfs$cov.unscaled%*%c(1,load,load^2))
+  f(load) - qt(0.975,lf$df)*lfs$sigma*rsdm
+  }
+nlub <- uniroot(fub,c(1500000,2000000))$root
+c(nllb,nl,nlub)
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov" coords="22,6,67,20">
+<area shape="rect" href="https://www.itl.nist.gov/div898/handbook" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../../" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.htm" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../../search.htm" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="../pmd61b.htm" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../pmd61b.htm" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+</HTML>

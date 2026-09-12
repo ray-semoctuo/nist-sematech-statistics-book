@@ -1,0 +1,13 @@
+.
+.  Generate sample output for chi-square standard deviation test
+.
+skip 25
+read gear.dat y
+set write decimals 5
+let sdtest = 0.1
+echo on
+capture chisquar.out
+chi-square test y sdtest
+standard deviation confidence limits y
+end of capture 
+quit

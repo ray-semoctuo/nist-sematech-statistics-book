@@ -1,0 +1,38 @@
+.
+.  Generate sample output for F PDF plot
+.
+device 1 x11
+device 1 font simplex
+set ipl1na fpdf4.ps
+device 2 postscript
+.
+TITLE CASE ASIS
+TITLE SIZE 6
+TITLE OFFSET 3
+LABEL SIZE 5
+TIC LABEL SIZE 5
+LABEL CASE ASIS
+Y1LABEL Probability
+X1LABEL X
+.
+MULTIPLOT 2 2
+MULTIPLOT CORNER COORDINATES 0 0 100 100
+.
+TITLE F PDF (1, 1 df)
+PLOT FPDF(X,1,1) FOR X = 0 0.01 5
+TITLE F PDF (1, 10 df)
+PLOT FPDF(X,1,10) FOR X = 0 0.01 5
+TITLE F PDF (10, 1 df)
+PLOT FPDF(X,10,1) FOR X = 0 0.01 5
+TITLE F PDF (10, 10 df)
+PLOT FPDF(X,10,10) FOR X = 0 0.01 5
+.
+END OF MULTIPLOT
+.
+box 0 0 100 100
+.
+device 2 close
+system cp FPDF4.PS fpdf4.ps
+system rm FPDF4.PS
+.
+quit
