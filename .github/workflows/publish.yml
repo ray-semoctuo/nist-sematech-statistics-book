@@ -1,10 +1,14 @@
 name: Render and Publish Book
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch: {}
+  # Automatic triggers are disabled until the book's content is further
+  # along and Netlify is configured (NETLIFY_AUTH_TOKEN, NETLIFY_SITE_ID
+  # secrets). Re-enable once ready:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
 
 jobs:
   build-deploy:
