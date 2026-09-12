@@ -1,0 +1,13 @@
+# Process or Product Monitoring and Control {#sec-pmc}
+
+::: {.callout-note}
+## Status
+Not yet migrated. Source content: `handbook/pmc/`.
+:::
+
+<!--
+TODO:
+- Port narrative content from handbook/pmc/pmc.htm and handbook/pmc/section*/*.htm
+- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
+- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
+-->

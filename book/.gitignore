@@ -1,0 +1,7 @@
+/.quarto/
+**/*.quarto_ipynb
+/_book/
+/.Rproj.user/
+/renv/library/
+/renv/python/
+/renv/staging/

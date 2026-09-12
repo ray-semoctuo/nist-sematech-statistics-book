@@ -1,0 +1,13 @@
+# Exploratory Data Analysis {#sec-eda}
+
+::: {.callout-note}
+## Status
+Not yet migrated. Source content: `handbook/eda/`.
+:::
+
+<!--
+TODO:
+- Port narrative content from handbook/eda/eda.htm and handbook/eda/section*/*.htm
+- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
+- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
+-->

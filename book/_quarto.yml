@@ -1,0 +1,50 @@
+project:
+  type: book
+
+book:
+  title: "NIST/SEMATECH e-Handbook of Statistical Methods (Tidyverse Edition)"
+  subtitle: "Worked examples reproduced in R using the tidyverse"
+  author: "Ray James Hoobler"
+  date: today
+  repo-url: https://github.com/ray-semoctuo/nist-sematech-statistics-book
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    - part: "Exploratory Data Analysis"
+      chapters:
+        - chapters/01-eda/index.qmd
+    - part: "Measurement Process Characterization"
+      chapters:
+        - chapters/02-mpc/index.qmd
+    - part: "Production Process Characterization"
+      chapters:
+        - chapters/03-ppc/index.qmd
+    - part: "Process Modeling"
+      chapters:
+        - chapters/04-pmd/index.qmd
+    - part: "Process Improvement"
+      chapters:
+        - chapters/05-pri/index.qmd
+    - part: "Process or Product Monitoring and Control"
+      chapters:
+        - chapters/06-pmc/index.qmd
+    - part: "Product and Process Comparisons"
+      chapters:
+        - chapters/07-prc/index.qmd
+    - part: "Assessing Product Reliability"
+      chapters:
+        - chapters/08-apr/index.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+    code-fold: show
+    code-tools: true
+    toc: true
+
+execute:
+  freeze: auto

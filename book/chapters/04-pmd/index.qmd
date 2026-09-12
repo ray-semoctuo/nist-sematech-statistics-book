@@ -1,0 +1,13 @@
+# Process Modeling {#sec-pmd}
+
+::: {.callout-note}
+## Status
+Not yet migrated. Source content: `handbook/pmd/`.
+:::
+
+<!--
+TODO:
+- Port narrative content from handbook/pmd/pmd.htm and handbook/pmd/section*/*.htm
+- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
+- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
+-->

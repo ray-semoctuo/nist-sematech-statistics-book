@@ -1,0 +1,14 @@
+# Preface {.unnumbered}
+
+This book is a tidyverse-based re-implementation of the
+[NIST/SEMATECH e-Handbook of Statistical Methods](https://www.itl.nist.gov/div898/handbook/),
+originally published as a static HTML handbook with worked examples in
+[Dataplot](https://www.itl.nist.gov/div898/software/dataplot/).
+
+Each chapter follows the structure of the original handbook, but the worked
+examples are reproduced using R and the [tidyverse](https://www.tidyverse.org/)
+family of packages (`dplyr`, `tidyr`, `ggplot2`, `purrr`, `broom`, and related
+extensions). Original datasets are retained for reference and validation.
+
+The source content for this migration lives in `handbook/` at the root of
+this repository.
