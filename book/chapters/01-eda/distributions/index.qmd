@@ -69,6 +69,10 @@ Be aware that different sources may give formulas that are different from those 
 
 #### Tables for Probability Distributions {#sec-eda-367}
 
+Several commonly used tables for probability distributions can be referenced below.
+
+The values from these tables can also be obtained from most general purpose statistical software programs (in R, via the `qnorm()`, `qt()`, `qf()`, and `qchisq()` functions used to generate them here). Most introductory statistics textbooks (e.g., Snedecor and Cochran<!-- XREF: EDA bibliography entry for Snedecor and Cochran; source handbook/eda/section4/eda43.htm#Snedecor -->) contain more extensive tables than are included here. These tables are included for convenience.
+
 {{< include distributions/standard-normal-cdf-table.qmd >}}
 
 {{< include distributions/t-distribution-table.qmd >}}

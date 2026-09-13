@@ -1,10 +1,68 @@
 ##### Cumulative Distribution Function of the Standard Normal Distribution {#sec-eda-standard-normal-cdf-table}
 
-<!--
-Source: handbook/eda/section3/eda3671.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+The table below contains the area under the standard normal curve from 0 to $z$. This can be used to compute the [cumulative distribution function](#sec-eda-related-distributions) values for the [standard normal distribution](#sec-eda-normal-distribution).
+
+The table utilizes the symmetry of the normal distribution, so what is in fact given is $P[0 \le x \le |a|]$, where $a$ is the value of interest. This is demonstrated in the graph below for $a = 0.5$. The shaded area of the curve represents the probability that $x$ is between 0 and $a$.
+
+```{r}
+#| code-fold: true
+#| label: fig-standard-normal-cdf-table-shaded
+#| fig-cap: "Standard normal PDF with shaded area between 0 and a = 0.5"
+#| message: false
+library(tidyverse)
+
+a <- 0.5
+
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = dnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  geom_ribbon(
+    data = ~ filter(.x, x >= 0, x <= a),
+    aes(ymin = 0, ymax = y),
+    fill = "steelblue", alpha = 0.5
+  ) +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+This can be clarified by a few simple examples.
+
+1. What is the probability that $x$ is less than or equal to 1.53? Look for 1.5 in the X column, go right to the 0.03 column to find the value 0.43699. Now add 0.5 (for the probability less than zero) to obtain the final result of 0.93699.
+2. What is the probability that $x$ is less than or equal to -1.53? For negative values, use the relationship $P[x \le a] = 1 - P[x \le |a|]$ for $x < 0$. From the first example, this gives $1 - 0.93699 = 0.06301$.
+3. What is the probability that $x$ is between -1 and 0.5? Look up the values for 0.5 ($0.5 + 0.19146 = 0.69146$) and -1 ($1 - (0.5 + 0.34134) = 0.15866$). Then subtract the results ($0.69146 - 0.15866$) to obtain the result $0.5328$.
+
+To use this table with a non-standard normal distribution (either the location parameter is not 0 or the scale parameter is not 1), standardize your value by subtracting the mean and dividing the result by the standard deviation. Then look up the value for this standardized value.
+
+A few particularly important numbers derived from the table below, specifically numbers that are commonly used in significance tests, are summarized in the following table:
+
+```{r}
+#| code-fold: true
+#| label: tbl-standard-normal-critical-values
+#| message: false
+p_lower <- c(0.001, 0.005, 0.010, 0.025, 0.050, 0.100)
+
+tibble(p = p_lower, `Z_p (lower)` = qnorm(p), `Z_p (upper)` = qnorm(1 - p)) |>
+  knitr::kable(digits = 3, align = "c")
+```
+
+These are critical values for the normal distribution.
+
+**Area under the Normal Curve from 0 to X**
+
+::: {style="overflow-x: auto;"}
+```{r}
+#| code-fold: true
+#| label: tbl-standard-normal-cdf
+#| message: false
+tibble(X = seq(0, 4, by = 0.01)) |>
+  mutate(
+    row = floor(X * 10) / 10,
+    col = sprintf("%.2f", X - row),
+    area = pnorm(X) - 0.5
+  ) |>
+  select(row, col, area) |>
+  pivot_wider(names_from = col, values_from = area) |>
+  knitr::kable(digits = 5)
+```
+:::

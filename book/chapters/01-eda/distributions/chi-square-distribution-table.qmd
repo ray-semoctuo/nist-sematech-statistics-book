@@ -1,10 +1,68 @@
 ##### Critical Values of the Chi-Square Distribution {#sec-eda-chi-square-distribution-table}
 
-<!--
-Source: handbook/eda/section3/eda3674.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+This table contains the critical values of the [chi-square distribution](#sec-eda-chi-square-distribution). Because of the lack of symmetry of the chi-square distribution, separate tables are provided for the upper and lower tails of the distribution.
+
+A test statistic with $\nu$ degrees of freedom is computed from the data. For upper-tail one-sided tests, the test statistic is compared with a value from the table of upper-tail critical values. For two-sided tests, the test statistic is compared with values from both the table for the upper-tail critical values and the table for the lower-tail critical values.
+
+The significance level, $\alpha$, is demonstrated with the graph below which shows a chi-square distribution with 3 degrees of freedom for a two-sided test at significance level $\alpha = 0.05$. If the test statistic is greater than the upper-tail critical value or less than the lower-tail critical value, we reject the null hypothesis. Specific instructions are given below.
+
+```{r}
+#| code-fold: true
+#| label: fig-chi-square-distribution-table-shaded
+#| fig-cap: "Two-sided test for alpha = 0.05 (chi-square distribution, 3 df)"
+#| message: false
+library(tidyverse)
+
+df <- 3
+upper_crit <- qchisq(0.975, df)
+lower_crit <- qchisq(0.025, df)
+
+tibble(x = seq(0.001, 12, length.out = 401)) |>
+  mutate(y = dchisq(x, df)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  geom_ribbon(
+    data = ~ filter(.x, x >= upper_crit),
+    aes(ymin = 0, ymax = y),
+    fill = "steelblue", alpha = 0.5
+  ) +
+  geom_ribbon(
+    data = ~ filter(.x, x <= lower_crit),
+    aes(ymin = 0, ymax = y),
+    fill = "steelblue", alpha = 0.5
+  ) +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+Given a specified value of $\alpha$:
+
+1. For a two-sided test, find the column corresponding to $1 - \alpha/2$ in the table for upper-tail critical values and reject the null hypothesis if the test statistic is greater than the tabled value. Similarly, find the column corresponding to $\alpha/2$ in the table for lower-tail critical values and reject the null hypothesis if the test statistic is less than the tabled value.
+2. For an upper-tail one-sided test, find the column corresponding to $1 - \alpha$ in the table containing upper-tail critical values and reject the null hypothesis if the test statistic is greater than the tabled value.
+3. For a lower-tail one-sided test, find the column corresponding to $\alpha$ in the lower-tail critical values table and reject the null hypothesis if the computed test statistic is less than the tabled value.
+
+**Upper-tail critical values of chi-square distribution with $\nu$ degrees of freedom**
+
+```{r}
+#| code-fold: true
+#| label: tbl-chi-square-distribution-upper
+p_upper <- c(0.90, 0.95, 0.975, 0.99, 0.999)
+
+crossing(nu = 1:100, p = p_upper) |>
+  mutate(x = qchisq(p, df = nu)) |>
+  pivot_wider(names_from = p, values_from = x, names_prefix = "p") |>
+  knitr::kable(digits = 3, col.names = c("nu", as.character(p_upper)))
+```
+
+**Lower-tail critical values of chi-square distribution with $\nu$ degrees of freedom**
+
+```{r}
+#| code-fold: true
+#| label: tbl-chi-square-distribution-lower
+p_lower <- c(0.10, 0.05, 0.025, 0.01, 0.001)
+
+crossing(nu = 1:100, p = p_lower) |>
+  mutate(x = qchisq(p, df = nu)) |>
+  pivot_wider(names_from = p, values_from = x, names_prefix = "p") |>
+  knitr::kable(digits = 3, col.names = c("nu", as.character(p_lower)))
+```

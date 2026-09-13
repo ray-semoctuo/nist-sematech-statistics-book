@@ -1,10 +1,38 @@
 ##### Critical Values of the t* Distribution {#sec-eda-t-star-distribution-table}
 
-<!--
-Source: handbook/eda/section3/eda3675.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+This table contains upper critical values of the t* distribution that are appropriate for determining whether or not a calibration line is in a state of statistical control from measurements on a check standard at three points in the calibration interval. A test statistic with $\nu$ degrees of freedom is compared with the critical value. If the absolute value of the test statistic exceeds the tabled value, the calibration of the instrument is judged to be out of control.
+
+Unlike the other tables in this section, the t* distribution has no simple closed-form generating function — the values below were determined by NIST from simulation studies specific to this calibration application, so they are reproduced here directly from the original table rather than computed from an R distribution function.
+
+**Upper critical values of t* distribution at significance level 0.05 for testing the output of a linear calibration line at 3 points**
+
+```{r}
+#| code-fold: true
+#| label: tbl-t-star-distribution
+#| message: false
+library(tidyverse)
+
+t_star <- c(
+  37.544, 7.582, 4.826, 3.941, 3.518, 3.274, 3.115, 3.004, 2.923, 2.860,
+  2.811, 2.770, 2.737, 2.709, 2.685, 2.665, 2.647, 2.631, 2.617, 2.605,
+  2.594, 2.584, 2.574, 2.566, 2.558, 2.551, 2.545, 2.539, 2.534, 2.528,
+  2.524, 2.519, 2.515, 2.511, 2.507, 2.504, 2.501, 2.498, 2.495, 2.492,
+  2.489, 2.487, 2.484, 2.482, 2.480, 2.478, 2.476, 2.474, 2.472, 2.470,
+  2.469, 2.467, 2.466, 2.464, 2.463, 2.461, 2.460, 2.459, 2.457, 2.456,
+  2.455, 2.454, 2.453, 2.452, 2.451, 2.450, 2.449, 2.448, 2.447, 2.446,
+  2.445, 2.445, 2.444, 2.443, 2.442, 2.441, 2.441, 2.440, 2.439, 2.439,
+  2.438, 2.437, 2.437, 2.436, 2.436, 2.435, 2.435, 2.434, 2.434, 2.433,
+  2.432, 2.432, 2.431, 2.431, 2.431, 2.430, 2.430, 2.429, 2.429, 2.428,
+  2.428, 2.428, 2.427, 2.427, 2.426, 2.426, 2.426, 2.425, 2.425, 2.425,
+  2.424, 2.424, 2.424, 2.423, 2.423, 2.423, 2.422, 2.422, 2.422, 2.422
+)
+
+tibble(
+  nu_a = 1:60, t_a = t_star[1:60],
+  nu_b = 61:120, t_b = t_star[61:120]
+) |>
+  knitr::kable(
+    digits = 3,
+    col.names = c("nu", "t*(.05)(nu)", "nu", "t*(.05)(nu)")
+  )
+```

@@ -1,10 +1,64 @@
 ##### Upper Critical Values of the Student's t Distribution {#sec-eda-t-distribution-table}
 
-<!--
-Source: handbook/eda/section3/eda3672.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+This table contains critical values of the [Student's t distribution](#sec-eda-t-distribution) computed using the [cumulative distribution function](#sec-eda-related-distributions). The t distribution is symmetric so that $t_{1-\alpha,\nu} = -t_{\alpha,\nu}$.
+
+The t table can be used for both one-sided (lower and upper) and two-sided tests using the appropriate value of $\alpha$.
+
+The significance level, $\alpha$, is demonstrated in the graph below, which displays a t distribution with 10 degrees of freedom. The most commonly used significance level is $\alpha = 0.05$. For a two-sided test, we compute $1 - \alpha/2$, or $1 - 0.05/2 = 0.975$ when $\alpha = 0.05$. If the absolute value of the test statistic is greater than the critical value (0.975), then we reject the null hypothesis. Due to the symmetry of the t distribution, we only tabulate the positive critical values in the table below.
+
+```{r}
+#| code-fold: true
+#| label: fig-t-distribution-table-shaded
+#| fig-cap: "Two-sided test for alpha = 0.05 (t distribution, 10 df)"
+#| message: false
+library(tidyverse)
+
+df <- 10
+crit <- qt(0.975, df)
+
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = dt(x, df)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  geom_ribbon(
+    data = ~ filter(.x, x >= crit),
+    aes(ymin = 0, ymax = y),
+    fill = "steelblue", alpha = 0.5
+  ) +
+  geom_ribbon(
+    data = ~ filter(.x, x <= -crit),
+    aes(ymin = 0, ymax = y),
+    fill = "steelblue", alpha = 0.5
+  ) +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+Given a specified value for $\alpha$:
+
+1. For a two-sided test, find the column corresponding to $1 - \alpha/2$ and reject the null hypothesis if the absolute value of the test statistic is greater than the value of $t_{1-\alpha/2,\nu}$ in the table below.
+2. For an upper, one-sided test, find the column corresponding to $1 - \alpha$ and reject the null hypothesis if the test statistic is greater than the table value.
+3. For a lower, one-sided test, find the column corresponding to $1 - \alpha$ and reject the null hypothesis if the test statistic is less than the negative of the table value.
+
+**Critical values of Student's t distribution with $\nu$ degrees of freedom**
+
+```{r}
+#| code-fold: true
+#| label: tbl-t-distribution-critical-values
+#| message: false
+p <- c(0.90, 0.95, 0.975, 0.99, 0.995, 0.999)
+
+crossing(nu = 1:100, p = p) |>
+  mutate(t = qt(p, df = nu)) |>
+  pivot_wider(names_from = p, values_from = t, names_prefix = "p") |>
+  knitr::kable(digits = 3, col.names = c("nu", as.character(p)))
+```
+
+For large $\nu$, the t distribution's critical values converge to the standard normal distribution's:
+
+```{r}
+#| code-fold: true
+#| label: tbl-t-distribution-normal-limit
+tibble(p = p, `Normal (df = Inf)` = qnorm(p)) |>
+  knitr::kable(digits = 3)
+```
