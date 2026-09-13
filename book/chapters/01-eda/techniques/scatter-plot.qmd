@@ -1,10 +1,404 @@
 #### Scatter Plot {#sec-eda-scatter-plot}
 
-<!--
-Source: handbook/eda/section3/eda33q.htm, handbook/eda/section3/eda33q1.htm, handbook/eda/section3/eda33q2.htm, handbook/eda/section3/eda33q3.htm, handbook/eda/section3/eda33q4.htm, handbook/eda/section3/eda33q5.htm, handbook/eda/section3/eda33q6.htm, handbook/eda/section3/eda33q7.htm, handbook/eda/section3/eda33q8.htm, handbook/eda/section3/eda33q9.htm, handbook/eda/section3/eda33qa.htm, handbook/eda/section3/eda33qb.htm, handbook/eda/section3/eda33qc.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Check for Relationship**
+
+A scatter plot (Chambers 1983<!-- XREF: EDA bibliography entry for Chambers; source handbook/eda/section4/eda43.htm --> ) reveals relationships or association between two variables. Such relationships manifest themselves by any non-random structure in the plot. Various common types of patterns are demonstrated in the [examples](#sec-eda-scatter-plot-examples) below.
+
+```{r}
+#| code-fold: true
+#| label: setup-scatter-plot
+#| message: false
+library(tidyverse)
+```
+
+**Sample Plot: Linear Relationship Between Variables Y and X**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-sample
+#| fig-cap: "Scatter plot of the BERGER1.DAT (Alaska pipeline) data set showing a linear relationship"
+berger <- read_table(here::here("datasets", "BERGER1.DAT"), skip = 25,
+                      col_names = c("y", "x", "batch"), col_types = "ddc")
+
+ggplot(berger, aes(x, y)) +
+  geom_point() +
+  labs(x = "Measured In-Lab Defect Size", y = "Measured In-Field Defect Size") +
+  theme_light()
+```
+
+This sample plot of the Alaska pipeline data reveals a linear relationship between the two variables, indicating that a linear regression model might be appropriate.
+
+**Definition: Y Versus X**
+
+A scatter plot is a plot of the values of $Y$ versus the corresponding values of $X$:
+
+- Vertical axis: variable $Y$ — usually the response variable
+- Horizontal axis: variable $X$ — usually some variable we suspect may be related to the response
+
+**Questions**
+
+Scatter plots can provide answers to the following questions:
+
+1. Are variables $X$ and $Y$ related?
+2. Are variables $X$ and $Y$ linearly related?
+3. Are variables $X$ and $Y$ non-linearly related?
+4. Does the variation in $Y$ change depending on $X$?
+5. Are there outliers?
+
+**Importance: Uncover Relationships Between Variables**
+
+The cornerstone of science and engineering is the discovery of deterministic, predictable, repeatable cause-and-effect relationships between variables. Similarly, the cornerstone of EDA is the scatter plot, which is the most important and most heavily used graphical tool for uncovering the existence and nature of relationships between variables.
+
+Scatter plots reveal association, which is step one toward cause-and-effect. There is no statistical procedure, the scatter plot included, that proves cause-and-effect. Such proof is beyond the realm of statistics. Scatter plots can highly suggest cause-and-effect, but the ultimate proof of such is the scientist and engineer — in his/her noting the structure in the data and then explaining such structure via scientific and engineering experience and expertise.
+
+**Examples** {#sec-eda-scatter-plot-examples}
+
+The following ten examples show the common types of relationship patterns a scatter plot can reveal. Except where a specific NIST data set is named in the original discussion, the data below are synthetic illustrations generated to visibly exhibit the named relationship, and are labeled as such.
+
+**1. No Relationship**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-no-relationship
+#| fig-cap: "Synthetic illustration of a scatter plot with no relationship between X and Y"
+set.seed(101)
+n <- 100
+no_rel <- tibble(x = runif(n, 0, 10), y = runif(n, -2, 2))
+
+ggplot(no_rel, aes(x, y)) +
+  geom_point() +
+  theme_light()
+```
+
+This is a synthetic illustration: `x` and `y` were drawn independently from uniform distributions. Note in the plot above how for a given value of $X$ (say $X = 0.5$), the corresponding values of $Y$ range all over the place from $Y = -2$ to $Y = +2$. The same is true for other values of $X$. This lack of predictability in determining $Y$ from a given value of $X$, and the associated amorphous, non-structured appearance of the scatter plot, leads to the summary conclusion: no relationship.
+
+**2. Strong Linear (Positive Correlation) Relationship**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-strong-linear-positive
+#| fig-cap: "Scatter plot of the LEW3.DAT data set showing a strong positive linear correlation"
+lew3 <- read_table(here::here("datasets", "LEW3.DAT"), skip = 25,
+                    col_names = c("y", "x", "batch"), col_types = "ddd") |>
+  drop_na()
+
+ggplot(lew3, aes(x, y)) +
+  geom_point() +
+  labs(x = "Elapsed Days", y = "Tensile Strength (Maturity)") +
+  theme_light()
+```
+
+Note in the plot above of the LEW3.DAT data set how a straight line comfortably fits through the data; hence a linear relationship exists. The scatter about the line is quite small, so there is a strong linear relationship. The slope of the line is positive (small values of $X$ correspond to small values of $Y$; large values of $X$ correspond to large values of $Y$), so there is a positive co-relation (that is, a positive correlation) between $X$ and $Y$.
+
+**3. Strong Linear (Negative Correlation) Relationship**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-strong-linear-negative
+#| fig-cap: "Synthetic illustration of a scatter plot with a strong negative correlation"
+set.seed(102)
+neg_lin <- tibble(x = runif(n, 0, 10))
+neg_lin$y <- 20 - 2 * neg_lin$x + rnorm(n, 0, 1)
+
+ggplot(neg_lin, aes(x, y)) +
+  geom_point() +
+  theme_light()
+```
+
+This is a synthetic illustration. Note in the plot above how a straight line comfortably fits through the data; hence there is a linear relationship. The scatter about the line is quite small, so there is a strong linear relationship. The slope of the line is negative (small values of $X$ correspond to large values of $Y$; large values of $X$ correspond to small values of $Y$), so there is a negative co-relation (that is, a negative correlation) between $X$ and $Y$.
+
+**4. Exact Linear (Positive Correlation) Relationship**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-exact-linear
+#| fig-cap: "Synthetic illustration of a scatter plot with an exact linear relationship"
+exact_lin <- tibble(x = seq(0, 10, length.out = 50))
+exact_lin$y <- 3 + 2 * exact_lin$x
+
+ggplot(exact_lin, aes(x, y)) +
+  geom_point() +
+  theme_light()
+```
+
+This is a synthetic illustration: `y` is a deterministic linear function of `x` with no added noise. Note in the plot above how a straight line comfortably fits through the data; hence there is a linear relationship. The scatter about the line is zero — there is perfect predictability between $X$ and $Y$ — so there is an exact linear relationship. The slope of the line is positive (small values of $X$ correspond to small values of $Y$; large values of $X$ correspond to large values of $Y$), so there is a positive co-relation (that is, a positive correlation) between $X$ and $Y$.
+
+**5. Quadratic Relationship**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-quadratic
+#| fig-cap: "Synthetic illustration of a scatter plot with a quadratic relationship"
+set.seed(105)
+quad <- tibble(x = runif(n, -5, 5))
+quad$y <- 2 + 0.5 * quad$x + 1.2 * quad$x^2 + rnorm(n, 0, 3)
+
+ggplot(quad, aes(x, y)) +
+  geom_point() +
+  theme_light()
+```
+
+This is a synthetic illustration. Note in the plot above how no imaginable simple straight line could ever adequately describe the relationship between $X$ and $Y$ — a curved (or curvilinear, or non-linear) function is needed. The simplest such curvilinear function is a quadratic model
+
+$$Y_i = A + BX_i + CX_i^2 + E_i$$
+
+for some $A$, $B$, and $C$. Many other curvilinear functions are possible, but the data analysis principle of parsimony suggests that we try fitting a quadratic function first.
+
+**6. Exponential Relationship**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-exponential
+#| fig-cap: "Scatter plot of the CHWIRUT2.DAT data set showing an exponential relationship"
+chwirut <- read_table(here::here("datasets", "CHWIRUT2.DAT"), skip = 25,
+                       col_names = c("y", "x", "tag"), col_types = "ddd")
+
+ggplot(chwirut, aes(x, y)) +
+  geom_point() +
+  labs(x = "Metal Distance", y = "Ultrasonic Response") +
+  theme_light()
+```
+
+Note that a simple straight line is grossly inadequate in describing the relationship between $X$ and $Y$ in this plot of the CHWIRUT2.DAT data set. A quadratic model would prove lacking, especially for large values of $X$. In this example, the large values of $X$ correspond to nearly constant values of $Y$, and so a non-linear function beyond the quadratic is needed. Among the many other non-linear functions available, one of the simpler ones is the exponential model
+
+$$Y_i = A + Be^{CX_i} + E_i$$
+
+for some $A$, $B$, and $C$. In this case, an exponential function would, in fact, fit well, and so one is led to the summary conclusion of an exponential relationship.
+
+**7. Sinusoidal Relationship (Damped)**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-sinusoidal-damped
+#| fig-cap: "Scatter plot of the LUTHER.DAT data set showing a damped sinusoidal relationship"
+luther <- read_table(here::here("datasets", "LUTHER.DAT"), skip = 25,
+                      col_names = "y", col_types = "d")
+luther$t <- seq_along(luther$y)
+
+ggplot(luther, aes(t, y)) +
+  geom_point() +
+  labs(x = "Time", y = "Pendulum Angle") +
+  theme_light()
+```
+
+The complex relationship between $X$ and $Y$ in this plot of the LUTHER.DAT data set appears to be basically oscillatory, and so one is naturally drawn to the trigonometric sinusoidal model
+
+$$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
+
+Closer inspection of the scatter plot reveals that the amount of swing (the amplitude $\alpha$ in the model) does not appear to be constant but rather is decreasing (damping) as $X$ gets large. We thus would be led to the conclusion: damped sinusoidal relationship, with the simplest corresponding model being
+
+$$Y_i = C + (B_0 + B_1 t_i)\sin(2\pi\omega t_i + \phi) + E_i$$
+
+**8. Variation of Y Does NOT Depend on X (Homoscedastic)**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-homoscedastic
+#| fig-cap: "Synthetic illustration of a scatter plot with homoscedastic variability"
+set.seed(108)
+homosc <- tibble(x = runif(n, 0, 20))
+homosc$y <- 5 + 1.5 * homosc$x + rnorm(n, 0, 10)
+
+ggplot(homosc, aes(x, y)) +
+  geom_point() +
+  theme_light()
+```
+
+This is a synthetic illustration: the noise added to `y` has constant standard deviation regardless of `x`. This scatter plot reveals a linear relationship between $X$ and $Y$: for a given value of $X$, the predicted value of $Y$ will fall on a line. The plot further reveals that the variation in $Y$ about the predicted value is about the same, regardless of the value of $X$. Statistically, this is referred to as homoscedasticity. Such homoscedasticity is very important as it is an underlying assumption for regression, and its violation leads to parameter estimates with inflated variances. If the data are homoscedastic, then the usual regression estimates can be used. If the data are not homoscedastic, then the estimates can be improved using weighting procedures as shown in the next example.
+
+**9. Variation of Y DOES Depend on X (Heteroscedastic)**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-heteroscedastic
+#| fig-cap: "Scatter plot of the BERGER1.DAT (Alaska pipeline) data set showing heteroscedastic variability"
+ggplot(berger, aes(x, y)) +
+  geom_point() +
+  labs(x = "Measured In-Lab Defect Size", y = "Measured In-Field Defect Size") +
+  theme_light()
+```
+
+This scatter plot of the Alaska pipeline data reveals an approximate linear relationship between $X$ and $Y$, but more importantly, it reveals a statistical condition referred to as heteroscedasticity (that is, nonconstant variation in $Y$ over the values of $X$). For a heteroscedastic data set, the variation in $Y$ differs depending on the value of $X$. In this example, small values of $X$ yield small scatter in $Y$ while large values of $X$ result in large scatter in $Y$.
+
+Heteroscedasticity complicates the analysis somewhat, but its effects can be overcome by:
+
+- proper weighting of the data, with noisier data being weighted less, or
+- performing a $Y$ variable transformation to achieve homoscedasticity. The [Box-Cox Normality Plot](#sec-eda-box-cox-normality-plot) can help determine a suitable transformation.
+
+*Impact of Ignoring Unequal Variability in the Data*
+
+Fortunately, unweighted regression analyses on heteroscedastic data produce estimates of the coefficients that are unbiased. However, the coefficients will not be as precise as they would be with proper weighting. Note further that if heteroscedasticity does exist, it is frequently useful to plot and model the local variation
+
+$$\text{var}(Y_i \mid X_i) = g(X_i)$$
+
+as a function of $X$. This modeling has two advantages: it provides additional insight and understanding as to how the response $Y$ relates to $X$; and it provides a convenient means of forming weights for a weighted regression by simply using
+
+$$w_i = W(Y_i \mid X_i) = \frac{1}{\text{Var}(Y_i \mid X_i)} = \frac{1}{g(X_i)}$$
+
+The topic of non-constant variation is discussed in some detail in the Process Modeling chapter<!-- XREF: Process Modeling chapter, non-constant variance / weighted regression; source handbook/pmd/section4/pmd44.htm -->.
+
+**10. Outlier**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-outlier
+#| fig-cap: "Synthetic illustration of a scatter plot with a single outlier"
+set.seed(110)
+outlier_ex <- tibble(x = runif(n, 0, 500))
+outlier_ex$y <- 2 + 0.1 * outlier_ex$x + rnorm(n, 0, 3)
+i_out <- which.min(abs(outlier_ex$x - 375))
+outlier_ex$y[i_out] <- outlier_ex$y[i_out] + 40
+
+ggplot(outlier_ex, aes(x, y)) +
+  geom_point() +
+  theme_light()
+```
+
+This is a synthetic illustration: a single point near $X = 375$ was deliberately perturbed away from an otherwise linear relationship. The scatter plot here reveals a basic linear relationship between $X$ and $Y$ for most of the data, and a single outlier (at $X = 375$). An outlier is defined as a data point that emanates from a different model than do the rest of the data. The data here appear to come from a linear model with a given slope and variation except for the outlier, which appears to have been generated from some other model.
+
+Outlier detection is important for effective modeling. Outliers should be excluded from such model fitting. If all the data here are included in a linear regression, then the fitted model will be poor virtually everywhere. If the outlier is omitted from the fitting process, then the resulting fit will be excellent almost everywhere (for all points except the outlying point).
+
+**Combining Scatter Plots**
+
+Scatter plots can also be combined in multiple plots per page to help understand higher-level structure in data sets with more than two variables. The scatterplot matrix generates all pairwise scatter plots on a single page. The conditioning plot, also called a co-plot or subset plot, generates scatter plots of $Y$ versus $X$ dependent on the value of a third variable.
+
+**Causality Is Not Proved By Association**
+
+The scatter plot uncovers relationships in data. "Relationships" means that there is some structured association (linear, quadratic, etc.) between $X$ and $Y$. Note, however, that even though causality implies association, association does NOT imply causality. Scatter plots are a useful diagnostic tool for determining association, but if such association exists, the plot may or may not suggest an underlying cause-and-effect mechanism. A scatter plot can never "prove" cause and effect — it is ultimately only the researcher (relying on the underlying science/engineering) who can conclude that causality actually exists.
+
+**Appearance**
+
+The most popular rendition of a scatter plot is some plot character (e.g., a filled circle) at the data points, and no line connecting data points. Other scatter plot format variants include an optional plot character at the data points, but a solid line connecting data points. In both cases, the resulting plot is referred to as a scatter plot, although the former (discrete and disconnected) is the author's personal preference since nothing makes it onto the screen except the data — there are no interpolative artifacts to bias the interpretation.
+
+**Related Techniques**
+
+[Run Sequence Plot](#sec-eda-run-sequence-plot), [Box Plot](#sec-eda-box-plot), [Block Plot](#sec-eda-block-plot).
+
+**Case Study**
+
+The scatter plot is demonstrated in the load cell calibration data case study<!-- XREF: Process Modeling chapter, load cell calibration case study; source handbook/pmd/section6/pmd61.htm -->.
+
+**Software**
+
+Scatter plots are a fundamental technique that should be available in any general purpose statistical software program. Scatter plots are also available in most graphics and spreadsheet programs as well.
+
+##### Scatterplot Matrix
+
+**Purpose: Check Pairwise Relationships Between Variables**
+
+Given a set of variables $X_1, X_2, \ldots, X_k$, the scatterplot matrix contains all the pairwise scatter plots of the variables on a single page in a matrix format. That is, if there are $k$ variables, the scatterplot matrix will have $k$ rows and $k$ columns, and the $i$th row and $j$th column of this matrix is a plot of $X_i$ versus $X_j$.
+
+Although the basic concept of the scatterplot matrix is simple, there are numerous alternatives in the details of the plots. The diagonal plot is simply a 45-degree line since we are plotting $X_i$ versus $X_i$. Although this has some usefulness in terms of showing the univariate distribution of the variable, other alternatives are common: some users prefer to use the diagonal to print the variable label, others plot the univariate histogram on the diagonal, and others simply leave the diagonal blank. Since $X_i$ versus $X_j$ is equivalent to $X_j$ versus $X_i$ with the axes reversed, some prefer to omit the plots below the diagonal. It can also be helpful to overlay some type of fitted curve (a linear or quadratic fit, or, most commonly, a lowess curve) on each scatter plot.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-matrix
+#| fig-cap: "Manual scatterplot matrix of a synthetic three-variable data set"
+set.seed(111)
+nn <- 150
+sm <- tibble(v1 = rnorm(nn, 10, 2))
+sm$v2 <- 0.6 * sm$v1 + rnorm(nn, 0, 1.5)
+sm$v3 <- -0.4 * sm$v1 + rnorm(nn, 0, 2)
+
+vars <- c("v1", "v2", "v3")
+pairs_df <- map_dfr(vars, function(row_var) {
+  map_dfr(vars, function(col_var) {
+    tibble(row = row_var, col = col_var, x = sm[[col_var]], y = sm[[row_var]])
+  })
+}) |>
+  mutate(row = factor(row, levels = vars), col = factor(col, levels = vars))
+
+ggplot(pairs_df, aes(x, y)) +
+  geom_point(size = 0.7, alpha = 0.6) +
+  facet_grid(rows = vars(row), cols = vars(col), scales = "free") +
+  labs(x = NULL, y = NULL) +
+  theme_light()
+```
+
+This example uses a synthetic three-variable data set (`v1`, `v2`, `v3`, with `v2` positively correlated and `v3` negatively correlated with `v1`), built with `ggplot2::facet_grid()` as a manual small-multiple grid. The `GGally` package's `ggpairs()` function is the more common way to generate a scatterplot matrix directly, but it was not available in this environment; the manual facet grid above reproduces the same layout of pairwise panels.
+
+There are a number of ways to view a plot like this. If we are primarily interested in a particular variable, we can scan the row and column for that variable. If we are interested in finding the strongest relationship, we can scan all the plots and then determine which variables are related.
+
+**Definition**
+
+Given $k$ variables, scatter plot matrices are formed by creating $k$ rows and $k$ columns. Each row and column defines a single scatter plot. The individual plot for row $i$ and column $j$ is defined as:
+
+- Vertical axis: Variable $X_i$
+- Horizontal axis: Variable $X_j$
+
+**Questions**
+
+The scatterplot matrix can provide answers to the following questions:
+
+1. Are there pairwise relationships between the variables?
+2. If there are relationships, what is the nature of these relationships?
+3. Are there outliers in the data?
+4. Is there clustering by groups in the data?
+
+**Linking and Brushing**
+
+The scatterplot matrix serves as the foundation for the concepts of linking and brushing. By linking, we mean showing how a point, or set of points, behaves in each of the plots. This is accomplished by highlighting these points in some fashion — for example, the highlighted points could be drawn as a filled circle while the remaining points are drawn as unfilled circles. A typical application of this would be to show how an outlier shows up in each of the individual pairwise plots.
+
+Brushing extends this concept a bit further. In brushing, the points to be highlighted are interactively selected by a mouse and the scatterplot matrix is dynamically updated (ideally in real time). That is, we can select a rectangular region of points in one plot and see how those points are reflected in the other plots. Brushing is discussed in detail by Becker, Cleveland, and Wilks in the paper "Dynamic Graphics for Data Analysis" (Cleveland and McGill, 1988<!-- XREF: EDA bibliography entry for Cleveland and McGill; source handbook/eda/section4/eda43.htm -->).
+
+**Related Techniques**
+
+[Star Plot](#sec-eda-star-plot), [Scatter Plot](#sec-eda-scatter-plot), Locally Weighted Least Squares<!-- XREF: Process Modeling chapter, LOESS/lowess; source handbook/pmd/section1/pmd144.htm -->.
+
+**Software**
+
+Scatterplot matrices are becoming increasingly common in general purpose statistical software programs. If a software program does not generate scatterplot matrices, but it does provide multiple plots per page and scatter plots, it should be possible to write a macro to generate a scatterplot matrix. Brushing is available in a few of the general purpose statistical software programs that emphasize graphical approaches.
+
+##### Conditioning Plot
+
+**Purpose: Check Pairwise Relationship Between Two Variables Conditional on a Third Variable**
+
+A conditioning plot, also known as a coplot or subset plot, is a plot of two variables conditional on the value of a third variable (called the conditioning variable). The conditioning variable may be either a variable that takes on only a few discrete values or a continuous variable that is divided into a limited number of subsets.
+
+One limitation of the scatterplot matrix is that it cannot show interaction effects with another variable. This is the strength of the conditioning plot. It is also useful for displaying scatter plots for groups in the data. Although these groups can also be plotted on a single plot with different plot symbols, it can often be visually easier to distinguish the groups using the conditioning plot.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: fig-scatter-plot-conditioning
+#| fig-cap: "Conditioning plot of the PR1.DAT data set: torque versus time, conditioned on temperature"
+pr1 <- read_table(here::here("datasets", "PR1.DAT"), skip = 25,
+                   col_names = c("t", "tmp", "y"), col_types = "ddd")
+
+ggplot(pr1, aes(t, y)) +
+  geom_point() +
+  facet_wrap(~ tmp, labeller = label_both) +
+  labs(x = "Time", y = "Torque") +
+  theme_light()
+```
+
+In this plot of the PR1.DAT data set, temperature has six distinct values. We plot torque versus time for each of these temperatures, using `ggplot2::facet_wrap()` over the discrete temperature groups. This example is discussed in more detail in the Process Modeling chapter<!-- XREF: Process Modeling chapter, polymer relaxation / PR1.DAT example; source handbook/pmd/section4/pmd422.htm -->.
+
+**Definition**
+
+Given the variables $X$, $Y$, and $Z$, the conditioning plot is formed by dividing the values of $Z$ into $k$ groups. There are several ways that these groups may be formed: there may be a natural grouping of the data, the data may be divided into several equal sized groups, the grouping may be determined by clusters in the data, and so on. The page is divided into $n$ rows and $c$ columns where $nc \geq k$. Each row and column defines a single scatter plot. The individual plot for row $i$ and column $j$ is defined as:
+
+- Vertical axis: Variable $Y$
+- Horizontal axis: Variable $X$
+
+where only the points in the group corresponding to the $i$th row and $j$th column are used.
+
+**Questions**
+
+The conditioning plot can provide answers to the following questions:
+
+1. Is there a relationship between two variables?
+2. If there is a relationship, does the nature of the relationship depend on the value of a third variable?
+3. Are groups in the data similar?
+4. Are there outliers in the data?
+
+**Related Techniques**
+
+[Scatter Plot](#sec-eda-scatter-plot), Scatterplot Matrix, Locally Weighted Least Squares<!-- XREF: Process Modeling chapter, LOESS/lowess; source handbook/pmd/section1/pmd144.htm -->.
+
+**Software**
+
+Conditioning plots are becoming increasingly common in general purpose statistical software programs, including R and Dataplot. If a software program does not generate conditioning plots, but it does provide multiple plots per page and scatter plots, it should be possible to write a macro to generate a conditioning plot.

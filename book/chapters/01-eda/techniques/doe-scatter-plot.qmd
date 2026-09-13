@@ -1,10 +1,136 @@
 #### DOE Scatter Plot {#sec-eda-doe-scatter-plot}
 
-<!--
-Source: handbook/eda/section3/eda33b.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Determine Important Factors with Respect to Location and Scale**
+
+The DOE scatter plot shows the response values for each level of each factor (i.e., independent) variable. This graphically shows how the location and scale vary for both within a factor variable and between different factor variables. This graphically shows which are the important factors and can help provide a ranked list of important factors from a designed experiment. The DOE scatter plot is a complement to the traditional analysis of variance of designed experiments.
+
+DOE scatter plots are typically used in conjunction with the [DOE mean plot](#sec-eda-doe-mean-plot) and the [DOE standard deviation plot](#sec-eda-doe-standard-deviation-plot). The DOE mean plot replaces the raw response values with mean response values while the DOE standard deviation plot replaces the raw response values with the standard deviation of the response values. There is value in generating all 3 of these plots. The DOE mean and standard deviation plots are useful in that the summary measures of location and spread stand out (they can sometimes get lost with the raw plot). However, the raw data points can reveal subtleties, such as the presence of outliers, that might get lost with the summary statistics.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-scatter-plot
+#| message: false
+library(tidyverse)
+
+# BOXBIKE2.DAT: Box, Hunter & Hunter (1978), "Statistics for Experimenters",
+# Wiley, p. 391. A 2^(7-4) fractional factorial design measuring the time
+# to climb a hill on a bicycle, with 7 two-level factors: seat height (X1),
+# dynamo engaged (X2), handlebar angle (X3), gear (X4), raincoat on/off
+# (X5), breakfast (X6), and tire pressure (X7). This 8-run table is entered
+# directly, exactly as given in the source data file.
+boxbike2 <- tribble(
+  ~Y, ~X1, ~X2, ~X3, ~X4, ~X5, ~X6, ~X7,
+  69, -1, -1, -1,  1,  1,  1, -1,
+  52,  1, -1, -1, -1, -1,  1,  1,
+  60, -1,  1, -1, -1,  1, -1,  1,
+  83,  1,  1, -1,  1, -1, -1, -1,
+  71, -1, -1,  1,  1, -1, -1,  1,
+  50,  1, -1,  1, -1,  1, -1, -1,
+  59, -1,  1,  1, -1, -1,  1, -1,
+  88,  1,  1,  1,  1,  1,  1,  1
+)
+
+boxbike2_long <- boxbike2 |>
+  pivot_longer(starts_with("X"), names_to = "factor", names_prefix = "X", values_to = "level") |>
+  mutate(
+    factor = as.integer(factor),
+    level = factor(level, levels = c(-1, 1), labels = c("-1", "+1")),
+    x_pos = factor + if_else(level == "-1", -0.2, 0.2)
+  )
+
+overall_mean <- mean(boxbike2$Y)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-scatter-plot-sample
+#| fig-cap: "DOE scatter plot of the BOXBIKE2.DAT data set"
+ggplot(boxbike2_long, aes(x_pos, Y)) +
+  geom_vline(xintercept = 1:7, linetype = "dotted", color = "grey60") +
+  geom_hline(yintercept = overall_mean) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = 1:7, labels = paste0("Factor ", 1:7)) +
+  labs(x = NULL, y = "Time to climb hill (sec)") +
+  theme_light()
+```
+
+**Description of the Plot**
+
+For this sample plot of the BOXBIKE2.DAT data set, there are seven factors and each factor has two levels. For each factor, we define a distinct $x$ coordinate for each level of the factor: level $-1$ is offset slightly to the left of the factor's tick mark and level $+1$ is offset slightly to the right. The $y$ coordinate is simply the value of the response variable. The solid horizontal line is drawn at the overall mean of the response variable. The vertical dotted lines are added for clarity.
+
+Although the plot can be drawn with an arbitrary number of levels for a factor, it is really only useful when there are two or three levels for a factor.
+
+**Conclusions**
+
+This DOE scatter plot of the BOXBIKE2.DAT data shows that:
+
+1. there does not appear to be any outliers;
+2. the levels of factors 2 and 4 show distinct location differences (the $-1$ and $+1$ points are well separated vertically); and
+3. the level of factor 1 shows a distinct scale difference (the $+1$ points are much more spread out than the $-1$ points).
+
+**Definition: Response Values Versus Factor Variables**
+
+DOE scatter plots are formed by:
+
+- Vertical axis: Value of the response variable
+- Horizontal axis: Factor variable (with each level of the factor coded with a slightly offset $x$ coordinate)
+
+**Questions**
+
+The DOE scatter plot can be used to answer the following questions:
+
+1. Which factors are important with respect to location and scale?
+2. Are there outliers?
+
+**Importance: Identify Important Factors with Respect to Location and Scale**
+
+The goal of many designed experiments is to determine which factors are important with respect to location and scale. A ranked list of the important factors is also often of interest. DOE scatter, mean, and standard deviation plots show this graphically. The DOE scatter plot additionally shows if outliers may potentially be distorting the results.
+
+DOE scatter plots were designed primarily for analyzing designed experiments. However, they are useful for any type of multi-factor data (i.e., a response variable with two or more factor variables having a small number of distinct levels) whether or not the data were generated from a designed experiment.
+
+**Extension for Interaction Effects**
+
+Using the concept of the scatter plot matrix<!-- XREF: EDA Graphical Techniques: Alphabetic, Scatter Plot Matrix; source handbook/eda/section3/eda33qb.htm -->, the DOE scatter plot can be extended to display first order interaction effects.
+
+Specifically, if there are $k$ factors, we create a matrix of plots with $k$ rows and $k$ columns. On the diagonal, the plot is simply a DOE scatter plot with a single factor. For the off-diagonal plots, we multiply the values of $X_i$ and $X_j$. For the common 2-level designs (i.e., each factor has two levels) the values are typically coded as -1 and 1, so the multiplied values are also -1 and 1. We then generate a DOE scatter plot for this interaction variable. This plot is called a DOE interaction effects plot.
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-scatter-plot-interaction
+#| fig-cap: "DOE interaction effects plot for factors X1, X2, and X3 of the BOXBIKE2.DAT data set"
+interactions <- boxbike2 |>
+  transmute(Y, X1, X2, X3, `X1:X2` = X1 * X2, `X1:X3` = X1 * X3, `X2:X3` = X2 * X3) |>
+  pivot_longer(-Y, names_to = "term", values_to = "level") |>
+  mutate(
+    term = factor(term, levels = c("X1", "X2", "X3", "X1:X2", "X1:X3", "X2:X3")),
+    x_pos = as.integer(term) + if_else(level == -1, -0.2, 0.2)
+  )
+
+ggplot(interactions, aes(x_pos, Y)) +
+  geom_vline(xintercept = seq_len(nlevels(interactions$term)), linetype = "dotted", color = "grey60") +
+  geom_hline(yintercept = mean(boxbike2$Y)) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = seq_len(nlevels(interactions$term)), labels = levels(interactions$term)) +
+  labs(x = NULL, y = "Time to climb hill (sec)") +
+  theme_light()
+```
+
+**Interpretation of the DOE Interaction Effects Plot**
+
+We can first examine the main-effect columns (X1, X2, X3) for the main effects. As in the sample plot above, factors X1 and (especially) X2 show some separation between levels, while factor X3 shows relatively little.
+
+We can then examine the interaction columns for the first order interaction effects. For example, the `X1:X2` column is the interaction between factors X1 and X2. As with the individual factors, the amount of separation between the $-1$ and $+1$ groups in each interaction column indicates the importance of that interaction.
+
+**Related Techniques**
+
+[DOE mean plot](#sec-eda-doe-mean-plot), [DOE standard deviation plot](#sec-eda-doe-standard-deviation-plot), [Block plot](#sec-eda-block-plot), [Box plot](#sec-eda-box-plot), Analysis of variance<!-- XREF: Product and Process Comparisons chapter, analysis of variance; source handbook/prc/section4/prc42.htm -->.
+
+**Case Study**
+
+The DOE scatter plot is demonstrated in the ceramic strength data case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm -->
+
+**Software**
+
+DOE scatter plots are available in some general purpose statistical software programs, although the format may vary somewhat between these programs. They are essentially just scatter plots with the X variable defined in a particular way, so it should be feasible to write macros for DOE scatter plots in most statistical software programs.

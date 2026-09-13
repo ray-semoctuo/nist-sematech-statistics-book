@@ -1,10 +1,186 @@
 #### Contour Plot {#sec-eda-contour-plot}
 
-<!--
-Source: handbook/eda/section3/eda33a.htm, handbook/eda/section3/eda33a1.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Display 3-D Surface on 2-D Plot**
+
+A contour plot is a graphical technique for representing a 3-dimensional surface by plotting constant $z$ slices, called contours, on a 2-dimensional format. That is, given a value for $z$, lines are drawn for connecting the $(x, y)$ coordinates where that $z$ value occurs.
+
+The contour plot is an alternative to a 3-D surface plot.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-contour-plot
+#| message: false
+library(tidyverse)
+
+# The source page's sample plot is illustrative, showing a generic
+# symmetric, single-peaked surface, with no specific named dataset or
+# equation given. A comparable synthetic surface, a paraboloid peaking at
+# the center of the (x, y) grid, is used here for the same illustrative
+# purpose.
+surface <- expand_grid(
+  x = seq(0, 10, length.out = 80),
+  y = seq(0, 10, length.out = 80)
+) |>
+  mutate(z = 50 - (x - 5)^2 - (y - 5)^2)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-contour-plot-sample
+#| fig-cap: "Contour plot of a synthetic, symmetric, single-peaked surface"
+ggplot(surface, aes(x, y, z = z)) +
+  geom_contour_filled(alpha = 0.8) +
+  geom_contour(color = "grey20", linewidth = 0.2) +
+  labs(x = "X", y = "Y", fill = "Z") +
+  theme_light()
+```
+
+This contour plot shows that the surface is symmetric and peaks in the center.
+
+**Definition**
+
+The contour plot is formed by:
+
+- Vertical axis: Independent variable 2
+- Horizontal axis: Independent variable 1
+- Lines: iso-response values
+
+The independent variables are usually restricted to a regular grid. The actual techniques for determining the correct iso-response values are rather complex and are almost always computer generated.
+
+An additional variable may be required to specify the $Z$ values for drawing the iso-lines. Some software packages require explicit values. Other software packages will determine them automatically.
+
+If the data (or function) do not form a regular grid, you typically need to perform a 2-D interpolation to form a regular grid.
+
+**Questions**
+
+The contour plot is used to answer the question:
+
+- How does $Z$ change as a function of $X$ and $Y$?
+
+**Importance: Visualizing 3-Dimensional Data**
+
+For univariate data, a [run sequence plot](#sec-eda-run-sequence-plot) and a [histogram](#sec-eda-histogram) are considered necessary first steps in understanding the data. For 2-dimensional data, a [scatter plot](#sec-eda-scatter-plot) is a necessary first step in understanding the data.
+
+In a similar manner, 3-dimensional data should be plotted. Small data sets, such as result from designed experiments, can typically be represented by [block plots](#sec-eda-block-plot), [DOE mean plots](#sec-eda-doe-mean-plot), and the like ("DOE" stands for "Design of Experiments"). For large data sets, a contour plot or a 3-D surface plot should be considered a necessary first step in understanding the data.
+
+**Related Techniques**
+
+3-D Plot
+
+**Software**
+
+Contour plots are available in most general purpose statistical software programs. They are also available in many general purpose graphics and mathematics programs. These programs vary widely in the capabilities for the contour plots they generate. Many provide just a basic contour plot over a rectangular grid while others permit color filled or shaded contours.
+
+Most statistical software programs that support design of experiments will provide a DOE contour plot capability.
+
+##### DOE Contour Plot {#sec-eda-doe-contour-plot}
+
+**DOE Contour Plot: Introduction**
+
+The DOE contour plot is a specialized contour plot used in the analysis of full<!-- XREF: Process Improvement chapter, full factorial designs; source handbook/pri/section3/pri333.htm --> and fractional<!-- XREF: Process Improvement chapter, fractional factorial designs; source handbook/pri/section3/pri334.htm --> experimental designs. These designs often have a low level, coded as "-1" or "-", and a high level, coded as "+1" or "+" for each factor. In addition, there can optionally be one or more center points. Center points are at the mid-point between the low and high level for each factor and are coded as "0".
+
+The DOE contour plot is generated for two factors. Typically, this would be the two most important factors as determined by previous analyses (e.g., through the use of the [DOE mean plots](#sec-eda-doe-mean-plot) and an analysis of variance<!-- XREF: Production Process Characterization chapter, analysis of variance; source handbook/ppc/section2/ppc23.htm -->). If more than two factors are important, you may want to generate a series of DOE contour plots, each of which is drawn for two of these factors. You can also generate a matrix of all pairwise DOE contour plots for a number of important factors (similar to the scatter plot matrix<!-- XREF: EDA Graphical Techniques: Alphabetic, Scatter Plot Matrix; source handbook/eda/section3/eda33qb.htm --> for scatter plots).
+
+The typical application of the DOE contour plot is in determining settings that will maximize (or minimize) the response variable. It can also be helpful in determining settings that result in the response variable hitting a pre-determined target value. The DOE contour plot plays a useful role in determining the settings for the next iteration of the experiment. That is, the initial experiment is typically a fractional factorial design with a fairly large number of factors. After the most important factors are determined, the DOE contour plot can be used to help define settings for a full factorial or response surface design based on a smaller number of factors.
+
+**Construction of DOE Contour Plot**
+
+The following are the primary steps in the construction of the DOE contour plot.
+
+1. The $x$ and $y$ axes of the plot represent the values of the first and second factor (independent) variables.
+2. The four vertex points are drawn. The vertex points are $(-1,-1)$, $(-1,1)$, $(1,1)$, $(1,-1)$. At each vertex point, the average of all the response values at that vertex point is printed.
+3. Similarly, if there are center points, a point is drawn at $(0,0)$ and the average of the response values at the center points is printed.
+4. The **linear** DOE contour plot assumes the model:
+
+   $$Y = \mu + \beta_1 \cdot U_1 + \beta_2 \cdot U_2 + \beta_{12} \cdot U_1 \cdot U_2$$
+
+   where $\mu$ is the overall mean of the response variable. The values of $\beta_1$, $\beta_2$, $\beta_{12}$, and $\mu$ are estimated from the vertex points using least squares<!-- XREF: Process Modeling chapter, least squares estimation; source handbook/pmd/section4/pmd431.htm --> estimation.
+
+   In order to generate a single contour line, we need a value for $Y$, say $Y_0$. Next, we solve for $U_2$ in terms of $U_1$ and, after doing the algebra, we have the equation:
+
+   $$U_2 = \frac{(Y_0 - \mu) - \beta_1 \cdot U_1}{\beta_2 + \beta_{12} \cdot U_1}$$
+
+   We generate a sequence of points for $U_1$ in the range -2 to 2 and compute the corresponding values of $U_2$. These points constitute a single contour line corresponding to $Y = Y_0$.
+
+   The user specifies the target values for which contour lines will be generated.
+
+The above algorithm assumes a linear model for the design. DOE contour plots can also be generated for the case in which we assume a quadratic model for the design. The algebra for solving for $U_2$ in terms of $U_1$ becomes more complicated, but the fundamental idea is the same. Quadratic models are needed for the case when the average for the center points does not fall in the range defined by the vertex points (i.e., there is curvature).
+
+**Sample DOE Contour Plot**
+
+The source page's example uses the Eddy current case study data<!-- XREF: Process Improvement Case Studies, Eddy Current Probe Sensitivity Study; source handbook/pri/section6/pri61.htm -->, which is not part of the material migrated into this chapter. A synthetic 2-factor, 4-vertex design with a center point is used below to illustrate the same construction.
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-contour-plot
+#| message: false
+# Synthetic illustration: average response at each vertex of a 2^2 design,
+# plus a center point average.
+vertices <- tribble(
+  ~U1, ~U2, ~Y,
+  -1, -1, 60,
+  -1,  1, 72,
+   1,  1, 95,
+   1, -1, 83
+)
+center_point <- tibble(U1 = 0, U2 = 0, Y = 78)
+
+fit <- lm(Y ~ U1 * U2, data = vertices)
+mu <- coef(fit)[["(Intercept)"]]
+b1 <- coef(fit)[["U1"]]
+b2 <- coef(fit)[["U2"]]
+b12 <- coef(fit)[["U1:U2"]]
+
+# Solve for U2 in terms of U1 for a given target response Y0, per the
+# formula above.
+doe_contour_line <- function(y0, mu, b1, b2, b12, u1_range = seq(-2, 2, length.out = 400)) {
+  tibble(U1 = u1_range, Y0 = y0) |>
+    mutate(U2 = ((Y0 - mu) - b1 * U1) / (b2 + b12 * U1)) |>
+    filter(is.finite(U2), abs(U2) <= 2)
+}
+
+target_values <- c(65, 75, 85, 95)
+contour_lines <- map_dfr(target_values, doe_contour_line, mu = mu, b1 = b1, b2 = b2, b12 = b12)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-contour-plot-sample
+#| fig-cap: "DOE contour plot for a synthetic 2-factor design with a center point"
+ggplot() +
+  geom_path(data = contour_lines, aes(U1, U2, group = Y0, color = factor(Y0))) +
+  geom_point(data = vertices, aes(U1, U2), size = 2) +
+  geom_text(data = vertices, aes(U1, U2, label = Y), vjust = -1) +
+  geom_point(data = center_point, aes(U1, U2), size = 2, shape = 17) +
+  geom_text(data = center_point, aes(U1, U2, label = Y), vjust = -1) +
+  coord_equal(xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5)) +
+  labs(x = expression(U[1]), y = expression(U[2]), color = expression(Y[0])) +
+  theme_light()
+```
+
+**Interpretation of the Sample DOE Contour Plot**
+
+From the above DOE contour plot we can derive the following information:
+
+1. Interaction significance;
+2. Best (data) setting for these two dominant factors.
+
+*Interaction Significance*
+
+Note the appearance of the contour plot. If the contour curves are linear, then that implies that the interaction term is not significant; if the contour curves have considerable curvature, then that implies that the interaction term is large and important. In this synthetic example, the contour curves have relatively little curvature, so the $U_1 \cdot U_2$ interaction term is small relative to the main effects.
+
+*Best Settings*
+
+To determine the best factor settings for the already-run experiment, we first must define what "best" means. If "best" means to **maximize** (rather than minimize or hit a target) the response, then from the contour plot we determine the best settings for the two dominant factors by simply scanning the four vertices and choosing the vertex with the **largest** value (= average response). In this synthetic example, that is $(U_1 = +1, U_2 = +1)$, with an average response of 95.
+
+For any additional factors not shown on this plot, the contour plot provides no best-setting information, and so we would resort to other tools: the main effects plot, the interaction effects matrix, or the ordered data to determine optimal settings for those factors.
+
+**Case Study**
+
+The Eddy current case study demonstrates the use of the DOE contour plot in the context of the analysis of a full factorial design.<!-- XREF: Process Improvement Case Studies, Eddy Current Probe Sensitivity Study; source handbook/pri/section6/pri61.htm -->
+
+**Software**
+
+DOE Contour plots are available in many statistical software programs that analyze data from designed experiments.

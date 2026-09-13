@@ -1,10 +1,115 @@
 #### Quantile-Quantile Plot {#sec-eda-quantile-quantile-plot}
 
-<!--
-Source: handbook/eda/section3/eda33o.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Check If Two Data Sets Can Be Fit With the Same Distribution**
+
+The quantile-quantile (q-q) plot is a graphical technique for determining if two data sets come from populations with a common distribution.
+
+A q-q plot is a plot of the quantiles of the first data set against the quantiles of the second data set. By a quantile, we mean the fraction (or percent) of points below the given value. That is, the 0.3 (or 30%) quantile is the point at which 30% of the data fall below and 70% fall above that value.
+
+A 45-degree reference line is also plotted. If the two sets come from a population with the same distribution, the points should fall approximately along this reference line. The greater the departure from this reference line, the greater the evidence for the conclusion that the two data sets have come from populations with different distributions.
+
+The advantages of the q-q plot are:
+
+- The sample sizes do not need to be equal.
+- Many distributional aspects can be simultaneously tested. For example, shifts in location, shifts in scale, changes in symmetry, and the presence of outliers can all be detected from this plot. For example, if the two data sets come from populations whose distributions differ only by a shift in location, the points should lie along a straight line that is displaced either up or down from the 45-degree reference line.
+
+The q-q plot is similar to a [probability plot](#sec-eda-probability-plot). For a probability plot, the quantiles for one of the data samples are replaced with the quantiles of a theoretical distribution.
+
+```{r}
+#| code-fold: true
+#| label: setup-quantile-quantile-plot
+#| message: false
+library(tidyverse)
+
+jahanmi2 <- read_table(
+  here::here("datasets", "JAHANMI2.DAT"),
+  skip = 50,
+  col_names = c("run", "lab", "bar", "set", "y", paste0("x", 1:10), "set2"),
+  col_types = cols(.default = "d")
+)
+
+# x9 in this reading is the "Bar Batch" factor (2 levels) used to split
+# the ceramic strength data into the two batches compared below.
+batch1 <- sort(jahanmi2$y[jahanmi2$x9 == 1])
+batch2 <- sort(jahanmi2$y[jahanmi2$x9 == 2])
+
+# When the two samples are equal in size (as here), the q-q plot is
+# simply sorted sample 1 against sorted sample 2. When sizes differ,
+# the quantiles of the larger sample are linearly interpolated to the
+# quantile levels of the smaller sample.
+qq_data <- function(x, y) {
+  nx <- length(x)
+  ny <- length(y)
+  if (nx == ny) {
+    tibble(q1 = sort(x), q2 = sort(y))
+  } else if (nx < ny) {
+    p <- (seq_len(nx) - 0.5) / nx
+    tibble(q1 = sort(x), q2 = quantile(sort(y), probs = p, type = 5, names = FALSE))
+  } else {
+    p <- (seq_len(ny) - 0.5) / ny
+    tibble(q1 = quantile(sort(x), probs = p, type = 5, names = FALSE), q2 = sort(y))
+  }
+}
+
+qq_plot <- function(x, y, xlab = "Data set 2", ylab = "Data set 1") {
+  d <- qq_data(x, y)
+  lims <- range(c(d$q1, d$q2))
+  ggplot(d, aes(q2, q1)) +
+    geom_point(shape = 1) +
+    geom_abline(slope = 1, intercept = 0, color = "firebrick", linetype = "dashed") +
+    coord_equal(xlim = lims, ylim = lims) +
+    labs(x = xlab, y = ylab) +
+    theme_light()
+}
+```
+
+**Sample Plot: This q-q plot of the JAHANMI2.DAT data set shows that these two batches do not appear to have come from populations with a common distribution**
+
+```{r}
+#| code-fold: true
+#| label: fig-quantile-quantile-plot-sample
+#| fig-cap: "Q-Q plot of Batch 1 versus Batch 2 of the JAHANMI2.DAT ceramic strength data"
+qq_plot(batch1, batch2, xlab = "Batch 2", ylab = "Batch 1")
+```
+
+This q-q plot of the JAHANMI2.DAT data set shows that:
+
+- These 2 batches do not appear to have come from populations with a common distribution.
+- The batch 1 values are significantly higher than the corresponding batch 2 values.
+- The differences are increasing from values 525 to 625. Then the values for the 2 batches get closer again.
+
+**Definition: Quantiles for Data Set 1 Versus Quantiles of Data Set 2**
+
+The q-q plot is formed by:
+
+- Vertical axis: Estimated quantiles from data set 1
+- Horizontal axis: Estimated quantiles from data set 2
+
+Both axes are in units of their respective data sets. That is, the actual quantile level is not plotted. For a given point on the q-q plot, we know that the quantile level is the same for both points, but not what that quantile level actually is.
+
+If the data sets have the same size, the q-q plot is essentially a plot of sorted data set 1 against sorted data set 2. If the data sets are not of equal size, the quantiles are usually picked to correspond to the sorted values from the smaller data set and then the quantiles for the larger data set are interpolated.
+
+**Questions**
+
+The q-q plot is used to answer the following questions:
+
+1. Do two data sets come from populations with a common distribution?
+2. Do two data sets have common location and scale?
+3. Do two data sets have similar distributional shapes?
+4. Do two data sets have similar tail behavior?
+
+**Importance: Check for Common Distribution**
+
+When there are two data samples, it is often desirable to know if the assumption of a common distribution is justified. If so, then location and scale estimators can pool both data sets to obtain estimates of the common location and scale. If two samples do differ, it is also useful to gain some understanding of the differences. The q-q plot can provide more insight into the nature of the difference than analytical methods such as the chi-square and Kolmogorov-Smirnov 2-sample tests.
+
+**Related Techniques**
+
+[Bihistogram](#sec-eda-bihistogram), [T Test](#sec-eda-two-sample-t-test), [F Test](#sec-eda-f-test-for-equality-of-variances), 2-Sample Chi-Square Test<!-- XREF: two-sample chi-square test background; source handbook/eda/section3/eda359.htm -->, 2-Sample Kolmogorov-Smirnov Test<!-- XREF: two-sample Kolmogorov-Smirnov test; source handbook/eda/section3/eda35g.htm -->.
+
+**Case Study**
+
+The quantile-quantile plot is demonstrated in the ceramic strength data case study<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a1.htm -->.
+
+**Software**
+
+Q-Q plots are available in some general purpose statistical software programs. If the number of data points in the two samples are equal, it should be relatively easy to write a macro in statistical programs that do not support the q-q plot. If the number of points are not equal, writing a macro for a q-q plot may be difficult.

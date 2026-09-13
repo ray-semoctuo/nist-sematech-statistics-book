@@ -1,10 +1,229 @@
 #### Normal Probability Plot {#sec-eda-normal-probability-plot}
 
-<!--
-Source: handbook/eda/section3/eda33l.htm, handbook/eda/section3/eda33l1.htm, handbook/eda/section3/eda33l2.htm, handbook/eda/section3/eda33l3.htm, handbook/eda/section3/eda33l4.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Check If Data Are Approximately Normally Distributed**
+
+The normal probability plot (Chambers et al., 1983<!-- XREF: EDA bibliography entry for Chambers et al.; source handbook/eda/section4/eda43.htm#Chambers -->) is a graphical technique for assessing whether or not a data set is approximately normally distributed.
+
+The data are plotted against a theoretical normal distribution in such a way that the points should form an approximate straight line. Departures from this straight line indicate departures from normality.
+
+The normal probability plot is a special case of the [Probability Plot](#sec-eda-probability-plot). We cover the normal probability plot separately due to its importance in many applications.
+
+```{r}
+#| code-fold: true
+#| label: setup-normal-probability-plot
+#| message: false
+library(tidyverse)
+
+# Uniform order statistic medians (Filliben, 1975)
+uniform_medians <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+# Reusable normal probability plot: ordered response values vs. normal
+# order statistic medians, with a fitted reference line and its
+# correlation coefficient, intercept, and slope reported.
+normal_prob_plot <- function(x) {
+  n <- length(x)
+  mm <- uniform_medians(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  fit <- lm(xs ~ theoretical)
+
+  tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], color = "firebrick") +
+    labs(x = "Theoretical (normal order statistic medians)", y = "Ordered response values") +
+    theme_light()
+}
+
+zarr13 <- read_table(here::here("datasets", "ZARR13.DAT"), skip = 25, col_names = "y", col_types = "d")
+```
+
+**Sample Plot: Points on this normal probability plot of 100 normal random numbers form a nearly linear pattern, indicating that the normal distribution is a good model for this data set**
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-probability-plot-sample
+#| fig-cap: "Normal probability plot of 100 normal random numbers"
+set.seed(41)
+normal_prob_plot(rnorm(100))
+```
+
+**Definition: Ordered Response Values Versus Normal Order Statistic Medians**
+
+The normal probability plot is formed by:
+
+- Vertical axis: Ordered response values
+- Horizontal axis: Normal order statistic medians
+
+The observations are plotted as a function of the corresponding normal order statistic medians, which are defined as
+
+$$N_i = G(U_i)$$
+
+where $U_i$ are the uniform order statistic medians (defined below) and $G$ is the percent point function of the [normal distribution](#sec-eda-normal-distribution). The percent point function is the inverse of the cumulative distribution function (probability that $x$ is less than or equal to some value). That is, given a probability, we want the corresponding $x$ of the cumulative distribution function.
+
+The uniform order statistic medians (see Filliben 1975) can be approximated by:
+
+$$
+U_i =
+\begin{cases}
+1 - U_n & i = 1 \\
+(i - 0.3175)/(n + 0.365) & i = 2, 3, \ldots, n - 1 \\
+0.5^{(1/n)} & i = n
+\end{cases}
+$$
+
+In addition, a straight line can be fit to the points and added as a reference line. The further the points vary from this line, the greater the indication of departures from normality.
+
+[Probability plots](#sec-eda-probability-plot) for distributions other than the normal are computed in exactly the same way. The normal percent point function (the $G$) is simply replaced by the percent point function of the desired distribution. That is, a probability plot can easily be generated for any distribution for which you have the percent point function.
+
+One advantage of this method of computing probability plots is that the intercept and slope estimates of the fitted line are in fact estimates for the [location and scale parameters](#sec-eda-location-and-scale-parameters) of the distribution. Although this is not too important for the normal distribution since the location and scale are estimated by the mean and standard deviation, respectively, it can be useful for many other distributions.
+
+The correlation coefficient of the points on the normal probability plot can be compared to a [table of critical values](#sec-eda-normal-ppcc-distribution-table) to provide a formal test of the hypothesis that the data come from a normal distribution.
+
+**Questions**
+
+The normal probability plot is used to answer the following questions:
+
+1. Are the data normally distributed?
+2. What is the nature of the departure from normality (data skewed, shorter than expected tails, longer than expected tails)?
+
+**Importance: Check Normality Assumption**
+
+The underlying assumptions for a measurement process are that the data should behave like:
+
+- random drawings;
+- from a fixed distribution;
+- with fixed location;
+- with fixed scale.
+
+Probability plots are used to assess the assumption of a fixed distribution. In particular, most statistical models are of the form
+
+$$\text{response} = \text{deterministic} + \text{random}$$
+
+where the deterministic part is the fit and the random part is error. This error component in most common statistical models is specifically assumed to be normally distributed with fixed location and scale. This is the most frequent application of normal probability plots. That is, a model is fit and a normal probability plot is generated for the residuals from the fitted model. If the residuals from the fitted model are not normally distributed, then one of the major assumptions of the model has been violated.
+
+**Examples**
+
+Examples of the normal probability plot for several common situations are given below.
+
+##### Normally Distributed Data
+
+The following normal probability plot is from the heat flow meter data (ZARR13.DAT).
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-probability-plot-normal
+#| fig-cap: "Normal probability plot of the ZARR13.DAT heat flow meter data"
+normal_prob_plot(zarr13$y)
+```
+
+We can make the following conclusions from the above plot:
+
+- The normal probability plot shows a strongly linear pattern. There are only minor deviations from the line fit to the points on the probability plot.
+- The normal distribution appears to be a good model for these data.
+
+Visually, the probability plot shows a strongly linear pattern. This is verified by the correlation coefficient of 0.9989 of the line fit to the probability plot. The fact that the points in the lower and upper extremes of the plot do not deviate significantly from the straight-line pattern indicates that there are not any significant outliers (relative to a normal distribution).
+
+In this case, we can quite reasonably conclude that the normal distribution provides an excellent model for the data. The intercept and slope of the fitted line give estimates of 9.26 and 0.023 for the location and scale parameters of the fitted normal distribution.
+
+```{r}
+#| code-fold: true
+#| label: normal-probability-plot-zarr13-fit
+n <- length(zarr13$y)
+fit <- lm(sort(zarr13$y) ~ qnorm(uniform_medians(n)))
+tibble(
+  correlation = cor(sort(zarr13$y), qnorm(uniform_medians(n))),
+  intercept = coef(fit)[1],
+  slope = coef(fit)[2]
+)
+```
+
+##### Data Have Short Tails
+
+The following is a normal probability plot for 500 random numbers generated from a [Tukey-Lambda distribution](#sec-eda-tukey-lambda-distribution) with the shape parameter equal to 1.1 (a synthetic illustration of short-tailed data, read from TUKLAMB.DAT).
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-probability-plot-short-tails
+#| fig-cap: "Normal probability plot of 500 Tukey-Lambda random numbers (shape = 1.1), illustrating short tails"
+tuklamb <- read_table(here::here("datasets", "TUKLAMB.DAT"), skip = 25, col_names = "y", col_types = "d")
+normal_prob_plot(tuklamb$y)
+```
+
+We can make the following conclusions from the above plot:
+
+- The normal probability plot shows a non-linear pattern.
+- The normal distribution is not a good model for these data.
+
+For data with short tails relative to the normal distribution, the non-linearity of the normal probability plot shows up in two ways. First, the middle of the data shows an S-like pattern. This is common for both short and long tails. Second, the first few and the last few points show a marked departure from the reference fitted line. In comparing this plot to the long-tail example below, the important difference is the direction of the departure from the fitted line for the first few and last few points. For short tails, the first few points show increasing departure from the fitted line above the line and the last few points show increasing departure from the fitted line below the line. For long tails, this pattern is reversed.
+
+In this case, we can reasonably conclude that the normal distribution does not provide an adequate fit for this data set. For probability plots that indicate short-tailed distributions, the next step might be to generate a Tukey-Lambda [PPCC plot](#sec-eda-probability-plot-correlation-coefficient-plot). The Tukey-Lambda PPCC plot can often be helpful in identifying an appropriate distributional family.
+
+##### Data Have Long Tails
+
+The following is a normal probability plot of 500 numbers generated from a [double exponential distribution](#sec-eda-double-exponential-distribution) (a synthetic illustration of long-tailed data). The double exponential distribution is symmetric, but relative to the normal it declines rapidly and has longer tails.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-probability-plot-long-tails
+#| fig-cap: "Normal probability plot of 500 synthetic double exponential random numbers, illustrating long tails"
+set.seed(19)
+n_de <- 500
+u <- runif(n_de) - 0.5
+double_exp <- -sign(u) * log(1 - 2 * abs(u))
+normal_prob_plot(double_exp)
+```
+
+We can make the following conclusions from the above plot:
+
+- The normal probability plot shows a reasonably linear pattern in the center of the data. However, the tails, particularly the lower tail, show departures from the fitted line.
+- A distribution other than the normal distribution would be a good model for these data.
+
+For data with long tails relative to the normal distribution, the non-linearity of the normal probability plot can show up in two ways. First, the middle of the data may show an S-like pattern; this is common for both short and long tails. Second, the first few and the last few points show a marked departure from the reference fitted line. In comparing this plot to the short-tail example above, the important difference is the direction of the departure from the fitted line for the first few and the last few points. For long tails, the first few points show increasing departure from the fitted line below the line and the last few points show increasing departure from the fitted line above the line. For short tails, this pattern is reversed.
+
+In this case we can reasonably conclude that the normal distribution can be improved upon as a model for these data. For probability plots that indicate long-tailed distributions, the next step might be to generate a Tukey-Lambda [PPCC plot](#sec-eda-probability-plot-correlation-coefficient-plot). The Tukey-Lambda PPCC plot can often be helpful in identifying an appropriate distributional family.
+
+##### Data are Skewed Right
+
+The following is a normal probability plot of the SUNSPOT.DAT data set (monthly Wolf sunspot numbers).
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-probability-plot-skewed-right
+#| fig-cap: "Normal probability plot of the SUNSPOT.DAT data set, illustrating right skew"
+sunspot <- read_table(
+  here::here("datasets", "SUNSPOT.DAT"),
+  skip = 25,
+  col_names = c("y", "month", "year", "yearavg"),
+  col_types = "dddd"
+)
+normal_prob_plot(sunspot$y)
+```
+
+We can make the following conclusions from the above plot of the SUNSPOT.DAT data set:
+
+- The normal probability plot shows a strongly non-linear pattern. Specifically, it shows a quadratic pattern in which all the points are below a reference line drawn between the first and last points.
+- The normal distribution is not a good model for these data.
+
+This quadratic pattern in the normal probability plot is the signature of a significantly right-skewed data set. Similarly, if all the points on the normal probability plot fell above the reference line connecting the first and last points, that would be the signature pattern for a significantly left-skewed data set.
+
+In this case we can quite reasonably conclude that we need to model these data with a right-skewed distribution such as the [Weibull](#sec-eda-weibull-distribution) or [lognormal](#sec-eda-lognormal-distribution).
+
+**Related Techniques**
+
+[Histogram](#sec-eda-histogram), [Probability plots](#sec-eda-probability-plot) for other distributions (e.g., Weibull), [Probability Plot Correlation Coefficient (PPCC) Plot](#sec-eda-probability-plot-correlation-coefficient-plot), [Anderson-Darling Goodness-of-Fit Test](#sec-eda-anderson-darling-test), [Chi-Square Goodness-of-Fit Test](#sec-eda-chi-square-goodness-of-fit-test), [Kolmogorov-Smirnov Goodness-of-Fit Test](#sec-eda-kolmogorov-smirnov-test).
+
+**Case Study**
+
+The normal probability plot is demonstrated in the heat flow meter data case study<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda42a.htm -->.
+
+**Software**
+
+Most general purpose statistical software programs can generate a normal probability plot.

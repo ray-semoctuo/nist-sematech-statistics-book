@@ -1,10 +1,123 @@
 #### Box-Cox Normality Plot {#sec-eda-box-cox-normality-plot}
 
-<!--
-Source: handbook/eda/section3/eda336.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Find Transformation to Normalize Data**
+
+Many statistical tests and intervals are based on the assumption of normality. The assumption of normality often leads to tests that are simple, mathematically tractable, and powerful compared to tests that do not make the normality assumption. Unfortunately, many real data sets are in fact not approximately normal. However, an appropriate transformation of a data set can often yield a data set that does follow approximately a normal distribution. This increases the applicability and usefulness of statistical techniques based on the normality assumption.
+
+The Box-Cox transformation is a particularly useful family of transformations. It is defined as:
+
+$$T(Y) = (Y^{\lambda} - 1)/\lambda$$
+
+where $Y$ is the response variable and $\lambda$ is the transformation parameter. For $\lambda = 0$, the natural log of the data is taken instead of using the above formula.
+
+Given a particular transformation such as the Box-Cox transformation defined above, it is helpful to define a measure of the normality of the resulting transformation. One measure is to compute the correlation coefficient of a [normal probability plot](#sec-eda-normal-probability-plot). The correlation is computed between the vertical and horizontal axis variables of the probability plot and is a convenient measure of the linearity of the probability plot (the more linear the probability plot, the better a normal distribution fits the data).
+
+The Box-Cox normality plot is a plot of these correlation coefficients for various values of the $\lambda$ parameter. The value of $\lambda$ corresponding to the maximum correlation on the plot is then the optimal choice for $\lambda$.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-box-cox-normality-plot
+#| message: false
+library(tidyverse)
+
+auto83b <- read_table(here::here("datasets", "AUTO83B.DAT"), skip = 25,
+                       col_names = c("us", "japan"), col_types = "dd")
+
+us_mpg <- auto83b$us
+
+boxcox_transform <- function(y, lambda) {
+  if (lambda == 0) log(y) else (y^lambda - 1) / lambda
+}
+
+ppcc <- function(y, lambda) {
+  ty <- boxcox_transform(y, lambda)
+  n <- length(ty)
+  probs <- (seq_len(n) - 0.5) / n
+  z <- qnorm(probs)
+  cor(sort(ty), z)
+}
+
+lambdas <- seq(-2, 2, by = 0.01)
+boxcox_normality <- tibble(lambda = lambdas) |>
+  mutate(correlation = map_dbl(lambda, ~ ppcc(us_mpg, .x)))
+
+best_lambda <- boxcox_normality$lambda[which.max(boxcox_normality$correlation)]
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-normality-plot-histogram
+#| fig-cap: "Histogram of the U.S. car mpg values from AUTO83B.DAT, showing significant right skewness"
+ggplot(tibble(mpg = us_mpg), aes(mpg)) +
+  geom_histogram(binwidth = 2, boundary = 0) +
+  labs(x = "Miles per Gallon (U.S.)", y = "Count") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-normality-plot-sample
+#| fig-cap: "Box-Cox normality plot of the AUTO83B.DAT U.S. mpg data, showing the normal-probability-plot correlation coefficient across a range of lambda"
+ggplot(boxcox_normality, aes(lambda, correlation)) +
+  geom_line() +
+  geom_point(
+    data = filter(boxcox_normality, lambda == best_lambda),
+    color = "firebrick", size = 2.5
+  ) +
+  labs(x = expression(lambda), y = "Correlation") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-normality-plot-transformed
+#| fig-cap: "Histogram of the U.S. mpg data after applying the Box-Cox transformation with the optimal lambda"
+transformed <- boxcox_transform(us_mpg, best_lambda)
+ggplot(tibble(y = transformed), aes(y)) +
+  geom_histogram(bins = 20) +
+  labs(x = paste0("Transformed MPG (lambda = ", round(best_lambda, 2), ")"), y = "Count") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-normality-plot-qq
+#| fig-cap: "Normal probability plot of the transformed U.S. mpg data, confirming the normality assumption is reasonable after transformation"
+ggplot(tibble(y = transformed), aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_light()
+```
+
+The histogram in the upper left-hand corner shows a data set (first column of AUTO83B.DAT) that has significant right skewness (and so does not follow a normal distribution). The Box-Cox normality plot shows that the maximum value of the correlation coefficient is at $\lambda$ = `r round(best_lambda, 2)`, close to the value of -0.3 reported for this data set. The histogram of the data after applying the Box-Cox transformation with $\lambda$ = `r round(best_lambda, 2)` shows a data set for which the normality assumption is reasonable. This is verified with a normal probability plot of the transformed data.
+
+**Definition**
+
+Box-Cox normality plots are formed by:
+
+- Vertical axis: Correlation coefficient from the normal probability plot after applying Box-Cox transformation
+- Horizontal axis: Value for $\lambda$
+
+**Questions**
+
+The Box-Cox normality plot can provide answers to the following questions:
+
+1. Is there a transformation that will normalize my data?
+2. What is the optimal value of the transformation parameter?
+
+**Importance: Normalization Improves Validity of Tests**
+
+Normality assumptions are critical for many univariate intervals and hypothesis tests. It is important to test the normality assumption. If the data are in fact clearly not normal, the Box-Cox normality plot can often be used to find a transformation that will approximately normalize the data.
+
+**Related Techniques**
+
+[Normal Probability Plot](#sec-eda-normal-probability-plot)
+
+[Box-Cox Linearity Plot](#sec-eda-box-cox-linearity-plot)
+
+**Software**
+
+Box-Cox normality plots are not a standard part of most general purpose statistical software programs. However, the underlying technique is based on a normal probability plot and computing a correlation coefficient. So if a statistical program supports these capabilities, writing a macro for a Box-Cox normality plot should be feasible.

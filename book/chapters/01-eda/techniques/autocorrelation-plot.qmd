@@ -1,10 +1,205 @@
 #### Autocorrelation Plot {#sec-eda-autocorrelation-plot}
 
-<!--
-Source: handbook/eda/section3/eda331.htm, handbook/eda/section3/eda3311.htm, handbook/eda/section3/eda3312.htm, handbook/eda/section3/eda3313.htm, handbook/eda/section3/eda3314.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Check Randomness**
+
+Autocorrelation plots (Box and Jenkins, pp. 28-32<!-- XREF: EDA bibliography entry for Box and Jenkins; source handbook/eda/section4/eda43.htm#Box -->) are a commonly-used tool for checking randomness in a data set. This randomness is ascertained by computing autocorrelations for data values at varying time lags. If random, such autocorrelations should be near zero for any and all time-lag separations. If non-random, then one or more of the autocorrelations will be significantly non-zero.
+
+In addition, autocorrelation plots are used in the model identification stage for Box-Jenkins<!-- XREF: Process or Product Monitoring and Control chapter, Box-Jenkins autoregressive/moving average models; source handbook/pmc/section4/pmc4.htm --> autoregressive, moving average time series models.
+
+**Autocorrelation Is Only One Measure of Randomness**
+
+Note that uncorrelated does not necessarily mean random. Data that has significant autocorrelation is not random. However, data that does not show significant autocorrelation can still exhibit non-randomness in other ways. Autocorrelation is just one measure of randomness. In the context of model validation (which is the primary type of randomness we discuss in this book), checking for autocorrelation is typically a sufficient test of randomness since the residuals from a poor fitting model tend to display non-subtle randomness. However, some applications require a more rigorous determination of randomness. In these cases, a battery of tests, which might include checking for autocorrelation, are applied since data can be non-random in many different and often subtle ways.
+
+An example of where a more rigorous check for randomness is needed would be in testing random number generators.
+
+**Sample Plot: Autocorrelations should be near-zero for randomness. Such is not the case in this example and thus the randomness assumption fails**
+
+```{r}
+#| code-fold: true
+#| label: setup-autocorrelation-plot
+#| message: false
+library(tidyverse)
+
+# Reusable correlogram: computes the autocorrelation function with the
+# N-divisor form (see Definition below) and draws it with fixed-width
+# 95%/99% confidence bands for testing randomness.
+acf_plot <- function(x, lag_max = NULL) {
+  n <- length(x)
+  a <- acf(x, lag.max = lag_max, plot = FALSE, demean = TRUE)
+  ci95 <- qnorm(0.975) / sqrt(n)
+  ci99 <- qnorm(0.995) / sqrt(n)
+
+  tibble(lag = as.integer(a$lag), acf = as.numeric(a$acf)) |>
+    filter(lag > 0) |>
+    ggplot(aes(lag, acf)) +
+    geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+    geom_hline(yintercept = 0) +
+    geom_hline(yintercept = c(-ci95, ci95), linetype = "dashed", color = "steelblue") +
+    geom_hline(yintercept = c(-ci99, ci99), linetype = "dotted", color = "firebrick") +
+    labs(x = "Lag", y = "Autocorrelation") +
+    theme_light()
+}
+
+flicker <- read_table(here::here("datasets", "FLICKER.DAT"), skip = 25, col_names = "y", col_types = "d")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-autocorrelation-plot-sample
+#| fig-cap: "Autocorrelation plot of the FLICKER.DAT data set"
+acf_plot(flicker$y, lag_max = 250)
+```
+
+This sample autocorrelation plot of the FLICKER.DAT data set shows that the time series is not random, but rather has a high degree of autocorrelation between adjacent and near-adjacent observations.
+
+**Definition: r(h) versus h**
+
+Autocorrelation plots are formed by:
+
+- Vertical axis: Autocorrelation coefficient
+
+  $$R_h = C_h / C_0$$
+
+  where $C_h$ is the autocovariance function
+
+  $$C_h = \frac{1}{N}\sum_{t=1}^{N-h}(Y_t - \bar{Y})(Y_{t+h} - \bar{Y})$$
+
+  and $C_0$ is the variance function
+
+  $$C_0 = \frac{\sum_{t=1}^{N}(Y_t - \bar{Y})^2}{N}$$
+
+  Note that $R_h$ is between -1 and +1.
+
+  Note that some sources may use the following formula for the autocovariance function
+
+  $$C_h = \frac{1}{N-h}\sum_{t=1}^{N-h}(Y_t - \bar{Y})(Y_{t+h} - \bar{Y})$$
+
+  Although this definition has less bias, the $(1/N)$ formulation has some desirable statistical properties and is the form most commonly used in the statistics literature (and the form R's `acf()` function uses, which is what the plots on this page are built with). See pages 20 and 49-50 in Chatfield<!-- XREF: EDA bibliography entry for Chatfield; source handbook/eda/section4/eda43.htm#Chatfield --> for details.
+
+- Horizontal axis: Time lag $h$ ($h = 1, 2, 3, \ldots$)
+- The above plot also contains several horizontal reference lines. The middle line is at zero. The other four lines are 95% and 99% confidence bands. Note that there are two distinct formulas for generating the confidence bands.
+  1. If the autocorrelation plot is being used to test for randomness (i.e., there is no time dependence in the data), the following formula is recommended:
+
+     $$\pm \frac{z_{1-\alpha/2}}{\sqrt{N}}$$
+
+     where $N$ is the sample size, $z$ is the cumulative distribution function of the standard normal distribution and $\alpha$ is the significance level. In this case, the confidence bands have fixed width that depends on the sample size. This is the formula that was used to generate the confidence bands in the plot above.
+  2. Autocorrelation plots are also used in the model identification stage for fitting ARIMA models. In this case, a moving average model is assumed for the data and the following confidence bands should be generated:
+
+     $$\pm z_{1-\alpha/2} \sqrt{\frac{1}{N}\left(1 + 2\sum_{i=1}^{k}{y_i^2}\right)}$$
+
+     where $k$ is the lag, $N$ is the sample size, $z$ is the cumulative distribution function of the standard normal distribution and $\alpha$ is the significance level. In this case, the confidence bands increase as the lag increases.
+
+**Questions**
+
+The autocorrelation plot can provide answers to the following questions:
+
+1. Are the data random?
+2. Is an observation related to an adjacent observation?
+3. Is an observation related to an observation twice-removed? (etc.)
+4. Is the observed time series white noise?
+5. Is the observed time series sinusoidal?
+6. Is the observed time series autoregressive?
+7. What is an appropriate model for the observed time series?
+8. Is the model $Y = \text{constant} + \text{error}$ valid and sufficient?
+9. Is the formula $s_{\bar{Y}} = s/\sqrt{N}$ valid?
+
+**Importance: Ensure validity of engineering conclusions**
+
+Randomness (along with fixed model, fixed variation, and fixed distribution) is one of the four assumptions that typically underlie all measurement processes. The randomness assumption is critically important for the following three reasons:
+
+1. Most standard statistical tests depend on randomness. The validity of the test conclusions is directly linked to the validity of the randomness assumption.
+2. Many commonly-used statistical formulae depend on the randomness assumption, the most common formula being the formula for determining the standard deviation of the sample mean:
+
+   $$s_{\bar{Y}} = s/\sqrt{N}$$
+
+   where $s$ is the standard deviation of the data. Although heavily used, the results from using this formula are of no value unless the randomness assumption holds.
+3. For univariate data, the default model is $Y = \text{constant} + \text{error}$. If the data are not random, this model is incorrect and invalid, and the estimates for the parameters (such as the constant) become nonsensical and invalid.
+
+In short, if the analyst does not check for randomness, then the validity of many of the statistical conclusions becomes suspect. The autocorrelation plot is an excellent way of checking for such randomness.
+
+**Examples**
+
+Examples of the autocorrelation plot for several common situations are given below.
+
+*1. Random (= White Noise)*
+
+```{r}
+#| code-fold: true
+#| label: fig-autocorrelation-plot-random
+#| fig-cap: "Autocorrelation plot of a synthetic random (white noise) series"
+set.seed(42)
+random_series <- rnorm(200)
+acf_plot(random_series, lag_max = 50)
+```
+
+We can make the following conclusions from this plot: there are no significant autocorrelations, and the data are random.
+
+Note that with the exception of lag 0, which is always 1 by definition, almost all of the autocorrelations fall within the 95% confidence limits. In addition, there is no apparent pattern (such as the first twenty-five being positive and the second twenty-five being negative). This is the absence of a pattern we expect to see if the data are in fact random.
+
+A few lags slightly outside the 95% and 99% confidence limits do not necessarily indicate non-randomness. For a 95% confidence interval, we might expect about one out of twenty lags to be statistically significant due to random fluctuations.
+
+There is no associative ability to infer from a current value $Y_i$ as to what the next value $Y_{i+1}$ will be. Such non-association is the essence of randomness. In short, adjacent observations do not "co-relate", so we call this the "no autocorrelation" case.
+
+*2. Moderate Autocorrelation*
+
+The FLICKER.DAT data set shown in the Sample Plot above is itself an example of this case: the plot starts with a moderately high autocorrelation at lag 1 (approximately 0.75) that gradually decreases. The decreasing autocorrelation is generally linear, but with significant noise. Such a pattern is the autocorrelation plot signature of "moderate autocorrelation", which in turn provides moderate predictability if modeled properly.
+
+The next step would be to estimate the parameters for the autoregressive model:
+
+$$Y_i = A_0 + A_1 Y_{i-1} + E_i$$
+
+Such estimation can be performed by using least squares linear regression or by fitting a Box-Jenkins<!-- XREF: Process or Product Monitoring and Control chapter, Box-Jenkins AR model; source handbook/pmc/section4/pmc44.htm --> autoregressive (AR) model.
+
+The randomness assumption for least squares fitting applies to the residuals of the model. That is, even though the original data exhibit non-randomness, the residuals after fitting $Y_i$ against $Y_{i-1}$ should result in random residuals. Assessing whether or not the proposed model in fact sufficiently removed the randomness is discussed in detail in the Process Modeling chapter<!-- XREF: Process Modeling chapter, residual assessment; source handbook/pmd/section4/pmd44.htm -->.
+
+The residual standard deviation for this autoregressive model will be much smaller than the residual standard deviation for the default model $Y_i = A_0 + E_i$.
+
+*3. Strong Autocorrelation and Autoregressive Model*
+
+```{r}
+#| code-fold: true
+#| label: fig-autocorrelation-plot-strong
+#| fig-cap: "Autocorrelation plot of the RANDWALK.DAT data set"
+randwalk <- read_table(here::here("datasets", "RANDWALK.DAT"), skip = 25, col_names = "y", col_types = "d")
+acf_plot(randwalk$y, lag_max = 125)
+```
+
+We can make the following conclusions from the above plot: the data come from an underlying autoregressive model with strong positive autocorrelation.
+
+The plot starts with a high autocorrelation at lag 1 (only slightly less than 1) that slowly declines. It continues decreasing until it becomes negative and starts showing an increasing negative autocorrelation. The decreasing autocorrelation is generally linear with little noise. Such a pattern is the autocorrelation plot signature of "strong autocorrelation", which in turn provides high predictability if modeled properly.
+
+The next step would be to estimate the parameters for the autoregressive model:
+
+$$Y_i = A_0 + A_1 Y_{i-1} + E_i$$
+
+Such estimation can be performed by using least squares linear regression or by fitting a Box-Jenkins<!-- XREF: Process or Product Monitoring and Control chapter, Box-Jenkins AR model; source handbook/pmc/section4/pmc44.htm --> autoregressive (AR) model.
+
+The randomness assumption for least squares fitting applies to the residuals of the model. That is, even though the original data exhibit non-randomness, the residuals after fitting $Y_i$ against $Y_{i-1}$ should result in random residuals. Assessing whether or not the proposed model in fact sufficiently removed the randomness is discussed in detail in the Process Modeling chapter<!-- XREF: Process Modeling chapter, residual assessment; source handbook/pmd/section4/pmd44.htm -->.
+
+The residual standard deviation for this autoregressive model will be much smaller than the residual standard deviation for the default model $Y_i = A_0 + E_i$.
+
+*4. Sinusoidal Model*
+
+```{r}
+#| code-fold: true
+#| label: fig-autocorrelation-plot-sinusoidal
+#| fig-cap: "Autocorrelation plot of the LEW.DAT data set"
+lew <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y", col_types = "d")
+acf_plot(lew$y, lag_max = 50)
+```
+
+We can make the following conclusions from the above plot: the data come from an underlying sinusoidal model.
+
+The plot exhibits an alternating sequence of positive and negative spikes. These spikes are not decaying to zero. Such a pattern is the autocorrelation plot signature of a sinusoidal model.
+
+**Related Techniques**
+
+Partial Autocorrelation Plot<!-- XREF: Process or Product Monitoring and Control chapter, Partial Autocorrelation Plot; source handbook/pmc/section4/pmc4463.htm -->, [Lag Plot](#sec-eda-lag-plot), [Spectral Plot](#sec-eda-spectral-plot), Seasonal Subseries Plot<!-- XREF: Process or Product Monitoring and Control chapter, Seasonal Subseries Plot; source handbook/pmc/section4/pmc4431.htm -->.
+
+**Case Study**
+
+The autocorrelation plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
+
+**Software**
+
+Autocorrelation plots are available in most general purpose statistical software programs.

@@ -1,10 +1,104 @@
 #### Weibull Plot {#sec-eda-weibull-plot}
 
-<!--
-Source: handbook/eda/section3/eda33u.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Graphical Check To See If Data Come From a Population That Would Be Fit by a Weibull Distribution**
+
+The Weibull plot (Nelson 1982<!-- XREF: EDA bibliography entry for Nelson; source handbook/eda/section4/eda43.htm#Nelson -->) is a graphical technique for determining if a data set comes from a population that would logically be fit by a 2-parameter [Weibull distribution](#sec-eda-weibull-distribution) (the location is assumed to be zero).
+
+The Weibull plot has special scales that are designed so that if the data do in fact follow a Weibull distribution, the points will be linear (or nearly linear). The least squares fit of this line yields estimates for the shape and scale parameters of the Weibull distribution (the location is assumed to be zero).
+
+Specifically, the shape parameter is the reciprocal of the slope of the fitted line and the scale parameter is the exponent of the intercept of the fitted line.
+
+The Weibull distribution also has the property that the scale parameter falls at the 63.2% point irrespective of the value of the shape parameter. The plot below shows a horizontal line at this 63.2% point and a vertical line where the horizontal line intersects the least squares fitted line. This vertical line shows the value of the scale parameter.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-weibull-plot
+#| message: false
+library(tidyverse)
+
+fuller2 <- read_table(here::here("datasets", "FULLER2.DAT"), skip = 25, col_names = "y", col_types = "d")
+
+n <- nrow(fuller2)
+weibull_df <- fuller2 |>
+  arrange(y) |>
+  mutate(
+    i = row_number(),
+    p = (i - 0.3) / (n + 0.4),
+    x_log10 = log10(y),
+    y_weibull = log(-log(1 - p))
+  )
+
+fit <- lm(y_weibull ~ x_log10, data = weibull_df)
+slope <- coef(fit)[[2]]
+intercept <- coef(fit)[[1]]
+
+# Because the x-axis here is plotted on a log10 scale (per the Definition
+# below), the fitted line's slope must be rescaled by ln(10) to recover the
+# shape parameter on the natural-log scale used in the Weibull CDF.
+shape_hat <- slope / log(10)
+scale_hat <- 10^(-intercept / slope)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-plot-sample
+#| fig-cap: "Weibull plot of the FULLER2.DAT data set"
+ggplot(weibull_df, aes(x_log10, y_weibull)) +
+  geom_point() +
+  geom_abline(slope = slope, intercept = intercept, color = "steelblue") +
+  geom_hline(yintercept = log(-log(1 - 0.632)), linetype = "dashed", color = "firebrick") +
+  geom_vline(xintercept = log10(scale_hat), linetype = "dashed", color = "firebrick") +
+  labs(
+    x = "LOG10(Ordered failure time)",
+    y = "Weibull cumulative probability: ln(-ln(1-p))"
+  ) +
+  theme_light()
+```
+
+This Weibull plot of the FULLER2.DAT data set (times to failure of aircraft windshield/glass specimens) shows that:
+
+- the assumption of a Weibull distribution is reasonable, since the points fall close to a straight line;
+- the least-squares scale parameter estimate is `r round(scale_hat, 2)` (the original NIST source reports 33.32);
+- the least-squares shape parameter estimate is `r round(shape_hat, 2)` (the original NIST source reports 5.28 — likely computed by maximum likelihood rather than least squares, which explains the difference in the shape estimate while the scale estimates agree closely); and
+- there are no obvious outliers.
+
+Note that the values on the x-axis are shown on a log10 scale, so a label of "0", "1", or "2" would denote $10^0 = 1$, $10^1 = 10$, and $10^2 = 100$ respectively.
+
+**Definition: Weibull Cumulative Probability Versus LN(Ordered Response)**
+
+The Weibull plot is formed by:
+
+- Vertical axis: Weibull cumulative probability expressed as a percentage
+- Horizontal axis: ordered failure times (on a LOG10 scale)
+
+The vertical scale is $\ln(-\ln(1-p))$ where $p = (i - 0.3)/(n + 0.4)$ and $i$ is the rank of the observation. This scale is chosen in order to linearize the resulting plot for Weibull data.
+
+**Questions**
+
+The Weibull plot can be used to answer the following questions:
+
+1. Do the data follow a 2-parameter Weibull distribution?
+2. What is the best estimate of the shape parameter for the 2-parameter Weibull distribution?
+3. What is the best estimate of the scale (= variation) parameter for the 2-parameter Weibull distribution?
+
+**Importance: Check Distributional Assumptions**
+
+Many statistical analyses, particularly in the field of reliability, are based on the assumption that the data follow a Weibull distribution. If the analysis assumes the data follow a Weibull distribution, it is important to verify this assumption and, if verified, find good estimates of the Weibull parameters.
+
+**Related Techniques**
+
+[Probability Plot](#sec-eda-probability-plot), [PPCC Plot](#sec-eda-probability-plot-correlation-coefficient-plot), Weibull Hazard Plot<!-- XREF: Assessing Product Reliability chapter, Weibull Hazard Plot; source handbook/apr/section2/apr222.htm -->
+
+The Weibull probability plot (in conjunction with the Weibull PPCC plot), the Weibull hazard plot, and the Weibull plot are all similar techniques that can be used for assessing the adequacy of the Weibull distribution as a model for the data, and additionally providing estimation for the shape, scale, or location parameters.
+
+The Weibull hazard plot and Weibull plot are designed to handle censored data (which the Weibull probability plot does not).
+
+**Case Study**
+
+The Weibull plot is demonstrated in the fatigue life of aluminum alloy specimens case study<!-- XREF: EDA Case Studies (Section 1.4), Fatigue Life of Aluminum Alloy Specimens; source handbook/eda/section4/eda42.htm -->.
+
+**Software**
+
+Weibull plots are generally available in statistical software programs that are designed to analyze reliability data.

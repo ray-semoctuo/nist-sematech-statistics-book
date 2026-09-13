@@ -1,10 +1,145 @@
 #### Box Plot {#sec-eda-box-plot}
 
-<!--
-Source: handbook/eda/section3/eda337.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Check Location and Variation Shifts**
+
+Box plots (Chambers 1983<!-- XREF: EDA bibliography entry for Chambers 1983; source handbook/eda/section4/eda43.htm#Chambers -->) are an excellent tool for conveying location and variation information in data sets, particularly for detecting and illustrating location and variation changes between different groups of data.
+
+**Sample Plot: This Box Plot Reveals that Machine Has a Significant Effect on Energy with Respect to Location and Possibly Variation**
+
+```{r}
+#| code-fold: true
+#| label: setup-box-plot
+#| message: false
+library(tidyverse)
+
+splett2 <- read_table(
+  here::here("datasets", "SPLETT2.DAT"),
+  skip = 25,
+  col_names = c("y", "machine"),
+  col_types = "dd"
+) |>
+  drop_na() |>
+  mutate(machine = factor(machine, labels = c("Tinius1", "Tinius2", "Satec", "Tokyo")))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-plot-sample
+#| fig-cap: "Box plot comparing four machines for Charpy V-notch absorbed energy (SPLETT2.DAT)"
+ggplot(splett2, aes(machine, y)) +
+  geom_boxplot() +
+  labs(x = "Machine", y = "Absorbed Energy (ft-lb)") +
+  theme_light()
+```
+
+This box plot, comparing four machines for energy output, shows that machine has a significant effect on energy with respect to both location and variation. Machine Satec has the highest energy response (a median around 72.5); machine Tokyo has one of the least variable energy responses, with about 50% of its readings within roughly 1 energy unit of its median.
+
+**Definition**
+
+Box plots are formed by
+
+- Vertical axis: Response variable
+- Horizontal axis: The factor of interest
+
+More specifically, we
+
+1. Calculate the [median](#sec-eda-measures-of-location) and the [quartiles](#sec-eda-measures-of-scale) (the lower quartile is the 25th percentile and the upper quartile is the 75th percentile).
+
+2. Plot a symbol at the median (or draw a line) and draw a box (hence the name--box plot) between the lower and upper quartiles; this box represents the middle 50% of the data--the "body" of the data.
+
+3. Draw a line from the lower quartile to the minimum point and another line from the upper quartile to the maximum point. Typically a symbol is drawn at these minimum and maximum points, although this is optional.
+
+Thus the box plot identifies the middle 50% of the data, the median, and the extreme points.
+
+**Single or Multiple Box Plots Can Be Drawn**
+
+A single box plot can be drawn for one batch of data with no distinct groups. Alternatively, multiple box plots can be drawn together to compare multiple data sets or to compare groups in a single data set. For a single box plot, the width of the box is arbitrary. For multiple box plots, the width of the box plot can be set proportional to the number of points in the given group or sample (some software implementations of the box plot simply set all the boxes to the same width).
+
+**Box Plots with Fences**
+
+There is a useful variation of the box plot that more specifically identifies outliers. To create this variation:
+
+1. Calculate the [median](#sec-eda-measures-of-location) and the lower and upper [quartiles](#sec-eda-measures-of-scale).
+
+2. Plot a symbol at the median and draw a box between the lower and upper quartiles.
+
+3. Calculate the interquartile range (the difference between the upper and lower quartile) and call it IQ.
+
+4. Calculate the following points:
+
+   $$L_1 = \text{lower quartile} - 1.5 \cdot IQ$$
+   $$L_2 = \text{lower quartile} - 3.0 \cdot IQ$$
+   $$U_1 = \text{upper quartile} + 1.5 \cdot IQ$$
+   $$U_2 = \text{upper quartile} + 3.0 \cdot IQ$$
+
+5. The line from the lower quartile to the minimum is now drawn from the lower quartile to the smallest point that is greater than $L_1$. Likewise, the line from the upper quartile to the maximum is now drawn to the largest point smaller than $U_1$.
+
+6. Points between $L_1$ and $L_2$ or between $U_1$ and $U_2$ are drawn as small circles. Points less than $L_2$ or greater than $U_2$ are drawn as large circles.
+
+```{r}
+#| code-fold: true
+#| label: fig-box-plot-fences
+#| fig-cap: "Box plot with fences for the SPLETT2.DAT data, distinguishing mild outliers (small points) from extreme outliers (large points)"
+fence_stats <- splett2 |>
+  summarize(
+    q1 = quantile(y, 0.25),
+    q3 = quantile(y, 0.75),
+    .by = machine
+  ) |>
+  mutate(
+    iq = q3 - q1,
+    l1 = q1 - 1.5 * iq,
+    l2 = q1 - 3.0 * iq,
+    u1 = q3 + 1.5 * iq,
+    u2 = q3 + 3.0 * iq
+  )
+
+splett2_fenced <- splett2 |>
+  left_join(fence_stats, by = "machine") |>
+  mutate(
+    outlier_class = case_when(
+      y < l2 | y > u2 ~ "Extreme",
+      y < l1 | y > u1 ~ "Mild",
+      TRUE ~ "Not an outlier"
+    )
+  )
+
+ggplot(splett2_fenced, aes(machine, y)) +
+  geom_boxplot(coef = 1.5, outlier.shape = NA) +
+  geom_jitter(
+    data = filter(splett2_fenced, outlier_class != "Not an outlier"),
+    aes(size = outlier_class), width = 0.05, shape = 1
+  ) +
+  scale_size_manual(values = c(Mild = 1.5, Extreme = 3)) +
+  labs(x = "Machine", y = "Absorbed Energy (ft-lb)", size = "Outlier") +
+  theme_light()
+```
+
+**Questions**
+
+The box plot can provide answers to the following questions:
+
+1. Is a factor significant?
+2. Does the location differ between subgroups?
+3. Does the variation differ between subgroups?
+4. Are there any outliers?
+
+**Importance: Check the Significance of a Factor**
+
+The box plot is an important EDA tool for determining if a factor has a significant effect on the response with respect to either location or variation.
+
+The box plot is also an effective tool for summarizing large quantities of information.
+
+**Related Techniques**
+
+[Mean Plot](#sec-eda-mean-plot)
+
+[Analysis of Variance](#sec-eda-one-factor-anova)
+
+**Case Study**
+
+The box plot is demonstrated in the ceramic strength<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm --> data case study.
+
+**Software**
+
+Box plots are available in most general purpose statistical software programs.

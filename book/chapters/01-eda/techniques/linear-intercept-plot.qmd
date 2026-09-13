@@ -1,10 +1,84 @@
 #### Linear Intercept Plot {#sec-eda-linear-intercept-plot}
 
-<!--
-Source: handbook/eda/section3/eda33h.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Changes in Linear Intercepts Between Groups**
+
+Linear intercept plots are used to graphically assess whether or not linear fits are consistent across groups. That is, if your data have groups, you may want to know if a single fit can be used across all the groups or whether separate fits are required for each group.
+
+Linear intercept plots are typically used in conjunction with [linear slope](#sec-eda-linear-slope-plot) and [linear residual standard deviation](#sec-eda-linear-residual-standard-deviation-plot) plots.
+
+In some cases you might not have groups. Instead, you have different data sets and you want to know if the same fit can be adequately applied to each of the data sets. In this case, simply think of each distinct data set as a group and apply the linear intercept plot as for groups.
+
+```{r}
+#| code-fold: true
+#| label: setup-linear-intercept-plot
+#| message: false
+library(tidyverse)
+
+hsu12 <- read_table(
+  here::here("datasets", "HSU12.DAT"),
+  skip = 25,
+  col_names = c("time", "distance", "batch"),
+  col_types = "ddd"
+) |>
+  drop_na()
+
+group_intercepts <- hsu12 |>
+  group_by(batch) |>
+  summarise(intercept = coef(lm(time ~ distance))[1], .groups = "drop")
+
+overall_intercept <- coef(lm(time ~ distance, data = hsu12))[1]
+```
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: fig-linear-intercept-plot-sample
+#| fig-cap: "Linear intercept plot of the HSU12.DAT data set, by batch"
+ggplot(group_intercepts, aes(batch, intercept)) +
+  geom_point() +
+  geom_hline(yintercept = overall_intercept, linetype = "dashed", color = "firebrick") +
+  scale_x_continuous(breaks = 1:15) +
+  labs(x = "Batch (group identifier)", y = "Intercept") +
+  theme_light()
+```
+
+This linear intercept plot of the HSU12.DAT data set shows that there is a shift in intercepts. Specifically, the first three intercepts are lower than the intercepts for the other groups. Note that these are small differences in the intercepts.
+
+**Definition: Group Intercepts Versus Group ID**
+
+Linear intercept plots are formed by:
+
+- Vertical axis: Group intercepts from linear fits
+- Horizontal axis: Group identifier
+
+A reference line is plotted at the intercept from a linear fit using all the data.
+
+**Questions**
+
+The linear intercept plot can be used to answer the following questions:
+
+1. Is the intercept from linear fits relatively constant across groups?
+2. If the intercepts vary across groups, is there a discernible pattern?
+
+**Importance: Checking Group Homogeneity**
+
+For grouped data, it may be important to know whether the different groups are homogeneous (i.e., similar) or heterogeneous (i.e., different). Linear intercept plots help answer this question in the context of linear fitting.
+
+**Related Techniques**
+
+[Linear Correlation Plot](#sec-eda-linear-correlation-plot)
+
+[Linear Slope Plot](#sec-eda-linear-slope-plot)
+
+[Linear Residual Standard Deviation Plot](#sec-eda-linear-residual-standard-deviation-plot)
+
+Linear Fitting<!-- XREF: Process Modeling chapter, linear least squares fitting; source handbook/pmd/section1/pmd14.htm -->
+
+**Case Study**
+
+The linear intercept plot is demonstrated in the Alaska pipeline data case study<!-- XREF: EDA Case Studies (Section 1.4), Alaska Pipeline Ultrasonic Calibration; source handbook/eda/section4/eda428.htm -->.
+
+**Software**
+
+Most general purpose statistical software programs do not support a linear intercept plot. However, if the statistical program can generate linear fits over a group, it should be feasible to write a macro to generate this plot.

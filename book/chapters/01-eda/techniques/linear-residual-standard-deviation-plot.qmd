@@ -1,10 +1,81 @@
 #### Linear Residual Standard Deviation Plot {#sec-eda-linear-residual-standard-deviation-plot}
 
-<!--
-Source: handbook/eda/section3/eda33j.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Changes in Linear Residual Standard Deviation Between Groups**
+
+Linear residual standard deviation (RESSD) plots are used to graphically assess whether or not linear fits are consistent across groups. That is, if your data have groups, you may want to know if a single fit can be used across all the groups or whether separate fits are required for each group.
+
+The residual standard deviation is a goodness-of-fit measure. That is, the smaller the residual standard deviation, the closer is the fit to the data.
+
+Linear RESSD plots are typically used in conjunction with [Linear Intercept Plot](#sec-eda-linear-intercept-plot) and [Linear Slope Plot](#sec-eda-linear-slope-plot). The linear intercept and slope plots convey whether or not the fits are consistent across groups while the linear RESSD plot conveys whether the adequacy of the fit is consistent across groups.
+
+In some cases you might not have groups. Instead, you have different data sets and you want to know if the same fit can be adequately applied to each of the data sets. In this case, simply think of each distinct data set as a group and apply the linear RESSD plot as for groups.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-linear-ressd-plot
+#| message: false
+library(tidyverse)
+
+hsu12 <- read_table(
+  here::here("datasets", "HSU12.DAT"),
+  skip = 25,
+  col_names = c("y", "x", "batch"),
+  col_types = "ddi"
+) |>
+  drop_na()
+
+overall_ressd <- summary(lm(y ~ x, data = hsu12))$sigma
+
+ressd <- hsu12 |>
+  group_by(batch) |>
+  summarise(ressd = summary(lm(y ~ x))$sigma, .groups = "drop")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-linear-ressd-plot-sample
+#| fig-cap: "Linear RESSD plot of the HSU12.DAT data set"
+ressd |>
+  ggplot(aes(batch, ressd)) +
+  geom_point() +
+  geom_hline(yintercept = overall_ressd, linetype = "dashed", color = "firebrick") +
+  scale_x_continuous(breaks = 1:15) +
+  labs(x = "Group (Batch)", y = "Residual Standard Deviation") +
+  theme_light()
+```
+
+This linear RESSD plot of the HSU12.DAT data set shows that the residual standard deviations from a linear fit are about `r signif(mean(ressd$ressd), 2)` for all the groups, much smaller than the residual standard deviation of `r signif(overall_ressd, 2)` from a single fit using all the data (the dashed reference line).
+
+**Definition: Group Residual Standard Deviation Versus Group ID**
+
+Linear RESSD plots are formed by:
+
+- Vertical axis: Group residual standard deviations from linear fits
+- Horizontal axis: Group identifier
+
+A reference line is plotted at the residual standard deviation from a linear fit using all the data. This reference line will typically be much greater than any of the individual residual standard deviations.
+
+**Questions**
+
+The linear RESSD plot can be used to answer the following questions.
+
+1. Is the residual standard deviation from a linear fit constant across groups?
+2. If the residual standard deviations vary, is there a discernible pattern across the groups?
+
+**Importance: Checking Group Homogeneity**
+
+For grouped data, it may be important to know whether the different groups are homogeneous (i.e., similar) or heterogeneous (i.e., different). Linear RESSD plots help answer this question in the context of linear fitting.
+
+**Related Techniques**
+
+[Linear Intercept Plot](#sec-eda-linear-intercept-plot), [Linear Slope Plot](#sec-eda-linear-slope-plot), [Linear Correlation Plot](#sec-eda-linear-correlation-plot), Linear Fitting<!-- XREF: Process Modeling chapter, Linear Least Squares fitting; source handbook/pmd/section1/pmd141.htm -->
+
+**Case Study**
+
+The linear residual standard deviation plot is demonstrated in the Alaska pipeline data case study<!-- XREF: Process Modeling chapter, Alaska Pipeline case study; source handbook/pmd/section6/pmd62.htm -->.
+
+**Software**
+
+Most general purpose statistical software programs do not support a linear residual standard deviation plot. However, if the statistical program can generate linear fits over a group, it should be feasible to write a macro to generate this plot.

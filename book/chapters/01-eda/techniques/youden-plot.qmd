@@ -1,10 +1,153 @@
 #### Youden Plot {#sec-eda-youden-plot}
 
-<!--
-Source: handbook/eda/section3/eda3331.htm, handbook/eda/section3/eda33311.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Interlab Comparisons**
+
+Youden plots are a graphical technique for analyzing interlab data when each lab has made two runs on the same product or one run on two different products.
+
+The Youden plot is a simple but effective method for comparing both the within-laboratory variability and the between-laboratory variability.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-youden-plot
+#| message: false
+library(tidyverse)
+
+ugiansky <- read_table(
+  here::here("datasets", "UGIANSKY.DAT"),
+  skip = 25,
+  col_names = c("y1", "y2", "lab"),
+  col_types = "ddi"
+) |>
+  drop_na()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-youden-plot-sample
+#| fig-cap: "Youden plot of the UGIANSKY.DAT interlab stress-corrosion data set"
+ggplot(ugiansky, aes(y2, y1, label = factor(lab), color = factor(lab))) +
+  geom_text(size = 4, fontface = "bold", show.legend = FALSE) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey40") +
+  coord_equal() +
+  labs(
+    x = "Response 2: log(days to failure), material 2",
+    y = "Response 1: log(days to failure), material 1",
+    color = "Lab"
+  ) +
+  theme_light()
+```
+
+This plot, from the UGIANSKY.DAT ASTM interlaboratory stress-corrosion study (7 labs, each running 5 specimens of two materials), shows:
+
+- Not all labs are equivalent.
+- Lab 4 shows the widest spread between its own runs, ranging from well below the 45-degree reference line to well above it — a within-lab variability problem.
+- Lab 5 has one run (upper left of its cluster) that departs sharply from its other four points — an outlying run.
+- Lab 3 sits consistently below and to the right of the reference line, showing a systematic offset between its two materials relative to the other labs.
+
+**Definition: Response 1 Versus Response 2 Coded by Lab**
+
+Youden plots are formed by:
+
+- Vertical axis: Response variable 1 (i.e., run 1 or product 1 response value)
+- Horizontal axis: Response variable 2 (i.e., run 2 or product 2 response value)
+
+In addition, the plot symbol is the lab id (typically an integer from 1 to $k$ where $k$ is the number of labs). Sometimes a 45-degree reference line is drawn. Ideally, a lab generating two runs of the same product should produce reasonably similar results. Departures from this reference line indicate inconsistency from the lab. If two different products are being tested, then a 45-degree line may not be appropriate. However, if the labs are consistent, the points should lie near some fitted straight line.
+
+**Questions**
+
+The Youden plot can be used to answer the following questions:
+
+1. Are all labs equivalent?
+2. What labs have between-lab problems (reproducibility)?
+3. What labs have within-lab problems (repeatability)?
+4. What labs are outliers?
+
+**Importance**
+
+In interlaboratory studies or in comparing two runs from the same lab, it is useful to know if consistent results are generated. Youden plots should be a routine plot for analyzing this type of data.
+
+##### DOE Youden Plot
+
+The DOE Youden plot is a specialized Youden plot used in the design of experiments. In particular, it is useful for full and fractional designs<!-- XREF: EDA technique, Full Factorial Designs and Fractional Factorial Designs; source handbook/pri/section3/pri3.htm -->.
+
+**DOE Youden Plot: Introduction**
+
+The DOE (Design of Experiments) Youden plot is a specialized Youden plot used in the analysis of full and fractional experiment designs. In particular, it is used in conjunction with the [Yates Analysis](#sec-eda-yates-analysis) algorithm. These designs may have a low level, coded as "-1" or "-", and a high level, coded as "+1" or "+", for each factor. In addition, there can optionally be one or more center points. Center points are at the midpoint between the low and high levels for each factor and are coded as "0".
+
+The Yates algorithm and the DOE Youden plot only use the "-1" and "+1" points. The Yates algorithm is used to estimate factor effects. The DOE Youden plot can be used to help determine the appropriate model based on the effect estimates from the Yates algorithm.
+
+**Construction of DOE Youden Plot**
+
+The following are the primary steps in the construction of the DOE Youden plot.
+
+1. For a given factor or interaction term, compute the mean of the response variable for the low level of the factor and for the high level of the factor. Any center points are omitted from the computation.
+2. Plot the point where the y-coordinate is the mean for the high level of the factor and the x-coordinate is the mean for the low level of the factor. The character used for the plot point should identify the factor or interaction term (e.g., "1" for factor 1, "13" for the interaction between factors 1 and 3).
+3. Repeat steps 1 and 2 for each factor and interaction term of the data.
+
+The high and low values of the interaction terms are obtained by multiplying the corresponding values of the main level factors. For example, the interaction term $X_{13}$ is obtained by multiplying the values for $X_1$ with the corresponding values of $X_3$. Since the values for $X_1$ and $X_3$ are either "-1" or "+1", the resulting values for $X_{13}$ are also either "-1" or "+1".
+
+In summary, the DOE Youden plot is a plot of the mean of the response variable for the high level of a factor or interaction term against the mean of the response variable for the low level of that factor or interaction term.
+
+For unimportant factors and interaction terms, these mean values should be nearly the same. For important factors and interaction terms, these mean values should be quite different. So the interpretation of the plot is that unimportant factors should be clustered together near the grand mean. Points that stand apart from this cluster identify important factors that should be included in the model.
+
+**Sample DOE Youden Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-youden-plot
+#| message: false
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run"),
+  col_types = "ddddi"
+)
+
+factors <- list(
+  `1`   = eddy$x1,
+  `2`   = eddy$x2,
+  `3`   = eddy$x3,
+  `12`  = eddy$x1 * eddy$x2,
+  `13`  = eddy$x1 * eddy$x3,
+  `23`  = eddy$x2 * eddy$x3,
+  `123` = eddy$x1 * eddy$x2 * eddy$x3
+)
+
+doe_youden <- map_dfr(names(factors), function(nm) {
+  f <- factors[[nm]]
+  tibble(term = nm, low = mean(eddy$y[f == -1]), high = mean(eddy$y[f == 1]))
+})
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-youden-plot-sample
+#| fig-cap: "DOE Youden plot for the eddy current probe sensitivity data (SPLETT3.DAT)"
+ggplot(doe_youden, aes(low, high, label = term)) +
+  geom_text(size = 4, fontface = "bold", color = "steelblue") +
+  coord_equal() +
+  labs(x = "Mean response, low level", y = "Mean response, high level") +
+  theme_light()
+```
+
+The following is a DOE Youden plot for the data used in the eddy current case study<!-- XREF: EDA Case Studies (Section 1.4/1.3.5), Eddy Current Probe Sensitivity; source handbook/eda/section3/eda35i.htm -->, a $2^3$ full factorial experiment on probe impedance (SPLETT3.DAT) with factors for number of wire turns (1), winding distance (2), and wire gauge (3). The analysis in that case study demonstrated that $X_1$ and $X_2$ were the most important factors.
+
+**Interpretation of the Sample DOE Youden Plot**
+
+From the above DOE Youden plot, we see that factors 1 and 2 stand out from the others. That is, the mean response values for the low and high levels of factor 1 and factor 2 are quite different. For factor 3 and the 2- and 3-term interactions, the mean response values for the low and high levels are similar.
+
+We would conclude from this plot that factors 1 and 2 are important and should be included in our final model while the remaining factors and interactions should be omitted from the final model.
+
+**Case Study**
+
+The eddy current case study<!-- XREF: EDA Case Studies (Section 1.4/1.3.5), Eddy Current Probe Sensitivity; source handbook/eda/section3/eda35i.htm --> demonstrates the use of the DOE Youden plot in the context of the analysis of a full factorial design.
+
+**Related Techniques**
+
+[Scatter Plot](#sec-eda-scatter-plot)
+
+**Software**
+
+The Youden plot is essentially a scatter plot, so it should be feasible to write a macro for a Youden plot in any general purpose statistical program that supports scatter plots. DOE Youden plots are not typically available as built-in plots in statistical software programs; however, it should be relatively straightforward to write a macro to generate this plot in most general purpose statistical software programs.

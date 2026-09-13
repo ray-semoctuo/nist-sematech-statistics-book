@@ -55,3 +55,11 @@ the row below.
 | [ ] | `chapters/01-eda/distributions/power-lognormal-distribution.qmd` (Common Statistics) | Nelson reference (same as power normal) | EDA bibliography entry for Nelson | `handbook/eda/section4/eda43.htm#Nelson2` |
 | [ ] | `chapters/01-eda/distributions/power-lognormal-distribution.qmd` (Parameter Estimation) | Nelson reference for maximum likelihood estimation | EDA bibliography entry for Nelson | `handbook/eda/section4/eda43.htm#Nelson2` |
 | [ ] | `chapters/01-eda/distributions/beta-distribution.qmd` (Parameter Estimation) | "Chapter 14 of Bury" | EDA bibliography entry for Bury | `handbook/eda/section4/eda43.htm` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Purpose) | "Box and Jenkins, pp. 28-32" | EDA bibliography entry for Box and Jenkins | `handbook/eda/section4/eda43.htm#Box` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Purpose) | "Box-Jenkins" (model identification) | Ch. 6 Process or Product Monitoring and Control | `handbook/pmc/section4/pmc4.htm` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Definition) | "Chatfield" | EDA bibliography entry for Chatfield | `handbook/eda/section4/eda43.htm#Chatfield` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Example 3) | "Box-Jenkins" (AR model) | Ch. 6 Process or Product Monitoring and Control | `handbook/pmc/section4/pmc44.htm` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Example 3) | "Process Modeling chapter" (residual assessment) | Ch. 4 Process Modeling, §4.4.4 | `handbook/pmd/section4/pmd44.htm` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Related Techniques) | "Partial Autocorrelation Plot" | Ch. 6 Process or Product Monitoring and Control | `handbook/pmc/section4/pmc4463.htm` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Related Techniques) | "Seasonal Subseries Plot" | Ch. 6 Process or Product Monitoring and Control | `handbook/pmc/section4/pmc4431.htm` |
+| [ ] | `chapters/01-eda/techniques/autocorrelation-plot.qmd` (Case Study) | "beam deflection data case study" | EDA Case Studies (Section 1.4), Beam Deflection | `handbook/eda/section4/eda425.htm` |

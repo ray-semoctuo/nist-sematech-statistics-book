@@ -1,10 +1,96 @@
 #### Star Plot {#sec-eda-star-plot}
 
-<!--
-Source: handbook/eda/section3/eda33t.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Display Multivariate Data**
+
+The star plot (Chambers 1983<!-- XREF: EDA bibliography entry for Chambers; source handbook/eda/section4/eda43.htm#Chambers -->) is a method of displaying multivariate data. Each star represents a single observation. Typically, star plots are generated in a multi-plot format with many stars on each page and each star representing one observation.
+
+Star plots are used to examine the relative values for a single data point (e.g., point 3 is large for variables 2 and 4, small for variables 1, 3, 5, and 6) and to locate similar points or dissimilar points.
+
+**Sample Plot**
+
+The original NIST example plots the star plots of 16 cars drawn from a larger 74-car data set, using variables such as price, mileage, repair record, and roominess. Since that dataset is not available in this repository, the plot below instead illustrates the technique with a small synthetic multivariate dataset of 6 hypothetical car models rated on 5 variables. The data are generated with a fixed random seed purely for illustration and do not represent any real vehicles.
+
+```{r}
+#| code-fold: true
+#| label: setup-star-plot
+#| message: false
+library(tidyverse)
+
+# ggplot2's coord_polar() renders straight polygon edges as curved arcs
+# (it interpolates along the angular dimension), which is wrong for a
+# star/radar chart -- the spokes should be straight chords between
+# vertices. coord_radar() is the standard workaround: it is identical to
+# coord_polar() except it reports is_linear() = TRUE, which tells the
+# polygon/line grobs to draw straight segments instead of arcs.
+coord_radar <- function(theta = "x", start = 0, direction = 1) {
+  theta <- match.arg(theta, c("x", "y"))
+  r <- if (theta == "x") "y" else "x"
+  ggproto("CoordRadar", CoordPolar, theta = theta, r = r,
+          start = start, direction = sign(direction),
+          is_linear = function(coord) TRUE)
+}
+
+set.seed(2024)
+vars <- c("Speed", "Reliability", "Comfort", "Efficiency", "Cargo")
+cars_synthetic <- tibble(
+  car = paste("Model", LETTERS[1:6]),
+  Speed = round(runif(6, 60, 130)),
+  Reliability = round(runif(6, 1, 5), 1),
+  Comfort = round(runif(6, 1, 10)),
+  Efficiency = round(runif(6, 15, 45)),
+  Cargo = round(runif(6, 5, 25))
+)
+
+# Each variable is scaled to its own maximum across observations (so each
+# spoke's length is relative to that variable's largest value, per the
+# Definition below) and mapped as a discrete x-axis category; geom_polygon
+# auto-closes each group's (car's) polygon.
+star_df <- cars_synthetic |>
+  pivot_longer(-car, names_to = "variable", values_to = "value") |>
+  group_by(variable) |>
+  mutate(scaled = value / max(value)) |>
+  ungroup() |>
+  mutate(variable = factor(variable, levels = vars))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-star-plot-sample
+#| fig-cap: "Star plots of 6 synthetic car models across 5 variables"
+ggplot(star_df, aes(x = variable, y = scaled, group = car)) +
+  geom_polygon(fill = "steelblue", alpha = 0.3, color = "steelblue") +
+  geom_point(size = 1, color = "steelblue") +
+  coord_radar() +
+  facet_wrap(~car) +
+  labs(x = NULL, y = NULL) +
+  theme_light() +
+  theme(axis.text.y = element_blank())
+```
+
+We can look at these plots individually or use them to identify clusters of observations with similar features. In this synthetic illustration, for instance, Model F is efficient and comfortable but slow, while Model A is fast but less efficient. In the original NIST example, this kind of comparison was used to contrast expensive, roomy, poor-mileage cars (e.g., Cadillac models) against inexpensive, smaller, below-average-mileage cars (e.g., AMC models).
+
+**Definition**
+
+The star plot consists of a sequence of equi-angular spokes, called radii, with each spoke representing one of the variables. The data length of a spoke is proportional to the magnitude of the variable for the data point relative to the maximum magnitude of the variable across all data points. A line is drawn connecting the data values for each spoke. This gives the plot a star-like appearance and the origin of the name of this plot.
+
+**Questions**
+
+The star plot can be used to answer the following questions:
+
+1. What variables are dominant for a given observation?
+2. Which observations are most similar, i.e., are there clusters of observations?
+3. Are there outliers?
+
+**Weakness in Technique**
+
+Star plots are helpful for small-to-moderate-sized multivariate data sets. Their primary weakness is that their effectiveness is limited to data sets with less than a few hundred points. After that, they tend to be overwhelming.
+
+Graphical techniques suited for large data sets are discussed by Scott<!-- XREF: EDA bibliography entry for Scott; source handbook/eda/section4/eda43.htm#Scott -->.
+
+**Related Techniques**
+
+Alternative ways to plot multivariate data are discussed in Chambers, du Toit, and Everitt<!-- XREF: EDA bibliography entries for Chambers, du Toit, and Everitt; source handbook/eda/section4/eda43.htm -->.
+
+**Software**
+
+Star plots are available in some general purpose statistical software programs.

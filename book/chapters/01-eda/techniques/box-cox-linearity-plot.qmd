@@ -1,10 +1,117 @@
 #### Box-Cox Linearity Plot {#sec-eda-box-cox-linearity-plot}
 
-<!--
-Source: handbook/eda/section3/eda335.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Find the Transformation of the X Variable that Maximizes the Correlation between a Y and an X Variable**
+
+When performing a linear fit of $Y$ against $X$, an appropriate transformation of $X$ can often significantly improve the fit. The Box-Cox transformation (Box and Cox, 1964<!-- XREF: EDA bibliography entry for Box and Cox, 1964; source handbook/eda/section4/eda43.htm#Boxcox -->) is a particularly useful family of transformations. It is defined as:
+
+$$T(X) = (X^{\lambda} - 1)/\lambda$$
+
+where $X$ is the variable being transformed and $\lambda$ is the transformation parameter. For $\lambda = 0$, the natural log of the data is taken instead of using the above formula.
+
+The Box-Cox linearity plot is a plot of the correlation between $Y$ and the transformed $X$ for given values of $\lambda$. That is, $\lambda$ is the coordinate for the horizontal axis variable and the value of the correlation between $Y$ and the transformed $X$ is the coordinate for the vertical axis of the plot. The value of $\lambda$ corresponding to the maximum correlation (or minimum for negative correlation) on the plot is then the optimal choice for $\lambda$.
+
+Transforming $X$ is used to improve the fit. The Box-Cox transformation applied to $Y$ can be used as the basis for meeting the error assumptions<!-- XREF: Process Modeling chapter, error assumptions; source handbook/pmd/section2/pmd21.htm -->. That case is not covered here. See page 225 of (Draper and Smith, 1981<!-- XREF: EDA bibliography entry for Draper and Smith, 1981; source handbook/eda/section4/eda43.htm#Draper -->) or page 77 of (Ryan, 1997<!-- XREF: EDA bibliography entry for Ryan, 1997; source handbook/eda/section4/eda43.htm#Ryan -->) for a discussion of this case.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-box-cox-linearity-plot
+#| message: false
+library(tidyverse)
+
+jones <- read_table(here::here("datasets", "JONES.DAT"), skip = 25,
+                     col_names = c("y", "x"), col_types = "dd")
+
+boxcox_transform <- function(x, lambda) {
+  if (lambda == 0) log(x) else (x^lambda - 1) / lambda
+}
+
+lambdas <- seq(-2, 2, by = 0.05)
+boxcox_linearity <- tibble(lambda = lambdas) |>
+  mutate(correlation = map_dbl(lambda, ~ cor(jones$y, boxcox_transform(jones$x, .x))))
+
+best_lambda <- boxcox_linearity$lambda[which.max(abs(boxcox_linearity$correlation))]
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-linearity-plot-data
+#| fig-cap: "The original JONES.DAT data (density of water vs. temperature) with a linear fit, suggesting a quadratic relationship would fit better"
+ggplot(jones, aes(x, y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Temperature", y = "Density of Water") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-linearity-plot-sample
+#| fig-cap: "Box-Cox linearity plot of the JONES.DAT data set, showing the correlation between Y and the transformed X across a range of lambda"
+ggplot(boxcox_linearity, aes(lambda, correlation)) +
+  geom_line() +
+  geom_point(
+    data = filter(boxcox_linearity, lambda == best_lambda),
+    color = "firebrick", size = 2.5
+  ) +
+  labs(x = expression(lambda), y = "Correlation") +
+  theme_light()
+```
+
+The plot of the original data with the predicted values from a linear fit indicate that a quadratic fit might be preferable. The Box-Cox linearity plot shows a value of $\lambda$ = `r best_lambda`. The plot of the transformed data with the predicted values from a linear fit with the transformed data shows a better fit (verified by the significant reduction in the residual standard deviation):
+
+```{r}
+#| code-fold: true
+#| label: box-cox-linearity-plot-residual-sd
+jones_t <- jones |> mutate(xt = boxcox_transform(x, best_lambda))
+fit_orig <- lm(y ~ x, data = jones)
+fit_t <- lm(y ~ xt, data = jones_t)
+tibble(
+  model = c("Linear fit on original X", paste0("Linear fit on X transformed with lambda = ", best_lambda)),
+  residual_sd = c(sigma(fit_orig), sigma(fit_t))
+)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-box-cox-linearity-plot-transformed
+#| fig-cap: "The JONES.DAT data after transforming X with the optimal lambda, with a linear fit"
+ggplot(jones_t, aes(xt, y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = bquote(paste("Transformed X (", lambda, " = ", .(best_lambda), ")")), y = "Density of Water") +
+  theme_light()
+```
+
+**Definition**
+
+Box-Cox linearity plots are formed by
+
+- Vertical axis: Correlation coefficient from the transformed $X$ and $Y$
+- Horizontal axis: Value for $\lambda$
+
+**Questions**
+
+The Box-Cox linearity plot can provide answers to the following questions:
+
+1. Would a suitable transformation improve my fit?
+2. What is the optimal value of the transformation parameter?
+
+**Importance: Find a Suitable Transformation**
+
+Transformations can often significantly improve a fit. The Box-Cox linearity plot provides a convenient way to find a suitable transformation without engaging in a lot of trial and error fitting.
+
+**Related Techniques**
+
+Linear Regression<!-- XREF: Process Modeling chapter, linear least squares regression; source handbook/pmd/section1/pmd141.htm -->
+
+[Box-Cox Normality Plot](#sec-eda-box-cox-normality-plot)
+
+**Case Study**
+
+The Box-Cox linearity plot is demonstrated in the Alaska pipeline<!-- XREF: Process Modeling chapter, Alaska Pipeline case study; source handbook/pmd/section6/pmd62.htm --> data case study.
+
+**Software**
+
+Box-Cox linearity plots are not a standard part of most general purpose statistical software programs. However, the underlying technique is based on a transformation and computing a correlation coefficient. So if a statistical program supports these capabilities, writing a macro for a Box-Cox linearity plot should be feasible.

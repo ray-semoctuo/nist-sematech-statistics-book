@@ -1,10 +1,125 @@
 #### DOE Mean Plot {#sec-eda-doe-mean-plot}
 
-<!--
-Source: handbook/eda/section3/eda33c.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Important Factors With Respect to Location**
+
+The DOE mean plot is appropriate for analyzing data from a designed experiment, with respect to important factors, where the factors are at two or more levels. The plot shows mean values for the two or more levels of each factor plotted by factor. The means for a single factor are connected by a straight line. The DOE mean plot is a complement to the traditional analysis of variance of designed experiments.
+
+This plot is typically generated for the mean. However, it can be generated for other location statistics such as the median.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-mean-plot
+#| message: false
+library(tidyverse)
+
+# BOXBIKE2.DAT: Box, Hunter & Hunter (1978), "Statistics for Experimenters",
+# Wiley, p. 391. A 2^(7-4) fractional factorial design measuring the time
+# to climb a hill on a bicycle, with 7 two-level factors: seat height (X1),
+# dynamo engaged (X2), handlebar angle (X3), gear (X4), raincoat on/off
+# (X5), breakfast (X6), and tire pressure (X7). This 8-run table is entered
+# directly, exactly as given in the source data file.
+boxbike2 <- tribble(
+  ~Y, ~X1, ~X2, ~X3, ~X4, ~X5, ~X6, ~X7,
+  69, -1, -1, -1,  1,  1,  1, -1,
+  52,  1, -1, -1, -1, -1,  1,  1,
+  60, -1,  1, -1, -1,  1, -1,  1,
+  83,  1,  1, -1,  1, -1, -1, -1,
+  71, -1, -1,  1,  1, -1, -1,  1,
+  50,  1, -1,  1, -1,  1, -1, -1,
+  59, -1,  1,  1, -1, -1,  1, -1,
+  88,  1,  1,  1,  1,  1,  1,  1
+)
+
+boxbike2_means <- boxbike2 |>
+  pivot_longer(starts_with("X"), names_to = "factor", names_prefix = "X", values_to = "level") |>
+  mutate(factor = as.integer(factor)) |>
+  summarise(mean_y = mean(Y), .by = c(factor, level)) |>
+  # order factors by the size of the location effect (max - min mean), to
+  # match the "ranked list of important factors" reading of the plot
+  mutate(effect = max(mean_y) - min(mean_y), .by = factor) |>
+  arrange(desc(effect))
+
+factor_order <- boxbike2_means |> distinct(factor, effect) |> arrange(desc(effect)) |> pull(factor)
+boxbike2_means <- boxbike2_means |> mutate(factor = factor(factor, levels = factor_order))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-mean-plot-sample
+#| fig-cap: "DOE mean plot of the BOXBIKE2.DAT data set, factors ordered by effect size"
+ggplot(boxbike2_means, aes(factor(level), mean_y, group = factor)) +
+  geom_line() +
+  geom_point(size = 2) +
+  facet_wrap(~factor, nrow = 1, labeller = labeller(factor = ~ paste("Factor", .))) +
+  labs(x = "Level", y = "Mean time to climb hill (sec)") +
+  theme_light()
+```
+
+This sample DOE mean plot of the BOXBIKE2.DAT data set, with factors ordered left to right by the size of their location effect (the difference between the level means), shows that:
+
+1. factor 4 is the most important;
+2. factor 2 is the second most important;
+3. factor 1 is the third most important;
+4. factor 7 is the fourth most important;
+5. factor 6 is the fifth most important;
+6. factors 3 and 5 are relatively unimportant.
+
+In summary, factors 4, 2, and 1 seem to be clearly important, factors 3 and 5 seem to be clearly unimportant, and factors 6 and 7 are borderline factors whose inclusion in any subsequent models will be determined by further analyses.
+
+**Definition: Mean Response Versus Factor Variables**
+
+DOE mean plots are formed by:
+
+- Vertical axis: Mean of the response variable for each level of the factor
+- Horizontal axis: Factor variable
+
+**Questions**
+
+The DOE mean plot can be used to answer the following questions:
+
+1. Which factors are important? The DOE mean plot does not provide a definitive answer to this question, but it does help categorize factors as "clearly important", "clearly not important", and "borderline importance".
+2. What is the ranking list of the important factors?
+
+**Importance: Determine Significant Factors**
+
+The goal of many designed experiments is to determine which factors are significant. A ranked order listing of the important factors is also often of interest. The DOE mean plot is ideally suited for answering these types of questions and we recommend its routine use in analyzing designed experiments.
+
+**Extension for Interaction Effects**
+
+Using the concept of the scatter plot matrix<!-- XREF: EDA Graphical Techniques: Alphabetic, Scatter Plot Matrix; source handbook/eda/section3/eda33qb.htm -->, the DOE mean plot can be extended to display first-order interaction effects.
+
+Specifically, if there are $k$ factors, we create a matrix of plots with $k$ rows and $k$ columns. On the diagonal, the plot is simply a DOE mean plot with a single factor. For the off-diagonal plots, measurements at each level of the interaction are plotted versus level, where level is $X_i$ times $X_j$ and $X_i$ is the code for the $i$th main effect level and $X_j$ is the code for the $j$th main effect. For the common 2-level designs (i.e., each factor has two levels) the values are typically coded as -1 and 1, so the multiplied values are also -1 and 1. We then generate a DOE mean plot for this interaction variable. This plot is called a DOE interaction effects plot.
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-mean-plot-interaction
+#| fig-cap: "DOE interaction effects plot for factors X1, X2, and X3 of the BOXBIKE2.DAT data set"
+interaction_means <- boxbike2 |>
+  transmute(Y, X1, X2, X3, `X1:X2` = X1 * X2, `X1:X3` = X1 * X3, `X2:X3` = X2 * X3) |>
+  pivot_longer(-Y, names_to = "term", values_to = "level") |>
+  mutate(term = factor(term, levels = c("X1", "X2", "X3", "X1:X2", "X1:X3", "X2:X3"))) |>
+  summarise(mean_y = mean(Y), .by = c(term, level))
+
+ggplot(interaction_means, aes(factor(level), mean_y, group = term)) +
+  geom_line() +
+  geom_point(size = 2) +
+  facet_wrap(~term, nrow = 1) +
+  labs(x = "Level", y = "Mean time to climb hill (sec)") +
+  theme_light()
+```
+
+This plot shows that, among X1, X2, and X3, the most significant main effect is X2 (the largest change in mean between levels), and among the three pairwise interactions, `X1:X2` shows by far the largest shift — larger even than any of the three main effects. (In a resolution III design such as this 2^(7-4) fraction, an interaction like `X1:X2` is confounded with one or more main effects not shown in this panel, such as X4, so this large apparent interaction effect may in fact be picking up an aliased main effect.)
+
+**Related Techniques**
+
+[DOE scatter plot](#sec-eda-doe-scatter-plot), [DOE standard deviation plot](#sec-eda-doe-standard-deviation-plot), [Block plot](#sec-eda-block-plot), [Box plot](#sec-eda-box-plot), Analysis of variance<!-- XREF: Process or Product Monitoring and Control chapter, analysis of variance; source handbook/prc/section4/prc4.htm -->.
+
+**Case Study**
+
+The DOE mean plot and the DOE interaction effects plot are demonstrated in the ceramic strength data case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm -->
+
+**Software**
+
+DOE mean plots are available in some general purpose statistical software programs, although the format may vary somewhat between these programs. It may be feasible to write macros for DOE mean plots in some statistical software programs that do not support this plot directly.

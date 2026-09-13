@@ -1,10 +1,112 @@
 #### Bootstrap Plot {#sec-eda-bootstrap-plot}
 
-<!--
-Source: handbook/eda/section3/eda334.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Estimate Uncertainty**
+
+The bootstrap (Efron and Gong<!-- XREF: EDA bibliography entry for Efron and Gong; source handbook/eda/section4/eda43.htm#Efron -->) plot is used to estimate the uncertainty of a statistic.
+
+**Generate Subsamples with Replacement**
+
+To generate a bootstrap uncertainty estimate for a given statistic from a set of data, a subsample of a size less than or equal to the size of the data set is generated from the data, and the statistic is calculated. This subsample is generated *with replacement* so that any data point can be sampled multiple times or not sampled at all. This process is repeated for many subsamples, typically between 500 and 1000. The computed values for the statistic form an estimate of the sampling distribution of the statistic.
+
+For example, to estimate the uncertainty of the median from a dataset with 50 elements, we generate a subsample of 50 elements and calculate the median. This is repeated at least 500 times so that we have at least 500 values for the median. Although the number of bootstrap samples to use is somewhat arbitrary, 500 subsamples is usually sufficient. To calculate a 90% confidence interval for the median, the sample medians are sorted into ascending order and the value of the 25th median (assuming exactly 500 subsamples were taken) is the lower confidence limit while the value of the 475th median (assuming exactly 500 subsamples were taken) is the upper confidence limit.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-bootstrap-plot
+#| message: false
+library(tidyverse)
+
+randu <- tibble(y = scan(here::here("datasets", "RANDU.DAT"), skip = 25, quiet = TRUE))
+
+set.seed(20240613)
+n_boot <- 500
+n <- nrow(randu)
+
+boot_stats <- map(seq_len(n_boot), function(i) {
+  s <- sample(randu$y, n, replace = TRUE)
+  tibble(subsample = i, mean = mean(s), median = median(s), midrange = (min(s) + max(s)) / 2)
+}) |>
+  list_rbind()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-bootstrap-plot-sample
+#| fig-cap: "Bootstrap plots of the mean, median, and mid-range for 500 subsamples of the RANDU.DAT uniform random numbers"
+boot_stats |>
+  pivot_longer(c(mean, median, midrange), names_to = "statistic", values_to = "value") |>
+  mutate(statistic = factor(statistic, levels = c("mean", "median", "midrange"),
+                             labels = c("Mean", "Median", "Mid-range"))) |>
+  ggplot(aes(subsample, value)) +
+  geom_point(shape = 1) +
+  facet_wrap(~statistic, scales = "free_y") +
+  labs(x = "Subsample Number", y = "Statistic Value") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-bootstrap-plot-histograms
+#| fig-cap: "Histograms of the bootstrap mean, median, and mid-range distributions, showing the mid-range has the smallest variance"
+boot_stats |>
+  pivot_longer(c(mean, median, midrange), names_to = "statistic", values_to = "value") |>
+  mutate(statistic = factor(statistic, levels = c("mean", "median", "midrange"),
+                             labels = c("Mean", "Median", "Mid-range"))) |>
+  ggplot(aes(value)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~statistic, scales = "free") +
+  labs(x = "Statistic Value", y = "Count") +
+  theme_light()
+```
+
+This bootstrap plot was generated from [500 uniform random numbers](../../datasets/RANDU.DAT). Bootstrap plots and corresponding histograms were generated for the mean, median, and mid-range. The histograms for the corresponding statistics clearly show that for uniform random numbers the mid-range has the smallest variance and is, therefore, a superior location estimator to the mean or the median:
+
+```{r}
+#| code-fold: true
+#| label: bootstrap-plot-variances
+boot_stats |>
+  summarize(across(c(mean, median, midrange), var))
+```
+
+**Definition**
+
+The bootstrap plot is formed by:
+
+- Vertical axis: Computed value of the desired statistic for a given subsample.
+- Horizontal axis: Subsample number.
+
+The bootstrap plot is simply the computed value of the statistic versus the subsample number. That is, the bootstrap plot generates the values for the desired statistic. This is usually immediately followed by a histogram or some other distributional plot to show the location and variation of the sampling distribution of the statistic.
+
+**Questions**
+
+The bootstrap plot is used to answer the following questions:
+
+- What does the sampling distribution for the statistic look like?
+- What is a 95% confidence interval for the statistic?
+- Which statistic has a sampling distribution with the smallest variance? That is, which statistic generates the narrowest confidence interval?
+
+**Importance**
+
+The most common uncertainty calculation is generating a confidence interval for the mean. In this case, the uncertainty formula can be derived mathematically. However, there are many situations in which the uncertainty formulas are mathematically intractable. The bootstrap provides a method for calculating the uncertainty in these cases.
+
+**Caution on Use of the Bootstrap**
+
+The bootstrap is not appropriate for all distributions and statistics (Efron and Tibshirani<!-- XREF: EDA bibliography entry for Efron and Tibshirani; source handbook/eda/section4/eda43.htm#TIBRASHANI -->). For example, because of the shape of the uniform distribution, the bootstrap is not appropriate for estimating the distribution of statistics that are heavily dependent on the tails, such as the range.
+
+**Related Techniques**
+
+[Histogram](#sec-eda-histogram)
+
+Jackknife
+
+The jackknife is a technique that is closely related to the bootstrap. The jackknife is beyond the scope of this handbook. See the Efron and Gong<!-- XREF: EDA bibliography entry for Efron and Gong; source handbook/eda/section4/eda43.htm#Efron --> article for a discussion of the jackknife.
+
+**Case Study**
+
+The bootstrap plot is demonstrated in the uniform random numbers<!-- XREF: EDA Case Studies (Section 1.4), Uniform Random Numbers; source handbook/eda/section4/eda422.htm --> case study.
+
+**Software**
+
+The bootstrap is becoming more common in general purpose statistical software programs. However, it is still not supported in many of these programs. Both R software and Dataplot support a bootstrap capability.

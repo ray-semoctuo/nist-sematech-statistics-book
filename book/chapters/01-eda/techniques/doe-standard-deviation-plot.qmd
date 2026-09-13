@@ -1,10 +1,100 @@
 #### DOE Standard Deviation Plot {#sec-eda-doe-standard-deviation-plot}
 
-<!--
-Source: handbook/eda/section3/eda33d.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Important Factors With Respect to Scale**
+
+The DOE standard deviation plot is appropriate for analyzing data from a designed experiment, with respect to important factors, where the factors are at two or more levels and there are repeated values at each level. The plot shows standard deviation values for the two or more levels of each factor plotted by factor. The standard deviations for a single factor are connected by a straight line. The DOE standard deviation plot is a complement to the traditional analysis of variance of designed experiments.
+
+This plot is typically generated for the standard deviation. However, it can also be generated for other scale statistics such as the range, the median absolute deviation, or the average absolute deviation.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-standard-deviation-plot
+#| message: false
+library(tidyverse)
+
+# BOXBIKE2.DAT: Box, Hunter & Hunter (1978), "Statistics for Experimenters",
+# Wiley, p. 391. A 2^(7-4) fractional factorial design measuring the time
+# to climb a hill on a bicycle, with 7 two-level factors: seat height (X1),
+# dynamo engaged (X2), handlebar angle (X3), gear (X4), raincoat on/off
+# (X5), breakfast (X6), and tire pressure (X7). This 8-run table is entered
+# directly, exactly as given in the source data file.
+#
+# Note: with only a single response value per factor level in this 8-run
+# design, a "standard deviation for a level" is computed here across the 4
+# runs sharing that level of the given factor (i.e., holding one factor
+# fixed and varying the other six) -- treating those 4 responses as repeat
+# measurements for the purpose of illustrating the plot, following the
+# source page's construction.
+boxbike2 <- tribble(
+  ~Y, ~X1, ~X2, ~X3, ~X4, ~X5, ~X6, ~X7,
+  69, -1, -1, -1,  1,  1,  1, -1,
+  52,  1, -1, -1, -1, -1,  1,  1,
+  60, -1,  1, -1, -1,  1, -1,  1,
+  83,  1,  1, -1,  1, -1, -1, -1,
+  71, -1, -1,  1,  1, -1, -1,  1,
+  50,  1, -1,  1, -1,  1, -1, -1,
+  59, -1,  1,  1, -1, -1,  1, -1,
+  88,  1,  1,  1,  1,  1,  1,  1
+)
+
+boxbike2_sds <- boxbike2 |>
+  pivot_longer(starts_with("X"), names_to = "factor", names_prefix = "X", values_to = "level") |>
+  mutate(factor = as.integer(factor)) |>
+  summarise(sd_y = sd(Y), .by = c(factor, level)) |>
+  mutate(effect = max(sd_y) - min(sd_y), .by = factor)
+
+factor_order <- boxbike2_sds |> distinct(factor, effect) |> arrange(desc(effect)) |> pull(factor)
+boxbike2_sds <- boxbike2_sds |> mutate(factor = factor(factor, levels = factor_order))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-doe-standard-deviation-plot-sample
+#| fig-cap: "DOE standard deviation plot of the BOXBIKE2.DAT data set, factors ordered by effect size"
+ggplot(boxbike2_sds, aes(factor(level), sd_y, group = factor)) +
+  geom_line() +
+  geom_point(size = 2) +
+  facet_wrap(~factor, nrow = 1, labeller = labeller(factor = ~ paste("Factor", .))) +
+  labs(x = "Level", y = "Standard deviation of time to climb hill (sec)") +
+  theme_light()
+```
+
+This sample DOE standard deviation plot of the BOXBIKE2.DAT data set shows that:
+
+1. factor 1 has the greatest difference in standard deviations between factor levels;
+2. factor 4 has a significantly lower average standard deviation than the average standard deviations of other factors (but the level $-1$ standard deviation for factor 1 is about the same as the level $-1$ standard deviation for factor 4);
+3. for all factors, the level $-1$ standard deviation is smaller than the level $+1$ standard deviation.
+
+**Definition: Response Standard Deviations Versus Factor Variables**
+
+DOE standard deviation plots are formed by:
+
+- Vertical axis: Standard deviation of the response variable for each level of the factor
+- Horizontal axis: Factor variable
+
+**Questions**
+
+The DOE standard deviation plot can be used to answer the following questions:
+
+1. How do the standard deviations vary across factors?
+2. How do the standard deviations vary within a factor?
+3. Which are the most important factors with respect to scale?
+4. What is the ranked list of the important factors with respect to scale?
+
+**Importance: Assess Variability**
+
+The goal with many designed experiments is to determine which factors are significant. This is usually determined from the means of the factor levels (which can be conveniently shown with a [DOE mean plot](#sec-eda-doe-mean-plot)). A secondary goal is to assess the variability of the responses both within a factor and between factors. The DOE standard deviation plot is a convenient way to do this.
+
+**Related Techniques**
+
+[DOE scatter plot](#sec-eda-doe-scatter-plot), [DOE mean plot](#sec-eda-doe-mean-plot), [Block plot](#sec-eda-block-plot), [Box plot](#sec-eda-box-plot), Analysis of variance<!-- XREF: Product and Process Comparisons chapter, analysis of variance; source handbook/prc/section4/prc42.htm -->.
+
+**Case Study**
+
+The DOE standard deviation plot is demonstrated in the ceramic strength data case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm -->
+
+**Software**
+
+DOE standard deviation plots are not available in most general purpose statistical software programs. It may be feasible to write macros for DOE standard deviation plots in some statistical software programs that do not support them directly.

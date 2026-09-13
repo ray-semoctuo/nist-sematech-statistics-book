@@ -1,10 +1,103 @@
 #### Complex Demodulation Phase Plot {#sec-eda-complex-demodulation-phase-plot}
 
-<!--
-Source: handbook/eda/section3/eda339.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Improve the Estimate of Frequency in Sinusoidal Time Series Models**
+
+As stated previously, in the frequency analysis of time series models, a common model is the sinusoidal model:
+
+$$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
+
+In this equation, $\alpha$ is the amplitude, $\phi$ is the phase shift, and $\omega$ is the dominant frequency. In the above model, $\alpha$ and $\phi$ are constant, that is they do not vary with time $t_i$.
+
+The complex demodulation phase plot (Granger, 1964<!-- XREF: EDA bibliography entry for Granger; source handbook/eda/section4/eda43.htm#Granger -->) is used to improve the estimate of the frequency (i.e., $\omega$) in this model.
+
+If the complex demodulation phase plot shows lines sloping from left to right, then the estimate of the frequency should be increased. If it shows lines sloping right to left, then the frequency should be decreased. If there is essentially zero slope, then the frequency estimate does not need to be modified.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-complex-demodulation-phase-plot
+#| message: false
+library(tidyverse)
+
+# Same complex demodulation construction used for the amplitude plot: shift
+# the series down to (near) zero frequency at the candidate frequency w0 and
+# low-pass filter with a centered moving average; the phase plot below is the
+# argument (angle) of the resulting smoothed complex series.
+complex_demodulate <- function(y, w0, filter_len = 21) {
+  n <- length(y)
+  t <- seq_len(n)
+  z <- y * exp(-1i * 2 * pi * w0 * t)
+  filt <- rep(1 / filter_len, filter_len)
+  zr <- stats::filter(Re(z), filt, sides = 2)
+  zi <- stats::filter(Im(z), filt, sides = 2)
+  tibble(
+    t = t,
+    amplitude = 2 * sqrt(zr^2 + zi^2),
+    phase = atan2(zi, zr)
+  )
+}
+
+lew <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y", col_types = "d")
+
+# An intentionally slightly-off frequency (0.28, versus the fitted value of
+# 0.302596 used on the Complex Demodulation Amplitude Plot page) is used
+# here so that the resulting phase plot shows the sloped pattern described
+# below, which is the actual point of this diagnostic: a well-chosen
+# frequency instead gives an essentially flat phase plot.
+lew_demod <- complex_demodulate(lew$y, w0 = 0.28)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-complex-demodulation-phase-plot-sample
+#| fig-cap: "Complex demodulation phase plot of the LEW.DAT data set, using a demodulation frequency of 0.28"
+lew_demod |>
+  ggplot(aes(t, phase)) +
+  geom_line() +
+  geom_point(size = 0.7) +
+  labs(x = "Time", y = "Phase") +
+  theme_light()
+```
+
+This complex demodulation phase plot of the LEW.DAT data set, generated with a demodulation frequency of 0.28, shows that:
+
+- the specified demodulation frequency is incorrect;
+- the demodulation frequency should be increased.
+
+(Using the fitted frequency of 0.302596, as in the Sample Plot on the [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot) page, produces a much flatter phase plot, consistent with 0.302596 being close to the correct dominant frequency for this series.)
+
+**Definition**
+
+The complex demodulation phase plot is formed by:
+
+- Vertical axis: Phase
+- Horizontal axis: Time
+
+The mathematical computations for the phase plot are beyond the scope of the Handbook. Consult Granger (1964)<!-- XREF: EDA bibliography entry for Granger; source handbook/eda/section4/eda43.htm#Granger --> for details.
+
+**Questions**
+
+The complex demodulation phase plot answers the following question:
+
+- Is the specified demodulation frequency correct?
+
+**Importance of a Good Initial Estimate for the Frequency**
+
+The non-linear fitting for the sinusoidal model:
+
+$$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
+
+is usually quite sensitive to the choice of good starting values. The initial estimate of the frequency, $\omega$, is obtained from a [spectral plot](#sec-eda-spectral-plot). The complex demodulation phase plot is used to assess whether this estimate is adequate, and if it is not, whether it should be increased or decreased. Using the complex demodulation phase plot with the spectral plot can significantly improve the quality of the non-linear fits obtained.
+
+**Related Techniques**
+
+[Spectral Plot](#sec-eda-spectral-plot), [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot), Non-Linear Fitting<!-- XREF: Process Modeling chapter, non-linear least squares fitting; source handbook/pmd/section1/pmd142.htm -->.
+
+**Case Study**
+
+The complex demodulation amplitude plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
+
+**Software**
+
+Complex demodulation phase plots are available in some, but not most, general purpose statistical software programs.

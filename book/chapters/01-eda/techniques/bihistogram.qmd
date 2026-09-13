@@ -1,10 +1,104 @@
 #### Bihistogram {#sec-eda-bihistogram}
 
-<!--
-Source: handbook/eda/section3/eda332.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Check for a Change in Location, Variation, or Distribution**
+
+The bihistogram is an EDA tool for assessing whether a before-versus-after engineering modification has caused a change in
+
+- location;
+- variation; or
+- distribution.
+
+It is a graphical alternative to the [two-sample t-test](#sec-eda-two-sample-t-test). The bihistogram can be more powerful than the t-test in that all of the distributional features (location, scale, skewness, outliers) are evident on a single plot. It is also based on the common and well-understood [histogram](#sec-eda-histogram).
+
+**Sample Plot: This bihistogram reveals that there is a significant difference in ceramic breaking strength between batch 1 (above) and batch 2 (below)**
+
+```{r}
+#| code-fold: true
+#| label: setup-bihistogram
+#| message: false
+library(tidyverse)
+
+jahanmi2 <- read_table(
+  here::here("datasets", "JAHANMI2.DAT"),
+  skip = 50,
+  col_names = c("id", "lab", "num", "test", "y", "x1", "x2", "x3", "x4",
+                "trt", "set", "llab", "rep", "bat", "sblab", "set2"),
+  col_types = cols(.default = "d")
+) |>
+  mutate(batch = factor(bat, labels = c("Batch 1", "Batch 2")))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-bihistogram-sample
+#| fig-cap: "Bihistogram of ceramic breaking strength for batch 1 (above the axis) and batch 2 (below the axis) from the JAHANMI2.DAT data set"
+ggplot(jahanmi2, aes(x = y)) +
+  geom_histogram(
+    data = filter(jahanmi2, batch == "Batch 1"),
+    aes(y = after_stat(count), fill = batch),
+    binwidth = 20, boundary = 0
+  ) +
+  geom_histogram(
+    data = filter(jahanmi2, batch == "Batch 2"),
+    aes(y = -after_stat(count), fill = batch),
+    binwidth = 20, boundary = 0
+  ) +
+  geom_hline(yintercept = 0) +
+  labs(x = "Ceramic Strength", y = "Count", fill = NULL) +
+  theme_light()
+```
+
+From the above bihistogram of the JAHANMI2.DAT data set, we can see that batch 1 is centered at a ceramic strength value of approximately
+
+```{r}
+#| code-fold: true
+#| label: bihistogram-batch-means
+jahanmi2 |>
+  summarize(mean_strength = mean(y), .by = batch)
+```
+
+roughly 689 for batch 1 and 611 for batch 2 — a displacement of nearly 80 strength units. Thus the batch factor has a significant effect on the location (typical value) for strength, and hence batch is said to be "significant" or to "have an effect." We thus see graphically and convincingly what a t-test or analysis of variance<!-- XREF: Product and Process Comparisons chapter, analysis of variance; source handbook/prc/section4/prc42.htm --> would indicate quantitatively.
+
+With respect to variation, note that the spread (variation) of the above-axis batch 1 histogram does not appear to be that much different from the below-axis batch 2 histogram. With respect to distributional shape, note that the batch 1 histogram is skewed left while the batch 2 histogram is more symmetric with even a hint of a slight skewness to the right.
+
+Thus the bihistogram reveals that there is a clear difference between the batches with respect to location and distribution, but not in regard to variation. Comparing batch 1 and batch 2, we also note that batch 1 is the "better batch" due to its substantially higher average strength.
+
+**Definition: Two Adjoined Histograms**
+
+Bihistograms are formed by vertically juxtaposing two histograms:
+
+- Above the axis: Histogram of the response variable for condition 1
+- Below the axis: Histogram of the response variable for condition 2
+
+**Questions**
+
+The bihistogram can provide answers to the following questions:
+
+1. Is a (2-level) factor significant?
+2. Does a (2-level) factor have an effect?
+3. Does the location change between the 2 subgroups?
+4. Does the variation change between the 2 subgroups?
+5. Does the distributional shape change between subgroups?
+6. Are there any outliers?
+
+**Importance: Checks 3 out of the 4 Underlying Assumptions of a Measurement Process**
+
+The bihistogram is an important EDA tool for determining if a factor "has an effect." Since the bihistogram provides insight into the validity of three (location, variation, and distribution) out of the four (missing only randomness) underlying [assumptions](#sec-eda-21) in a measurement process, it is an especially valuable tool. Because of the dual (above/below) nature of the plot, the bihistogram is restricted to assessing factors that have only two levels. However, this is very common in the before-versus-after character of many scientific and engineering experiments.
+
+**Related Techniques**
+
+[t test](#sec-eda-two-sample-t-test) (for shift in location)
+
+[F test](#sec-eda-f-test-for-equality-of-variances) (for shift in variation)
+
+[Kolmogorov-Smirnov test](#sec-eda-kolmogorov-smirnov-test) (for shift in distribution)
+
+[Quantile-quantile plot](#sec-eda-quantile-quantile-plot) (for shift in location and distribution)
+
+**Case Study**
+
+The bihistogram is demonstrated in the ceramic strength<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm --> data case study.
+
+**Software**
+
+The bihistogram is not widely available in general purpose statistical software programs. Bihistograms can be generated using Dataplot and R software.
