@@ -1,4 +1,4 @@
-#### Upper Critical Values of the F Distribution {#sec-eda-f-distribution-table}
+##### Upper Critical Values of the F Distribution {#sec-eda-f-distribution-table}
 
 <!--
 Source: handbook/eda/section3/eda3673.htm

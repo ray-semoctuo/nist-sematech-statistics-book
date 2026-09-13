@@ -1,4 +1,4 @@
-#### Cauchy Distribution {#sec-eda-cauchy-distribution}
+##### Cauchy Distribution {#sec-eda-cauchy-distribution}
 
 <!--
 Source: handbook/eda/section3/eda3663.htm

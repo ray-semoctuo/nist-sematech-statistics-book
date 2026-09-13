@@ -1,4 +1,4 @@
-#### Beta Distribution {#sec-eda-beta-distribution}
+##### Beta Distribution {#sec-eda-beta-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366h.htm

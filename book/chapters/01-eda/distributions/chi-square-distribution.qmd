@@ -1,4 +1,4 @@
-#### Chi-Square Distribution {#sec-eda-chi-square-distribution}
+##### Chi-Square Distribution {#sec-eda-chi-square-distribution}
 
 <!--
 Source: handbook/eda/section3/eda3666.htm

@@ -1,4 +1,4 @@
-#### Extreme Value Type I Distribution {#sec-eda-extreme-value-type-i-distribution}
+##### Extreme Value Type I Distribution {#sec-eda-extreme-value-type-i-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366g.htm

@@ -1,4 +1,4 @@
-#### Uniform Distribution {#sec-eda-uniform-distribution}
+##### Uniform Distribution {#sec-eda-uniform-distribution}
 
 <!--
 Source: handbook/eda/section3/eda3662.htm

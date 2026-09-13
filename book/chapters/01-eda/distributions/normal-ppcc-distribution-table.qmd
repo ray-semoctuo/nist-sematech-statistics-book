@@ -1,4 +1,4 @@
-#### Critical Values of the Normal PPCC Distribution {#sec-eda-normal-ppcc-distribution-table}
+##### Critical Values of the Normal PPCC Distribution {#sec-eda-normal-ppcc-distribution-table}
 
 <!--
 Source: handbook/eda/section3/eda3676.htm

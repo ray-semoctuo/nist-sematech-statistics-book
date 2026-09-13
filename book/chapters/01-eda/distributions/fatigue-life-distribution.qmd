@@ -1,4 +1,4 @@
-#### Fatigue Life Distribution {#sec-eda-fatigue-life-distribution}
+##### Fatigue Life Distribution {#sec-eda-fatigue-life-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366a.htm

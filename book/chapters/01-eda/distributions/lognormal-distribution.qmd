@@ -1,4 +1,4 @@
-#### Lognormal Distribution {#sec-eda-lognormal-distribution}
+##### Lognormal Distribution {#sec-eda-lognormal-distribution}
 
 <!--
 Source: handbook/eda/section3/eda3669.htm

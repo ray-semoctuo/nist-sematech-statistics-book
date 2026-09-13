@@ -1,4 +1,4 @@
-#### Critical Values of the Chi-Square Distribution {#sec-eda-chi-square-distribution-table}
+##### Critical Values of the Chi-Square Distribution {#sec-eda-chi-square-distribution-table}
 
 <!--
 Source: handbook/eda/section3/eda3674.htm

@@ -1,4 +1,4 @@
-#### Gamma Distribution {#sec-eda-gamma-distribution}
+##### Gamma Distribution {#sec-eda-gamma-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366b.htm

@@ -1,4 +1,4 @@
-#### Upper Critical Values of the Student's t Distribution {#sec-eda-t-distribution-table}
+##### Upper Critical Values of the Student's t Distribution {#sec-eda-t-distribution-table}
 
 <!--
 Source: handbook/eda/section3/eda3672.htm

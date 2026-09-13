@@ -1,4 +1,4 @@
-#### Power Lognormal Distribution {#sec-eda-power-lognormal-distribution}
+##### Power Lognormal Distribution {#sec-eda-power-lognormal-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366e.htm

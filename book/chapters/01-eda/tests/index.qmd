@@ -44,6 +44,36 @@ It is important to distinguish between statistical significance and practical si
 
 In some cases, it is possible to mathematically derive appropriate uncertainty intervals. This is particularly true for intervals based on the assumption of a normal distribution. However, there are many cases in which it is not possible to mathematically derive the uncertainty. In these cases, the [bootstrap](#sec-eda-bootstrap-plot) provides a method for empirically determining an appropriate interval.
 
+Some of the more common classical quantitative techniques are listed below, grouped by the type of question they address. This list of quantitative techniques is by no means meant to be exhaustive; additional discussions of classical statistical techniques are contained in the product comparisons chapter.
+
+**Location**
+
+[Measures of Location](#sec-eda-measures-of-location), [Confidence Limits for the Mean and One-Sample t-Test](#sec-eda-confidence-limits-for-the-mean), [Two-Sample t-Test for Equal Means](#sec-eda-two-sample-t-test), [One-Factor Analysis of Variance](#sec-eda-one-factor-anova), [Multi-Factor Analysis of Variance](#sec-eda-multi-factor-anova).
+
+**Scale (or Variability or Spread)**
+
+[Measures of Scale](#sec-eda-measures-of-scale), [Bartlett's Test](#sec-eda-bartletts-test), [Chi-Square Test](#sec-eda-chi-square-test-for-standard-deviation), [F-Test](#sec-eda-f-test-for-equality-of-variances), [Levene Test](#sec-eda-levene-test).
+
+**Skewness and Kurtosis**
+
+[Measures of Skewness and Kurtosis](#sec-eda-measures-of-skewness-and-kurtosis).
+
+**Randomness**
+
+[Autocorrelation](#sec-eda-autocorrelation), [Runs Test](#sec-eda-runs-test).
+
+**Distributional Measures**
+
+[Anderson-Darling Test](#sec-eda-anderson-darling-test), [Chi-Square Goodness-of-Fit Test](#sec-eda-chi-square-goodness-of-fit-test), [Kolmogorov-Smirnov Test](#sec-eda-kolmogorov-smirnov-test).
+
+**Outliers**
+
+[Detection of Outliers, including Grubbs' Test, the Tietjen-Moore Test, and the Generalized Extreme Studentized Deviate Test](#sec-eda-grubbs-test).
+
+**2-Level Factorial Designs**
+
+[Yates Algorithm](#sec-eda-yates-analysis).
+
 {{< include tests/measures-of-location.qmd >}}
 
 {{< include tests/confidence-limits-for-the-mean.qmd >}}

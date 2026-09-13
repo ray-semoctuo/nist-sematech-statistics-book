@@ -1,4 +1,4 @@
-#### Binomial Distribution {#sec-eda-binomial-distribution}
+##### Binomial Distribution {#sec-eda-binomial-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366i.htm

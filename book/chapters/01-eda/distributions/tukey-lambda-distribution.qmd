@@ -1,4 +1,4 @@
-#### Tukey-Lambda Distribution {#sec-eda-tukey-lambda-distribution}
+##### Tukey-Lambda Distribution {#sec-eda-tukey-lambda-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366f.htm

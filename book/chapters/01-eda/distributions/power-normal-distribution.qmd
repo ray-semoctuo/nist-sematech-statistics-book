@@ -1,4 +1,4 @@
-#### Power Normal Distribution {#sec-eda-power-normal-distribution}
+##### Power Normal Distribution {#sec-eda-power-normal-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366d.htm

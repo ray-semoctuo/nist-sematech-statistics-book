@@ -1,4 +1,4 @@
-#### Double Exponential Distribution {#sec-eda-double-exponential-distribution}
+##### Double Exponential Distribution {#sec-eda-double-exponential-distribution}
 
 <!--
 Source: handbook/eda/section3/eda366c.htm

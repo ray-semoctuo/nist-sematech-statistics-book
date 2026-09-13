@@ -1,4 +1,4 @@
-#### Cumulative Distribution Function of the Standard Normal Distribution {#sec-eda-standard-normal-cdf-table}
+##### Cumulative Distribution Function of the Standard Normal Distribution {#sec-eda-standard-normal-cdf-table}
 
 <!--
 Source: handbook/eda/section3/eda3671.htm

@@ -1,4 +1,4 @@
-#### Weibull Distribution {#sec-eda-weibull-distribution}
+##### Weibull Distribution {#sec-eda-weibull-distribution}
 
 <!--
 Source: handbook/eda/section3/eda3668.htm

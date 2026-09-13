@@ -1,4 +1,4 @@
-#### Exponential Distribution {#sec-eda-exponential-distribution}
+##### Exponential Distribution {#sec-eda-exponential-distribution}
 
 <!--
 Source: handbook/eda/section3/eda3667.htm
