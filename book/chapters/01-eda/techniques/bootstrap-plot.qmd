@@ -51,6 +51,7 @@ boot_stats |>
 #| label: fig-bootstrap-plot-histograms
 #| fig-cap: "Histograms of the bootstrap mean, median, and mid-range distributions, showing the mid-range has the smallest variance"
 #| message: false
+#| warning: false
 library(patchwork)
 
 # A single facet_wrap(scales = "free") lets each panel's *breaks* be
