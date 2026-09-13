@@ -40,7 +40,7 @@ best_lambda <- boxcox_linearity$lambda[which.max(abs(boxcox_linearity$correlatio
 #| fig-cap: "The original JONES.DAT data (density of water vs. temperature) with a linear fit, suggesting a quadratic relationship would fit better"
 ggplot(jones, aes(x, y)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
   labs(x = "Temperature", y = "Density of Water") +
   theme_light()
 ```
@@ -79,7 +79,7 @@ tibble(
 #| fig-cap: "The JONES.DAT data after transforming X with the optimal lambda, with a linear fit"
 ggplot(jones_t, aes(xt, y)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
   labs(x = bquote(paste("Transformed X (", lambda, " = ", .(best_lambda), ")")), y = "Density of Water") +
   theme_light()
 ```
