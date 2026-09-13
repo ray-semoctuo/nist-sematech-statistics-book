@@ -50,15 +50,33 @@ boot_stats |>
 #| code-fold: true
 #| label: fig-bootstrap-plot-histograms
 #| fig-cap: "Histograms of the bootstrap mean, median, and mid-range distributions, showing the mid-range has the smallest variance"
-boot_stats |>
-  pivot_longer(c(mean, median, midrange), names_to = "statistic", values_to = "value") |>
-  mutate(statistic = factor(statistic, levels = c("mean", "median", "midrange"),
-                             labels = c("Mean", "Median", "Mid-range"))) |>
-  ggplot(aes(value)) +
-  geom_histogram(bins = 30) +
-  facet_wrap(~statistic, scales = "free") +
-  labs(x = "Statistic Value", y = "Count") +
-  theme_light()
+#| message: false
+library(patchwork)
+
+# A single facet_wrap(scales = "free") lets each panel's *breaks* be
+# computed independently, but the mid-range distribution is so much
+# tighter (it clusters right around 0.5) that ggplot still spaces its
+# x-axis breaks across the full facet width, producing labels with a
+# thousandths digit that gets clipped. Building the mid-range panel as
+# its own plot with an explicit, narrower range (0.49-0.51, matching
+# the data far more closely than the original NIST 0.45-0.55) keeps
+# its tick labels legible and its structure visible, then patchwork
+# recombines the three panels into one figure.
+hist_panel <- function(data, stat_label, xlim = NULL, breaks = waiver()) {
+  ggplot(data, aes(value)) +
+    geom_histogram(bins = 30) +
+    scale_x_continuous(limits = xlim, breaks = breaks) +
+    labs(title = stat_label, x = "Statistic Value", y = "Count") +
+    theme_light() +
+    theme(plot.title = element_text(hjust = 0.5, size = 11))
+}
+
+hist_panel(boot_stats |> rename(value = mean), "Mean") +
+  hist_panel(boot_stats |> rename(value = median), "Median") +
+  hist_panel(
+    boot_stats |> rename(value = midrange), "Mid-range",
+    xlim = c(0.49, 0.51), breaks = seq(0.49, 0.51, 0.005)
+  )
 ```
 
 This bootstrap plot was generated from [500 uniform random numbers](../../datasets/RANDU.DAT). Bootstrap plots and corresponding histograms were generated for the mean, median, and mid-range. The histograms for the corresponding statistics clearly show that for uniform random numbers the mid-range has the smallest variance and is, therefore, a superior location estimator to the mean or the median:
