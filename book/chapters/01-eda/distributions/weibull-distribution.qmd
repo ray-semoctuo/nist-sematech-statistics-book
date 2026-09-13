@@ -1,10 +1,175 @@
 ##### Weibull Distribution {#sec-eda-weibull-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3668.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The formula for the [probability density function](#sec-eda-related-distributions) of the general Weibull distribution is
+
+$$f(x) = \frac{\gamma}{\alpha}\left(\frac{x - \mu}{\alpha}\right)^{(\gamma - 1)}\exp\left(-\left(\frac{x - \mu}{\alpha}\right)^{\gamma}\right) \;\;\;\;\;\;\; x \ge \mu; \gamma, \alpha > 0$$
+
+where $\gamma$ is the [shape parameter](#sec-eda-families-of-distributions), $\mu$ is the [location parameter](#sec-eda-location-and-scale-parameters), and $\alpha$ is the [scale parameter](#sec-eda-location-and-scale-parameters). The case where $\mu = 0$ and $\alpha = 1$ is called the **standard Weibull distribution**. The case where $\mu = 0$ is called the **2-parameter Weibull distribution**. The equation for the standard Weibull distribution reduces to
+
+$$f(x) = \gamma x^{(\gamma - 1)}\exp(-(x^{\gamma})) \;\;\;\;\;\;\; x \ge 0; \gamma > 0$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+The following plot shows the Weibull probability density function with a shape parameter of 2.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-pdf
+#| fig-cap: "Weibull probability density function (shape = 2)"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(0, 3, length.out = 401)) |>
+  mutate(y = dweibull(x, shape = 2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the Weibull distribution is
+
+$$F(x) = 1 - e^{-(x^{\gamma})} \;\;\;\;\;\;\; x \ge 0; \gamma > 0$$
+
+The following is the plot of the Weibull cumulative distribution function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-cdf
+#| fig-cap: "Weibull cumulative distribution function (shape = 2)"
+tibble(x = seq(0, 3, length.out = 401)) |>
+  mutate(y = pweibull(x, shape = 2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the Weibull distribution is
+
+$$G(p) = (-\ln(1 - p))^{1/\gamma} \;\;\;\;\;\;\; 0 \le p < 1; \gamma > 0$$
+
+The following is the plot of the Weibull percent point function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-ppf
+#| fig-cap: "Weibull percent point function (shape = 2)"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qweibull(p, shape = 2)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the Weibull distribution is
+
+$$h(x) = \gamma x^{(\gamma - 1)} \;\;\;\;\;\;\; x \ge 0; \gamma > 0$$
+
+The following is the plot of the Weibull hazard function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-hazard
+#| fig-cap: "Weibull hazard function (shape = 2)"
+tibble(x = seq(0, 3, length.out = 401)) |>
+  mutate(y = dweibull(x, shape = 2) / (1 - pweibull(x, shape = 2))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the [cumulative hazard function](#sec-eda-related-distributions) of the Weibull distribution is
+
+$$H(x) = x^{\gamma} \;\;\;\;\;\;\; x \ge 0; \gamma > 0$$
+
+The following is the plot of the Weibull cumulative hazard function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-cumulative-hazard
+#| fig-cap: "Weibull cumulative hazard function (shape = 2)"
+tibble(x = seq(0, 3, length.out = 401)) |>
+  mutate(y = x^2) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the [survival function](#sec-eda-related-distributions) of the Weibull distribution is
+
+$$S(x) = \exp(-(x^{\gamma})) \;\;\;\;\;\;\; x \ge 0; \gamma > 0$$
+
+The following is the plot of the Weibull survival function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-survival
+#| fig-cap: "Weibull survival function (shape = 2)"
+tibble(x = seq(0, 3, length.out = 401)) |>
+  mutate(y = 1 - pweibull(x, shape = 2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the [inverse survival function](#sec-eda-related-distributions) of the Weibull distribution is
+
+$$Z(p) = (-\ln(p))^{1/\gamma} \;\;\;\;\;\;\; 0 \le p < 1; \gamma > 0$$
+
+The following is the plot of the Weibull inverse survival function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-dist-inverse-survival
+#| fig-cap: "Weibull inverse survival function (shape = 2)"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = qweibull(1 - p, shape = 2)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+The formulas below are with the location parameter equal to zero and the scale parameter equal to one.
+
+| Statistic | Value |
+|---|---|
+| Mean | $\Gamma\left(\dfrac{\gamma + 1}{\gamma}\right)$, where $\Gamma$ is the gamma function $\Gamma(a) = \int_{0}^{\infty} t^{a-1}e^{-t}\,dt$ |
+| Median | $\ln(2)^{1/\gamma}$ |
+| Mode | $\left(1 - \dfrac{1}{\gamma}\right)^{1/\gamma}$ for $\gamma > 1$; $0$ for $\gamma \le 1$ |
+| Range | 0 to $\infty$. |
+| Standard Deviation | $\sqrt{\Gamma\left(\dfrac{\gamma + 2}{\gamma}\right) - \left(\Gamma\left(\dfrac{\gamma + 1}{\gamma}\right)\right)^{2}}$ |
+| Coefficient of Variation | $\sqrt{\dfrac{\Gamma\left(\frac{\gamma + 2}{\gamma}\right)}{\left(\Gamma\left(\frac{\gamma + 1}{\gamma}\right)\right)^{2}} - 1}$ |
+
+**Parameter Estimation**
+
+Maximum likelihood estimation for the Weibull distribution is discussed in the reliability chapter <!-- XREF: Reliability chapter (Chapter 8) discussion of Weibull maximum likelihood estimation; source handbook/apr (Chapter 8, not yet migrated) -->. It is also discussed in Chapter 21 of Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm -->.
+
+**Comments**
+
+The Weibull distribution is used extensively in reliability applications to model failure times <!-- XREF: Reliability chapter reference for Weibull failure-time modeling; source handbook/apr (Chapter 8, not yet migrated) -->.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the Weibull distribution.

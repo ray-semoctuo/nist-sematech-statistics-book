@@ -1,10 +1,200 @@
 ##### Power Lognormal Distribution {#sec-eda-power-lognormal-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366e.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The formula for the [probability density function](#sec-eda-related-distributions) of the standard form of the power lognormal distribution is
+
+$$f(x; p, \sigma) = \left(\frac{p}{x\sigma}\right)\phi\!\left(\frac{\log x}{\sigma}\right)\left(\Phi\!\left(\frac{-\log x}{\sigma}\right)\right)^{p - 1} \qquad x, p, \sigma > 0$$
+
+where $p$ (also referred to as the power parameter) and $\sigma$ are the [shape parameters](#sec-eda-families-of-distributions), $\Phi$ is the cumulative distribution function of the [standard normal](#sec-eda-normal-distribution) distribution, and $\phi$ is the probability density function of the [standard normal](#sec-eda-normal-distribution) distribution.
+
+As with other probability distributions, the power lognormal distribution can be transformed with a [location parameter](#sec-eda-location-and-scale-parameters), $\mu$, and a [scale parameter](#sec-eda-location-and-scale-parameters), $B$. We omit the equation for the general form of the power lognormal distribution. Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+The following is the plot of the power lognormal probability density function with four values of $p$ (0.5, 1, 2, and 5) and $\sigma$ set to 1.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-pdf
+#| fig-cap: "Power lognormal probability density function (sigma = 1)"
+#| message: false
+library(tidyverse)
+
+dplnorm <- function(x, p, sigma = 1) {
+  (p / (x * sigma)) * dnorm(log(x) / sigma) * (pnorm(-log(x) / sigma))^(p - 1)
+}
+
+tibble(x = seq(0.01, 6, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(y = dplnorm(x, p),
+         p = factor(p)) |>
+  ggplot(aes(x, y, color = p)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)", color = "p") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the power lognormal distribution is
+
+$$F(x; p, \sigma) = 1 - \left(\Phi\!\left(\frac{-\log x}{\sigma}\right)\right)^{p} \qquad x, p, \sigma > 0$$
+
+where $\Phi$ is the cumulative distribution function of the standard [normal](#sec-eda-normal-distribution) distribution.
+
+The following is the plot of the power lognormal cumulative distribution function with the same values of $p$ as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-cdf
+#| fig-cap: "Power lognormal cumulative distribution function (sigma = 1)"
+pplnorm <- function(x, p, sigma = 1) 1 - (pnorm(-log(x) / sigma))^p
+
+tibble(x = seq(0.01, 6, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(y = pplnorm(x, p),
+         p = factor(p)) |>
+  ggplot(aes(x, y, color = p)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)", color = "p") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the power lognormal distribution is
+
+$$G(f; p, \sigma) = \exp\!\left(\Phi^{-1}\!\left(1 - (1 - f)^{1/p}\right)\sigma\right) \qquad 0 < f < 1;\ p, \sigma > 0$$
+
+where $\Phi^{-1}$ is the percent point function of the standard [normal](#sec-eda-normal-distribution) distribution.
+
+The following is the plot of the power lognormal percent point function with the same values of $p$ as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-ppf
+#| fig-cap: "Power lognormal percent point function (sigma = 1)"
+qplnorm <- function(f, p, sigma = 1) exp(qnorm(1 - (1 - f)^(1 / p)) * sigma)
+
+tibble(p_prob = seq(0.001, 0.999, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(x = qplnorm(p_prob, p),
+         p = factor(p)) |>
+  ggplot(aes(p_prob, x, color = p)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha)), color = "p") +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the power lognormal distribution is
+
+$$h(x; p, \sigma) = \frac{p\left(\dfrac{1}{x\sigma}\right)\phi\!\left(\dfrac{\log x}{\sigma}\right)}{\Phi\!\left(\dfrac{-\log x}{\sigma}\right)} \qquad x, p, \sigma > 0$$
+
+where $\Phi$ is the cumulative distribution function of the standard normal distribution, and $\phi$ is the probability density function of the standard normal distribution.
+
+Note that this is simply a multiple ($p$) of the lognormal hazard function.
+
+The following is the plot of the power lognormal hazard function with the same values of $p$ as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-hazard
+#| fig-cap: "Power lognormal hazard function (sigma = 1)"
+hplnorm <- function(x, p, sigma = 1) {
+  p * (1 / (x * sigma)) * dnorm(log(x) / sigma) / pnorm(-log(x) / sigma)
+}
+
+tibble(x = seq(0.01, 6, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(y = hplnorm(x, p),
+         p = factor(p)) |>
+  ggplot(aes(x, y, color = p)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)", color = "p") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the [cumulative hazard function](#sec-eda-related-distributions) of the power lognormal distribution is
+
+$$H(x; p, \sigma) = -\log\!\left(\left(\Phi\!\left(\frac{-\log x}{\sigma}\right)\right)^{p}\right) \qquad x, p, \sigma > 0$$
+
+The following is the plot of the power lognormal cumulative hazard function with the same values of $p$ as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-cumulative-hazard
+#| fig-cap: "Power lognormal cumulative hazard function (sigma = 1)"
+hplnorm_cum <- function(x, p, sigma = 1) -log((pnorm(-log(x) / sigma))^p)
+
+tibble(x = seq(0.01, 6, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(y = hplnorm_cum(x, p),
+         p = factor(p)) |>
+  ggplot(aes(x, y, color = p)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)", color = "p") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the [survival function](#sec-eda-related-distributions) of the power lognormal distribution is
+
+$$S(x; p, \sigma) = \left(\Phi\!\left(\frac{-\log x}{\sigma}\right)\right)^{p} \qquad x, p, \sigma > 0$$
+
+The following is the plot of the power lognormal survival function with the same values of $p$ as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-survival
+#| fig-cap: "Power lognormal survival function (sigma = 1)"
+splnorm <- function(x, p, sigma = 1) (pnorm(-log(x) / sigma))^p
+
+tibble(x = seq(0.01, 6, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(y = splnorm(x, p),
+         p = factor(p)) |>
+  ggplot(aes(x, y, color = p)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)", color = "p") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the [inverse survival function](#sec-eda-related-distributions) of the power lognormal distribution is
+
+$$Z(f; p, \sigma) = \exp\!\left(\Phi^{-1}\!\left(1 - f^{1/p}\right)\sigma\right) \qquad 0 < f < 1;\ p, \sigma > 0$$
+
+The following is the plot of the power lognormal inverse survival function with the same values of $p$ as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-power-lognormal-dist-inverse-survival
+#| fig-cap: "Power lognormal inverse survival function (sigma = 1)"
+zplnorm <- function(f, p, sigma = 1) exp(qnorm(1 - f^(1 / p)) * sigma)
+
+tibble(p_prob = seq(0.001, 0.999, length.out = 401)) |>
+  expand_grid(p = c(0.5, 1, 2, 5)) |>
+  mutate(z = zplnorm(p_prob, p),
+         p = factor(p)) |>
+  ggplot(aes(p_prob, z, color = p)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha)), color = "p") +
+  theme_light()
+```
+
+**Common Statistics**
+
+The statistics for the power lognormal distribution are complicated and require tables. Nelson<!-- XREF: reference to Nelson's discussion of the mean, median, mode, and standard deviation of the power lognormal distribution and tables of these statistics; source handbook/eda/section4/eda43.htm#Nelson2 --> discusses the mean, median, mode, and standard deviation of the power lognormal distribution and provides references to the appropriate tables.
+
+**Parameter Estimation**
+
+Nelson<!-- XREF: reference to Nelson's discussion of maximum likelihood estimation for the power lognormal distribution; source handbook/eda/section4/eda43.htm#Nelson2 --> discusses maximum likelihood estimation for the power lognormal distribution. These estimates need to be performed with computer software. Software for maximum likelihood estimation of the parameters of the power lognormal distribution is not as readily available as for other reliability distributions such as the exponential, Weibull, and lognormal.
+
+**Software**
+
+Most general purpose statistical software programs do not support the probability functions for the power lognormal distribution.

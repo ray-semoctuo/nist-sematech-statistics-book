@@ -1,10 +1,117 @@
 ##### F Distribution {#sec-eda-f-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3665.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The F distribution is the ratio of two [chi-square](#sec-eda-chi-square-distribution) distributions with degrees of freedom $\nu_{1}$ and $\nu_{2}$, respectively, where each chi-square has first been divided by its degrees of freedom. The formula for the [probability density function](#sec-eda-related-distributions) of the F distribution is
+
+$$f(x) = \frac{\Gamma(\frac{\nu_{1} + \nu_{2}}{2}) (\frac{\nu_{1}}{\nu_{2}})^{\frac{\nu_{1}}{2}} x^{\frac{\nu_{1}}{2} - 1}}{\Gamma(\frac{\nu_{1}}{2}) \Gamma(\frac{\nu_{2}}{2}) (1 + \frac{\nu_{1}x}{\nu_{2}})^{\frac{\nu_{1} + \nu_{2}}{2}}}$$
+
+where $\nu_{1}$ and $\nu_{2}$ are the shape parameters and $\Gamma$ is the gamma function. The formula for the gamma function is
+
+$$\Gamma(a) = \int_{0}^{\infty} t^{a-1}e^{-t}\,dt$$
+
+In a testing context, the F distribution is treated as a "standardized distribution" (i.e., no location or scale parameters). However, in a distributional modeling context (as with other probability distributions), the F distribution itself can be transformed with a [location parameter](#sec-eda-location-and-scale-parameters), $\mu$, and a [scale parameter](#sec-eda-location-and-scale-parameters), $\sigma$.
+
+The following is the plot of the F probability density function for 4 different combinations of the shape parameters, $\nu_{1}$ and $\nu_{2}$: (1, 1), (1, 10), (10, 1), and (10, 10). Since the F distribution is only defined for $x \ge 0$, the domain starts at 0.
+
+```{r}
+#| code-fold: true
+#| label: fig-f-dist-pdf
+#| fig-cap: "F probability density function for four combinations of the shape parameters"
+#| message: false
+library(tidyverse)
+
+params <- tribble(
+  ~label, ~df1, ~df2,
+  "(1, 1)", 1, 1,
+  "(1, 10)", 1, 10,
+  "(10, 1)", 10, 1,
+  "(10, 10)", 10, 10
+) |>
+  mutate(label = fct_inorder(label))
+
+expand_grid(x = seq(0.001, 5, length.out = 401), params) |>
+  mutate(y = df(x, df1, df2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~label) +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the F distribution is
+
+$$F(x) = 1 - I_{k}\!\left(\frac{\nu_{2}}{2}, \frac{\nu_{1}}{2}\right)$$
+
+where $k = \nu_{2}/(\nu_{2} + \nu_{1}x)$ and $I_{k}$ is the incomplete beta function. The formula for the incomplete beta function is
+
+$$I_{k}(x, \alpha, \beta) = \frac{\int_{0}^{x} t^{\alpha - 1}(1 - t)^{\beta - 1}\,dt}{B(\alpha, \beta)}$$
+
+where $B$ is the beta function
+
+$$B(\alpha, \beta) = \int_{0}^{1} t^{\alpha - 1}(1 - t)^{\beta - 1}\,dt$$
+
+The following is the plot of the F cumulative distribution function with the same values of $\nu_{1}$ and $\nu_{2}$ as the pdf plots above.
+
+```{r}
+#| code-fold: true
+#| label: fig-f-dist-cdf
+#| fig-cap: "F cumulative distribution function for four combinations of the shape parameters"
+expand_grid(x = seq(0, 5, length.out = 401), params) |>
+  mutate(y = pf(x, df1, df2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~label) +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the F distribution does not exist in a simple closed form. It is computed numerically.
+
+The following is the plot of the F percent point function with the same values of $\nu_{1}$ and $\nu_{2}$ as the pdf plots above.
+
+```{r}
+#| code-fold: true
+#| label: fig-f-dist-ppf
+#| fig-cap: "F percent point function for four combinations of the shape parameters"
+expand_grid(p = seq(0.001, 0.999, length.out = 401), params) |>
+  mutate(x = qf(p, df1, df2)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  facet_wrap(~label) +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Other Probability Functions**
+
+Since the F distribution is typically used to develop hypothesis tests and confidence intervals and rarely for modeling applications, we omit the formulas and plots for the hazard, cumulative hazard, survival, and inverse survival probability functions.
+
+**Common Statistics**
+
+The formulas below are for the case where the location parameter is zero and the scale parameter is one.
+
+| Statistic | Value |
+|---|---|
+| Mean | $\dfrac{\nu_{2}}{\nu_{2} - 2} \;\;\;\;\;\;\; \nu_{2} > 2$ |
+| Mode | $\dfrac{\nu_{2}(\nu_{1} - 2)}{\nu_{1}(\nu_{2} + 2)} \;\;\;\;\;\;\; \nu_{1} > 2$ |
+| Range | 0 to $\infty$ |
+| Standard Deviation | $\sqrt{\dfrac{2\nu_{2}^{2}(\nu_{1} + \nu_{2} - 2)}{\nu_{1}(\nu_{2} - 2)^{2}(\nu_{2} - 4)}} \;\;\;\;\;\;\; \nu_{2} > 4$ |
+| Coefficient of Variation | $\sqrt{\dfrac{2(\nu_{1} + \nu_{2} - 2)}{\nu_{1}(\nu_{2} - 4)}} \;\;\;\;\;\;\; \nu_{2} > 4$ |
+| Skewness | $\dfrac{(2\nu_{1} + \nu_{2} - 2)\sqrt{8(\nu_{2} - 4)}}{\sqrt{\nu_{1}}(\nu_{2} - 6)\sqrt{\nu_{1} + \nu_{2} - 2}} \;\;\;\;\;\;\; \nu_{2} > 6$ |
+
+**Parameter Estimation**
+
+Since the F distribution is typically used to develop hypothesis tests and confidence intervals and rarely for modeling applications, we omit any discussion of parameter estimation.
+
+**Comments**
+
+The F distribution is used in many cases for the critical regions for hypothesis tests and in determining confidence intervals. Two common examples are the analysis of variance and the F test to determine if the variances of two populations are equal.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the F distribution.

@@ -1,10 +1,71 @@
 ##### Tukey-Lambda Distribution {#sec-eda-tukey-lambda-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366f.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The Tukey-Lambda density function does not have a simple, closed form. It is computed numerically.
+
+The Tukey-Lambda distribution has the [shape parameter](#sec-eda-families-of-distributions) $\lambda$. As with other probability distributions, the Tukey-Lambda distribution can be transformed with a [location parameter](#sec-eda-location-and-scale-parameters), $\mu$, and a [scale parameter](#sec-eda-location-and-scale-parameters), $\sigma$. Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+Because the source formula for the density is not given in closed form, no density plot is included here.
+
+**Cumulative Distribution Function**
+
+The Tukey-Lambda distribution does not have a simple, closed form for its cumulative distribution function. It is computed numerically.
+
+Because the source formula for the cumulative distribution function is not given in closed form, no cumulative distribution function plot is included here.
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the standard form of the Tukey-Lambda distribution is
+
+$$G(p; \lambda) = \frac{p^{\lambda} - (1 - p)^{\lambda}}{\lambda}$$
+
+The following is the plot of the Tukey-Lambda percent point function. The source page illustrates this with four values of $\lambda$; here we use $\lambda = -1, 0, 0.14, 1$, which correspond respectively to distributions approximately Cauchy, exactly logistic, approximately normal, and exactly uniform (see **Comments** below). Since $\lambda = 0$ is a removable singularity in the formula above, that case is evaluated with its limiting form, $G(p; 0) = \log(p / (1 - p))$. Because the $\lambda = -1$ curve has very heavy (Cauchy-like) tails that would otherwise dwarf the other three curves, the plot's vertical range is restricted to $[-5, 5]$ for readability.
+
+```{r}
+#| code-fold: true
+#| label: fig-tukey-lambda-dist-ppf
+#| fig-cap: "Tukey-Lambda percent point function"
+#| message: false
+library(tidyverse)
+
+qtukeylambda <- function(p, lambda) {
+  if (lambda == 0) log(p / (1 - p)) else (p^lambda - (1 - p)^lambda) / lambda
+}
+
+tibble(p_prob = seq(0.001, 0.999, length.out = 401)) |>
+  expand_grid(lambda = c(-1, 0, 0.14, 1)) |>
+  rowwise() |>
+  mutate(x = qtukeylambda(p_prob, lambda)) |>
+  ungroup() |>
+  mutate(lambda = factor(lambda)) |>
+  ggplot(aes(p_prob, x, color = lambda)) +
+  geom_line() +
+  coord_cartesian(ylim = c(-5, 5)) +
+  labs(x = expression(alpha), y = expression(G(alpha)), color = expression(lambda)) +
+  theme_light()
+```
+
+**Other Probability Functions**
+
+The Tukey-Lambda distribution is typically used to identify an appropriate distribution (see the comments below) and not used in statistical models directly. For this reason, we omit the formulas and plots for the hazard, cumulative hazard, survival, and inverse survival functions. We also omit the common statistics and parameter estimation sections.
+
+**Comments**
+
+The Tukey-Lambda distribution is actually a family of distributions that can approximate a number of common distributions. For example,
+
+| $\lambda$ | Approximates |
+|---|---|
+| $\lambda = -1$ | approximately Cauchy |
+| $\lambda = 0$ | exactly logistic |
+| $\lambda = 0.14$ | approximately normal |
+| $\lambda = 0.5$ | U-shaped |
+| $\lambda = 1$ | exactly uniform (from -1 to +1) |
+
+The most common use of this distribution is to generate a Tukey-Lambda PPCC plot of a data set. Based on the PPCC plot, an appropriate model for the data is suggested. For example, if the maximum correlation occurs for a value of $\lambda$ at or near 0.14, then the data can be modeled with a normal distribution. Values of $\lambda$ less than this imply a heavy-tailed distribution (with -1 approximating a Cauchy). That is, as the optimal value of $\lambda$ goes from 0.14 to -1, increasingly heavy tails are implied. Similarly, as the optimal value of $\lambda$ becomes greater than 0.14, shorter tails are implied.
+
+As the Tukey-Lambda distribution is a symmetric distribution, the use of the Tukey-Lambda PPCC plot to determine a reasonable distribution to model the data only applies to symmetric distributions. A histogram of the data should provide evidence as to whether the data can be reasonably modeled with a symmetric distribution.
+
+**Software**
+
+Most general purpose statistical software programs do not support the probability functions for the Tukey-Lambda distribution.

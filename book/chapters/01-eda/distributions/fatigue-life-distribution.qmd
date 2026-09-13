@@ -1,10 +1,182 @@
 ##### Fatigue Life Distribution {#sec-eda-fatigue-life-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366a.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The Birnbaum-Saunders distribution is also commonly known as the fatigue life distribution. There are several alternative formulations of the Birnbaum-Saunders distribution in the literature.
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the Birnbaum-Saunders distribution is
+
+$$f(x) = \left(\frac{\sqrt{\frac{x-\mu}{\beta}} + \sqrt{\frac{\beta}{x-\mu}}}{2\gamma (x-\mu)}\right) \phi\left(\frac{\sqrt{\frac{x-\mu}{\beta}} - \sqrt{\frac{\beta}{x-\mu}}}{\gamma}\right) \;\;\;\;\;\;\; x > \mu; \gamma, \beta > 0$$
+
+where $\gamma$ is the [shape parameter](#sec-eda-families-of-distributions), $\mu$ is the [location parameter](#sec-eda-location-and-scale-parameters), $\beta$ is the [scale parameter](#sec-eda-location-and-scale-parameters), $\phi$ is the probability density function of the standard normal distribution, and $\Phi$ is the cumulative distribution function of the standard normal distribution. The case where $\mu = 0$ and $\beta = 1$ is called the **standard Birnbaum-Saunders distribution**. The equation for the standard Birnbaum-Saunders distribution reduces to
+
+$$f(x) = \left(\frac{\sqrt{x} + \sqrt{\frac{1}{x}}}{2\gamma x}\right) \phi\left(\frac{\sqrt{x} - \sqrt{\frac{1}{x}}}{\gamma}\right) \;\;\;\;\;\;\; x > 0; \gamma > 0$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+R has no built-in Birnbaum-Saunders distribution functions, so the pdf, cdf, percent point, and inverse survival functions below are implemented directly from the formulas above, using `dnorm()`/`pnorm()`/`qnorm()` for the standard normal pieces $\phi$ and $\Phi$. The following plot shows the Birnbaum-Saunders probability density function with a shape parameter of 2.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-pdf
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) probability density function (shape = 2)"
+#| message: false
+library(tidyverse)
+
+dbs <- function(x, gamma) {
+  ((sqrt(x) + sqrt(1 / x)) / (2 * gamma * x)) * dnorm((sqrt(x) - sqrt(1 / x)) / gamma)
+}
+
+tibble(x = seq(0.001, 8, length.out = 401)) |>
+  mutate(y = dbs(x, gamma = 2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the Birnbaum-Saunders distribution is
+
+$$F(x) = \Phi\left(\frac{\sqrt{x} - \sqrt{\frac{1}{x}}}{\gamma}\right) \;\;\;\;\;\;\; x > 0; \gamma > 0$$
+
+where $\Phi$ is the cumulative distribution function of the standard normal distribution. The following is the plot of the Birnbaum-Saunders cumulative distribution function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-cdf
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) cumulative distribution function (shape = 2)"
+pbs <- function(x, gamma) {
+  pnorm((sqrt(x) - sqrt(1 / x)) / gamma)
+}
+
+tibble(x = seq(0.001, 8, length.out = 401)) |>
+  mutate(y = pbs(x, gamma = 2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the Birnbaum-Saunders distribution is
+
+$$G(p) = \frac{1}{4}\left[\gamma\Phi^{-1}(p) + \sqrt{4 + (\gamma\Phi^{-1}(p))^{2}}\right]^{2}$$
+
+where $\Phi^{-1}$ is the percent point function of the standard normal distribution. The following is the plot of the Birnbaum-Saunders percent point function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-ppf
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) percent point function (shape = 2)"
+qbs <- function(p, gamma) {
+  z <- qnorm(p)
+  (1 / 4) * (gamma * z + sqrt(4 + (gamma * z)^2))^2
+}
+
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qbs(p, gamma = 2)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The Birnbaum-Saunders [hazard function](#sec-eda-related-distributions) can be computed from the Birnbaum-Saunders probability density and cumulative distribution functions.
+
+The following is the plot of the Birnbaum-Saunders hazard function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-hazard
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) hazard function (shape = 2)"
+tibble(x = seq(0.001, 8, length.out = 401)) |>
+  mutate(y = dbs(x, gamma = 2) / (1 - pbs(x, gamma = 2))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The Birnbaum-Saunders [cumulative hazard function](#sec-eda-related-distributions) can be computed from the Birnbaum-Saunders cumulative distribution function.
+
+The following is the plot of the Birnbaum-Saunders cumulative hazard function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-cumulative-hazard
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) cumulative hazard function (shape = 2)"
+tibble(x = seq(0.001, 8, length.out = 401)) |>
+  mutate(y = -log(1 - pbs(x, gamma = 2))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The Birnbaum-Saunders [survival function](#sec-eda-related-distributions) can be computed from the Birnbaum-Saunders cumulative distribution function.
+
+The following is the plot of the Birnbaum-Saunders survival function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-survival
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) survival function (shape = 2)"
+tibble(x = seq(0.001, 8, length.out = 401)) |>
+  mutate(y = 1 - pbs(x, gamma = 2)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The Birnbaum-Saunders [inverse survival function](#sec-eda-related-distributions) can be computed from the Birnbaum-Saunders percent point function.
+
+The following is the plot of the Birnbaum-Saunders inverse survival function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-fatigue-life-dist-inverse-survival
+#| fig-cap: "Standard Birnbaum-Saunders (fatigue life) inverse survival function (shape = 2)"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = qbs(1 - p, gamma = 2)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+The formulas below are with the location parameter equal to zero and the scale parameter equal to one.
+
+| Statistic | Value |
+|---|---|
+| Mean | $1 + \dfrac{\gamma^{2}}{2}$ |
+| Range | 0 to $\infty$. |
+| Standard Deviation | $\gamma\sqrt{1 + \dfrac{5\gamma^{2}}{4}}$ |
+| Coefficient of Variation | $\dfrac{2 + \gamma^{2}}{\gamma\sqrt{1 + 5\gamma^{2}}}$ |
+
+**Parameter Estimation**
+
+Maximum likelihood estimation for the Birnbaum-Saunders distribution is discussed in the reliability chapter<!-- XREF: Reliability chapter discussion of Birnbaum-Saunders maximum likelihood estimation; source handbook/apr (Chapter 8, not yet migrated) -->.
+
+**Comments**
+
+The Birnbaum-Saunders distribution is used extensively in reliability applications to model failure times <!-- XREF: Reliability chapter reference for Birnbaum-Saunders failure-time modeling; source handbook/apr (Chapter 8, not yet migrated) -->.
+
+**Software**
+
+Some general purpose statistical software programs, including Dataplot, support at least some of the probability functions for the Birnbaum-Saunders distribution. Support for this distribution is likely to be available for statistical programs that emphasize reliability applications.
+
+The "bs" package implements support for the Birnbaum-Saunders distribution for the R package. See Leiva, V., Hernandez, H., and Riquelme, M. (2006). "A New Package for the Birnbaum-Saunders Distribution." *Rnews*, 6/4, 35-40. (<http://www.r-project.org>)

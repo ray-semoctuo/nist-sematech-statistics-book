@@ -1,10 +1,184 @@
 ##### Normal Distribution {#sec-eda-normal-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3661.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the normal distribution is
+
+$$f(x) = \frac{e^{-(x - \mu)^{2}/(2\sigma^{2})}}{\sigma\sqrt{2\pi}}$$
+
+where $\mu$ is the [location parameter](#sec-eda-location-and-scale-parameters) and $\sigma$ is the [scale parameter](#sec-eda-location-and-scale-parameters). The case where $\mu = 0$ and $\sigma = 1$ is called the **standard normal distribution**. The equation for the standard normal distribution is
+
+$$f(x) = \frac{e^{-x^{2}/2}}{\sqrt{2\pi}}$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+The following is the plot of the standard normal probability density function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-pdf
+#| fig-cap: "Standard normal probability density function"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = dnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the cumulative distribution function of the standard normal distribution is
+
+$$F(x) = \int_{-\infty}^{x} \frac{e^{-t^{2}/2}}{\sqrt{2\pi}}\,dt$$
+
+Note that this integral does not exist in a simple closed formula. It is computed numerically.
+
+The following is the plot of the normal cumulative distribution function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-cdf
+#| fig-cap: "Standard normal cumulative distribution function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = pnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the normal distribution does not exist in a simple closed formula. It is computed numerically.
+
+The following is the plot of the normal percent point function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-ppf
+#| fig-cap: "Standard normal percent point function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qnorm(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the normal distribution is
+
+$$h(x) = \frac{\phi(x)}{\Phi(-x)}$$
+
+where $\Phi$ is the cumulative distribution function of the standard normal distribution and $\phi$ is the probability density function of the standard normal distribution.
+
+The following is the plot of the normal hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-hazard
+#| fig-cap: "Standard normal hazard function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = dnorm(x) / (1 - pnorm(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The normal [cumulative hazard function](#sec-eda-related-distributions) can be computed from the normal cumulative distribution function.
+
+The following is the plot of the normal cumulative hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-cumulative-hazard
+#| fig-cap: "Standard normal cumulative hazard function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = -log(1 - pnorm(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The normal [survival function](#sec-eda-related-distributions) can be computed from the normal cumulative distribution function.
+
+The following is the plot of the normal survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-survival
+#| fig-cap: "Standard normal survival function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = 1 - pnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The normal [inverse survival function](#sec-eda-related-distributions) can be computed from the normal percent point function.
+
+The following is the plot of the normal inverse survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-dist-inverse-survival
+#| fig-cap: "Standard normal inverse survival function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = qnorm(1 - p)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | The location parameter $\mu$. |
+| Median | The location parameter $\mu$. |
+| Mode | The location parameter $\mu$. |
+| Range | $-\infty$ to $\infty$. |
+| Standard Deviation | The scale parameter $\sigma$. |
+| Coefficient of Variation | $\sigma / \mu$ |
+| Skewness | 0 |
+| Kurtosis | 3 |
+
+**Parameter Estimation**
+
+The location and scale parameters of the normal distribution can be estimated with the sample [mean](#sec-eda-measures-of-location) and sample [standard deviation](#sec-eda-measures-of-scale), respectively.
+
+**Comments**
+
+For both theoretical and practical reasons, the normal distribution is probably the most important distribution in statistics. For example,
+
+- Many classical statistical tests are based on the assumption that the data follow a normal distribution. This assumption should be tested before applying these tests.
+- In modeling applications, such as linear and non-linear regression, the error term is often assumed to follow a normal distribution with fixed location and scale.
+- The normal distribution is used to find significance levels in many hypothesis tests and confidence intervals.
+
+**Theoretical Justification — Central Limit Theorem**
+
+The normal distribution is widely used. Part of the appeal is that it is well behaved and mathematically tractable. However, the central limit theorem provides a theoretical basis for why it has wide applicability.
+
+The central limit theorem basically states that as the sample size ($N$) becomes large, the following occur:
+
+1. The sampling distribution of the mean becomes approximately normal regardless of the distribution of the original variable.
+2. The sampling distribution of the mean is centered at the population mean, $\mu$, of the original variable. In addition, the standard deviation of the sampling distribution of the mean approaches $\sigma / \sqrt{N}$.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the normal distribution.

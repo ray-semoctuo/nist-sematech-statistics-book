@@ -29,7 +29,7 @@ format:
     code-fold: show
     code-tools: true
     toc: true
-    toc-depth: 3
+    toc-depth: 4
 
 execute:
   freeze: auto

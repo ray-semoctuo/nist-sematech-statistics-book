@@ -1,10 +1,175 @@
 ##### Exponential Distribution {#sec-eda-exponential-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3667.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$f(x) = \frac{1}{\beta} e^{-(x - \mu)/\beta} \;\;\;\;\;\;\; x \ge \mu; \beta > 0$$
+
+where $\mu$ is the [location parameter](#sec-eda-location-and-scale-parameters) and $\beta$ is the [scale parameter](#sec-eda-location-and-scale-parameters) (the scale parameter is often referred to as $\lambda$ which equals $1/\beta$). The case where $\mu = 0$ and $\beta = 1$ is called the **standard exponential distribution**. The equation for the standard exponential distribution is
+
+$$f(x) = e^{-x} \;\;\;\;\;\;\; \text{for } x \ge 0$$
+
+The general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters). Subsequent formulas in this section are given for the 1-parameter (i.e., with scale parameter) form of the function.
+
+The following is the plot of the exponential probability density function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-pdf
+#| fig-cap: "Standard exponential probability density function"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(0, 5, length.out = 401)) |>
+  mutate(y = dexp(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$F(x) = 1 - e^{-x/\beta} \;\;\;\;\;\;\; x \ge 0; \beta > 0$$
+
+The following is the plot of the exponential cumulative distribution function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-cdf
+#| fig-cap: "Standard exponential cumulative distribution function"
+tibble(x = seq(0, 5, length.out = 401)) |>
+  mutate(y = pexp(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$G(p) = -\beta\ln(1 - p) \;\;\;\;\;\;\; 0 \le p < 1; \beta > 0$$
+
+The following is the plot of the exponential percent point function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-ppf
+#| fig-cap: "Standard exponential percent point function"
+tibble(p = seq(0, 0.999, length.out = 401)) |>
+  mutate(x = qexp(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$h(x) = \frac{1}{\beta} \;\;\;\;\;\;\; x \ge 0; \beta > 0$$
+
+The following is the plot of the exponential hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-hazard
+#| fig-cap: "Standard exponential hazard function"
+tibble(x = seq(0, 5, length.out = 401)) |>
+  mutate(y = dexp(x) / (1 - pexp(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the [cumulative hazard function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$H(x) = \frac{x}{\beta} \;\;\;\;\;\;\; x \ge 0; \beta > 0$$
+
+The following is the plot of the exponential cumulative hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-cumulative-hazard
+#| fig-cap: "Standard exponential cumulative hazard function"
+tibble(x = seq(0, 5, length.out = 401)) |>
+  mutate(y = -log(1 - pexp(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the [survival function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$S(x) = e^{-x/\beta} \;\;\;\;\;\;\; x \ge 0; \beta > 0$$
+
+The following is the plot of the exponential survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-survival
+#| fig-cap: "Standard exponential survival function"
+tibble(x = seq(0, 5, length.out = 401)) |>
+  mutate(y = 1 - pexp(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the [inverse survival function](#sec-eda-related-distributions) of the exponential distribution is
+
+$$Z(p) = -\beta\ln(p) \;\;\;\;\;\;\; 0 \le p < 1; \beta > 0$$
+
+The following is the plot of the exponential inverse survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-exponential-dist-inverse-survival
+#| fig-cap: "Standard exponential inverse survival function"
+tibble(p = seq(0.001, 1, length.out = 401)) |>
+  mutate(z = qexp(1 - p)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | $\beta$ |
+| Median | $\beta\ln{2}$ |
+| Mode | $\mu$ |
+| Range | $\mu$ to $\infty$ |
+| Standard Deviation | $\beta$ |
+| Coefficient of Variation | 1 |
+| Skewness | 2 |
+| Kurtosis | 9 |
+
+**Parameter Estimation**
+
+For the full sample case, the maximum likelihood estimator of the scale parameter is the sample mean. Maximum likelihood estimation for the exponential distribution is discussed in the chapter on reliability (Chapter 8). It is also discussed in chapter 19 of Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson -->.
+
+**Comments**
+
+The exponential distribution is primarily used in reliability applications. The exponential distribution is used to model data with a constant failure rate (indicated by the hazard plot which is simply equal to a constant).
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the exponential distribution.

@@ -1,10 +1,196 @@
 ##### Uniform Distribution {#sec-eda-uniform-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3662.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the uniform distribution is
+
+$$f(x) = \frac{1}{B - A} \;\;\;\;\;\;\; \text{for } A \le x \le B$$
+
+where $A$ is the [location parameter](#sec-eda-location-and-scale-parameters) and $(B - A)$ is the [scale parameter](#sec-eda-location-and-scale-parameters). The case where $A = 0$ and $B = 1$ is called the **standard uniform distribution**. The equation for the standard uniform distribution is
+
+$$f(x) = 1 \;\;\;\;\;\;\; \text{for } 0 \le x \le 1$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+The following is the plot of the uniform probability density function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-pdf
+#| fig-cap: "Standard uniform probability density function"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(0, 1, length.out = 401)) |>
+  mutate(y = dunif(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the uniform distribution is
+
+$$F(x) = x \;\;\;\;\;\;\; \text{for } 0 \le x \le 1$$
+
+The following is the plot of the uniform cumulative distribution function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-cdf
+#| fig-cap: "Standard uniform cumulative distribution function"
+tibble(x = seq(0, 1, length.out = 401)) |>
+  mutate(y = punif(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the uniform distribution is
+
+$$G(p) = p \;\;\;\;\;\;\; \text{for } 0 \le p \le 1$$
+
+The following is the plot of the uniform percent point function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-ppf
+#| fig-cap: "Standard uniform percent point function"
+tibble(p = seq(0, 1, length.out = 401)) |>
+  mutate(x = qunif(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the uniform distribution is
+
+$$h(x) = \frac{1}{1 - x} \;\;\;\;\;\;\; \text{for } 0 \le x < 1$$
+
+The following is the plot of the uniform hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-hazard
+#| fig-cap: "Standard uniform hazard function"
+tibble(x = seq(0, 0.999, length.out = 401)) |>
+  mutate(y = dunif(x) / (1 - punif(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the [cumulative hazard function](#sec-eda-related-distributions) of the uniform distribution is
+
+$$H(x) = -\ln{(1 - x)} \;\;\;\;\;\;\; \text{for } 0 \le x < 1$$
+
+The following is the plot of the uniform cumulative hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-cumulative-hazard
+#| fig-cap: "Standard uniform cumulative hazard function"
+tibble(x = seq(0, 0.999, length.out = 401)) |>
+  mutate(y = -log(1 - punif(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the uniform [survival function](#sec-eda-related-distributions) is
+
+$$S(x) = 1 - x \;\;\;\;\;\;\; \text{for } 0 \le x \le 1$$
+
+The following is the plot of the uniform survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-survival
+#| fig-cap: "Standard uniform survival function"
+tibble(x = seq(0, 1, length.out = 401)) |>
+  mutate(y = 1 - punif(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the uniform [inverse survival function](#sec-eda-related-distributions) is
+
+$$Z(p) = 1 - p \;\;\;\;\;\;\; \text{for } 0 \le p \le 1$$
+
+The following is the plot of the uniform inverse survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-uniform-dist-inverse-survival
+#| fig-cap: "Standard uniform inverse survival function"
+tibble(p = seq(0, 1, length.out = 401)) |>
+  mutate(z = 1 - qunif(p)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | $(A + B) / 2$ |
+| Median | $(A + B) / 2$ |
+| Range | $B - A$ |
+| Standard Deviation | $\sqrt{\dfrac{(B - A)^{2}}{12}}$ |
+| Coefficient of Variation | $\dfrac{B - A}{\sqrt{3}(B + A)}$ |
+| Skewness | 0 |
+| Kurtosis | 9/5 |
+
+**Parameter Estimation**
+
+The method of moments estimators for $A$ and $B$ are
+
+$$\hat{A} = \bar{x} - \sqrt{3}s$$
+$$\hat{B} = \bar{x} + \sqrt{3}s$$
+
+The maximum likelihood estimators are usually given in terms of the parameters $a$ and $h$ where
+
+$$A = a - h$$
+$$B = a + h$$
+
+The maximum likelihood estimators for $a$ and $h$ are
+
+$$\hat{a} = \text{midrange}(Y_1, Y_2, \ldots, Y_n)$$
+$$\hat{h} = 0.5[\text{range}(Y_1, Y_2, \ldots, Y_n)]$$
+
+This gives the following maximum likelihood estimators for $A$ and $B$:
+
+$$\hat{A} = \text{midrange}(Y_1, Y_2, \ldots, Y_n) - 0.5[\text{range}(Y_1, Y_2, \ldots, Y_n)] = Y_1$$
+$$\hat{B} = \text{midrange}(Y_1, Y_2, \ldots, Y_n) + 0.5[\text{range}(Y_1, Y_2, \ldots, Y_n)] = Y_n$$
+
+**Comments**
+
+The uniform distribution defines equal probability over a given range for a continuous distribution. For this reason, it is important as a reference distribution.
+
+One of the most important applications of the uniform distribution is in the generation of random numbers. That is, almost all random number generators generate random numbers on the (0, 1) interval. For other distributions, some transformation is applied to the uniform random numbers.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the uniform distribution.

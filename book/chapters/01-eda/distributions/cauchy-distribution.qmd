@@ -1,10 +1,177 @@
 ##### Cauchy Distribution {#sec-eda-cauchy-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3663.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the Cauchy distribution is
+
+$$f(x) = \frac{1}{s\pi(1 + ((x - t)/s)^{2})}$$
+
+where $t$ is the [location parameter](#sec-eda-location-and-scale-parameters) and $s$ is the [scale parameter](#sec-eda-location-and-scale-parameters). The case where $t = 0$ and $s = 1$ is called the **standard Cauchy distribution**. The equation for the standard Cauchy distribution reduces to
+
+$$f(x) = \frac{1}{\pi(1 + x^{2})}$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+The following is the plot of the standard Cauchy probability density function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-pdf
+#| fig-cap: "Standard Cauchy probability density function"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(-10, 10, length.out = 401)) |>
+  mutate(y = dcauchy(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) for the Cauchy distribution is
+
+$$F(x) = 0.5 + \frac{\arctan{(x)}}{\pi}$$
+
+The following is the plot of the Cauchy cumulative distribution function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-cdf
+#| fig-cap: "Standard Cauchy cumulative distribution function"
+tibble(x = seq(-10, 10, length.out = 401)) |>
+  mutate(y = pcauchy(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the Cauchy distribution is
+
+$$G(p) = -\cot{(\pi p)}$$
+
+The following is the plot of the Cauchy percent point function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-ppf
+#| fig-cap: "Standard Cauchy percent point function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qcauchy(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the Cauchy [hazard function](#sec-eda-related-distributions) is
+
+$$h(x) = \frac{1}{(1 + x^{2})(0.5\pi - \arctan{x})}$$
+
+The following is the plot of the Cauchy hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-hazard
+#| fig-cap: "Standard Cauchy hazard function"
+tibble(x = seq(-10, 10, length.out = 401)) |>
+  mutate(y = dcauchy(x) / (1 - pcauchy(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the Cauchy [cumulative hazard function](#sec-eda-related-distributions) is
+
+$$H(x) = -\ln\left(0.5 - \frac{\arctan{x}}{\pi}\right)$$
+
+The following is the plot of the Cauchy cumulative hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-cumulative-hazard
+#| fig-cap: "Standard Cauchy cumulative hazard function"
+tibble(x = seq(-10, 10, length.out = 401)) |>
+  mutate(y = -log(1 - pcauchy(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the Cauchy [survival function](#sec-eda-related-distributions) is
+
+$$S(x) = 0.5 - \frac{\arctan{(x)}}{\pi}$$
+
+The following is the plot of the Cauchy survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-survival
+#| fig-cap: "Standard Cauchy survival function"
+tibble(x = seq(-10, 10, length.out = 401)) |>
+  mutate(y = 1 - pcauchy(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the Cauchy [inverse survival function](#sec-eda-related-distributions) is
+
+$$Z(p) = -\cot{(\pi(1 - p))}$$
+
+The following is the plot of the Cauchy inverse survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-cauchy-dist-inverse-survival
+#| fig-cap: "Standard Cauchy inverse survival function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = qcauchy(1 - p)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | The mean is undefined. |
+| Median | The location parameter $t$. |
+| Mode | The location parameter $t$. |
+| Range | $-\infty$ to $\infty$ |
+| Standard Deviation | The standard deviation is undefined. |
+| Coefficient of Variation | The coefficient of variation is undefined. |
+| Skewness | The skewness is 0. |
+| Kurtosis | The kurtosis is undefined. |
+
+**Parameter Estimation**
+
+The likelihood functions for the Cauchy maximum likelihood estimates are given in chapter 16 of Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm -->. These equations typically must be solved numerically on a computer.
+
+**Comments**
+
+The Cauchy distribution is important as an example of a pathological case. Cauchy distributions look similar to a normal distribution. However, they have much heavier tails. When studying hypothesis tests that assume normality, seeing how the tests perform on data from a Cauchy distribution is a good indicator of how sensitive the tests are to heavy-tail departures from normality. Likewise, it is a good check for robust techniques that are designed to work well under a wide variety of distributional assumptions.
+
+The mean and standard deviation of the Cauchy distribution are undefined. The practical meaning of this is that collecting 1,000 data points gives no more accurate an estimate of the mean and standard deviation than does a single point.
+
+**Software**
+
+Many general purpose statistical software programs support at least some of the probability functions for the Cauchy distribution.

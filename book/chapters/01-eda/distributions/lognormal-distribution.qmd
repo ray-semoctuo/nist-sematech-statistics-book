@@ -1,10 +1,215 @@
 ##### Lognormal Distribution {#sec-eda-lognormal-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3669.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+A variable $X$ is lognormally distributed if $Y = \ln(X)$ is normally distributed with "LN" denoting the natural logarithm. The general formula for the [probability density function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$f(x) = \frac{e^{-((\ln((x-\theta)/m))^{2}/(2\sigma^{2}))}}{(x-\theta)\sigma\sqrt{2\pi}} \;\;\;\;\;\;\; x > \theta; m, \sigma > 0$$
+
+where $\sigma$ is the [shape parameter](#sec-eda-families-of-distributions) (and is the standard deviation of the log of the distribution), $\theta$ is the [location parameter](#sec-eda-location-and-scale-parameters), and $m$ is the [scale parameter](#sec-eda-location-and-scale-parameters) (and is also the median of the distribution). If $x = \theta$, then $f(x) = 0$. The case where $\theta = 0$ and $m = 1$ is called the **standard lognormal distribution**. The case where $\theta$ equals zero is called the 2-parameter lognormal distribution.
+
+The equation for the standard lognormal distribution is
+
+$$f(x) = \frac{e^{-((\ln x)^{2}/2\sigma^{2})}}{x\sigma\sqrt{2\pi}} \;\;\;\;\;\;\; x > 0; \sigma > 0$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+Note that the lognormal distribution is commonly parameterized with
+
+$$\mu = \log(m)$$
+
+The $\mu$ parameter is the mean of the log of the distribution. If the $\mu$ parameterization is used, the lognormal pdf is
+
+$$f(x) = \frac{e^{-(\ln(x - \theta) - \mu)^2/(2\sigma^2)}}{(x - \theta)\sigma\sqrt{2\pi}} \;\;\;\;\;\;\; x > \theta; \sigma > 0$$
+
+This book prefers the $m$ parameterization since $m$ is an explicit scale parameter.
+
+The following plot shows the lognormal probability density function with a shape parameter of 1 (R's `dlnorm()` default), which corresponds to the standard lognormal distribution.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-pdf
+#| fig-cap: "Standard lognormal probability density function (shape = 1)"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(0.001, 6, length.out = 401)) |>
+  mutate(y = dlnorm(x, sdlog = 1)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+There are several common parameterizations of the lognormal distribution. The form given here is from Evans, Hastings, and Peacock<!-- XREF: EDA bibliography entry for Evans, Hastings, and Peacock; source handbook/eda/section4/eda43.htm -->.
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$F(x) = \Phi\left(\frac{\ln(x)}{\sigma}\right) \;\;\;\;\;\;\; x \ge 0; \sigma > 0$$
+
+where $\Phi$ is the [cumulative distribution function of the normal distribution](#sec-eda-normal-distribution).
+
+The following is the plot of the lognormal cumulative distribution function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-cdf
+#| fig-cap: "Standard lognormal cumulative distribution function (shape = 1)"
+tibble(x = seq(0.001, 6, length.out = 401)) |>
+  mutate(y = plnorm(x, sdlog = 1)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$G(p) = \exp(\sigma\Phi^{-1}(p)) \;\;\;\;\;\;\; 0 \le p < 1$$
+
+where $\Phi^{-1}$ is the [percent point function of the normal distribution](#sec-eda-normal-distribution).
+
+The following is the plot of the lognormal percent point function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-ppf
+#| fig-cap: "Standard lognormal percent point function (shape = 1)"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qlnorm(p, sdlog = 1)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$h(x,\sigma) = \frac{\left(\frac{1}{x\sigma}\right)\phi\left(\frac{\ln x}{\sigma}\right)}{\Phi\left(\frac{-\ln x}{\sigma}\right)} \;\;\;\;\;\;\; x > 0; \sigma > 0$$
+
+where $\phi$ is the [probability density function of the normal distribution](#sec-eda-normal-distribution) and $\Phi$ is the [cumulative distribution function of the normal distribution](#sec-eda-normal-distribution).
+
+The following is the plot of the lognormal hazard function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-hazard
+#| fig-cap: "Standard lognormal hazard function (shape = 1)"
+tibble(x = seq(0.001, 6, length.out = 401)) |>
+  mutate(y = dlnorm(x, sdlog = 1) / (1 - plnorm(x, sdlog = 1))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the [cumulative hazard function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$H(x) = -\ln\left(1 - \Phi\left(\frac{\ln(x)}{\sigma}\right)\right) \;\;\;\;\;\;\; x \ge 0; \sigma > 0$$
+
+where $\Phi$ is the [cumulative distribution function of the normal distribution](#sec-eda-normal-distribution).
+
+The following is the plot of the lognormal cumulative hazard function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-cumulative-hazard
+#| fig-cap: "Standard lognormal cumulative hazard function (shape = 1)"
+tibble(x = seq(0.001, 6, length.out = 401)) |>
+  mutate(y = -log(1 - plnorm(x, sdlog = 1))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the [survival function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$S(x) = 1 - \Phi\left(\frac{\ln(x)}{\sigma}\right) \;\;\;\;\;\;\; x \ge 0; \sigma > 0$$
+
+where $\Phi$ is the [cumulative distribution function of the normal distribution](#sec-eda-normal-distribution).
+
+The following is the plot of the lognormal survival function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-survival
+#| fig-cap: "Standard lognormal survival function (shape = 1)"
+tibble(x = seq(0.001, 6, length.out = 401)) |>
+  mutate(y = 1 - plnorm(x, sdlog = 1)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the [inverse survival function](#sec-eda-related-distributions) of the lognormal distribution is
+
+$$Z(p) = \exp(\sigma\Phi^{-1}(1-p)) \;\;\;\;\;\;\; 0 \le p < 1$$
+
+where $\Phi^{-1}$ is the [percent point function of the normal distribution](#sec-eda-normal-distribution).
+
+The following is the plot of the lognormal inverse survival function with the same shape parameter as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-lognormal-dist-inverse-survival
+#| fig-cap: "Standard lognormal inverse survival function (shape = 1)"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = qlnorm(1 - p, sdlog = 1)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+The formulas below are with the location parameter equal to zero and the scale parameter equal to one.
+
+| Statistic | Value |
+|---|---|
+| Mean | $e^{0.5\sigma^{2}}$ |
+| Median | Scale parameter $m$ (= 1 if scale parameter not specified). |
+| Mode | $\dfrac{1}{e^{\sigma^{2}}}$ |
+| Range | 0 to $\infty$ |
+| Standard Deviation | $\sqrt{e^{\sigma^{2}}(e^{\sigma^{2}} - 1)}$ |
+| Skewness | $(e^{\sigma^{2}}+2)\sqrt{e^{\sigma^{2}} - 1}$ |
+| Kurtosis | $(e^{\sigma^{2}})^{4} + 2(e^{\sigma^{2}})^{3} + 3(e^{\sigma^{2}})^{2} - 3$ |
+| Coefficient of Variation | $\sqrt{e^{\sigma^{2}} - 1}$ |
+
+**Parameter Estimation**
+
+The maximum likelihood estimates for the scale parameter, $m$, and the shape parameter, $\sigma$, are
+
+$$\hat{m} = \exp{\hat{\mu}}$$
+
+and
+
+$$\hat{\sigma} = \sqrt{\frac{\sum_{i=1}^{N}{(\ln{(X_{i})} - \hat{\mu})^{2}}}{N}}$$
+
+where
+
+$$\hat{\mu}= \frac{\sum_{i=1}^{N}{\ln{X_i}}}{N}$$
+
+If the location parameter is known, it can be subtracted from the original data points before computing the maximum likelihood estimates of the shape and scale parameters.
+
+**Comments**
+
+The lognormal distribution is used extensively in reliability applications to model failure times <!-- XREF: Reliability chapter reference for lognormal failure-time modeling; source handbook/apr (Chapter 8, not yet migrated) -->. The lognormal and [Weibull](#sec-eda-weibull-distribution) distributions are probably the most commonly used distributions in reliability applications.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the lognormal distribution.

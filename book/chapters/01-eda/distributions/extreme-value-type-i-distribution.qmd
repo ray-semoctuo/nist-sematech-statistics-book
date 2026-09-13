@@ -1,10 +1,338 @@
 ##### Extreme Value Type I Distribution {#sec-eda-extreme-value-type-i-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366g.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The extreme value type I distribution has two forms. One is based on the smallest extreme and the other is based on the largest extreme. We call these the minimum and maximum cases, respectively. Formulas and plots for both cases are given. The extreme value type I distribution is also referred to as the **Gumbel distribution**.
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the Gumbel (minimum) distribution is
+
+$$f(x) = \frac{1}{\beta} e^{\frac{x - \mu}{\beta}} e^{-e^{\frac{x - \mu}{\beta}}}$$
+
+where $\mu$ is the [location parameter](#sec-eda-location-and-scale-parameters) and $\beta$ is the [scale parameter](#sec-eda-location-and-scale-parameters). The case where $\mu = 0$ and $\beta = 1$ is called the **standard Gumbel distribution**. The equation for the standard Gumbel distribution (minimum) reduces to
+
+$$f(x) = e^{x} e^{-e^{x}}$$
+
+The general formula for the probability density function of the Gumbel (maximum) distribution is
+
+$$f(x) = \frac{1}{\beta} e^{-\frac{x - \mu}{\beta}} e^{-e^{-\frac{x - \mu}{\beta}}}$$
+
+where $\mu$ is the location parameter and $\beta$ is the scale parameter. The case where $\mu = 0$ and $\beta = 1$ is called the standard Gumbel distribution. The equation for the standard Gumbel distribution (maximum) reduces to
+
+$$f(x) = e^{-x} e^{-e^{-x}}$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function. R does not provide built-in `d`/`p`/`q` functions for the Gumbel distribution, so the closed-form expressions above are implemented directly below.
+
+The following is the plot of the standard Gumbel probability density function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-pdf-min
+#| fig-cap: "Standard Gumbel (minimum) probability density function"
+#| message: false
+library(tidyverse)
+
+dgumbel_min <- function(x) exp(x) * exp(-exp(x))
+
+tibble(x = seq(-8, 3, length.out = 401)) |>
+  mutate(y = dgumbel_min(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+The following is the plot of the standard Gumbel probability density function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-pdf-max
+#| fig-cap: "Standard Gumbel (maximum) probability density function"
+dgumbel_max <- function(x) exp(-x) * exp(-exp(-x))
+
+tibble(x = seq(-3, 8, length.out = 401)) |>
+  mutate(y = dgumbel_max(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the Gumbel distribution (minimum) is
+
+$$F(x) = 1 - e^{-e^{x}}$$
+
+The following is the plot of the Gumbel cumulative distribution function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-cdf-min
+#| fig-cap: "Standard Gumbel (minimum) cumulative distribution function"
+pgumbel_min <- function(x) 1 - exp(-exp(x))
+
+tibble(x = seq(-8, 3, length.out = 401)) |>
+  mutate(y = pgumbel_min(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+The formula for the cumulative distribution function of the Gumbel distribution (maximum) is
+
+$$F(x) = e^{-e^{-x}}$$
+
+The following is the plot of the Gumbel cumulative distribution function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-cdf-max
+#| fig-cap: "Standard Gumbel (maximum) cumulative distribution function"
+pgumbel_max <- function(x) exp(-exp(-x))
+
+tibble(x = seq(-3, 8, length.out = 401)) |>
+  mutate(y = pgumbel_max(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the Gumbel distribution (minimum) is
+
+$$G(p) = \ln\left(\ln\left(\frac{1}{1 - p}\right)\right)$$
+
+The following is the plot of the Gumbel percent point function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-ppf-min
+#| fig-cap: "Standard Gumbel (minimum) percent point function"
+qgumbel_min <- function(p) log(log(1 / (1 - p)))
+
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qgumbel_min(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+The formula for the percent point function of the Gumbel distribution (maximum) is
+
+$$G(p) = -\ln\left(\ln\left(\frac{1}{p}\right)\right)$$
+
+The following is the plot of the Gumbel percent point function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-ppf-max
+#| fig-cap: "Standard Gumbel (maximum) percent point function"
+qgumbel_max <- function(p) -log(log(1 / p))
+
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qgumbel_max(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Hazard Function**
+
+The formula for the [hazard function](#sec-eda-related-distributions) of the Gumbel distribution (minimum) is
+
+$$h(x) = e^{x}$$
+
+The following is the plot of the Gumbel hazard function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-hazard-min
+#| fig-cap: "Standard Gumbel (minimum) hazard function"
+tibble(x = seq(-8, 3, length.out = 401)) |>
+  mutate(y = exp(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+The formula for the hazard function of the Gumbel distribution (maximum) is
+
+$$h(x) = \frac{e^{-x}}{e^{e^{-x}} - 1}$$
+
+The following is the plot of the Gumbel hazard function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-hazard-max
+#| fig-cap: "Standard Gumbel (maximum) hazard function"
+tibble(x = seq(-3, 8, length.out = 401)) |>
+  mutate(y = exp(-x) / (exp(exp(-x)) - 1)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+**Cumulative Hazard Function**
+
+The formula for the [cumulative hazard function](#sec-eda-related-distributions) of the Gumbel distribution (minimum) is
+
+$$H(x) = e^{x}$$
+
+The following is the plot of the Gumbel cumulative hazard function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-cumulative-hazard-min
+#| fig-cap: "Standard Gumbel (minimum) cumulative hazard function"
+tibble(x = seq(-8, 3, length.out = 401)) |>
+  mutate(y = exp(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+The formula for the cumulative hazard function of the Gumbel distribution (maximum) is
+
+$$H(x) = -\ln\left(1 - e^{-e^{-x}}\right)$$
+
+The following is the plot of the Gumbel cumulative hazard function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-cumulative-hazard-max
+#| fig-cap: "Standard Gumbel (maximum) cumulative hazard function"
+tibble(x = seq(-3, 8, length.out = 401)) |>
+  mutate(y = -log(1 - exp(-exp(-x)))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+**Survival Function**
+
+The formula for the [survival function](#sec-eda-related-distributions) of the Gumbel distribution (minimum) is
+
+$$S(x) = e^{-e^{x}}$$
+
+The following is the plot of the Gumbel survival function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-survival-min
+#| fig-cap: "Standard Gumbel (minimum) survival function"
+tibble(x = seq(-8, 3, length.out = 401)) |>
+  mutate(y = exp(-exp(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+The formula for the survival function of the Gumbel distribution (maximum) is
+
+$$S(x) = 1 - e^{-e^{-x}}$$
+
+The following is the plot of the Gumbel survival function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-survival-max
+#| fig-cap: "Standard Gumbel (maximum) survival function"
+tibble(x = seq(-3, 8, length.out = 401)) |>
+  mutate(y = 1 - exp(-exp(-x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+**Inverse Survival Function**
+
+The formula for the [inverse survival function](#sec-eda-related-distributions) of the Gumbel distribution (minimum) is
+
+$$Z(p) = \ln\left(\ln\left(\frac{1}{p}\right)\right)$$
+
+The following is the plot of the Gumbel inverse survival function for the minimum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-inverse-survival-min
+#| fig-cap: "Standard Gumbel (minimum) inverse survival function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = log(log(1 / p))) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+The formula for the inverse survival function of the Gumbel distribution (maximum) is
+
+$$Z(p) = -\ln\left(\ln\left(\frac{1}{1 - p}\right)\right)$$
+
+The following is the plot of the Gumbel inverse survival function for the maximum case.
+
+```{r}
+#| code-fold: true
+#| label: fig-extreme-value-type-i-dist-inverse-survival-max
+#| fig-cap: "Standard Gumbel (maximum) inverse survival function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = -log(log(1 / (1 - p)))) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+The formulas below are for the maximum order statistic case.
+
+| Statistic | Value |
+|---|---|
+| Mean | $\mu + 0.5772\beta$ (the constant 0.5772 is Euler's number) |
+| Median | $\mu - \beta\ln(\ln(2))$ |
+| Mode | $\mu$ |
+| Range | $-\infty$ to $\infty$ |
+| Standard Deviation | $\dfrac{\beta\pi}{\sqrt{6}}$ |
+| Coefficient of Variation | $\dfrac{\beta\pi}{\sqrt{6}(\mu + 0.5772\beta)}$ |
+| Skewness | 1.13955 |
+| Kurtosis | 5.4 |
+
+**Parameter Estimation**
+
+The method of moments estimators of the Gumbel (maximum) distribution are
+
+$$\tilde{\beta} = \frac{s\sqrt{6}}{\pi}$$
+$$\tilde{\mu} = \bar{X} - 0.5772\tilde{\beta} = \bar{X} - 0.45006s$$
+
+where $\bar{X}$ and $s$ are the sample mean and standard deviation, respectively.
+
+The method of moments estimators of the Gumbel (minimum) distribution are
+
+$$\tilde{\beta} = \frac{s\sqrt{6}}{\pi}$$
+$$\tilde{\mu} = \bar{X} + 0.5772\tilde{\beta} = \bar{X} + 0.45006s$$
+
+where $\bar{X}$ and $s$ are the sample mean and standard deviation, respectively.
+
+The maximum likelihood estimates for the maximum case are the solution to the following simultaneous equations
+
+$$\bar{x} - \frac{\sum_{i=1}^{n}{x_i \exp(-x_i/\hat{\beta})}}{\sum_{i=1}^{n}{\exp(-x_i/\hat{\beta})}} - \hat{\beta} = 0$$
+$$-\hat{\beta} \log\left(\frac{1}{n}\sum_{i=1}^{n}{\exp(-x_i/\hat{\beta})}\right) - \hat{\mu} = 0$$
+
+For the minimum case, replace $-x_i$ with $x_i$ in the above equations.
+
+These equations need to be solved numerically and this is typically accomplished by using statistical software packages.
+
+**Software**
+
+Some general purpose statistical software programs support at least some of the probability functions for the extreme value type I distribution.

@@ -1,10 +1,118 @@
 ##### Chi-Square Distribution {#sec-eda-chi-square-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3666.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The chi-square distribution results when $\nu$ independent variables with [standard normal](#sec-eda-normal-distribution) distributions are squared and summed. The formula for the [probability density function](#sec-eda-related-distributions) of the chi-square distribution is
+
+$$f(x) = \frac{e^{-x/2}x^{\frac{\nu}{2} - 1}}{2^{\frac{\nu}{2}}\Gamma(\frac{\nu}{2})} \;\;\;\;\;\;\; \text{for } x \ge 0$$
+
+where $\nu$ is the shape parameter and $\Gamma$ is the gamma function. The formula for the gamma function is
+
+$$\Gamma(a) = \int_{0}^{\infty} t^{a-1}e^{-t}\,dt$$
+
+In a testing context, the chi-square distribution is treated as a "standardized distribution" (i.e., no location or scale parameters). However, in a distributional modeling context (as with other probability distributions), the chi-square distribution itself can be transformed with a [location parameter](#sec-eda-location-and-scale-parameters), $\mu$, and a [scale parameter](#sec-eda-location-and-scale-parameters), $\sigma$.
+
+The following is the plot of the chi-square probability density function for 4 different values of the shape parameter, $\nu$: 1, 2, 5, and 10. Since the chi-square distribution is only defined for $x \ge 0$, the domain starts at 0.
+
+```{r}
+#| code-fold: true
+#| label: fig-chi-square-dist-pdf
+#| fig-cap: "Chi-square probability density function for four values of the shape parameter"
+#| message: false
+library(tidyverse)
+
+dfs <- c(1, 2, 5, 10)
+
+crossing(x = seq(0.001, 10, length.out = 401), nu = dfs) |>
+  mutate(
+    y = dchisq(x, df = nu),
+    nu_label = paste("nu =", nu),
+    nu_label = fct_reorder(nu_label, nu)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~nu_label, scales = "free_y") +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the chi-square distribution is
+
+$$F(x) = \frac{\gamma(\frac{\nu}{2}, \frac{x}{2})}{\Gamma(\frac{\nu}{2})} \;\;\;\;\;\;\; \text{for } x \ge 0$$
+
+where $\Gamma$ is the gamma function defined above and $\gamma$ is the incomplete gamma function. The formula for the incomplete gamma function is
+
+$$\gamma_{x}(a) = \int_{0}^{x} t^{a-1}e^{-t}\,dt$$
+
+The following is the plot of the chi-square cumulative distribution function with the same values of $\nu$ as the pdf plots above.
+
+```{r}
+#| code-fold: true
+#| label: fig-chi-square-dist-cdf
+#| fig-cap: "Chi-square cumulative distribution function for four values of the shape parameter"
+crossing(x = seq(0.001, 10, length.out = 401), nu = dfs) |>
+  mutate(
+    y = pchisq(x, df = nu),
+    nu_label = paste("nu =", nu),
+    nu_label = fct_reorder(nu_label, nu)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~nu_label) +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the chi-square distribution does not exist in a simple closed form. It is computed numerically.
+
+The following is the plot of the chi-square percent point function with the same values of $\nu$ as the pdf plots above.
+
+```{r}
+#| code-fold: true
+#| label: fig-chi-square-dist-ppf
+#| fig-cap: "Chi-square percent point function for four values of the shape parameter"
+crossing(p = seq(0.001, 0.999, length.out = 401), nu = dfs) |>
+  mutate(
+    x = qchisq(p, df = nu),
+    nu_label = paste("nu =", nu),
+    nu_label = fct_reorder(nu_label, nu)
+  ) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  facet_wrap(~nu_label) +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Other Probability Functions**
+
+Since the chi-square distribution is typically used to develop hypothesis tests and confidence intervals and rarely for modeling applications, we omit the formulas and plots for the hazard, cumulative hazard, survival, and inverse survival probability functions.
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | $\nu$ |
+| Median | approximately $\nu - 2/3$ for large $\nu$ |
+| Mode | $\nu - 2 \;\;\;\;\;\;\; \text{for } \nu > 2$ |
+| Range | 0 to $\infty$ |
+| Standard Deviation | $\sqrt{2\nu}$ |
+| Coefficient of Variation | $\sqrt{\dfrac{2}{\nu}}$ |
+| Skewness | $\dfrac{2^{1.5}}{\sqrt{\nu}}$ |
+| Kurtosis | $3 + \dfrac{12}{\nu}$ |
+
+**Parameter Estimation**
+
+Since the chi-square distribution is typically used to develop hypothesis tests and confidence intervals and rarely for modeling applications, we omit any discussion of parameter estimation.
+
+**Comments**
+
+The chi-square distribution is used in many cases for the critical regions for hypothesis tests and in determining confidence intervals. Two common examples are the chi-square test for independence in an $R \times C$ contingency table and the chi-square test to determine if the standard deviation of a population is equal to a pre-specified value.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the chi-square distribution.

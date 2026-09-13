@@ -1,10 +1,120 @@
 ##### Beta Distribution {#sec-eda-beta-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366h.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The general formula for the [probability density function](#sec-eda-related-distributions) of the beta distribution is
+
+$$f(x) = \frac{(x - a)^{p-1}(b - x)^{q-1}}{B(p,q)(b-a)^{p+q-1}} \;\;\;\;\;\;\; a \le x \le b;\; p, q > 0$$
+
+where $p$ and $q$ are the [shape parameters](#sec-eda-families-of-distributions), $a$ and $b$ are the lower and upper bounds, respectively, of the distribution, and $B(p,q)$ is the beta function. The beta function has the formula
+
+$$B(\alpha,\beta) = \int_{0}^{1}{t^{\alpha-1}(1 - t)^{\beta-1}dt}$$
+
+The case where $a = 0$ and $b = 1$ is called the **standard beta distribution**. The equation for the standard beta distribution is
+
+$$f(x) = \frac{x^{p-1}(1-x)^{q-1}}{B(p,q)} \;\;\;\;\;\;\; 0 \le x \le 1;\; p, q > 0$$
+
+Typically we define the general form of a distribution in terms of [location and scale parameters](#sec-eda-location-and-scale-parameters). The beta is different in that we define the general distribution in terms of the lower and upper bounds. However, the location and scale parameters can be defined in terms of the lower and upper limits as follows:
+
+$$\text{location} = a$$
+$$\text{scale} = b - a$$
+
+Since the general form of probability functions can be [expressed in terms of the standard distribution](#sec-eda-location-and-scale-parameters), all subsequent formulas in this section are given for the standard form of the function.
+
+The beta distribution has two shape parameters and no single choice is illustrative of every shape it can take; the source page shows four combinations. Here the shape parameters $p = 2$ and $q = 3$ are used for the plots below, chosen because they produce a clearly non-uniform, non-symmetric density on $[0, 1]$ (base R's `dbeta`/`pbeta`/`qbeta` use the arguments `shape1` and `shape2` for $p$ and $q$, respectively).
+
+The following is the plot of the beta probability density function for $p = 2$, $q = 3$.
+
+```{r}
+#| code-fold: true
+#| label: fig-beta-dist-pdf
+#| fig-cap: "Beta probability density function (shape1 = 2, shape2 = 3)"
+#| message: false
+library(tidyverse)
+
+tibble(x = seq(0, 1, length.out = 401)) |>
+  mutate(y = dbeta(x, shape1 = 2, shape2 = 3)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the beta distribution is also called the incomplete beta function ratio (commonly denoted by $I_x$) and is defined as
+
+$$F(x) = I_{x}(p,q) = \frac{\int_{0}^{x}{t^{p-1}(1-t)^{q-1}dt}}{B(p,q)} \;\;\;\;\;\;\; 0 \le x \le 1;\; p, q > 0$$
+
+where $B$ is the beta function defined above.
+
+The following is the plot of the beta cumulative distribution function for the same shape parameters as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-beta-dist-cdf
+#| fig-cap: "Beta cumulative distribution function (shape1 = 2, shape2 = 3)"
+tibble(x = seq(0, 1, length.out = 401)) |>
+  mutate(y = pbeta(x, shape1 = 2, shape2 = 3)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the beta distribution does not exist in a simple closed form. It is computed numerically.
+
+The following is the plot of the beta percent point function for the same shape parameters as the pdf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-beta-dist-ppf
+#| fig-cap: "Beta percent point function (shape1 = 2, shape2 = 3)"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qbeta(p, shape1 = 2, shape2 = 3)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Other Probability Functions**
+
+Since the beta distribution is not typically used for reliability applications, the hazard, cumulative hazard, survival, and inverse survival probability functions are omitted here, following the source page.
+
+**Common Statistics**
+
+The formulas below are for the case where the lower limit is zero and the upper limit is one.
+
+| Statistic | Value |
+|---|---|
+| Mean | $\dfrac{p}{p+q}$ |
+| Mode | $\dfrac{p-1}{p+q-2} \;\;\;\;\; p, q > 1$ |
+| Range | 0 to 1 |
+| Standard Deviation | $\sqrt{\dfrac{pq}{(p+q)^{2}(p+q+1)}}$ |
+| Coefficient of Variation | $\sqrt{\dfrac{q}{p(p+q+1)}}$ |
+| Skewness | $\dfrac{2(q-p)\sqrt{p+q+1}}{(p+q+2)\sqrt{pq}}$ |
+
+**Parameter Estimation**
+
+First consider the case where $a$ and $b$ are assumed to be known. For this case, the method of moments estimates are
+
+$$p = \bar{x}\left(\frac{\bar{x}(1-\bar{x})}{s^{2}} - 1\right)$$
+$$q = (1 - \bar{x})\left(\frac{\bar{x}(1-\bar{x})}{s^{2}} - 1\right)$$
+
+where $\bar{x}$ is the sample mean and $s^2$ is the sample variance. If $a$ and $b$ are not 0 and 1, respectively, then replace $\bar{x}$ with $\dfrac{\bar{x} - a}{b-a}$ and $s^2$ with $\dfrac{s^2}{(b-a)^2}$ in the above equations.
+
+For the case when $a$ and $b$ are known, the maximum likelihood estimates can be obtained by solving the following set of equations
+
+$$\psi(\hat{p}) - \psi(\hat{p} + \hat{q}) = \frac{1}{n}\sum_{i=1}^{n}{\log\left(\frac{Y_i - a}{b - a}\right)}$$
+$$\psi(\hat{q}) - \psi(\hat{p} + \hat{q}) = \frac{1}{n}\sum_{i=1}^{n}{\log\left(\frac{b - Y_i}{b - a}\right)}$$
+
+Maximum likelihood estimation for the case when $a$ and $b$ are not known can sometimes be problematic. Chapter 14 of Bury<!-- XREF: Bury reference for beta distribution moment/maximum-likelihood estimation with unknown bounds; source handbook/eda/section4/eda43.htm --> discusses both moment and maximum likelihood estimation for this case.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the beta distribution.

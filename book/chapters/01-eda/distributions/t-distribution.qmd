@@ -1,10 +1,114 @@
 ##### t Distribution {#sec-eda-t-distribution}
 
-<!--
-Source: handbook/eda/section3/eda3664.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Density Function**
+
+The formula for the [probability density function](#sec-eda-related-distributions) of the *t* distribution is
+
+$$f(x) = \frac{(1 + \frac{x^{2}}{\nu})^{\frac{-(\nu + 1)}{2}}}{B(0.5, 0.5\nu)\sqrt{\nu}}$$
+
+where $B$ is the beta function and $\nu$ is a positive integer shape parameter. The formula for the beta function is
+
+$$B(\alpha, \beta) = \int_{0}^{1} t^{\alpha - 1}(1 - t)^{\beta - 1}\,dt$$
+
+In a testing context, the *t* distribution is treated as a "standardized distribution" (i.e., no location or scale parameters). However, in a distributional modeling context (as with other probability distributions), the *t* distribution itself can be transformed with a [location parameter](#sec-eda-location-and-scale-parameters), $\mu$, and a [scale parameter](#sec-eda-location-and-scale-parameters), $\sigma$.
+
+The following is the plot of the *t* probability density function for 4 different values of the shape parameter, $\nu$: 1, 10, 20, and 30.
+
+```{r}
+#| code-fold: true
+#| label: fig-t-dist-pdf
+#| fig-cap: "t probability density function for four values of the shape parameter"
+#| message: false
+library(tidyverse)
+
+dfs <- c(1, 10, 20, 30)
+
+crossing(x = seq(-5, 5, length.out = 401), nu = dfs) |>
+  mutate(
+    y = dt(x, df = nu),
+    nu_label = paste("nu =", nu),
+    nu_label = fct_reorder(nu_label, nu)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~nu_label) +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+These plots all have a similar shape. The difference is in the heaviness of the tails. In fact, the *t* distribution with $\nu$ equal to 1 is a [Cauchy distribution](#sec-eda-cauchy-distribution). The *t* distribution approaches a [normal distribution](#sec-eda-normal-distribution) as $\nu$ becomes large. The approximation is quite good for values of $\nu > 30$.
+
+**Cumulative Distribution Function**
+
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the *t* distribution is complicated and is not included here. It is given in the Evans, Hastings, and Peacock book<!-- XREF: EDA bibliography entry for Evans, Hastings, and Peacock; source handbook/eda/section4/eda43.htm#EVANS -->.
+
+The following are the plots of the *t* cumulative distribution function with the same values of $\nu$ as the pdf plots above.
+
+```{r}
+#| code-fold: true
+#| label: fig-t-dist-cdf
+#| fig-cap: "t cumulative distribution function for four values of the shape parameter"
+crossing(x = seq(-5, 5, length.out = 401), nu = dfs) |>
+  mutate(
+    y = pt(x, df = nu),
+    nu_label = paste("nu =", nu),
+    nu_label = fct_reorder(nu_label, nu)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~nu_label) +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The formula for the [percent point function](#sec-eda-related-distributions) of the *t* distribution does not exist in a simple closed form. It is computed numerically.
+
+The following are the plots of the *t* percent point function with the same values of $\nu$ as the pdf plots above.
+
+```{r}
+#| code-fold: true
+#| label: fig-t-dist-ppf
+#| fig-cap: "t percent point function for four values of the shape parameter"
+crossing(p = seq(0.001, 0.999, length.out = 401), nu = dfs) |>
+  mutate(
+    x = qt(p, df = nu),
+    nu_label = paste("nu =", nu),
+    nu_label = fct_reorder(nu_label, nu)
+  ) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  facet_wrap(~nu_label) +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Other Probability Functions**
+
+Since the *t* distribution is typically used to develop hypothesis tests and confidence intervals and rarely for modeling applications, we omit the formulas and plots for the hazard, cumulative hazard, survival, and inverse survival probability functions.
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | 0 (It is undefined for $\nu$ equal to 1.) |
+| Median | 0 |
+| Mode | 0 |
+| Range | $-\infty$ to $\infty$ |
+| Standard Deviation | $\sqrt{\dfrac{\nu}{\nu - 2}}$. It is undefined for $\nu$ equal to 1 or 2. |
+| Coefficient of Variation | Undefined |
+| Skewness | 0. It is undefined for $\nu$ less than or equal to 3. However, the *t* distribution is symmetric in all cases. |
+| Kurtosis | $\dfrac{3(\nu - 2)}{\nu - 4}$. It is undefined for $\nu$ less than or equal to 4. |
+
+**Parameter Estimation**
+
+Since the *t* distribution is typically used to develop hypothesis tests and confidence intervals and rarely for modeling applications, we omit any discussion of parameter estimation.
+
+**Comments**
+
+The *t* distribution is used in many cases for the critical regions for hypothesis tests and in determining confidence intervals. The most common example is testing if data are consistent with the assumed process mean.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the *t* distribution.

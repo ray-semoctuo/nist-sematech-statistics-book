@@ -1,10 +1,111 @@
 ##### Poisson Distribution {#sec-eda-poisson-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366j.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Mass Function**
+
+The Poisson distribution is used to model the number of events occurring within a given time interval.
+
+The formula for the Poisson probability mass function is
+
+$$p(x;\lambda) = \frac{e^{-\lambda}\lambda^{x}}{x!} \;\;\;\;\;\;\; \text{for } x = 0, 1, 2, \ldots$$
+
+$\lambda$ is the [shape parameter](#sec-eda-families-of-distributions) which indicates the average number of events in the given time interval.
+
+The Poisson distribution is discrete, defined only at the non-negative integers, so the plots below use `geom_col()` rather than a connected line to avoid implying that probability mass exists between integers.
+
+The following is the plot of the Poisson probability mass function for 4 different values of $\lambda$: 5, 15, 25, and 35.
+
+```{r}
+#| code-fold: true
+#| label: fig-poisson-dist-pmf
+#| fig-cap: "Poisson probability mass function for four values of lambda"
+#| message: false
+library(tidyverse)
+
+lambdas <- c(5, 15, 25, 35)
+
+crossing(x = 0:50, lambda = lambdas) |>
+  mutate(
+    y = dpois(x, lambda = lambda),
+    lambda_label = paste("lambda =", lambda),
+    lambda_label = fct_reorder(lambda_label, lambda)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_col(width = 0.6) +
+  facet_wrap(~lambda_label, scales = "free_x") +
+  labs(x = "x", y = "p(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the Poisson cumulative probability function is
+
+$$F(x;\lambda) = \sum_{i=0}^{x}{\frac{e^{-\lambda}\lambda^{i}}{i!}}$$
+
+Because the Poisson distribution is discrete, its cumulative distribution function is a right-continuous step function, so the plot below uses `geom_step()`.
+
+The following is the plot of the Poisson cumulative distribution function for the same values of $\lambda$ as the pmf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-poisson-dist-cdf
+#| fig-cap: "Poisson cumulative distribution function for four values of lambda"
+crossing(x = 0:50, lambda = lambdas) |>
+  mutate(
+    y = ppois(x, lambda = lambda),
+    lambda_label = paste("lambda =", lambda),
+    lambda_label = fct_reorder(lambda_label, lambda)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_step() +
+  facet_wrap(~lambda_label, scales = "free_x") +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The Poisson percent point function does not exist in simple closed form. It is computed numerically. Note that because this is a discrete distribution that is only defined for integer values of $x$, the percent point function is not smooth in the way the percent point function typically is for a continuous distribution.
+
+The following is the plot of the Poisson percent point function for the same values of $\lambda$ as the pmf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-poisson-dist-ppf
+#| fig-cap: "Poisson percent point function for four values of lambda"
+crossing(alpha = seq(0.001, 0.999, length.out = 401), lambda = lambdas) |>
+  mutate(
+    x = qpois(alpha, lambda = lambda),
+    lambda_label = paste("lambda =", lambda),
+    lambda_label = fct_reorder(lambda_label, lambda)
+  ) |>
+  ggplot(aes(alpha, x)) +
+  geom_step() +
+  facet_wrap(~lambda_label, scales = "free_y") +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | $\lambda$ |
+| Mode | For non-integer $\lambda$, the largest integer less than $\lambda$. For integer $\lambda$, $x = \lambda$ and $x = \lambda - 1$ are both the mode. |
+| Range | 0 to $\infty$ |
+| Standard Deviation | $\sqrt{\lambda}$ |
+| Coefficient of Variation | $\dfrac{1}{\sqrt{\lambda}}$ |
+| Skewness | $\dfrac{1}{\sqrt{\lambda}}$ |
+| Kurtosis | $3 + \dfrac{1}{\lambda}$ |
+
+**Parameter Estimation**
+
+The maximum likelihood estimator of $\lambda$ is
+
+$$\tilde{\lambda} = \bar{X}$$
+
+where $\bar{X}$ is the sample mean.
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the Poisson distribution.

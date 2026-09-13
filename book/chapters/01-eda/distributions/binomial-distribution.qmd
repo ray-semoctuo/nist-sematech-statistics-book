@@ -1,10 +1,115 @@
 ##### Binomial Distribution {#sec-eda-binomial-distribution}
 
-<!--
-Source: handbook/eda/section3/eda366i.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Probability Mass Function**
+
+The binomial distribution is used when there are exactly two mutually exclusive outcomes of a trial. These outcomes are appropriately labeled "success" and "failure". The binomial distribution is used to obtain the probability of observing $x$ successes in $N$ trials, with the probability of success on a single trial denoted by $p$. The binomial distribution assumes that $p$ is fixed for all trials.
+
+The formula for the binomial probability mass function is
+
+$$P(x;p,n) = \binom{n}{x} (p)^{x}(1-p)^{(n-x)} \;\;\;\;\;\;\; \text{for } x = 0, 1, 2, \ldots, n$$
+
+where
+
+$$\binom{n}{x} = \frac{n!}{x!(n-x)!}$$
+
+The binomial distribution is discrete, defined only at the integers $x = 0, 1, \ldots, n$, so the plots below use `geom_col()` rather than a connected line to avoid implying that the probability mass exists between integers.
+
+The following is the plot of the binomial probability mass function for $n = 100$ and 4 different values of $p$: 0.1, 0.25, 0.50, and 0.75.
+
+```{r}
+#| code-fold: true
+#| label: fig-binomial-dist-pmf
+#| fig-cap: "Binomial probability mass function for four values of p (n = 100)"
+#| message: false
+library(tidyverse)
+
+ps <- c(0.1, 0.25, 0.50, 0.75)
+
+crossing(x = 0:100, p = ps) |>
+  mutate(
+    y = dbinom(x, size = 100, prob = p),
+    p_label = paste("p =", p),
+    p_label = fct_reorder(p_label, p)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_col(width = 0.6) +
+  facet_wrap(~p_label, scales = "free_x") +
+  labs(x = "x", y = "P(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The formula for the binomial cumulative probability function is
+
+$$F(x;p,n) = \sum_{i=0}^{x}{\binom{n}{i}(p)^{i}(1-p)^{(n-i)}}$$
+
+Because the binomial distribution is discrete, its cumulative distribution function is a right-continuous step function, so the plot below uses `geom_step()`.
+
+The following is the plot of the binomial cumulative distribution function for the same values of $n$ and $p$ as the pmf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-binomial-dist-cdf
+#| fig-cap: "Binomial cumulative distribution function for four values of p (n = 100)"
+crossing(x = 0:100, p = ps) |>
+  mutate(
+    y = pbinom(x, size = 100, prob = p),
+    p_label = paste("p =", p),
+    p_label = fct_reorder(p_label, p)
+  ) |>
+  ggplot(aes(x, y)) +
+  geom_step() +
+  facet_wrap(~p_label, scales = "free_x") +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+**Percent Point Function**
+
+The binomial percent point function does not exist in simple closed form. It is computed numerically. Note that because this is a discrete distribution that is only defined for integer values of $x$, the percent point function is not smooth in the way the percent point function typically is for a continuous distribution.
+
+The following is the plot of the binomial percent point function for the same values of $n$ and $p$ as the pmf plot above.
+
+```{r}
+#| code-fold: true
+#| label: fig-binomial-dist-ppf
+#| fig-cap: "Binomial percent point function for four values of p (n = 100)"
+crossing(alpha = seq(0.001, 0.999, length.out = 401), p = ps) |>
+  mutate(
+    x = qbinom(alpha, size = 100, prob = p),
+    p_label = paste("p =", p),
+    p_label = fct_reorder(p_label, p)
+  ) |>
+  ggplot(aes(alpha, x)) +
+  geom_step() +
+  facet_wrap(~p_label, scales = "free_y") +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+**Common Statistics**
+
+| Statistic | Value |
+|---|---|
+| Mean | $np$ |
+| Mode | $p(n+1) - 1 \le x \le p(n+1)$ |
+| Range | 0 to $n$ |
+| Standard Deviation | $\sqrt{np(1-p)}$ |
+| Coefficient of Variation | $\sqrt{\dfrac{(1-p)}{np}}$ |
+| Skewness | $\dfrac{(1-2p)}{\sqrt{np(1-p)}}$ |
+| Kurtosis | $3 - \dfrac{6}{n} + \dfrac{1}{np(1-p)}$ |
+
+**Comments**
+
+The binomial distribution is probably the most commonly used discrete distribution.
+
+**Parameter Estimation**
+
+The maximum likelihood estimator of $p$ (for fixed $n$) is
+
+$$\tilde{p} = \frac{x}{n}$$
+
+**Software**
+
+Most general purpose statistical software programs support at least some of the probability functions for the binomial distribution.
