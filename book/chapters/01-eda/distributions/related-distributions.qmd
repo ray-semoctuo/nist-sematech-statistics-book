@@ -1,10 +1,182 @@
 #### Related Distributions {#sec-eda-related-distributions}
 
-<!--
-Source: handbook/eda/section3/eda362.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+Probability distributions are typically defined in terms of the probability density function. However, there are a number of related probability functions used in applications.
+
+```{r}
+#| code-fold: true
+#| label: setup-related-distributions
+#| message: false
+library(tidyverse)
+```
+
+**Probability Density Function**
+
+For a continuous distribution, the probability density function (pdf) is the probability that the variate has the value $x$. Since for continuous distributions the probability at a single point is zero, this is often expressed in terms of an integral between two points:
+
+$$\int_{a}^{b} f(x)\,dx = Pr[a \le X \le b]$$
+
+For a discrete distribution, the pdf is the probability that the variate takes the value $x$:
+
+$$f(x) = Pr[X = x]$$
+
+The following is the plot of the normal probability density function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-pdf
+#| fig-cap: "Normal probability density function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = dnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+**Cumulative Distribution Function**
+
+The cumulative distribution function (cdf) is the probability that the variable takes a value less than or equal to $x$. That is,
+
+$$F(x) = Pr[X \le x] = \alpha$$
+
+For a continuous distribution, this can be expressed mathematically as
+
+$$F(x) = \int_{-\infty}^{x} f(\mu)\,d\mu$$
+
+For a discrete distribution, the cdf can be expressed as
+
+$$F(x) = \sum_{i=0}^{x} f(i)$$
+
+The following is the plot of the normal cumulative distribution function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-cdf
+#| fig-cap: "Normal cumulative distribution function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = pnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "F(x)") +
+  theme_light()
+```
+
+The horizontal axis is the allowable domain for the given probability function. Since the vertical axis is a probability, it must fall between zero and one. It increases from zero to one as we go from left to right on the horizontal axis.
+
+**Percent Point Function**
+
+The percent point function (ppf) is the inverse of the cumulative distribution function. For this reason, the percent point function is also commonly referred to as the inverse distribution function. That is, for a distribution function we calculate the probability that the variable is less than or equal to $x$ for a given $x$. For the percent point function, we start with the probability and compute the corresponding $x$ for the cumulative distribution. Mathematically, this can be expressed as
+
+$$Pr[X \le G(\alpha)] = \alpha$$
+
+or alternatively,
+
+$$x = G(\alpha) = G(F(x))$$
+
+The following is the plot of the normal percent point function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-ppf
+#| fig-cap: "Normal percent point function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(x = qnorm(p)) |>
+  ggplot(aes(p, x)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(G(alpha))) +
+  theme_light()
+```
+
+Since the horizontal axis is a probability, it goes from zero to one. The vertical axis goes from the smallest to the largest value of the cumulative distribution function.
+
+**Hazard Function**
+
+The hazard function is the ratio of the probability density function to the survival function, $S(x)$:
+
+$$h(x) = \frac{f(x)}{S(x)} = \frac{f(x)}{1 - F(x)}$$
+
+The following is the plot of the normal distribution hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-hazard
+#| fig-cap: "Normal hazard function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = dnorm(x) / (1 - pnorm(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "h(x)") +
+  theme_light()
+```
+
+Hazard plots are most commonly used in reliability applications. Note that Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson --> refer to this as the conditional failure density function rather than the hazard function.
+
+**Cumulative Hazard Function**
+
+The cumulative hazard function is the integral of the hazard function:
+
+$$H(x) = \int_{-\infty}^{x} h(\mu)\,d\mu$$
+
+This can alternatively be expressed as
+
+$$H(x) = -\ln{(1 - F(x))}$$
+
+The following is the plot of the normal cumulative hazard function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-cumulative-hazard
+#| fig-cap: "Normal cumulative hazard function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = -log(1 - pnorm(x))) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "H(x)") +
+  theme_light()
+```
+
+Cumulative hazard plots are most commonly used in reliability applications. Note that Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson --> refer to this as the hazard function rather than the cumulative hazard function.
+
+**Survival Function**
+
+Survival functions are most often used in reliability and related fields. The survival function is the probability that the variate takes a value greater than $x$:
+
+$$S(x) = Pr[X > x] = 1 - F(x)$$
+
+The following is the plot of the normal distribution survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-survival
+#| fig-cap: "Normal survival function"
+tibble(x = seq(-4, 4, length.out = 401)) |>
+  mutate(y = 1 - pnorm(x)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  labs(x = "x", y = "S(x)") +
+  theme_light()
+```
+
+For a survival function, the $y$ value on the graph starts at 1 and monotonically decreases to zero. The survival function should be compared to the cumulative distribution function.
+
+**Inverse Survival Function**
+
+Just as the percent point function is the inverse of the cumulative distribution function, the survival function also has an inverse function. The inverse survival function can be defined in terms of the percent point function:
+
+$$Z(\alpha) = G(1 - \alpha)$$
+
+The following is the plot of the normal distribution inverse survival function.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-inverse-survival
+#| fig-cap: "Normal inverse survival function"
+tibble(p = seq(0.001, 0.999, length.out = 401)) |>
+  mutate(z = qnorm(1 - p)) |>
+  ggplot(aes(p, z)) +
+  geom_line() +
+  labs(x = expression(alpha), y = expression(Z(alpha))) +
+  theme_light()
+```
+
+As with the percent point function, the horizontal axis is a probability. Therefore the horizontal axis goes from 0 to 1 regardless of the particular distribution. The appearance is similar to the percent point function. However, instead of going from the smallest to the largest value on the vertical axis, it goes from the largest to the smallest value.

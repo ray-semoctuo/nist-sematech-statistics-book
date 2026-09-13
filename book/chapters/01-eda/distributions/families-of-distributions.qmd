@@ -1,10 +1,36 @@
 #### Families of Distributions {#sec-eda-families-of-distributions}
 
-<!--
-Source: handbook/eda/section3/eda363.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+Many probability distributions are not a single distribution, but are in fact a family of distributions. This is due to the distribution having one or more shape parameters.
+
+Shape parameters allow a distribution to take on a variety of shapes, depending on the value of the shape parameter. These distributions are particularly useful in modeling applications since they are flexible enough to model a variety of data sets.
+
+**Example: Weibull Distribution**
+
+The [Weibull distribution](#sec-eda-weibull-distribution) is an example of a distribution that has a shape parameter. The following graph plots the Weibull pdf with the following values for the shape parameter: 0.5, 1.0, 2.0, and 5.0.
+
+```{r}
+#| code-fold: true
+#| label: fig-weibull-shape-parameters
+#| fig-cap: "Weibull probability density function for shape parameter $\\gamma$ = 0.5, 1.0, 2.0, and 5.0"
+#| message: false
+library(tidyverse)
+
+shapes <- c(0.5, 1.0, 2.0, 5.0)
+
+crossing(x = seq(0.01, 3, length.out = 401), shape = shapes) |>
+  mutate(shape_label = paste("gamma =", shape)) |>
+  mutate(y = dweibull(x, shape = shape)) |>
+  ggplot(aes(x, y)) +
+  geom_line() +
+  facet_wrap(~shape_label, scales = "free_y") +
+  labs(x = "x", y = "f(x)") +
+  theme_light()
+```
+
+The shapes above include an exponential distribution, a right-skewed distribution, and a relatively symmetric distribution.
+
+The Weibull distribution has a relatively simple distributional form. However, the shape parameter allows the Weibull to assume a wide variety of shapes. This combination of simplicity and flexibility in the shape of the Weibull distribution has made it an effective distributional model in reliability applications. This ability to model a wide variety of distributional shapes using a relatively simple distributional form is possible with many other distributional families as well.
+
+**PPCC Plots**
+
+The [PPCC plot](#sec-eda-probability-plot-correlation-coefficient-plot) is an effective graphical tool for selecting the member of a distributional family with a single shape parameter that best fits a given set of data.

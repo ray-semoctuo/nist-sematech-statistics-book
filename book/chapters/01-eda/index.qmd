@@ -18,14 +18,14 @@ The EDA approach is precisely that — an approach — not a set of techniques, 
 
 EDA is not identical to statistical graphics although the two terms are used almost interchangeably. Statistical graphics is a collection of techniques — all graphically based and all focusing on one data characterization aspect. EDA encompasses a larger venue; EDA is an approach to data analysis that postpones the usual assumptions about what kind of model the data follow with the more direct approach of allowing the data itself to reveal its underlying structure and model. EDA is not a mere collection of techniques; EDA is a philosophy as to how we dissect a data set, what we look for, how we look, and how we interpret. It is true that EDA heavily uses the collection of techniques that we call "statistical graphics," but it is not identical to statistical graphics per se.
 
-The seminal work in EDA is Tukey's *Exploratory Data Analysis* (1977). Over the years it has benefitted from other noteworthy publications such as Mosteller and Tukey's *Data Analysis and Regression* (1977), Hoaglin's *Interactive Data Analysis* (1977), and Velleman and Hoaglin's *The ABC's of EDA* (1981), and has gained a large following as "the" way to analyze a data set.
+The seminal work in EDA is Tukey's *Exploratory Data Analysis* (1977)<!-- XREF: EDA bibliography entry for Tukey; source handbook/eda/section4/eda43.htm#Tukey -->. Over the years it has benefitted from other noteworthy publications such as Mosteller and Tukey's *Data Analysis and Regression* (1977)<!-- XREF: EDA bibliography entry for Mosteller and Tukey; source handbook/eda/section4/eda43.htm#Mosteller -->, Hoaglin's *Interactive Data Analysis* (1977)<!-- XREF: EDA bibliography entry for Hoaglin (Mcneil); source handbook/eda/section4/eda43.htm#Mcneil -->, and Velleman and Hoaglin's *The ABC's of EDA* (1981)<!-- XREF: EDA bibliography entry for Velleman and Hoaglin; source handbook/eda/section4/eda43.htm#Velleman -->, and has gained a large following as "the" way to analyze a data set.
 
 Most EDA techniques are graphical in nature with a few quantitative techniques. The reason for the heavy reliance on graphics is that by its very nature the main role of EDA is to open-mindedly explore, and graphics gives the analyst unparalleled power to do so, enticing the data to reveal its structural secrets, and being always ready to gain some new, often unsuspected, insight into the data. In combination with the natural pattern-recognition capabilities that we all possess, graphics provides, of course, unparalleled power to carry this out.
 
 The particular graphical techniques employed in EDA are often quite simple, consisting of various techniques of:
 
-1. Plotting the raw data (such as data traces, histograms, bihistograms, probability plots, lag plots, block plots, and Youden plots).
-2. Plotting simple statistics such as mean plots, standard deviation plots, box plots, and main effects plots of the raw data.
+1. Plotting the raw data (such as [data traces](#sec-eda-run-sequence-plot), [histograms](#sec-eda-histogram), [bihistograms](#sec-eda-bihistogram), [probability plots](#sec-eda-probability-plot), [lag plots](#sec-eda-lag-plot), [block plots](#sec-eda-block-plot), and [Youden plots](#sec-eda-youden-plot)).
+2. Plotting simple statistics such as [mean plots](#sec-eda-mean-plot), [standard deviation plots](#sec-eda-standard-deviation-plot), [box plots](#sec-eda-box-plot), and main effects plots of the raw data.
 3. Positioning such plots so as to maximize our natural pattern-recognition abilities, such as using multiple plots per page.
 
 ### EDA versus Classical and Bayesian {#sec-eda-112}
@@ -58,7 +58,7 @@ Focusing on EDA versus classical, these two approaches differ as follows.
 
 #### Models
 
-The classical approach imposes models (both deterministic and probabilistic) on the data. Deterministic models include, for example, regression models and analysis of variance (ANOVA) models. The most common probabilistic model assumes that the errors about the deterministic model are normally distributed — this assumption affects the validity of the ANOVA F tests.
+The classical approach imposes models (both deterministic and probabilistic) on the data. Deterministic models include, for example, regression models<!-- XREF: Process Modeling chapter, regression models; source handbook/pmd/section1/pmd141.htm --> and [analysis of variance (ANOVA)](#sec-eda-multi-factor-anova) models. The most common probabilistic model assumes that the errors about the deterministic model are normally distributed — this assumption affects the validity of the ANOVA F tests.
 
 The Exploratory Data Analysis approach does not impose deterministic or probabilistic models on the data. On the contrary, the EDA approach allows the data to suggest admissible models that best fit the data.
 
@@ -70,9 +70,9 @@ For exploratory data analysis, the focus is on the data — its structure, outli
 
 #### Techniques
 
-Classical techniques are generally quantitative in nature. They include ANOVA, t tests, chi-squared tests, and F tests.
+Classical techniques are generally [quantitative](#sec-eda-35) in nature. They include ANOVA<!-- XREF: Product and Process Comparisons chapter, ANOVA; source handbook/prc/section4/prc42.htm -->, [t tests](#sec-eda-two-sample-t-test), [chi-squared tests](#sec-eda-chi-square-test-for-standard-deviation), and [F tests](#sec-eda-f-test-for-equality-of-variances).
 
-EDA techniques are generally graphical. They include scatter plots, character plots, box plots, histograms, bihistograms, probability plots, residual plots, and mean plots.
+EDA techniques are generally [graphical](#sec-eda-33). They include [scatter plots, character plots](#sec-eda-scatter-plot), [box plots](#sec-eda-box-plot), [histograms](#sec-eda-histogram), [bihistograms](#sec-eda-bihistogram), [probability plots](#sec-eda-probability-plot), [residual plots](#sec-eda-6-plot), and [mean plots](#sec-eda-mean-plot).
 
 #### Rigor
 
@@ -119,11 +119,11 @@ To get a "feel" for the data, it is not enough for the analyst to know what is i
 
 ### The Role of Graphics {#sec-eda-115}
 
-Statistics and data analysis procedures can broadly be split into two parts: quantitative and graphical.
+Statistics and data analysis procedures can broadly be split into two parts: [quantitative](#sec-eda-35) and [graphical](#sec-eda-33).
 
-Quantitative techniques are the set of statistical procedures that yield numeric or tabular output. Examples of quantitative techniques include hypothesis testing, analysis of variance, point estimates and confidence intervals, and least squares regression. These and similar techniques are all valuable and are mainstream in terms of classical analysis.
+Quantitative techniques are the set of statistical procedures that yield numeric or tabular output. Examples of quantitative techniques include [hypothesis testing](#sec-eda-35), analysis of variance<!-- XREF: Product and Process Comparisons chapter, ANOVA; source handbook/prc/section4/prc42.htm -->, [point estimates and confidence intervals](#sec-eda-35), and least squares regression<!-- XREF: Process Modeling chapter landing page; source handbook/pmd/pmd.htm -->. These and similar techniques are all valuable and are mainstream in terms of classical analysis.
 
-On the other hand, there is a large collection of statistical tools that we generally refer to as graphical techniques. These include scatter plots, histograms, probability plots, residual plots, box plots, and block plots.
+On the other hand, there is a large collection of statistical tools that we generally refer to as graphical techniques. These include [scatter plots](#sec-eda-scatter-plot), [histograms](#sec-eda-histogram), [probability plots](#sec-eda-probability-plot), [residual plots](#sec-eda-6-plot), [box plots](#sec-eda-box-plot), and [block plots](#sec-eda-block-plot).
 
 The EDA approach relies heavily on these and similar graphical techniques. Graphical procedures are not just tools that we could use in an EDA context, they are tools that we must use. Such graphical tools are the shortest path to gaining insight into a data set in terms of:
 
@@ -139,7 +139,7 @@ If one is not using statistical graphics, then one is forfeiting insight into on
 
 ### An EDA/Graphics Example {#sec-eda-116}
 
-A simple, classic (Anscombe) example of the central role that graphics play in terms of providing insight into a data set starts with the following data set:
+A simple, classic (Anscombe<!-- XREF: EDA bibliography entry for Anscombe; source handbook/eda/section4/eda43.htm -->) example of the central role that graphics play in terms of providing insight into a data set starts with the following data set<!-- XREF: ANSCOMBE.DAT dataset; source handbook/datasets/ANSCOMBE.DAT -->:
 
 ```
   X              Y
@@ -176,7 +176,7 @@ In contrast, a simple scatter plot of the data suggests the following:
 4. the vertical spread of the data appears to be of equal height irrespective of the $X$-value; this indicates that the data are equally precise throughout and so a "regular" (that is, equi-weighted) fit is appropriate.
 
 ::: {.callout-note}
-The scatter plot of this data set will be added once the scatter plot technique (Section 1.3) and this case study's dataset are covered.
+The [scatter plot](#sec-eda-scatter-plot) of this data set will be added once this case study's dataset<!-- XREF: ANSCOMBE.DAT dataset; source handbook/datasets/ANSCOMBE.DAT --> is covered.
 :::
 
 This kind of characterization for the data serves as the core for getting insight/feel for the data. Such insight/feel does not come from the quantitative statistics; on the contrary, calculations of quantitative statistics such as intercept and slope should be subsequent to the characterization and will make sense only if the characterization is true. To illustrate the loss of information that results when the graphics insight step is skipped, consider the following three additional data sets (Anscombe data sets 2, 3, and 4):
@@ -201,7 +201,7 @@ A quantitative analysis on data set 2 yields $N$ = 11, Mean of $X$ = 9.0, Mean o
 Remarkably, a quantitative analysis on data sets 3 and 4 also yields $N$ = 11, Mean of $X$ = 9.0, Mean of $Y$ = 7.5, Intercept = 3, Slope = 0.5, Residual standard deviation = 1.236, and Correlation = 0.816 (0.817 for data set 4), which implies that in some quantitative sense, all four of the data sets are "equivalent." In fact, the four data sets are far from "equivalent," and a scatter plot of each data set, which would be step 1 of any EDA approach, would tell us that immediately.
 
 ::: {.callout-note}
-The four scatter plots comprising Anscombe's quartet will be added once the scatter plot technique and this case study's dataset are covered. For now, the conclusions each plot reveals are summarized below.
+The four [scatter plots](#sec-eda-scatter-plot) comprising Anscombe's quartet will be added once this case study's dataset<!-- XREF: ANSCOMBE.DAT dataset (datasets 2, 3, and 4); source handbook/datasets/ANSCOMBE.DAT --> is covered. For now, the conclusions each plot reveals are summarized below.
 :::
 
 Conclusions from the scatter plots are:
@@ -226,56 +226,56 @@ The following classification is a convenient way to organize EDA problems.
 - Data: A single column of numbers, $Y$.
 - Model: $y$ = constant + error
 - Output: (1) a number (the estimated constant in the model); (2) an estimate of uncertainty for the constant; (3) an estimate of the distribution for the error.
-- Techniques: 4-Plot, Probability Plot, PPCC Plot.
+- Techniques: [4-Plot](#sec-eda-4-plot), [Probability Plot](#sec-eda-probability-plot), [PPCC Plot](#sec-eda-probability-plot-correlation-coefficient-plot).
 
 **Control**
 
 - Data: A single column of numbers, $Y$.
 - Model: $y$ = constant + error
 - Output: A "yes" or "no" to the question "Is the system out of control?"
-- Techniques: Control Charts.
+- Techniques: Control Charts<!-- XREF: Process or Product Monitoring and Control chapter, Control Charts; source handbook/pmc/section3/pmc3.htm -->.
 
 **Comparative**
 
 - Data: A single response variable and $k$ independent variables ($Y$, $X_1$, $X_2$, ..., $X_k$), primary focus is on *one* (the primary factor) of these independent variables.
 - Model: $y = f(x_1, x_2, ..., x_k)$ + error
 - Output: A "yes" or "no" to the question "Is the primary factor significant?"
-- Techniques: Block Plot, Scatter Plot, Box Plot.
+- Techniques: [Block Plot](#sec-eda-block-plot), [Scatter Plot](#sec-eda-scatter-plot), [Box Plot](#sec-eda-box-plot).
 
 **Screening**
 
 - Data: A single response variable and $k$ independent variables ($Y$, $X_1$, $X_2$, ..., $X_k$).
 - Model: $y = f(x_1, x_2, ..., x_k)$ + error
 - Output: (1) a ranked list (from most important to least important) of factors; (2) best settings for the factors; (3) a good model/prediction equation relating $Y$ to the factors.
-- Techniques: Block Plot, Probability Plot, Bihistogram.
+- Techniques: [Block Plot](#sec-eda-block-plot), [Probability Plot](#sec-eda-probability-plot), [Bihistogram](#sec-eda-bihistogram).
 
 **Optimization**
 
 - Data: A single response variable and $k$ independent variables ($Y$, $X_1$, $X_2$, ..., $X_k$).
 - Model: $y = f(x_1, x_2, ..., x_k)$ + error
 - Output: Best settings for the factor variables.
-- Techniques: Block Plot, Least Squares Fitting, Contour Plot.
+- Techniques: [Block Plot](#sec-eda-block-plot), Least Squares Fitting<!-- XREF: Process Modeling chapter, Least Squares Fitting; source handbook/pmd/section1/pmd141.htm -->, [Contour Plot](#sec-eda-contour-plot).
 
 **Regression**
 
 - Data: A single response variable and $k$ independent variables ($Y$, $X_1$, $X_2$, ..., $X_k$). The independent variables can be continuous.
 - Model: $y = f(x_1, x_2, ..., x_k)$ + error
 - Output: A good model/prediction equation relating $Y$ to the factors.
-- Techniques: Least Squares Fitting, Scatter Plot, 6-Plot.
+- Techniques: Least Squares Fitting<!-- XREF: Process Modeling chapter, Least Squares Fitting; source handbook/pmd/section1/pmd141.htm -->, [Scatter Plot](#sec-eda-scatter-plot), [6-Plot](#sec-eda-6-plot).
 
 **Time Series**
 
 - Data: A column of time-dependent numbers, $Y$. In addition, time is an independent variable. The time variable can be either explicit or implied. If the data are not equi-spaced, the time variable should be explicitly provided.
 - Model: $y_t = f(t)$ + error. The model can be either time-domain based or frequency-domain based.
 - Output: A good model/prediction equation relating $Y$ to previous values of $Y$.
-- Techniques: Autocorrelation Plot, Spectrum, Complex Demodulation Amplitude Plot, Complex Demodulation Phase Plot, ARIMA Models.
+- Techniques: [Autocorrelation Plot](#sec-eda-autocorrelation-plot), [Spectrum](#sec-eda-spectral-plot), [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot), [Complex Demodulation Phase Plot](#sec-eda-complex-demodulation-phase-plot), ARIMA Models<!-- XREF: Process or Product Monitoring and Control chapter, ARIMA Models; source handbook/pmc/section4/pmc4.htm -->.
 
 **Multivariate**
 
 - Data: $k$ factor variables ($X_1$, $X_2$, ..., $X_k$).
 - Model: The model is not explicit.
 - Output: Identify underlying correlation structure in the data.
-- Techniques: Star Plot, Scatter Plot Matrix, Conditioning Plot, Profile Plot, Principal Components, Clustering, Discrimination/Classification.
+- Techniques: [Star Plot](#sec-eda-star-plot), Scatter Plot Matrix<!-- XREF: EDA graphical technique not yet migrated to this book; source handbook/eda/section3/scatterb.htm -->, Conditioning Plot<!-- XREF: EDA graphical technique not yet migrated to this book; source handbook/eda/section3/scatterc.htm -->, Profile Plot, Principal Components<!-- XREF: Process or Product Monitoring and Control chapter, Principal Components; source handbook/pmc/section5/pmc55.htm -->, Clustering, Discrimination/Classification.
 
 Note that multivariate analysis is only covered lightly in this Handbook.
 
@@ -305,7 +305,7 @@ For this case, the "fixed location" is simply the unknown constant. We can thus 
 - the deterministic component consists of only a constant; and
 - the random component has fixed variation.
 
-The universal power and importance of the univariate model is that it can easily be extended to the more general case where the deterministic component is not just a constant, but is in fact a function of many variables, and the engineering objective is to characterize and model the function.
+The universal power and importance of the univariate model is that it can easily be extended to the more general case where the deterministic component is not just a constant, but is in fact a function of many variables, and the engineering objective is to characterize and model the function<!-- XREF: Process Modeling chapter landing page; source handbook/pmd/pmd.htm -->.
 
 The key point is that regardless of how many factors there are, and regardless of how complicated the function is, if the engineer succeeds in choosing a good model, then the differences (residuals) between the raw response data and the predicted values from the fitted model should themselves behave like a univariate process. Furthermore, the residuals from this univariate process fit will behave like:
 
@@ -314,7 +314,7 @@ The key point is that regardless of how many factors there are, and regardless o
 - with fixed location (namely, 0 in this case); and
 - with fixed variation.
 
-Thus if the residuals from the fitted model do in fact behave like the ideal, then testing of underlying assumptions becomes a tool for the validation and quality of fit of the chosen model. On the other hand, if the residuals from the chosen fitted model violate one or more of the above univariate assumptions, then the chosen fitted model is inadequate and an opportunity exists for arriving at an improved model.
+Thus if the residuals from the fitted model<!-- XREF: Process Modeling chapter, residuals from the fitted model; source handbook/pmd/section4/pmd44.htm --> do in fact behave like the ideal, then testing of underlying assumptions becomes a tool for the validation and quality of fit of the chosen model. On the other hand, if the residuals from the chosen fitted model violate one or more of the above univariate assumptions, then the chosen fitted model is inadequate and an opportunity exists for arriving at an improved model.
 
 ### Importance {#sec-eda-22}
 
@@ -328,21 +328,21 @@ Because the validity of the final scientific/engineering conclusions is inextric
 
 The following EDA techniques are simple, efficient, and powerful for the routine testing of underlying assumptions:
 
-- run sequence plot ($Y_i$ versus $i$);
-- lag plot ($Y_i$ versus $Y_{i-1}$);
-- histogram (counts versus subgroups of $Y$);
-- normal probability plot (ordered $Y$ versus theoretical ordered $Y$).
+- [run sequence plot](#sec-eda-run-sequence-plot) ($Y_i$ versus $i$);
+- [lag plot](#sec-eda-lag-plot) ($Y_i$ versus $Y_{i-1}$);
+- [histogram](#sec-eda-histogram) (counts versus subgroups of $Y$);
+- [normal probability plot](#sec-eda-normal-probability-plot) (ordered $Y$ versus theoretical ordered $Y$).
 
-The four EDA plots can be juxtaposed for a quick look at the characteristics of the data. The plots are conventionally arranged together as a single "4-Plot," ordered as follows:
+The four EDA plots can be juxtaposed for a quick look at the characteristics of the data. The plots are conventionally arranged together as a single "[4-Plot](#sec-eda-4-plot)," ordered as follows:
 
 - Run sequence plot — upper left
 - Lag plot — upper right
 - Histogram — lower left
 - Normal probability plot — lower right
 
-A 4-Plot of 500 normal random numbers reveals a process that has fixed location, fixed variation, is random, apparently has a fixed approximately normal distribution, and has no outliers.
+A [4-Plot](#sec-eda-4-plot) of 500 normal random numbers<!-- XREF: RANDN.DAT dataset; source handbook/datasets/RANDN.DAT --> reveals a process that has fixed location, fixed variation, is random, apparently has a fixed approximately normal distribution, and has no outliers.
 
-If one or more of the four underlying assumptions do not hold, then it will show up in the various plots. For example, a 4-Plot may reveal a process that has fixed location, fixed variation, is non-random (oscillatory), has a non-normal, U-shaped distribution, and has several outliers.
+If one or more of the four underlying assumptions do not hold, then it will show up in the various plots, as in the following example<!-- XREF: LEW.DAT dataset; source handbook/datasets/LEW.DAT -->. For example, a [4-Plot](#sec-eda-4-plot) may reveal a process that has fixed location, fixed variation, is non-random (oscillatory), has a non-normal, U-shaped distribution, and has several outliers.
 
 ::: {.callout-note}
 The illustrative 4-Plots referenced here (for both well-behaved and assumption-violating data) will be added once the 4-Plot technique (Section 1.3) and its example datasets are covered.
@@ -433,9 +433,9 @@ If the run sequence plot does not support the assumption of fixed variation, the
 
 #### Consequences of Non-Normality {#sec-eda-254}
 
-Scientists and engineers routinely use the mean (average) to estimate the "middle" of a distribution. It is not so well known that the variability and the noisiness of the mean as a location estimator are intrinsically linked with the underlying distribution of the data. For certain distributions, the mean is a poor choice. For any given distribution, there exists an optimal choice — that is, the estimator with minimum variability/noisiness. This optimal choice may be, for example, the median, the midrange, the midmean, the mean, or something else. The implication of this is to "estimate" the distribution first, and then — based on the distribution — choose the optimal estimator. The resulting engineering parameter estimators will have less variability than if this approach is not followed.
+Scientists and engineers routinely use the mean (average) to estimate the "middle" of a distribution. It is not so well known that the variability and the noisiness of the mean as a location estimator are intrinsically linked with the underlying distribution of the data. For certain distributions, the mean is a poor choice. For any given distribution, there exists an optimal choice — that is, the estimator with minimum variability/noisiness. This optimal choice may be, for example, the median, the midrange, the midmean, the mean, or something else. The implication of this is to ["estimate" the distribution](#sec-eda-estimating-distribution-parameters) first, and then — based on the [distribution](#sec-eda-366) — choose the optimal estimator. The resulting engineering parameter estimators will have less variability than if this approach is not followed.
 
-Two case studies elsewhere in the Handbook illustrate this point: an airplane glass failure case study gives an example of determining an appropriate distribution and estimating the parameters of that distribution, and a uniform random numbers case study gives an example of determining a more appropriate centrality parameter for a non-normal distribution.
+Two case studies elsewhere in the Handbook illustrate this point: an airplane glass failure case study<!-- XREF: EDA Case Studies (Section 1.4), Airplane Glass Failure; source handbook/eda/section4/eda429.htm --> gives an example of determining an appropriate distribution and estimating the parameters of that distribution, and a uniform random numbers case study<!-- XREF: EDA Case Studies (Section 1.4), Uniform Random Numbers; source handbook/eda/section4/eda422.htm --> gives an example of determining a more appropriate centrality parameter for a non-normal distribution.
 
 Other consequences that flow from problems with distributional assumptions fall into three categories:
 

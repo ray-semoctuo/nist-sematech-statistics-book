@@ -1,10 +1,107 @@
 #### Estimating the Parameters of a Distribution {#sec-eda-estimating-distribution-parameters}
 
-<!--
-Source: handbook/eda/section3/eda365.htm, handbook/eda/section3/eda3651.htm, handbook/eda/section3/eda3652.htm, handbook/eda/section3/eda3653.htm, handbook/eda/section3/eda3654.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+One common application of probability distributions is modeling univariate data with a specific probability distribution. This involves the following two steps:
+
+1. Determination of the "best-fitting" distribution.
+2. Estimation of the parameters (shape, location, and scale parameters) for that distribution.
+
+There are various methods, both numerical and graphical, for estimating the parameters of a probability distribution:
+
+1. Method of moments
+2. Maximum likelihood
+3. Least squares
+4. PPCC and probability plots
+
+##### Method of Moments {#sec-eda-method-of-moments}
+
+The method of moments equates sample moments to parameter estimates. When moment methods are available, they have the advantage of simplicity. The disadvantage is that they are often not available and they do not have the desirable optimality properties of maximum likelihood and least squares estimators.
+
+The primary use of moment estimates is as starting values for the more precise maximum likelihood and least squares estimates.
+
+Most general purpose statistical software does not include explicit method of moments parameter estimation commands. However, when utilized, the method of moment formulas tend to be straightforward and can be easily implemented in most statistical software programs.
+
+##### Maximum Likelihood {#sec-eda-maximum-likelihood}
+
+Maximum likelihood estimation begins with the mathematical expression known as a likelihood function of the sample data. Loosely speaking, the likelihood of a set of data is the probability of obtaining that particular set of data given the chosen probability model. This expression contains the unknown parameters. Those values of the parameter that maximize the sample likelihood are known as the maximum likelihood estimates.
+
+The reliability chapter<!-- XREF: link to reliability chapter once written; source handbook/apr/section4/apr412.htm --> contains some examples of the likelihood functions for a few of the commonly used distributions in reliability analysis.
+
+**Advantages**
+
+The advantages of this method are:
+
+- Maximum likelihood provides a consistent approach to parameter estimation problems. This means that maximum likelihood estimates can be developed for a large variety of estimation situations. For example, they can be applied in reliability analysis to censored data under various censoring models.
+- Maximum likelihood methods have desirable mathematical and optimality properties. Specifically,
+  1. They become minimum variance unbiased estimators as the sample size increases. By unbiased, we mean that if we take (a very large number of) random samples with replacement from a population, the average value of the parameter estimates will be theoretically exactly equal to the population value. By minimum variance, we mean that the estimator has the smallest variance, and thus the narrowest confidence interval, of all estimators of that type.
+  2. They have approximate normal distributions and approximate sample variances that can be used to generate confidence bounds and hypothesis tests for the parameters.
+- Several popular statistical software packages provide excellent algorithms for maximum likelihood estimates for many of the commonly used distributions. This helps mitigate the computational complexity of maximum likelihood estimation.
+
+**Disadvantages**
+
+The disadvantages of this method are:
+
+- The likelihood equations need to be specifically worked out for a given distribution and estimation problem. The mathematics is often non-trivial, particularly if confidence intervals for the parameters are desired.
+- The numerical estimation is usually non-trivial. Except for a few cases where the maximum likelihood formulas are in fact simple, it is generally best to rely on high quality statistical software to obtain maximum likelihood estimates. Fortunately, high quality maximum likelihood software is becoming increasingly common.
+- Maximum likelihood estimates can be heavily biased for small samples. The optimality properties may not apply for small samples.
+- Maximum likelihood can be sensitive to the choice of starting values.
+
+**Software**
+
+Most general purpose statistical software programs support maximum likelihood estimation (MLE) in some form. MLE estimation can be supported in two ways:
+
+1. A software program may provide a generic function minimization (or equivalently, maximization) capability. This is also referred to as function optimization. Maximum likelihood estimation is essentially a function optimization problem. This type of capability is particularly common in mathematical software programs.
+2. A software program may provide MLE computations for a specific problem. For example, it may generate ML estimates for the parameters of a Weibull distribution. Statistical software programs will often provide ML estimates for many specific problems even when they do not support general function optimization.
+
+The advantage of function minimization software is that it can be applied to many different MLE problems. The drawback is that you have to specify the maximum likelihood equations to the software. As the functions can be non-trivial, there is potential for error in entering the equations.
+
+The advantage of the specific MLE procedures is that greater efficiency and better numerical stability can often be obtained by taking advantage of the properties of the specific estimation problem. The specific methods often return explicit confidence intervals. In addition, you do not have to know or specify the likelihood equations to the software. The disadvantage is that each MLE problem must be specifically coded.
+
+##### Least Squares {#sec-eda-least-squares}
+
+Non-linear least squares<!-- XREF: Process Modeling chapter, Non-linear least squares; source handbook/pmd/section1/pmd142.htm --> provides an alternative to maximum likelihood.
+
+**Advantages**
+
+The advantages of this method are:
+
+- Non-linear least squares software may be available in many statistical software packages that do not support maximum likelihood estimates.
+- It can be applied more generally than maximum likelihood. That is, if your software provides non-linear fitting and it has the ability to specify the probability function you are interested in, then you can generate least squares estimates for that distribution. This will allow you to obtain reasonable estimates for distributions even if the software does not provide maximum likelihood estimates.
+
+**Disadvantages**
+
+The disadvantages of this method are:
+
+- It is not readily applicable to censored data.
+- It is generally considered to have less desirable optimality properties than maximum likelihood.
+- It can be quite sensitive to the choice of starting values.
+
+**Software**
+
+Non-linear least squares fitting is available in many general purpose statistical software programs.
+
+##### PPCC and Probability Plots {#sec-eda-ppcc-and-probability-plots}
+
+The [PPCC plot](#sec-eda-probability-plot-correlation-coefficient-plot) can be used to estimate the shape parameter of a distribution with a single shape parameter. After finding the best value of the shape parameter, the [probability plot](#sec-eda-probability-plot) can be used to estimate the location and scale parameters of a probability distribution.
+
+**Advantages**
+
+The advantages of this method are:
+
+- It is based on two well-understood concepts.
+  1. The linearity (i.e., straightness) of the probability plot is a good measure of the adequacy of the distributional fit.
+  2. The correlation coefficient between the points on the probability plot is a good measure of the linearity of the probability plot.
+- It is an easy technique to implement for a wide variety of distributions with a single shape parameter. The basic requirement is to be able to compute the [percent point function](#sec-eda-related-distributions), which is needed in the computation of both the probability plot and the PPCC plot.
+- The PPCC plot provides insight into the sensitivity of the shape parameter. That is, if the PPCC plot is relatively flat in the neighborhood of the optimal value of the shape parameter, this is a strong indication that the fitted model will not be sensitive to small deviations, or even large deviations in some cases, in the value of the shape parameter.
+- The maximum correlation value provides a method for comparing across distributions as well as identifying the best value of the shape parameter for a given distribution. For example, we could use the PPCC and probability fits for the Weibull, lognormal, and possibly several other distributions. Comparing the maximum correlation coefficient achieved for each distribution can help in selecting which is the best distribution to use.
+
+**Disadvantages**
+
+The disadvantages of this method are:
+
+- It is limited to distributions with a single shape parameter.
+- PPCC plots are not widely available in statistical software packages other than Dataplot (Dataplot provides PPCC plots for 40+ distributions). Probability plots are generally available. However, many statistical software packages only provide them for a limited number of distributions.
+- Significance levels for the correlation coefficient (i.e., if the maximum correlation value is above a given value, then the distribution provides an adequate fit for the data with a given confidence level) have only been worked out for a limited number of distributions.
+
+**Other Graphical Methods**
+
+For reliability applications, the hazard plot<!-- XREF: Assessing Product Reliability chapter, hazard plot; source handbook/apr/section2/apr222.htm --> and the [Weibull plot](#sec-eda-weibull-plot) are alternative graphical methods that are commonly used to estimate parameters.
