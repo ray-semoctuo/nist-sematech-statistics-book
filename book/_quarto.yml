@@ -4,7 +4,7 @@ project:
 book:
   title: "NIST/SEMATECH e-Handbook of Statistical Methods (Tidyverse Edition)"
   subtitle: "Worked examples reproduced in R using the tidyverse"
-  author: "Ray James Hoobler"
+  editor: "Ray James Hoobler"
   date: today
   repo-url: https://github.com/ray-semoctuo/nist-sematech-statistics-book
   repo-actions: [edit, issue]
