@@ -92,7 +92,7 @@ ggplot(tibble(y = transformed), aes(sample = y)) +
   theme_light()
 ```
 
-The histogram in the upper left-hand corner shows a data set (first column of AUTO83B.DAT) that has significant right skewness (and so does not follow a normal distribution). The Box-Cox normality plot shows that the maximum value of the correlation coefficient is at $\lambda$ = `r round(best_lambda, 2)`, close to the value of -0.3 reported for this data set. The histogram of the data after applying the Box-Cox transformation with $\lambda$ = `r round(best_lambda, 2)` shows a data set for which the normality assumption is reasonable. This is verified with a normal probability plot of the transformed data.
+@fig-box-cox-normality-plot-histogram, the first plot above, shows a data set (first column of AUTO83B.DAT) that has significant right skewness (and so does not follow a normal distribution). The Box-Cox normality plot shows that the maximum value of the correlation coefficient is at $\lambda$ = `r round(best_lambda, 2)`, close to the value of -0.3 reported for this data set. @fig-box-cox-normality-plot-transformed, the histogram of the data after applying the Box-Cox transformation with $\lambda$ = `r round(best_lambda, 2)`, shows a data set for which the normality assumption is reasonable. This is verified with the normal probability plot of the transformed data in @fig-box-cox-normality-plot-qq.
 
 **Definition**
 

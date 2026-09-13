@@ -22,45 +22,64 @@ library(tidyverse)
 
 # Same complex demodulation construction used for the amplitude plot: shift
 # the series down to (near) zero frequency at the candidate frequency w0 and
-# low-pass filter with a centered moving average; the phase plot below is the
-# argument (angle) of the resulting smoothed complex series.
+# low-pass filter with a centered moving average. NIST's own text notes that
+# Dataplot's phase plot "restricts the range from pi/2 to -pi/2," which is
+# what plain atan() (rather than the full-circle atan2()) gives -- this is
+# also what produces the repeated sawtooth "breaks" seen in the original.
+#
+# The time index used inside the demodulating exponential is 0-based (t = 0,
+# 1, 2, ...) rather than 1-based: since the phase plot's absolute vertical
+# position (not just its slope) depends on exactly where t "starts", this
+# matches Dataplot's own zero-based indexing and is what lines the plot up
+# with the original -- a 1-based index shifts every point by a constant
+# fraction of a cycle, which visibly moves the whole sawtooth pattern.
 complex_demodulate <- function(y, w0, filter_len = 21) {
   n <- length(y)
-  t <- seq_len(n)
+  t <- seq_len(n) - 1
   z <- y * exp(-1i * 2 * pi * w0 * t)
   filt <- rep(1 / filter_len, filter_len)
-  zr <- stats::filter(Re(z), filt, sides = 2)
-  zi <- stats::filter(Im(z), filt, sides = 2)
+  # stats::filter() returns a ts object; strip that with as.numeric() so
+  # ggplot doesn't have to guess a scale for it.
+  zr <- as.numeric(stats::filter(Re(z), filt, sides = 2))
+  zi <- as.numeric(stats::filter(Im(z), filt, sides = 2))
   tibble(
     t = t,
     amplitude = 2 * sqrt(zr^2 + zi^2),
-    phase = atan2(zi, zr)
+    phase = atan(zi / zr)
   )
 }
 
 lew <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y", col_types = "d")
 
-# An intentionally slightly-off frequency (0.28, versus the fitted value of
-# 0.302596 used on the Complex Demodulation Amplitude Plot page) is used
-# here so that the resulting phase plot shows the sloped pattern described
-# below, which is the actual point of this diagnostic: a well-chosen
-# frequency instead gives an essentially flat phase plot.
-lew_demod <- complex_demodulate(lew$y, w0 = 0.28)
+# NIST's own Dataplot macro for this exact sample plot (graphicsgallery.dp)
+# uses a demodulation frequency of 0.31, versus the fitted true frequency of
+# 0.302596 (see the Complex Demodulation Amplitude Plot page) -- close to
+# correct but slightly too high, which is what produces the sloped pattern
+# described below. filter_len = 15 was chosen empirically: shorter filters
+# (e.g. the default 21) leave enough residual noise/texture to closely
+# match the small-scale wiggle visible in the original plot, while filters
+# much longer than this over-smooth that texture away.
+lew_demod <- complex_demodulate(lew$y, w0 = 0.31, filter_len = 15)
 ```
 
 ```{r}
 #| code-fold: true
 #| label: fig-complex-demodulation-phase-plot-sample
-#| fig-cap: "Complex demodulation phase plot of the LEW.DAT data set, using a demodulation frequency of 0.28"
+#| fig-cap: "Complex demodulation phase plot of the LEW.DAT data set, using a demodulation frequency of 0.31"
+#| warning: false
+# Dataplot's own macro for this plot sets "lines blank" -- the original is
+# a scatter of discrete points, not a connected line. (The moving-average
+# filter can't compute a value within filter_len/2 samples of either edge,
+# so those rows are legitimately NA -- warning: false suppresses ggplot's
+# expected "removed rows" message for that.)
 lew_demod |>
   ggplot(aes(t, phase)) +
-  geom_line() +
-  geom_point(size = 0.7) +
+  geom_point() +
   labs(x = "Time", y = "Phase") +
   theme_light()
 ```
 
-This complex demodulation phase plot of the LEW.DAT data set, generated with a demodulation frequency of 0.28, shows that:
+This complex demodulation phase plot of the LEW.DAT data set, generated with a demodulation frequency of 0.31, shows that:
 
 - the specified demodulation frequency is incorrect;
 - the demodulation frequency should be increased.

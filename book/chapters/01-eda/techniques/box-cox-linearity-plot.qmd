@@ -63,25 +63,25 @@ The plot of the original data with the predicted values from a linear fit indica
 
 ```{r}
 #| code-fold: true
-#| label: box-cox-linearity-plot-residual-sd
+#| label: fig-box-cox-linearity-plot-transformed
+#| fig-cap: "The JONES.DAT data after transforming X with the optimal lambda, with a linear fit"
 jones_t <- jones |> mutate(xt = boxcox_transform(x, best_lambda))
+ggplot(jones_t, aes(xt, y)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(x = bquote(paste("Transformed X (", lambda, " = ", .(best_lambda), ")")), y = "Density of Water") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: box-cox-linearity-plot-residual-sd
 fit_orig <- lm(y ~ x, data = jones)
 fit_t <- lm(y ~ xt, data = jones_t)
 tibble(
   model = c("Linear fit on original X", paste0("Linear fit on X transformed with lambda = ", best_lambda)),
   residual_sd = c(sigma(fit_orig), sigma(fit_t))
 )
-```
-
-```{r}
-#| code-fold: true
-#| label: fig-box-cox-linearity-plot-transformed
-#| fig-cap: "The JONES.DAT data after transforming X with the optimal lambda, with a linear fit"
-ggplot(jones_t, aes(xt, y)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
-  labs(x = bquote(paste("Transformed X (", lambda, " = ", .(best_lambda), ")")), y = "Density of Water") +
-  theme_light()
 ```
 
 **Definition**

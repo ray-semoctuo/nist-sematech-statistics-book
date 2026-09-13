@@ -38,8 +38,10 @@ complex_demodulate <- function(y, w0, filter_len = 21) {
   t <- seq_len(n)
   z <- y * exp(-1i * 2 * pi * w0 * t)
   filt <- rep(1 / filter_len, filter_len)
-  zr <- stats::filter(Re(z), filt, sides = 2)
-  zi <- stats::filter(Im(z), filt, sides = 2)
+  # stats::filter() returns a ts object; strip that with as.numeric() so
+  # ggplot doesn't have to guess a scale for it.
+  zr <- as.numeric(stats::filter(Re(z), filt, sides = 2))
+  zi <- as.numeric(stats::filter(Im(z), filt, sides = 2))
   tibble(
     t = t,
     amplitude = 2 * sqrt(zr^2 + zi^2),
@@ -58,6 +60,10 @@ lew_demod <- complex_demodulate(lew$y, w0 = 0.302596)
 #| code-fold: true
 #| label: fig-complex-demodulation-amplitude-plot-sample
 #| fig-cap: "Complex demodulation amplitude plot of the LEW.DAT data set"
+#| warning: false
+# The moving-average filter can't compute a value within filter_len/2
+# samples of either edge, so those rows are legitimately NA -- warning:
+# false suppresses ggplot's expected "removed rows" message for that.
 lew_demod |>
   ggplot(aes(t, amplitude)) +
   geom_line() +
