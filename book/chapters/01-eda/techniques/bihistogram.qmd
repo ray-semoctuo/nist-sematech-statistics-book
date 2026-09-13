@@ -48,16 +48,16 @@ ggplot(jahanmi2, aes(x = y)) +
   theme_light()
 ```
 
-From the above bihistogram of the JAHANMI2.DAT data set, we can see that batch 1 is centered at a ceramic strength value of approximately
+From the above bihistogram of the JAHANMI2.DAT data set, we can see that batch 1 is centered at a higher ceramic strength value than batch 2:
 
 ```{r}
 #| code-fold: true
 #| label: bihistogram-batch-means
 jahanmi2 |>
-  summarize(mean_strength = mean(y), .by = batch)
+  summarize(mean_strength = mean(y), median_strength = median(y), .by = batch)
 ```
 
-roughly 689 for batch 1 and 611 for batch 2 — a displacement of nearly 80 strength units. Thus the batch factor has a significant effect on the location (typical value) for strength, and hence batch is said to be "significant" or to "have an effect." We thus see graphically and convincingly what a t-test or analysis of variance<!-- XREF: Product and Process Comparisons chapter, analysis of variance; source handbook/prc/section4/prc42.htm --> would indicate quantitatively.
+The original NIST text reports batch 1 as centered at approximately 725 and batch 2 at approximately 625 (a displacement of about 100 strength units); that appears to be a visual read of the histogram's center rather than a computed mean or median, since neither statistic above reproduces those figures exactly — the mean (689 vs. 611) and median (698 vs. 608) both show a somewhat smaller displacement, around 78-90 strength units. In any case, the batch factor clearly has a significant effect on the location (typical value) for strength, and hence batch is said to be "significant" or to "have an effect." We thus see graphically and convincingly what a t-test or analysis of variance<!-- XREF: Product and Process Comparisons chapter, analysis of variance; source handbook/prc/section4/prc42.htm --> would indicate quantitatively.
 
 With respect to variation, note that the spread (variation) of the above-axis batch 1 histogram does not appear to be that much different from the below-axis batch 2 histogram. With respect to distributional shape, note that the batch 1 histogram is skewed left while the batch 2 histogram is more symmetric with even a hint of a slight skewness to the right.
 
