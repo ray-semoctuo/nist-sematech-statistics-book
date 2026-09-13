@@ -1,0 +1,10 @@
+#### 4-Plot {#sec-eda-4-plot}
+
+<!--
+Source: handbook/eda/section3/eda3332.htm
+TODO:
+- Port narrative content from the source page(s) above
+- Merge any interpretation/example sub-pages listed above into this single page
+- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
+- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
+-->

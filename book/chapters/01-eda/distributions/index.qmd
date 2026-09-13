@@ -1,0 +1,61 @@
+### Probability Distributions {#sec-eda-36}
+
+{{< include distributions/what-is-a-probability-distribution.qmd >}}
+
+{{< include distributions/related-distributions.qmd >}}
+
+{{< include distributions/families-of-distributions.qmd >}}
+
+{{< include distributions/location-and-scale-parameters.qmd >}}
+
+{{< include distributions/estimating-distribution-parameters.qmd >}}
+
+{{< include distributions/normal-distribution.qmd >}}
+
+{{< include distributions/uniform-distribution.qmd >}}
+
+{{< include distributions/cauchy-distribution.qmd >}}
+
+{{< include distributions/t-distribution.qmd >}}
+
+{{< include distributions/f-distribution.qmd >}}
+
+{{< include distributions/chi-square-distribution.qmd >}}
+
+{{< include distributions/exponential-distribution.qmd >}}
+
+{{< include distributions/weibull-distribution.qmd >}}
+
+{{< include distributions/lognormal-distribution.qmd >}}
+
+{{< include distributions/fatigue-life-distribution.qmd >}}
+
+{{< include distributions/gamma-distribution.qmd >}}
+
+{{< include distributions/double-exponential-distribution.qmd >}}
+
+{{< include distributions/power-normal-distribution.qmd >}}
+
+{{< include distributions/power-lognormal-distribution.qmd >}}
+
+{{< include distributions/tukey-lambda-distribution.qmd >}}
+
+{{< include distributions/extreme-value-type-i-distribution.qmd >}}
+
+{{< include distributions/beta-distribution.qmd >}}
+
+{{< include distributions/binomial-distribution.qmd >}}
+
+{{< include distributions/poisson-distribution.qmd >}}
+
+{{< include distributions/standard-normal-cdf-table.qmd >}}
+
+{{< include distributions/t-distribution-table.qmd >}}
+
+{{< include distributions/f-distribution-table.qmd >}}
+
+{{< include distributions/chi-square-distribution-table.qmd >}}
+
+{{< include distributions/t-star-distribution-table.qmd >}}
+
+{{< include distributions/normal-ppcc-distribution-table.qmd >}}

@@ -10,30 +10,14 @@ book:
   repo-actions: [edit, issue]
   chapters:
     - index.qmd
-    - part: "Exploratory Data Analysis"
-      chapters:
-        - chapters/01-eda/index.qmd
-    - part: "Measurement Process Characterization"
-      chapters:
-        - chapters/02-mpc/index.qmd
-    - part: "Production Process Characterization"
-      chapters:
-        - chapters/03-ppc/index.qmd
-    - part: "Process Modeling"
-      chapters:
-        - chapters/04-pmd/index.qmd
-    - part: "Process Improvement"
-      chapters:
-        - chapters/05-pri/index.qmd
-    - part: "Process or Product Monitoring and Control"
-      chapters:
-        - chapters/06-pmc/index.qmd
-    - part: "Product and Process Comparisons"
-      chapters:
-        - chapters/07-prc/index.qmd
-    - part: "Assessing Product Reliability"
-      chapters:
-        - chapters/08-apr/index.qmd
+    - chapters/01-eda/index.qmd
+    - chapters/02-mpc/index.qmd
+    - chapters/03-ppc/index.qmd
+    - chapters/04-pmd/index.qmd
+    - chapters/05-pri/index.qmd
+    - chapters/06-pmc/index.qmd
+    - chapters/07-prc/index.qmd
+    - chapters/08-apr/index.qmd
     - references.qmd
 
 bibliography: references.bib
@@ -45,6 +29,7 @@ format:
     code-fold: show
     code-tools: true
     toc: true
+    toc-depth: 3
 
 execute:
   freeze: auto

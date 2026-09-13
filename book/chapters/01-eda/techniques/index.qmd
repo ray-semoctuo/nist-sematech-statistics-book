@@ -1,0 +1,138 @@
+## EDA Techniques {#sec-eda-3}
+
+### Introduction {#sec-eda-31}
+
+This section describes many techniques that are commonly used in exploratory and classical data analysis. This list is by no means meant to be exhaustive. Additional techniques (both graphical and quantitative) are discussed in other chapters. Specifically, the product comparisons chapter has a much more detailed description of many classical statistical techniques.
+
+EDA emphasizes graphical techniques while classical techniques emphasize quantitative techniques. In practice, an analyst typically uses a mixture of graphical and quantitative techniques. In this section, we have divided the descriptions into graphical and quantitative techniques. This is for organizational clarity and is not meant to discourage the use of both graphical and quantitative techniques when analyzing data.
+
+This section emphasizes the techniques themselves — how the graph or test is defined, published references, and sample output. The use of the techniques to answer engineering questions is demonstrated in the case studies section (Section 1.4). The case studies do not demonstrate all of the techniques.
+
+The sample plots and output in the original handbook were generated with the Dataplot software program; in this book they are reproduced using R and the tidyverse. Other general-purpose statistical data analysis programs can generate most of the plots, intervals, and tests discussed here, or macros/scripts can be written to achieve the same result.
+
+### Analysis Questions {#sec-eda-32}
+
+Some common questions that exploratory data analysis is used to answer are:
+
+1. What is a typical value?
+2. What is the uncertainty for a typical value?
+3. What is a good distributional fit for a set of numbers?
+4. What is a percentile?
+5. Does an engineering modification have an effect?
+6. Does a factor have an effect?
+7. What are the most important factors?
+8. Are measurements coming from different laboratories equivalent?
+9. What is the best function for relating a response variable to a set of factor variables?
+10. What are the best settings for factors?
+11. Can we separate signal from noise in time-dependent data?
+12. Can we extract any structure from multivariate data?
+13. Does the data have outliers?
+
+A critical early step in any analysis is to identify (for the engineering problem at hand) which of the above questions are relevant. That is, we need to identify which questions we want answered and which questions have no bearing on the problem at hand. After collecting such a set of questions, an equally important step, which is invaluable for maintaining focus, is to prioritize those questions in decreasing order of importance. EDA techniques are tied in with each of the questions. There are some EDA techniques (e.g., the scatter plot) that are broad-brushed and apply almost universally. On the other hand, there are a large number of EDA techniques that are specific and whose specificity is tied in with one of the above questions. Clearly, if one chooses not to explicitly identify relevant questions, then one cannot take advantage of these question-specific EDA techniques.
+
+Most of these questions can be addressed by techniques discussed in this chapter. The process modeling and process improvement chapters also address many of the questions above. These questions are also relevant for the classical approach to statistics. What distinguishes the EDA approach is an emphasis on graphical techniques to gain insight as opposed to the classical approach of quantitative tests. Most data analysts will use a mix of graphical and classical quantitative techniques to address these problems.
+
+### Graphical Techniques: Alphabetic {#sec-eda-33}
+
+{{< include techniques/autocorrelation-plot.qmd >}}
+
+{{< include techniques/bihistogram.qmd >}}
+
+{{< include techniques/block-plot.qmd >}}
+
+{{< include techniques/bootstrap-plot.qmd >}}
+
+{{< include techniques/box-cox-linearity-plot.qmd >}}
+
+{{< include techniques/box-cox-normality-plot.qmd >}}
+
+{{< include techniques/box-plot.qmd >}}
+
+{{< include techniques/complex-demodulation-amplitude-plot.qmd >}}
+
+{{< include techniques/complex-demodulation-phase-plot.qmd >}}
+
+{{< include techniques/contour-plot.qmd >}}
+
+{{< include techniques/doe-scatter-plot.qmd >}}
+
+{{< include techniques/doe-mean-plot.qmd >}}
+
+{{< include techniques/doe-standard-deviation-plot.qmd >}}
+
+{{< include techniques/histogram.qmd >}}
+
+{{< include techniques/lag-plot.qmd >}}
+
+{{< include techniques/linear-correlation-plot.qmd >}}
+
+{{< include techniques/linear-intercept-plot.qmd >}}
+
+{{< include techniques/linear-slope-plot.qmd >}}
+
+{{< include techniques/linear-residual-standard-deviation-plot.qmd >}}
+
+{{< include techniques/mean-plot.qmd >}}
+
+{{< include techniques/normal-probability-plot.qmd >}}
+
+{{< include techniques/probability-plot.qmd >}}
+
+{{< include techniques/probability-plot-correlation-coefficient-plot.qmd >}}
+
+{{< include techniques/quantile-quantile-plot.qmd >}}
+
+{{< include techniques/run-sequence-plot.qmd >}}
+
+{{< include techniques/scatter-plot.qmd >}}
+
+{{< include techniques/spectral-plot.qmd >}}
+
+{{< include techniques/standard-deviation-plot.qmd >}}
+
+{{< include techniques/star-plot.qmd >}}
+
+{{< include techniques/weibull-plot.qmd >}}
+
+{{< include techniques/youden-plot.qmd >}}
+
+{{< include techniques/4-plot.qmd >}}
+
+{{< include techniques/6-plot.qmd >}}
+
+### Graphical Techniques: By Problem Category {#sec-eda-34}
+
+The techniques above are listed in alphabetical order, which is convenient for lookup but is not the way an analyst would naturally select among them. This section instead organizes the graphical techniques by the type of problem they address, following the general model $y = f(\ldots) + e$ appropriate to each category.
+
+**Univariate** ($y = c + e$)
+
+[Run Sequence Plot](#sec-eda-run-sequence-plot), [Lag Plot](#sec-eda-lag-plot), [Histogram](#sec-eda-histogram), [Normal Probability Plot](#sec-eda-normal-probability-plot), [4-Plot](#sec-eda-4-plot), [PPCC Plot](#sec-eda-probability-plot-correlation-coefficient-plot), [Weibull Plot](#sec-eda-weibull-plot), [Probability Plot](#sec-eda-probability-plot), [Box-Cox Linearity Plot](#sec-eda-box-cox-linearity-plot), [Box-Cox Normality Plot](#sec-eda-box-cox-normality-plot), [Bootstrap Plot](#sec-eda-bootstrap-plot).
+
+**Time Series** ($y = f(t) + e$)
+
+[Run Sequence Plot](#sec-eda-run-sequence-plot), [Spectral Plot](#sec-eda-spectral-plot), [Autocorrelation Plot](#sec-eda-autocorrelation-plot), [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot), [Complex Demodulation Phase Plot](#sec-eda-complex-demodulation-phase-plot).
+
+**1-Factor** ($y = f(x) + e$)
+
+[Scatter Plot](#sec-eda-scatter-plot), [Box Plot](#sec-eda-box-plot), [Bihistogram](#sec-eda-bihistogram), [Quantile-Quantile Plot](#sec-eda-quantile-quantile-plot), [Mean Plot](#sec-eda-mean-plot), [Standard Deviation Plot](#sec-eda-standard-deviation-plot).
+
+**Multi-Factor/Comparative** ($y = f(x_p, x_1, x_2, \ldots, x_k) + e$)
+
+[Block Plot](#sec-eda-block-plot).
+
+**Multi-Factor/Screening** ($y = f(x_1, x_2, x_3, \ldots, x_k) + e$)
+
+[DOE Scatter Plot](#sec-eda-doe-scatter-plot), [DOE Mean Plot](#sec-eda-doe-mean-plot), [DOE Standard Deviation Plot](#sec-eda-doe-standard-deviation-plot), [Contour Plot](#sec-eda-contour-plot).
+
+**Regression** ($y = f(x_1, x_2, x_3, \ldots, x_k) + e$)
+
+[Scatter Plot](#sec-eda-scatter-plot), [6-Plot](#sec-eda-6-plot), [Linear Correlation Plot](#sec-eda-linear-correlation-plot), [Linear Intercept Plot](#sec-eda-linear-intercept-plot), [Linear Slope Plot](#sec-eda-linear-slope-plot), [Linear Residual Standard Deviation Plot](#sec-eda-linear-residual-standard-deviation-plot).
+
+**Interlab** ($(y_1, y_2) = f(x) + e$)
+
+[Youden Plot](#sec-eda-youden-plot).
+
+**Multivariate** ($(y_1, y_2, \ldots, y_p)$)
+
+[Star Plot](#sec-eda-star-plot).
+

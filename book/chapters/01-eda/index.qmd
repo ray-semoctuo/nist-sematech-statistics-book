@@ -461,3 +461,9 @@ Other consequences that flow from problems with distributional assumptions fall 
 - The process may be out-of-control.
 - The process may be unpredictable.
 - The process may be un-modelable.
+
+{{< include techniques/index.qmd >}}
+
+{{< include tests/index.qmd >}}
+
+{{< include distributions/index.qmd >}}
