@@ -22,22 +22,63 @@ sheesle2 <- read_table(
 ) |>
   mutate(
     weld = factor(weld),
+    # "tag" (5th data column) is Dataplot's own encoding of the nuisance-factor
+    # combination -- digit 1 = plant, digit 2 = speed*shift position -- and it
+    # already sorts the 12 combinations into the file's original order, so we
+    # just preserve that order as the x-axis grouping.
     group = fct_inorder(factor(tag))
   )
+
+# Each of the 12 "bars" is a vertical box spanning the low and high value
+# of the two weld-method observations at that nuisance-factor combination,
+# with the weld-method number plotted as the point label -- matching the
+# original Dataplot BLOCK PLOT rendering rather than a dodged bar chart.
+block_range <- sheesle2 |>
+  summarize(ymin = min(y), ymax = max(y), .by = group) |>
+  mutate(x = as.numeric(group))
+
+# Boundaries between plants (tags 11-18 vs. 21-28) for a reference divider.
+plant_boundary <- sheesle2 |>
+  distinct(group, plant) |>
+  mutate(x = as.numeric(group)) |>
+  arrange(x) |>
+  mutate(new_plant = plant != lag(plant)) |>
+  filter(new_plant) |>
+  pull(x) |>
+  (\(x) x - 0.5)()
 ```
 
 ```{r}
 #| code-fold: true
 #| label: fig-block-plot-sample
 #| fig-cap: "Block plot of the SHEESLE2.DAT data set: average defective lead wires per hour by weld method, blocked over all combinations of plant, speed, and shift"
-ggplot(sheesle2, aes(x = group, y = y, group = interaction(group, weld))) +
-  geom_col(aes(fill = weld), position = position_dodge(width = 0.8), width = 0.1) +
-  geom_text(aes(label = weld), position = position_dodge(width = 0.8), vjust = -0.3) +
-  labs(x = "Plant-Speed-Shift combination", y = "Average Defects/Hour", fill = "Weld Method") +
+ggplot() +
+  geom_vline(xintercept = plant_boundary, linetype = "dotted", color = "grey60") +
+  geom_rect(
+    data = block_range,
+    aes(xmin = x - 0.18, xmax = x + 0.18, ymin = ymin, ymax = ymax),
+    fill = NA, color = "grey40"
+  ) +
+  geom_text(
+    data = sheesle2,
+    aes(x = as.numeric(group), y = y, label = weld),
+    fontface = "bold", size = 4
+  ) +
+  scale_x_continuous(
+    breaks = as.numeric(levels(sheesle2$group)) |> seq_along(),
+    labels = levels(sheesle2$group),
+    expand = expansion(add = 0.6)
+  ) +
+  labs(
+    x = "Tag (Plant x Speed x Shift combination)",
+    y = "Average Defects per Hour"
+  ) +
   theme_light()
 ```
 
 This block plot of the SHEESLE2.DAT data set reveals that in 10 of the 12 cases (bars), weld method 2 is lower (better) than weld method 1. From a binomial point of view, weld method is statistically significant.
+
+Each vertical box is one of the 12 nuisance-factor combinations (2 plants x 2 speeds x 3 shifts), spanning the low and high of the two weld-method averages observed there; the bold "1"/"2" inside marks which weld method produced which value. The "Tag" on the x-axis is SHEESLE2.DAT's own encoding of that combination: $\text{tag} = 10 \times \text{plant} + 5 \times (\text{speed} - 1) + \text{shift}$, so a tag of 11 is plant 1/speed 1/shift 1, 12 is plant 1/speed 1/shift 2, 16 is plant 1/speed 2/shift 1, and so on -- the dotted vertical line marks the boundary between plant 1's six tags (11-18) and plant 2's six tags (21-28).
 
 **Definition**
 
