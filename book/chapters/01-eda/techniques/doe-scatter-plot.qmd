@@ -34,11 +34,7 @@ boxbike2 <- tribble(
 
 boxbike2_long <- boxbike2 |>
   pivot_longer(starts_with("X"), names_to = "factor", names_prefix = "X", values_to = "level") |>
-  mutate(
-    factor = as.integer(factor),
-    level = factor(level, levels = c(-1, 1), labels = c("-1", "+1")),
-    x_pos = factor + if_else(level == "-1", -0.2, 0.2)
-  )
+  mutate(factor = paste0("Factor ", factor))
 
 overall_mean <- mean(boxbike2$Y)
 ```
@@ -47,18 +43,18 @@ overall_mean <- mean(boxbike2$Y)
 #| code-fold: true
 #| label: fig-doe-scatter-plot-sample
 #| fig-cap: "DOE scatter plot of the BOXBIKE2.DAT data set"
-ggplot(boxbike2_long, aes(x_pos, Y)) +
-  geom_vline(xintercept = 1:7, linetype = "dotted", color = "grey60") +
+ggplot(boxbike2_long, aes(level, Y)) +
   geom_hline(yintercept = overall_mean) +
   geom_point(size = 2) +
-  scale_x_continuous(breaks = 1:7, labels = paste0("Factor ", 1:7)) +
+  facet_wrap(~factor, nrow = 1) +
+  scale_x_continuous(breaks = c(-1, 1), labels = c("-1", "+1"), limits = c(-1.5, 1.5)) +
   labs(x = NULL, y = "Time to climb hill (sec)") +
   theme_light()
 ```
 
 **Description of the Plot**
 
-For this sample plot of the BOXBIKE2.DAT data set, there are seven factors and each factor has two levels. For each factor, we define a distinct $x$ coordinate for each level of the factor: level $-1$ is offset slightly to the left of the factor's tick mark and level $+1$ is offset slightly to the right. The $y$ coordinate is simply the value of the response variable. The solid horizontal line is drawn at the overall mean of the response variable. The vertical dotted lines are added for clarity.
+For this sample plot of the BOXBIKE2.DAT data set, there are seven factors and each factor has two levels. Each factor gets its own panel, faceted on a common response ($y$) axis, with the two factor levels ($-1$ and $+1$) shown along the $x$ axis of that panel. The solid horizontal line is drawn at the overall mean of the response variable.
 
 Although the plot can be drawn with an arbitrary number of levels for a factor, it is really only useful when there are two or three levels for a factor.
 
@@ -94,34 +90,60 @@ DOE scatter plots were designed primarily for analyzing designed experiments. Ho
 
 Using the concept of the scatter plot matrix<!-- XREF: EDA Graphical Techniques: Alphabetic, Scatter Plot Matrix; source handbook/eda/section3/eda33qb.htm -->, the DOE scatter plot can be extended to display first order interaction effects.
 
-Specifically, if there are $k$ factors, we create a matrix of plots with $k$ rows and $k$ columns. On the diagonal, the plot is simply a DOE scatter plot with a single factor. For the off-diagonal plots, we multiply the values of $X_i$ and $X_j$. For the common 2-level designs (i.e., each factor has two levels) the values are typically coded as -1 and 1, so the multiplied values are also -1 and 1. We then generate a DOE scatter plot for this interaction variable. This plot is called a DOE interaction effects plot.
+Specifically, if there are $k$ factors, we create a matrix of plots with $k$ rows and $k$ columns. On the diagonal, the plot is simply a DOE scatter plot with a single factor. For the off-diagonal plots, we multiply the values of $X_i$ and $X_j$. For the common 2-level designs (i.e., each factor has two levels) the values are typically coded as -1 and 1, so the multiplied values are also -1 and 1. We then generate a DOE scatter plot for this interaction variable. This plot is called a DOE interaction effects plot and an example is shown below, using the batch 1 subset of the ceramic strength data (JAHANMI2.DAT) and its three design factors: table speed ($X_1$), down feed rate ($X_2$), and wheel grit ($X_3$).
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-scatter-plot-interaction
+#| message: false
+library(patchwork)
+
+jahanmi2_b1 <- read_table(
+  here::here("datasets", "JAHANMI2.DAT"),
+  skip = 50,
+  col_names = c("id", "lab", "num", "test", "y", "x1", "x2", "x3", "x4",
+                "trt", "set", "llab", "rep", "bat", "sblab", "set2"),
+  col_types = cols(.default = "d")
+) |>
+  filter(bat == 1)
+
+# One panel of the interaction effects matrix: response Y vs. either a
+# single factor (on the diagonal) or the product of two factors (off the
+# diagonal), sharing a fixed y range (matching the original Dataplot
+# YLIMITS 500 800) across every panel.
+interaction_panel <- function(x, label) {
+  ggplot(tibble(x = x, y = jahanmi2_b1$y), aes(x, y)) +
+    geom_point(shape = 4) +
+    scale_x_continuous(breaks = c(-1, 1), limits = c(-1.5, 1.5)) +
+    scale_y_continuous(limits = c(500, 800)) +
+    labs(title = label, x = NULL, y = NULL) +
+    theme_light() +
+    theme(plot.title = element_text(hjust = 0.5, size = 10))
+}
+
+blank <- plot_spacer()
+p_x1    <- interaction_panel(jahanmi2_b1$x1, "X1")
+p_x1x2  <- interaction_panel(jahanmi2_b1$x1 * jahanmi2_b1$x2, "X1*X2")
+p_x1x3  <- interaction_panel(jahanmi2_b1$x1 * jahanmi2_b1$x3, "X1*X3")
+p_x2    <- interaction_panel(jahanmi2_b1$x2, "X2")
+p_x2x3  <- interaction_panel(jahanmi2_b1$x2 * jahanmi2_b1$x3, "X2*X3")
+p_x3    <- interaction_panel(jahanmi2_b1$x3, "X3")
+```
 
 ```{r}
 #| code-fold: true
 #| label: fig-doe-scatter-plot-interaction
-#| fig-cap: "DOE interaction effects plot for factors X1, X2, and X3 of the BOXBIKE2.DAT data set"
-interactions <- boxbike2 |>
-  transmute(Y, X1, X2, X3, `X1:X2` = X1 * X2, `X1:X3` = X1 * X3, `X2:X3` = X2 * X3) |>
-  pivot_longer(-Y, names_to = "term", values_to = "level") |>
-  mutate(
-    term = factor(term, levels = c("X1", "X2", "X3", "X1:X2", "X1:X3", "X2:X3")),
-    x_pos = as.integer(term) + if_else(level == -1, -0.2, 0.2)
-  )
-
-ggplot(interactions, aes(x_pos, Y)) +
-  geom_vline(xintercept = seq_len(nlevels(interactions$term)), linetype = "dotted", color = "grey60") +
-  geom_hline(yintercept = mean(boxbike2$Y)) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq_len(nlevels(interactions$term)), labels = levels(interactions$term)) +
-  labs(x = NULL, y = "Time to climb hill (sec)") +
-  theme_light()
+#| fig-cap: "DOE interaction effects plot for factors X1, X2, and X3 of the ceramic strength data (JAHANMI2.DAT, batch 1)"
+(p_x1   + p_x1x2 + p_x1x3) /
+(blank  + p_x2   + p_x2x3) /
+(blank  + blank  + p_x3)
 ```
 
 **Interpretation of the DOE Interaction Effects Plot**
 
-We can first examine the main-effect columns (X1, X2, X3) for the main effects. As in the sample plot above, factors X1 and (especially) X2 show some separation between levels, while factor X3 shows relatively little.
+We can first examine the diagonal elements for the main effects. These diagonal plots show a great deal of overlap between the levels for all three factors, indicating that location and scale effects will be relatively small.
 
-We can then examine the interaction columns for the first order interaction effects. For example, the `X1:X2` column is the interaction between factors X1 and X2. As with the individual factors, the amount of separation between the $-1$ and $+1$ groups in each interaction column indicates the importance of that interaction.
+We can then examine the off-diagonal plots for the first order interaction effects. For example, the plot in the first row and second column (`X1*X2`) is the interaction between factors $X_1$ and $X_2$. As with the main effect plots, no clear pattern is evident.
 
 **Related Techniques**
 

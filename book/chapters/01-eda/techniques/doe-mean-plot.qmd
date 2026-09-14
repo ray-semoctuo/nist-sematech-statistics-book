@@ -90,27 +90,77 @@ The goal of many designed experiments is to determine which factors are signific
 
 Using the concept of the scatter plot matrix<!-- XREF: EDA Graphical Techniques: Alphabetic, Scatter Plot Matrix; source handbook/eda/section3/eda33qb.htm -->, the DOE mean plot can be extended to display first-order interaction effects.
 
-Specifically, if there are $k$ factors, we create a matrix of plots with $k$ rows and $k$ columns. On the diagonal, the plot is simply a DOE mean plot with a single factor. For the off-diagonal plots, measurements at each level of the interaction are plotted versus level, where level is $X_i$ times $X_j$ and $X_i$ is the code for the $i$th main effect level and $X_j$ is the code for the $j$th main effect. For the common 2-level designs (i.e., each factor has two levels) the values are typically coded as -1 and 1, so the multiplied values are also -1 and 1. We then generate a DOE mean plot for this interaction variable. This plot is called a DOE interaction effects plot.
+Specifically, if there are $k$ factors, we create a matrix of plots with $k$ rows and $k$ columns. On the diagonal, the plot is simply a DOE mean plot with a single factor. For the off-diagonal plots, measurements at each level of the interaction are plotted versus level, where level is $X_i$ times $X_j$ and $X_i$ is the code for the $i$th main effect level and $X_j$ is the code for the $j$th main effect. For the common 2-level designs (i.e., each factor has two levels) the values are typically coded as -1 and 1, so the multiplied values are also -1 and 1. We then generate a DOE mean plot for this interaction variable. This plot is called a DOE interaction effects plot and an example is shown below, using the batch 1 subset of the ceramic strength data (JAHANMI2.DAT) and its three design factors: table speed ($X_1$), down feed rate ($X_2$), and wheel grit ($X_3$).
+
+```{r}
+#| code-fold: true
+#| label: setup-doe-mean-plot-interaction
+#| message: false
+library(patchwork)
+
+jahanmi2_b1 <- read_table(
+  here::here("datasets", "JAHANMI2.DAT"),
+  skip = 50,
+  col_names = c("id", "lab", "num", "test", "y", "x1", "x2", "x3", "x4",
+                "trt", "set", "llab", "rep", "bat", "sblab", "set2"),
+  col_types = cols(.default = "d")
+) |>
+  filter(bat == 1)
+
+overall_mean_b1 <- mean(jahanmi2_b1$y)
+
+# Shared y range across every panel, computed from the actual level means
+# (with a little padding) rather than hardcoding the original Dataplot
+# YLIMITS 675 725 -- our computed means don't land at exactly the same
+# values as the original, and a hardcoded range clipped one of them.
+level_means <- function(x) {
+  tibble(x = x, y = jahanmi2_b1$y) |> summarise(mean_y = mean(y), .by = x)
+}
+all_means <- c(
+  level_means(jahanmi2_b1$x1)$mean_y,
+  level_means(jahanmi2_b1$x2)$mean_y,
+  level_means(jahanmi2_b1$x3)$mean_y,
+  level_means(jahanmi2_b1$x1 * jahanmi2_b1$x2)$mean_y,
+  level_means(jahanmi2_b1$x1 * jahanmi2_b1$x3)$mean_y,
+  level_means(jahanmi2_b1$x2 * jahanmi2_b1$x3)$mean_y,
+  overall_mean_b1
+)
+y_range <- range(all_means) + c(-5, 5)
+
+# One panel of the interaction effects matrix: mean of Y at each level of
+# either a single factor (on the diagonal) or the product of two factors
+# (off the diagonal), sharing the y range computed above.
+interaction_mean_panel <- function(x, label) {
+  ggplot(level_means(x), aes(x, mean_y)) +
+    geom_hline(yintercept = overall_mean_b1, color = "grey60") +
+    geom_line(linetype = "dashed") +
+    geom_point(size = 2) +
+    scale_x_continuous(breaks = c(-1, 1), limits = c(-1.5, 1.5)) +
+    scale_y_continuous(limits = y_range) +
+    labs(title = label, x = NULL, y = NULL) +
+    theme_light() +
+    theme(plot.title = element_text(hjust = 0.5, size = 10))
+}
+
+blank <- plot_spacer()
+p_x1    <- interaction_mean_panel(jahanmi2_b1$x1, "X1")
+p_x1x2  <- interaction_mean_panel(jahanmi2_b1$x1 * jahanmi2_b1$x2, "X1*X2")
+p_x1x3  <- interaction_mean_panel(jahanmi2_b1$x1 * jahanmi2_b1$x3, "X1*X3")
+p_x2    <- interaction_mean_panel(jahanmi2_b1$x2, "X2")
+p_x2x3  <- interaction_mean_panel(jahanmi2_b1$x2 * jahanmi2_b1$x3, "X2*X3")
+p_x3    <- interaction_mean_panel(jahanmi2_b1$x3, "X3")
+```
 
 ```{r}
 #| code-fold: true
 #| label: fig-doe-mean-plot-interaction
-#| fig-cap: "DOE interaction effects plot for factors X1, X2, and X3 of the BOXBIKE2.DAT data set"
-interaction_means <- boxbike2 |>
-  transmute(Y, X1, X2, X3, `X1:X2` = X1 * X2, `X1:X3` = X1 * X3, `X2:X3` = X2 * X3) |>
-  pivot_longer(-Y, names_to = "term", values_to = "level") |>
-  mutate(term = factor(term, levels = c("X1", "X2", "X3", "X1:X2", "X1:X3", "X2:X3"))) |>
-  summarise(mean_y = mean(Y), .by = c(term, level))
-
-ggplot(interaction_means, aes(factor(level), mean_y, group = term)) +
-  geom_line() +
-  geom_point(size = 2) +
-  facet_wrap(~term, nrow = 1) +
-  labs(x = "Level", y = "Mean time to climb hill (sec)") +
-  theme_light()
+#| fig-cap: "DOE interaction effects plot for factors X1, X2, and X3 of the ceramic strength data (JAHANMI2.DAT, batch 1)"
+(p_x1   + p_x1x2 + p_x1x3) /
+(blank  + p_x2   + p_x2x3) /
+(blank  + blank  + p_x3)
 ```
 
-This plot shows that, among X1, X2, and X3, the most significant main effect is X2 (the largest change in mean between levels), and among the three pairwise interactions, `X1:X2` shows by far the largest shift — larger even than any of the three main effects. (In a resolution III design such as this 2^(7-4) fraction, an interaction like `X1:X2` is confounded with one or more main effects not shown in this panel, such as X4, so this large apparent interaction effect may in fact be picking up an aliased main effect.)
+This plot shows that the most significant factor is $X_1$ (the largest change in mean between levels along the diagonal) and the most significant interaction is between $X_1$ and $X_3$ (the steepest of the three off-diagonal panels).
 
 **Related Techniques**
 
