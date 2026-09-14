@@ -2,7 +2,7 @@
 
 **Purpose: Check for randomness**
 
-A lag plot checks whether a data set or time series is random or not. Random data should not exhibit any identifiable structure in the lag plot. Non-random structure in the lag plot indicates that the underlying data are not random. Several common patterns for lag plots are shown in the [Examples](#lag-plot-examples) below.
+A lag plot checks whether a data set or time series is random or not. Random data should not exhibit any identifiable structure in the lag plot. Non-random structure in the lag plot indicates that the underlying data are not random. Several common patterns for lag plots are shown in the [Examples](#sec-eda-lag-plot-examples) below.
 
 **Sample Plot**
 
@@ -13,10 +13,10 @@ A lag plot checks whether a data set or time series is random or not. Random dat
 library(tidyverse)
 
 # Reusable lag-1 scatter plot: Y[i] versus Y[i-1].
-lag_plot <- function(x) {
+lag_plot <- function(x, alpha = 1) {
   tibble(y = x[-1], y_lag = x[-length(x)]) |>
     ggplot(aes(y_lag, y)) +
-    geom_point(shape = 1) +
+    geom_point(alpha = alpha) +
     labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
     theme_light()
 }
@@ -55,7 +55,19 @@ Lag plots can provide answers to the following questions:
 
 Inasmuch as randomness is an underlying assumption for most statistical estimation and testing techniques, the lag plot should be a routine tool for researchers.
 
-**Examples** {#lag-plot-examples}
+**Related Techniques**
+
+Partial Autocorrelation Plot<!-- XREF: Process or Product Monitoring and Control chapter, Partial Autocorrelation Plot; source handbook/pmc/section4/pmc4463.htm -->, [Autocorrelation Plot](#sec-eda-autocorrelation-plot), [Spectral Plot](#sec-eda-spectral-plot), [Runs Test](#sec-eda-runs-test)
+
+**Case Study**
+
+The lag plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
+
+**Software**
+
+Lag plots are not directly available in most general purpose statistical software programs. Since the lag plot is essentially a scatter plot with the two variables properly lagged, it should be feasible to write a macro for the lag plot in most statistical programs.
+
+**Examples** {#sec-eda-lag-plot-examples}
 
 Examples of the lag plot for several common situations are given below. These parallel the four situations shown in the [Autocorrelation Plot](#sec-eda-autocorrelation-plot) examples, using the same underlying data sets, plotted here as $Y_i$ versus $Y_{i-1}$ rather than as an autocorrelation function.
 
@@ -85,7 +97,7 @@ The lag plot shown above is for lag = 1. Note the absence of structure. One cann
 #| label: fig-lag-plot-moderate
 #| fig-cap: "Lag plot of the FLICKER.DAT data set"
 flicker <- read_table(here::here("datasets", "FLICKER.DAT"), skip = 25, col_names = "y", col_types = "d")
-lag_plot(flicker$y)
+lag_plot(flicker$y, alpha = 1 / 2)
 ```
 
 We can make the following conclusions based on the above plot of the FLICKER.DAT data set:
@@ -110,7 +122,7 @@ Since $Y_i$ and $Y_{i-1}$ are precisely the axes of the lag plot, such estimatio
 #| label: fig-lag-plot-strong
 #| fig-cap: "Lag plot of the RANDWALK.DAT data set"
 randwalk <- read_table(here::here("datasets", "RANDWALK.DAT"), skip = 25, col_names = "y", col_types = "d")
-lag_plot(randwalk$y)
+lag_plot(randwalk$y, alpha = 1 / 2)
 ```
 
 We can make the following conclusions based on the above plot of the RANDWALK.DAT data set:
@@ -150,24 +162,14 @@ $$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
 
 (where $\alpha$ is the amplitude, $\omega$ is the frequency — between 0 and 0.5 cycles per observation — and $\phi$ is the phase) can be fit by standard non-linear least squares<!-- XREF: Process Modeling chapter, non-linear least squares; source handbook/pmd/section1/pmd142.htm -->, to estimate the coefficients and their uncertainties.
 
-The lag plot is also of value in outlier detection. Note in the above plot that there appear to be points lying off the ellipse. However, in a lag plot, each point in the original data set $Y$ shows up twice — once as $Y_i$ and once as $Y_{i-1}$. Hence an apparent outlier at $Y_i = 300$ is the same raw data value that appears elsewhere at $Y_{i-1} = 300$: the two apparent lag-plot outliers are due to the same actual outlier in the original run sequence. In this data set, the 4 apparent lag plot outliers are traceable to 3 actual outliers in the original run sequence, at points 4, 5, and 158. In retrospect, only one of these is an obvious outlier in the [Run-Sequence Plot](#sec-eda-run-sequence-plot).
+The lag plot is also of value in outlier detection. Note in the above plot that there appear to be 4 points lying off the ellipse. However, in a lag plot, each point in the original data set $Y$ shows up twice -- once as $Y_i$ and once as $Y_{i-1}$. Hence the outlier near the top of the plot at $Y_i = 300$ is the same raw data value that appears further right at $Y_{i-1} = 300$. Thus $(201, 300)$ and $(300, -506)$ are due to the same outlier, namely the 158th data point: 300. The correct value for this 158th point should be approximately -300 and so it appears that a sign got dropped in the data collection. The other two points lying off the ellipse, at roughly $(-35, -15)$ and $(141, 115)$, are caused by two faulty data values: the 4th data point of -15 should be about +125 and the 5th data point of +141 should be about -50, respectively. Hence the 4 apparent lag plot outliers are traceable to 3 actual outliers in the original run sequence: at points 4 (-15), 5 (141) and 158 (300). In retrospect, only one of these (point 158 (= 300)) is an obvious outlier in the [Run-Sequence Plot](#sec-eda-run-sequence-plot).
 
-*Unexpected Value of EDA:* Frequently a technique (e.g., the lag plot) is constructed to check one aspect (e.g., randomness) which it does well. Along the way, the technique also highlights some other anomaly of the data (namely, that there are outliers). Such outlier identification and removal is extremely important for detecting irregularities in the data collection system, and also for arriving at a "purified" data set for modeling. The lag plot plays an important role in such outlier identification.
+(NIST's original text for this example states different coordinates, $(-500, 300)$, $(300, 200)$, $(100, 100)$, and $(0, -50)$, which match a lag plot with the two axes swapped from the $Y_{i-1}$-horizontal/$Y_i$-vertical convention stated above in the Definition and used consistently on this page -- an inconsistency between NIST's own Definition text and the axis mapping actually used to generate that particular figure. The coordinates above are for our plot, which follows the stated Definition.)
+
+*Unexpected Value of EDA:* Frequently a technique (e.g., the lag plot) is constructed to check one aspect (e.g., randomness) which it does well. Along the way, the technique also highlights some other anomaly of the data (namely, that there are 3 outliers). Such outlier identification and removal is extremely important for detecting irregularities in the data collection system, and also for arriving at a "purified" data set for modeling. The lag plot plays an important role in such outlier identification.
 
 *Recommended Next Step:* When the lag plot indicates a sinusoidal model with possible outliers, the recommended next steps are:
 
 1. Do a [Spectral Plot](#sec-eda-spectral-plot) to obtain an initial estimate of the frequency of the underlying cycle. This will be helpful as a starting value for the subsequent non-linear fitting.
 2. Omit the outliers.
 3. Carry out a non-linear fit of the sinusoidal model to the remaining points.
-
-**Related Techniques**
-
-Partial Autocorrelation Plot<!-- XREF: Process or Product Monitoring and Control chapter, Partial Autocorrelation Plot; source handbook/pmc/section4/pmc4463.htm -->, [Autocorrelation Plot](#sec-eda-autocorrelation-plot), [Spectral Plot](#sec-eda-spectral-plot), [Runs Test](#sec-eda-runs-test)
-
-**Case Study**
-
-The lag plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
-
-**Software**
-
-Lag plots are not directly available in most general purpose statistical software programs. Since the lag plot is essentially a scatter plot with the two variables properly lagged, it should be feasible to write a macro for the lag plot in most statistical programs.
