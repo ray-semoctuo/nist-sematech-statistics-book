@@ -109,6 +109,18 @@ $$\text{response} = \text{deterministic} + \text{random}$$
 
 where the deterministic part is the fit and the random part is error. This error component in most common statistical models is specifically assumed to be normally distributed with fixed location and scale. This is the most frequent application of normal probability plots. That is, a model is fit and a normal probability plot is generated for the residuals from the fitted model. If the residuals from the fitted model are not normally distributed, then one of the major assumptions of the model has been violated.
 
+**Related Techniques**
+
+[Histogram](#sec-eda-histogram), [Probability plots](#sec-eda-probability-plot) for other distributions (e.g., Weibull), [Probability Plot Correlation Coefficient (PPCC) Plot](#sec-eda-probability-plot-correlation-coefficient-plot), [Anderson-Darling Goodness-of-Fit Test](#sec-eda-anderson-darling-test), [Chi-Square Goodness-of-Fit Test](#sec-eda-chi-square-goodness-of-fit-test), [Kolmogorov-Smirnov Goodness-of-Fit Test](#sec-eda-kolmogorov-smirnov-test).
+
+**Case Study**
+
+The normal probability plot is demonstrated in the heat flow meter data case study<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda42a.htm -->.
+
+**Software**
+
+Most general purpose statistical software programs can generate a normal probability plot.
+
 **Examples**
 
 Examples of the normal probability plot for several common situations are given below.
@@ -215,15 +227,3 @@ We can make the following conclusions from the above plot of the SUNSPOT.DAT dat
 This quadratic pattern in the normal probability plot is the signature of a significantly right-skewed data set. Similarly, if all the points on the normal probability plot fell above the reference line connecting the first and last points, that would be the signature pattern for a significantly left-skewed data set.
 
 In this case we can quite reasonably conclude that we need to model these data with a right-skewed distribution such as the [Weibull](#sec-eda-weibull-distribution) or [lognormal](#sec-eda-lognormal-distribution).
-
-**Related Techniques**
-
-[Histogram](#sec-eda-histogram), [Probability plots](#sec-eda-probability-plot) for other distributions (e.g., Weibull), [Probability Plot Correlation Coefficient (PPCC) Plot](#sec-eda-probability-plot-correlation-coefficient-plot), [Anderson-Darling Goodness-of-Fit Test](#sec-eda-anderson-darling-test), [Chi-Square Goodness-of-Fit Test](#sec-eda-chi-square-goodness-of-fit-test), [Kolmogorov-Smirnov Goodness-of-Fit Test](#sec-eda-kolmogorov-smirnov-test).
-
-**Case Study**
-
-The normal probability plot is demonstrated in the heat flow meter data case study<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda42a.htm -->.
-
-**Software**
-
-Most general purpose statistical software programs can generate a normal probability plot.

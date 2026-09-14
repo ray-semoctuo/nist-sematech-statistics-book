@@ -12,8 +12,13 @@ In some cases you might not have groups. Instead, you have different data sets a
 #| code-fold: true
 #| label: setup-linear-intercept-plot
 #| message: false
+#| warning: false
 library(tidyverse)
 
+# HSU12.DAT has a blank line between each of its 15 batches, which
+# read_table() reports as a parsing failure (expected 3 columns, got 1)
+# for each blank line -- 14 expected warnings for the 14 gaps between
+# batches. drop_na() below removes the resulting all-NA rows.
 hsu12 <- read_table(
   here::here("datasets", "HSU12.DAT"),
   skip = 25,
