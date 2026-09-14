@@ -41,7 +41,7 @@ ppcc_plot <- function(x, shapes, qfun, xlab = "Shape parameter") {
 
   p <- tibble(shape = shapes, ppcc = ppcc) |>
     ggplot(aes(shape, ppcc)) +
-    geom_line() +
+    geom_point() +
     geom_vline(xintercept = best, linetype = "dashed", color = "firebrick") +
     labs(x = xlab, y = "Probability plot correlation coefficient") +
     theme_light()
@@ -104,34 +104,6 @@ The maximum value of the correlation coefficient found in this synthetic example
 - the sample mean would be an appropriate estimator of location.
 
 We can follow up this PPCC plot with a [normal probability plot](#sec-eda-normal-probability-plot) to verify the normality model for the data.
-
-**Verifying the mechanics: recovering a known shape parameter**
-
-As a numerical check on the PPCC computation above, the following generates 500 random numbers from a Weibull distribution with a known shape parameter of 2, then sweeps a range of candidate Weibull shape parameters and plots the resulting probability plot correlation coefficient against each candidate. The curve should peak at (or very near) the true shape parameter of 2.
-
-```{r}
-#| code-fold: true
-#| label: fig-ppcc-plot-verification
-#| fig-cap: "PPCC plot for synthetic Weibull(shape = 2) data, recovering the true shape parameter"
-set.seed(7)
-weib_check <- rweibull(500, shape = 2, scale = 1)
-shapes_weib <- seq(0.5, 4, by = 0.05)
-result_check <- ppcc_plot(
-  weib_check,
-  shapes_weib,
-  function(p, shape) qweibull(p, shape = shape, scale = 1),
-  xlab = "Weibull shape parameter"
-)
-result_check$plot
-```
-
-```{r}
-#| code-fold: true
-#| label: ppcc-plot-verification-best
-tibble(best_shape = result_check$best_shape, max_ppcc = result_check$max_ppcc)
-```
-
-The curve peaks close to the true generating shape parameter of 2 (typically within about 0.3-0.4 of it, given sampling variability for $n = 500$), confirming that the correlation-vs-shape-parameter mechanics behave sensibly: the PPCC is high across a broad neighborhood of the true shape and falls off away from it.
 
 **Definition**
 

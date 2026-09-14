@@ -294,30 +294,40 @@ Although the basic concept of the scatterplot matrix is simple, there are numero
 
 ```{r}
 #| code-fold: true
+#| label: setup-scatter-plot-matrix
+#| message: false
+library(GGally)
+
+# CURRIE.DAT: pollution source analysis data collected by NIST chemist
+# Lloyd Currie (1990), 17 observations across 2 sample groups (id2), with
+# 9 response variables. Group 1's last 3 variables (manganese, vanadium,
+# arsenic) were not measured and are coded -99 in the raw file.
+currie <- read_table(
+  here::here("datasets", "CURRIE.DAT"),
+  skip = 25,
+  col_names = c("id1", "id2", "frwc", "ctotal", "potassium", "lead", "iron",
+                "sulfur_oxide", "manganese", "vanadium", "arsenic"),
+  col_types = "iiddddddddd"
+) |>
+  mutate(id2 = factor(id2))
+```
+
+```{r}
+#| code-fold: true
 #| label: fig-scatter-plot-matrix
-#| fig-cap: "Manual scatterplot matrix of a synthetic three-variable data set"
-set.seed(111)
-nn <- 150
-sm <- tibble(v1 = rnorm(nn, 10, 2))
-sm$v2 <- 0.6 * sm$v1 + rnorm(nn, 0, 1.5)
-sm$v3 <- -0.4 * sm$v1 + rnorm(nn, 0, 2)
-
-vars <- c("v1", "v2", "v3")
-pairs_df <- map_dfr(vars, function(row_var) {
-  map_dfr(vars, function(col_var) {
-    tibble(row = row_var, col = col_var, x = sm[[col_var]], y = sm[[row_var]])
-  })
-}) |>
-  mutate(row = factor(row, levels = vars), col = factor(col, levels = vars))
-
-ggplot(pairs_df, aes(x, y)) +
-  geom_point(size = 0.7, alpha = 0.6) +
-  facet_grid(rows = vars(row), cols = vars(col), scales = "free") +
-  labs(x = NULL, y = NULL) +
+#| fig-cap: "Scatterplot matrix of potassium, lead, iron, and sulfur oxide from the pollution source data (CURRIE.DAT), by sample group"
+ggpairs(
+  currie,
+  columns = c("potassium", "lead", "iron", "sulfur_oxide"),
+  columnLabels = c("Potassium", "Lead", "Iron", "Sulfur Oxide"),
+  mapping = aes(color = id2, shape = id2),
+  upper = list(continuous = wrap("points", size = 1.5)),
+  lower = list(continuous = wrap("points", size = 1.5))
+) +
   theme_light()
 ```
 
-This example uses a synthetic three-variable data set (`v1`, `v2`, `v3`, with `v2` positively correlated and `v3` negatively correlated with `v1`), built with `ggplot2::facet_grid()` as a manual small-multiple grid. The `GGally` package's `ggpairs()` function is the more common way to generate a scatterplot matrix directly, but it was not available in this environment; the manual facet grid above reproduces the same layout of pairwise panels.
+This example uses the same four variables NIST's own sample plot uses (potassium, lead, iron, and sulfur oxide) from the pollution source data, generated with the `GGally` package's `ggpairs()` function -- the standard tidyverse-ecosystem way to build a scatterplot matrix, and much less code than assembling one by hand with `facet_grid()`. Points are colored and shaped by sample group (matching NIST's use of the group as the plot character).
 
 There are a number of ways to view a plot like this. If we are primarily interested in a particular variable, we can scan the row and column for that variable. If we are interested in finding the strongest relationship, we can scan all the plots and then determine which variables are related.
 

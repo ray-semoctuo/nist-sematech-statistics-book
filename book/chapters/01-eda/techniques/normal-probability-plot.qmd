@@ -221,8 +221,10 @@ normal_prob_plot(sunspot$y)
 
 We can make the following conclusions from the above plot of the SUNSPOT.DAT data set:
 
-- The normal probability plot shows a strongly non-linear pattern. Specifically, it shows a quadratic pattern in which all the points are below a reference line drawn between the first and last points.
+- The normal probability plot shows a strongly non-linear pattern. Specifically, it shows a quadratic pattern in which all the points fall below the fitted reference line.
 - The normal distribution is not a good model for these data.
+
+(NIST's original text describes this reference line as "drawn between the first and last points," and its own image draws exactly that -- a line connecting the two extreme points rather than a least-squares fit. That endpoint-connecting line does not match the correlation, intercept, and slope values printed alongside it in the original (0.9568, 46.0243, and 36.6417): those numbers are for the least-squares fit, which we verified matches our own fitted line here almost to the decimal. To keep the reference line mathematically consistent with the fitted-line Definition given above and used throughout this page -- and with the numbers actually printed -- we draw the least-squares fit rather than reproducing NIST's endpoint-connecting line. The conclusion is unaffected either way: the data clearly bow away from a straight line, which is the signature of a right-skewed distribution.)
 
 This quadratic pattern in the normal probability plot is the signature of a significantly right-skewed data set. Similarly, if all the points on the normal probability plot fell above the reference line connecting the first and last points, that would be the signature pattern for a significantly left-skewed data set.
 

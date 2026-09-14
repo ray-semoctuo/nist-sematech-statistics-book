@@ -30,7 +30,7 @@ mavro <- read_table(here::here("datasets", "MAVRO.DAT"), skip = 25, col_names = 
 mavro |>
   ggplot(aes(i, y)) +
   geom_line() +
-  geom_point(size = 0.8) +
+  geom_point() +
   labs(x = "Index (i)", y = expression(Y[i])) +
   theme_light()
 ```
