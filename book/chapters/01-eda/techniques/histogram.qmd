@@ -23,6 +23,13 @@ The Examples section below shows the appearance of a number of common features r
 library(tidyverse)
 
 zarr13 <- read_table(here::here("datasets", "ZARR13.DAT"), skip = 25, col_names = "y", col_types = "d")
+
+michelso <- read_table(
+  here::here("datasets", "MICHELSO.DAT"),
+  skip = 25,
+  col_names = c("y", "temp", "day", "ampm", "set"),
+  col_types = "ddiid"
+)
 ```
 
 **Sample Plot**
@@ -30,10 +37,10 @@ zarr13 <- read_table(here::here("datasets", "ZARR13.DAT"), skip = 25, col_names 
 ```{r}
 #| code-fold: true
 #| label: fig-histogram-sample
-#| fig-cap: "Histogram of the ZARR13.DAT (Michelson speed of light) data set"
-ggplot(zarr13, aes(y)) +
-  geom_histogram(bins = 30, color = "white", fill = "steelblue4") +
-  labs(x = "Calibration factor", y = "Frequency") +
+#| fig-cap: "Histogram of the MICHELSO.DAT (Michelson speed of light) data set"
+ggplot(michelso, aes(y)) +
+  geom_histogram(binwidth = 0.025, boundary = 0, color = "white", fill = "steelblue4") +
+  labs(x = "Y", y = "Counts") +
   theme_light()
 ```
 
@@ -67,6 +74,26 @@ The histogram can be used to answer the following questions:
 4. Are the data symmetric or skewed?
 5. Are there outliers in the data?
 
+**Related Techniques**
+
+[Box plot](#sec-eda-box-plot)
+
+[Probability plot](#sec-eda-probability-plot)
+
+The techniques below are not discussed in the Handbook. However, they are similar in purpose to the histogram. Additional information on them is contained in the Chambers and Scott references<!-- XREF: EDA bibliography entries for Chambers and Scott; source handbook/eda/section4/eda43.htm -->.
+
+- Frequency Plot
+- Stem and Leaf Plot
+- Density Trace
+
+**Case Study**
+
+The histogram is demonstrated in the heat flow meter data case study<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter Calibration; source handbook/eda/section4/eda42a.htm -->.
+
+**Software**
+
+Histograms are available in most general purpose statistical software programs. They are also supported in most general purpose charting, spreadsheet, and business graphics programs.
+
 **Examples**
 
 Examples of the histogram for several common situations are given below.
@@ -83,7 +110,7 @@ ggplot(zarr13, aes(y)) +
   theme_light()
 ```
 
-The above is a histogram of the ZARR13.DAT data set (the same data set used in the Sample Plot above).
+The above is a histogram of the ZARR13.DAT (heat flow meter calibration) data set.
 
 Note the classical bell-shaped, symmetric histogram with most of the frequency counts bunched in the middle and with the counts dying off out in the tails. From a physical science/engineering point of view, the normal distribution is that distribution which occurs most often in nature (due in part to the central limit theorem).
 
@@ -313,23 +340,3 @@ The best attitude is that outliers are our "friends", outliers are trying to tel
 
 - Graphically check for outliers (in the commonly encountered normal case) by generating a [box plot](#sec-eda-box-plot). In general, box plots are a much better graphical tool for detecting outliers than are histograms.
 - Quantitatively check for outliers (in the commonly encountered normal case) by carrying out a [Grubbs' test](#sec-eda-grubbs-test), which indicates how many sample standard deviations away from the sample mean are the data in question. Large values indicate outliers.
-
-**Related Techniques**
-
-[Box plot](#sec-eda-box-plot)
-
-[Probability plot](#sec-eda-probability-plot)
-
-The techniques below are not discussed in the Handbook. However, they are similar in purpose to the histogram. Additional information on them is contained in the Chambers and Scott references<!-- XREF: EDA bibliography entries for Chambers and Scott; source handbook/eda/section4/eda43.htm -->.
-
-- Frequency Plot
-- Stem and Leaf Plot
-- Density Trace
-
-**Case Study**
-
-The histogram is demonstrated in the heat flow meter data case study<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter Calibration; source handbook/eda/section4/eda42a.htm -->.
-
-**Software**
-
-Histograms are available in most general purpose statistical software programs. They are also supported in most general purpose charting, spreadsheet, and business graphics programs.
