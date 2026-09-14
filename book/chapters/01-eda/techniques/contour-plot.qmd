@@ -110,28 +110,35 @@ The above algorithm assumes a linear model for the design. DOE contour plots can
 
 **Sample DOE Contour Plot**
 
-The source page's example uses the Eddy current case study data<!-- XREF: Process Improvement Case Studies, Eddy Current Probe Sensitivity Study; source handbook/pri/section6/pri61.htm -->, which is not part of the material migrated into this chapter. A synthetic 2-factor, 4-vertex design with a center point is used below to illustrate the same construction.
+The following uses the Eddy current case study data<!-- XREF: Process Improvement Case Studies, Eddy Current Probe Sensitivity Study; source handbook/pri/section6/pri61.htm --> (SPLETT3.DAT), a $2^3$ full factorial experiment on probe impedance with factors for number of wire turns ($X_1$), winding distance ($X_2$), and wire gauge ($X_3$). The case study determined that $X_1$ and $X_2$ were the two dominant factors, so the DOE contour plot is drawn for those two, with each of the 4 vertex values averaged over the two levels of $X_3$.
 
 ```{r}
 #| code-fold: true
 #| label: setup-doe-contour-plot
 #| message: false
-# Synthetic illustration: average response at each vertex of a 2^2 design,
-# plus a center point average.
-vertices <- tribble(
-  ~U1, ~U2, ~Y,
-  -1, -1, 60,
-  -1,  1, 72,
-   1,  1, 95,
-   1, -1, 83
-)
-center_point <- tibble(U1 = 0, U2 = 0, Y = 78)
+library(tidyverse)
 
-fit <- lm(Y ~ U1 * U2, data = vertices)
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run"),
+  col_types = "ddddi"
+)
+
+# Vertex averages: mean response at each of the 4 combinations of X1, X2,
+# averaging over the two levels of X3.
+vertices <- eddy |>
+  summarize(Y = mean(y), .by = c(x1, x2)) |>
+  rename(U1 = x1, U2 = x2)
+
+# The linear model is fit to the full 8-run data (not just the 4 vertex
+# means), which is equivalent here since X3 is balanced across every
+# (X1, X2) combination.
+fit <- lm(y ~ x1 * x2, data = eddy)
 mu <- coef(fit)[["(Intercept)"]]
-b1 <- coef(fit)[["U1"]]
-b2 <- coef(fit)[["U2"]]
-b12 <- coef(fit)[["U1:U2"]]
+b1 <- coef(fit)[["x1"]]
+b2 <- coef(fit)[["x2"]]
+b12 <- coef(fit)[["x1:x2"]]
 
 # Solve for U2 in terms of U1 for a given target response Y0, per the
 # formula above.
@@ -141,22 +148,20 @@ doe_contour_line <- function(y0, mu, b1, b2, b12, u1_range = seq(-2, 2, length.o
     filter(is.finite(U2), abs(U2) <= 2)
 }
 
-target_values <- c(65, 75, 85, 95)
+target_values <- c(0, 1, 2, 3, 4, 5)
 contour_lines <- map_dfr(target_values, doe_contour_line, mu = mu, b1 = b1, b2 = b2, b12 = b12)
 ```
 
 ```{r}
 #| code-fold: true
 #| label: fig-doe-contour-plot-sample
-#| fig-cap: "DOE contour plot for a synthetic 2-factor design with a center point"
+#| fig-cap: "DOE contour plot of the eddy current probe sensitivity data (SPLETT3.DAT), for number of wire turns (U1) and winding distance (U2)"
 ggplot() +
   geom_path(data = contour_lines, aes(U1, U2, group = Y0, color = factor(Y0))) +
   geom_point(data = vertices, aes(U1, U2), size = 2) +
-  geom_text(data = vertices, aes(U1, U2, label = Y), vjust = -1) +
-  geom_point(data = center_point, aes(U1, U2), size = 2, shape = 17) +
-  geom_text(data = center_point, aes(U1, U2, label = Y), vjust = -1) +
+  geom_text(data = vertices, aes(U1, U2, label = round(Y, 2)), vjust = -1) +
   coord_equal(xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5)) +
-  labs(x = expression(U[1]), y = expression(U[2]), color = expression(Y[0])) +
+  labs(x = expression(U[1] * " (Number of Turns)"), y = expression(U[2] * " (Winding Distance)"), color = expression(Y[0])) +
   theme_light()
 ```
 
@@ -169,13 +174,13 @@ From the above DOE contour plot we can derive the following information:
 
 *Interaction Significance*
 
-Note the appearance of the contour plot. If the contour curves are linear, then that implies that the interaction term is not significant; if the contour curves have considerable curvature, then that implies that the interaction term is large and important. In this synthetic example, the contour curves have relatively little curvature, so the $U_1 \cdot U_2$ interaction term is small relative to the main effects.
+Note the appearance of the contour plot. If the contour curves are linear, then that implies that the interaction term is not significant; if the contour curves have considerable curvature, then that implies that the interaction term is large and important. In this example, the contour lines are close to linear (evenly spaced, parallel-ish diagonal lines), so the $X_1 \cdot X_2$ interaction term is small relative to the two main effects.
 
 *Best Settings*
 
-To determine the best factor settings for the already-run experiment, we first must define what "best" means. If "best" means to **maximize** (rather than minimize or hit a target) the response, then from the contour plot we determine the best settings for the two dominant factors by simply scanning the four vertices and choosing the vertex with the **largest** value (= average response). In this synthetic example, that is $(U_1 = +1, U_2 = +1)$, with an average response of 95.
+To determine the best factor settings for the already-run experiment, we first must define what "best" means. If "best" means to **maximize** the response (probe impedance), then from the contour plot we determine the best settings for the two dominant factors by simply scanning the four vertices and choosing the vertex with the **largest** value (= average response). Here that is $(U_1 = +1, U_2 = -1)$ -- 180 wire turns and a winding distance of 0.38 inches -- with an average response of `r round(max(vertices$Y), 2)`.
 
-For any additional factors not shown on this plot, the contour plot provides no best-setting information, and so we would resort to other tools: the main effects plot, the interaction effects matrix, or the ordered data to determine optimal settings for those factors.
+For any additional factors not shown on this plot (here, wire gauge $X_3$), the contour plot provides no best-setting information, and so we would resort to other tools: the main effects plot, the interaction effects matrix, or the ordered data to determine optimal settings for those factors.
 
 **Case Study**
 
