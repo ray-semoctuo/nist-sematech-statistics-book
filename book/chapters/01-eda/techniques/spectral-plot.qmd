@@ -67,6 +67,18 @@ The spectral plot can be used to answer the following questions:
 
 The spectral plot is the primary technique for assessing the cyclic nature of univariate time series in the frequency domain. It is almost always the second plot (after a run sequence plot) generated in a frequency domain analysis of a time series.
 
+**Related Techniques**
+
+[Autocorrelation Plot](#sec-eda-autocorrelation-plot), [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot), [Complex Demodulation Phase Plot](#sec-eda-complex-demodulation-phase-plot).
+
+**Case Study**
+
+The spectral plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
+
+**Software**
+
+Spectral plots are a fundamental technique in the frequency analysis of time series. They are available in many general purpose statistical software programs.
+
 **Examples**
 
 Examples of the spectral plot for several common situations are given below. These are the same three canonical time-series cases used to illustrate the [Autocorrelation Plot](#sec-eda-autocorrelation-plot) and [Lag Plot](#sec-eda-lag-plot).
@@ -77,8 +89,14 @@ Examples of the spectral plot for several common situations are given below. The
 #| code-fold: true
 #| label: fig-spectral-plot-random
 #| fig-cap: "Spectral plot of a synthetic random (white noise) series"
+# NIST's own Dataplot macro for this example (spect1.dp) generates 200
+# fresh normal random numbers on the fly (LET Y = NORMAL RANDOM NUMBERS
+# FOR I = 1 1 200) rather than reading a fixed data file -- matching the
+# page's own title, "Spectral Plot of 200 Normal Random Numbers." (The
+# static NORMAL.DAT file has only 100 observations and is a different,
+# unrelated example elsewhere in the handbook.)
 set.seed(42)
-random_series <- rnorm(500)
+random_series <- rnorm(200)
 spectral_plot(random_series)
 ```
 
@@ -105,6 +123,8 @@ We can make the following conclusions from the above plot of the RANDWALK.DAT da
 - There is a strong dominant peak near zero.
 - The peak decays rapidly towards zero.
 - An autoregressive model is an appropriate model.
+
+(NIST's original text for this page ("Spectral Plot: Strong Autocorrelation and Autoregressive Model") titles its image "Spectral Plot for Random Walk Data" and, per the underlying Dataplot macro, generates it from RANDWALK.DAT -- but its own "Conclusions" paragraph refers to "the above plot of the FLICKER.DAT data set," which is actually the dataset used for the *previous* technique's Moderate Autocorrelation example. This looks like a copy-paste error in the original Handbook rather than a real change of dataset partway through the page. We use RANDWALK.DAT consistently throughout, matching the actual figure.)
 
 This spectral plot starts with a dominant peak near zero and rapidly decays to zero. This is the spectral plot signature of a process with strong positive autocorrelation. Such processes are highly non-random in that there is high association between an observation and a succeeding observation. In short, if you know $Y_i$ you can make a strong guess as to what $Y_{i+1}$ will be.
 
@@ -151,14 +171,3 @@ The recommended next steps are to:
 2. Do a [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot) to obtain an initial estimate of the amplitude and to determine if a constant amplitude is justified.
 3. Carry out a non-linear fit of the model $Y_i = C + \alpha \sin(2\pi\omega t_i + \phi) + E_i$.
 
-**Related Techniques**
-
-[Autocorrelation Plot](#sec-eda-autocorrelation-plot), [Complex Demodulation Amplitude Plot](#sec-eda-complex-demodulation-amplitude-plot), [Complex Demodulation Phase Plot](#sec-eda-complex-demodulation-phase-plot).
-
-**Case Study**
-
-The spectral plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
-
-**Software**
-
-Spectral plots are a fundamental technique in the frequency analysis of time series. They are available in many general purpose statistical software programs.

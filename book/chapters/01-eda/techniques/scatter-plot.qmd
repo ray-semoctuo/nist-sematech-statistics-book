@@ -369,6 +369,13 @@ A conditioning plot, also known as a coplot or subset plot, is a plot of two var
 
 One limitation of the scatterplot matrix is that it cannot show interaction effects with another variable. This is the strength of the conditioning plot. It is also useful for displaying scatter plots for groups in the data. Although these groups can also be plotted on a single plot with different plot symbols, it can often be visually easier to distinguish the groups using the conditioning plot.
 
+Although the basic concept of the conditioning plot matrix is simple, there are numerous alternatives in the details of the plots.
+
+- It can be helpful to overlay some type of fitted curve on the scatter plot. Although a linear or quadratic fit can be used, the most common alternative is to overlay a lowess curve.
+- Due to the potentially large number of plots, it can be somewhat tricky to provide the axis labels in a way that is both informative and visually pleasing. One alternative that seems to work well is to provide axis labels on alternating rows and columns. That is, row one will have tic marks and axis labels on the left vertical axis for the first plot only while row two will have the tic marks and axis labels for the right vertical axis for the last plot in the row only. This alternating pattern continues for the remaining rows. A similar pattern is used for the columns and the horizontal axis labels. Note that this approach only works if the axes limits are fixed to common values for all of the plots.
+- Some analysts prefer to connect the scatter plots. Others prefer to leave a little gap between each plot. Alternatively, each plot can have its own labeling with the plots not connected.
+- Although this plot type is most commonly used for scatter plots, the basic concept is both simple and powerful and extends easily to other plot formats.
+
 **Sample Plot**
 
 ```{r}
