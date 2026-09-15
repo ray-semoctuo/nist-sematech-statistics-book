@@ -1,10 +1,254 @@
 #### Yates Analysis {#sec-eda-yates-analysis}
 
-<!--
-Source: handbook/eda/section3/eda35i.htm, handbook/eda/section3/eda35i1.htm, handbook/eda/section3/eda35i2.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+<!-- Note: NIST titles this page (eda35i.htm) "Yates Algorithm"; the anchor established elsewhere
+     in this book is #sec-eda-yates-analysis. -->
+
+**Purpose: Estimate Factor Effects in a 2-Level Factorial Design**
+
+Full factorial and fractional factorial designs are common in designed experiments for engineering and scientific applications.
+
+In these designs, each factor is assigned two levels. These are typically called the low and high levels. For computational purposes, the factors are scaled so that the low level is assigned a value of -1 and the high level is assigned a value of +1. These are also commonly referred to as "-" and "+".
+
+A full factorial design contains all possible combinations of low/high levels for all the factors. A fractional factorial design contains a carefully chosen subset of these combinations. The criterion for choosing the subsets is discussed in detail in the process improvement chapter.<!-- XREF: fractional factorial design selection is discussed in the Process Improvement chapter, not yet part of this book; source handbook/eda/section3/eda35i.htm -->
+
+The Yates algorithm exploits the special structure of these designs to generate least squares estimates for factor effects for all factors and all relevant interactions.
+
+The mathematical details of the Yates algorithm are given in chapter 10 of Box, Hunter, and Hunter (1978)<!-- XREF: EDA bibliography entry for Box, Hunter, and Hunter 1978; source handbook/eda/section3/eda35i.htm -->. Natrella (1963)<!-- XREF: EDA bibliography entry for Natrella 1963; source handbook/eda/section3/eda35i.htm --> also provides a procedure for testing the significance of effect estimates.
+
+The effect estimates are typically complemented by a number of graphical techniques such as the [DOE Mean Plot](#sec-eda-doe-mean-plot) and the [DOE contour plot](#sec-eda-doe-contour-plot) ("DOE" represents "design of experiments"). These are demonstrated in the eddy current case study.<!-- XREF: eddy current case study is not yet part of this book; source handbook/eda/section3/eda35i.htm -->
+
+**Yates Order**
+
+Before performing the Yates algorithm, the data should be arranged in "Yates order". That is, given $k$ factors, the $k$th column consists of $2^{k-1}$ minus signs (i.e., the low level of the factor) followed by $2^{k-1}$ plus signs (i.e., the high level of the factor). For example, for a full factorial design with three factors, the design matrix is
+
+```
+- - -
++ - -
+- + -
++ + -
+- - +
++ - +
+- + +
++ + +
+```
+
+Determining the Yates order for fractional factorial designs requires knowledge of the confounding structure of the fractional factorial design.
+
+**Yates Algorithm**
+
+The Yates algorithm is demonstrated for the eddy current data set. The data set contains eight measurements from a two-level, full factorial design with three factors. The purpose of the experiment is to identify factors that have the most effect on eddy current measurements.
+
+<!-- FLAG: no separate NIST .DAT file exists for this eddy current data set; the eight response
+     values are given directly in the source text (handbook/eda/section3/eda35i.htm) and are
+     reproduced verbatim below, in Yates order, per rule 1(b). -->
+
+In the "Effect" column, we list the main effects and interactions from our factorial experiment in standard order. In the "Response" column, we list the measurement results from our experiment in Yates order.
+
+```{r}
+#| code-fold: true
+#| label: setup-yates-analysis
+#| message: false
+library(tidyverse)
+
+# Eddy current data set (8 measurements, 2^3 full factorial), in Yates order,
+# reproduced from the source text.
+eddy <- tibble(
+  x1 = c(-1, 1, -1, 1, -1, 1, -1, 1),
+  x2 = c(-1, -1, 1, 1, -1, -1, 1, 1),
+  x3 = c(-1, -1, -1, -1, 1, 1, 1, 1),
+  response = c(1.70, 4.57, 0.55, 3.39, 1.51, 4.59, 0.67, 4.29)
+)
+
+# Each Yates pass adds, then subtracts, adjacent pairs of the previous column.
+pass1 <- function(y) {
+  c(y[c(1, 3, 5, 7)] + y[c(2, 4, 6, 8)], y[c(2, 4, 6, 8)] - y[c(1, 3, 5, 7)])
+}
+col_1 <- pass1(eddy$response)
+col_2 <- pass1(col_1)
+col_3 <- pass1(col_2)
+estimate <- col_3 / nrow(eddy)
+
+yates_table <- tibble(
+  effect = c("Mean", "X1", "X2", "X1*X2", "X3", "X1*X3", "X2*X3", "X1*X2*X3"),
+  response = eddy$response,
+  col_1 = col_1,
+  col_2 = col_2,
+  col_3 = col_3,
+  estimate = estimate
+)
+
+yates_table
+```
+
+```{r}
+#| code-fold: true
+#| label: yates-analysis-checks
+sum_responses <- sum(eddy$response)
+sum_sq_responses <- sum(eddy$response^2)
+sum_sq_col3 <- sum(col_3^2)
+
+tibble(
+  sum_of_responses = sum_responses,
+  sum_of_squared_responses = sum_sq_responses,
+  sum_of_squared_col3 = sum_sq_col3,
+  sum_sq_col3_over_8 = sum_sq_col3 / 8
+)
+```
+
+The first four values in Col 1 are obtained by adding adjacent pairs of responses, for example $4.57 + 1.70 = 6.27$, and $3.39 + 0.55 = 3.94$. The second four values in Col 1 are obtained by subtracting the same adjacent pairs of responses, for example, $4.57 - 1.70 = 2.87$, and $3.39 - 0.55 = 2.84$. The values in Col 2 are calculated in the same way, except that we are adding and subtracting adjacent values from Col 1. Col 3 is computed using adjacent values from Col 2. Finally, we obtain the "Estimate" column by dividing the values in Col 3 by the total number of responses, 8.
+
+We can check our calculations by making sure that the first value in Col 3 (`{r} round(col_3[1], 2)`) is the sum of all the responses (`{r} round(sum_responses, 2)`; NIST reports 21.27, which matches). In addition, the sum-of-squared responses (`{r} round(sum_sq_responses, 4)`; NIST reports 77.7707) should equal the sum-of-squared Col 3 values divided by 8 (`{r} round(sum_sq_col3, 4)`/8 = `{r} round(sum_sq_col3 / 8, 4)`; NIST reports 622.1656/8 = 77.7707) — our computed values match NIST's reported values.
+
+**Practical Considerations**
+
+The Yates algorithm provides a convenient method for computing effect estimates; however, the same information is easily obtained from statistical software using either an analysis of variance or regression procedure. We can confirm this by fitting a linear model to the same data and comparing coefficients (multiplying the non-intercept regression coefficients by two converts them to Yates "effect" estimates, since the design is coded as $\pm 1$ rather than a 0/1 unit change):
+
+```{r}
+#| code-fold: true
+#| label: yates-analysis-lm-check
+fit <- lm(response ~ x1 * x2 * x3, data = eddy)
+coef(fit)
+```
+
+The intercept from the regression matches the Yates "Mean" estimate, and each regression slope matches the corresponding Yates parameter estimate (X1, X2, X1*X2, etc.), confirming that the Yates algorithm and least-squares regression produce the same effect estimates for this orthogonal design. The methods for analyzing data from a designed experiment are discussed more fully in the chapter on Process Improvement.<!-- XREF: Process Improvement chapter is not yet part of this book; source handbook/eda/section3/eda35i.htm -->
+
+**Graphical Presentation**
+
+The following plots may be useful to complement the quantitative information from the Yates algorithm.
+
+- Ordered data plot<!-- XREF: "ordered data plot" is not a standalone page in this book; source handbook/eda/section3/eda35i.htm -->
+- Ordered absolute effects plot<!-- XREF: "ordered absolute effects plot" is not a standalone page in this book; source handbook/eda/section3/eda35i.htm -->
+- Cumulative residual standard deviation plot<!-- XREF: "cumulative residual standard deviation plot" is not a standalone page in this book; source handbook/eda/section3/eda35i.htm -->
+
+**Questions**
+
+The Yates algorithm can be used to answer the following question.
+
+- What is the estimated effect of a factor on the response?
+
+**Related Techniques**
+
+Multi-factor analysis of variance<!-- XREF: Multi-factor ANOVA test page in this book is currently a stub; source handbook/eda/section3/eda35i.htm -->
+
+[DOE Mean Plot](#sec-eda-doe-mean-plot)
+
+[Block Plot](#sec-eda-block-plot)
+
+[DOE Contour Plot](#sec-eda-doe-contour-plot)
+
+**Case Study**
+
+The analysis of a full factorial design is demonstrated in the eddy current case study.<!-- XREF: eddy current case study is not yet part of this book; source handbook/eda/section3/eda35i.htm -->
+
+**Software**
+
+All statistical software packages are capable of estimating effects using an analysis of variance or least squares regression procedure.
+
+**Defining Models and Prediction Equations**
+
+*For Orthogonal Designs, Parameter Estimates Don't Change as Additional Terms Are Added*
+
+In most cases of least-squares fitting, the model coefficients for previously added terms change depending on what was successively added. For example, the X1 coefficient might change depending on whether or not an X2 term was included in the model. This is *not* the case when the design is orthogonal, as is a $2^3$ full factorial design. For orthogonal designs, the estimates for the previously included terms do not change as additional terms are added. This means the ranked list of parameter estimates are the least-squares coefficient estimates for progressively more complicated models.
+
+*Example Prediction Equation*
+
+We use the parameter estimates derived from the least-squares analysis above (equivalently, the Yates algorithm) for the eddy current data set to create an example prediction equation.
+
+| Parameter | Estimate |
+|---|---|
+| Mean | 2.65875 |
+| X1 | 1.55125 |
+| X2 | -0.43375 |
+| X1\*X2 | 0.06375 |
+| X3 | 0.10625 |
+| X1\*X3 | 0.12375 |
+| X2\*X3 | 0.14875 |
+| X1\*X2\*X3 | 0.07125 |
+
+A prediction equation predicts a value of the response variable for given values of the factors. The equation we select can include all the factors shown above, or it can include a subset of the factors. For example, one possible prediction equation using only two factors, X1 and X2, is:
+
+$$\hat{Y} = 2.65875 + 1.55125 \cdot X_1 - 0.43375 \cdot X_2$$
+
+The least-squares parameter estimates in the prediction equation reflect the change in response for a one-unit change in the factor value. To obtain "full" effect estimates (as computed using the Yates algorithm) for the change in factor levels from -1 to +1, the effect estimates (except for the intercept) would be multiplied by two.
+
+Remember that the Yates algorithm is just a convenient method for computing effects; any statistical software package with least-squares regression capabilities will produce the same effects as well as many other useful analyses.
+
+*Model Selection*
+
+We want to select the most appropriate model for our data while balancing the following two goals.
+
+- We want the model to include all important factors.
+- We want the model to be parsimonious. That is, the model should be as simple as possible.
+
+Note that the residual standard deviation alone is insufficient for determining the most appropriate model, as it will always be decreased by adding additional factors. The next section describes a number of approaches for determining which factors (and interactions) to include in the model.
+
+**Important Factors**
+
+We want to select the most appropriate model to represent our data. This requires balancing the two goals above: including all important factors while keeping the model parsimonious.
+
+Seven criteria are utilized to define important factors. These seven criteria are not all equally important, nor will they yield identical subsets, in which case a consensus subset or a weighted consensus subset must be extracted. In practice, some of these criteria may not apply in all situations. These criteria are examined below in the context of the eddy current data set.
+
+*Criteria for Including Terms in the Model*
+
+1. **Parameters: Engineering Significance.** The minimum engineering significant difference is defined as $|\hat{\beta_i}| > \Delta$, where $\Delta$ is the minimum engineering significant difference (an a priori, engineering-specified minimum meaningful parameter magnitude). In the absence of an a priori difference, a rough rule is to keep only those factors whose parameter estimate is greater than, say, 10% of the current production average. For the eddy current example, if the average detector sensitivity is 2.5 ohms, factors whose parameter exceeds 10% of 2.5 ohms = 0.25 ohm are declared significant. Based on this criterion, we keep two terms: X1 and X2.
+
+2. **Parameters: Order of Magnitude.** This criterion excludes any factor whose $|\hat{\beta_i}|$ is less than 10% of the maximum parameter size. For the eddy current example, the largest parameter is X1 (1.55125 ohms), so 10% of that is 0.155 ohms; this suggests keeping factors whose parameters exceed 0.155 ohms. This again keeps X1 and X2 (X2\*X3 at 0.14875 is just under the cutoff).
+
+3. **Parameters: Statistical Significance.** A factor is declared important if $|\hat{\beta_i}| > 2 \cdot \text{s.e.}(\hat{\beta_i})$ (roughly a 95% confidence interval under normal theory). Applying this requires an estimate of $\sigma$; for the eddy current data, no replication is available, so $\sigma$ is estimated by assuming the highest-order interaction (X1\*X2\*X3 = 0.07125) represents pure noise, giving $2\sigma \approx 0.1425$. This criterion keeps three terms: X1 (1.55125), X2 (-0.43375), and X2\*X3 (0.14875).
+
+4. **Parameters: Probability Plots.** On a [normal probability plot](#sec-eda-normal-probability-plot) of the parameter estimates (or a half-normal probability plot of their absolute values), factors displaced away from the line through zero are declared important. For the eddy current data, X1 and X2 are visibly displaced off the line, while the remaining five parameters behave like random draws from a normal distribution centered at zero. This criterion keeps X1 and X2.
+
+5. **Effects: Youden Plot.** A [Youden Plot](#sec-eda-youden-plot) of the low- and high-level averages for each factor can be used to flag a factor as important if it is displaced away from the central cluster. For the eddy current data, the Youden plot shows a cluster of points near the grand average (2.65875) with two displaced points, corresponding to X1 and X2. This criterion keeps X1 and X2.
+
+6. **Residual Standard Deviation: Engineering Significance.** Terms are added to the model, in order of decreasing parameter magnitude, until the cumulative model's residual standard deviation drops below an a priori engineering-specified cutoff. In the absence of a specified cutoff, a rough rule is 5% of the current production average — for the eddy current data, 5% of 2.5 ohms = 0.125 ohms.
+
+```{r}
+#| code-fold: true
+#| label: yates-analysis-cumulative-rsd
+#| warning: false
+# Cumulative models in order of decreasing |estimate| (excluding the mean),
+# tracking residual standard deviation as terms are added. The full model
+# (all 7 terms) has zero residual degrees of freedom, so its residual
+# standard deviation is undefined (NA) -- expected for a saturated 2^3 design.
+term_order <- c("x1", "x2", "x2:x3", "x1:x3", "x3", "x1:x2:x3", "x1:x2")
+cumulative_rsd <- map_dbl(seq_along(term_order), function(k) {
+  terms <- term_order[seq_len(k)]
+  f <- as.formula(paste("response ~", paste(terms, collapse = " + ")))
+  fit_k <- lm(f, data = eddy)
+  if (df.residual(fit_k) > 0) sigma(fit_k) else NA_real_
+})
+
+tibble(
+  model = map_chr(seq_along(term_order), ~ paste(c("Mean", toupper(term_order[seq_len(.x)])), collapse = " + ")),
+  residual_sd = cumulative_rsd
+)
+```
+
+Based on the minimum engineering residual standard deviation criterion, we would include all terms in order to drive the residual standard deviation below 0.125 ohms — matching NIST's stated conclusion that this criterion, using the 5% rough rule, retains all 7 terms.
+
+7. **Residual Standard Deviation: Statistical Significance.** A term is kept as long as the cumulative model's residual standard deviation exceeds $\sigma$, the standard deviation of an observation under replicated conditions. For the eddy current data, there is no replication (the most common way to obtain replication in such designs is replicated center points at $(X_1,X_2,X_3)=(0,0,0)$), so this criterion cannot be applied.
+
+*Conclusions*
+
+In summary, the seven criteria for specifying "important" factors yielded the following for the eddy current data:
+
+| Criterion | Important factors |
+|---|---|
+| Parameters, Engineering Significance | X1, X2 |
+| Parameters, Order of Magnitude | X1, X2 |
+| Parameters, Statistical Significance | X1, X2, X2\*X3 |
+| Parameters, Probability Plots | X1, X2 |
+| Effects, Youden Plot | X1, X2 |
+| Residual SD, Engineering Significance | all 7 terms |
+| Residual SD, Statistical Significance | not applicable |
+
+Such conflicting results are common. Arguably, the three most important criteria (listed in order of importance) are Parameters/Probability Plots, Parameters/Engineering Significance, and Residual SD/Engineering Significance. Scanning all of the above, we declare a consensus for the eddy current data:
+
+- **Important Factors:** X1 and X2
+- **Parsimonious Prediction Equation:**
+
+$$\hat{Y} = 2.65875 + 1.55125 \cdot X_1 - 0.43375 \cdot X_2$$
+
+(with a residual standard deviation of `{r} round(cumulative_rsd[2], 5)` ohms — NIST reports 0.30429 ohms; our computed value matches)
+
+Note that this is the initial model selection. We still need to perform model validation with a residual analysis.

@@ -1,10 +1,126 @@
 #### Chi-Square Test for the Standard Deviation {#sec-eda-chi-square-test-for-standard-deviation}
 
-<!--
-Source: handbook/eda/section3/eda358.htm, handbook/eda/section3/eda3581.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Test if the variance is equal to a specified value**
+
+A chi-square test (Snedecor and Cochran, 1983<!-- XREF: EDA bibliography entry for Snedecor and Cochran, 1983; source handbook/eda/section4/eda43.htm -->) can be used to test if the variance of a population is equal to a specified value. This test can be either a two-sided test or a one-sided test. The two-sided version tests against the alternative that the true variance is either less than or greater than the specified value. The one-sided version only tests in one direction. The choice of a two-sided or one-sided test is determined by the problem. For example, if we are testing a new process, we may only be concerned if its variability is greater than the variability of the current process.
+
+**Definition**
+
+The chi-square hypothesis test is defined as:
+
+$$H_0: \sigma^2 = \sigma_0^2$$
+
+$$
+H_a:
+\begin{cases}
+\sigma^2 < \sigma_0^2 & \text{for a lower one-tailed test} \\
+\sigma^2 > \sigma_0^2 & \text{for an upper one-tailed test} \\
+\sigma^2 \ne \sigma_0^2 & \text{for a two-tailed test}
+\end{cases}
+$$
+
+*Test Statistic:*
+
+$$T = (N-1)(s/\sigma_0)^2$$
+
+where $N$ is the sample size and $s$ is the sample standard deviation. The key element of this formula is the ratio $s/\sigma_0$, which compares the ratio of the sample standard deviation to the target standard deviation. The more this ratio deviates from 1, the more likely we are to reject the null hypothesis.
+
+*Significance Level:* $\alpha$
+
+*Critical Region:*
+
+Reject the null hypothesis that the variance is a specified value, $\sigma_0^2$, if
+
+$$
+\begin{cases}
+T > \chi^2_{1-\alpha,\, N-1} & \text{for an upper one-tailed alternative} \\
+T < \chi^2_{\alpha,\, N-1} & \text{for a lower one-tailed alternative} \\
+T < \chi^2_{\alpha/2,\, N-1} \text{ or } T > \chi^2_{1-\alpha/2,\, N-1} & \text{for a two-tailed alternative}
+\end{cases}
+$$
+
+where $\chi^2_{.,\, N-1}$ is the critical value of the chi-square distribution with $N - 1$ degrees of freedom.
+
+The formula for the hypothesis test can easily be converted to form an interval estimate for the variance:
+
+$$
+\sqrt{\frac{(N-1)s^2}{\chi^2_{1-\alpha/2,\, N-1}}}
+\le \sigma \le
+\sqrt{\frac{(N-1)s^2}{\chi^2_{\alpha/2,\, N-1}}}
+$$
+
+A confidence interval for the standard deviation is computed by taking the square root of the upper and lower limits of the confidence interval for the variance.
+
+**Chi-Square Test Example**
+
+A chi-square test was performed for the GEAR.DAT data set. We will test the null hypothesis that the true variance is equal to 0.01.
+
+```{r}
+#| code-fold: true
+#| label: setup-chi-square-test-for-standard-deviation
+#| message: false
+library(tidyverse)
+
+gear <- read_table(
+  here::here("datasets", "GEAR.DAT"),
+  skip = 25,
+  col_names = c("diameter", "batch"),
+  col_types = "dd"
+) |>
+  drop_na()
+```
+
+```{r}
+#| code-fold: true
+#| label: chi-square-test-for-standard-deviation-calc
+n <- nrow(gear)
+s2 <- var(gear$diameter)
+sigma0_sq <- 0.01
+T_stat <- (n - 1) * s2 / sigma0_sq
+
+crit_low <- qchisq(0.025, n - 1)
+crit_high <- qchisq(0.975, n - 1)
+
+tibble(
+  n = n,
+  variance = s2,
+  sd = sqrt(s2),
+  T = T_stat,
+  df = n - 1,
+  crit_low = crit_low,
+  crit_high = crit_high
+)
+```
+
+The observed variance for the 100 measurements of gear diameter is `r formatC(s2, format = "e", digits = 4)` (the standard deviation is `r round(sqrt(s2), 4)`). NIST's original page states the observed variance as 0.00003969 (standard deviation 0.0063); our computed value (`r formatC(s2, format = "e", digits = 6)`) is close but not identical, likely due to intermediate rounding of the raw diameter measurements as originally published versus our full-precision computation from the same source file.
+
+$$H_0: \sigma^2 = 0.01$$
+$$H_a: \sigma^2 \ne 0.01$$
+
+- Test statistic: $T$ = `r round(T_stat, 4)`
+- Degrees of freedom: $N - 1$ = `r n - 1`
+- Significance level: $\alpha$ = 0.05
+- Critical values: $\chi^2_{\alpha/2,\, N-1}$ = `r round(crit_low, 3)`, $\chi^2_{1-\alpha/2,\, N-1}$ = `r round(crit_high, 3)`
+- Critical region: Reject $H_0$ if $T <$ `r round(crit_low, 3)` or $T >$ `r round(crit_high, 3)`
+
+The test statistic value of `r round(T_stat, 4)` is much smaller than the lower critical value, so we reject the null hypothesis and conclude that the variance is not equal to 0.01. This matches NIST's reported test statistic of 0.3903 and critical values of 73.361 and 128.422.
+
+**Questions**
+
+The chi-square test can be used to answer the following questions:
+
+- Is the variance equal to some pre-determined threshold value?
+- Is the variance greater than some pre-determined threshold value?
+- Is the variance less than some pre-determined threshold value?
+
+**Related Techniques**
+
+[F-Test for Equality of Two Variances](#sec-eda-f-test-for-equality-of-variances)
+
+[Bartlett's Test](#sec-eda-bartletts-test)
+
+[Levene Test](#sec-eda-levene-test)
+
+**Software**
+
+The chi-square test for the variance is available in many general purpose statistical software programs. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the GEAR.DAT data file.

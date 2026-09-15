@@ -1,10 +1,181 @@
 #### Two-Sample t-Test for Equal Means {#sec-eda-two-sample-t-test}
 
-<!--
-Source: handbook/eda/section3/eda353.htm, handbook/eda/section3/eda3531.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Test if Two Population Means are Equal**
+
+The two-sample t-test (Snedecor and Cochran, 1989<!-- XREF: EDA bibliography entry for Snedecor and Cochran, 1989; source handbook/eda/section4/eda43.htm --> ) is used to determine if two population means are equal. A common application is to test if a new process or treatment is superior to a current process or treatment.
+
+There are several variations on this test:
+
+- The data may either be paired or not paired. By paired, we mean that there is a one-to-one correspondence between the values in the two samples. That is, if $X_1, X_2, \ldots, X_n$ and $Y_1, Y_2, \ldots, Y_n$ are the two samples, then $X_i$ corresponds to $Y_i$. For paired samples, the difference $X_i - Y_i$ is usually calculated. For unpaired samples, the sample sizes for the two samples may or may not be equal. The formulas for paired data are somewhat simpler than the formulas for unpaired data.
+- The variances of the two samples may be assumed to be equal or unequal. Equal variances yields somewhat simpler formulas, although with computers this is no longer a significant issue.
+
+In some applications, you may want to adopt a new process or treatment only if it exceeds the current treatment by some threshold. In this case, we can state the null hypothesis in the form that the difference between the two population means is equal to some constant
+
+$$\mu_1 - \mu_2 = d_0$$
+
+where the constant is the desired threshold.
+
+**Definition**
+
+The two-sample t-test for unpaired data is defined as:
+
+- $H_0: \mu_1 = \mu_2$
+- $H_a: \mu_1 \neq \mu_2$
+- Test Statistic:
+
+  $$T = \frac{\bar{Y_1} - \bar{Y_2}}{\sqrt{s_1^2/N_1 + s_2^2/N_2}}$$
+
+  where $N_1$ and $N_2$ are the sample sizes, $\bar{Y_1}$ and $\bar{Y_2}$ are the sample means, and $s_1^2$ and $s_2^2$ are the sample variances.
+
+  If equal variances are assumed, then the formula reduces to:
+
+  $$T = \frac{\bar{Y_1} - \bar{Y_2}}{s_p\sqrt{1/N_1 + 1/N_2}}$$
+
+  where
+
+  $$s_p^2 = \frac{(N_1-1)s_1^2 + (N_2-1)s_2^2}{N_1 + N_2 - 2}$$
+
+- Significance Level: $\alpha$.
+- Critical Region: Reject the null hypothesis that the two means are equal if $\lvert T \rvert > t_{1-\alpha/2,\,\nu}$ where $t_{1-\alpha/2,\,\nu}$ is the critical value of the t distribution with $\nu$ degrees of freedom, where
+
+  $$\nu = \frac{(s_1^2/N_1 + s_2^2/N_2)^2}{(s_1^2/N_1)^2/(N_1-1) + (s_2^2/N_2)^2/(N_2-1)}$$
+
+  If equal variances are assumed, then $\nu = N_1 + N_2 - 2$.
+
+**Two-Sample t-Test Example**
+
+The following two-sample t-test uses the AUTO83B.DAT data set: miles per gallon for U.S. cars (sample 1) and for Japanese cars (sample 2). The data come from a bivariate analysis of 1983 EPA auto MPG figures shown at the 1983 ASA Graphics Exposition. The Japanese-car column has a number of records coded `-999` to indicate a missing value; per NIST's own note on this file, those rows are dropped for the t-test.
+
+```{r}
+#| code-fold: true
+#| label: setup-two-sample-t-test
+#| message: false
+library(tidyverse)
+
+auto83b <- read_table(
+  here::here("datasets", "AUTO83B.DAT"),
+  skip = 25,
+  col_names = c("mpg_us", "mpg_japan"),
+  col_types = "dd"
+)
+
+us_mpg <- auto83b$mpg_us
+japan_mpg <- auto83b$mpg_japan[auto83b$mpg_japan != -999]
+
+sample_summary <- tibble(
+  Sample = c("U.S.", "Japan"),
+  N = c(length(us_mpg), length(japan_mpg)),
+  Mean = c(mean(us_mpg), mean(japan_mpg)),
+  `Standard Deviation` = c(sd(us_mpg), sd(japan_mpg)),
+  `Standard Error of the Mean` = `Standard Deviation` / sqrt(N)
+)
+
+sample_summary
+```
+
+NIST reports Sample 1 (U.S.): N = 249, Mean = 20.14458, SD = 6.41470, SE = 0.40652; Sample 2 (Japan): N = 79, Mean = 30.48101, SD = 6.10771, SE = 0.68717. Our computed values match NIST's reported figures.
+
+We test the hypothesis that the population means are equal for the two samples, assuming the variances for the two samples are equal:
+
+- $H_0: \mu_1 = \mu_2$
+- $H_a: \mu_1 \neq \mu_2$
+
+```{r}
+#| code-fold: true
+#| label: t-test-two-sample-t-test
+n1 <- length(us_mpg)
+n2 <- length(japan_mpg)
+mean1 <- mean(us_mpg)
+mean2 <- mean(japan_mpg)
+s1 <- sd(us_mpg)
+s2 <- sd(japan_mpg)
+
+sp <- sqrt(((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2))
+t_stat <- (mean1 - mean2) / (sp * sqrt(1 / n1 + 1 / n2))
+df <- n1 + n2 - 2
+alpha <- 0.05
+t_crit_two_sided <- qt(1 - alpha / 2, df = df)
+t_crit_one_sided <- qt(1 - alpha, df = df)
+
+t_test_summary <- tibble(
+  `Test statistic (T)` = t_stat,
+  `Pooled standard deviation (s_p)` = sp,
+  `Degrees of freedom` = df,
+  `Significance level (alpha)` = alpha,
+  `Critical value, two-sided (t[1-a/2,df])` = t_crit_two_sided,
+  `Critical value, one-sided (t[1-a,df])` = t_crit_one_sided
+)
+
+t_test_summary
+```
+
+We can confirm this with R's built-in equal-variance t-test:
+
+```{r}
+#| code-fold: true
+#| label: builtin-t-test-two-sample-t-test
+t.test(us_mpg, japan_mpg, var.equal = TRUE)
+```
+
+NIST reports a test statistic of T = -12.62059, pooled standard deviation $s_p$ = 6.34260, degrees of freedom $\nu$ = 326, a two-sided critical value of 1.9673, and a one-sided (upper-tail) critical value of 1.6495. Our computed test statistic, pooled standard deviation, and critical values match NIST's reported figures (our test statistic is computed as U.S. minus Japan, matching NIST's sign convention and reported value).
+
+The absolute value of the test statistic, `r sprintf("%.5f", abs(t_stat))`, is greater than the critical value of `r sprintf("%.4f", t_crit_two_sided)`, so we reject the null hypothesis and conclude that the two population means are different at the 0.05 significance level.
+
+In general, there are three possible alternative hypotheses and rejection regions for the two-sample t-test:
+
+| Alternative Hypothesis | Rejection Region |
+|---|---|
+| $H_a: \mu_1 \neq \mu_2$ | $\lvert T \rvert > t_{1-\alpha/2,\,\nu}$ |
+| $H_a: \mu_1 > \mu_2$ | $T > t_{1-\alpha,\,\nu}$ |
+| $H_a: \mu_1 < \mu_2$ | $T < t_{\alpha,\,\nu}$ |
+
+```{r}
+#| code-fold: true
+#| label: fig-two-sample-t-test-rejection-regions
+#| fig-cap: "Rejection regions for the three possible alternative hypotheses of the two-sample t-test on the AUTO83B.DAT data, testing H0: mu_US = mu_Japan"
+rejection_grid <- tibble(t = seq(-14, 14, length.out = 600)) |>
+  mutate(density = dt(t, df = df))
+
+crit_lines <- tribble(
+  ~alternative, ~critical_value,
+  "mu1 != mu2 (two-sided)", -t_crit_two_sided,
+  "mu1 != mu2 (two-sided)", t_crit_two_sided,
+  "mu1 > mu2 (upper)", t_crit_one_sided,
+  "mu1 < mu2 (lower)", -t_crit_one_sided
+)
+
+ggplot(rejection_grid, aes(t, density)) +
+  geom_line() +
+  geom_vline(xintercept = t_stat, linetype = "solid", alpha = 0.6) +
+  geom_vline(data = crit_lines, aes(xintercept = critical_value, color = alternative), linetype = "dashed") +
+  annotate("text", x = t_stat, y = max(rejection_grid$density) * 0.95, label = "observed T", angle = 90, vjust = -0.5, size = 3) +
+  labs(
+    x = "t",
+    y = "Density",
+    color = "Alternative hypothesis",
+    title = "t distribution (326 df) with critical values for each alternative"
+  ) +
+  theme_light()
+```
+
+**Questions**
+
+Two-sample t-tests can be used to answer the following questions:
+
+1. Is process 1 equivalent to process 2?
+2. Is the new process better than the current process?
+3. Is the new process better than the current process by at least some pre-determined threshold amount?
+
+**Related Techniques**
+
+[Confidence Limits for the Mean](#sec-eda-confidence-limits-for-the-mean)
+
+[One-Factor ANOVA](#sec-eda-one-factor-anova)
+
+**Case Study**
+
+The two-sample t-test is demonstrated in the ceramic strength<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm --> data case study.
+
+**Software**
+
+Two-sample t-tests are available in just about all general purpose statistical software programs, including Dataplot and R. These examples use the AUTO83B.DAT data file.

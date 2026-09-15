@@ -1,10 +1,107 @@
 #### Autocorrelation {#sec-eda-autocorrelation}
 
-<!--
-Source: handbook/eda/section3/eda35c.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Non-Randomness, Time Series Modeling**
+
+The autocorrelation (Box and Jenkins, 1976<!-- XREF: EDA bibliography entry for Box and Jenkins 1976; source handbook/eda/section3/eda35c.htm -->) function can be used for the following two purposes:
+
+- To detect non-randomness in data.
+- To identify an appropriate time series model if the data are not random.
+
+This page presents the autocorrelation function as a quantitative test statistic (a table of lag-$k$ values, tested against confidence bands); the companion [Autocorrelation Plot](#sec-eda-autocorrelation-plot) page presents the same quantity as a graphical technique and shows several worked examples of characteristic autocorrelation patterns (white noise, moderate autocorrelation, strong autocorrelation, and a sinusoidal model).
+
+**Definition**
+
+Given measurements $Y_1, Y_2, \ldots, Y_N$ at times $X_1, X_2, \ldots, X_N$, the lag $k$ autocorrelation function is defined as
+
+$$r_k = \frac{\sum_{i=1}^{N-k}(Y_i - \bar{Y})(Y_{i+k} - \bar{Y})}{\sum_{i=1}^{N}(Y_i - \bar{Y})^2}$$
+
+Although the time variable, $X$, is not used in the formula for autocorrelation, the assumption is that the observations are equi-spaced.
+
+Autocorrelation is a correlation coefficient. However, instead of correlation between two different variables, the correlation is between two values of the same variable at times $X_i$ and $X_{i+k}$.
+
+When the autocorrelation is used to detect non-randomness, it is usually only the first (lag 1) autocorrelation that is of interest. When the autocorrelation is used to identify an appropriate time series model, the autocorrelations are usually computed for many lags.
+
+**Autocorrelation Example**
+
+Lag-one autocorrelations were computed for the LEW.DAT data set (steel-concrete beam deflection measurements).
+
+```{r}
+#| code-fold: true
+#| label: setup-autocorrelation
+#| message: false
+library(tidyverse)
+
+lew <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y", col_types = "d")
+
+# Lag-k autocorrelation using the N-divisor form given in the Definition
+# above; this matches R's acf() default (type = "correlation", demean = TRUE).
+autocorrelation <- function(y, lag_max) {
+  n <- length(y)
+  y_bar <- mean(y)
+  c0 <- sum((y - y_bar)^2)
+  map_dbl(0:lag_max, function(k) {
+    if (k == 0) {
+      1
+    } else {
+      sum((y[1:(n - k)] - y_bar) * (y[(1 + k):n] - y_bar)) / c0
+    }
+  })
+}
+
+lew_acf <- tibble(
+  lag = 0:49,
+  autocorrelation = autocorrelation(lew$y, 49)
+)
+
+lew_acf
+```
+
+```{r}
+#| code-fold: true
+#| label: tbl-autocorrelation-lew
+#| tbl-cap: "Lag-0 through lag-10 autocorrelations for LEW.DAT, compared with NIST's reported values"
+nist_reported <- c(
+  1.00, -0.31, -0.74, 0.77, 0.21, -0.90, 0.38, 0.63, -0.77, -0.12, 0.82
+)
+
+lew_acf |>
+  slice(1:11) |>
+  mutate(nist_reported = nist_reported, difference = round(autocorrelation - nist_reported, 4))
+```
+
+Our computed lag-0 through lag-10 autocorrelations agree with NIST's reported values (to the two-decimal precision at which NIST reports them); small residual differences in later digits are attributable to rounding in the original published table.
+
+**Questions**
+
+The autocorrelation function can be used to answer the following questions.
+
+1. Was this sample data set generated from a random process?
+2. Would a non-linear or time series model be a more appropriate model for these data than a simple constant plus error model?
+
+**Importance**
+
+Randomness is one of the key assumptions in determining if a univariate statistical process is in control. If the assumptions of constant location and scale, randomness, and fixed distribution are reasonable, then the univariate process can be modeled as:
+
+$$Y_i = A_0 + E_i$$
+
+where $E_i$ is an error term.
+
+If the randomness assumption is not valid, then a different model needs to be used. This will typically be either a time series model<!-- XREF: Process or Product Monitoring and Control chapter, time series models; source handbook/pmc/section4/pmc4.htm --> or a non-linear model<!-- XREF: Process Modeling chapter, non-linear models; source handbook/pmd/section1/pmd1.htm --> (with time as the independent variable).
+
+**Related Techniques**
+
+[Autocorrelation Plot](#sec-eda-autocorrelation-plot)
+
+[Run-Sequence Plot](#sec-eda-run-sequence-plot)
+
+[Lag Plot](#sec-eda-lag-plot)
+
+[Runs Test](#sec-eda-runs-test)
+
+**Case Study**
+
+The heat flow meter data<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda42b.htm --> demonstrate the use of autocorrelation in determining if the data are from a random process.
+
+**Software**
+
+The autocorrelation capability is available in most general purpose statistical software programs. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the LEW.DAT data file.

@@ -1,10 +1,163 @@
 #### Confidence Limits for the Mean {#sec-eda-confidence-limits-for-the-mean}
 
-<!--
-Source: handbook/eda/section3/eda352.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Interval Estimate for Mean**
+
+Confidence limits for the mean (Snedecor and Cochran, 1989<!-- XREF: EDA bibliography entry for Snedecor and Cochran, 1989; source handbook/eda/section4/eda43.htm --> ) are an interval estimate for the mean. Interval estimates are often desirable because the estimate of the mean varies from sample to sample. Instead of a single estimate for the mean, a confidence interval generates a lower and upper limit for the mean. The interval estimate gives an indication of how much uncertainty there is in our estimate of the true mean. The narrower the interval, the more precise is our estimate.
+
+Confidence limits are expressed in terms of a confidence coefficient. Although the choice of confidence coefficient is somewhat arbitrary, in practice 90%, 95%, and 99% intervals are often used, with 95% being the most commonly used.
+
+As a technical note, a 95% confidence interval does not mean that there is a 95% probability that the interval contains the true mean. The interval computed from a given sample either contains the true mean or it does not. Instead, the level of confidence is associated with the method of calculating the interval. The confidence coefficient is simply the proportion of samples of a given size that may be expected to contain the true mean. That is, for a 95% confidence interval, if many samples are collected and the confidence interval computed, in the long run about 95% of these intervals would contain the true mean.
+
+**Definition: Confidence Interval**
+
+Confidence limits are defined as:
+
+$$\bar{Y} \pm t_{1-\alpha/2,\,N-1} \; \frac{s}{\sqrt{N}}$$
+
+where $\bar{Y}$ is the sample mean, $s$ is the sample standard deviation, $N$ is the sample size, $\alpha$ is the desired significance level, and $t_{1-\alpha/2,\,N-1}$ is the $100(1-\alpha/2)$ percentile of the t distribution with $N-1$ degrees of freedom. Note that the confidence coefficient is $1-\alpha$.
+
+From the formula, it is clear that the width of the interval is controlled by two factors:
+
+1. As $N$ increases, the interval gets narrower from the $\sqrt{N}$ term. That is, one way to obtain more precise estimates for the mean is to increase the sample size.
+2. The larger the sample standard deviation, the larger the confidence interval. This simply means that noisy data, i.e., data with a large standard deviation, are going to generate wider intervals than data with a smaller standard deviation.
+
+**Definition: Hypothesis Test**
+
+To test whether the population mean has a specific value, $\mu_0$, against the two-sided alternative that it does not have a value $\mu_0$, the confidence interval is converted to hypothesis-test form. The test is a one-sample t-test, and it is defined as:
+
+- $H_0: \mu = \mu_0$
+- $H_a: \mu \neq \mu_0$
+- Test Statistic: $T = (\bar{Y} - \mu_0)/(s/\sqrt{N})$, where $\bar{Y}$, $N$, and $s$ are defined as above.
+- Significance Level: $\alpha$. The most commonly used value for $\alpha$ is 0.05.
+- Critical Region: Reject the null hypothesis that the mean is a specified value, $\mu_0$, if
+
+  $$T < t_{\alpha/2,\,N-1} \quad \text{or} \quad T > t_{1-\alpha/2,\,N-1}$$
+
+**Confidence Interval and t-Test Example**
+
+We reproduce NIST's confidence-interval and one-sample t-test examples using the ZARR13.DAT data set -- daily calibration measurements of a heat flow meter, from Bob Zarr at NIST.
+
+```{r}
+#| code-fold: true
+#| label: setup-confidence-limits-for-the-mean
+#| message: false
+library(tidyverse)
+
+zarr13 <- read_table(
+  here::here("datasets", "ZARR13.DAT"),
+  skip = 25,
+  col_names = "y",
+  col_types = "d"
+)
+
+n <- nrow(zarr13)
+y_bar <- mean(zarr13$y)
+s <- sd(zarr13$y)
+se <- s / sqrt(n)
+alpha <- 0.05
+t_crit_two_sided <- qt(1 - alpha / 2, df = n - 1)
+t_crit_one_sided <- qt(1 - alpha, df = n - 1)
+
+lower_limit <- y_bar - t_crit_two_sided * se
+upper_limit <- y_bar + t_crit_two_sided * se
+
+ci_summary <- tibble(
+  N = n,
+  MEAN = y_bar,
+  `STANDARD DEVIATION` = s,
+  `t(1-0.025, N-1)` = t_crit_two_sided,
+  `LOWER LIMIT` = lower_limit,
+  `UPPER LIMIT` = upper_limit
+)
+
+ci_summary
+```
+
+NIST reports N = 195, MEAN = 9.261460, STANDARD DEVIATION = 0.022789, and a resulting 95% confidence interval of (9.258242, 9.264679). Our computed values match NIST's reported figures to the precision shown.
+
+Next we perform a two-sided, one-sample t-test using the ZARR13.DAT data to test the null hypothesis that the population mean is equal to 5:
+
+- $H_0: \mu = 5$
+- $H_a: \mu \neq 5$
+
+```{r}
+#| code-fold: true
+#| label: t-test-confidence-limits-for-the-mean
+mu0 <- 5
+
+t_stat <- (y_bar - mu0) / se
+df <- n - 1
+
+t_test_summary <- tibble(
+  `Test statistic (T)` = t_stat,
+  `Degrees of freedom` = df,
+  `Significance level (alpha)` = alpha,
+  `Critical value, two-sided (t[1-a/2,df])` = t_crit_two_sided,
+  `Critical value, one-sided (t[1-a,df])` = t_crit_one_sided
+)
+
+t_test_summary
+```
+
+NIST reports a test statistic of T = 2611.284, degrees of freedom $\nu = 194$, a two-sided critical value of 1.9723, and a one-sided (upper-tail) critical value of 1.6527. Our computed test statistic and critical values agree with NIST's reported figures.
+
+We reject $H_0$ for our two-tailed t-test because the absolute value of the test statistic is far greater than the critical value. If we were to perform an upper, one-tailed test, we would still reject the null hypothesis, since the test statistic also exceeds the one-sided critical value.
+
+The confidence interval provides an alternative to the hypothesis test. If the confidence interval contains 5, then $H_0$ cannot be rejected. In our example, the confidence interval (9.258242, 9.264679) does not contain 5, indicating that the population mean does not equal 5 at the 0.05 level of significance.
+
+In general, there are three possible alternative hypotheses and rejection regions for the one-sample t-test:
+
+| Alternative Hypothesis | Rejection Region |
+|---|---|
+| $H_a: \mu \neq \mu_0$ | $\lvert T \rvert > t_{1-\alpha/2,\,\nu}$ |
+| $H_a: \mu > \mu_0$ | $T > t_{1-\alpha,\,\nu}$ |
+| $H_a: \mu < \mu_0$ | $T < t_{\alpha,\,\nu}$ |
+
+```{r}
+#| code-fold: true
+#| label: fig-confidence-limits-for-the-mean-rejection-regions
+#| fig-cap: "Rejection regions for the three possible alternative hypotheses of the one-sample t-test on the ZARR13.DAT data, testing H0: mu = 5"
+rejection_grid <- tibble(t = seq(-4, 4, length.out = 400)) |>
+  mutate(density = dt(t, df = df))
+
+crit_lines <- tribble(
+  ~alternative, ~critical_value,
+  "mu != mu0 (two-sided)", -t_crit_two_sided,
+  "mu != mu0 (two-sided)", t_crit_two_sided,
+  "mu > mu0 (upper)", t_crit_one_sided,
+  "mu < mu0 (lower)", -t_crit_one_sided
+)
+
+ggplot(rejection_grid, aes(t, density)) +
+  geom_line() +
+  geom_vline(data = crit_lines, aes(xintercept = critical_value, color = alternative), linetype = "dashed") +
+  labs(
+    x = "t",
+    y = "Density",
+    color = "Alternative hypothesis",
+    title = "t distribution (194 df) with critical values for each alternative"
+  ) +
+  theme_light()
+```
+
+**Questions**
+
+Confidence limits for the mean can be used to answer the following questions:
+
+1. What is a reasonable estimate for the mean?
+2. How much variability is there in the estimate of the mean?
+3. Does a given target value fall within the confidence limits?
+
+**Related Techniques**
+
+[Two-Sample t-Test](#sec-eda-two-sample-t-test)
+
+Confidence intervals for other location estimators such as the median or mid-mean tend to be mathematically difficult or intractable. For these cases, confidence intervals can be obtained using the [bootstrap plot](#sec-eda-bootstrap-plot).
+
+**Case Study**
+
+Confidence limits for the mean are demonstrated in the heat flow meter data case study<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda42a.htm -->.
+
+**Software**
+
+Confidence limits for the mean and one-sample t-tests are available in just about all general purpose statistical software programs, including Dataplot and R. These examples use the ZARR13.DAT data file.

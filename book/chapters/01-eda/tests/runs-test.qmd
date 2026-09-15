@@ -1,10 +1,137 @@
 #### Runs Test for Detecting Non-randomness {#sec-eda-runs-test}
 
-<!--
-Source: handbook/eda/section3/eda35d.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Non-Randomness**
+
+The runs test (Bradley, 1968<!-- XREF: EDA bibliography entry for Bradley 1968; source handbook/eda/section4/eda43.htm#Bradley -->) can be used to decide if a data set is from a random process.
+
+A run is defined as a series of increasing values or a series of decreasing values. The number of increasing, or decreasing, values is the length of the run. In a random data set, the probability that the ($i$+1)th value is larger or smaller than the $i$th value follows a [binomial distribution](#sec-eda-binomial-distribution), which forms the basis of the runs test.
+
+**Typical Analysis and Test Statistics**
+
+The first step in the runs test is to count the number of runs in the data sequence. There are several ways to define runs in the literature, however, in all cases the formulation must produce a dichotomous sequence of values. For example, a series of 20 coin tosses might produce the following sequence of heads (H) and tails (T):
+
+```
+H H T T H T H H H H T H H T T T T T H H
+```
+
+The number of runs for this series is nine. There are 11 heads and 9 tails in the sequence.
+
+**Definition**
+
+We will code values above the median as positive and values below the median as negative. A run is defined as a series of consecutive positive (or negative) values. The runs test is defined as:
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test Statistic: the test statistic is
+
+$$Z = \frac{R - \bar{R}}{s_R}$$
+
+where $R$ is the observed number of runs, $\bar{R}$ is the expected number of runs, and $s_R$ is the standard deviation of the number of runs. The values of $\bar{R}$ and $s_R$ are computed as follows:
+
+$$\bar{R} = \frac{2 n_1 n_2}{n_1 + n_2} + 1$$
+
+$$s_R^2 = \frac{2 n_1 n_2(2 n_1 n_2 - n_1 - n_2)}{(n_1 + n_2)^2 (n_1 + n_2 - 1)}$$
+
+with $n_1$ and $n_2$ denoting the number of positive and negative values in the series.
+
+Significance Level: $\alpha$.
+
+Critical Region: the runs test rejects the null hypothesis if
+
+$$|Z| > Z_{1-\alpha/2}$$
+
+For a large-sample runs test (where $n_1 > 10$ and $n_2 > 10$), the test statistic is compared to a standard normal table<!-- XREF: EDA Section 1.3.6.7.1, Standard Normal Table; source handbook/eda/section3/eda3671.htm -->. That is, at the 5% significance level, a test statistic with an absolute value greater than 1.96 indicates non-randomness. For a small-sample runs test, there are tables to determine critical values that depend on values of $n_1$ and $n_2$ (Mendenhall, 1982<!-- XREF: EDA bibliography entry for Mendenhall 1982; source handbook/eda/section4/eda43.htm#Mendenhall -->).
+
+**Runs Test Example**
+
+A runs test was performed for 200 measurements of beam deflection contained in the LEW.DAT data set (the same steel-concrete beam deflection data used in the [Autocorrelation Plot](#sec-eda-autocorrelation-plot) and [Lag Plot](#sec-eda-lag-plot) sinusoidal examples).
+
+```{r}
+#| code-fold: true
+#| label: setup-runs-test
+#| message: false
+library(tidyverse)
+
+lew <- read_table(
+  here::here("datasets", "LEW.DAT"),
+  skip = 25,
+  col_names = "y",
+  col_types = "d"
+)
+```
+
+```{r}
+#| code-fold: true
+#| label: runs-test-lew
+runs_test <- function(y, alpha = 0.05) {
+  med <- median(y)
+  # Values exactly equal to the median are conventionally dropped.
+  sign <- sign(y - med)
+  sign <- sign[sign != 0]
+
+  n1 <- sum(sign == 1)
+  n2 <- sum(sign == -1)
+  n <- n1 + n2
+
+  R <- 1 + sum(diff(sign) != 0)
+  Rbar <- 2 * n1 * n2 / n + 1
+  sR2 <- (2 * n1 * n2 * (2 * n1 * n2 - n)) / (n^2 * (n - 1))
+  sR <- sqrt(sR2)
+
+  Z <- (R - Rbar) / sR
+  z_crit <- qnorm(1 - alpha / 2)
+
+  tibble(
+    n1 = n1, n2 = n2, R = R, Rbar = Rbar, sR = sR,
+    Z = Z, z_crit = z_crit, reject_H0 = abs(Z) > z_crit
+  )
+}
+
+lew_runs <- runs_test(lew$y)
+lew_runs
+```
+
+```
+H_0:  the sequence was produced in a random manner
+H_a:  the sequence was not produced in a random manner
+
+Test statistic:  Z = 2.6938
+Significance level:  alpha = 0.05
+Critical value (upper tail):  Z(1-alpha/2) = 1.96
+Critical region: Reject H_0 if |Z| > 1.96
+```
+
+Our computed test statistic is $Z \approx$ `r round(lew_runs$Z, 4)`, matching NIST's stated value of $Z = 2.6938$ to four decimal places. Since the test statistic is greater than the critical value, we conclude that the data are not random at the 0.05 significance level.
+
+**Question**
+
+The runs test can be used to answer the following question:
+
+- Were these sample data generated from a random process?
+
+**Importance**
+
+Randomness is one of the key assumptions<!-- XREF: EDA Section 1.3.2, Assumptions; source handbook/eda/section2/eda2.htm --> in determining if a univariate statistical process is in control. If the assumptions of constant location and scale, randomness, and fixed distribution are reasonable, then the univariate process can be modeled as:
+
+$$Y_i = A_0 + E_i$$
+
+where $E_i$ is an error term.
+
+If the randomness assumption is not valid, then a different model needs to be used. This will typically be either a time series model<!-- XREF: Process or Product Monitoring and Control chapter, Time Series Models; source handbook/pmc/section4/pmc4.htm --> or a non-linear model<!-- XREF: Process Modeling chapter, Section 4.1.4.2, Non-Linear Least Squares; source handbook/pmd/section1/pmd142.htm --> (with time as the independent variable).
+
+**Related Techniques**
+
+[Autocorrelation](#sec-eda-autocorrelation)
+
+[Run Sequence Plot](#sec-eda-run-sequence-plot)
+
+[Lag Plot](#sec-eda-lag-plot)
+
+**Case Study**
+
+The runs test is demonstrated in the heat flow meter<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda428.htm --> data case study.
+
+**Software**
+
+Most general purpose statistical software programs support a runs test. The `LEW.DAT` data file used above is the same one used by NIST's original Dataplot and R implementations of this example.

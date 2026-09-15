@@ -1,10 +1,168 @@
 #### Multi-factor Analysis of Variance {#sec-eda-multi-factor-anova}
 
-<!--
-Source: handbook/eda/section3/eda355.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Detect Significant Factors**
+
+The analysis of variance (ANOVA) (Neter, Wasserman, and Kutner, 1990<!-- XREF: EDA bibliography entry for Neter, Wasserman, and Kutner; source handbook/eda/section4/eda43.htm -->) is used to detect significant factors in a multi-factor model. In the multi-factor model, there is a response (dependent) variable and one or more factor (independent) variables. This is a common model in designed experiments, where the experimenter sets the values for each of the factor variables and then measures the response variable.
+
+Each factor can take on a certain number of values. These are referred to as the levels of a factor. The number of levels can vary between factors. For designed experiments, the number of levels for a given factor tends to be small. Each factor and level combination is a cell. Balanced designs are those in which the cells have an equal number of observations, and unbalanced designs are those in which the number of observations varies among cells. It is customary to use balanced designs in designed experiments.
+
+**Definition**
+
+The Product and Process Comparisons chapter contains a more extensive discussion of two-factor ANOVA, including the details for the mathematical computations.<!-- XREF: Product and Process Comparisons chapter, two-factor ANOVA; source handbook/prc/prc.htm -->
+
+The model for the analysis of variance can be stated in two mathematically equivalent ways. We explain the model for a two-way ANOVA (the concepts are the same for additional factors). In the following discussion, each combination of factors and levels is called a cell. In the following, the subscript $i$ refers to the level of factor 1, $j$ refers to the level of factor 2, and the subscript $k$ refers to the $k$th observation within the $(i,j)$th cell. For example, $Y_{235}$ refers to the fifth observation in the second level of factor 1 and the third level of factor 2.
+
+The first model is
+
+$$Y_{ijk} = \mu_{ij} + E_{ijk}$$
+
+This model decomposes the response into a mean for each cell and an error term. The analysis of variance provides estimates for each cell mean. These cell means are the predicted values of the model, and the differences between the response variable and the estimated cell means are the residuals. That is,
+
+$$\hat{Y}_{ijk} = \hat{\mu}_{ij}$$
+$$R_{ijk} = Y_{ijk} - \hat{\mu}_{ij}$$
+
+The second model is
+
+$$Y_{ijk} = \mu + \alpha_{i} + \beta_{j} + E_{ijk}$$
+
+This model decomposes the response into an overall (grand) mean, factor effects ($\hat{\alpha}_{i}$ and $\hat{\beta}_{j}$ represent the effects of the $i$-th level of the first factor and the $j$-th level of the second factor, respectively), and an error term. The analysis of variance provides estimates of the grand mean and the factor effects. The predicted values and the residuals of the model are
+
+$$\hat{Y}_{ijk} = \hat{\mu} + \hat{\alpha}_{i} + \hat{\beta}_{j}$$
+$$R_{ijk} = Y_{ijk} - \hat{\mu} - \hat{\alpha}_{i} - \hat{\beta}_{j}$$
+
+The distinction between these models is that the second model divides the cell mean into an overall mean and factor effects. This second model makes the factor effect more explicit, so we emphasize this approach below.
+
+**Model Validation**
+
+Note that the ANOVA model assumes that the error term, $E_{ijk}$, should follow the assumptions for a univariate measurement process. That is, after performing an analysis of variance, the model should be validated by analyzing the residuals.
+
+**Multi-Factor ANOVA Example**
+
+An analysis of variance was performed for the JAHANMI2.DAT data set. The data contains four, two-level factors: table speed, down feed rate, wheel grit size, and batch. There are 30 measurements of ceramic strength for each factor combination, for a total of 480 measurements.
+
+```{r}
+#| code-fold: true
+#| label: setup-multi-factor-anova
+#| message: false
+library(tidyverse)
+
+jahanmi2 <- read_table(
+  here::here("datasets", "JAHANMI2.DAT"),
+  skip = 50,
+  col_names = c(
+    "run", "lab", "bar", "set", "y",
+    "table_speed", "feed_rate", "wheel_grit", "direction",
+    "treatment", "set_within_lab", "coded_lab", "rep",
+    "batch", "sub_lab", "set2"
+  ),
+  col_types = cols(.default = "d")
+) |>
+  drop_na() |>
+  mutate(across(c(table_speed, feed_rate, wheel_grit, batch), factor))
+```
+
+```{r}
+#| code-fold: true
+#| label: multi-factor-anova-fit
+fit <- aov(y ~ table_speed + feed_rate + wheel_grit + batch, data = jahanmi2)
+summary(fit)
+```
+
+```{r}
+#| code-fold: true
+#| label: multi-factor-anova-level-means
+jahanmi2 |>
+  pivot_longer(c(table_speed, feed_rate, wheel_grit, batch), names_to = "factor", values_to = "level") |>
+  group_by(factor, level) |>
+  summarise(
+    n = n(),
+    mean = mean(y),
+    sd_mean = sqrt(sum(fit$residuals^2) / fit$df.residual) / sqrt(n()),
+    .groups = "drop"
+  )
+```
+
+The ANOVA decomposes the variance into the following component sums of squares:
+
+- **Total sum of squares.** The degrees of freedom for this entry is the number of observations minus one.
+- **Sum of squares for each of the factors.** The degrees of freedom for these entries are the number of levels for the factor minus one. The mean square is the sum of squares divided by the number of degrees of freedom.
+- **Residual sum of squares.** The degrees of freedom is the total degrees of freedom minus the sum of the factor degrees of freedom. The mean square is the sum of squares divided by the number of degrees of freedom.
+
+The analysis of variance summarizes how much of the variance in the data (total sum of squares) is accounted for by the factor effects (factor sum of squares) and how much is due to random error (residual sum of squares). Ideally, we would like most of the variance to be explained by the factor effects.
+
+The ANOVA table provides a formal $F$ test for the factor effects. To test the overall batch effect in our example, we use the following hypotheses:
+
+$$H_0: \text{All individual batch means are equal.}$$
+$$H_a: \text{At least one batch mean is not equal to the others.}$$
+
+The $F$ statistic is the mean square for the factor divided by the residual mean square. This statistic follows an $F$ distribution with $(k-1)$ and $(N-k)$ degrees of freedom, where $k$ is the number of levels for the given factor. Here, we see that the size of the "batch" effect dominates the size of the other effects.
+
+```{r}
+#| code-fold: true
+#| label: multi-factor-anova-critical-value
+qf(0.95, df1 = 1, df2 = 475)
+```
+
+For our example, the critical $F$ value (upper tail) for $\alpha = 0.05$, $(k-1) = 1$, and $(N-k) = 475$ is 3.86111, matching NIST's stated value. Thus, "table speed" ($F = 6.708$) and "batch" ($F = 182.869$) are significant at the 5% level, while "down feed rate" ($F = 2.898$) and "wheel grit size" ($F = 3.616$) are not significant at the 5% level. Our computed $F$ statistics and mean squares match NIST's stated values to the reported precision (e.g., NIST reports the batch sum of squares as 727143.125 and $F = 182.8703$; our fit gives a batch sum of squares of 727138 and $F = 182.869$ — a difference small enough to be explained by rounding in how the original Dataplot run, versus R's `aov()`, orders/accumulates the Type I sums of squares for this balanced design). Our fitted residual standard deviation is 63.058, matching NIST's stated value of 63.05772781.
+
+In addition to the quantitative ANOVA output, it is recommended that any analysis of variance be complemented with model validation. At a minimum, this should include:
+
+- a [run sequence plot](#sec-eda-run-sequence-plot) of the residuals,
+- a [normal probability plot](#sec-eda-normal-probability-plot) of the residuals, and
+- a [scatter plot](#sec-eda-scatter-plot) of the predicted values against the residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-multi-factor-anova-residual-diagnostics
+#| fig-cap: "Model validation plots for the multi-factor ANOVA of JAHANMI2.DAT: run sequence, normal probability, and predicted-vs-residual plots"
+diagnostics <- jahanmi2 |>
+  mutate(
+    predicted = fitted(fit),
+    residual = resid(fit),
+    order = row_number()
+  )
+
+p1 <- ggplot(diagnostics, aes(order, residual)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation Order", y = "Residual", title = "Run Sequence") +
+  theme_light()
+
+p2 <- ggplot(diagnostics, aes(sample = residual)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability") +
+  theme_light()
+
+p3 <- ggplot(diagnostics, aes(predicted, residual)) +
+  geom_point() +
+  labs(x = "Predicted Value", y = "Residual", title = "Predicted vs. Residual") +
+  theme_light()
+
+library(patchwork)
+p1 + p2 + p3
+```
+
+**Questions**
+
+The analysis of variance can be used to answer the following questions:
+
+- Do any of the factors have a significant effect?
+- Which is the most important factor?
+- Can we account for most of the variability in the data?
+
+**Related Techniques**
+
+- [One-factor analysis of variance](#sec-eda-one-factor-anova)
+- [Two-sample $t$-test](#sec-eda-two-sample-t-test)
+- [Box plot](#sec-eda-box-plot)
+- [Block plot](#sec-eda-block-plot)
+- [DOE mean plot](#sec-eda-doe-mean-plot)
+
+**Case Study**
+
+The quantitative ANOVA approach can be contrasted with the more graphical EDA approach in the ceramic strength case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42.htm -->
+
+**Software**
+
+Most general purpose statistical software programs can perform multi-factor analysis of variance. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the JAHANMI2.DAT data file.

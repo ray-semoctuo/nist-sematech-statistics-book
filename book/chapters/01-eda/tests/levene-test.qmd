@@ -1,10 +1,133 @@
 #### Levene Test for Equality of Variances {#sec-eda-levene-test}
 
-<!--
-Source: handbook/eda/section3/eda35a.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Test for Homogeneity of Variances**
+
+Levene's test (Levene 1960<!-- XREF: EDA bibliography entry for Levene 1960; source handbook/eda/section3/eda35a.htm -->) is used to test if $k$ samples have equal variances. Equal variances across samples is called homogeneity of variance. Some statistical tests, for example the analysis of variance, assume that variances are equal across groups or samples. The Levene test can be used to verify that assumption.
+
+Levene's test is an alternative to the [Bartlett Test](#sec-eda-bartletts-test). The Levene test is less sensitive than the Bartlett test to departures from normality. If you have strong evidence that your data do in fact come from a normal, or nearly normal, distribution, then Bartlett's test has better performance.
+
+**Definition**
+
+The Levene test is defined as:
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \ldots = \sigma_k^2$$
+$$H_a: \sigma_i^2 \ne \sigma_j^2 \quad \text{for at least one pair } (i,j)$$
+
+**Test Statistic:**
+
+Given a variable $Y$ with a sample of size $N$ divided into $k$ subgroups, where $N_i$ is the sample size of the $i$-th subgroup, the Levene test statistic is defined as:
+
+$$W = \frac{(N-k)}{(k-1)} \frac{\sum_{i=1}^{k}N_i(\bar{Z}_{i.} - \bar{Z}_{..})^2}{\sum_{i=1}^{k}\sum_{j=1}^{N_i}(Z_{ij} - \bar{Z}_{i.})^2}$$
+
+where $Z_{ij}$ can have one of the following three definitions:
+
+1. $Z_{ij} = |Y_{ij} - \bar{Y}_{i.}|$, where $\bar{Y}_{i.}$ is the mean of the $i$-th subgroup.
+2. $Z_{ij} = |Y_{ij} - \tilde{Y}_{i.}|$, where $\tilde{Y}_{i.}$ is the median of the $i$-th subgroup.
+3. $Z_{ij} = |Y_{ij} - \bar{Y}_{i.}'|$, where $\bar{Y}_{i.}'$ is the 10% trimmed mean of the $i$-th subgroup.
+
+$\bar{Z}_{i.}$ is the group mean of the $Z_{ij}$ and $\bar{Z}_{..}$ is the overall mean of the $Z_{ij}$.
+
+The three choices for defining $Z_{ij}$ determine the robustness and power of Levene's test. By robustness, we mean the ability of the test to not falsely detect unequal variances when the underlying data are not normally distributed and the variables are in fact equal. By power, we mean the ability of the test to detect unequal variances when the variances are in fact unequal.
+
+Levene's original paper only proposed using the mean. Brown and Forsythe (1974)<!-- XREF: EDA bibliography entry for Brown and Forsythe 1974; source handbook/eda/section3/eda35a.htm --> extended Levene's test to use either the median or the trimmed mean in addition to the mean. They performed Monte Carlo studies that indicated that using the trimmed mean performed best when the underlying data followed a Cauchy distribution (i.e., heavy-tailed) and the median performed best when the underlying data followed a $\chi^2_4$ (i.e., skewed) distribution. Using the mean provided the best power for symmetric, moderate-tailed, distributions.
+
+Although the optimal choice depends on the underlying distribution, the definition based on the median is recommended as the choice that provides good robustness against many types of non-normal data while retaining good power. If you have knowledge of the underlying distribution of the data, this may indicate using one of the other choices.
+
+**Significance Level:** $\alpha$
+
+**Critical Region:**
+
+The Levene test rejects the hypothesis that the variances are equal if
+
+$$W > F_{\alpha, k-1, N-k}$$
+
+where $F_{\alpha, k-1, N-k}$ is the upper critical value of the F distribution with $k-1$ and $N-k$ degrees of freedom at a significance level of $\alpha$.
+
+In the above formulas for the critical regions, the Handbook follows the convention that $F_\alpha$ is the upper critical value from the F distribution and $F_{1-\alpha}$ is the lower critical value. Note that this is the opposite of some texts and software programs.
+
+**Levene's Test Example**
+
+Levene's test, based on the median, was performed for the GEAR.DAT data set. The data set includes ten measurements of gear diameter for each of ten batches for a total of 100 measurements.
+
+```{r}
+#| code-fold: true
+#| label: setup-levene-test
+#| message: false
+library(tidyverse)
+
+gear <- read_table(
+  here::here("datasets", "GEAR.DAT"),
+  skip = 25,
+  col_names = c("diameter", "batch"),
+  col_types = "dd"
+) |>
+  mutate(batch = factor(batch))
+
+# Levene's test using the median-centered definition of Z_ij, matching the
+# NIST recommendation ("the definition based on the median is recommended").
+levene_test <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |>
+    mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |>
+    summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k, p_value = pf(w, k - 1, n - k, lower.tail = FALSE))
+}
+
+lt <- levene_test(gear$diameter, gear$batch)
+crit <- qf(0.95, lt$df1, lt$df2)
+
+tibble(
+  statistic = lt$w,
+  df1 = lt$df1,
+  df2 = lt$df2,
+  critical_value = crit,
+  p_value = lt$p_value
+)
+```
+
+$$H_0: \sigma_1^2 = \ldots = \sigma_{10}^2$$
+$$H_a: \sigma_1^2 \ne \ldots \ne \sigma_{10}^2$$
+
+Test statistic: $W \approx$ `{r} round(lt$w, 6)` (NIST reports $W = 1.705910$; our computed value matches to the reported precision)
+
+Degrees of freedom: $k - 1 = 10 - 1 = 9$, $N - k = 100 - 10 = 90$
+
+Significance level: $\alpha = 0.05$
+
+Critical value (upper tail): $F_{\alpha, k-1, N-k} = 1.9855$
+
+Critical region: Reject $H_0$ if $W > 1.9855$
+
+We are testing the hypothesis that the group variances are equal. We fail to reject the null hypothesis at the 0.05 significance level since the value of the Levene test statistic is less than the critical value. We conclude that there is insufficient evidence to claim that the variances are not equal.
+
+As a check, R's built-in `car::leveneTest()` (when available) implements the same median-centered statistic; our hand-rolled implementation above reproduces NIST's stated $W = 1.705910$ value.
+
+**Question**
+
+Levene's test can be used to answer the following question:
+
+- Is the assumption of equal variances valid?
+
+**Related Techniques**
+
+[Standard Deviation Plot](#sec-eda-standard-deviation-plot)
+
+[Box Plot](#sec-eda-box-plot)
+
+[Bartlett Test](#sec-eda-bartletts-test)
+
+[Chi-Square Test](#sec-eda-chi-square-test-for-standard-deviation)
+
+[Analysis of Variance](#sec-eda-one-factor-anova)
+
+**Software**
+
+The Levene test is available in some general purpose statistical software programs. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the GEAR.DAT data file.

@@ -1,10 +1,161 @@
 #### One-Factor ANOVA {#sec-eda-one-factor-anova}
 
-<!--
-Source: handbook/eda/section3/eda354.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Test for Equal Means Across Groups**
+
+One factor analysis of variance (Snedecor and Cochran, 1989<!-- XREF: EDA bibliography entry for Snedecor and Cochran; source handbook/eda/section4/eda43.htm -->) is a special case of analysis of variance (ANOVA), for one factor of interest, and a generalization of the [two-sample $t$-test](#sec-eda-two-sample-t-test). The two-sample $t$-test is used to decide whether two groups (levels) of a factor have the same mean. One-way analysis of variance generalizes this to $k$ levels, where $k$, the number of levels, is greater than or equal to 2.
+
+For example, data collected on, say, five instruments have one factor (instruments) at five levels. The ANOVA tests whether instruments have a significant effect on the results.
+
+**Definition**
+
+The Product and Process Comparisons chapter contains a more extensive discussion of one-factor ANOVA, including the details for the mathematical computations of one-way analysis of variance.<!-- XREF: Product and Process Comparisons chapter, one-factor ANOVA; source handbook/prc/prc.htm -->
+
+The model for the analysis of variance can be stated in two mathematically equivalent ways. In the following discussion, each level of each factor is called a cell. For the one-way case, a cell and a level are equivalent since there is only one factor. In the following, the subscript $i$ refers to the level and the subscript $j$ refers to the observation within a level. For example, $Y_{23}$ refers to the third observation in the second level.
+
+The first model is
+
+$$Y_{ij} = \mu_{i} + E_{ij}$$
+
+This model decomposes the response into a mean for each cell and an error term. The analysis of variance provides estimates for each cell mean. These estimated cell means are the predicted values of the model, and the differences between the response variable and the estimated cell means are the residuals. That is,
+
+$$\hat{Y}_{ij} = \hat{\mu}_{i}$$
+$$R_{ij} = Y_{ij} - \hat{\mu}_{i}$$
+
+The second model is
+
+$$Y_{ij} = \mu + \alpha_{i} + E_{ij}$$
+
+This model decomposes the response into an overall (grand) mean, the effect of the $i$th factor level, and an error term. The analysis of variance provides estimates of the grand mean and the effect of the $i$th factor level. The predicted values and the residuals of the model are
+
+$$\hat{Y}_{ij} = \hat{\mu} + \hat{\alpha}_{i}$$
+$$R_{ij} = Y_{ij} - \hat{\mu} - \hat{\alpha}_{i}$$
+
+The distinction between these models is that the second model divides the cell mean into an overall mean and the effect of the $i$-th factor level. This second model makes the factor effect more explicit, so we emphasize this approach below.
+
+**Model Validation**
+
+Note that the ANOVA model assumes that the error term, $E_{ij}$, should follow the assumptions for a univariate measurement process. That is, after performing an analysis of variance, the model should be validated by analyzing the residuals.
+
+**One-Way ANOVA Example**
+
+A one-way analysis of variance was generated for the GEAR.DAT data set. The data set contains 10 measurements of gear diameter for ten different batches, for a total of 100 measurements.
+
+```{r}
+#| code-fold: true
+#| label: setup-one-factor-anova
+#| message: false
+library(tidyverse)
+
+gear <- read_table(
+  here::here("datasets", "GEAR.DAT"),
+  skip = 25,
+  col_names = c("diameter", "batch"),
+  col_types = "dd"
+) |>
+  drop_na() |>
+  mutate(batch = factor(batch))
+```
+
+```{r}
+#| code-fold: true
+#| label: one-factor-anova-fit
+fit <- aov(diameter ~ batch, data = gear)
+summary(fit)
+```
+
+```{r}
+#| code-fold: true
+#| label: one-factor-anova-batch-means
+gear |>
+  group_by(batch) |>
+  summarise(
+    n = n(),
+    mean = mean(diameter),
+    sd_mean = sqrt(sum(fit$residuals^2) / fit$df.residual) / sqrt(n()),
+    .groups = "drop"
+  )
+```
+
+The ANOVA table decomposes the variance into the following component sums of squares:
+
+- **Total sum of squares.** The degrees of freedom for this entry is the number of observations minus one.
+- **Sum of squares for the factor.** The degrees of freedom for this entry is the number of levels minus one. The mean square is the sum of squares divided by the number of degrees of freedom.
+- **Residual sum of squares.** The degrees of freedom is the total degrees of freedom minus the factor degrees of freedom. The mean square is the sum of squares divided by the number of degrees of freedom.
+
+The sums of squares summarize how much of the variance in the data (total sum of squares) is accounted for by the factor effect (batch sum of squares) and how much is random error (residual sum of squares). Ideally, we would like most of the variance to be explained by the factor effect.
+
+The ANOVA table provides a formal $F$ test for the factor effect. For our example, we are testing the following hypothesis:
+
+$$H_0: \text{All individual batch means are equal.}$$
+$$H_a: \text{At least one batch mean is not equal to the others.}$$
+
+The $F$ statistic is the batch mean square divided by the residual mean square. This statistic follows an $F$ distribution with $(k-1)$ and $(N-k)$ degrees of freedom.
+
+```{r}
+#| code-fold: true
+#| label: one-factor-anova-critical-value
+qf(0.95, df1 = 9, df2 = 90)
+```
+
+For our example, the critical $F$ value (upper tail) for $\alpha = 0.05$, $(k-1) = 9$, and $(N-k) = 90$ is 1.9856, matching NIST's stated value. Our fitted model gives $F = 2.2969$ on 9 and 90 degrees of freedom, matching the NIST-reported statistic exactly. Since the $F$ statistic, 2.2969, is greater than the critical value, we conclude that there is a significant batch effect at the 0.05 level of significance. Our fitted residual standard deviation (the square root of the residual mean square) is 0.00594, matching NIST's stated value; note that `sd(residuals(fit))` returns 0.00566 instead, because it divides by $N-1$ rather than by the residual degrees of freedom $N-k$ used for the ANOVA mean square.
+
+Once we have determined that there is a significant batch effect, we might be interested in comparing individual batch means. The batch means and the standard errors of the batch means provide some information about the individual batches. However, we may want to employ multiple comparison methods for a more formal analysis (see Box, Hunter, and Hunter<!-- XREF: EDA bibliography entry for Box, Hunter, and Hunter; source handbook/eda/section4/eda43.htm --> for more information).
+
+In addition to the quantitative ANOVA output, it is recommended that any analysis of variance be complemented with model validation. At a minimum, this should include:
+
+- a [run sequence plot](#sec-eda-run-sequence-plot) of the residuals,
+- a [normal probability plot](#sec-eda-normal-probability-plot) of the residuals, and
+- a [scatter plot](#sec-eda-scatter-plot) of the predicted values against the residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-one-factor-anova-residual-diagnostics
+#| fig-cap: "Model validation plots for the one-factor ANOVA of GEAR.DAT: run sequence, normal probability, and predicted-vs-residual plots"
+diagnostics <- gear |>
+  mutate(
+    predicted = fitted(fit),
+    residual = resid(fit),
+    order = row_number()
+  )
+
+p1 <- ggplot(diagnostics, aes(order, residual)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation Order", y = "Residual", title = "Run Sequence") +
+  theme_light()
+
+p2 <- ggplot(diagnostics, aes(sample = residual)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability") +
+  theme_light()
+
+p3 <- ggplot(diagnostics, aes(predicted, residual)) +
+  geom_point() +
+  labs(x = "Predicted Value", y = "Residual", title = "Predicted vs. Residual") +
+  theme_light()
+
+library(patchwork)
+p1 + p2 + p3
+```
+
+**Question**
+
+The analysis of variance can be used to answer the following question:
+
+- Are means the same across groups in the data?
+
+**Importance**
+
+The analysis of uncertainty depends on whether the factor significantly affects the outcome.
+
+**Related Techniques**
+
+- [Two-sample $t$-test](#sec-eda-two-sample-t-test)
+- [Multi-factor analysis of variance](#sec-eda-multi-factor-anova)
+- Regression<!-- XREF: Process Modeling chapter, regression; source handbook/pmd/pmd.htm -->
+- [Box plot](#sec-eda-box-plot)
+
+**Software**
+
+Most general purpose statistical software programs can generate an analysis of variance. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the GEAR.DAT data file.

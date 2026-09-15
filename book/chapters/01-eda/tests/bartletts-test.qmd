@@ -1,10 +1,102 @@
 #### Bartlett's Test {#sec-eda-bartletts-test}
 
-<!--
-Source: handbook/eda/section3/eda357.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Test for Homogeneity of Variances**
+
+Bartlett's test (Snedecor and Cochran, 1983<!-- XREF: EDA bibliography entry for Snedecor and Cochran, 1983; source handbook/eda/section4/eda43.htm -->) is used to test if $k$ samples have equal variances. Equal variances across samples is called homogeneity of variances. Some statistical tests, for example the analysis of variance, assume that variances are equal across groups or samples. The Bartlett test can be used to verify that assumption.
+
+Bartlett's test is sensitive to departures from normality. That is, if your samples come from non-normal distributions, then Bartlett's test may simply be testing for non-normality. The [Levene Test](#sec-eda-levene-test) is an alternative to the Bartlett test that is less sensitive to departures from normality.
+
+**Definition**
+
+The Bartlett test is defined as:
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \dots = \sigma_k^2$$
+$$H_a: \sigma_i^2 \ne \sigma_j^2 \text{ for at least one pair } (i,j)$$
+
+*Test Statistic:* The Bartlett test statistic is designed to test for equality of variances across groups against the alternative that variances are unequal for at least two groups.
+
+$$
+T = \frac{(N-k) \ln{s^{2}_{p}} - \sum_{i=1}^{k}(N_{i} - 1)\ln{s^{2}_{i}}}{1 + (1/(3(k-1)))\left(\left(\sum_{i=1}^{k}{1/(N_{i} - 1)}\right) - 1/(N-k)\right)}
+$$
+
+In the above, $s_i^2$ is the variance of the $i$th group, $N$ is the total sample size, $N_i$ is the sample size of the $i$th group, $k$ is the number of groups, and $s_p^2$ is the pooled variance. The pooled variance is a weighted average of the group variances and is defined as:
+
+$$s_{p}^{2} = \sum_{i=1}^{k}(N_{i} - 1)s_{i}^{2}/(N-k)$$
+
+*Significance Level:* $\alpha$
+
+*Critical Region:* The variances are judged to be unequal if
+
+$$T > \chi^2_{1-\alpha,\, k-1}$$
+
+where $\chi^2_{1-\alpha,\, k-1}$ is the critical value of the chi-square distribution with $k - 1$ degrees of freedom and a significance level of $\alpha$.
+
+An alternate definition (Dixon and Massey, 1969<!-- XREF: EDA bibliography entry for Dixon and Massey, 1969; source handbook/eda/section4/eda43.htm -->) is based on an approximation to the F distribution. This definition is given in the Product and Process Comparisons chapter<!-- XREF: Chapter 7, Product and Process Comparisons; source handbook/prc/ --> (chapter 7).
+
+**Example**
+
+Bartlett's test was performed for the GEAR.DAT data set. The data set contains 10 measurements of gear diameter for ten different batches, for a total of 100 measurements.
+
+```{r}
+#| code-fold: true
+#| label: setup-bartletts-test
+#| message: false
+library(tidyverse)
+
+gear <- read_table(
+  here::here("datasets", "GEAR.DAT"),
+  skip = 25,
+  col_names = c("diameter", "batch"),
+  col_types = "dd"
+) |>
+  drop_na() |>
+  mutate(batch = factor(batch))
+```
+
+```{r}
+#| code-fold: true
+#| label: bartletts-test-calc
+bartlett_result <- bartlett.test(diameter ~ batch, data = gear)
+bartlett_result
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \dots = \sigma_{10}^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+- Test statistic: $T$ = `r round(bartlett_result$statistic, 5)`
+- Degrees of freedom: $k - 1$ = `r bartlett_result$parameter`
+- Significance level: $\alpha$ = 0.05
+- Critical value: $\chi^2_{1-\alpha,\, k-1}$ = `r round(qchisq(0.95, 9), 3)`
+- Critical region: Reject $H_0$ if $T >$ `r round(qchisq(0.95, 9), 3)`
+
+We are testing the null hypothesis that the batch variances are all equal. Because the test statistic (`r round(bartlett_result$statistic, 5)`) is larger than the critical value (16.919), we reject the null hypothesis at the 0.05 significance level and conclude that at least one batch variance is different from the others. Our computed test statistic (20.78587) is essentially identical to NIST's stated value of 20.78580; the negligible difference is attributable to rounding in the intermediate group-variance calculations.
+
+**Question**
+
+Bartlett's test can be used to answer the following question:
+
+- Is the assumption of equal variances valid?
+
+**Importance**
+
+Bartlett's test is useful whenever the assumption of equal variances is made. In particular, this assumption is made for the frequently used one-way analysis of variance. In this case, Bartlett's or Levene's test should be applied to verify the assumption.
+
+**Related Techniques**
+
+[Standard Deviation Plot](#sec-eda-standard-deviation-plot)
+
+[Box Plot](#sec-eda-box-plot)
+
+[Levene Test](#sec-eda-levene-test)
+
+[Chi-Square Test for the Standard Deviation](#sec-eda-chi-square-test-for-standard-deviation)
+
+[One-Factor ANOVA](#sec-eda-one-factor-anova)
+
+**Case Study**
+
+Bartlett's test is demonstrated in the heat flow meter<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda428.htm --> data case study.
+
+**Software**
+
+The Bartlett test is available in many general purpose statistical software programs. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the GEAR.DAT data file.
