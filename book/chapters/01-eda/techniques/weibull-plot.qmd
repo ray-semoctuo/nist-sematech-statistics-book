@@ -45,14 +45,24 @@ scale_hat <- 10^(-intercept / slope)
 #| code-fold: true
 #| label: fig-weibull-plot-sample
 #| fig-cap: "Weibull plot of the FULLER2.DAT data set"
+# NIST's own plot labels the (nonlinear, ln(-ln(1-p))-transformed) vertical
+# axis with probability percentages -- "Weibull probability paper" -- rather
+# than the raw transformed values, matching the Definition below ("Weibull
+# cumulative probability expressed as a percentage"). breaks/labels here
+# reproduce that convention at the same axis positions we already compute.
+prob_breaks <- c(0.001, 0.01, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.8, 0.9, 0.95, 0.99, 0.999)
 ggplot(weibull_df, aes(x_log10, y_weibull)) +
   geom_point() +
   geom_abline(slope = slope, intercept = intercept, color = "steelblue") +
   geom_hline(yintercept = log(-log(1 - 0.632)), linetype = "dashed", color = "firebrick") +
   geom_vline(xintercept = log10(scale_hat), linetype = "dashed", color = "firebrick") +
+  scale_y_continuous(
+    breaks = log(-log(1 - prob_breaks)),
+    labels = scales::label_percent(accuracy = 0.1)(prob_breaks)
+  ) +
   labs(
     x = "LOG10(Ordered failure time)",
-    y = "Weibull cumulative probability: ln(-ln(1-p))"
+    y = "Weibull Probability"
   ) +
   theme_light()
 ```
@@ -65,6 +75,8 @@ This Weibull plot of the FULLER2.DAT data set (times to failure of aircraft wind
 - there are no obvious outliers.
 
 Note that the values on the x-axis are shown on a log10 scale, so a label of "0", "1", or "2" would denote $10^0 = 1$, $10^1 = 10$, and $10^2 = 100$ respectively.
+
+(NIST's own plot for this example labels the x-axis "Log(Strength)," but FULLER2.DAT's own documentation states its response variable is "time to failure" -- consistent with the page's own prose, which describes this data set as measuring the time to failure of aircraft windshield/glass specimens. This looks like a mislabeled axis in the original -- possibly copied from a different Weibull plot template -- rather than a different underlying data set, so we keep the dataset's own documented variable name here.)
 
 **Definition: Weibull Cumulative Probability Versus LN(Ordered Response)**
 
