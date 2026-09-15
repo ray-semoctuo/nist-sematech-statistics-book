@@ -17,7 +17,7 @@ The chi-square test is defined for the hypothesis:
 $$H_0: \text{The data follow a specified distribution.}$$
 $$H_a: \text{The data do not follow the specified distribution.}$$
 
-Test Statistic: to compute the test statistic used in the chi-square goodness-of-fit test, one first partitions the range of possible observed values of the quantity of interest, $Y$, into $k$ bins determined by $y_1 < y_2 < \dots < y_{k+1}$, such that bin $i$ has lower endpoint $y_i$ and upper endpoint $y_{i+1}$ for $i = 1, \dots, k$. Note that $y_1$ can be $-\infty$ and $y_{k+1}$ can be $+\infty$.
+**Test Statistic:** to compute the test statistic used in the chi-square goodness-of-fit test, one first partitions the range of possible observed values of the quantity of interest, $Y$, into $k$ bins determined by $y_1 < y_2 < \dots < y_{k+1}$, such that bin $i$ has lower endpoint $y_i$ and upper endpoint $y_{i+1}$ for $i = 1, \dots, k$. Note that $y_1$ can be $-\infty$ and $y_{k+1}$ can be $+\infty$.
 
 The test statistic is defined as
 
@@ -37,9 +37,9 @@ $$\ell(\theta) = \sum_{i=1}^{k} O_i \log\left(F_\theta(y_{i+1}) - F_\theta(y_i)\
 
 The expected bin counts are then computed as $E_i = N\left(F_{\widetilde{\theta}}(y_{i+1}) - F_{\widetilde{\theta}}(y_i)\right)$ for $i = 1, \dots, k$.
 
-Significance Level: $\alpha$.
+**Significance Level:** $\alpha$.
 
-Critical Region: the test statistic follows, approximately, a chi-square distribution with ($k - c$) degrees of freedom where $k$ is the number of non-empty cells and $c$ = the number of estimated parameters (including [location and scale parameters](#sec-eda-location-and-scale-parameters) and shape parameters<!-- XREF: EDA Section 1.3.6.3, Shape Parameters; source handbook/eda/section3/eda363.htm -->) for the distribution + 1. For example, for a 3-parameter Weibull distribution, $c = 4$.
+**Critical Region:** the test statistic follows, approximately, a chi-square distribution with ($k - c$) degrees of freedom where $k$ is the number of non-empty cells and $c$ = the number of estimated parameters (including [location and scale parameters](#sec-eda-location-and-scale-parameters) and shape parameters<!-- XREF: EDA Section 1.3.6.3, Shape Parameters; source handbook/eda/section3/eda363.htm -->) for the distribution + 1. For example, for a 3-parameter Weibull distribution, $c = 4$.
 
 Therefore, the hypothesis that the data are from a population with the specified distribution is rejected if
 

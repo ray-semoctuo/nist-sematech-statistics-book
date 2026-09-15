@@ -1,9 +1,14 @@
-#### Grubbs' Test for Outliers {#sec-eda-grubbs-test}
+#### Detection of Outliers {#sec-eda-detection-of-outliers}
 
-<!-- Note: NIST titles this page (eda35h.htm) "Detection of Outliers"; the anchor used throughout
-     this book is #sec-eda-grubbs-test, matching the heading level page eda35h1.htm ("Grubbs' Test
-     for Outliers"), which supplies the bulk of the content below. The general outlier-detection
-     background from eda35h.htm is included as introductory material. -->
+<!-- Note: NIST structures this as 4 pages under 1.3.5.17 "Detection of Outliers" (eda35h.htm):
+     the intro/background page itself (this top-level heading), plus three full technique
+     subsections nested beneath it as 1.3.5.17.1-17.3 -- Grubbs' Test (eda35h1.htm), Tietjen-Moore
+     Test (eda35h2.htm), and Generalized ESD Test (eda35h3.htm) -- all merged into this single file
+     as ##### subsections, matching the archived source's true nesting (confirmed directly from each
+     page's own title line) rather than the live NIST site's current numbering, which promotes these
+     to standalone top-level items. #sec-eda-grubbs-test is kept on the Grubbs' Test subsection
+     specifically (not this outer heading), since that is the anchor already linked from elsewhere
+     in this book. -->
 
 **Introduction**
 
@@ -46,7 +51,9 @@ Masking can occur when we specify too few outliers in the test. For example, if 
 
 On the other hand, swamping can occur when we specify too many outliers in the test. For example, if we are testing for two or more outliers when there is in fact only a single outlier, both points may be declared outliers (many tests will declare either all or none of the tested points as outliers).
 
-Due to the possibility of masking and swamping, it is useful to complement formal outlier tests with graphical methods. Graphics can often help identify cases where masking or swamping may be an issue.
+Due to the possibility of masking and swamping, it is useful to complement formal outlier tests with graphical methods. Graphics can often help identify cases where masking or swamping may be an issue. Swamping and masking are also the reason that many tests require that the exact number of outliers being tested must be specified.
+
+Also, masking is one reason that trying to apply a single outlier test sequentially can fail. For example, if there are multiple outliers, masking may cause the outlier test for the first outlier to return a conclusion of no outliers (and so the testing for any additional outliers is not performed).
 
 **Z-Scores and Modified Z-Scores**
 
@@ -74,17 +81,27 @@ A number of formal outlier tests have been proposed in the literature. These can
 
 The following is a brief list of a few of the more commonly used outlier tests for normally distributed data (this list is not exhaustive). These tests are essentially based on the criterion of "distance from the mean" (an alternative criterion, not discussed here, is the Dixon test, which is based on a value being too large or small compared to its nearest neighbor):
 
-- **Grubbs' Test** — the recommended test when testing for a single outlier. This is the focus of the remainder of this page.
-- **Tietjen-Moore Test** — a generalization of the Grubbs' test to the case of more than one outlier. It has the limitation that the number of outliers must be specified exactly.<!-- XREF: Tietjen-Moore Test is not yet a standalone page in this book; source handbook/eda/section3/eda35h2.htm -->
-- **Generalized Extreme Studentized Deviate (ESD) Test** — this test requires only an upper bound on the suspected number of outliers and is the recommended test when the exact number of outliers is not known.<!-- XREF: Generalized ESD Test is not yet a standalone page in this book; source handbook/eda/section3/eda35h3.htm -->
+- **[Grubbs' Test](#sec-eda-grubbs-test)** — the recommended test when testing for a single outlier. This is the focus of the remainder of this page.
+- **[Tietjen-Moore Test](#sec-eda-tietjen-moore-test)** — a generalization of the Grubbs' test to the case of more than one outlier. It has the limitation that the number of outliers must be specified exactly.
+- **[Generalized Extreme Studentized Deviate (ESD) Test](#sec-eda-generalized-esd-test)** — this test requires only an upper bound on the suspected number of outliers and is the recommended test when the exact number of outliers is not known.
 
-If your data follow an approximately lognormal distribution, you can transform the data to normality by taking the logarithms of the data and then applying the outlier tests discussed here.
+**Lognormal Distribution**
+
+The tests discussed here are specifically based on the assumption that the data follow an approximately normal distribution. If your data follow an approximately lognormal distribution, you can transform the data to normality by taking the logarithms of the data and then applying the outlier tests discussed here.
+
+**Further Information**
+
+Iglewicz and Hoaglin<!-- XREF: EDA bibliography entry for Iglewicz and Hoaglin; source handbook/eda/section3/eda35h.htm --> provide an extensive discussion of the outlier tests given above (as well as some not given above) and also give a good tutorial on the subject of outliers. Barnett and Lewis<!-- XREF: EDA bibliography entry for Barnett and Lewis; source handbook/eda/section3/eda35h.htm --> provide a book length treatment of the subject.
+
+In addition to discussing additional tests for data that follow an approximately normal distribution, these sources also discuss the case where the data are not normally distributed.
+
+##### Grubbs' Test for Outliers {#sec-eda-grubbs-test}
 
 **Purpose: Detection of Outliers**
 
 Grubbs' test (Grubbs 1969 and Stefansky 1972<!-- XREF: EDA bibliography entries for Grubbs 1969 and Stefansky 1972; source handbook/eda/section3/eda35h1.htm -->) is used to detect a single outlier in a univariate data set that follows an approximately normal distribution.
 
-If you suspect more than one outlier may be present, it is recommended that you use either the Tietjen-Moore test or the generalized extreme studentized deviate test instead of the Grubbs' test.
+If you suspect more than one outlier may be present, it is recommended that you use either the [Tietjen-Moore test](#sec-eda-tietjen-moore-test) or the [generalized extreme studentized deviate test](#sec-eda-generalized-esd-test) instead of the Grubbs' test.
 
 Grubbs' test is also known as the maximum normed residual test.
 
@@ -222,3 +239,305 @@ Heat flow meter data.<!-- XREF: Heat flow meter case study is not yet part of th
 **Software**
 
 Some general purpose statistical software programs support the Grubbs' test. Both Dataplot code and R code can be used to generate the analyses in this section.
+
+##### Tietjen-Moore Test for Outliers {#sec-eda-tietjen-moore-test}
+
+**Purpose: Detection of Outliers**
+
+The Tietjen-Moore test (Tietjen-Moore 1972<!-- XREF: EDA bibliography entry for Tietjen-Moore 1972; source handbook/eda/section3/eda35h2.htm -->) is used to detect multiple outliers in a univariate data set that follows an approximately normal distribution.
+
+The Tietjen-Moore test is a generalization of the Grubbs' test to the case of multiple outliers. If testing for a single outlier, the Tietjen-Moore test is equivalent to the Grubbs' test.
+
+It is important to note that the Tietjen-Moore test requires that the suspected number of outliers be specified exactly. If this is not known, it is recommended that the [Generalized ESD Test](#sec-eda-generalized-esd-test) be used instead (this test only requires an upper bound on the number of suspected outliers).
+
+**Definition**
+
+The Tietjen-Moore test is defined for the hypothesis:
+
+$$H_0: \text{There are no outliers in the data set}$$
+$$H_a: \text{There are exactly } k \text{ outliers in the data set}$$
+
+**Test Statistic:**
+
+Sort the $n$ data points from smallest to largest so that $y_i$ denotes the $i$th largest data value.
+
+The test statistic for the $k$ largest points is
+
+$$L_k = \frac{\sum_{i=1}^{n-k}(y_i - \bar{y}_k)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$$
+
+with $\bar{y}$ denoting the sample mean for the full sample and $\bar{y}_k$ denoting the sample mean with the largest $k$ points removed.
+
+The test statistic for the $k$ smallest points is
+
+$$L_k = \frac{\sum_{i=k+1}^{n}(y_i - \bar{y}_k)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$$
+
+with $\bar{y}_k$ now denoting the sample mean with the smallest $k$ points removed.
+
+To test for outliers in both tails, compute the absolute residuals $r_i = |y_i - \bar{y}|$ and then let $z_i$ denote the $y_i$ values sorted by their absolute residuals in ascending order. The test statistic for this case is
+
+$$E_k = \frac{\sum_{i=1}^{n-k}(z_i - \bar{z}_k)^2}{\sum_{i=1}^{n}(z_i - \bar{z})^2}$$
+
+with $\bar{z}$ denoting the sample mean for the full data set and $\bar{z}_k$ denoting the sample mean with the largest $k$ points (by absolute residual) removed.
+
+**Significance Level:** $\alpha$
+
+**Critical Region:**
+
+The critical region for the Tietjen-Moore test is determined by simulation. The simulation is performed by generating a standard normal random sample of size $n$ and computing the Tietjen-Moore test statistic. Typically, 10,000 random samples are used. The value of the Tietjen-Moore statistic obtained from the data is compared to this reference distribution.
+
+The value of the test statistic is between zero and one. If there are no outliers in the data, the test statistic is close to 1. If there are outliers in the data, the test statistic will be closer to zero. Thus, the test is always a lower, one-tailed test regardless of which test statistic is used, $L_k$ or $E_k$.
+
+**Tietjen-Moore Test Example**
+
+The Tietjen-Moore paper gives the following 15 observations of vertical semi-diameters of the planet Venus (this example originally appeared in Grubbs' 1950 paper):
+
+```{r}
+#| code-fold: true
+#| label: setup-tietjen-moore-test
+#| message: false
+venus <- read_table(
+  here::here("datasets", "TIETMOO1.DAT"),
+  skip = 25,
+  col_names = "y",
+  col_types = "d"
+)
+```
+
+As a first step, a normal probability plot was generated.
+
+```{r}
+#| code-fold: true
+#| label: fig-tietjen-moore-qq
+#| fig-cap: "Normal probability plot of the vertical semi-diameters of Venus"
+ggplot(venus, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Percentiles from Normal Distribution", y = "Sorted Data") +
+  theme_light()
+```
+
+This plot indicates that the normality assumption is reasonable. The minimum value appears to be an outlier. To a lesser extent, the maximum value may also be an outlier. We test the two most extreme points (-1.40 and 1.01) with the Tietjen-Moore test for outliers in both tails.
+
+```{r}
+#| code-fold: true
+#| label: tietjen-moore-test-statistic
+# Two-tailed Tietjen-Moore test statistic E(k): the sum of squared
+# deviations from the mean after removing the k points with the largest
+# absolute residuals, relative to the total sum of squares.
+tietjen_moore_ek <- function(x, k) {
+  n <- length(x)
+  r <- abs(x - mean(x))
+  x_by_residual <- x[order(r)]
+  x_sub <- x_by_residual[seq_len(n - k)]
+  sum((x_sub - mean(x_sub))^2) / sum((x - mean(x))^2)
+}
+
+k <- 2
+ek_stat <- tietjen_moore_ek(venus$y, k)
+
+# The critical value has no closed form and is determined by simulation:
+# generate a large number of standard normal samples of the same size and
+# find the 5th percentile of the resulting E(k) statistics.
+set.seed(42)
+n_sim <- 10000
+sim_stats <- replicate(n_sim, tietjen_moore_ek(rnorm(nrow(venus)), k))
+critical_value <- quantile(sim_stats, 0.05)
+
+tibble(statistic = ek_stat, critical_value = critical_value)
+```
+
+$$H_0: \text{there are no outliers in the data}$$
+$$H_a: \text{the two most extreme points are outliers}$$
+
+Test statistic: $E_k \approx$ `{r} round(ek_stat, 3)` (NIST reports $E_k = 0.292$; our computed value matches essentially exactly, since this statistic has no random component)
+
+Significance level: $\alpha = 0.05$
+
+Critical value for lower tail: `{r} round(critical_value, 3)` (NIST reports 0.317; our simulated value is close but not identical, since the critical value itself is estimated by Monte Carlo simulation and NIST does not publish the seed used for their 10,000-sample run)
+
+Critical region: Reject $H_0$ if $E_k <$ `{r} round(critical_value, 3)`
+
+The Tietjen-Moore test is a lower, one-tailed test, so we reject the null hypothesis that there are no outliers when the value of the test statistic is less than the critical value. For our example, the null hypothesis is rejected at the 0.05 level of significance and we conclude that the two most extreme points are outliers.
+
+**Questions**
+
+The Tietjen-Moore test can be used to answer the following question:
+
+- Does the data set contain $k$ outliers?
+
+**Importance**
+
+Many statistical techniques are sensitive to the presence of outliers. For example, simple calculations of the mean and standard deviation may be distorted by a single grossly inaccurate data point.
+
+Checking for outliers should be a routine part of any data analysis. Potential outliers should be examined to see if they are possibly erroneous. If the data point is in error, it should be corrected if possible and deleted if it is not possible. If there is no reason to believe that the outlying point is in error, it should not be deleted without careful consideration. However, the use of more robust techniques may be warranted. Robust techniques will often downweight the effect of outlying points without deleting them.
+
+**Related Techniques**
+
+Several graphical techniques can, and should, be used to help detect outliers. A simple normal probability plot, run sequence plot, a box plot, or a histogram should show any obviously outlying points. In addition to showing potential outliers, several of these graphics also help assess whether the data follow an approximately normal distribution.
+
+[Normal Probability Plot](#sec-eda-normal-probability-plot)
+
+[Run Sequence Plot](#sec-eda-run-sequence-plot)
+
+[Histogram](#sec-eda-histogram)
+
+[Box Plot](#sec-eda-box-plot)
+
+[Lag Plot](#sec-eda-lag-plot)
+
+**Software**
+
+Some general purpose statistical software programs support the Tietjen-Moore test. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the TIETMOO1.DAT data file.
+
+##### Generalized Extreme Studentized Deviate Test {#sec-eda-generalized-esd-test}
+
+**Purpose: Detection of Outliers**
+
+The generalized (extreme Studentized deviate) ESD test (Rosner 1983<!-- XREF: EDA bibliography entry for Rosner 1983; source handbook/eda/section3/eda35h3.htm -->) is used to detect one or more outliers in a univariate data set that follows an approximately normal distribution.
+
+The primary limitation of the Grubbs' test and the Tietjen-Moore test is that the suspected number of outliers, $k$, must be specified exactly. If $k$ is not specified correctly, this can distort the conclusions of these tests. On the other hand, the generalized ESD test only requires that an upper bound for the suspected number of outliers be specified.
+
+**Definition**
+
+Given the upper bound, $r$, the generalized ESD test essentially performs $r$ separate tests: a test for one outlier, a test for two outliers, and so on up to $r$ outliers.
+
+The generalized ESD test is defined for the hypothesis:
+
+$$H_0: \text{There are no outliers in the data set}$$
+$$H_a: \text{There are up to } r \text{ outliers in the data set}$$
+
+**Test Statistic:**
+
+Compute
+
+$$R_i = \frac{\max_i |x_i - \bar{x}|}{s}$$
+
+with $\bar{x}$ and $s$ denoting the sample mean and sample standard deviation, respectively.
+
+Remove the observation that maximizes $|x_i - \bar{x}|$ and then recompute the above statistic with $n - 1$ observations. Repeat this process until $r$ observations have been removed. This results in the $r$ test statistics $R_1, R_2, \ldots, R_r$.
+
+**Significance Level:** $\alpha$
+
+**Critical Region:**
+
+Corresponding to the $r$ test statistics, compute the following $r$ critical values
+
+$$\lambda_i = \frac{(n-i)\,t_{p,\,n-i-1}}{\sqrt{(n-i-1+t_{p,\,n-i-1}^2)(n-i+1)}} \qquad i = 1, 2, \ldots, r$$
+
+where $t_{p,\,\nu}$ is the $100p$ percentage point from the $t$ distribution with $\nu$ degrees of freedom and
+
+$$p = 1 - \frac{\alpha}{2(n-i+1)}$$
+
+The number of outliers is determined by finding the largest $i$ such that $R_i > \lambda_i$.
+
+Simulation studies by Rosner indicate that this critical value approximation is very accurate for $n \geq 25$ and reasonably accurate for $n \geq 15$.
+
+Note that although the generalized ESD is essentially Grubbs' test applied sequentially, there are a few important distinctions:
+
+- The generalized ESD test makes appropriate adjustments for the critical values based on the number of outliers being tested for that the sequential application of Grubbs' test does not.
+- If there is significant masking, applying Grubbs' test sequentially may stop too soon. The example below identifies three outliers at the 5% level when using the generalized ESD test. However, trying to use Grubbs' test sequentially would stop at the first iteration and declare no outliers.
+
+**Generalized ESD Test Example**
+
+The Rosner paper gives an example with 54 observations.
+
+```{r}
+#| code-fold: true
+#| label: setup-generalized-esd-test
+#| message: false
+# Note: the file's own header comment says "SKIP 25", but that does not
+# match the actual position of the data (which starts at line 22, right
+# after the "---" separator on line 21) or the file's own stated N -- a
+# legacy inconsistency in the source file rather than something on our
+# end. We use skip = 21, which reads all 54 values matching the source
+# page's own listing of the data exactly.
+rosner <- read_table(
+  here::here("datasets", "ROSNER.DAT"),
+  skip = 21,
+  col_names = "y",
+  col_types = "d"
+)
+```
+
+As a first step, a normal probability plot was generated.
+
+```{r}
+#| code-fold: true
+#| label: fig-generalized-esd-qq
+#| fig-cap: "Normal probability plot of the Rosner (1983) example data"
+ggplot(rosner, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Percentiles from Normal Distribution", y = "Sorted Data") +
+  theme_light()
+```
+
+This plot indicates that the normality assumption is questionable. Following the Rosner paper, we test for up to 10 outliers.
+
+$$H_0: \text{there are no outliers in the data}$$
+$$H_a: \text{there are up to 10 outliers in the data}$$
+
+Significance level: $\alpha = 0.05$
+
+Critical region: Reject $H_0$ if $R_i >$ critical value
+
+```{r}
+#| code-fold: true
+#| label: generalized-esd-test-table
+# Iteratively remove the observation with the largest absolute residual,
+# recomputing the test statistic R(i) and the corresponding critical
+# value lambda(i) at each step. Unlike the Tietjen-Moore critical value,
+# this one has a closed form and needs no simulation.
+n <- nrow(rosner)
+alpha <- 0.05
+r <- 10
+
+esd_table <- tibble(i = integer(), R = double(), lambda = double())
+current <- rosner$y
+for (i in seq_len(r)) {
+  ares <- abs(current - mean(current)) / sd(current)
+  R_i <- max(ares)
+  current <- current[-which.max(ares)]
+
+  p <- 1 - alpha / (2 * (n - i + 1))
+  t_crit <- qt(p, n - i - 1)
+  lambda_i <- t_crit * (n - i) / sqrt((n - i - 1 + t_crit^2) * (n - i + 1))
+
+  esd_table <- bind_rows(esd_table, tibble(i = i, R = R_i, lambda = lambda_i))
+}
+
+esd_table |>
+  mutate(exceeds_critical_value = R > lambda)
+```
+
+For the generalized ESD test above, there are essentially 10 separate tests being performed. For this example, the largest number of outliers for which the test statistic is greater than the critical value (at the 5% level) is three, matching NIST's stated result exactly (our table above matches NIST's published values to 3 decimal places). We therefore conclude that there are three outliers in this data set.
+
+**Questions**
+
+The generalized ESD test can be used to answer the following question:
+
+- How many outliers does the data set contain?
+
+**Importance**
+
+Many statistical techniques are sensitive to the presence of outliers. For example, simple calculations of the mean and standard deviation may be distorted by a single grossly inaccurate data point.
+
+Checking for outliers should be a routine part of any data analysis. Potential outliers should be examined to see if they are possibly erroneous. If the data point is in error, it should be corrected if possible and deleted if it is not possible. If there is no reason to believe that the outlying point is in error, it should not be deleted without careful consideration. However, the use of more robust techniques may be warranted. Robust techniques will often downweight the effect of outlying points without deleting them.
+
+**Related Techniques**
+
+Several graphical techniques can, and should, be used to help detect outliers. A simple normal probability plot, run sequence plot, a box plot, or a histogram should show any obviously outlying points. In addition to showing potential outliers, several of these graphics also help assess whether the data follow an approximately normal distribution.
+
+[Run Sequence Plot](#sec-eda-run-sequence-plot)
+
+[Histogram](#sec-eda-histogram)
+
+[Box Plot](#sec-eda-box-plot)
+
+[Normal Probability Plot](#sec-eda-normal-probability-plot)
+
+[Lag Plot](#sec-eda-lag-plot)
+
+**Software**
+
+Some general purpose statistical software programs support the generalized ESD test. Both Dataplot code and R code can be used to generate the analyses in this section. These scripts use the ROSNER.DAT data file.

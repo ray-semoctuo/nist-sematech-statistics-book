@@ -68,7 +68,7 @@ Some of the more common classical quantitative techniques are listed below, grou
 
 **Outliers**
 
-[Detection of Outliers, including Grubbs' Test, the Tietjen-Moore Test, and the Generalized Extreme Studentized Deviate Test](#sec-eda-grubbs-test).
+[Detection of Outliers, including Grubbs' Test, the Tietjen-Moore Test, and the Generalized Extreme Studentized Deviate Test](#sec-eda-detection-of-outliers).
 
 **2-Level Factorial Designs**
 

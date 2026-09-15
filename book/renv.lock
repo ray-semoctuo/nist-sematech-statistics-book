@@ -2361,6 +2361,23 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "nortest": {
+      "Package": "nortest",
+      "Version": "1.0-4",
+      "Source": "Repository",
+      "Title": "Tests for Normality",
+      "Date": "2015-07-29",
+      "Description": "Five omnibus tests for testing the composite hypothesis of normality.",
+      "License": "GPL (>= 2)",
+      "Authors@R": "c(person(\"Juergen\", \"Gross\", role = \"aut\", email = \"gross@statistik.tu-dortmund.de\"), person(\"Uwe\", \"Ligges\", role = c(\"aut\", \"cre\"), email = \"ligges@statistik.tu-dortmund.de\"))",
+      "Imports": [
+        "stats"
+      ],
+      "Author": "Juergen Gross [aut], Uwe Ligges [aut, cre]",
+      "Maintainer": "Uwe Ligges <ligges@statistik.tu-dortmund.de>",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
     "openssl": {
       "Package": "openssl",
       "Version": "2.4.2",
