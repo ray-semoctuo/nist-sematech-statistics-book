@@ -42,6 +42,8 @@ The two-sample t-test for unpaired data is defined as:
 
   If equal variances are assumed, then $\nu = N_1 + N_2 - 2$.
 
+  (Addition, not present in our archived source: the degrees of freedom formula above is the Welch-Satterthwaite formulation. The Welch-Satterthwaite degrees of freedom are robust for unequal sample sizes and/or unequal variances. If equal variances are assumed and the sample sizes are similar, then the simpler formula $\nu = N_1 + N_2 - 2$ given above can be used. This explanatory note appears on the current live NIST e-Handbook page but not in the archived `handbook/` snapshot this book is otherwise built from.)
+
 **Two-Sample t-Test Example**
 
 The following two-sample t-test uses the AUTO83B.DAT data set: miles per gallon for U.S. cars (sample 1) and for Japanese cars (sample 2). The data come from a bivariate analysis of 1983 EPA auto MPG figures shown at the 1983 ASA Graphics Exposition. The Japanese-car column has a number of records coded `-999` to indicate a missing value; per NIST's own note on this file, those rows are dropped for the t-test.
