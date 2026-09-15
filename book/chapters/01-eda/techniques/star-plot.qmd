@@ -8,7 +8,7 @@ Star plots are used to examine the relative values for a single data point (e.g.
 
 **Sample Plot**
 
-The original NIST example plots the star plots of 16 cars drawn from a larger 74-car data set, using variables such as price, mileage, repair record, and roominess. Since that dataset is not available in this repository, the plot below instead illustrates the technique with a small synthetic multivariate dataset of 6 hypothetical car models rated on 5 variables. The data are generated with a fixed random seed purely for illustration and do not represent any real vehicles.
+The original NIST example plots the star plots of 16 cars drawn from a larger 74-car data set (AUTO79.DAT), using 9 variables: price, mileage, 1978 and 1977 repair record, headroom, rear seat room, trunk space, weight, and length.
 
 ```{r}
 #| code-fold: true
@@ -30,48 +30,99 @@ coord_radar <- function(theta = "x", start = 0, direction = 1) {
           is_linear = function(coord) TRUE)
 }
 
-set.seed(2024)
-vars <- c("Speed", "Reliability", "Comfort", "Efficiency", "Cargo")
-cars_synthetic <- tibble(
-  car = paste("Model", LETTERS[1:6]),
-  Speed = round(runif(6, 60, 130)),
-  Reliability = round(runif(6, 1, 5), 1),
-  Comfort = round(runif(6, 1, 10)),
-  Efficiency = round(runif(6, 15, 45)),
-  Cargo = round(runif(6, 5, 25))
-)
+# AUTO79.DAT is fixed-width: the make/model name occupies columns 1-19,
+# and the 12 numeric variables follow starting at column 20 (confirmed
+# against the original Dataplot macro's "COLUMN LIMITS 20 132" / "COLUMN
+# LIMITS 1 19" split). The macro reads all 74 cars into Y1-Y9 before
+# subsetting to the first 16 for plotting, so the per-variable maximum
+# used to scale each spoke (per the Definition below) is computed from
+# the full 74-car data set, not just the 16 cars actually displayed --
+# using only the displayed subset's maximum would understate each car's
+# true relative value on any variable where the full data set's extreme
+# falls outside the first 16 rows (e.g. mileage: the displayed subset's
+# max is 26 mpg, but the true data set max is 41 mpg).
+vars <- c("Price", "Mileage", "Repair78", "Repair77", "HeadRoom",
+          "RearSeatRoom", "TrunkSpace", "Weight", "Length")
 
-# Each variable is scaled to its own maximum across observations (so each
-# spoke's length is relative to that variable's largest value, per the
-# Definition below) and mapped as a discrete x-axis category; geom_polygon
-# auto-closes each group's (car's) polygon.
-star_df <- cars_synthetic |>
+auto79_raw <- read_lines(here::here("datasets", "AUTO79.DAT"), skip = 25, n_max = 74)
+
+auto79_all <- tibble(
+  car = str_trim(str_sub(auto79_raw, 1, 19)),
+  values = str_sub(auto79_raw, 20)
+) |>
+  mutate(values = map(values, ~ as.numeric(str_split(str_trim(.x), "\\s+")[[1]][1:9]))) |>
+  unnest_wider(values, names_sep = "_") |>
+  rename_with(~vars, starts_with("values_"))
+
+auto79 <- auto79_all |>
+  slice(1:16) |>
+  mutate(car = factor(car, levels = car))
+
+# Each variable is scaled using its own minimum and maximum across the
+# full 74-car data set (not just the 16 cars plotted here), and mapped
+# as a discrete x-axis category; geom_polygon auto-closes each group's
+# (car's) polygon. Min-max normalization -- rather than a simple ratio
+# to the maximum -- is what actually reproduces the pattern of NIST's
+# own published figure: most of these 9 variables have a fairly narrow
+# observed range relative to their maximum (e.g. weight from 1760 to
+# 4840), so scaling by the maximum alone compresses most cars into a
+# narrow band near the outer edge on every spoke, understating real
+# differences between cars. This isn't spelled out in the page's own
+# Definition below ("relative to the maximum magnitude"), which doesn't
+# mention subtracting the minimum -- but it is what visually matches
+# the discernible pattern differences in NIST's own sample plot.
+var_range <- auto79_all |>
+  summarise(across(all_of(vars), list(min = min, max = max))) |>
+  pivot_longer(everything(), names_to = c("variable", ".value"), names_sep = "_(?=min$|max$)")
+
+star_df <- auto79 |>
   pivot_longer(-car, names_to = "variable", values_to = "value") |>
-  group_by(variable) |>
-  mutate(scaled = value / max(value)) |>
-  ungroup() |>
-  mutate(variable = factor(variable, levels = vars))
+  left_join(var_range, by = "variable") |>
+  mutate(
+    scaled = (value - min) / (max - min),
+    variable = factor(variable, levels = vars),
+    spoke = as.integer(variable)
+  )
+
+# NIST's own multiplot labels the spokes of just the first panel (AMC
+# Concord) with the variable number 1-9, using that single panel as a key
+# for the whole grid rather than repeating the (long) variable names on
+# every one of the 16 plots. We do the same, with a caption spelling out
+# the 1-9 -> variable mapping below the figure.
+first_car <- levels(star_df$car)[1]
+spoke_labels <- star_df |> filter(car == first_car)
+var_key <- paste(seq_along(vars), vars, sep = " = ", collapse = ", ")
 ```
 
 ```{r}
 #| code-fold: true
 #| label: fig-star-plot-sample
-#| fig-cap: "Star plots of 6 synthetic car models across 5 variables"
+#| fig-cap: !expr 'paste0("Star plots of 16 cars from the 1979 automobile data set (AUTO79.DAT). Spokes 1-9 (labeled on the ", first_car, " panel) are: ", var_key, ".")'
 ggplot(star_df, aes(x = variable, y = scaled, group = car)) +
   geom_polygon(fill = "steelblue", alpha = 0.3, color = "steelblue") +
   geom_point(size = 1, color = "steelblue") +
+  geom_text(
+    data = spoke_labels, aes(x = variable, y = 1.15, label = spoke),
+    inherit.aes = FALSE, color = "firebrick", size = 3, fontface = "bold"
+  ) +
   coord_radar() +
   facet_wrap(~car) +
   labs(x = NULL, y = NULL) +
   theme_light() +
-  theme(axis.text.y = element_blank())
+  theme(
+    axis.text.y = element_blank(),
+    axis.text.x = element_blank(),
+    strip.text = element_text(size = 7)
+  )
 ```
 
-We can look at these plots individually or use them to identify clusters of observations with similar features. In this synthetic illustration, for instance, Model F is efficient and comfortable but slow, while Model A is fast but less efficient. In the original NIST example, this kind of comparison was used to contrast expensive, roomy, poor-mileage cars (e.g., Cadillac models) against inexpensive, smaller, below-average-mileage cars (e.g., AMC models).
+We can look at these plots individually or we can use them to identify clusters of cars with similar features. For example, we can look at the star plot of the Cadillac Seville and see that it is one of the most expensive cars, gets below average (but not among the worst) gas mileage, has an average repair record, and has average-to-above-average roominess and size. We can then compare the Cadillac models (the last three plots) with the AMC models (the first three plots). This comparison shows distinct patterns. The AMC models tend to be inexpensive, have below average gas mileage, and are small in both height and weight and in roominess. The Cadillac models are expensive, have poor gas mileage, and are large in both size and roominess.
 
 **Definition**
 
 The star plot consists of a sequence of equi-angular spokes, called radii, with each spoke representing one of the variables. The data length of a spoke is proportional to the magnitude of the variable for the data point relative to the maximum magnitude of the variable across all data points. A line is drawn connecting the data values for each spoke. This gives the plot a star-like appearance and the origin of the name of this plot.
+
+(NIST's own sample plot above shows more pronounced differences between cars than a literal reading of this Definition -- scaling strictly by the maximum -- would produce, since several of the 9 variables have a fairly narrow observed range relative to their maximum. We normalize each spoke using the variable's full observed minimum-to-maximum range, which reproduces that same visual pattern.)
 
 **Questions**
 

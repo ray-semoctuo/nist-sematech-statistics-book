@@ -32,9 +32,9 @@ pbf11 <- read_table(
 
 sd_by_month <- pbf11 |>
   group_by(month) |>
-  summarise(sd = sd(mean), .groups = "drop")
+  summarise(sd = sd(wv), .groups = "drop")
 
-overall_sd <- sd(pbf11$mean)
+overall_sd <- sd(pbf11$wv)
 ```
 
 ```{r}
@@ -45,11 +45,11 @@ ggplot(sd_by_month, aes(month, sd, group = 1)) +
   geom_line(color = "steelblue") +
   geom_point() +
   geom_hline(yintercept = overall_sd, linetype = "dashed", color = "firebrick") +
-  labs(x = "Month", y = "Standard Deviation") +
+  labs(x = "Month", y = "Standard Deviation Water Vapor Concentration") +
   theme_light()
 ```
 
-This sample standard deviation plot of the PBF11.DAT data set (weekly Freon-11 concentration readings at Point Barrow, Alaska, restricted to the rows flagged valid) shows there is a shift in variation across the year, with the dashed reference line marking the overall standard deviation for comparison; variation is noticeably higher from late summer through the end of the year than in the winter and spring months.
+This sample standard deviation plot of the PBF11.DAT data set (weekly water vapor concentration readings alongside the Freon-11 measurements at Point Barrow, Alaska, restricted to the rows flagged valid) shows there is a shift in variation across the year, with the dashed reference line marking the overall standard deviation for comparison; the greatest variation is during the summer months.
 
 **Definition: Group Standard Deviations Versus Group ID**
 
