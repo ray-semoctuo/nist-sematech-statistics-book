@@ -1,10 +1,154 @@
 #### 6-Plot {#sec-eda-6-plot}
 
-<!--
-Source: handbook/eda/section3/eda3333.htm
-TODO:
-- Port narrative content from the source page(s) above
-- Merge any interpretation/example sub-pages listed above into this single page
-- Re-implement any worked example in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+**Purpose: Graphical Model Validation**
+
+The 6-plot is a collection of 6 specific graphical techniques whose purpose is to assess the validity of a $Y$ versus $X$ fit. The fit can be a linear fit, a non-linear fit, a LOWESS (locally weighted least squares) fit, a spline fit, or any other fit utilizing a single independent variable.
+
+The 6 plots are:
+
+1. Scatter plot of the response and predicted values versus the independent variable;
+2. Scatter plot of the residuals versus the independent variable;
+3. Scatter plot of the residuals versus the predicted values;
+4. Lag plot of the residuals;
+5. Histogram of the residuals;
+6. Normal probability plot of the residuals.
+
+**Sample Plot**
+
+```{r}
+#| code-fold: true
+#| label: setup-6-plot
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+pontius <- read_table(here::here("datasets", "PONTIUS.DAT"), skip = 25, col_names = c("y", "x"), col_types = "dd")
+
+# Uniform order statistic medians (Filliben, 1975) -- same construction used
+# on the Normal Probability Plot page.
+uniform_medians <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+six_plot <- function(y, x, hist_bins = 30) {
+  fit <- lm(y ~ x)
+  n <- length(y)
+  d <- tibble(x = x, y = y, pred = fitted(fit), res = resid(fit))
+
+  p1 <- ggplot(d, aes(x)) +
+    geom_point(aes(y = y), shape = 1) +
+    geom_point(aes(y = pred), shape = 4, color = "firebrick") +
+    labs(x = "X", y = "Y, Predicted", title = "Y, Predicted vs. X") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, res)) +
+    geom_point(shape = 1) +
+    geom_hline(yintercept = 0, linetype = "dashed") +
+    labs(x = "X", y = "Residual", title = "Residuals vs. X") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(pred, res)) +
+    geom_point(shape = 1) +
+    geom_hline(yintercept = 0, linetype = "dashed") +
+    labs(x = "Predicted", y = "Residual", title = "Residuals vs. Predicted") +
+    theme_light()
+
+  res_sorted_by_run <- d$res
+  p4 <- tibble(r = res_sorted_by_run[-1], r_lag = res_sorted_by_run[-n]) |>
+    ggplot(aes(r_lag, r)) +
+    geom_point(shape = 1) +
+    labs(x = expression(RES[i - 1]), y = expression(RES[i]), title = "Lag Plot of Res.") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(res)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Residual", y = "Count", title = "Histogram of Res.") +
+    theme_light()
+
+  mm <- uniform_medians(n)
+  theoretical <- qnorm(mm)
+  res_sorted <- sort(d$res)
+  p6 <- tibble(theoretical = theoretical, observed = res_sorted) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    labs(x = "Theoretical", y = "Ordered Residuals", title = "Normal Prob. Plot of Res.") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-6-plot-sample
+#| fig-cap: "6-plot of the PONTIUS.DAT data set, following a linear fit"
+six_plot(pontius$y, pontius$x)
+```
+
+This 6-plot, which followed a linear fit, shows that the linear model is not adequate. It suggests that a quadratic model would be a better model.
+
+**Definition: 6 Component Plots**
+
+The 6-plot consists of the following:
+
+1. Response and predicted values
+   - Vertical axis: Response variable, predicted values
+   - Horizontal axis: Independent variable
+2. Residuals versus independent variable
+   - Vertical axis: Residuals
+   - Horizontal axis: Independent variable
+3. Residuals versus predicted values
+   - Vertical axis: Residuals
+   - Horizontal axis: Predicted values
+4. Lag plot of residuals
+   - Vertical axis: $RES_i$
+   - Horizontal axis: $RES_{i-1}$
+5. Histogram of residuals
+   - Vertical axis: Counts
+   - Horizontal axis: Residual values
+6. Normal probability plot of residuals
+   - Vertical axis: Ordered residuals
+   - Horizontal axis: Theoretical values from a normal $N(0,1)$ distribution for ordered residuals
+
+**Questions**
+
+The 6-plot can be used to answer the following questions:
+
+1. Are the residuals approximately normally distributed with a fixed location and scale?
+2. Are there outliers?
+3. Is the fit adequate?
+4. Do the residuals suggest a better fit?
+
+**Importance: Validating Model**
+
+A model involving a response variable and a single independent variable has the form:
+
+$$Y_i = f(X_i) + E_i$$
+
+where $Y$ is the response variable, $X$ is the independent variable, $f$ is the linear or non-linear fit function, and $E$ is the random component. For a good model, the error component should behave like:
+
+- random drawings (i.e., independent);
+- from a fixed distribution;
+- with fixed location; and
+- with fixed variation.
+
+In addition, for fitting models it is usually further assumed that the fixed distribution is normal and the fixed location is zero. For a good model the fixed variation should be as small as possible. A necessary component of fitting models is to verify these assumptions for the error component and to assess whether the variation for the error component is sufficiently small. The histogram, lag plot, and normal probability plot are used to verify the fixed distribution, location, and variation assumptions on the error component. The plot of the response variable and the predicted values versus the independent variable is used to assess whether the variation is sufficiently small. The plots of the residuals versus the independent variable and the predicted values is used to assess the independence assumption.
+
+Assessing the validity and quality of the fit in terms of the above assumptions is an absolutely vital part of the model-fitting process. No fit should be considered complete without an adequate model validation step.
+
+**Related Techniques**
+
+Linear Least Squares<!-- XREF: Process Modeling chapter, linear least squares; source handbook/pmd/section1/pmd141.htm -->, Non-Linear Least Squares<!-- XREF: Process Modeling chapter, non-linear least squares; source handbook/pmd/section1/pmd142.htm -->, [Scatter Plot](#sec-eda-scatter-plot), [Run Sequence Plot](#sec-eda-run-sequence-plot), [Lag Plot](#sec-eda-lag-plot), [Normal Probability Plot](#sec-eda-normal-probability-plot), [Histogram](#sec-eda-histogram)
+
+**Case Study**
+
+The 6-plot is used in the Alaska pipeline data case study<!-- XREF: EDA Case Studies (Section 1.4), Alaska Pipeline; source handbook/eda/section4/eda42h.htm -->.
+
+**Software**
+
+It should be feasible to write a macro for the 6-plot in any general purpose statistical software program that supports the capability for multiple plots per page and supports the underlying plot techniques.
