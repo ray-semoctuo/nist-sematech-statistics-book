@@ -96,8 +96,16 @@ scale_summary
 #| code-fold: true
 #| label: fig-measures-of-scale-normal
 #| fig-cap: "Histogram of 10,000 random numbers from a normal distribution"
-ggplot(samples, aes(normal)) +
+#| warning: false
+# Shared (-10, 10) x-axis across all four panels (matching NIST's own
+# figure) makes the differing spread and tail weight of each distribution
+# directly comparable; data is filtered before binning, not just the view,
+# for the same reason described in the Cauchy panel below.
+samples |>
+  filter(abs(normal) <= 10) |>
+  ggplot(aes(normal)) +
   geom_histogram(bins = 50) +
+  coord_cartesian(xlim = c(-10, 10)) +
   labs(x = "X", y = "Count") +
   theme_light()
 ```
@@ -112,8 +120,12 @@ The normal distribution is a symmetric distribution with well-behaved tails and 
 #| code-fold: true
 #| label: fig-measures-of-scale-double-exponential
 #| fig-cap: "Histogram of 10,000 random numbers from a double exponential distribution"
-ggplot(samples, aes(double_exponential)) +
+#| warning: false
+samples |>
+  filter(abs(double_exponential) <= 10) |>
+  ggplot(aes(double_exponential)) +
   geom_histogram(bins = 50) +
+  coord_cartesian(xlim = c(-10, 10)) +
   labs(x = "X", y = "Count") +
   theme_light()
 ```
@@ -127,10 +139,18 @@ Comparing the double exponential and the normal histograms shows that the double
 ```{r}
 #| code-fold: true
 #| label: fig-measures-of-scale-cauchy
-#| fig-cap: "Histogram of 10,000 random numbers from a Cauchy distribution"
-ggplot(samples, aes(cauchy)) +
+#| fig-cap: "Histogram of 10,000 random numbers from a Cauchy distribution, restricted to (-10, 10) for visual comparability with the other three panels"
+#| warning: false
+# coord_cartesian(xlim = ...) only zooms the *view*; geom_histogram() still
+# bins across the full data range first, which for Cauchy draws can run into
+# the tens of thousands -- so each of the 50 bins would be enormous and the
+# zoomed-in view would show only a sliver of one or two giant bins (looking
+# flat/uniform). Filtering the data before binning, as done here, is needed
+# to actually get a meaningful histogram over the restricted range.
+samples |>
+  filter(abs(cauchy) <= 10) |>
+  ggplot(aes(cauchy)) +
   geom_histogram(bins = 50) +
-  coord_cartesian(xlim = c(-25, 25)) +
   labs(x = "X", y = "Count") +
   theme_light()
 ```
@@ -149,6 +169,7 @@ Although the Cauchy distribution is an extreme case, it does illustrate the impo
 #| fig-cap: "Histogram of 10,000 random numbers from a Tukey-Lambda distribution with shape parameter 1.2"
 ggplot(samples, aes(tukey_lambda)) +
   geom_histogram(bins = 50) +
+  coord_cartesian(xlim = c(-10, 10)) +
   labs(x = "X", y = "Count") +
   theme_light()
 ```
