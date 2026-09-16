@@ -1,5 +1,16 @@
 ## EDA Techniques {#sec-eda-3}
 
+After you have collected a set of data, how do you do an exploratory data analysis? What techniques do you employ? What do the various techniques focus on? What conclusions can you expect to reach?
+
+This section provides answers to these kinds of questions via a gallery of EDA techniques and a detailed description of each technique. The techniques are divided into graphical and quantitative techniques. For exploratory data analysis, the emphasis is primarily on the graphical techniques.
+
+1. [Introduction](#sec-eda-31)
+2. [Analysis Questions](#sec-eda-32)
+3. [Graphical Techniques: Alphabetical](#sec-eda-33)
+4. [Graphical Techniques: By Problem Category](#sec-eda-34)
+5. [Quantitative Techniques: Alphabetical](#sec-eda-35)
+6. [Probability Distributions](#sec-eda-36)
+
 ### Introduction {#sec-eda-31}
 
 This section describes many techniques that are commonly used in exploratory and classical data analysis. This list is by no means meant to be exhaustive. Additional techniques (both graphical and quantitative) are discussed in other chapters. Specifically, the product comparisons chapter has a much more detailed description of many classical statistical techniques.
