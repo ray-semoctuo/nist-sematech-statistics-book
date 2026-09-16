@@ -644,3 +644,5 @@ Other consequences that flow from problems with distributional assumptions fall 
 {{< include tests/index.qmd >}}
 
 {{< include distributions/index.qmd >}}
+
+{{< include case-studies/index.qmd >}}
