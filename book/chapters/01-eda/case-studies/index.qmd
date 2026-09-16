@@ -131,7 +131,7 @@ The remaining case studies intermix one or more of these quantitative techniques
 
 **Multi-Factor**
 
-- Ceramic Strength<!-- XREF: EDA Case Studies (Section 1.4.2.10), Ceramic Strength, not yet migrated to this book; source handbook/eda/section4/eda42a.htm -->
+- [Ceramic Strength](#sec-eda-42a)
 
 {{< include case-studies/normal-random-numbers.qmd >}}
 
@@ -150,3 +150,5 @@ The remaining case studies intermix one or more of these quantitative techniques
 {{< include case-studies/heat-flow-meter-1.qmd >}}
 
 {{< include case-studies/fatigue-life-aluminum-alloy.qmd >}}
+
+{{< include case-studies/ceramic-strength.qmd >}}

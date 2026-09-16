@@ -1,0 +1,698 @@
+#### Ceramic Strength {#sec-eda-42a}
+
+This case study analyzes the effect of machining factors on the strength of ceramics.
+
+1. [Background and Data](#sec-eda-42a1)
+2. [Analysis of the Response Variable](#sec-eda-42a2)
+3. [Analysis of the Batch Effect](#sec-eda-42a3)
+4. [Analysis of the Lab Effect](#sec-eda-42a4)
+5. [Analysis of Primary Factors](#sec-eda-42a5)
+6. [Work This Example Yourself](#sec-eda-42a6)
+
+##### Background and Data {#sec-eda-42a1}
+
+**Generation**
+
+The data for this case study were collected by Said Jahanmir of the NIST Ceramics Division in 1996 in connection with a NIST/industry ceramics consortium for strength optimization of ceramic strength.
+
+The motivation for studying this data set is to illustrate the analysis of multiple factors from a designed experiment.
+
+This case study will utilize only a subset of a full study that was conducted by Lisa Gill and James Filliben of the NIST Statistical Engineering Division.
+
+The response variable is a measure of the strength of the ceramic material (bonded Si nitrate). The complete data set contains the following variables:
+
+- Factor 1 = Observation ID, i.e., run number (1 to 960)
+- Factor 2 = Lab (1 to 8)
+- Factor 3 = Bar ID within lab (1 to 30)
+- Factor 4 = Test number (1 to 4)
+- Response Variable = Strength of Ceramic
+- Factor 5 = Table speed (2 levels: 0.025 and 0.125)
+- Factor 6 = Down feed rate (2 levels: 0.050 and 0.125)
+- Factor 7 = Wheel grit size (2 levels: 150 and 80)
+- Factor 8 = Direction (2 levels: longitudinal and transverse)
+- Factor 9 = Treatment (1 to 16)
+- Factor 10 = Set of 15 within lab (2 levels: 1 and 2)
+- Factor 11 = Replication (2 levels: 1 and 2)
+- Factor 12 = Bar Batch (1 and 2)
+
+The four primary factors of interest are:
+
+- Table speed ($X_1$)
+- Down feed rate ($X_2$)
+- Wheel grit size ($X_3$)
+- Direction ($X_4$)
+
+For this case study, we are using only half the data. Specifically, we are using the data with the direction longitudinal. Therefore, we have only three primary factors.
+
+In addition, we are interested in the nuisance factors
+
+- Lab
+- Batch
+
+**Purpose of Analysis**
+
+The goals of this case study are:
+
+- Determine which of the four primary factors has the strongest effect on the strength of the ceramic material.
+- Estimate the magnitude of the effects.
+- Determine the optimal settings for the primary factors.
+- Determine if the nuisance factors (lab and batch) have an effect on the ceramic strength.
+
+This case study is an example of a designed experiment. The Process Improvement chapter<!-- XREF: Process Improvement chapter landing page; source handbook/pri/pri.htm --> contains a detailed discussion of the construction and analysis of designed experiments. This case study is meant to complement the material in that chapter by showing how an EDA approach (emphasizing the use of graphical techniques) can be used in the analysis of designed experiments.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`JAHANMI2.DAT`).
+
+**Data**
+
+The full data file has 16 columns per row (observation ID, lab, bar number within lab, test number, response, the coded primary factors $X_1$–$X_4$, treatment, set, a coded lab value, replication, batch, a coded sub-lab value, and a second set indicator); this case study only makes use of a subset of these.
+
+The following are the data used for this case study.
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-ceramic-strength
+#| message: false
+library(tidyverse)
+
+ceramic_cs_full <- read_table(
+  here::here("datasets", "JAHANMI2.DAT"),
+  skip = 50,
+  col_names = c("run", "lab", "bar", "test", "y", "x1", "x2", "x3", "x4",
+                "treatment", "set", "coded_lab", "rep", "batch", "coded_sublab", "set2"),
+  col_types = "iiiidddddiidiidi"
+)
+
+ceramic_cs <- ceramic_cs_full |>
+  select(run, lab, batch, y, x1, x2, x3)
+
+ceramic_cs
+```
+
+##### Analysis of the Response Variable {#sec-eda-42a2}
+
+**Numerical Summary**
+
+As a first step in the analysis, common summary statistics are computed for the response variable.
+
+```{r}
+#| code-fold: true
+#| label: eda-ceramic-strength-summary-statistics
+tibble(
+  `Sample Size` = nrow(ceramic_cs),
+  Mean = mean(ceramic_cs$y),
+  Median = median(ceramic_cs$y),
+  Minimum = min(ceramic_cs$y),
+  Maximum = max(ceramic_cs$y),
+  Range = diff(range(ceramic_cs$y)),
+  `Stan. Dev.` = sd(ceramic_cs$y)
+)
+```
+
+**4-Plot**
+
+The next step is to generate a [4-plot](#sec-eda-4-plot) of the response variable.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-4-plot
+#| fig-cap: "4-plot of the ceramic strength response variable"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs42a <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs42a <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs42a(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs42a(ceramic_cs$y)
+```
+
+This 4-plot shows:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left corner) shows that the location and scale are relatively constant. It also shows a few outliers on the low side. Most of the points are in the range 500 to 750. However, there are about half a dozen points in the 300 to 450 range that may require special attention. A run sequence plot is useful for designed experiments in that it can reveal time effects. Time is normally a nuisance factor. That is, the time order on which runs are made should not have a significant effect on the response. If a time effect does appear to exist, this means that there is a potential bias in the experiment that needs to be investigated and resolved.
+- The [lag plot](#sec-eda-lag-plot) (the upper right corner) does not show any significant structure. This is another tool for detecting any potential time effect.
+- The [histogram](#sec-eda-histogram) (the lower left corner) shows the response appears to be reasonably symmetric, but with a bimodal distribution.
+- The [normal probability plot](#sec-eda-normal-probability-plot) (the lower right corner) shows some curvature indicating that distributions other than the normal may provide a better fit.
+
+##### Analysis of the Batch Effect {#sec-eda-42a3}
+
+**Batch is a Nuisance Factor**
+
+The two nuisance factors in this experiment are the batch number and the lab. There are two batches and eight labs. Ideally, these factors will have minimal effect on the response variable.
+
+We will investigate the batch factor first.
+
+**Bihistogram**
+
+This [bihistogram](#sec-eda-bihistogram) shows the following:
+
+- There does appear to be a batch effect.
+- The batch 1 responses are centered at 700 while the batch 2 responses are centered at 625. That is, the batch effect is approximately 75 units.
+- The variability is comparable for the 2 batches.
+- Batch 1 has some skewness in the lower tail. Batch 2 has some skewness in the center of the distribution, but not as much in the tails compared to batch 1.
+- Both batches have a few low-lying points.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-bihistogram
+#| fig-cap: "Bihistogram of ceramic strength for batch 1 (above the axis) and batch 2 (below the axis)"
+ceramic_batch_cs42a <- ceramic_cs |>
+  mutate(batch_f = factor(batch, labels = c("Batch 1", "Batch 2")))
+
+ggplot(ceramic_batch_cs42a, aes(x = y)) +
+  geom_histogram(
+    data = filter(ceramic_batch_cs42a, batch_f == "Batch 1"),
+    aes(y = after_stat(count), fill = batch_f),
+    binwidth = 20, boundary = 0
+  ) +
+  geom_histogram(
+    data = filter(ceramic_batch_cs42a, batch_f == "Batch 2"),
+    aes(y = -after_stat(count), fill = batch_f),
+    binwidth = 20, boundary = 0
+  ) +
+  geom_hline(yintercept = 0) +
+  labs(x = "Ceramic Strength", y = "Count", fill = NULL) +
+  theme_light()
+```
+
+(As noted on the [Bihistogram](#sec-eda-bihistogram) technique page, NIST's stated centers of "700" and "625" appear to be a visual read of the histogram rather than computed means — our computed batch means, given in the Quantitative Techniques section below, are 689.0 and 611.2, a displacement of about 78 units, somewhat larger than NIST's stated 75.)
+
+Although we could stop with the bihistogram, we will show a few other commonly used two-sample graphical techniques for comparison.
+
+**Quantile-Quantile Plot**
+
+This [q-q plot](#sec-eda-quantile-quantile-plot) shows the following:
+
+- Except for a few points in the right tail, the batch 1 values have higher quantiles than the batch 2 values. This implies that batch 1 has a greater location value than batch 2.
+- The q-q plot is not linear. This implies that the difference between the batches is not explained simply by a shift in location. That is, the variation and/or skewness varies as well. From the bihistogram, it appears that the skewness in batch 2 is the most likely explanation for the non-linearity in the q-q plot.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-qq
+#| fig-cap: "Q-Q plot of batch 1 versus batch 2 ceramic strength"
+batch1_cs42a <- sort(ceramic_cs$y[ceramic_cs$batch == 1])
+batch2_cs42a <- sort(ceramic_cs$y[ceramic_cs$batch == 2])
+
+# Equal-sized samples here, so the q-q plot is simply sorted batch 1
+# against sorted batch 2 (same construction as the Quantile-Quantile
+# Plot technique page).
+tibble(q1 = batch1_cs42a, q2 = batch2_cs42a) |>
+  ggplot(aes(q2, q1)) +
+  geom_point(shape = 1) +
+  geom_abline(slope = 1, intercept = 0, color = "firebrick", linetype = "dashed") +
+  coord_equal() +
+  labs(x = "Batch 2", y = "Batch 1") +
+  theme_light()
+```
+
+**Box Plot**
+
+This [box plot](#sec-eda-box-plot) shows the following:
+
+- The median for batch 1 is approximately 700 while the median for batch 2 is approximately 600.
+- The spread is reasonably similar for both batches, maybe slightly larger for batch 1.
+- Both batches have a number of outliers on the low side. Batch 2 also has a few outliers on the high side. Box plots are a particularly effective method for identifying the presence of outliers.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-boxplot-batch
+#| fig-cap: "Box plot of ceramic strength by batch"
+ggplot(ceramic_batch_cs42a, aes(batch_f, y)) +
+  geom_boxplot() +
+  labs(x = NULL, y = "Ceramic Strength") +
+  theme_light()
+```
+
+**Block Plots**
+
+A [block plot](#sec-eda-block-plot) is generated for each of the eight labs, with "1" and "2" denoting the batch numbers. In the first plot, we do not include any of the primary factors. The next 3 block plots include one of the primary factors. Note that each of the 3 primary factors (table speed = $X_1$, down feed rate = $X_2$, wheel grit size = $X_3$) has 2 levels. With 8 labs and 2 levels for the primary factor, we would expect 16 separate blocks on these plots. The fact that some of these blocks are missing indicates that some of the combinations of lab and primary factor are empty.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-block-plots
+#| fig-cap: "Block plots of mean ceramic strength by batch (points labeled 1 and 2), blocked by lab and, in the last three panels, by one of the three primary factors. Missing blocks indicate empty lab/factor combinations."
+#| fig-width: 9
+#| fig-height: 7
+block_plot_batch_cs42a <- function(df, group_var = NULL, title) {
+  grouping <- c("lab", group_var)
+  means <- df |>
+    summarize(mean_y = mean(y), .by = all_of(c(grouping, "batch")))
+
+  block_labels <- means |>
+    distinct(across(all_of(grouping))) |>
+    arrange(across(all_of(grouping))) |>
+    mutate(block = row_number()) |>
+    unite("block_label", all_of(grouping), sep = "\n", remove = FALSE)
+
+  means |>
+    left_join(block_labels, by = grouping) |>
+    ggplot(aes(x = block, y = mean_y, label = batch)) +
+    geom_line(aes(group = block), color = "grey70") +
+    geom_text(fontface = "bold") +
+    scale_x_continuous(breaks = block_labels$block, labels = block_labels$block_label) +
+    labs(x = "Lab (and factor level, where shown)", y = "Mean Ceramic Strength", title = title) +
+    theme_light() +
+    theme(axis.text.x = element_text(size = 7))
+}
+
+(block_plot_batch_cs42a(ceramic_cs, NULL, "No Primary Factor") +
+  block_plot_batch_cs42a(ceramic_cs, "x1", "By X1 (Table Speed)")) /
+  (block_plot_batch_cs42a(ceramic_cs, "x2", "By X2 (Down Feed Rate)") +
+    block_plot_batch_cs42a(ceramic_cs, "x3", "By X3 (Wheel Grit Size)"))
+```
+
+These block plots show the following:
+
+- The mean for batch 1 is greater than the mean for batch 2 in all of the cases above. This is strong evidence that the batch effect is real and consistent across labs and primary factors.
+
+**Quantitative Techniques**
+
+We can confirm some of the conclusions drawn from the above graphics by using quantitative techniques. The [F-test](#sec-eda-f-test-for-equality-of-variances) can be used to test whether or not the variances from the two batches are equal and the [two sample t-test](#sec-eda-two-sample-t-test) can be used to test whether or not the means from the two batches are equal.
+
+Summary statistics for each batch are shown below.
+
+```{r}
+#| code-fold: true
+#| label: eda-ceramic-strength-batch-summary
+ceramic_cs |>
+  summarize(n = n(), mean = mean(y), sd = sd(y), variance = var(y), .by = batch)
+```
+
+**F-Test**
+
+The two-sided F-test indicates that the variances for the two batches are not significantly different at the 5% level.
+
+```{r}
+#| code-fold: true
+#| label: eda-ceramic-strength-f-test
+f_result_cs42a <- var.test(batch1_cs42a, batch2_cs42a, alternative = "two.sided")
+f_result_cs42a
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2$$
+$$H_a: \sigma_1^2 \ne \sigma_2^2$$
+
+Test statistic: $F \approx$ `r round(f_result_cs42a$statistic, 3)` (NIST reports $F = 1.123$; our computed value matches)
+
+Numerator degrees of freedom: $\nu_1 = 239$
+
+Denominator degrees of freedom: $\nu_2 = 239$
+
+Significance level: $\alpha = 0.05$
+
+Critical values: $F_{1-\alpha/2,\nu_1,\nu_2} =$ `r round(qf(0.025, 239, 239), 4)`, $F_{\alpha/2,\nu_1,\nu_2} =$ `r round(qf(0.975, 239, 239), 3)`
+
+Critical region: Reject $H_0$ if $F <$ `r round(qf(0.025, 239, 239), 4)` or $F >$ `r round(qf(0.975, 239, 239), 3)`
+
+(NIST's case study text states the lower critical value as 0.845, which does not match our computed `r round(qf(0.025, 239, 239), 4)` for these degrees of freedom. NIST's own [F-Test](#sec-eda-f-test-for-equality-of-variances) technique page, using this identical ceramic strength data, states the lower critical value as 0.7756 — matching our computation exactly. We use the value consistent with both our own computation and NIST's own technique page, and flag the case study page's "0.845" as an apparent error.)
+
+**Two Sample t-Test**
+
+Since the F-test indicates that the two batch variances are equal, we can pool the variances for the two-sided, two-sample [t-test](#sec-eda-two-sample-t-test) to compare batch means.
+
+```{r}
+#| code-fold: true
+#| label: eda-ceramic-strength-t-test
+t_result_cs42a <- t.test(batch1_cs42a, batch2_cs42a, var.equal = TRUE)
+t_result_cs42a
+```
+
+$$H_0: \mu_1 = \mu_2$$
+$$H_a: \mu_1 \ne \mu_2$$
+
+Test statistic: $T \approx$ `r round(t_result_cs42a$statistic, 4)` (NIST reports $T = 13.3806$; our computed value matches)
+
+Pooled standard deviation: $s_p =$ `r round(sqrt(((239*sd(batch1_cs42a)^2)+(239*sd(batch2_cs42a)^2))/478), 4)`
+
+Degrees of freedom: $\nu = 478$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $t_{1-\alpha/2,\nu} =$ `r round(qt(0.975, 478), 3)`
+
+Critical region: Reject $H_0$ if $|T| >$ `r round(qt(0.975, 478), 3)`
+
+The t-test indicates that the mean for batch 1 is larger than the mean for batch 2 at the 5% significance level.
+
+**Conclusions**
+
+We can draw the following conclusions from the above analysis:
+
+- There is in fact a significant batch effect. This batch effect is consistent across labs and primary factors.
+- The magnitude of the difference is on the order of 75 to 100 (with batch 2 being smaller than batch 1). The standard deviations do not appear to be significantly different.
+- There is some skewness in the batches.
+
+This batch effect was completely unexpected by the scientific investigators in this study.
+
+Note that although the quantitative techniques support the conclusions of unequal means and equal standard deviations, they do not show the more subtle features of the data such as the presence of outliers and the skewness of the batch 2 data.
+
+##### Analysis of the Lab Effect {#sec-eda-42a4}
+
+**Box Plot**
+
+The next matter is to determine if there is a lab effect. The first step is to generate a [box plot](#sec-eda-box-plot) for the ceramic strength based on the lab.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-boxplot-lab
+#| fig-cap: "Box plot of ceramic strength by lab"
+ggplot(ceramic_cs, aes(factor(lab), y)) +
+  geom_boxplot() +
+  labs(x = "Lab", y = "Ceramic Strength") +
+  theme_light()
+```
+
+This box plot shows the following:
+
+- There is minor variation in the medians for the 8 labs.
+- The scales are relatively constant for the labs.
+- Two of the labs (3 and 5) have outliers on the low side.
+
+**Box Plot for Batch 1**
+
+Given that the previous section showed a distinct batch effect, the next step is to generate the box plots for the two batches separately.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-boxplot-lab-batch1
+#| fig-cap: "Box plot of ceramic strength by lab, batch 1 only"
+ggplot(filter(ceramic_cs, batch == 1), aes(factor(lab), y)) +
+  geom_boxplot() +
+  labs(x = "Lab", y = "Ceramic Strength") +
+  theme_light()
+```
+
+This box plot shows the following:
+
+- Each of the labs has a median in the 650 to 700 range.
+- The variability is relatively constant across the labs.
+- Each of the labs has at least one outlier on the low side.
+
+**Box Plot for Batch 2**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-boxplot-lab-batch2
+#| fig-cap: "Box plot of ceramic strength by lab, batch 2 only"
+ggplot(filter(ceramic_cs, batch == 2), aes(factor(lab), y)) +
+  geom_boxplot() +
+  labs(x = "Lab", y = "Ceramic Strength") +
+  theme_light()
+```
+
+This box plot shows the following:
+
+- The medians are in the range 550 to 600.
+- There is a bit more variability, across the labs, for batch 2 compared to batch 1.
+- Six of the eight labs show outliers on the high side. Three of the labs show outliers on the low side.
+
+**Conclusions**
+
+We can draw the following conclusions about a possible lab effect from the above box plots.
+
+- The batch effect (of approximately 75 to 100 units) on location dominates any lab effects.
+- It is reasonable to treat the labs as homogeneous.
+
+##### Analysis of Primary Factors {#sec-eda-42a5}
+
+**Main Effects**
+
+The first step in analyzing the primary factors is to determine which factors are the most significant. The [DOE scatter plot](#sec-eda-doe-scatter-plot), [DOE mean plot](#sec-eda-doe-mean-plot), and the [DOE standard deviation plot](#sec-eda-doe-standard-deviation-plot) will be the primary tools, with "DOE" being short for "design of experiments".
+
+Since the previous pages showed a significant batch effect but a minimal lab effect, we will generate separate plots for batch 1 and batch 2. However, the labs will be treated as equivalent.
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-ceramic-strength-doe-plots
+#| message: false
+ceramic_b1_cs42a <- filter(ceramic_cs, batch == 1)
+ceramic_b2_cs42a <- filter(ceramic_cs, batch == 2)
+
+doe_scatter_panels_cs42a <- function(df) {
+  df |>
+    select(x1, x2, x3, y) |>
+    pivot_longer(c(x1, x2, x3), names_to = "factor", values_to = "level") |>
+    mutate(factor = toupper(factor)) |>
+    ggplot(aes(level, y)) +
+    geom_hline(yintercept = mean(df$y)) +
+    geom_point(alpha = 0.5) +
+    facet_wrap(~factor, nrow = 1) +
+    scale_x_continuous(breaks = c(-1, 1), labels = c("-1", "+1"), limits = c(-1.5, 1.5)) +
+    labs(x = NULL, y = "Ceramic Strength") +
+    theme_light()
+}
+
+doe_mean_panels_cs42a <- function(df) {
+  df |>
+    select(x1, x2, x3, y) |>
+    pivot_longer(c(x1, x2, x3), names_to = "factor", values_to = "level") |>
+    mutate(factor = toupper(factor)) |>
+    summarize(mean_y = mean(y), .by = c(factor, level)) |>
+    ggplot(aes(factor(level), mean_y, group = factor)) +
+    geom_line() +
+    geom_point(size = 2) +
+    facet_wrap(~factor, nrow = 1) +
+    labs(x = "Level", y = "Mean Ceramic Strength") +
+    theme_light()
+}
+
+doe_sd_panels_cs42a <- function(df) {
+  df |>
+    select(x1, x2, x3, y) |>
+    pivot_longer(c(x1, x2, x3), names_to = "factor", values_to = "level") |>
+    mutate(factor = toupper(factor)) |>
+    summarize(sd_y = sd(y), .by = c(factor, level)) |>
+    ggplot(aes(factor(level), sd_y, group = factor)) +
+    geom_line() +
+    geom_point(size = 2) +
+    facet_wrap(~factor, nrow = 1) +
+    labs(x = "Level", y = "Standard Deviation of Ceramic Strength") +
+    theme_light()
+}
+```
+
+**DOE Scatter Plot for Batch 1**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-scatter-b1
+#| fig-cap: "DOE scatter plot of ceramic strength versus X1, X2, X3, batch 1"
+doe_scatter_panels_cs42a(ceramic_b1_cs42a)
+```
+
+This DOE scatter plot shows the following for batch 1:
+
+- Most of the points are between 500 and 800.
+- There are about a dozen or so points between 300 and 500.
+- Except for the outliers on the low side (i.e., the points between 300 and 500), the distribution of the points is comparable for the 3 primary factors in terms of location and spread.
+
+**DOE Mean Plot for Batch 1**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-mean-b1
+#| fig-cap: "DOE mean plot of ceramic strength versus X1, X2, X3, batch 1"
+doe_mean_panels_cs42a(ceramic_b1_cs42a)
+```
+
+This DOE mean plot shows the following for batch 1:
+
+- The table speed factor ($X_1$) is the most significant factor with an effect, the difference between the two points, of approximately 31 units.
+- The wheel grit factor ($X_3$) is the next most significant factor with an effect of approximately 7 units.
+- The feed rate factor ($X_2$) has minimal effect.
+
+**DOE SD Plot for Batch 1**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-sd-b1
+#| fig-cap: "DOE standard deviation plot of ceramic strength versus X1, X2, X3, batch 1"
+doe_sd_panels_cs42a(ceramic_b1_cs42a)
+```
+
+This DOE standard deviation plot shows the following for batch 1:
+
+- The table speed factor ($X_1$) has a significant difference in variability between the levels of the factor. The difference is approximately 19 units.
+- The wheel grit factor ($X_3$) and the feed rate factor ($X_2$) have minimal differences in variability.
+
+**DOE Scatter Plot for Batch 2**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-scatter-b2
+#| fig-cap: "DOE scatter plot of ceramic strength versus X1, X2, X3, batch 2"
+doe_scatter_panels_cs42a(ceramic_b2_cs42a)
+```
+
+This DOE scatter plot shows the following for batch 2:
+
+- Most of the points are between 450 and 750.
+- There are a few outliers on both the low side and the high side.
+- Except for the outliers (i.e., the points less than 450 or greater than 750), the distribution of the points is comparable for the 3 primary factors in terms of location and spread.
+
+**DOE Mean Plot for Batch 2**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-mean-b2
+#| fig-cap: "DOE mean plot of ceramic strength versus X1, X2, X3, batch 2"
+doe_mean_panels_cs42a(ceramic_b2_cs42a)
+```
+
+This DOE mean plot shows the following for batch 2:
+
+- The feed rate ($X_2$) and wheel grit ($X_3$) factors have an approximately equal effect of about 15 to 18 units.
+- The table speed factor ($X_1$) has a minimal effect.
+
+**DOE SD Plot for Batch 2**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-sd-b2
+#| fig-cap: "DOE standard deviation plot of ceramic strength versus X1, X2, X3, batch 2"
+doe_sd_panels_cs42a(ceramic_b2_cs42a)
+```
+
+This DOE standard deviation plot shows the following for batch 2:
+
+- The difference in the standard deviations is roughly comparable for the three factors (slightly less for the feed rate factor).
+
+**Interaction Effects**
+
+The above plots graphically show the main effects. An additional concern is whether or not there are any significant interaction effects.
+
+Main effects and 2-term interaction effects are discussed in the chapter on Process Improvement<!-- XREF: Process Improvement chapter landing page; source handbook/pri/pri.htm -->.
+
+In the following DOE interaction plots, the labels on the plot give the variables and the estimated effect. For example, factor 1 is table speed and it has an estimated effect of 30.77 (it is actually -30.77 if the direction is taken into account).
+
+```{r}
+#| code-fold: true
+#| label: eda-ceramic-strength-doe-interaction-setup
+#| message: false
+library(patchwork)
+
+# Same construction used on the DOE Scatter Plot / DOE Mean Plot technique
+# pages' "Extension for Interaction Effects" sections: a k-by-k matrix of
+# panels, with a single-factor mean plot on the diagonal and a two-factor
+# interaction mean plot (factor levels multiplied together) off the
+# diagonal, each panel labeled with its estimated effect (the level-2 mean
+# minus the level-1 mean).
+interaction_effect_panel_cs42a <- function(df, x, label, y_range) {
+  means <- tibble(x = x, y = df$y) |> summarize(mean_y = mean(y), .by = x) |> arrange(x)
+  effect <- diff(means$mean_y)
+  ggplot(means, aes(x, mean_y)) +
+    geom_hline(yintercept = mean(df$y), color = "grey60") +
+    geom_line(linetype = "dashed") +
+    geom_point(size = 2) +
+    scale_x_continuous(breaks = c(-1, 1), limits = c(-1.5, 1.5)) +
+    scale_y_continuous(limits = y_range) +
+    labs(title = paste0(label, ": ", round(effect, 2)), x = NULL, y = NULL) +
+    theme_light() +
+    theme(plot.title = element_text(hjust = 0.5, size = 9))
+}
+
+interaction_grid_cs42a <- function(df) {
+  # A shared y-axis range across all 9 panels (computed from every panel's
+  # level means, with a little padding) makes the relative magnitude of
+  # each effect directly comparable at a glance.
+  factor_combos <- list(df$x1, df$x1 * df$x2, df$x1 * df$x3, df$x2, df$x2 * df$x3, df$x3)
+  all_means <- c(unlist(map(factor_combos, function(x) {
+    tibble(x = x, y = df$y) |> summarize(mean_y = mean(y), .by = x) |> pull(mean_y)
+  })), mean(df$y))
+  y_range <- range(all_means) + c(-5, 5)
+
+  blank <- plot_spacer()
+  p_x1   <- interaction_effect_panel_cs42a(df, df$x1, "X1", y_range)
+  p_x1x2 <- interaction_effect_panel_cs42a(df, df$x1 * df$x2, "X1*X2", y_range)
+  p_x1x3 <- interaction_effect_panel_cs42a(df, df$x1 * df$x3, "X1*X3", y_range)
+  p_x2   <- interaction_effect_panel_cs42a(df, df$x2, "X2", y_range)
+  p_x2x3 <- interaction_effect_panel_cs42a(df, df$x2 * df$x3, "X2*X3", y_range)
+  p_x3   <- interaction_effect_panel_cs42a(df, df$x3, "X3", y_range)
+
+  (p_x1   + p_x1x2 + p_x1x3) /
+    (blank  + p_x2   + p_x2x3) /
+    (blank  + blank  + p_x3)
+}
+```
+
+**DOE Interaction Plot for Batch 1**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-interaction-b1
+#| fig-cap: "DOE interaction effects plot for X1, X2, X3, batch 1, with each panel labeled by its estimated effect"
+interaction_grid_cs42a(ceramic_b1_cs42a)
+```
+
+The ranked list of factors for batch 1 is:
+
+- Table speed ($X_1$) with an estimated effect of -30.77.
+- The interaction of table speed ($X_1$) and wheel grit ($X_3$) with an estimated effect of -20.25.
+- The interaction of table speed ($X_1$) and feed rate ($X_2$) with an estimated effect of 9.70.
+- Wheel grit ($X_3$) with an estimated effect of -7.18.
+- Down feed ($X_2$) and the down feed interaction with wheel grit ($X_3$) are essentially zero.
+
+**DOE Interaction Plot for Batch 2**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-ceramic-strength-doe-interaction-b2
+#| fig-cap: "DOE interaction effects plot for X1, X2, X3, batch 2, with each panel labeled by its estimated effect"
+interaction_grid_cs42a(ceramic_b2_cs42a)
+```
+
+The ranked list of factors for batch 2 is:
+
+- Down feed ($X_2$) with an estimated effect of 18.22.
+- The interaction of table speed ($X_1$) and wheel grit ($X_3$) with an estimated effect of -16.71.
+- Wheel grit ($X_3$) with an estimated effect of -14.71.
+- Remaining main effect and 2-factor interaction effects are essentially zero.
+
+Our computed effects (verified independently in R via a full three-factor linear model on the coded $\pm 1$ factors) match NIST's reported values essentially exactly for both batches.
+
+**Conclusions**
+
+From the above plots, we can draw the following overall conclusions:
+
+- The batch effect (of approximately 75 units) is the dominant primary factor.
+- The most important factors differ from batch to batch. See the above text for the ranked list of factors with the estimated effects.

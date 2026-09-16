@@ -138,7 +138,7 @@ The box plot is also an effective tool for summarizing large quantities of infor
 
 **Case Study**
 
-The box plot is demonstrated in the ceramic strength<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm --> data case study.
+The box plot is demonstrated in the [ceramic strength](#sec-eda-42a) data case study.
 
 **Software**
 

@@ -154,7 +154,7 @@ The block plot is a graphical technique that pointedly focuses on whether or not
 
 **Case Study**
 
-The block plot is demonstrated in the ceramic strength<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm --> data case study.
+The block plot is demonstrated in the [ceramic strength](#sec-eda-42a) data case study.
 
 **Software**
 

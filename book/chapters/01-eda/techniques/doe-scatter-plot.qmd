@@ -151,7 +151,7 @@ We can then examine the off-diagonal plots for the first order interaction effec
 
 **Case Study**
 
-The DOE scatter plot is demonstrated in the ceramic strength data case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm -->
+The DOE scatter plot is demonstrated in the [ceramic strength](#sec-eda-42a) data case study.
 
 **Software**
 

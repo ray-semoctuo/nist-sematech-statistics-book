@@ -168,7 +168,7 @@ This plot shows that the most significant factor is $X_1$ (the largest change in
 
 **Case Study**
 
-The DOE mean plot and the DOE interaction effects plot are demonstrated in the ceramic strength data case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm -->
+The DOE mean plot and the DOE interaction effects plot are demonstrated in the [ceramic strength](#sec-eda-42a) data case study.
 
 **Software**
 

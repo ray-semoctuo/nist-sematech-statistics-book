@@ -97,7 +97,7 @@ The bihistogram is an important EDA tool for determining if a factor "has an eff
 
 **Case Study**
 
-The bihistogram is demonstrated in the ceramic strength<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm --> data case study.
+The bihistogram is demonstrated in the [ceramic strength](#sec-eda-42a) data case study.
 
 **Software**
 

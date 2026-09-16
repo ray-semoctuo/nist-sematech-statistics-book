@@ -93,7 +93,7 @@ The goal with many designed experiments is to determine which factors are signif
 
 **Case Study**
 
-The DOE standard deviation plot is demonstrated in the ceramic strength data case study.<!-- XREF: EDA Case Studies (Section 1.4), Ceramic Strength; source handbook/eda/section4/eda42a.htm -->
+The DOE standard deviation plot is demonstrated in the [ceramic strength](#sec-eda-42a) data case study.
 
 **Software**
 
