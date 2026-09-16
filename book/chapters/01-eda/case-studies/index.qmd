@@ -123,7 +123,7 @@ The remaining case studies intermix one or more of these quantitative techniques
 - [Beam Deflections](#sec-eda-425)
 - [Filter Transmittance](#sec-eda-426)
 - [Standard Resistor](#sec-eda-427)
-- Heat Flow Meter 1<!-- XREF: EDA Case Studies (Section 1.4.2.8), Heat Flow Meter 1, not yet migrated to this book; source handbook/eda/section4/eda428.htm -->
+- [Heat Flow Meter 1](#sec-eda-428)
 
 **Reliability**
 
@@ -146,3 +146,5 @@ The remaining case studies intermix one or more of these quantitative techniques
 {{< include case-studies/filter-transmittance.qmd >}}
 
 {{< include case-studies/standard-resistor.qmd >}}
+
+{{< include case-studies/heat-flow-meter-1.qmd >}}

@@ -130,7 +130,7 @@ If the randomness assumption is not valid, then a different model needs to be us
 
 **Case Study**
 
-The runs test is demonstrated in the heat flow meter<!-- XREF: EDA Case Studies (Section 1.4), Heat Flow Meter 1; source handbook/eda/section4/eda428.htm --> data case study.
+The runs test is demonstrated in the [heat flow meter](#sec-eda-428) data case study.
 
 **Software**
 

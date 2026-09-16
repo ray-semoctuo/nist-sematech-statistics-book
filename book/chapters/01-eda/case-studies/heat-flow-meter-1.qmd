@@ -1,0 +1,412 @@
+#### Heat Flow Meter 1 {#sec-eda-428}
+
+This example illustrates the univariate analysis of heat flow meter calibration data.
+
+1. [Background and Data](#sec-eda-4281)
+2. [Graphical Output and Interpretation](#sec-eda-4282)
+3. [Quantitative Output and Interpretation](#sec-eda-4283)
+4. [Work This Example Yourself](#sec-eda-4284)
+
+##### Background and Data {#sec-eda-4281}
+
+**Generation**
+
+This data set was collected by Bob Zarr of NIST in January, 1990 from a heat flow meter calibration and stability analysis. The response variable is a calibration factor.
+
+The motivation for studying this data set is to illustrate a well-behaved process where the underlying assumptions hold and the process is in statistical control.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`ZARR13.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-heat-flow-meter-1
+#| message: false
+library(tidyverse)
+
+zarr_cs <- scan(here::here("datasets", "ZARR13.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = zarr_cs)
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4282}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-heat-flow-meter-1-4-plot
+#| fig-cap: "4-plot of the heat flow meter data"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs428 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs428 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs428(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs428(zarr_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time.
+- The [lag plot](#sec-eda-lag-plot) (upper right) does not indicate any non-random pattern in the data.
+- The [histogram](#sec-eda-histogram) (lower left) shows that the data are reasonably symmetric, there does not appear to be significant outliers in the tails, and it seems reasonable to assume that the data are from approximately a normal distribution.
+- The [normal probability plot](#sec-eda-normal-probability-plot) (lower right) verifies that an assumption of normality is in fact reasonable.
+
+**Individual Plots**
+
+Although it is generally unnecessary, the plots can be generated individually to give more detail.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-heat-flow-meter-1-run-sequence
+#| fig-cap: "Run sequence plot of the heat flow meter data"
+tibble(i = seq_along(zarr_cs), y = zarr_cs) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-heat-flow-meter-1-lag
+#| fig-cap: "Lag plot of the heat flow meter data"
+n_cs428 <- length(zarr_cs)
+tibble(y = zarr_cs[-1], y_lag = zarr_cs[-n_cs428]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-heat-flow-meter-1-histogram
+#| fig-cap: "Histogram of the heat flow meter data, with overlaid normal PDF"
+ggplot(tibble(y = zarr_cs), aes(y)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 30, color = "white", fill = "steelblue4") +
+  stat_function(fun = dnorm, args = list(mean = mean(zarr_cs), sd = sd(zarr_cs)), color = "firebrick") +
+  labs(x = "Y", y = "Density") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-heat-flow-meter-1-normal-probability
+#| fig-cap: "Normal probability plot of the heat flow meter data"
+theoretical_cs428 <- qnorm(uniform_medians_cs428(n_cs428))
+tibble(theoretical = theoretical_cs428, observed = sort(zarr_cs)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+  labs(x = "Theoretical", y = "Ordered Y") +
+  theme_light()
+```
+
+##### Quantitative Output and Interpretation {#sec-eda-4283}
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics are computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-summary-statistics
+tibble(
+  `Sample Size` = length(zarr_cs),
+  Mean = mean(zarr_cs),
+  Median = median(zarr_cs),
+  Minimum = min(zarr_cs),
+  Maximum = max(zarr_cs),
+  Range = diff(range(zarr_cs)),
+  `Stan. Dev.` = sd(zarr_cs)
+)
+```
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-location-fit
+location_fit_cs428 <- lm(zarr_cs ~ seq_along(zarr_cs))
+summary(location_fit_cs428)
+```
+
+The slope parameter, $B_1$, has a t-value of `r round(summary(location_fit_cs428)$coefficients[2, 3], 2)`, which is (barely) statistically significant since it is essentially equal to the 95% level cutoff of -1.96. However, notice that the value of the slope parameter estimate is `r formatC(coef(location_fit_cs428)[2], format = "f", digits = 5)`. This slope, even though statistically significant, can essentially be considered zero.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal-sized intervals. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-bartlett
+# N=195 is not evenly divisible by 4; quarters are sized as evenly as
+# possible (49, 49, 49, 48), matching the same approach used for the
+# Filter Transmittance case study's Levene test grouping.
+quarter_cs428 <- as.factor(ceiling(4 * seq_len(n_cs428) / n_cs428))
+bartlett_cs428 <- bartlett.test(zarr_cs, quarter_cs428)
+bartlett_cs428
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $T \approx$ `r round(bartlett_cs428$statistic, 3)` (NIST reports $T = 3.147$; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $\chi^2_{1-\alpha,k-1} =$ `r round(qchisq(0.95, 3), 3)`
+
+Critical region: Reject $H_0$ if $T >$ `r round(qchisq(0.95, 3), 3)`
+
+In this case, since the Bartlett test statistic is less than the critical value at the 5% significance level, we conclude that the variances are not significantly different in the four intervals. That is, the assumption of constant scale is valid.
+
+**Randomness**
+
+There are many ways in which data can be non-random. However, most common forms of non-randomness can be detected with a few simple tests. The lag plot in the previous section is a simple graphical technique.
+
+Another check is an [autocorrelation plot](#sec-eda-autocorrelation-plot) that shows the autocorrelations for various lags. Confidence bands can be plotted at the 95% and 99% confidence levels. Points outside this band indicate statistically significant values (lag 0 is always 1).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-heat-flow-meter-1-autocorrelation
+#| fig-cap: "Autocorrelation plot of the heat flow meter data"
+acf_cs428 <- acf(zarr_cs, lag.max = 35, plot = FALSE)
+ci95_cs428 <- qnorm(0.975) / sqrt(n_cs428)
+ci99_cs428 <- qnorm(0.995) / sqrt(n_cs428)
+
+tibble(lag = as.integer(acf_cs428$lag), acf = as.numeric(acf_cs428$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs428, ci95_cs428), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs428, ci99_cs428), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+The lag 1 autocorrelation, which is generally the one of greatest interest, is `r round(acf_cs428$acf[2], 3)`. The critical values at the 5% significance level are $\pm$ `r round(ci95_cs428, 3)`. This indicates that the lag 1 autocorrelation is statistically significant, so there is evidence of non-randomness.
+
+A common test for randomness is the [runs test](#sec-eda-runs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-runs-test
+#| message: false
+# As in several earlier case studies, a small number of ties at the
+# median (2 of 195 values here) is enough to make the median-based
+# tie-dropping runs test used elsewhere in this book diverge from NIST's
+# own result. We use lawstat::runs.test() directly to reproduce NIST's
+# reported statistic exactly.
+library(lawstat)
+
+runs_cs428 <- runs.test(zarr_cs)
+runs_cs428
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(runs_cs428$statistic, 4)` (NIST reports $Z = -3.2306$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(qnorm(0.975), 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(qnorm(0.975), 2)`
+
+The value of the test statistic is less than -1.96, so we reject the null hypothesis at the 0.05 significance level and conclude that the data are not random.
+
+Although the autocorrelation plot and the runs test indicate some mild non-randomness, the violation of the randomness assumption is not serious enough to warrant developing a more sophisticated model. It is common in practice that some of the assumptions are mildly violated and it is a judgement call as to whether or not the violations are serious enough to warrant developing a more sophisticated model for the data.
+
+**Distributional Analysis**
+
+[Probability plots](#sec-eda-probability-plot) are a graphical test for assessing if a particular distribution provides an adequate fit to a data set. A quantitative enhancement to the probability plot is the correlation coefficient of the points on the probability plot.
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-ppcc
+ppcc_cs428 <- cor(sort(zarr_cs), theoretical_cs428)
+ppcc_cs428
+```
+
+Our computed correlation coefficient is `r round(ppcc_cs428, 3)` (NIST states 0.996; our directly computed value, using the same Filliben plotting-position formula used throughout this book, comes out noticeably closer to 1 — we cannot account for the small gap, but it does not change the conclusion either way). Since this is greater than the critical value of 0.987 (this is a tabulated value), the normality assumption is not rejected.
+
+[Chi-square](#sec-eda-chi-square-goodness-of-fit-test) and [Kolmogorov-Smirnov](#sec-eda-kolmogorov-smirnov-test) goodness-of-fit tests are alternative methods for assessing distributional adequacy. The Wilk-Shapiro and [Anderson-Darling](#sec-eda-anderson-darling-test) tests can be used to test for normality. The results of the Anderson-Darling test follow.
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-anderson-darling
+#| message: false
+library(nortest)
+
+ad_cs428 <- ad.test(zarr_cs)
+ad_cs428
+```
+
+$$H_0: \text{the data are normally distributed}$$
+$$H_a: \text{the data are not normally distributed}$$
+
+Adjusted test statistic: $A^2 \approx$ `r round(ad_cs428$statistic, 3)` (NIST reports $A^2 = 0.129$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: 0.787
+
+Critical region: Reject $H_0$ if $A^2 > 0.787$
+
+The Anderson-Darling test also does not reject the normality assumption because the test statistic is less than the critical value at the 5% significance level.
+
+**Outlier Analysis**
+
+A test for outliers is the [Grubbs' test](#sec-eda-grubbs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-grubbs
+alpha_cs428 <- 0.05
+g_stat_cs428 <- (max(zarr_cs) - mean(zarr_cs)) / sd(zarr_cs)
+
+# As in the Normal Random Numbers and Josephson Junction Cryothermometry
+# case studies, NIST's stated critical value here corresponds to the
+# two-sided formula (alpha/(2N)) rather than the one-sided formula
+# (alpha/N) used in the Grubbs' Test technique page's own worked example.
+t_crit_cs428 <- qt(1 - alpha_cs428 / (2 * n_cs428), df = n_cs428 - 2)
+g_crit_cs428 <- ((n_cs428 - 1) / sqrt(n_cs428)) * sqrt(t_crit_cs428^2 / (n_cs428 - 2 + t_crit_cs428^2))
+
+tibble(statistic = g_stat_cs428, critical_value = g_crit_cs428)
+```
+
+$$H_0: \text{there are no outliers in the data}$$
+$$H_a: \text{the maximum value is an outlier}$$
+
+Test statistic: $G \approx$ `r round(g_stat_cs428, 6)` (NIST reports $G = 2.918673$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value for an upper one-tailed test: `r round(g_crit_cs428, 6)` (NIST reports 3.597898; our computed value matches)
+
+Critical region: Reject $H_0$ if $G >$ `r round(g_crit_cs428, 6)`
+
+For this data set, Grubbs' test does not detect any outliers at the 0.05 significance level.
+
+**Model**
+
+Since the underlying assumptions were validated both graphically and analytically, with a mild violation of the randomness assumption, we conclude that a reasonable model for the data is:
+
+$$Y_i = 9.26146 + E_i$$
+
+We can express the uncertainty for $C$, here estimated by 9.26146, as a 95% confidence interval.
+
+```{r}
+#| code-fold: true
+#| label: eda-heat-flow-meter-1-ci
+ci_cs428 <- mean(zarr_cs) + c(-1, 1) * qt(0.975, n_cs428 - 1) * sd(zarr_cs) / sqrt(n_cs428)
+ci_cs428
+```
+
+Our computed 95% confidence interval, (`r round(ci_cs428[1], 6)`, `r round(ci_cs428[2], 6)`), matches NIST's reported interval of (9.258242, 9.26479).
+
+**Univariate Report**
+
+It is sometimes useful and convenient to summarize the above results in a report.
+
+```
+Analysis for heat flow meter data
+
+1: Sample Size                           = 195
+2: Location
+   Mean                                  = 9.26146
+   Standard Deviation of Mean            = 0.001632
+   95 % Confidence Interval for Mean     = (9.258242,9.264679)
+   Drift with respect to location?       = NO
+3: Variation
+   Standard Deviation                    = 0.022789
+   95 % Confidence Interval for SD       = (0.02073,0.025307)
+   Drift with respect to variation?
+   (based on Bartlett's test on quarters
+   of the data)                          = NO
+4: Randomness
+   Autocorrelation                       = 0.280579
+   Data are Random?
+     (as measured by autocorrelation)    = NO
+5: Data are Normal?
+     (as tested by Anderson-Darling)     = YES
+     (as tested by Normal PPCC)          = YES
+6: Statistical Control
+   (i.e., no drift in location or scale,
+   data are random, distribution is
+   fixed, here we are testing only for
+   fixed normal)
+   Data Set is in Statistical Control?   = YES
+7: Outliers?
+   (as determined by Grubbs' test)        = NO
+```
+
+##### Work This Example Yourself {#sec-eda-4284}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.
