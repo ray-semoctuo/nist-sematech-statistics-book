@@ -127,7 +127,7 @@ The remaining case studies intermix one or more of these quantitative techniques
 
 **Reliability**
 
-- Fatigue Life of Aluminum Alloy Specimens<!-- XREF: EDA Case Studies (Section 1.4.2.9), Fatigue Life of Aluminum Alloy Specimens, not yet migrated to this book; source handbook/eda/section4/eda429.htm -->
+- [Fatigue Life of Aluminum Alloy Specimens](#sec-eda-429)
 
 **Multi-Factor**
 
@@ -148,3 +148,5 @@ The remaining case studies intermix one or more of these quantitative techniques
 {{< include case-studies/standard-resistor.qmd >}}
 
 {{< include case-studies/heat-flow-meter-1.qmd >}}
+
+{{< include case-studies/fatigue-life-aluminum-alloy.qmd >}}

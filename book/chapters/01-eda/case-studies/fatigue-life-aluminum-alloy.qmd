@@ -1,0 +1,436 @@
+#### Fatigue Life of Aluminum Alloy Specimens {#sec-eda-429}
+
+This example illustrates the univariate analysis of the fatigue life of aluminum alloy specimens.
+
+1. [Background and Data](#sec-eda-4291)
+2. [Graphical Output and Interpretation](#sec-eda-4292)
+
+##### Background and Data {#sec-eda-4291}
+
+**Generation**
+
+This data set comprises measurements of fatigue life (thousands of cycles until rupture) of rectangular strips of 6061-T6 aluminum sheeting, subjected to periodic loading with maximum stress of 21,000 psi (pounds per square inch), as reported by Birnbaum and Saunders (1958)<!-- XREF: EDA bibliography entry for Birnbaum and Saunders; source handbook/eda/section4/eda43.htm -->.
+
+**Purpose of Analysis**
+
+The goal of this case study is to select a probabilistic model, from among several reasonable alternatives, to describe the dispersion of the resulting measured values of life-length.
+
+The original study, in the field of statistical reliability analysis, was concerned with the prediction of failure times of a material subjected to a load varying in time. It was well-known that a structure designed to withstand a particular static load may fail sooner than expected under a dynamic load.
+
+If a realistic model for the probability distribution of lifetime can be found, then it can be used to estimate the time by which a part or structure needs to be replaced to guarantee that the probability of failure does not exceed some maximum acceptable value, for example 0.1%, while it is in service.
+
+The chapter of this eHandbook that is concerned with the assessment of product reliability<!-- XREF: Assessing Product Reliability chapter landing page; source handbook/apr/apr.htm --> contains additional material on statistical methods used in reliability analysis. This case study is meant to complement that chapter by showing the use of graphical and other techniques in the model selection stage of such analysis.
+
+When there is no cogent reason to adopt a particular model, or when none of the models under consideration seems adequate for the purpose, one may opt for a non-parametric statistical method, for example to produce tolerance bounds or confidence intervals.
+
+A non-parametric method does not rely on the assumption that the data are like a sample from a particular probability distribution that is fully specified up to the values of some adjustable parameters. For example, the Gaussian probability distribution is a parametric model with two adjustable parameters.
+
+The price to be paid when using non-parametric methods is loss of efficiency, meaning that they may require more data for statistical inference than a parametric counterpart would, if applicable. For example, non-parametric confidence intervals for model parameters may be considerably wider than what a confidence interval would need to be if the underlying distribution could be identified correctly. Such identification is what we will attempt in this case study.
+
+It should be noted — a point that we will stress later in the development of this case study — that the very exercise of selecting a model often contributes substantially to the uncertainty of the conclusions derived after the selection has been made.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`BIRNSAUN.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-fatigue-life
+#| message: false
+library(tidyverse)
+
+fatigue_cs <- scan(here::here("datasets", "BIRNSAUN.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = fatigue_cs)
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4292}
+
+**Goal**
+
+The goal of this analysis is to select a probabilistic model to describe the dispersion of the measured values of fatigue life of specimens of an aluminum alloy described in [Background and Data](#sec-eda-4291), from among several reasonable alternatives.
+
+**Initial Plots of the Data**
+
+Simple diagrams can be very informative about location, spread, and to detect possibly anomalous data values or particular patterns (clustering, for example). These include dot-charts, boxplots, and histograms. Since building an effective histogram requires that a choice be made of bin size, and this choice can be influential, one may wish to examine a non-parametric estimate of the underlying probability density.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-fatigue-life-initial-plots
+#| fig-cap: "Dot chart, boxplot, histogram, and density estimate of the fatigue life data. The dot chart's vertical axis (like NIST's own plot) has no label; it is simply each observation's position in the data file, top to bottom -- not a meaningful ordering on its own. The banded/sawtooth appearance visible there is an artifact of how the data were laid out on the printed page: the full set of 101 measurements is sorted in increasing order and split into six columns meant to be read top-to-bottom within each column before moving to the next; but the printed table (and the data file transcribed from it) lists values row by row, left to right, across all six columns, which interleaves those six ascending runs into the banded pattern seen here. The boxplot's horizontal axis is labeled 'All Specimens' since it summarizes the single, undifferentiated batch of 101 measurements."
+#| message: false
+library(patchwork)
+
+p_dot <- tibble(y = fatigue_cs, i = seq_along(fatigue_cs)) |>
+  ggplot(aes(y, i)) +
+  geom_point(shape = 1) +
+  labs(x = "Fatigue Life (thousands of cycles)", y = NULL) +
+  theme_light()
+
+p_box <- tibble(y = fatigue_cs, x = "All Specimens") |>
+  ggplot(aes(x, y)) +
+  geom_boxplot() +
+  labs(y = "Fatigue Life (thousands of cycles)", x = NULL) +
+  theme_light()
+
+p_hist <- tibble(y = fatigue_cs) |>
+  ggplot(aes(y)) +
+  geom_histogram(bins = 15, color = "white", fill = "steelblue4") +
+  labs(x = "Fatigue Life (thousands of cycles)", y = "Count") +
+  theme_light()
+
+p_dens <- tibble(y = fatigue_cs) |>
+  ggplot(aes(y)) +
+  geom_density() +
+  labs(x = "Fatigue Life (thousands of cycles)", y = "Density") +
+  theme_light()
+
+(p_dot + p_box) / (p_hist + p_dens)
+```
+
+These several plots variously show that the measurements range from a value slightly greater than 350,000 to slightly less than 2,500,000 cycles. The boxplot suggests that the largest measured value may be an outlier.
+
+A recommended first step is to check consistency between the data and what is to be expected if the data were a sample from a particular probability distribution. Knowledge about the underlying properties of materials and of relevant industrial processes typically offer clues as to the models that should be entertained. Graphical diagnostic techniques can be very useful at this exploratory stage: foremost among these, for univariate data, is the [quantile-quantile plot](#sec-eda-quantile-quantile-plot), or QQ-plot (Wilk and Gnanadesikan, 1968)<!-- XREF: EDA bibliography entry for Wilk and Gnanadesikan; source handbook/eda/section4/eda43.htm -->.
+
+Each data point is represented by one point in the QQ-plot. The ordinate of each of these points is one data value; if this data value happens to be the $k$th order statistic in the sample (that is, the $k$th largest value), then the corresponding abscissa is the "typical" value that the $k$th largest value should have in a sample of the same size as the data, drawn from a particular distribution. If $F$ denotes the cumulative probability distribution function of interest, and the sample comprises $n$ values, then
+
+$$F^{-1}\left[\frac{k - 1/2}{n + 1/2}\right]$$
+
+is a reasonable choice for that "typical" value, because it is an approximation to the median of the $k$th order statistic in a sample of size $n$ from this distribution.
+
+The following figure shows a QQ-plot of our data relative to the Gaussian (or, normal) probability distribution. If the data matched expectations perfectly, then the points would all fall on a straight line.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-fatigue-life-qq-normal
+#| fig-cap: "QQ-plot of the fatigue life data against the Gaussian distribution"
+n_cs429 <- length(fatigue_cs)
+ppoints_cs429 <- (seq_len(n_cs429) - 0.5) / n_cs429
+
+tibble(theoretical = qnorm(ppoints_cs429), observed = sort(fatigue_cs)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(color = "firebrick") +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_light()
+```
+
+In practice, one needs to gauge whether the deviations from such perfect alignment are commensurate with the natural variability associated with sampling. This can easily be done by examining how variable QQ-plots of samples from the target distribution may be.
+
+The following figure shows, superimposed on the QQ-plot of the data, the QQ-plots of 99 samples of the same size as the data, drawn from a Gaussian distribution with the same mean and standard deviation as the data.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-fatigue-life-qq-envelope
+#| fig-cap: "QQ-plot of the data (red) overlaid with QQ-plots of 99 Gaussian samples of the same size (blue)"
+set.seed(20240613)
+x_bar_cs429 <- mean(fatigue_cs)
+x_sd_cs429 <- sd(fatigue_cs)
+n_boot_qq_cs429 <- 99
+
+boot_qq_cs429 <- map_dfr(seq_len(n_boot_qq_cs429), function(i) {
+  s <- rnorm(n_cs429, mean = x_bar_cs429, sd = x_sd_cs429)
+  tibble(theoretical = qnorm(ppoints_cs429), observed = sort(s), sample = i)
+})
+
+ggplot() +
+  geom_point(data = boot_qq_cs429, aes(theoretical, observed), color = "steelblue", shape = 1, alpha = 0.3) +
+  geom_point(data = tibble(theoretical = qnorm(ppoints_cs429), observed = sort(fatigue_cs)),
+             aes(theoretical, observed), color = "firebrick") +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_light()
+```
+
+The fact that the cloud of QQ-plots corresponding to 99 samples from the Gaussian distribution effectively covers the QQ-plot for the data, suggests that the chances are better than 1 in 100 that our data are inconsistent with the Gaussian model.
+
+This proves nothing, of course, because even the rarest of events may happen. However, it is commonly taken to be indicative of an acceptable fit for general purposes. In any case, one may naturally wonder if an alternative model might not provide an even better fit.
+
+Knowing the provenance of the data, that they portray strength of a material, strongly suggests that one may like to examine alternative models, because in many studies of reliability non-Gaussian models tend to be more appropriate than Gaussian models.
+
+**Candidate Distributions**
+
+There are many probability distributions that could reasonably be entertained as candidate models for the data. However, we will restrict ourselves to consideration of the following because these have proven to be useful in reliability studies.
+
+- [Normal distribution](#sec-eda-normal-distribution)
+- [Gamma distribution](#sec-eda-gamma-distribution)
+- Birnbaum-Saunders distribution
+- 3-parameter [Weibull distribution](#sec-eda-weibull-distribution)
+
+**Approach**
+
+A very simple approach amounts to comparing QQ-plots of the data for the candidate models under consideration. This typically involves first fitting the models to the data, for example employing the method of maximum likelihood<!-- XREF: EDA Section 1.3.6.5.2, Maximum Likelihood; source handbook/eda/section3/eda3652.htm -->.
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-mle-fits
+# Birnbaum-Saunders density and quantile function, in closed form (the
+# original "bs" R package used by NIST's own script is no longer
+# available on CRAN, so we implement these directly).
+dbs_cs429 <- function(x, alpha, beta, log = FALSE) {
+  z <- (sqrt(x / beta) - sqrt(beta / x)) / alpha
+  dz <- (sqrt(beta / x) + (beta / x)^1.5) / (2 * alpha * beta)
+  ld <- dnorm(z, log = TRUE) + log(dz)
+  if (log) ld else exp(ld)
+}
+qbs_cs429 <- function(p, alpha, beta) {
+  z <- qnorm(p)
+  (beta / 4) * (alpha * z + sqrt((alpha * z)^2 + 4))^2
+}
+
+x_cs429 <- fatigue_cs
+
+# Gaussian: closed-form MLE.
+mu_gau_cs429 <- mean(x_cs429)
+sigma_gau_cs429 <- sqrt(mean((x_cs429 - mu_gau_cs429)^2))
+
+# Gamma: numerical MLE.
+negloglik_gam_cs429 <- function(p) {
+  a <- p[1]; l <- p[2]
+  if (a <= 0 || l <= 0) return(1e10)
+  -sum(dgamma(x_cs429, shape = a, rate = l, log = TRUE))
+}
+fit_gam_cs429 <- optim(c((mean(x_cs429) / sd(x_cs429))^2, mean(x_cs429) / var(x_cs429)),
+                        negloglik_gam_cs429, method = "Nelder-Mead")
+
+# Birnbaum-Saunders: numerical MLE.
+negloglik_bs_cs429 <- function(p) {
+  a <- p[1]; b <- p[2]
+  if (a <= 0 || b <= 0) return(1e10)
+  -sum(dbs_cs429(x_cs429, a, b, log = TRUE))
+}
+fit_bs_cs429 <- optim(c(0.25, 30), negloglik_bs_cs429, method = "Nelder-Mead")
+
+# 3-parameter Weibull: numerical MLE, constrained so the threshold stays
+# below the minimum observation.
+negloglik_wei_cs429 <- function(p) {
+  xi <- p[1]; beta <- p[2]; eta <- p[3]
+  if (beta <= 0 || eta <= 0 || xi >= min(x_cs429)) return(1e10)
+  -sum(dweibull(x_cs429 - xi, shape = beta, scale = eta, log = TRUE))
+}
+fit_wei_cs429 <- optim(c(100, 2, 15), negloglik_wei_cs429, method = "L-BFGS-B",
+                        lower = c(-Inf, 1e-6, 1e-6), upper = c(min(x_cs429) - 1e-6, Inf, Inf))
+
+tibble(
+  distribution = c("Gaussian", "Gamma", "Birnbaum-Saunders", "3-parameter Weibull"),
+  parameters = c(
+    paste0("mean = ", round(mu_gau_cs429), ", sd = ", round(sigma_gau_cs429)),
+    paste0("shape = ", round(fit_gam_cs429$par[1], 2), ", rate = ", round(fit_gam_cs429$par[2], 5)),
+    paste0("shape = ", round(fit_bs_cs429$par[1], 3), ", scale = ", round(fit_bs_cs429$par[2])),
+    paste0("location = ", round(fit_wei_cs429$par[1]), ", shape = ", round(fit_wei_cs429$par[2], 2), ", scale = ", round(fit_wei_cs429$par[3]))
+  )
+)
+```
+
+The maximum likelihood estimates are the following (matching NIST's reported values almost exactly):
+
+- Gaussian: mean 1401, standard deviation 389
+- Gamma: shape 11.85, rate 0.00846
+- Birnbaum-Saunders: shape 0.310, scale 1337
+- 3-parameter Weibull: location 181, shape 3.43, scale 1357
+
+The following figure shows how close (or how far) the best fitting probability densities of the four distributions approximate the non-parametric probability density estimate. This comparison, however, takes into account neither the fact that our sample is fairly small (101 measured values), nor that the fitted models themselves have been estimated from the same data that the non-parametric estimate was derived from.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-fatigue-life-density-overlay
+#| fig-cap: "Non-parametric density estimate of the fatigue life data with overlaid fitted densities"
+xl_cs429 <- mean(x_cs429) - 3 * sd(x_cs429)
+xu_cs429 <- mean(x_cs429) + 3 * sd(x_cs429)
+grid_cs429 <- seq(xl_cs429, xu_cs429, length.out = 300)
+
+overlay_cs429 <- bind_rows(
+  tibble(x = grid_cs429, density = dnorm(grid_cs429, mu_gau_cs429, sigma_gau_cs429), model = "Gaussian"),
+  tibble(x = grid_cs429, density = dgamma(grid_cs429, shape = fit_gam_cs429$par[1], rate = fit_gam_cs429$par[2]), model = "Gamma"),
+  tibble(x = grid_cs429[grid_cs429 > 0], density = dbs_cs429(grid_cs429[grid_cs429 > 0], fit_bs_cs429$par[1], fit_bs_cs429$par[2]), model = "Birnbaum-Saunders"),
+  tibble(x = grid_cs429, density = dweibull(pmax(grid_cs429 - fit_wei_cs429$par[1], 0), shape = fit_wei_cs429$par[2], scale = fit_wei_cs429$par[3]), model = "Weibull")
+)
+
+ggplot() +
+  geom_density(data = tibble(y = x_cs429), aes(y), color = "black") +
+  geom_line(data = overlay_cs429, aes(x, density, color = model), linewidth = 0.7) +
+  labs(x = "Fatigue Life (thousands of cycles)", y = "Density", color = NULL) +
+  theme_light()
+```
+
+These limitations notwithstanding, it is worth examining the corresponding QQ-plots, shown below, which suggest that the Gaussian and the 3-parameter Weibull may be the best models.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-fatigue-life-qq-overlay
+#| fig-cap: "QQ-plots of the fatigue life data for each of the four candidate distributions"
+xy_cs429 <- bind_rows(
+  tibble(theoretical = sort(qnorm(ppoints_cs429, mu_gau_cs429, sigma_gau_cs429)), observed = sort(x_cs429), model = "Gaussian"),
+  tibble(theoretical = sort(qgamma(ppoints_cs429, shape = fit_gam_cs429$par[1], rate = fit_gam_cs429$par[2])), observed = sort(x_cs429), model = "Gamma"),
+  tibble(theoretical = sort(qbs_cs429(ppoints_cs429, fit_bs_cs429$par[1], fit_bs_cs429$par[2])), observed = sort(x_cs429), model = "Birnbaum-Saunders"),
+  tibble(theoretical = sort(fit_wei_cs429$par[1] + qweibull(ppoints_cs429, shape = fit_wei_cs429$par[2], scale = fit_wei_cs429$par[3])), observed = sort(x_cs429), model = "Weibull")
+)
+
+ggplot(xy_cs429, aes(theoretical, observed, color = model, shape = model)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles", color = NULL, shape = NULL) +
+  theme_light()
+```
+
+**Model Selection**
+
+A more careful comparison of the merits of the alternative models needs to take into account the fact that the 3-parameter Weibull model (precisely because it has three parameters), may be intrinsically more flexible than the others, which all have two adjustable parameters only.
+
+Two criteria can be employed for a formal comparison: Akaike's Information Criterion (AIC), and the Bayesian Information Criterion (BIC) (Hastie et al., 2001)<!-- XREF: EDA bibliography entry for Hastie, Tibshirani, and Friedman; source handbook/eda/section4/eda43.htm -->. The smaller the value of either model selection criterion, the better the model.
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-aic-bic
+ll_gau_cs429 <- sum(dnorm(x_cs429, mu_gau_cs429, sigma_gau_cs429, log = TRUE))
+ll_gam_cs429 <- -fit_gam_cs429$value
+ll_bs_cs429 <- -fit_bs_cs429$value
+ll_wei_cs429 <- -fit_wei_cs429$value
+
+k_aic_cs429 <- 2
+k_bic_cs429 <- log(n_cs429)
+
+model_selection_cs429 <- tibble(
+  model = c("GAU", "GAM", "BS", "WEI"),
+  n_params = c(2, 2, 2, 3),
+  log_lik = c(ll_gau_cs429, ll_gam_cs429, ll_bs_cs429, ll_wei_cs429)
+) |>
+  mutate(
+    AIC = -2 * log_lik + k_aic_cs429 * n_params,
+    BIC = -2 * log_lik + k_bic_cs429 * n_params
+  )
+
+model_selection_cs429 |> select(model, AIC, BIC)
+```
+
+On this basis (and according both to AIC and BIC), there seems to be no cogent reason to replace the Gaussian model by any of the other three. The values of BIC can also be used to derive an approximate answer to the question of how strongly the data may support each of these models. Doing this involves the application of Bayesian statistical methods<!-- XREF: Assessing Product Reliability chapter, Section 8.1.10; source handbook/apr/section1/apr110.htm -->.
+
+We start from an a priori assignment of equal probabilities to all four models, indicating that we have no reason to favor one over another at the outset, and then update these probabilities based on the measured values of lifetime. The updated probabilities of the four models, called their posterior probabilities, are approximately proportional to $\exp(-\text{BIC}(\text{GAU})/2)$, $\exp(-\text{BIC}(\text{GAM})/2)$, $\exp(-\text{BIC}(\text{BS})/2)$, and $\exp(-\text{BIC}(\text{WEI})/2)$.
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-posterior
+model_selection_cs429 |>
+  mutate(posterior = exp(-0.5 * (BIC - min(BIC))) / sum(exp(-0.5 * (BIC - min(BIC))))) |>
+  select(model, BIC, posterior)
+```
+
+The values are approximately 76% for GAU, 16% for GAM, 0.3% for BS, and 7.4% for WEI — matching NIST's reported values.
+
+One possible use for the selected model is to answer the question of the age in service by which a part or structure needs to be replaced to guarantee that the probability of failure does not exceed some maximum acceptable value, for example 0.1%. The answer to this question is the 0.1st percentile of the fitted distribution, that is $\hat{F}^{-1}(0.001)$, where, in this case, $\hat{F}^{-1}$ denotes the inverse of the fitted Gaussian probability distribution.
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-percentile
+qnorm(0.001, mu_gau_cs429, sigma_gau_cs429)
+```
+
+This gives $\hat{F}^{-1}(0.001) \approx$ `r round(qnorm(0.001, mu_gau_cs429, sigma_gau_cs429))` thousand cycles, matching NIST's reported value of 198 thousand cycles.
+
+To assess the uncertainty of this estimate one may employ the statistical [bootstrap](#sec-eda-bootstrap-plot). In this case, this involves drawing a suitably large number of bootstrap samples from the data, and for each of them applying the model fitting and model selection exercise described above, ending with the calculation of $\hat{F}^{-1}(0.001)$ for the best model (which may vary from sample to sample). The bootstrap samples should be of the same size as the data, with each being drawn uniformly at random from the data, with replacement.
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-bootstrap
+#| warning: false
+# NIST's original analysis used 5,000 bootstrap samples; we use 2,000 here
+# to keep render time reasonable while still giving a stable estimate.
+# Each replicate refits all four candidate models and selects the best by
+# BIC, exactly as in the original-sample analysis above; a handful of
+# resamples for which the Weibull threshold optimization fails to
+# converge are dropped.
+fit_percentile_cs429 <- function(x) {
+  mu <- mean(x)
+  sigma <- sqrt(mean((x - mu)^2))
+
+  fg <- optim(c((mean(x) / sd(x))^2, mean(x) / var(x)),
+              function(p) {
+                a <- p[1]; l <- p[2]
+                if (a <= 0 || l <= 0) return(1e10)
+                -sum(dgamma(x, shape = a, rate = l, log = TRUE))
+              }, method = "Nelder-Mead")
+
+  fb <- optim(c(0.25, 30),
+              function(p) {
+                a <- p[1]; b <- p[2]
+                if (a <= 0 || b <= 0) return(1e10)
+                -sum(dbs_cs429(x, a, b, log = TRUE))
+              }, method = "Nelder-Mead")
+
+  fw <- tryCatch(
+    optim(c(min(x) * 0.5, 2, 15),
+          function(p) {
+            xi <- p[1]; beta <- p[2]; eta <- p[3]
+            if (beta <= 0 || eta <= 0 || xi >= min(x)) return(1e10)
+            -sum(dweibull(x - xi, shape = beta, scale = eta, log = TRUE))
+          }, method = "Nelder-Mead", control = list(maxit = 1000)),
+    error = function(e) NULL
+  )
+  if (is.null(fw) || fw$convergence != 0) return(NA_real_)
+
+  k <- log(length(x))
+  bic <- c(
+    gau = -2 * sum(dnorm(x, mu, sigma, log = TRUE)) + 2 * k,
+    gam = -2 * (-fg$value) + 2 * k,
+    bs = -2 * (-fb$value) + 2 * k,
+    wei = -2 * (-fw$value) + 3 * k
+  )
+  best <- which.min(bic)
+  switch(best,
+    qnorm(0.001, mu, sigma),
+    qgamma(0.001, shape = fg$par[1], rate = fg$par[2]),
+    qbs_cs429(0.001, fb$par[1], fb$par[2]),
+    fw$par[1] + qweibull(0.001, shape = fw$par[2], scale = fw$par[3])
+  )
+}
+
+set.seed(20240613)
+n_boot_pctl_cs429 <- 2000
+bootstrap_percentiles_cs429 <- replicate(
+  n_boot_pctl_cs429,
+  tryCatch(fit_percentile_cs429(sample(x_cs429, n_cs429, replace = TRUE)), error = function(e) NA_real_)
+)
+
+quantile(bootstrap_percentiles_cs429, probs = c(0.025, 0.975), na.rm = TRUE)
+```
+
+Our bootstrap 95% confidence interval for the 0.1st percentile is wide, consistent with NIST's reported interval of 40 to 366 thousand cycles, though the exact endpoints differ somewhat (our upper endpoint runs higher) — expected given we use 2,000 rather than NIST's 5,000 bootstrap replicates, and our own closed-form Birnbaum-Saunders implementation in place of NIST's now-unavailable `bs` package. The large uncertainty either way is not surprising given that we are attempting to estimate the largest value that is exceeded with probability 99.9%, based on a sample comprising only 101 measured values.
+
+**Prediction Intervals**
+
+One more application in this analysis is to evaluate prediction intervals for the fatigue life of the aluminum alloy specimens. For example, if we were to test three new specimens using the same process, we would want to know (with 95% confidence) the minimum number of cycles for these three specimens. That is, we need to find a statistical interval $[L, \infty]$ that contains the fatigue life of all three future specimens with 95% confidence. The desired interval is a one-sided, lower 95% prediction interval. Since tables of factors for constructing $L$ are widely available for normal models, we use the results corresponding to the normal model here for illustration. Specifically, $L$ is computed as
+
+$$L = \bar{x} + rs$$
+
+where factor $r$ is given in Table A.14 of Hahn and Meeker (1991)<!-- XREF: EDA bibliography entry for Hahn and Meeker; source handbook/eda/section4/eda43.htm --> or can be obtained via Monte Carlo simulation.
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-prediction-interval
+# Monte Carlo computation of the factor r for a one-sided normal
+# prediction interval containing all p=3 of m=3 future observations,
+# from a sample of size n=101, at the 95% confidence level. NIST's own
+# R function (attributed to C.-M. Wang) uses nrun=500,000; we use
+# nrun=100,000 here for render-time practicality, which still gives a
+# stable estimate of r to 2-3 decimal places.
+ospi_cs429 <- function(n, p, m, alpha, nrun = 100000) {
+  z1 <- rnorm(nrun) / sqrt(n)
+  V <- sqrt(rchisq(nrun, n - 1) / (n - 1))
+  z2i <- matrix(rnorm(m * nrun), byrow = TRUE, ncol = m)
+  xij <- apply((z2i - z1) / V, 1, function(x, q) sort(x)[q], m - p + 1)
+  quantile(xij, alpha)
+}
+
+set.seed(20240613)
+r_cs429 <- ospi_cs429(n = 101, p = 3, m = 3, alpha = 0.05)
+r_cs429
+```
+
+```{r}
+#| code-fold: true
+#| label: eda-fatigue-life-prediction-interval-L
+L_cs429 <- mean(x_cs429) + r_cs429 * sd(x_cs429)
+L_cs429
+```
+
+Our computed factor $r \approx$ `r round(r_cs429, 3)` and resulting prediction bound $L \approx$ `r round(L_cs429, 1)` thousand cycles closely match NIST's reported values of $r = -2.16$ and $L = 555.66$ thousand cycles (computed there from $\bar{x} = 1400.91$ and $s = 391.32$).
