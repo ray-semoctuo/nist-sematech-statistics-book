@@ -1,0 +1,450 @@
+#### Josephson Junction Cryothermometry {#sec-eda-424}
+
+This example illustrates the univariate analysis of Josephson junction cryothermometry data.
+
+1. [Background and Data](#sec-eda-4241)
+2. [Graphical Output and Interpretation](#sec-eda-4242)
+3. [Quantitative Output and Interpretation](#sec-eda-4243)
+4. [Work This Example Yourself](#sec-eda-4244)
+
+##### Background and Data {#sec-eda-4241}
+
+**Generation**
+
+This data set was collected by Bob Soulen of NIST in October, 1971 as a sequence of observations collected equi-spaced in time from a volt meter to ascertain the process temperature in a Josephson junction cryothermometry (low temperature) experiment. The response variable is voltage counts.
+
+**Motivation**
+
+The motivation for studying this data set is to illustrate the case where there is discreteness in the measurements, but the underlying assumptions hold. In this case, the discreteness is due to the data being integers.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`SOULEN.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-josephson-junction
+#| message: false
+library(tidyverse)
+
+soulen_cs <- scan(here::here("datasets", "SOULEN.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = soulen_cs)
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4242}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-josephson-junction-4-plot
+#| fig-cap: "4-plot of the Josephson junction cryothermometry data"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs424 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs424 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs424(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs424(soulen_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time.
+- The [lag plot](#sec-eda-lag-plot) (upper right) does not indicate any non-random pattern in the data.
+- The [histogram](#sec-eda-histogram) (lower left) shows that the data are reasonably symmetric, there does not appear to be significant outliers in the tails, and that it is reasonable to assume that the data can be fit with a normal distribution.
+- The [normal probability plot](#sec-eda-normal-probability-plot) (lower right) is difficult to interpret due to the fact that there are only a few distinct values with many repeats.
+
+The integer data with only a few distinct values and many repeats accounts for the discrete appearance of several of the plots (e.g., the lag plot and the normal probability plot). In this case, the nature of the data makes the normal probability plot difficult to interpret, especially since each number is repeated many times. However, the histogram indicates that a normal distribution should provide an adequate model for the data.
+
+From the above plots, we conclude that the underlying assumptions are valid and the data can be reasonably approximated with a normal distribution. Therefore, the commonly used uncertainty standard is valid and appropriate. The numerical values for this model are given in the [Quantitative Output and Interpretation](#sec-eda-4243) section.
+
+**Individual Plots**
+
+Although it is normally not necessary, the plots can be generated individually to give more detail.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-josephson-junction-run-sequence
+#| fig-cap: "Run sequence plot of the Josephson junction cryothermometry data"
+tibble(i = seq_along(soulen_cs), y = soulen_cs) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-josephson-junction-lag
+#| fig-cap: "Lag plot of the Josephson junction cryothermometry data"
+n_cs424 <- length(soulen_cs)
+tibble(y = soulen_cs[-1], y_lag = soulen_cs[-n_cs424]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-josephson-junction-histogram
+#| fig-cap: "Histogram of the Josephson junction cryothermometry data, with overlaid normal PDF"
+ggplot(tibble(y = soulen_cs), aes(y)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 1, color = "white", fill = "steelblue4") +
+  stat_function(fun = dnorm, args = list(mean = mean(soulen_cs), sd = sd(soulen_cs)), color = "firebrick") +
+  labs(x = "Y", y = "Density") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-josephson-junction-normal-probability
+#| fig-cap: "Normal probability plot of the Josephson junction cryothermometry data"
+theoretical_cs424 <- qnorm(uniform_medians_cs424(n_cs424))
+tibble(theoretical = theoretical_cs424, observed = sort(soulen_cs)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+  labs(x = "Theoretical", y = "Ordered Y") +
+  theme_light()
+```
+
+##### Quantitative Output and Interpretation {#sec-eda-4243}
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics were computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-summary-statistics
+tibble(
+  `Sample Size` = length(soulen_cs),
+  Mean = mean(soulen_cs),
+  Median = median(soulen_cs),
+  Minimum = min(soulen_cs),
+  Maximum = max(soulen_cs),
+  Range = diff(range(soulen_cs)),
+  `Stan. Dev.` = sd(soulen_cs)
+)
+```
+
+Because of the discrete nature of the data, we also compute the normal PPCC.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-ppcc
+ppcc_cs424 <- cor(sort(soulen_cs), theoretical_cs424)
+ppcc_cs424
+```
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-location-fit
+location_fit_cs424 <- lm(soulen_cs ~ seq_along(soulen_cs))
+summary(location_fit_cs424)
+```
+
+The slope parameter, $B_1$, has a t-value of `r round(summary(location_fit_cs424)$coefficients[2, 3], 3)`, which is statistically significant (the critical value is `r round(qt(0.975, 698), 2)`). However, the value of the slope is `r formatC(coef(location_fit_cs424)[2], format = "e", digits = 3)`. Given that the slope is nearly zero, the assumption of constant location is not seriously violated even though it is statistically significant.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal-sized intervals. However, the Bartlett test is not robust for non-normality. Since the nature of the data (a few distinct points repeated many times) makes the normality assumption questionable, we use the alternative [Levene test](#sec-eda-levene-test). In particular, we use the Levene test based on the median rather than the mean. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-levene
+# Levene's test using the median-centered definition of Z_ij (as used on
+# the Levene Test page).
+levene_test_cs424 <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |> mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |> summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k)
+}
+
+quarter_cs424 <- as.factor(rep(1:4, each = n_cs424 / 4))
+levene_cs424 <- levene_test_cs424(soulen_cs, quarter_cs424)
+levene_crit_cs424 <- qf(0.95, levene_cs424$df1, levene_cs424$df2)
+
+tibble(statistic = levene_cs424$w, df1 = levene_cs424$df1, df2 = levene_cs424$df2, critical_value = levene_crit_cs424)
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $W \approx$ `r round(levene_cs424$w, 2)` (NIST reports $W = 1.43$; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $F_{\alpha,k-1,N-k} =$ `r round(levene_crit_cs424, 3)`
+
+Critical region: Reject $H_0$ if $W >$ `r round(levene_crit_cs424, 3)`
+
+Since the Levene test statistic value is less than the 95% critical value, we conclude that the variances are not significantly different in the four intervals.
+
+**Randomness**
+
+There are many ways in which data can be non-random. However, most common forms of non-randomness can be detected with a few simple tests. The lag plot in the previous section is a simple graphical technique.
+
+Another check is an [autocorrelation plot](#sec-eda-autocorrelation-plot) that shows the autocorrelations for various lags. Confidence bands can be plotted at the 95% and 99% confidence levels. Points outside this band indicate statistically significant values (lag 0 is always 1).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-josephson-junction-autocorrelation
+#| fig-cap: "Autocorrelation plot of the Josephson junction cryothermometry data"
+acf_cs424 <- acf(soulen_cs, lag.max = 100, plot = FALSE)
+ci95_cs424 <- qnorm(0.975) / sqrt(n_cs424)
+ci99_cs424 <- qnorm(0.995) / sqrt(n_cs424)
+
+tibble(lag = as.integer(acf_cs424$lag), acf = as.numeric(acf_cs424$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs424, ci95_cs424), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs424, ci99_cs424), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+The lag 1 autocorrelation, which is generally the one of most interest, is `r round(acf_cs424$acf[2], 2)`. The critical values at the 5% level of significance are $\pm$ `r round(ci95_cs424, 3)`. This indicates that the lag 1 autocorrelation is statistically significant, so there is some evidence for non-randomness.
+
+A common test for randomness is the [runs test](#sec-eda-runs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-runs-test
+#| message: false
+# Because this data set is heavily discrete (196 of 700 values are exactly
+# equal to the median), the median-based tie-dropping runs test used
+# elsewhere in this book (e.g. Random Walk, Uniform/Normal Random Numbers)
+# diverges substantially from NIST's own result, which used R's
+# lawstat::runs.test(). We use lawstat directly here to reproduce NIST's
+# reported statistic exactly.
+library(lawstat)
+
+runs_cs424 <- runs.test(soulen_cs)
+runs_cs424
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(runs_cs424$statistic, 4)` (NIST reports $Z = -13.4162$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(qnorm(0.975), 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(qnorm(0.975), 2)`
+
+The runs test indicates non-randomness.
+
+Although the runs test and lag 1 autocorrelation indicate some mild non-randomness, it is not sufficient to reject the $Y_i = C + E_i$ model. At least part of the non-randomness can be explained by the discrete nature of the data.
+
+**Distributional Analysis**
+
+[Probability plots](#sec-eda-probability-plot) are a graphical test for assessing if a particular distribution provides an adequate fit to a data set. A quantitative enhancement to the probability plot is the correlation coefficient of the points on the probability plot, or [PPCC](#sec-eda-probability-plot-correlation-coefficient-plot). For this data set the PPCC based on a normal distribution is `r round(ppcc_cs424, 3)`. Since the PPCC is less than the critical value of 0.987 (this is a tabulated value), the normality assumption is rejected.
+
+[Chi-square](#sec-eda-chi-square-goodness-of-fit-test) and [Kolmogorov-Smirnov](#sec-eda-kolmogorov-smirnov-test) goodness-of-fit tests are alternative methods for assessing distributional adequacy. The Wilk-Shapiro and [Anderson-Darling](#sec-eda-anderson-darling-test) tests can be used to test for normality. The results of the Anderson-Darling test follow.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-anderson-darling
+#| message: false
+library(nortest)
+
+ad_cs424 <- ad.test(soulen_cs)
+ad_cs424
+```
+
+$$H_0: \text{the data are normally distributed}$$
+$$H_a: \text{the data are not normally distributed}$$
+
+Adjusted test statistic: $A^2 \approx$ `r round(ad_cs424$statistic, 3)` (NIST's Univariate Report below states $A^2 = 16.7634$, matching our computed value; NIST's own prose paragraph on this page separately states "A2 = 16.858," which — as with the Uniform Random Numbers case study — appears to be a typo inconsistent with NIST's own report table)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: 0.787
+
+Critical region: Reject $H_0$ if $A^2 > 0.787$
+
+The Anderson-Darling test rejects the normality assumption because the test statistic is greater than the 95% critical value.
+
+Although the data are not strictly normal, the violation of the normality assumption is not severe enough to conclude that the $Y_i = C + E_i$ model is unreasonable. At least part of the non-normality can be explained by the discrete nature of the data.
+
+**Outlier Analysis**
+
+A test for outliers is the [Grubbs test](#sec-eda-grubbs-test). Unlike the Normal Random Numbers case study, here it is the *minimum* value that is the most extreme observation.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-grubbs
+alpha_cs424 <- 0.05
+g_stat_cs424 <- (mean(soulen_cs) - min(soulen_cs)) / sd(soulen_cs)
+
+# As in the Normal Random Numbers case study, NIST's stated critical value
+# here (3.950619) corresponds to the two-sided formula (alpha/(2N)), not
+# the one-sided formula (alpha/N) used in the Grubbs' Test technique
+# page's own worked example. We reproduce NIST's published critical value
+# as-is rather than silently reconciling the two conventions.
+t_crit_cs424 <- qt(1 - alpha_cs424 / (2 * n_cs424), df = n_cs424 - 2)
+g_crit_cs424 <- ((n_cs424 - 1) / sqrt(n_cs424)) * sqrt(t_crit_cs424^2 / (n_cs424 - 2 + t_crit_cs424^2))
+
+tibble(statistic = g_stat_cs424, critical_value = g_crit_cs424)
+```
+
+$$H_0: \text{there are no outliers in the data}$$
+$$H_a: \text{the minimum value is an outlier}$$
+
+Test statistic: $G \approx$ `r round(g_stat_cs424, 6)` (NIST reports $G = 2.729201$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value for a one-tailed test: `r round(g_crit_cs424, 6)` (NIST reports 3.950619; our computed value matches)
+
+Critical region: Reject $H_0$ if $G >$ `r round(g_crit_cs424, 6)`
+
+For this data set, Grubbs' test does not detect any outliers at the 0.05 significance level.
+
+**Model**
+
+Although the randomness and normality assumptions were mildly violated, we conclude that a reasonable model for the data is:
+
+$$Y_i = 2898.6 + E_i$$
+
+where the constant term is the estimated mean, `r round(mean(soulen_cs), 1)`.
+
+```{r}
+#| code-fold: true
+#| label: eda-josephson-junction-ci
+ci_cs424 <- mean(soulen_cs) + c(-1, 1) * qt(0.975, n_cs424 - 1) * sd(soulen_cs) / sqrt(n_cs424)
+ci_cs424
+```
+
+Our computed 95% confidence interval, (`r round(ci_cs424[1], 3)`, `r round(ci_cs424[2], 3)`), matches NIST's Univariate Report value below. (NIST's own prose paragraph on this page separately states a model of "$Y_i = 2898.7 + E_i$" with a 95% confidence interval of (2898.515, 2898.928) — neither of which matches NIST's own computed mean of 2898.562 or its Univariate Report's confidence interval; we reproduce the value consistent with the actual computation and the report table.)
+
+**Univariate Report**
+
+It is sometimes useful and convenient to summarize the above results in a report.
+
+```
+Analysis for Josephson Junction Cryothermometry Data
+
+1: Sample Size                           = 700
+2: Location
+   Mean                                  = 2898.562
+   Standard Deviation of Mean            = 0.049323
+   95% Confidence Interval for Mean      = (2898.465,2898.658)
+   Drift with respect to location?       = YES
+   (Further analysis indicates that
+   the drift, while statistically
+   significant, is not practically
+   significant)
+3: Variation
+   Standard Deviation                    = 1.30497
+   95% Confidence Interval for SD        = (1.240007,1.377169)
+   Drift with respect to variation?
+   (based on Levene's test on quarters
+   of the data)                          = NO
+4: Distribution
+   Normal PPCC                           = 0.97484
+   Normal Anderson-Darling               = 16.7634
+   Data are Normal?
+     (as tested by Normal PPCC)          = NO
+     (as tested by Anderson-Darling)     = NO
+5: Randomness
+   Autocorrelation                       = 0.314802
+   Data are Random?
+     (as measured by autocorrelation)    = NO
+6: Statistical Control
+   (i.e., no drift in location or scale,
+   data are random, distribution is
+   fixed, here we are testing only for
+   fixed normal)
+   Data Set is in Statistical Control?   = NO
+   Note: Although we have violations of
+   the assumptions, they are mild enough,
+   and at least partially explained by the
+   discrete nature of the data, so we may model
+   the data as if it were in statistical
+   control
+7: Outliers?
+   (as determined by Grubbs test)        = NO
+```
+
+##### Work This Example Yourself {#sec-eda-4244}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.

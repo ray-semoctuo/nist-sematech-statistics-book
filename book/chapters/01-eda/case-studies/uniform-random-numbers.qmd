@@ -91,6 +91,7 @@ four_plot_cs422 <- function(x, hist_bins = 30) {
   p_norm <- tibble(theoretical = theoretical, observed = xs) |>
     ggplot(aes(theoretical, observed)) +
     geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
     labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
     theme_light()
 
