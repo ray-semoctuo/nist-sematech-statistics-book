@@ -124,7 +124,7 @@ The jackknife is a technique that is closely related to the bootstrap. The jackk
 
 **Case Study**
 
-The bootstrap plot is demonstrated in the uniform random numbers<!-- XREF: EDA Case Studies (Section 1.4), Uniform Random Numbers; source handbook/eda/section4/eda422.htm --> case study.
+The bootstrap plot is demonstrated in the [uniform random numbers](#sec-eda-422) case study.
 
 **Software**
 

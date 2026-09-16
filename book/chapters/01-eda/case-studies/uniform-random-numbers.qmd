@@ -1,0 +1,496 @@
+#### Uniform Random Numbers {#sec-eda-422}
+
+This example illustrates the univariate analysis of a set of uniform random numbers.
+
+1. [Background and Data](#sec-eda-4221)
+2. [Graphical Output and Interpretation](#sec-eda-4222)
+3. [Quantitative Output and Interpretation](#sec-eda-4223)
+4. [Work This Example Yourself](#sec-eda-4224)
+
+##### Background and Data {#sec-eda-4221}
+
+**Generation**
+
+The uniform random numbers used in this case study are from a Rand Corporation publication.
+
+The motivation for studying a set of uniform random numbers is to illustrate the effects of a known underlying non-normal distribution.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`RANDU.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-uniform-random-numbers
+#| message: false
+library(tidyverse)
+
+randu_cs <- scan(here::here("datasets", "RANDU.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = randu_cs)
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4222}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-4-plot
+#| fig-cap: "4-plot of the uniform random numbers"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs422 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs422 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs422(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs422(randu_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time.
+- The [lag plot](#sec-eda-lag-plot) (upper right) does not indicate any non-random pattern in the data.
+- The [histogram](#sec-eda-histogram) shows that the frequencies are relatively flat across the range of the data. This suggests that the uniform distribution might provide a better distributional fit than the normal distribution.
+- The [normal probability plot](#sec-eda-normal-probability-plot) verifies that an assumption of normality is not reasonable. In this case, the 4-plot should be followed up by a uniform probability plot to determine if it provides a better fit to the data. This is shown below.
+
+From the above plots, we conclude that the underlying assumptions are valid. Therefore, the model $Y_i = C + E_i$ is valid. However, since the data are not normally distributed, using the mean as an estimate of $C$ and the confidence interval cited above for quantifying its uncertainty are not valid or appropriate.
+
+**Individual Plots**
+
+Although it is usually not necessary, the plots can be generated individually to give more detail.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-run-sequence
+#| fig-cap: "Run sequence plot of the uniform random numbers"
+tibble(i = seq_along(randu_cs), y = randu_cs) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-lag
+#| fig-cap: "Lag plot of the uniform random numbers"
+n_cs422 <- length(randu_cs)
+tibble(y = randu_cs[-1], y_lag = randu_cs[-n_cs422]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+Histogram (with overlaid Normal PDF). This plot shows that a normal distribution is a poor fit. The flatness of the histogram suggests that a uniform distribution might be a better fit.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-histogram-normal
+#| fig-cap: "Histogram of the uniform random numbers, with overlaid normal PDF"
+ggplot(tibble(y = randu_cs), aes(y)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 30, color = "white", fill = "steelblue4") +
+  stat_function(fun = dnorm, args = list(mean = mean(randu_cs), sd = sd(randu_cs)), color = "firebrick") +
+  labs(x = "Y", y = "Density") +
+  theme_light()
+```
+
+Histogram (with overlaid Uniform PDF). Since the histogram from the 4-plot suggested that the uniform distribution might be a good fit, we overlay a uniform distribution on top of the histogram. This indicates a much better fit than a normal distribution.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-histogram-uniform
+#| fig-cap: "Histogram of the uniform random numbers, with overlaid uniform PDF"
+ggplot(tibble(y = randu_cs), aes(y)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 30, color = "white", fill = "steelblue4") +
+  stat_function(fun = dunif, color = "firebrick") +
+  labs(x = "Y", y = "Density") +
+  theme_light()
+```
+
+As with the histogram, the normal probability plot shows that the normal distribution does not fit these data well.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-normal-probability
+#| fig-cap: "Normal probability plot of the uniform random numbers"
+theoretical_norm_cs422 <- qnorm(uniform_medians_cs422(n_cs422))
+tibble(theoretical = theoretical_norm_cs422, observed = sort(randu_cs)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+  labs(x = "Theoretical (Normal)", y = "Ordered Y") +
+  theme_light()
+```
+
+Since the above plots suggested that a uniform distribution might be appropriate, we generate a uniform probability plot. This plot shows that the uniform distribution provides an excellent fit to the data.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-uniform-probability
+#| fig-cap: "Uniform probability plot of the uniform random numbers"
+theoretical_unif_cs422 <- uniform_medians_cs422(n_cs422)
+tibble(theoretical = theoretical_unif_cs422, observed = sort(randu_cs)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+  labs(x = "Theoretical (Uniform)", y = "Ordered Y") +
+  theme_light()
+```
+
+**Better Model**
+
+Since the data follow the underlying assumptions, but with a uniform distribution rather than a normal distribution, we would still like to characterize $C$ by a typical value plus or minus a confidence interval. In this case, we would like to find a location estimator with the smallest variability. The [bootstrap plot](#sec-eda-bootstrap-plot) is an ideal tool for this purpose.
+
+(NIST's original text states the bootstrap plots below cover "the mean, median, mid-range, and median absolute deviation," but NIST's own accompanying R script and figure bootstrap only three statistics — the mean, median, and mid-range. We follow NIST's actual code and figure here, which is also the same worked example already shown on the [Bootstrap Plot](#sec-eda-bootstrap-plot) technique page.)
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-bootstrap
+set.seed(20240613)
+n_boot_cs422 <- 500
+
+boot_stats_cs422 <- map(seq_len(n_boot_cs422), function(i) {
+  s <- sample(randu_cs, n_cs422, replace = TRUE)
+  tibble(subsample = i, mean = mean(s), median = median(s), midrange = (min(s) + max(s)) / 2)
+}) |>
+  list_rbind()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-bootstrap
+#| fig-cap: "Bootstrap plots of the mean, median, and mid-range for 500 subsamples of the uniform random numbers"
+boot_stats_cs422 |>
+  pivot_longer(c(mean, median, midrange), names_to = "statistic", values_to = "value") |>
+  mutate(statistic = factor(statistic, levels = c("mean", "median", "midrange"),
+                             labels = c("Mean", "Median", "Mid-range"))) |>
+  ggplot(aes(subsample, value)) +
+  geom_point(shape = 1) +
+  facet_wrap(~statistic, scales = "free_y") +
+  labs(x = "Subsample Number", y = "Statistic Value") +
+  theme_light()
+```
+
+**Mid-Range is Best**
+
+From the above histograms (see the [Bootstrap Plot](#sec-eda-bootstrap-plot) page for the corresponding histograms and variance comparison), it is obvious that for these data, the mid-range is far superior to the mean or median as an estimate for location.
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-bootstrap-ci
+mean_ci_cs422 <- quantile(boot_stats_cs422$mean, c(0.025, 0.975))
+midrange_ci_cs422 <- quantile(boot_stats_cs422$midrange, c(0.025, 0.975))
+
+tibble(
+  estimator = c("Mean", "Mid-range"),
+  estimate = c(mean(randu_cs), (min(randu_cs) + max(randu_cs)) / 2),
+  ci_low = c(mean_ci_cs422[1], midrange_ci_cs422[1]),
+  ci_high = c(mean_ci_cs422[2], midrange_ci_cs422[2])
+)
+```
+
+Using the mean, the location estimate is `r round(mean(randu_cs), 3)` and a 95% confidence interval for the mean is (0.482, 0.534). Using the mid-range, the location estimate is `r round((min(randu_cs) + max(randu_cs)) / 2, 3)` and the 95% confidence interval for the mid-range is (0.497, 0.503).
+
+Although the values for the location are similar, the difference in the uncertainty intervals is quite large.
+
+Note that in the case of a uniform distribution it is known theoretically that the mid-range is the best linear unbiased estimator for location. However, in many applications, the most appropriate estimator will not be known or it will be mathematically intractable to determine a valid confidence interval. The bootstrap provides a method for determining (and comparing) confidence intervals in these cases.
+
+##### Quantitative Output and Interpretation {#sec-eda-4223}
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics are computed for the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-summary-statistics
+tibble(
+  `Sample Size` = length(randu_cs),
+  Mean = mean(randu_cs),
+  Median = median(randu_cs),
+  Minimum = min(randu_cs),
+  Maximum = max(randu_cs),
+  Range = diff(range(randu_cs)),
+  `Stan. Dev.` = sd(randu_cs)
+)
+```
+
+Because the graphs of the data indicate the data may not be normally distributed, we also compute two other statistics for the data, the normal PPCC and the uniform PPCC.
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-ppcc
+ppcc_normal_cs422 <- cor(sort(randu_cs), theoretical_norm_cs422)
+ppcc_uniform_cs422 <- cor(sort(randu_cs), theoretical_unif_cs422)
+
+tibble(`Normal PPCC` = ppcc_normal_cs422, `Uniform PPCC` = ppcc_uniform_cs422)
+```
+
+The uniform [probability plot correlation coefficient](#sec-eda-probability-plot-correlation-coefficient-plot) (PPCC) value is larger than the normal PPCC value. This is evidence that the uniform distribution fits these data better than does a normal distribution.
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-location-fit
+location_fit_cs422 <- lm(randu_cs ~ seq_along(randu_cs))
+summary(location_fit_cs422)
+```
+
+The t-value of the slope parameter is smaller than the critical value of $t_{0.975,498} =$ `r round(qt(0.975, 498), 2)`. Thus, we conclude that the slope is not different from zero at the 0.05 significance level.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal-sized intervals. However, the Bartlett test is not robust for non-normality. Since we know this data set is not approximated well by the normal distribution, we use the alternative [Levene test](#sec-eda-levene-test). In particular, we use the Levene test based on the median rather than the mean. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-levene
+# Levene's test using the median-centered definition of Z_ij (as used on
+# the Levene Test page).
+levene_test_cs422 <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |> mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |> summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k)
+}
+
+quarter_cs422 <- as.factor(rep(1:4, each = n_cs422 / 4))
+levene_cs422 <- levene_test_cs422(randu_cs, quarter_cs422)
+levene_crit_cs422 <- qf(0.95, levene_cs422$df1, levene_cs422$df2)
+
+tibble(statistic = levene_cs422$w, df1 = levene_cs422$df1, df2 = levene_cs422$df2, critical_value = levene_crit_cs422)
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $W \approx$ `r round(levene_cs422$w, 5)` (NIST reports $W = 0.07983$; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $F_{\alpha,k-1,N-k} =$ `r round(levene_crit_cs422, 3)`
+
+Critical region: Reject $H_0$ if $W >$ `r round(levene_crit_cs422, 3)`
+
+In this case, the Levene test indicates that the variances are not significantly different in the four intervals.
+
+**Randomness**
+
+There are many ways in which data can be non-random. However, most common forms of non-randomness can be detected with a few simple tests including the lag plot shown on the previous page.
+
+Another check is an [autocorrelation plot](#sec-eda-autocorrelation-plot) that shows the autocorrelations for various lags. Confidence bands can be plotted using 95% and 99% confidence levels. Points outside this band indicate statistically significant values (lag 0 is always 1).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-uniform-random-numbers-autocorrelation
+#| fig-cap: "Autocorrelation plot of the uniform random numbers"
+acf_cs422 <- acf(randu_cs, lag.max = 21, plot = FALSE)
+ci95_cs422 <- qnorm(0.975) / sqrt(n_cs422)
+ci99_cs422 <- qnorm(0.995) / sqrt(n_cs422)
+
+tibble(lag = as.integer(acf_cs422$lag), acf = as.numeric(acf_cs422$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs422, ci95_cs422), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs422, ci99_cs422), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+The lag 1 autocorrelation, which is generally the one of most interest, is `r round(acf_cs422$acf[2], 3)`. The critical values at the 5% significance level are $\pm$ `r round(ci95_cs422, 3)`. This indicates that the lag 1 autocorrelation is not statistically significant, so there is no evidence of non-randomness.
+
+A common test for randomness is the [runs test](#sec-eda-runs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-runs-test
+runs_test_cs422 <- function(y, alpha = 0.05) {
+  med <- median(y)
+  sign <- sign(y - med)
+  sign <- sign[sign != 0]
+
+  n1 <- sum(sign == 1)
+  n2 <- sum(sign == -1)
+  n <- n1 + n2
+
+  R <- 1 + sum(diff(sign) != 0)
+  Rbar <- 2 * n1 * n2 / n + 1
+  sR2 <- (2 * n1 * n2 * (2 * n1 * n2 - n)) / (n^2 * (n - 1))
+  sR <- sqrt(sR2)
+
+  Z <- (R - Rbar) / sR
+  z_crit <- qnorm(1 - alpha / 2)
+
+  tibble(n1 = n1, n2 = n2, R = R, Rbar = Rbar, sR = sR, Z = Z, z_crit = z_crit, reject_H0 = abs(Z) > z_crit)
+}
+
+randu_runs <- runs_test_cs422(randu_cs)
+randu_runs
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(randu_runs$Z, 4)` (NIST reports $Z = 0.2686$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(randu_runs$z_crit, 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(randu_runs$z_crit, 2)`
+
+The runs test fails to reject the null hypothesis that the data were produced in a random manner.
+
+**Distributional Analysis**
+
+[Probability plots](#sec-eda-probability-plot) are a graphical test for assessing whether a particular distribution provides an adequate fit to a data set. A quantitative enhancement to the probability plot is the correlation coefficient of the points on the probability plot, or [PPCC](#sec-eda-probability-plot-correlation-coefficient-plot). For this data set the PPCC based on a normal distribution is `r round(ppcc_normal_cs422, 3)`. Since the PPCC is less than the critical value of 0.987 (this is a tabulated value), the normality assumption is rejected.
+
+[Chi-square](#sec-eda-chi-square-goodness-of-fit-test) and [Kolmogorov-Smirnov](#sec-eda-kolmogorov-smirnov-test) goodness-of-fit tests are alternative methods for assessing distributional adequacy. The Wilk-Shapiro and [Anderson-Darling](#sec-eda-anderson-darling-test) tests can be used to test for normality. The results of the Anderson-Darling test follow.
+
+```{r}
+#| code-fold: true
+#| label: eda-uniform-random-numbers-anderson-darling
+#| message: false
+library(nortest)
+
+ad_cs422 <- ad.test(randu_cs)
+ad_cs422
+```
+
+$$H_0: \text{the data are normally distributed}$$
+$$H_a: \text{the data are not normally distributed}$$
+
+Adjusted test statistic: $A^2 \approx$ `r round(ad_cs422$statistic, 4)` (NIST's Univariate Report below states $A^2 = 5.7198390$, matching our computed value; NIST's own prose paragraph on this page separately states "A2 = 5.765," which appears to be a typo inconsistent with both NIST's own report table and R script output for this same example — we reproduce the correctly matching value here)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: 0.787
+
+Critical region: Reject $H_0$ if $A^2 > 0.787$
+
+The Anderson-Darling test rejects the normality assumption because the value of the test statistic is larger than the critical value at the 0.05 significance level.
+
+**Model**
+
+Based on the graphical and quantitative analysis, we use the model
+
+$$Y_i = C + E_i$$
+
+where $C$ is estimated by the mid-range and the uncertainty interval for $C$ is based on a bootstrap analysis. Specifically, $C =$ `r round((min(randu_cs) + max(randu_cs)) / 2, 3)` with a 95% confidence limit for $C$ of (0.497, 0.503).
+
+**Univariate Report**
+
+It is sometimes useful and convenient to summarize the above results in a report.
+
+```
+Analysis for 500 uniform random numbers
+
+1: Sample Size                           = 500
+2: Location
+   Mean                                  = 0.50783
+   Standard Deviation of Mean            = 0.013163
+   95% Confidence Interval for Mean      = (0.48197,0.533692)
+   Drift with respect to location?       = NO
+3: Variation
+   Standard Deviation                    = 0.294326
+   95% Confidence Interval for SD        = (0.277144,0.313796)
+   Drift with respect to variation?
+   (based on Levene's test on quarters
+   of the data)                          = NO
+4: Distribution
+   Normal PPCC                           = 0.9771602
+   Normal Anderson-Darling               = 5.7198390
+   Data are Normal?
+     (as tested by Normal PPCC)          = NO
+     (as tested by Anderson-Darling)     = NO
+   Uniform PPCC                          = 0.9995683
+   Uniform Anderson-Darling              = 0.9082221
+   Data are Uniform?
+     (as tested by Uniform PPCC)         = YES
+     (as tested by Anderson-Darling)     = YES
+5: Randomness
+   Autocorrelation                       = -0.03099
+   Data are Random?
+     (as measured by autocorrelation)    = YES
+6: Statistical Control
+   (i.e., no drift in location or scale,
+   data is random, distribution is
+   fixed, here we are testing only for
+   fixed uniform)
+   Data Set is in Statistical Control?   = YES
+```
+
+##### Work This Example Yourself {#sec-eda-4224}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.

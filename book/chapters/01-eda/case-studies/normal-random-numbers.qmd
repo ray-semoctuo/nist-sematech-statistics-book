@@ -1,5 +1,12 @@
 #### Normal Random Numbers {#sec-eda-421}
 
+This example illustrates the univariate analysis of a set of normal random numbers.
+
+1. [Background and Data](#sec-eda-4211)
+2. [Graphical Output and Interpretation](#sec-eda-4212)
+3. [Quantitative Output and Interpretation](#sec-eda-4213)
+4. [Work This Example Yourself](#sec-eda-4214)
+
 ##### Background and Data {#sec-eda-4211}
 
 **Generation**

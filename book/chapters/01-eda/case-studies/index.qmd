@@ -117,7 +117,7 @@ The remaining case studies intermix one or more of these quantitative techniques
 **Univariate** ($Y_i = C + E_i$)
 
 - [Normal Random Numbers](#sec-eda-421)
-- Uniform Random Numbers<!-- XREF: EDA Case Studies (Section 1.4.2.2), Uniform Random Numbers, not yet migrated to this book; source handbook/eda/section4/eda422.htm -->
+- [Uniform Random Numbers](#sec-eda-422)
 - Random Walk<!-- XREF: EDA Case Studies (Section 1.4.2.3), Random Walk, not yet migrated to this book; source handbook/eda/section4/eda423.htm -->
 - Josephson Junction Cryothermometry<!-- XREF: EDA Case Studies (Section 1.4.2.4), Josephson Junction Cryothermometry, not yet migrated to this book; source handbook/eda/section4/eda424.htm -->
 - Beam Deflections<!-- XREF: EDA Case Studies (Section 1.4.2.5), Beam Deflections, not yet migrated to this book; source handbook/eda/section4/eda425.htm -->
@@ -134,3 +134,5 @@ The remaining case studies intermix one or more of these quantitative techniques
 - Ceramic Strength<!-- XREF: EDA Case Studies (Section 1.4.2.10), Ceramic Strength, not yet migrated to this book; source handbook/eda/section4/eda42a.htm -->
 
 {{< include case-studies/normal-random-numbers.qmd >}}
+
+{{< include case-studies/uniform-random-numbers.qmd >}}
