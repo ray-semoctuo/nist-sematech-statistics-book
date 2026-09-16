@@ -1,0 +1,327 @@
+#### Standard Resistor {#sec-eda-427}
+
+This example illustrates the univariate analysis of standard resistor data.
+
+1. [Background and Data](#sec-eda-4271)
+2. [Graphical Output and Interpretation](#sec-eda-4272)
+3. [Quantitative Output and Interpretation](#sec-eda-4273)
+4. [Work This Example Yourself](#sec-eda-4274)
+
+##### Background and Data {#sec-eda-4271}
+
+**Generation**
+
+This data set was collected by Ron Dziuba of NIST over a 5-year period from 1980 to 1985. The response variable is resistor values.
+
+The motivation for studying this data set is to illustrate data that violate the assumptions of constant location and scale.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`DZIUBA1.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-standard-resistor
+#| message: false
+library(tidyverse)
+
+resistor_cs <- read_table(here::here("datasets", "DZIUBA1.DAT"), skip = 25,
+                           col_names = c("month", "day", "year", "y"), col_types = "iiid")
+
+resistor_cs
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4272}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-standard-resistor-4-plot
+#| fig-cap: "4-plot of the standard resistor data"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs427 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs427 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs427(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs427(resistor_cs$y)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates significant shifts in both location and variation. Specifically, the location is increasing with time. The variability seems greater in the first and last third of the data than it does in the middle third.
+- The [lag plot](#sec-eda-lag-plot) (upper right) shows a significant non-random pattern in the data. Specifically, the strong linear appearance of this plot is indicative of a model that relates $Y_t$ to $Y_{t-1}$.
+- The distributional plots, the [histogram](#sec-eda-histogram) (lower left) and the [normal probability plot](#sec-eda-normal-probability-plot) (lower right), are not interpreted since the randomness assumption is so clearly violated.
+
+The serious violation of the non-randomness assumption means that the univariate model $Y_i = C + E_i$ is not valid. Given the linear appearance of the lag plot, the first step might be to consider a model of the type
+
+$$Y_i = A_0 + A_1 Y_{i-1} + E_i$$
+
+However, discussions with the scientist revealed the following:
+
+- the drift with respect to location was expected;
+- the non-constant variability was not expected.
+
+The scientist examined the data collection device and determined that the non-constant variation was a seasonal effect. The high variability data in the first and last thirds was collected in winter while the more stable middle third was collected in the summer. The seasonal effect was determined to be caused by the amount of humidity affecting the measurement equipment. In this case, the solution was to modify the test equipment to be less sensitive to environmental factors.
+
+Simple graphical techniques can be quite effective in revealing unexpected results in the data. When this occurs, it is important to investigate whether the unexpected result is due to problems in the experiment and data collection, or is it in fact indicative of an unexpected underlying structure in the data. This determination cannot be made on the basis of statistics alone. The role of the graphical and statistical analysis is to detect problems or unexpected results in the data. Resolving the issues requires the knowledge of the scientist or engineer.
+
+**Individual Plots**
+
+Although it is generally unnecessary, the plots can be generated individually to give more detail. Since the lag plot indicates significant non-randomness, we omit the distributional plots.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-standard-resistor-run-sequence
+#| fig-cap: "Run sequence plot of the standard resistor data"
+tibble(i = seq_along(resistor_cs$y), y = resistor_cs$y) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-standard-resistor-lag
+#| fig-cap: "Lag plot of the standard resistor data"
+n_cs427 <- nrow(resistor_cs)
+tibble(y = resistor_cs$y[-1], y_lag = resistor_cs$y[-n_cs427]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+##### Quantitative Output and Interpretation {#sec-eda-4273}
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics are computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-standard-resistor-summary-statistics
+tibble(
+  `Sample Size` = n_cs427,
+  Mean = mean(resistor_cs$y),
+  Median = median(resistor_cs$y),
+  Minimum = min(resistor_cs$y),
+  Maximum = max(resistor_cs$y),
+  Range = diff(range(resistor_cs$y)),
+  `Stan. Dev.` = sd(resistor_cs$y)
+)
+```
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-standard-resistor-location-fit
+location_fit_cs427 <- lm(resistor_cs$y ~ seq_len(n_cs427))
+summary(location_fit_cs427)
+```
+
+The slope parameter, $B_1$, has a t-value of `r round(summary(location_fit_cs427)$coefficients[2, 3], 1)`, which is statistically significant. The value of the slope parameter estimate is `r formatC(coef(location_fit_cs427)[2], format = "f", digits = 5)`. Although this number is nearly zero, we need to take into account that the original scale of the data is from about 27.8 to 28.2. In this case, we conclude that there is a drift in location.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal-sized intervals. However, the Bartlett test is not robust for non-normality. Since the normality assumption is questionable for these data, we use the alternative [Levene test](#sec-eda-levene-test). In particular, we use the Levene test based on the median rather than the mean. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-standard-resistor-levene
+# Levene's test using the median-centered definition of Z_ij (as used on
+# the Levene Test page).
+levene_test_cs427 <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |> mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |> summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k)
+}
+
+quarter_cs427 <- as.factor(rep(1:4, each = n_cs427 / 4))
+levene_cs427 <- levene_test_cs427(resistor_cs$y, quarter_cs427)
+levene_crit_cs427 <- qf(0.95, levene_cs427$df1, levene_cs427$df2)
+
+tibble(statistic = levene_cs427$w, df1 = levene_cs427$df1, df2 = levene_cs427$df2, critical_value = levene_crit_cs427)
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $W \approx$ `r round(levene_cs427$w, 2)` (NIST reports $W = 140.85$; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $F_{\alpha,k-1,N-k} =$ `r round(levene_crit_cs427, 3)`
+
+Critical region: Reject $H_0$ if $W >$ `r round(levene_crit_cs427, 3)`
+
+In this case, since the Levene test statistic value is greater than the 5% significance level critical value, we conclude that there is significant evidence of nonconstant variation.
+
+**Randomness**
+
+There are many ways in which data can be non-random. However, most common forms of non-randomness can be detected with a few simple tests. The lag plot in the 4-plot in the previous section is a simple graphical technique.
+
+One check is an [autocorrelation plot](#sec-eda-autocorrelation-plot) that shows the autocorrelations for various lags. Confidence bands can be plotted at the 95% and 99% confidence levels. Points outside this band indicate statistically significant values (lag 0 is always 1).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-standard-resistor-autocorrelation
+#| fig-cap: "Autocorrelation plot of the standard resistor data"
+acf_cs427 <- acf(resistor_cs$y, lag.max = 50, plot = FALSE)
+ci95_cs427 <- qnorm(0.975) / sqrt(n_cs427)
+ci99_cs427 <- qnorm(0.995) / sqrt(n_cs427)
+
+tibble(lag = as.integer(acf_cs427$lag), acf = as.numeric(acf_cs427$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs427, ci95_cs427), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs427, ci99_cs427), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+The lag 1 autocorrelation, which is generally the one of greatest interest, is `r round(acf_cs427$acf[2], 2)`. The critical values at the 5% significance level are $\pm$ `r round(ci95_cs427, 3)`. This indicates that the lag 1 autocorrelation is statistically significant, so there is strong evidence of non-randomness.
+
+A common test for randomness is the [runs test](#sec-eda-runs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-standard-resistor-runs-test
+#| message: false
+library(lawstat)
+
+runs_cs427 <- runs.test(resistor_cs$y)
+runs_cs427
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(runs_cs427$statistic, 4)` (NIST reports $Z = -30.5629$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(qnorm(0.975), 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(qnorm(0.975), 2)`
+
+Because the test statistic is outside of the critical region, we reject the null hypothesis and conclude that the data are not random.
+
+**Distributional Analysis**
+
+Since we rejected the randomness assumption, the distributional tests are not meaningful. Therefore, these quantitative tests are omitted. Since Grubbs' test for outliers also assumes the approximate normality of the data, we omit Grubbs' test as well.
+
+**Univariate Report**
+
+It is sometimes useful and convenient to summarize the above results in a report.
+
+```
+Analysis for resistor case study
+
+1: Sample Size                           = 1000
+2: Location
+   Mean                                  = 28.01635
+   Standard Deviation of Mean            = 0.002008
+   95% Confidence Interval for Mean      = (28.0124,28.02029)
+   Drift with respect to location?       = NO*
+3: Variation
+   Standard Deviation                    = 0.063495
+   95% Confidence Interval for SD        = (0.060829,0.066407)
+   Change in variation?
+   (based on Levene's test on quarters
+   of the data)                          = YES
+4: Randomness
+   Autocorrelation                       = 0.972158
+   Data Are Random?
+     (as measured by autocorrelation)    = NO
+5: Distribution
+   Distributional test omitted due to
+   non-randomness of the data
+6: Statistical Control
+   (i.e., no drift in location or scale,
+   data are random, distribution is
+   fixed)
+   Data Set is in Statistical Control?   = NO
+7: Outliers?
+   (Grubbs' test omitted due to
+   non-randomness of the data)
+```
+
+\* As in the Filter Transmittance case study, NIST's own text states this as "NO," but this contradicts the page's own preceding conclusion (based on the statistically significant slope $B_1$ in the Location analysis above) that a real drift in location is present. We reproduce NIST's report as published and flag the discrepancy here rather than silently resolving it.
+
+##### Work This Example Yourself {#sec-eda-4274}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.
