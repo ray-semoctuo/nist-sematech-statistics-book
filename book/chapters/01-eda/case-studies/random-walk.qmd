@@ -1,0 +1,408 @@
+#### Random Walk {#sec-eda-423}
+
+This example illustrates the univariate analysis of a set of numbers derived from a random walk.
+
+1. [Background and Data](#sec-eda-4231)
+2. [Test Underlying Assumptions](#sec-eda-4232)
+3. [Develop a Better Model](#sec-eda-4233)
+4. [Validate New Model](#sec-eda-4234)
+5. [Work This Example Yourself](#sec-eda-4235)
+
+##### Background and Data {#sec-eda-4231}
+
+**Generation**
+
+A random walk can be generated from a set of uniform random numbers by the formula:
+
+$$R_i = \sum_{j=1}^{i}(U_j - 0.5)$$
+
+where $U$ is a set of uniform random numbers.
+
+The motivation for studying a set of random walk data is to illustrate the effects of a known underlying [autocorrelation](#sec-eda-autocorrelation) structure (i.e., non-randomness) in the data.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`RANDWALK.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-random-walk
+#| message: false
+library(tidyverse)
+
+randwalk_cs <- scan(here::here("datasets", "RANDWALK.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = randwalk_cs)
+```
+
+##### Test Underlying Assumptions {#sec-eda-4232}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, with $s$ denoting the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-random-walk-4-plot
+#| fig-cap: "4-plot of the random walk data"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs423 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs423 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs423(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs423(randwalk_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates significant shifts in location over time.
+- The [lag plot](#sec-eda-lag-plot) (upper right) indicates significant non-randomness in the data.
+- When the assumptions of randomness and constant location and scale are not satisfied, the distributional assumptions are not meaningful. Therefore we do not attempt to make any interpretation of the [histogram](#sec-eda-histogram) (lower left) or the [normal probability plot](#sec-eda-normal-probability-plot) (lower right).
+
+From the above plots, we conclude that the underlying assumptions are seriously violated. Therefore the $Y_i = C + E_i$ model is not valid.
+
+When the randomness assumption is seriously violated, a time series model may be appropriate. The lag plot often suggests a reasonable model. For example, in this case the strongly linear appearance of the lag plot suggests a model fitting $Y_i$ versus $Y_{i-1}$ might be appropriate. When the data are non-random, it is helpful to supplement the lag plot with an [autocorrelation plot](#sec-eda-autocorrelation-plot) and a [spectral plot](#sec-eda-spectral-plot).
+
+Although in this case the lag plot is enough to suggest an appropriate model, we provide the autocorrelation and spectral plots for comparison.
+
+**Autocorrelation Plot**
+
+When the lag plot indicates significant non-randomness, it can be helpful to follow up with an autocorrelation plot.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-random-walk-autocorrelation
+#| fig-cap: "Autocorrelation plot of the random walk data"
+n_cs423 <- length(randwalk_cs)
+acf_cs423 <- acf(randwalk_cs, lag.max = 100, plot = FALSE)
+ci95_cs423 <- qnorm(0.975) / sqrt(n_cs423)
+ci99_cs423 <- qnorm(0.995) / sqrt(n_cs423)
+
+tibble(lag = as.integer(acf_cs423$lag), acf = as.numeric(acf_cs423$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs423, ci95_cs423), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs423, ci99_cs423), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+This autocorrelation plot shows significant autocorrelation at lags 1 through 100 in a linearly decreasing fashion.
+
+**Spectral Plot**
+
+Another useful plot for non-random data is the spectral plot.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-random-walk-spectral
+#| fig-cap: "Spectral plot of the random walk data"
+spec_cs423 <- spec.pgram(randwalk_cs, taper = 0, detrend = TRUE, demean = TRUE, plot = FALSE)
+tibble(freq = spec_cs423$freq, power = spec_cs423$spec) |>
+  ggplot(aes(freq, power)) +
+  geom_line(color = "steelblue") +
+  geom_point(size = 0.6) +
+  labs(x = "Frequency", y = "Variance (power)") +
+  theme_light()
+```
+
+This spectral plot shows a single dominant low frequency peak.
+
+**Quantitative Output**
+
+Although the 4-plot above clearly shows the violation of the assumptions, we supplement the graphical output with some quantitative measures.
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics are computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-random-walk-summary-statistics
+tibble(
+  `Sample Size` = length(randwalk_cs),
+  Mean = mean(randwalk_cs),
+  Median = median(randwalk_cs),
+  Minimum = min(randwalk_cs),
+  Maximum = max(randwalk_cs),
+  Range = diff(range(randwalk_cs)),
+  `Stan. Dev.` = sd(randwalk_cs)
+)
+```
+
+We also computed the autocorrelation to be `r round(acf_cs423$acf[2], 3)`, which is evidence of a very strong autocorrelation.
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-random-walk-location-fit
+location_fit_cs423 <- lm(randwalk_cs ~ seq_along(randwalk_cs))
+summary(location_fit_cs423)
+```
+
+The t-value of the slope parameter is larger than the critical value of $t_{0.975,498} =$ `r round(qt(0.975, 498), 2)`. Thus, we conclude that the slope is different from zero at the 0.05 significance level.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal-sized intervals. However, the Bartlett test is not robust for non-normality. Since we know this data set is not approximated well by the normal distribution, we use the alternative [Levene test](#sec-eda-levene-test). In particular, we use the Levene test based on the median rather than the mean. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-random-walk-levene
+# Levene's test using the median-centered definition of Z_ij (as used on
+# the Levene Test page).
+levene_test_cs423 <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |> mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |> summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k)
+}
+
+quarter_cs423 <- as.factor(rep(1:4, each = n_cs423 / 4))
+levene_cs423 <- levene_test_cs423(randwalk_cs, quarter_cs423)
+levene_crit_cs423 <- qf(0.95, levene_cs423$df1, levene_cs423$df2)
+
+tibble(statistic = levene_cs423$w, df1 = levene_cs423$df1, df2 = levene_cs423$df2, critical_value = levene_crit_cs423)
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $W \approx$ `r round(levene_cs423$w, 3)` (NIST reports $W = 10.459$; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $F_{\alpha,k-1,N-k} =$ `r round(levene_crit_cs423, 3)`
+
+Critical region: Reject $H_0$ if $W >$ `r round(levene_crit_cs423, 3)`
+
+In this case, the Levene test indicates that the variances are significantly different in the four intervals since the test statistic of `r round(levene_cs423$w, 3)` is greater than the 95% critical value of `r round(levene_crit_cs423, 3)`. Therefore we conclude that the scale is not constant.
+
+**Randomness**
+
+Although the lag 1 autocorrelation coefficient above clearly shows the non-randomness, we show the output from a [runs test](#sec-eda-runs-test) as well.
+
+```{r}
+#| code-fold: true
+#| label: eda-random-walk-runs-test
+runs_test_cs423 <- function(y, alpha = 0.05) {
+  med <- median(y)
+  sign <- sign(y - med)
+  sign <- sign[sign != 0]
+
+  n1 <- sum(sign == 1)
+  n2 <- sum(sign == -1)
+  n <- n1 + n2
+
+  R <- 1 + sum(diff(sign) != 0)
+  Rbar <- 2 * n1 * n2 / n + 1
+  sR2 <- (2 * n1 * n2 * (2 * n1 * n2 - n)) / (n^2 * (n - 1))
+  sR <- sqrt(sR2)
+
+  Z <- (R - Rbar) / sR
+  z_crit <- qnorm(1 - alpha / 2)
+
+  tibble(n1 = n1, n2 = n2, R = R, Rbar = Rbar, sR = sR, Z = Z, z_crit = z_crit, reject_H0 = abs(Z) > z_crit)
+}
+
+randwalk_runs <- runs_test_cs423(randwalk_cs)
+randwalk_runs
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(randwalk_runs$Z, 4)` (NIST reports $Z = -20.3239$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(randwalk_runs$z_crit, 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(randwalk_runs$z_crit, 2)`
+
+The runs test rejects the null hypothesis that the data were produced in a random manner at the 0.05 significance level.
+
+**Distributional Assumptions**
+
+Since the quantitative tests show that the assumptions of randomness and constant location and scale are not met, the distributional measures will not be meaningful. Therefore these quantitative tests are omitted.
+
+##### Develop a Better Model {#sec-eda-4233}
+
+**Lag Plot Suggests Better Model**
+
+Since the underlying assumptions did not hold, we need to develop a better model. The lag plot showed a distinct linear pattern. Given the definition of the lag plot, $Y_i$ versus $Y_{i-1}$, a good candidate model is a model of the form
+
+$$Y_i = A_0 + A_1 Y_{i-1} + E_i$$
+
+**Fit Output**
+
+The results of a linear fit of this model generated the following results.
+
+```{r}
+#| code-fold: true
+#| label: eda-random-walk-ar1-fit
+ar1_fit_cs423 <- lm(randwalk_cs[-1] ~ randwalk_cs[-n_cs423])
+summary(ar1_fit_cs423)
+```
+
+The slope parameter, $A_1$, has a t-value of `r round(summary(ar1_fit_cs423)$coefficients[2, 3], 3)`, which is statistically significant. Also, the residual standard deviation is `r round(summary(ar1_fit_cs423)$sigma, 4)`. This can be compared to the standard deviation shown in the summary table, which is `r round(sd(randwalk_cs), 6)`. That is, the fit to the autoregressive model has reduced the variability by a factor of `r round(sd(randwalk_cs) / summary(ar1_fit_cs423)$sigma, 0)`.
+
+**Time Series Model**
+
+This model is an example of a time series model. More extensive discussion of time series is given in the Process Monitoring chapter<!-- XREF: Process or Product Monitoring and Control chapter; source handbook/pmc/pmc.htm -->.
+
+##### Validate New Model {#sec-eda-4234}
+
+**Plot Predicted with Original Data**
+
+The first step in verifying the model is to plot the predicted values from the fit with the original data.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-random-walk-predicted
+#| fig-cap: "Predicted values from the AR(1) model plotted with the original random walk data"
+tibble(i = 2:n_cs423, observed = randwalk_cs[-1], predicted = fitted(ar1_fit_cs423)) |>
+  pivot_longer(c(observed, predicted), names_to = "series", values_to = "y") |>
+  ggplot(aes(i, y, color = series)) +
+  geom_line() +
+  labs(x = "Index", y = "Y", color = NULL) +
+  theme_light()
+```
+
+This plot indicates a reasonably good fit.
+
+**Test Underlying Assumptions on the Residuals**
+
+In addition to the plot of the predicted values, the residual standard deviation from the fit also indicates a significant improvement for the model. The next step is to validate the underlying assumptions for the error component, or residuals, from this model.
+
+**4-Plot of Residuals**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-random-walk-residuals-4-plot
+#| fig-cap: "4-plot of the residuals from the AR(1) model"
+four_plot_cs423(resid(ar1_fit_cs423))
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates no significant shifts in location or scale over time.
+- The [lag plot](#sec-eda-lag-plot) (upper right) exhibits a random appearance.
+- The [histogram](#sec-eda-histogram) shows a relatively flat appearance. This indicates that a uniform probability distribution may be an appropriate model for the error component (or residuals).
+- The [normal probability plot](#sec-eda-normal-probability-plot) clearly shows that the normal distribution is not an appropriate model for the error component.
+
+A uniform probability plot can be used to further test the suggestion that a uniform distribution might be a good model for the error component.
+
+**Uniform Probability Plot of Residuals**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-random-walk-residuals-uniform-probability
+#| fig-cap: "Uniform probability plot of the residuals from the AR(1) model"
+resid_cs423 <- resid(ar1_fit_cs423)
+n_resid_cs423 <- length(resid_cs423)
+theoretical_unif_cs423 <- uniform_medians_cs423(n_resid_cs423)
+
+tibble(theoretical = theoretical_unif_cs423, observed = sort(resid_cs423)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+  labs(x = "Theoretical (Uniform)", y = "Ordered Residual") +
+  theme_light()
+```
+
+Since the uniform probability plot is nearly linear, this verifies that a uniform distribution is a good model for the error component.
+
+**Conclusions**
+
+Since the residuals from our model satisfy the underlying assumptions, we conclude that
+
+$$Y_i = 0.0502 + 0.987 Y_{i-1} + E_i$$
+
+where the $E_i$ follow a uniform distribution is a good model for this data set. We could simplify this model to
+
+$$Y_i = 1.0 Y_{i-1} + E_i$$
+
+This has the advantage of simplicity (the current point is simply the previous point plus a uniformly distributed error term).
+
+**Using Scientific and Engineering Knowledge**
+
+In this case, the above model makes sense based on our definition of the random walk. That is, a random walk is the cumulative sum of uniformly distributed data points. It makes sense that modeling the current point as the previous point plus a uniformly distributed error term is about as good as we can do. Although this case is a bit artificial in that we knew how the data were constructed, it is common and desirable to use scientific and engineering knowledge of the process that generated the data in formulating and testing models for the data. Quite often, several competing models will produce nearly equivalent mathematical results. In this case, selecting the model that best approximates the scientific understanding of the process is a reasonable choice.
+
+**Time Series Model**
+
+This model is an example of a time series model. More extensive discussion of time series is given in the Process Monitoring chapter<!-- XREF: Process or Product Monitoring and Control chapter; source handbook/pmc/pmc.htm -->.
+
+##### Work This Example Yourself {#sec-eda-4235}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.

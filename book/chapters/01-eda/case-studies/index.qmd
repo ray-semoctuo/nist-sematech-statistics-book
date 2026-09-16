@@ -118,7 +118,7 @@ The remaining case studies intermix one or more of these quantitative techniques
 
 - [Normal Random Numbers](#sec-eda-421)
 - [Uniform Random Numbers](#sec-eda-422)
-- Random Walk<!-- XREF: EDA Case Studies (Section 1.4.2.3), Random Walk, not yet migrated to this book; source handbook/eda/section4/eda423.htm -->
+- [Random Walk](#sec-eda-423)
 - Josephson Junction Cryothermometry<!-- XREF: EDA Case Studies (Section 1.4.2.4), Josephson Junction Cryothermometry, not yet migrated to this book; source handbook/eda/section4/eda424.htm -->
 - Beam Deflections<!-- XREF: EDA Case Studies (Section 1.4.2.5), Beam Deflections, not yet migrated to this book; source handbook/eda/section4/eda425.htm -->
 - Filter Transmittance<!-- XREF: EDA Case Studies (Section 1.4.2.6), Filter Transmittance, not yet migrated to this book; source handbook/eda/section4/eda426.htm -->
@@ -136,3 +136,5 @@ The remaining case studies intermix one or more of these quantitative techniques
 {{< include case-studies/normal-random-numbers.qmd >}}
 
 {{< include case-studies/uniform-random-numbers.qmd >}}
+
+{{< include case-studies/random-walk.qmd >}}
