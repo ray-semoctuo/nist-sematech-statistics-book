@@ -347,7 +347,19 @@ Note that multivariate analysis is only covered lightly in this Handbook.
 
 ## EDA Assumptions {#sec-eda-2}
 
+The gamut of scientific and engineering experimentation is virtually limitless. In this sea of diversity is there any common basis that allows the analyst to systematically and validly arrive at supportable, repeatable research conclusions?
+
+Fortunately, there is such a basis and it is rooted in the fact that every measurement process, however complicated, has certain underlying assumptions. This section deals with what those assumptions are, why they are important, how to go about testing them, and what the consequences are if the assumptions do not hold.
+
+1. [Underlying Assumptions](#sec-eda-21)
+2. [Importance](#sec-eda-22)
+3. [Techniques for Testing Assumptions](#sec-eda-23)
+4. [Interpretation of 4-Plot](#sec-eda-24)
+5. [Consequences](#sec-eda-25)
+
 ### Underlying Assumptions {#sec-eda-21}
+
+**Assumptions Underlying a Measurement Process**
 
 There are four assumptions that typically underlie all measurement processes; namely, that the data from the process at hand "behave like":
 
@@ -355,6 +367,8 @@ There are four assumptions that typically underlie all measurement processes; na
 2. from a fixed distribution;
 3. with the distribution having fixed location; and
 4. with the distribution having fixed variation.
+
+**Univariate or Single Response Variable**
 
 The "fixed location" referred to in item 3 above differs for different problem types. The simplest problem type is univariate; that is, a single variable. For the univariate problem, the general model
 
@@ -364,6 +378,8 @@ becomes
 
 > response = constant + error
 
+**Assumptions for Univariate Model**
+
 For this case, the "fixed location" is simply the unknown constant. We can thus imagine the process at hand to be operating under constant conditions that produce a single column of data with the properties that
 
 - the data are uncorrelated with one another;
@@ -371,7 +387,11 @@ For this case, the "fixed location" is simply the unknown constant. We can thus 
 - the deterministic component consists of only a constant; and
 - the random component has fixed variation.
 
+**Extrapolation to a Function of Many Variables**
+
 The universal power and importance of the univariate model is that it can easily be extended to the more general case where the deterministic component is not just a constant, but is in fact a function of many variables, and the engineering objective is to characterize and model the function<!-- XREF: Process Modeling chapter landing page; source handbook/pmd/pmd.htm -->.
+
+**Residuals Will Behave According to Univariate Assumptions**
 
 The key point is that regardless of how many factors there are, and regardless of how complicated the function is, if the engineer succeeds in choosing a good model, then the differences (residuals) between the raw response data and the predicted values from the fitted model should themselves behave like a univariate process. Furthermore, the residuals from this univariate process fit will behave like:
 
@@ -380,17 +400,27 @@ The key point is that regardless of how many factors there are, and regardless o
 - with fixed location (namely, 0 in this case); and
 - with fixed variation.
 
+**Validation of Model**
+
 Thus if the residuals from the fitted model<!-- XREF: Process Modeling chapter, residuals from the fitted model; source handbook/pmd/section4/pmd44.htm --> do in fact behave like the ideal, then testing of underlying assumptions becomes a tool for the validation and quality of fit of the chosen model. On the other hand, if the residuals from the chosen fitted model violate one or more of the above univariate assumptions, then the chosen fitted model is inadequate and an opportunity exists for arriving at an improved model.
 
 ### Importance {#sec-eda-22}
 
+**Predictability and Statistical Control**
+
 Predictability is an all-important goal in science and engineering. If the four underlying assumptions hold, then we have achieved probabilistic predictability — the ability to make probability statements not only about the process in the past, but also about the process in the future. In short, such processes are said to be "in statistical control."
+
+**Validity of Engineering Conclusions**
 
 Moreover, if the four assumptions are valid, then the process is amenable to the generation of valid scientific and engineering conclusions. If the four assumptions are not valid, then the process is drifting (with respect to location, variation, or distribution), unpredictable, and out of control. A simple characterization of such processes by a location estimate, a variation estimate, or a distribution "estimate" inevitably leads to engineering conclusions that are not valid, are not supportable (scientifically or legally), and which are not repeatable in the laboratory.
 
 ### Techniques for Testing Assumptions {#sec-eda-23}
 
+**Testing Underlying Assumptions Helps Assure the Validity of Scientific and Engineering Conclusions**
+
 Because the validity of the final scientific/engineering conclusions is inextricably linked to the validity of the underlying univariate assumptions, it naturally follows that there is a real necessity that each and every one of the above four assumptions be routinely tested.
+
+**Four Techniques to Test Underlying Assumptions**
 
 The following EDA techniques are simple, efficient, and powerful for the routine testing of underlying assumptions:
 
@@ -399,6 +429,8 @@ The following EDA techniques are simple, efficient, and powerful for the routine
 - [histogram](#sec-eda-histogram) (counts versus subgroups of $Y$);
 - [normal probability plot](#sec-eda-normal-probability-plot) (ordered $Y$ versus theoretical ordered $Y$).
 
+**Plot on a Single Page for a Quick Characterization of the Data**
+
 The four EDA plots can be juxtaposed for a quick look at the characteristics of the data. The plots are conventionally arranged together as a single "[4-Plot](#sec-eda-4-plot)," ordered as follows:
 
 - Run sequence plot — upper left
@@ -406,15 +438,86 @@ The four EDA plots can be juxtaposed for a quick look at the characteristics of 
 - Histogram — lower left
 - Normal probability plot — lower right
 
+```{r}
+#| code-fold: true
+#| label: setup-eda-4-plot-assumptions
+#| message: false
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_eda23 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_eda23 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_eda23(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+```
+
+**Sample Plot: Assumptions Hold**
+
 A [4-Plot](#sec-eda-4-plot) of 500 normal random numbers<!-- XREF: RANDN.DAT dataset; source handbook/datasets/RANDN.DAT --> reveals a process that has fixed location, fixed variation, is random, apparently has a fixed approximately normal distribution, and has no outliers.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-4-plot-assumptions-hold
+#| fig-cap: "4-plot of the RANDN.DAT data set (500 normal random numbers), an example of a process for which the four underlying assumptions hold"
+randn_raw <- read_table(here::here("datasets", "RANDN.DAT"), skip = 25, col_names = FALSE)
+randn <- as.numeric(t(as.matrix(randn_raw)))
+
+four_plot_eda23(randn)
+```
+
+**Sample Plot: Assumptions Do Not Hold**
 
 If one or more of the four underlying assumptions do not hold, then it will show up in the various plots, as in the following example<!-- XREF: LEW.DAT dataset; source handbook/datasets/LEW.DAT -->. For example, a [4-Plot](#sec-eda-4-plot) may reveal a process that has fixed location, fixed variation, is non-random (oscillatory), has a non-normal, U-shaped distribution, and has several outliers.
 
-::: {.callout-note}
-The illustrative 4-Plots referenced here (for both well-behaved and assumption-violating data) will be added once the 4-Plot technique (Section 1.3) and its example datasets are covered.
-:::
+```{r}
+#| code-fold: true
+#| label: fig-eda-4-plot-assumptions-do-not-hold
+#| fig-cap: "4-plot of the LEW.DAT data set, an example of a process for which the underlying randomness and fixed-distribution assumptions do not hold"
+lew_eda23 <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y", col_types = "d")
+
+four_plot_eda23(lew_eda23$y)
+```
 
 ### Interpretation of 4-Plot {#sec-eda-24}
+
+**Interpretation of EDA Plots: Flat and Equi-Banded, Random, Bell-Shaped, and Linear**
 
 The four EDA plots discussed above are used to test the underlying assumptions:
 
@@ -422,6 +525,8 @@ The four EDA plots discussed above are used to test the underlying assumptions:
 - **Fixed Variation**: If the fixed variation assumption holds, then the vertical spread in the run sequence plot will be approximately the same over the entire horizontal axis.
 - **Randomness**: If the randomness assumption holds, then the lag plot will be structureless and random.
 - **Fixed Distribution**: If the fixed distribution assumption holds, in particular if the fixed normal distribution holds, then the histogram will be bell-shaped, and the normal probability plot will be linear.
+
+**Plots Utilized to Test the Assumptions**
 
 Conversely, the underlying assumptions are tested using the EDA plots:
 
@@ -434,9 +539,15 @@ If all four of the assumptions hold, then the process is said definitionally to 
 
 ### Consequences {#sec-eda-25}
 
+**What If Assumptions Do Not Hold?**
+
 If some of the underlying assumptions do not hold, what can be done about it? What corrective actions can be taken? The positive way of approaching this is to view the testing of underlying assumptions as a framework for learning about the process. Assumption-testing promotes insight into important aspects of the process that may not have surfaced otherwise.
 
+**Primary Goal is Correct and Valid Scientific Conclusions**
+
 The primary goal is to have correct, validated, and complete scientific/engineering conclusions flowing from the analysis. This usually includes intermediate goals such as the derivation of a good-fitting model and the computation of realistic parameter estimates. It should always include the ultimate goal of an understanding and a "feel" for "what makes the process tick." There is no more powerful catalyst for discovery than the bringing together of an experienced/expert scientist/engineer and a data set ripe with intriguing "anomalies" and characteristics.
+
+**Consequences of Invalid Assumptions**
 
 The following subsections discuss in more detail the consequences of invalid assumptions.
 
