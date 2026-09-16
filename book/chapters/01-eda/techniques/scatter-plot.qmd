@@ -282,7 +282,7 @@ The scatter plot is demonstrated in the load cell calibration data case study<!-
 
 Scatter plots are a fundamental technique that should be available in any general purpose statistical software program. Scatter plots are also available in most graphics and spreadsheet programs as well.
 
-##### Scatterplot Matrix
+##### Scatterplot Matrix {#sec-eda-scatterplot-matrix}
 
 **Purpose: Check Pairwise Relationships Between Variables**
 
@@ -414,7 +414,7 @@ The conditioning plot can provide answers to the following questions:
 
 **Related Techniques**
 
-[Scatter Plot](#sec-eda-scatter-plot), Scatterplot Matrix, Locally Weighted Least Squares<!-- XREF: Process Modeling chapter, LOESS/lowess; source handbook/pmd/section1/pmd144.htm -->.
+[Scatter Plot](#sec-eda-scatter-plot), [Scatterplot Matrix](#sec-eda-scatterplot-matrix), Locally Weighted Least Squares<!-- XREF: Process Modeling chapter, LOESS/lowess; source handbook/pmd/section1/pmd144.htm -->.
 
 **Software**
 

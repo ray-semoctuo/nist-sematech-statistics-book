@@ -209,9 +209,26 @@ In contrast, a simple scatter plot of the data suggests the following:
 3. there are no outliers;
 4. the vertical spread of the data appears to be of equal height irrespective of the $X$-value; this indicates that the data are equally precise throughout and so a "regular" (that is, equi-weighted) fit is appropriate.
 
-::: {.callout-note}
-The [scatter plot](#sec-eda-scatter-plot) of this data set will be added once this case study's dataset<!-- XREF: ANSCOMBE.DAT dataset; source handbook/datasets/ANSCOMBE.DAT --> is covered.
-:::
+```{r}
+#| code-fold: true
+#| label: setup-eda-anscombe
+#| message: false
+library(tidyverse)
+
+anscombe_full <- read_table(here::here("datasets", "ANSCOMBE.DAT"), skip = 25,
+                             col_names = c("x1", "y1", "x2", "y2", "x3", "y3", "x4", "y4"))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-anscombe-1-scatter-plot
+#| fig-cap: "Scatter plot of Anscombe data set 1"
+ggplot(anscombe_full, aes(x1, y1)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE) +
+  labs(x = "X", y = "Y") +
+  theme_light()
+```
 
 This kind of characterization for the data serves as the core for getting insight/feel for the data. Such insight/feel does not come from the quantitative statistics; on the contrary, calculations of quantitative statistics such as intercept and slope should be subsequent to the characterization and will make sense only if the characterization is true. To illustrate the loss of information that results when the graphics insight step is skipped, consider the following three additional data sets (Anscombe data sets 2, 3, and 4):
 
@@ -234,9 +251,24 @@ A quantitative analysis on data set 2 yields $N$ = 11, Mean of $X$ = 9.0, Mean o
 
 Remarkably, a quantitative analysis on data sets 3 and 4 also yields $N$ = 11, Mean of $X$ = 9.0, Mean of $Y$ = 7.5, Intercept = 3, Slope = 0.5, Residual standard deviation = 1.236, and Correlation = 0.816 (0.817 for data set 4), which implies that in some quantitative sense, all four of the data sets are "equivalent." In fact, the four data sets are far from "equivalent," and a scatter plot of each data set, which would be step 1 of any EDA approach, would tell us that immediately.
 
-::: {.callout-note}
-The four [scatter plots](#sec-eda-scatter-plot) comprising Anscombe's quartet will be added once this case study's dataset<!-- XREF: ANSCOMBE.DAT dataset (datasets 2, 3, and 4); source handbook/datasets/ANSCOMBE.DAT --> is covered. For now, the conclusions each plot reveals are summarized below.
-:::
+```{r}
+#| code-fold: true
+#| label: fig-eda-anscombe-quartet-scatter-plots
+#| fig-cap: "Scatter plots of Anscombe's quartet (data sets 1 through 4)"
+anscombe_quartet <- bind_rows(
+  anscombe_full |> select(x = x1, y = y1) |> mutate(set = "Data Set 1"),
+  anscombe_full |> select(x = x2, y = y2) |> mutate(set = "Data Set 2"),
+  anscombe_full |> select(x = x3, y = y3) |> mutate(set = "Data Set 3"),
+  anscombe_full |> select(x = x4, y = y4) |> mutate(set = "Data Set 4")
+)
+
+ggplot(anscombe_quartet, aes(x, y)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE) +
+  facet_wrap(~set, nrow = 2) +
+  labs(x = "X", y = "Y") +
+  theme_light()
+```
 
 Conclusions from the scatter plots are:
 
@@ -309,7 +341,7 @@ The following classification is a convenient way to organize EDA problems.
 - Data: $k$ factor variables ($X_1$, $X_2$, ..., $X_k$).
 - Model: The model is not explicit.
 - Output: Identify underlying correlation structure in the data.
-- Techniques: [Star Plot](#sec-eda-star-plot), Scatter Plot Matrix<!-- XREF: EDA graphical technique not yet migrated to this book; source handbook/eda/section3/scatterb.htm -->, Conditioning Plot<!-- XREF: EDA graphical technique not yet migrated to this book; source handbook/eda/section3/scatterc.htm -->, Profile Plot, Principal Components<!-- XREF: Process or Product Monitoring and Control chapter, Principal Components; source handbook/pmc/section5/pmc55.htm -->, Clustering, Discrimination/Classification.
+- Techniques: [Star Plot](#sec-eda-star-plot), [Scatter Plot Matrix](#sec-eda-scatterplot-matrix), Conditioning Plot<!-- XREF: EDA graphical technique not yet migrated to this book; source handbook/eda/section3/scatterc.htm -->, Profile Plot, Principal Components<!-- XREF: Process or Product Monitoring and Control chapter, Principal Components; source handbook/pmc/section5/pmc55.htm -->, Clustering, Discrimination/Classification.
 
 Note that multivariate analysis is only covered lightly in this Handbook.
 
