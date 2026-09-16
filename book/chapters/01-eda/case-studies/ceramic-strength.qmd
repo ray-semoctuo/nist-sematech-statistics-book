@@ -475,7 +475,7 @@ doe_scatter_panels_cs42a <- function(df) {
     mutate(factor = toupper(factor)) |>
     ggplot(aes(level, y)) +
     geom_hline(yintercept = mean(df$y)) +
-    geom_point(alpha = 0.5) +
+    geom_point(alpha = 0.25) +
     facet_wrap(~factor, nrow = 1) +
     scale_x_continuous(breaks = c(-1, 1), labels = c("-1", "+1"), limits = c(-1.5, 1.5)) +
     labs(x = NULL, y = "Ceramic Strength") +
@@ -696,3 +696,7 @@ From the above plots, we can draw the following overall conclusions:
 
 - The batch effect (of approximately 75 units) is the dominant primary factor.
 - The most important factors differ from batch to batch. See the above text for the ranked list of factors with the estimated effects.
+
+##### Work This Example Yourself {#sec-eda-42a6}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.
