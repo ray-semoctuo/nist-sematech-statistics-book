@@ -1,0 +1,328 @@
+#### Filter Transmittance {#sec-eda-426}
+
+This example illustrates the univariate analysis of filter transmittance data.
+
+1. [Background and Data](#sec-eda-4261)
+2. [Graphical Output and Interpretation](#sec-eda-4262)
+3. [Quantitative Output and Interpretation](#sec-eda-4263)
+4. [Work This Example Yourself](#sec-eda-4264)
+
+##### Background and Data {#sec-eda-4261}
+
+**Generation**
+
+This data set was collected by NIST chemist Radu Mavrodineaunu in the 1970's from an automatic data acquisition system for a filter transmittance experiment. The response variable is transmittance.
+
+The motivation for studying this data set is to show how the underlying autocorrelation structure in a relatively small data set helped the scientist detect problems with his automatic data acquisition system.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`MAVRO.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-filter-transmittance
+#| message: false
+library(tidyverse)
+
+mavro_cs <- scan(here::here("datasets", "MAVRO.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = mavro_cs)
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4262}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-filter-transmittance-4-plot
+#| fig-cap: "4-plot of the filter transmittance data"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs426 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs426 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs426(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs426(mavro_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates a significant shift in location around $x = 35$.
+- The linear appearance in the [lag plot](#sec-eda-lag-plot) (upper right) indicates a non-random pattern in the data.
+- Since the lag plot indicates significant non-randomness, we do not make any interpretation of either the [histogram](#sec-eda-histogram) (lower left) or the [normal probability plot](#sec-eda-normal-probability-plot) (lower right).
+
+The serious violation of the non-randomness assumption means that the univariate model $Y_i = C + E_i$ is not valid. Given the linear appearance of the lag plot, the first step might be to consider a model of the type
+
+$$Y_i = A_0 + A_1 Y_{i-1} + E_i$$
+
+However, in this case discussions with the scientist revealed that non-randomness was entirely unexpected. An examination of the experimental process revealed that the sampling rate for the automatic data acquisition system was too fast. That is, the equipment did not have sufficient time to reset before the next sample started, resulting in the current measurement being contaminated by the previous measurement. The solution was to rerun the experiment allowing more time between samples.
+
+Simple graphical techniques can be quite effective in revealing unexpected results in the data. When this occurs, it is important to investigate whether the unexpected result is due to problems in the experiment and data collection or is indicative of unexpected underlying structure in the data. This determination cannot be made on the basis of statistics alone. The role of the graphical and statistical analysis is to detect problems or unexpected results in the data. Resolving the issues requires the knowledge of the scientist or engineer.
+
+**Individual Plots**
+
+Although it is generally unnecessary, the plots can be generated individually to give more detail. Since the lag plot indicates significant non-randomness, we omit the distributional plots.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-filter-transmittance-run-sequence
+#| fig-cap: "Run sequence plot of the filter transmittance data"
+tibble(i = seq_along(mavro_cs), y = mavro_cs) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-filter-transmittance-lag
+#| fig-cap: "Lag plot of the filter transmittance data"
+n_cs426 <- length(mavro_cs)
+tibble(y = mavro_cs[-1], y_lag = mavro_cs[-n_cs426]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+##### Quantitative Output and Interpretation {#sec-eda-4263}
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics are computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-filter-transmittance-summary-statistics
+tibble(
+  `Sample Size` = length(mavro_cs),
+  Mean = mean(mavro_cs),
+  Median = median(mavro_cs),
+  Minimum = min(mavro_cs),
+  Maximum = max(mavro_cs),
+  Range = diff(range(mavro_cs)),
+  `Stan. Dev.` = sd(mavro_cs)
+)
+```
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-filter-transmittance-location-fit
+location_fit_cs426 <- lm(mavro_cs ~ seq_along(mavro_cs))
+summary(location_fit_cs426)
+```
+
+The slope parameter, $B_1$, has a t-value of `r round(summary(location_fit_cs426)$coefficients[2, 3], 3)`, which is statistically significant. Although the estimated slope is nearly zero, the range of data (`r min(mavro_cs)` to `r max(mavro_cs)`) is also very small. In this case, we conclude that there is drift in location, although it is relatively small.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal sized intervals. However, the Bartlett test is not robust for non-normality. Since the normality assumption is questionable for these data, we use the alternative [Levene test](#sec-eda-levene-test). In particular, we use the Levene test based on the median rather than the mean. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-filter-transmittance-levene
+# Levene's test using the median-centered definition of Z_ij (as used on
+# the Levene Test page). With N=50 not evenly divisible by 4, quarters are
+# sized as evenly as possible (13, 13, 12, 12 -- rounding down the base
+# group size of N/4 and assigning the remainder to the first groups).
+levene_test_cs426 <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |> mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |> summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k)
+}
+
+quarter_cs426 <- as.factor(ceiling(4 * seq_len(n_cs426) / n_cs426))
+levene_cs426 <- levene_test_cs426(mavro_cs, quarter_cs426)
+levene_crit_cs426 <- qf(0.95, levene_cs426$df1, levene_cs426$df2)
+
+tibble(statistic = levene_cs426$w, df1 = levene_cs426$df1, df2 = levene_cs426$df2, critical_value = levene_crit_cs426)
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $W \approx$ `r round(levene_cs426$w, 3)` (NIST reports $W = 0.971$; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $F_{\alpha,k-1,N-k} =$ `r round(levene_crit_cs426, 3)`
+
+Critical region: Reject $H_0$ if $W >$ `r round(levene_crit_cs426, 3)`
+
+In this case, since the Levene test statistic value is less than the critical value at the 5% level, we conclude that there is no evidence of a change in variation.
+
+**Randomness**
+
+There are many ways in which data can be non-random. However, most common forms of non-randomness can be detected with a few simple tests. The lag plot in the 4-plot in the previous section is a simple graphical technique.
+
+One check is an [autocorrelation plot](#sec-eda-autocorrelation-plot) that shows the autocorrelations for various lags. Confidence bands can be plotted at the 95% and 99% confidence levels. Points outside this band indicate statistically significant values (lag 0 is always 1).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-filter-transmittance-autocorrelation
+#| fig-cap: "Autocorrelation plot of the filter transmittance data"
+acf_cs426 <- acf(mavro_cs, lag.max = 20, plot = FALSE)
+ci95_cs426 <- qnorm(0.975) / sqrt(n_cs426)
+ci99_cs426 <- qnorm(0.995) / sqrt(n_cs426)
+
+tibble(lag = as.integer(acf_cs426$lag), acf = as.numeric(acf_cs426$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs426, ci95_cs426), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs426, ci99_cs426), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+The lag 1 autocorrelation, which is generally the one of most interest, is `r round(acf_cs426$acf[2], 2)`. The critical values at the 5% level are $\pm$ `r round(ci95_cs426, 3)`. This indicates that the lag 1 autocorrelation is statistically significant, so there is strong evidence of non-randomness.
+
+A common test for randomness is the [runs test](#sec-eda-runs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-filter-transmittance-runs-test
+#| message: false
+# As with the Josephson Junction Cryothermometry case study, this data has
+# some ties at the median (5 of 50 values), which makes the median-based
+# tie-dropping runs test used elsewhere in this book diverge slightly from
+# NIST's own result. We use lawstat::runs.test() directly to reproduce
+# NIST's reported statistic exactly.
+library(lawstat)
+
+runs_cs426 <- runs.test(mavro_cs)
+runs_cs426
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(runs_cs426$statistic, 4)` (NIST reports $Z = -5.3246$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(qnorm(0.975), 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(qnorm(0.975), 2)`
+
+Because the test statistic is outside of the critical region, we reject the null hypothesis and conclude that the data are not random.
+
+**Distributional Analysis**
+
+Since we rejected the randomness assumption, the distributional tests are not meaningful. Therefore, these quantitative tests are omitted. We also omit Grubbs' outlier test since it also assumes the data are approximately normally distributed.
+
+**Univariate Report**
+
+It is sometimes useful and convenient to summarize the above results in a report.
+
+```
+Analysis for filter transmittance data
+
+1: Sample Size                           = 50
+2: Location
+   Mean                                  = 2.001857
+   Standard Deviation of Mean            = 0.00006
+   95% Confidence Interval for Mean      = (2.001735,2.001979)
+   Drift with respect to location?       = NO*
+3: Variation
+   Standard Deviation                    = 0.00043
+   95% Confidence Interval for SD        = (0.000359,0.000535)
+   Change in variation?
+   (based on Levene's test on quarters
+   of the data)                          = NO
+4: Distribution
+   Distributional tests omitted due to
+   non-randomness of the data
+5: Randomness
+   Lag One Autocorrelation               = 0.937998
+   Data are Random?
+     (as measured by autocorrelation)    = NO
+6: Statistical Control
+   (i.e., no drift in location or scale,
+   data are random, distribution is
+   fixed, here we are testing only for
+   normal)
+   Data Set is in Statistical Control?   = NO
+7: Outliers?
+   (Grubbs' test omitted)                = NO
+```
+
+\* NIST's own text states this as "NO," but this contradicts the page's own preceding conclusion (based on the statistically significant slope $B_1$ in the Location analysis above) that a small but real drift in location is present. We reproduce NIST's report as published and flag the discrepancy here rather than silently resolving it.
+
+##### Work This Example Yourself {#sec-eda-4264}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.

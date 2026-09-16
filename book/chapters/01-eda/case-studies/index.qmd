@@ -121,7 +121,7 @@ The remaining case studies intermix one or more of these quantitative techniques
 - [Random Walk](#sec-eda-423)
 - [Josephson Junction Cryothermometry](#sec-eda-424)
 - [Beam Deflections](#sec-eda-425)
-- Filter Transmittance<!-- XREF: EDA Case Studies (Section 1.4.2.6), Filter Transmittance, not yet migrated to this book; source handbook/eda/section4/eda426.htm -->
+- [Filter Transmittance](#sec-eda-426)
 - Standard Resistor<!-- XREF: EDA Case Studies (Section 1.4.2.7), Standard Resistor, not yet migrated to this book; source handbook/eda/section4/eda427.htm -->
 - Heat Flow Meter 1<!-- XREF: EDA Case Studies (Section 1.4.2.8), Heat Flow Meter 1, not yet migrated to this book; source handbook/eda/section4/eda428.htm -->
 
@@ -142,3 +142,5 @@ The remaining case studies intermix one or more of these quantitative techniques
 {{< include case-studies/josephson-junction-cryothermometry.qmd >}}
 
 {{< include case-studies/beam-deflections.qmd >}}
+
+{{< include case-studies/filter-transmittance.qmd >}}
