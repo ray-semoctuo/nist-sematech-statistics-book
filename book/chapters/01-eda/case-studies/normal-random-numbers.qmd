@@ -1,0 +1,422 @@
+#### Normal Random Numbers {#sec-eda-421}
+
+##### Background and Data {#sec-eda-4211}
+
+**Generation**
+
+The normal random numbers used in this case study are from a Rand Corporation publication.
+
+The motivation for studying a set of normal random numbers is to illustrate the ideal case where all four [underlying assumptions](#sec-eda-2) hold.
+
+**Software**
+
+The analyses used in this case study can be generated using R code. The reader can download the data as a text file (`RANDN.DAT`).
+
+**Data**
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-normal-random-numbers
+#| message: false
+library(tidyverse)
+
+randn_cs <- read_table(here::here("datasets", "RANDN.DAT"), skip = 25, col_names = FALSE) |>
+  as.matrix() |>
+  t() |>
+  as.numeric()
+
+tibble(y = randn_cs)
+```
+
+##### Graphical Output and Interpretation {#sec-eda-4212}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-normal-random-numbers-4-plot
+#| fig-cap: "4-plot of the normal random numbers"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs421 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs421 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs421(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs421(randn_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time. The run sequence plot does not show any obvious outliers.
+- The [lag plot](#sec-eda-lag-plot) (upper right) does not indicate any non-random pattern in the data.
+- The [histogram](#sec-eda-histogram) (lower left) shows that the data are reasonably symmetric, there do not appear to be significant outliers in the tails, and that it is reasonable to assume that the data are from approximately a normal distribution.
+- The [normal probability plot](#sec-eda-normal-probability-plot) (lower right) verifies that an assumption of normality is in fact reasonable.
+
+From the above plots, we conclude that the underlying assumptions are valid and the data follow approximately a normal distribution. Therefore, the confidence interval form given previously is appropriate for quantifying the uncertainty of the population mean.
+
+The numerical values for this model are given in the [Quantitative Output and Interpretation](#sec-eda-4213) section.
+
+**Individual Plots**
+
+Although it is usually not necessary, the plots can be generated individually to give more detail.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-normal-random-numbers-run-sequence
+#| fig-cap: "Run sequence plot of the normal random numbers"
+tibble(i = seq_along(randn_cs), y = randn_cs) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-normal-random-numbers-lag
+#| fig-cap: "Lag plot of the normal random numbers"
+n_cs421 <- length(randn_cs)
+tibble(y = randn_cs[-1], y_lag = randn_cs[-n_cs421]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-normal-random-numbers-histogram
+#| fig-cap: "Histogram of the normal random numbers, with overlaid normal PDF"
+ggplot(tibble(y = randn_cs), aes(y)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 30, color = "white", fill = "steelblue4") +
+  stat_function(fun = dnorm, args = list(mean = mean(randn_cs), sd = sd(randn_cs)), color = "firebrick") +
+  labs(x = "Y", y = "Density") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-normal-random-numbers-normal-probability
+#| fig-cap: "Normal probability plot of the normal random numbers"
+theoretical_cs421 <- qnorm(uniform_medians_cs421(n_cs421))
+tibble(theoretical = theoretical_cs421, observed = sort(randn_cs)) |>
+  ggplot(aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+  labs(x = "Theoretical", y = "Ordered Y") +
+  theme_light()
+```
+
+##### Quantitative Output and Interpretation {#sec-eda-4213}
+
+**Summary Statistics**
+
+As a first step in the analysis, common summary statistics are computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-summary-statistics
+tibble(
+  `Sample Size` = length(randn_cs),
+  Mean = mean(randn_cs),
+  Median = median(randn_cs),
+  Minimum = min(randn_cs),
+  Maximum = max(randn_cs),
+  Range = diff(range(randn_cs)),
+  `Stan. Dev.` = sd(randn_cs)
+)
+```
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data using an index variable as the independent variable in the regression. For our data, we assume that the data are in sequential run order and that the data were collected at equally spaced time intervals. In our regression, we use the index variable $X = 1, 2, \ldots, N$, where $N$ is the number of observations. If there is no significant drift in the location over time, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-location-fit
+location_fit <- lm(randn_cs ~ seq_along(randn_cs))
+summary(location_fit)
+```
+
+The absolute value of the t-value for the slope parameter is smaller than the critical value of $t_{0.975,498} =$ `r round(qt(0.975, 498), 2)`. Thus, we conclude that the slope is not different from zero at the 0.05 significance level.
+
+**Variation**
+
+One simple way to detect a change in variation is with [Bartlett's test](#sec-eda-bartletts-test), after dividing the data set into several equal-sized intervals. The choice of the number of intervals is somewhat arbitrary, although values of four or eight are reasonable. We will divide our data into four intervals.
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-bartlett
+quarter_cs421 <- as.factor(rep(1:4, each = length(randn_cs) / 4))
+bartlett_cs421 <- bartlett.test(randn_cs, quarter_cs421)
+bartlett_cs421
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $T \approx$ `r round(bartlett_cs421$statistic, 4)` (NIST reports 2.373660; our computed value matches)
+
+Degrees of freedom: $k - 1 = 3$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $\chi^2_{1-\alpha,k-1} =$ `r round(qchisq(0.95, 3), 6)`
+
+Critical region: Reject $H_0$ if $T >$ `r round(qchisq(0.95, 3), 6)`
+
+In this case, Bartlett's test indicates that the variances are not significantly different in the four intervals.
+
+**Randomness**
+
+There are many ways in which data can be non-random. However, most common forms of non-randomness can be detected with a few simple tests including the lag plot shown on the previous page.
+
+Another check is an [autocorrelation plot](#sec-eda-autocorrelation-plot) that shows the autocorrelations for various lags. Confidence bands can be plotted at the 95% and 99% confidence levels. Points outside this band indicate statistically significant values (lag 0 is always 1).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-normal-random-numbers-autocorrelation
+#| fig-cap: "Autocorrelation plot of the normal random numbers"
+acf_cs421 <- acf(randn_cs, lag.max = 21, plot = FALSE)
+ci95_cs421 <- qnorm(0.975) / sqrt(n_cs421)
+ci99_cs421 <- qnorm(0.995) / sqrt(n_cs421)
+
+tibble(lag = as.integer(acf_cs421$lag), acf = as.numeric(acf_cs421$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs421, ci95_cs421), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs421, ci99_cs421), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+The lag 1 autocorrelation, which is generally the one of most interest, is `r round(acf_cs421$acf[2], 3)`. The critical values at the 5% significance level are $\pm$ `r round(ci95_cs421, 3)`. Since `r round(acf_cs421$acf[2], 3)` is within the critical region, the lag 1 autocorrelation is not statistically significant, so there is no evidence of non-randomness.
+
+A common test for randomness is the [runs test](#sec-eda-runs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-runs-test
+runs_test_cs421 <- function(y, alpha = 0.05) {
+  med <- median(y)
+  sign <- sign(y - med)
+  sign <- sign[sign != 0]
+
+  n1 <- sum(sign == 1)
+  n2 <- sum(sign == -1)
+  n <- n1 + n2
+
+  R <- 1 + sum(diff(sign) != 0)
+  Rbar <- 2 * n1 * n2 / n + 1
+  sR2 <- (2 * n1 * n2 * (2 * n1 * n2 - n)) / (n^2 * (n - 1))
+  sR <- sqrt(sR2)
+
+  Z <- (R - Rbar) / sR
+  z_crit <- qnorm(1 - alpha / 2)
+
+  tibble(n1 = n1, n2 = n2, R = R, Rbar = Rbar, sR = sR, Z = Z, z_crit = z_crit, reject_H0 = abs(Z) > z_crit)
+}
+
+randn_runs <- runs_test_cs421(randn_cs)
+randn_runs
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(randn_runs$Z, 4)` (NIST reports $Z = -1.0744$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(randn_runs$z_crit, 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(randn_runs$z_crit, 2)`
+
+The runs test fails to reject the null hypothesis that the data were produced in a random manner.
+
+**Distributional Analysis**
+
+[Probability plots](#sec-eda-probability-plot) are a graphical test for assessing if a particular distribution provides an adequate fit to a data set.
+
+A quantitative enhancement to the probability plot is the correlation coefficient of the points on the probability plot, or [PPCC](#sec-eda-probability-plot-correlation-coefficient-plot).
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-ppcc
+ppcc_cs421 <- cor(sort(randn_cs), theoretical_cs421)
+ppcc_cs421
+```
+
+For this data set the PPCC based on a normal distribution is `r round(ppcc_cs421, 3)`. Since the PPCC is greater than the critical value of 0.987 (this is a tabulated value), the normality assumption is not rejected.
+
+[Chi-square](#sec-eda-chi-square-goodness-of-fit-test) and [Kolmogorov-Smirnov](#sec-eda-kolmogorov-smirnov-test) goodness-of-fit tests are alternative methods for assessing distributional adequacy. The Wilk-Shapiro and [Anderson-Darling](#sec-eda-anderson-darling-test) tests can be used to test for normality. The results of the Anderson-Darling test follow.
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-anderson-darling
+#| message: false
+library(nortest)
+
+ad_cs421 <- ad.test(randn_cs)
+ad_cs421
+```
+
+$$H_0: \text{the data are normally distributed}$$
+$$H_a: \text{the data are not normally distributed}$$
+
+Adjusted test statistic: $A^2 \approx$ `r round(ad_cs421$statistic, 4)` (NIST reports $A^2 = 1.0612$; our computed value matches — for this data set, `nortest::ad.test()`'s reported statistic already coincides with NIST's "adjusted" figure, unlike the small-sample Dataplot example on the [Anderson-Darling Test](#sec-eda-anderson-darling-test) page, where the two differed)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: 0.787
+
+Critical region: Reject $H_0$ if $A^2 > 0.787$
+
+The Anderson-Darling test rejects the normality assumption at the 0.05 significance level.
+
+**Outlier Analysis**
+
+A test for outliers is the [Grubbs test](#sec-eda-grubbs-test).
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-grubbs
+alpha_cs421 <- 0.05
+g_stat_cs421 <- (max(randn_cs) - mean(randn_cs)) / sd(randn_cs)
+
+# NIST's critical value here (3.863087) corresponds to the *two-sided*
+# formula (significance level alpha/(2N)), even though the stated
+# alternative hypothesis below is the one-sided "the maximum value is an
+# outlier." This differs from the one-sided formula (alpha/N) used in the
+# Grubbs' Test technique page's own worked example; we reproduce NIST's
+# critical value here as published rather than silently reconciling the two.
+t_crit_cs421 <- qt(1 - alpha_cs421 / (2 * n_cs421), df = n_cs421 - 2)
+g_crit_cs421 <- ((n_cs421 - 1) / sqrt(n_cs421)) * sqrt(t_crit_cs421^2 / (n_cs421 - 2 + t_crit_cs421^2))
+
+tibble(statistic = g_stat_cs421, critical_value = g_crit_cs421)
+```
+
+$$H_0: \text{there are no outliers in the data}$$
+$$H_a: \text{the maximum value is an outlier}$$
+
+Test statistic: $G \approx$ `r round(g_stat_cs421, 6)` (NIST reports $G = 3.368068$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value for an upper one-tailed test: `r round(g_crit_cs421, 6)` (NIST reports 3.863087; our computed value matches)
+
+Critical region: Reject $H_0$ if $G >$ `r round(g_crit_cs421, 6)`
+
+For this data set, Grubbs' test does not detect any outliers at the 0.05 significance level.
+
+**Model**
+
+Since the underlying assumptions were validated both graphically and analytically, we conclude that a reasonable model for the data is:
+
+$$Y_i = C + E_i$$
+
+where $C$ is the estimated value of the mean, `r round(mean(randn_cs), 5)`. We can express the uncertainty for $C$ as a 95% confidence interval.
+
+```{r}
+#| code-fold: true
+#| label: eda-normal-random-numbers-ci
+ci_cs421 <- mean(randn_cs) + c(-1, 1) * qt(0.975, n_cs421 - 1) * sd(randn_cs) / sqrt(n_cs421)
+ci_cs421
+```
+
+Our computed 95% confidence interval, (`r round(ci_cs421[1], 5)`, `r round(ci_cs421[2], 5)`), matches NIST's reported interval of (-0.09266, 0.08678).
+
+**Univariate Report**
+
+It is sometimes useful and convenient to summarize the above results in a report.
+
+```
+Analysis of 500 normal random numbers
+
+1: Sample Size                           = 500
+2: Location
+   Mean                                  = -0.00294
+   Standard Deviation of Mean            = 0.045663
+   95% Confidence Interval for Mean      = (-0.09266,0.086779)
+   Drift with respect to location?       = NO
+3: Variation
+   Standard Deviation                    = 1.021042
+   95% Confidence Interval for SD        = (0.961437,1.088585)
+   Drift with respect to variation?
+   (based on Bartletts test on quarters
+   of the data)                          = NO
+4: Data are Normal?
+     (as tested by Normal PPCC)          = YES
+     (as tested by Anderson-Darling)     = NO
+5: Randomness
+   Autocorrelation                       = 0.045059
+   Data are Random?
+     (as measured by autocorrelation)    = YES
+6: Statistical Control
+   (i.e., no drift in location or scale,
+   data are random, distribution is
+   fixed, here we are testing only for
+   fixed normal)
+   Data Set is in Statistical Control?   = YES
+7: Outliers?
+   (as determined by Grubbs' test)       = NO
+```
+
+##### Work This Example Yourself {#sec-eda-4214}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.
