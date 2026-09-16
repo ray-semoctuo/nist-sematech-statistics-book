@@ -12,7 +12,7 @@ Spectral plots are often used to find a starting value for the frequency, $\omeg
 
 $$Y_i = C + \alpha \sin(2\pi\omega t_i + \phi) + E_i$$
 
-See the beam deflection case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm --> for an example of this.
+See the [beam deflection case study](#sec-eda-425) for an example of this.
 
 **Sample Plot: One dominant frequency**
 
@@ -73,7 +73,7 @@ The spectral plot is the primary technique for assessing the cyclic nature of un
 
 **Case Study**
 
-The spectral plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
+The spectral plot is demonstrated in the [beam deflection data case study](#sec-eda-425).
 
 **Software**
 
@@ -161,7 +161,7 @@ On the other hand, the choice of the proper model
 
 $$Y_i = C + \alpha \sin(2\pi\omega t_i + \phi) + E_i$$
 
-where $\alpha$ is the amplitude, $\omega$ is the frequency (between 0 and 0.5 cycles per observation), and $\phi$ is the phase, can be fit by non-linear least squares. The beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm --> demonstrates fitting this type of model.
+where $\alpha$ is the amplitude, $\omega$ is the frequency (between 0 and 0.5 cycles per observation), and $\phi$ is the phase, can be fit by non-linear least squares. The [beam deflection data case study](#sec-eda-425) demonstrates fitting this type of model.
 
 **Recommended Next Steps**
 

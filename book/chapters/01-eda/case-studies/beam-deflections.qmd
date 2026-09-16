@@ -1,0 +1,559 @@
+#### Beam Deflections {#sec-eda-425}
+
+This example illustrates the univariate analysis of beam deflection data.
+
+1. [Background and Data](#sec-eda-4251)
+2. [Test Underlying Assumptions](#sec-eda-4252)
+3. [Develop a Better Model](#sec-eda-4253)
+4. [Validate New Model](#sec-eda-4254)
+5. [Work This Example Yourself](#sec-eda-4255)
+
+##### Background and Data {#sec-eda-4251}
+
+**Generation**
+
+This data set was collected by H. S. Lew of NIST in 1969 to measure steel-concrete beam deflections. The response variable is the deflection of a beam from the center point.
+
+The motivation for studying this data set is to show how the underlying assumptions are affected by periodic data.
+
+**Data**
+
+The reader can download the data as a text file (`LEW.DAT`).
+
+```{r}
+#| code-fold: true
+#| label: setup-eda-beam-deflections
+#| message: false
+library(tidyverse)
+
+lew_cs <- scan(here::here("datasets", "LEW.DAT"), skip = 25, quiet = TRUE)
+
+tibble(y = lew_cs)
+```
+
+##### Test Underlying Assumptions {#sec-eda-4252}
+
+**Goal**
+
+The goal of this analysis is threefold:
+
+1. Determine if the univariate model $Y_i = C + E_i$ is appropriate and valid.
+2. Determine if the typical underlying assumptions for an "in control" measurement process are valid. These assumptions are:
+   - random drawings;
+   - from a fixed distribution;
+   - with the distribution having a fixed location; and
+   - the distribution having a fixed scale.
+3. Determine if the confidence interval $\bar{Y} \pm 2s/\sqrt{N}$ is appropriate and valid, where $s$ is the standard deviation of the original data.
+
+**4-Plot of Data**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-4-plot
+#| fig-cap: "4-plot of the beam deflection data"
+library(patchwork)
+
+# Same construction used on the 4-Plot and Normal Probability Plot pages.
+uniform_medians_cs425 <- function(n) {
+  i <- seq_len(n)
+  m <- numeric(n)
+  m[1] <- 1 - 0.5^(1 / n)
+  m[n] <- 0.5^(1 / n)
+  if (n > 2) m[2:(n - 1)] <- (i[2:(n - 1)] - 0.3175) / (n + 0.365)
+  m
+}
+
+four_plot_cs425 <- function(x, hist_bins = 30) {
+  n <- length(x)
+
+  p_run <- tibble(i = seq_len(n), y = x) |>
+    ggplot(aes(i, y)) +
+    geom_line() +
+    labs(x = "Index", y = "Y", title = "Run Sequence Plot") +
+    theme_light()
+
+  p_lag <- tibble(y = x[-1], y_lag = x[-n]) |>
+    ggplot(aes(y_lag, y)) +
+    geom_point() +
+    labs(x = expression(Y[i - 1]), y = expression(Y[i]), title = "Lag Plot") +
+    theme_light()
+
+  p_hist <- tibble(y = x) |>
+    ggplot(aes(y)) +
+    geom_histogram(bins = hist_bins, color = "white", fill = "steelblue4") +
+    labs(x = "Y", y = "Count", title = "Histogram") +
+    theme_light()
+
+  mm <- uniform_medians_cs425(n)
+  theoretical <- qnorm(mm)
+  xs <- sort(x)
+  p_norm <- tibble(theoretical = theoretical, observed = xs) |>
+    ggplot(aes(theoretical, observed)) +
+    geom_point(shape = 1) +
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = "firebrick") +
+    labs(x = "Theoretical", y = "Ordered Y", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p_run + p_lag) / (p_hist + p_norm)
+}
+
+four_plot_cs425(lew_cs)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time.
+- The [lag plot](#sec-eda-lag-plot) (upper right) shows that the data are not random. The lag plot further indicates the presence of a few outliers.
+- When the randomness assumption is thus seriously violated, the [histogram](#sec-eda-histogram) (lower left) and [normal probability plot](#sec-eda-normal-probability-plot) (lower right) are ignored since determining the distribution of the data is only meaningful when the data are random.
+
+From the above plots we conclude that the underlying randomness assumption is not valid. Therefore, the model $Y_i = C + E_i$ is not appropriate.
+
+We need to develop a better model. Non-random data can frequently be modeled using time series methodology. Specifically, the circular pattern in the lag plot indicates that a sinusoidal model might be appropriate. The sinusoidal model will be developed in the next section.
+
+**Individual Plots**
+
+The plots can be generated individually for more detail. In this case, only the run sequence plot and the lag plot are drawn since the distributional plots are not meaningful.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-run-sequence
+#| fig-cap: "Run sequence plot of the beam deflection data"
+tibble(i = seq_along(lew_cs), y = lew_cs) |>
+  ggplot(aes(i, y)) +
+  geom_line() +
+  labs(x = "Index", y = "Y") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-lag
+#| fig-cap: "Lag plot of the beam deflection data"
+n_cs425 <- length(lew_cs)
+tibble(y = lew_cs[-1], y_lag = lew_cs[-n_cs425]) |>
+  ggplot(aes(y_lag, y)) +
+  geom_point() +
+  labs(x = expression(Y[i - 1]), y = expression(Y[i])) +
+  theme_light()
+```
+
+A few points near the bottom-right and top-left of the lag plot are visibly displaced from the main circular pattern and appear to be outliers.
+
+**Autocorrelation Plot**
+
+When the lag plot indicates significant non-randomness, it can be helpful to follow up with an [autocorrelation plot](#sec-eda-autocorrelation-plot).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-autocorrelation
+#| fig-cap: "Autocorrelation plot of the beam deflection data"
+acf_cs425 <- acf(lew_cs, lag.max = 50, plot = FALSE)
+ci95_cs425 <- qnorm(0.975) / sqrt(n_cs425)
+ci99_cs425 <- qnorm(0.995) / sqrt(n_cs425)
+
+tibble(lag = as.integer(acf_cs425$lag), acf = as.numeric(acf_cs425$acf)) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95_cs425, ci95_cs425), linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = c(-ci99_cs425, ci99_cs425), linetype = "dotted", color = "firebrick") +
+  labs(x = "Lag", y = "Autocorrelation") +
+  theme_light()
+```
+
+This autocorrelation plot shows a distinct cyclic pattern. As with the lag plot, this suggests a sinusoidal model.
+
+**Spectral Plot**
+
+Another useful plot for non-random data is the [spectral plot](#sec-eda-spectral-plot).
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-spectral
+#| fig-cap: "Spectral plot of the beam deflection data"
+spec_cs425 <- spec.pgram(lew_cs, taper = 0, detrend = TRUE, demean = TRUE, plot = FALSE)
+tibble(freq = spec_cs425$freq, power = spec_cs425$spec) |>
+  ggplot(aes(freq, power)) +
+  geom_line(color = "steelblue") +
+  geom_point(size = 0.6) +
+  labs(x = "Frequency", y = "Variance (power)") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-dominant-freq
+spec_cs425$freq[which.max(spec_cs425$spec)]
+```
+
+This spectral plot shows a single dominant peak at a frequency of approximately 0.3. This frequency will be used in fitting the sinusoidal model in the next section.
+
+**Quantitative Results**
+
+Although the lag plot, autocorrelation plot, and spectral plot clearly show the violation of the randomness assumption, we supplement the graphical output with some quantitative measures.
+
+**Summary Statistics**
+
+As a first step in the analysis, summary statistics are computed from the data.
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-summary-statistics
+tibble(
+  `Sample Size` = length(lew_cs),
+  Mean = mean(lew_cs),
+  Median = median(lew_cs),
+  Minimum = min(lew_cs),
+  Maximum = max(lew_cs),
+  Range = diff(range(lew_cs)),
+  `Stan. Dev.` = sd(lew_cs)
+)
+```
+
+**Location**
+
+One way to quantify a change in location over time is to fit a straight line to the data set using the index variable $X = 1, 2, \ldots, N$, with $N$ denoting the number of observations. If there is no significant drift in the location, the slope parameter should be zero.
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-location-fit
+location_fit_cs425 <- lm(lew_cs ~ seq_along(lew_cs))
+summary(location_fit_cs425)
+```
+
+The slope parameter, $A_1$, has a t-value of `r round(summary(location_fit_cs425)$coefficients[2, 3], 3)`, which is statistically not significant. This indicates that the slope can in fact be considered zero.
+
+**Variation**
+
+One simple way to detect a change in variation is with a [Bartlett test](#sec-eda-bartletts-test) after dividing the data set into several equal-sized intervals. However, the non-randomness of this data does not allow us to assume normality, so we use the alternative [Levene test](#sec-eda-levene-test). In particular, we use the Levene test based on the median rather than the mean. The choice of the number of intervals is somewhat arbitrary, although values of 4 or 8 are reasonable.
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-levene
+# Levene's test using the median-centered definition of Z_ij (as used on
+# the Levene Test page).
+levene_test_cs425 <- function(y, group) {
+  d <- tibble(y = y, group = group)
+  z <- d |> mutate(z = abs(y - median(y)), .by = group)
+  k <- n_distinct(z$group)
+  n <- nrow(z)
+  grand_mean_z <- mean(z$z)
+  group_stats <- z |> summarize(n_i = n(), z_bar_i = mean(z), .by = group)
+  numerator <- sum(group_stats$n_i * (group_stats$z_bar_i - grand_mean_z)^2) / (k - 1)
+  z <- z |> left_join(group_stats, by = "group")
+  denominator <- sum((z$z - z$z_bar_i)^2) / (n - k)
+  w <- numerator / denominator
+  list(w = w, df1 = k - 1, df2 = n - k)
+}
+
+quarter_cs425 <- as.factor(rep(1:4, each = n_cs425 / 4))
+levene_cs425 <- levene_test_cs425(lew_cs, quarter_cs425)
+levene_crit_cs425 <- qf(0.95, levene_cs425$df1, levene_cs425$df2)
+
+tibble(statistic = levene_cs425$w, df1 = levene_cs425$df1, df2 = levene_cs425$df2, critical_value = levene_crit_cs425)
+```
+
+$$H_0: \sigma_1^2 = \sigma_2^2 = \sigma_3^2 = \sigma_4^2$$
+$$H_a: \text{At least one } \sigma_i^2 \text{ is not equal to the others.}$$
+
+Test statistic: $W \approx$ `r round(levene_cs425$w, 5)` (NIST reports $W = 0.09378$; our computed value matches — NIST's own concluding sentence on this page separately restates the same statistic as "0.9378," which appears to be a decimal-point typo)
+
+Degrees of freedom: $k - 1 = 3$
+
+Sample size: $N = 200$
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $F_{\alpha,k-1,N-k} =$ `r round(levene_crit_cs425, 3)`
+
+Critical region: Reject $H_0$ if $W >$ `r round(levene_crit_cs425, 3)`
+
+In this case, the Levene test indicates that the variances are not significantly different in the four intervals since the test statistic value is less than the critical value.
+
+**Randomness**
+
+A [runs test](#sec-eda-runs-test) is used to check for randomness.
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-runs-test
+runs_test_cs425 <- function(y, alpha = 0.05) {
+  med <- median(y)
+  sign <- sign(y - med)
+  sign <- sign[sign != 0]
+
+  n1 <- sum(sign == 1)
+  n2 <- sum(sign == -1)
+  n <- n1 + n2
+
+  R <- 1 + sum(diff(sign) != 0)
+  Rbar <- 2 * n1 * n2 / n + 1
+  sR2 <- (2 * n1 * n2 * (2 * n1 * n2 - n)) / (n^2 * (n - 1))
+  sR <- sqrt(sR2)
+
+  Z <- (R - Rbar) / sR
+  z_crit <- qnorm(1 - alpha / 2)
+
+  tibble(n1 = n1, n2 = n2, R = R, Rbar = Rbar, sR = sR, Z = Z, z_crit = z_crit, reject_H0 = abs(Z) > z_crit)
+}
+
+lew_runs_cs425 <- runs_test_cs425(lew_cs)
+lew_runs_cs425
+```
+
+$$H_0: \text{the sequence was produced in a random manner}$$
+$$H_a: \text{the sequence was not produced in a random manner}$$
+
+Test statistic: $Z \approx$ `r round(lew_runs_cs425$Z, 4)` (NIST reports $Z = 2.6938$; our computed value matches)
+
+Significance level: $\alpha = 0.05$
+
+Critical value: $Z_{1-\alpha/2} =$ `r round(lew_runs_cs425$z_crit, 2)`
+
+Critical region: Reject $H_0$ if $|Z| >$ `r round(lew_runs_cs425$z_crit, 2)`
+
+The absolute value of the test statistic is larger than the critical value at the 5% significance level, so we conclude that the data are not random.
+
+**Distributional Assumptions**
+
+Since the quantitative tests show that the assumptions of constant scale and non-randomness are not met, the distributional measures will not be meaningful. Therefore these quantitative tests are omitted.
+
+##### Develop a Better Model {#sec-eda-4253}
+
+**Sinusoidal Model**
+
+The lag plot and autocorrelation plot in the previous section strongly suggested a sinusoidal model might be appropriate. The basic sinusoidal model is:
+
+$$Y_i = C + \alpha\sin(2\pi\omega T_i + \phi) + E_i$$
+
+where $C$ is a constant defining a mean level, $\alpha$ is an amplitude for the sine function, $\omega$ is the frequency, $T_i$ is a time variable, and $\phi$ is the phase. This sinusoidal model can be fit using non-linear least squares.
+
+To obtain a good fit, sinusoidal models require good starting values for $C$, the amplitude, and the frequency.
+
+**Good Starting Value for C**
+
+A good starting value for $C$ can be obtained by calculating the mean of the data. If the data show a trend, i.e., the assumption of constant location is violated, we can replace $C$ with a linear or quadratic least squares fit. That is, the model becomes
+
+$$Y_i = (B_0 + B_1 T_i) + \alpha\sin(2\pi\omega T_i + \phi) + E_i$$
+
+or
+
+$$Y_i = (B_0 + B_1 T_i + B_2 T_i^2) + \alpha\sin(2\pi\omega T_i + \phi) + E_i$$
+
+Since our data did not have any meaningful change of location, we can fit the simpler model with $C$ equal to the mean. From the summary output in the previous page, the mean is `r round(mean(lew_cs), 2)`.
+
+**Good Starting Value for Frequency**
+
+The starting value for the frequency can be obtained from the spectral plot, which shows the dominant frequency is about 0.3.
+
+**Complex Demodulation Phase Plot**
+
+The [complex demodulation phase plot](#sec-eda-complex-demodulation-phase-plot) can be used to refine this initial estimate for the frequency. For the complex demodulation plot, if the lines slope from left to right, the frequency should be increased. If the lines slope from right to left, it should be decreased. A relatively flat (i.e., horizontal) slope indicates a good frequency.
+
+NIST's original case study generates 16 of these plots on a single page, for frequencies from 0.28 to 0.3175 in increments of 0.0025, to narrow in on the best frequency by trial and error. For a compact illustration of the same idea, we show four representative frequencies spanning that range.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-demodulation-phase
+#| fig-cap: "Complex demodulation phase plots of the beam deflection data at four candidate frequencies"
+#| warning: false
+# Same complex demodulation construction used on the Complex Demodulation
+# Phase/Amplitude Plot pages.
+complex_demodulate_cs425 <- function(y, w0, filter_len = 21) {
+  n <- length(y)
+  t <- seq_len(n) - 1
+  z <- y * exp(-1i * 2 * pi * w0 * t)
+  filt <- rep(1 / filter_len, filter_len)
+  zr <- as.numeric(stats::filter(Re(z), filt, sides = 2))
+  zi <- as.numeric(stats::filter(Im(z), filt, sides = 2))
+  tibble(t = t, amplitude = 2 * sqrt(zr^2 + zi^2), phase = atan(zi / zr))
+}
+
+demod_freqs_cs425 <- c(0.28, 0.2900, 0.3025, 0.3175)
+demod_grid_cs425 <- map_dfr(demod_freqs_cs425, function(w0) {
+  complex_demodulate_cs425(lew_cs, w0, filter_len = 15) |>
+    mutate(freq = w0)
+})
+
+demod_grid_cs425 |>
+  ggplot(aes(t, phase)) +
+  geom_point(size = 0.8) +
+  facet_wrap(~freq, labeller = label_both) +
+  labs(x = "Time", y = "Phase") +
+  theme_light()
+```
+
+**Interpretation**
+
+The plots start with lines sloping from left to right (frequency too low) but gradually change to a right-to-left slope (frequency too high) as the candidate frequency increases. The relatively flat slope occurs near a frequency of 0.3025. NIST's original case study narrows this down further, by trial and error over the full 16-plot grid, to a best frequency of 0.3025 (matching the value used below). The complex demodulation phase plot restricts the range from $\pi/2$ to $-\pi/2$, which is why the plot appears to show some breaks.
+
+**Good Starting Values for Amplitude**
+
+The [complex demodulation amplitude plot](#sec-eda-complex-demodulation-amplitude-plot) is used to find a good starting value for the amplitude. In addition, this plot indicates whether or not the amplitude is constant over the entire range of the data or if it varies. If the plot is essentially flat, i.e., zero slope, then it is reasonable to assume a constant amplitude in the non-linear model. However, if the slope varies over the range of the plot, we may need to adjust the model to be:
+
+$$Y_i = C + (B_0 + B_1 T_i)\sin(2\pi\omega T_i + \phi) + E_i$$
+
+That is, we replace $\alpha$ with a function of time. A linear fit is specified in the model above, but this can be replaced with a more elaborate function if needed.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-demodulation-amplitude
+#| fig-cap: "Complex demodulation amplitude plot of the beam deflection data"
+#| warning: false
+demod_amp_cs425 <- complex_demodulate_cs425(lew_cs, w0 = 0.302596)
+
+demod_amp_cs425 |>
+  ggplot(aes(t, amplitude)) +
+  geom_line() +
+  labs(x = "Time", y = "Amplitude") +
+  theme_light()
+```
+
+The complex demodulation amplitude plot for this data shows that:
+
+- the amplitude is fixed at approximately 390;
+- there is a short start-up effect; and
+- there is a change in amplitude at around $x = 160$ that should be investigated for an outlier.
+
+In terms of a non-linear model, the plot indicates that fitting a single constant for $\alpha$ should be adequate for this data set.
+
+**Fit Results**
+
+Using starting estimates of 0.3025 for the frequency, 390 for the amplitude, and -177.44 for $C$, NIST's original analysis reported the following parameter estimates.
+
+```
+Coefficient     Estimate     Stan. Error     t-Value
+   C            -178.786        11.02         -16.22
+   AMP          -361.766        26.19         -13.81
+   FREQ         0.302596      0.1510E-03     2005.00
+   PHASE         1.46536      0.4909E-01       29.85
+Residual Standard Deviation = 155.8484
+Residual Degrees of Freedom = 196
+```
+
+From the fit results, NIST's proposed model is:
+
+$$\hat{Y}_i = -178.786 - 361.766\sin[2\pi(0.302596)T_i + 1.46536]$$
+
+(NIST's own equation image for this model omits the $\sin$ function entirely, presumably a transcription error; we restore it here since it is clearly a sinusoidal fit, consistent with the rest of the page.)
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-fit-verification
+t_cs425 <- seq_along(lew_cs)
+C_nist_cs425 <- -178.786
+amp_nist_cs425 <- -361.766
+freq_nist_cs425 <- 0.302596
+phase_nist_cs425 <- 1.46536
+
+yhat_nist_cs425 <- C_nist_cs425 + amp_nist_cs425 * sin(2 * pi * freq_nist_cs425 * t_cs425 + phase_nist_cs425)
+resid_nist_cs425 <- lew_cs - yhat_nist_cs425
+
+sqrt(sum(resid_nist_cs425^2) / (n_cs425 - 4))
+```
+
+Directly evaluating NIST's published coefficients above reproduces their reported residual standard deviation of 155.8484 almost exactly, confirming those coefficients are correct as published.
+
+**R Verification (Reproducible, But a Different Optimum)**
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-nls-fit
+#| warning: false
+sinusoidal_fit_cs425 <- nls(
+  lew_cs ~ C + amp * sin(2 * pi * freq * t_cs425 + phase),
+  start = list(C = -177.44, amp = 390, freq = 0.3025, phase = 0),
+  control = nls.control(maxiter = 200)
+)
+summary(sinusoidal_fit_cs425)
+```
+
+Starting `nls()` from NIST's own starting values (or even directly from NIST's published final coefficients) converges to a different set of parameters, with a *lower* residual standard deviation of `r round(summary(sinusoidal_fit_cs425)$sigma, 2)` at a frequency of `r round(coef(sinusoidal_fit_cs425)["freq"], 4)`, rather than NIST's reported 155.85 at 0.302596. Both are legitimate local optima of a highly non-linear, highly sensitive objective function — the frequency parameter's t-value above 2000 reflects just how sharply the residual sum of squares changes with tiny shifts in frequency over 200 observations, which is a well-known characteristic of sinusoidal least-squares fitting. Rather than presenting a different fit from the one the rest of this page discusses, we use NIST's own published coefficients (verified above) for the model and all downstream residual diagnostics.
+
+**Model**
+
+Our model, matching NIST's published fit, is:
+
+$$\hat{Y}_i = -178.786 - 361.766\sin[2\pi(0.302596)T_i + 1.46536]$$
+
+We will evaluate the adequacy of this model in the next section.
+
+##### Validate New Model {#sec-eda-4254}
+
+**4-Plot of Residuals**
+
+The first step in evaluating the fit is to generate a 4-plot of the residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-residuals-4-plot
+#| fig-cap: "4-plot of the residuals from the sinusoidal model"
+four_plot_cs425(resid_nist_cs425)
+```
+
+**Interpretation**
+
+The assumptions are addressed by the graphics shown above:
+
+- The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location. There does seem to be some shifts in scale. A start-up effect was detected previously by the complex demodulation amplitude plot. There does appear to be a few outliers.
+- The [lag plot](#sec-eda-lag-plot) (upper right) shows that the data are random. The outliers also appear in the lag plot.
+- The [histogram](#sec-eda-histogram) (lower left) and the [normal probability plot](#sec-eda-normal-probability-plot) (lower right) do not show any serious non-normality in the residuals. However, the bend in the left portion of the normal probability plot shows some cause for concern.
+
+The 4-plot indicates that this fit is reasonably good. However, we will attempt to improve the fit by removing the outliers.
+
+**Fit Results with Outliers Removed**
+
+We identify outliers as the three points with the largest-magnitude residuals from the fitted model above.
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-outliers
+outlier_idx_cs425 <- order(abs(resid_nist_cs425), decreasing = TRUE)[1:3]
+tibble(index = outlier_idx_cs425, y = lew_cs[outlier_idx_cs425], residual = resid_nist_cs425[outlier_idx_cs425])
+```
+
+(NIST's original text separately lists four candidate points — at indices 3, 5, 157, and 158 — flagged directly from the lag plot, but says only three outliers were actually removed for the refit without stating which three; the index/value pairs given in that table also do not consistently match the values found in `LEW.DAT` at those indices. Rather than guess which three NIST intended, we identify our own three largest-residual points from the fitted model directly.)
+
+```{r}
+#| code-fold: true
+#| label: eda-beam-deflections-refit
+lew_edited_cs425 <- lew_cs[-outlier_idx_cs425]
+t_edited_cs425 <- t_cs425[-outlier_idx_cs425]
+
+sinusoidal_refit_cs425 <- nls(
+  lew_edited_cs425 ~ C + amp * sin(2 * pi * freq * t_edited_cs425 + phase),
+  start = list(C = C_nist_cs425, amp = amp_nist_cs425, freq = freq_nist_cs425, phase = phase_nist_cs425),
+  control = nls.control(maxiter = 200, warnOnly = TRUE)
+)
+summary(sinusoidal_refit_cs425)
+```
+
+**New Fit to Edited Data**
+
+The original fit, with a residual standard deviation of 155.85, was:
+
+$$\hat{Y}_i = -178.786 - 361.766\sin[2\pi(0.302596)T_i + 1.46536]$$
+
+Our refit to the edited data, with a residual standard deviation of `r round(summary(sinusoidal_refit_cs425)$sigma, 2)`, is:
+
+$$\hat{Y}_i = `r round(coef(sinusoidal_refit_cs425)["C"], 3)` + (`r round(coef(sinusoidal_refit_cs425)["amp"], 3)`)\sin[2\pi(`r round(coef(sinusoidal_refit_cs425)["freq"], 6)`)T_i + `r round(coef(sinusoidal_refit_cs425)["phase"], 5)`]$$
+
+(NIST's own reported outlier-removed fit — C = -178.788, AMP = -361.759, FREQ = 0.302597, PHASE = 1.46533, residual standard deviation 148.34 — shows minimal change from their original fit with about a 5% reduction in residual standard deviation. Our refit, using the same `nls()` optimizer behavior already noted above, again converges to a different local optimum than NIST's; the qualitative conclusion — a modest improvement in fit from removing a handful of outliers — matches NIST's discussion either way.)
+
+**4-Plot for New Fit**
+
+```{r}
+#| code-fold: true
+#| label: fig-eda-beam-deflections-new-fit-4-plot
+#| fig-cap: "4-plot of the residuals from the refit model on the edited data"
+four_plot_cs425(resid(sinusoidal_refit_cs425))
+```
+
+This plot shows that the underlying assumptions are satisfied and therefore the new fit is a good descriptor of the data. In this case, it is a judgment call whether to use the fit with or without the outliers removed.
+
+##### Work This Example Yourself {#sec-eda-4255}
+
+NIST's original case study provides a Dataplot macro that lets the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code — no separate software installation or macro is required.

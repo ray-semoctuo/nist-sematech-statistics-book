@@ -115,7 +115,7 @@ is usually quite sensitive to the choice of good starting values. The initial es
 
 **Case Study**
 
-The complex demodulation amplitude plot is demonstrated in the beam deflection data case study<!-- XREF: EDA Case Studies (Section 1.4), Beam Deflection; source handbook/eda/section4/eda425.htm -->.
+The complex demodulation amplitude plot is demonstrated in the [beam deflection data case study](#sec-eda-425).
 
 **Software**
 
