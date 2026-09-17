@@ -253,7 +253,7 @@ ggplot() +
   theme_light()
 ```
 
-These limitations notwithstanding, it is worth examining the corresponding QQ-plots, shown below, which suggest that the Gaussian and the 3-parameter Weibull may be the best models.
+These limitations notwithstanding, it is worth examining the corresponding QQ-plots in @fig-eda-fatigue-life-qq-overlay, which suggest that the Gaussian and the 3-parameter Weibull may be the best models.
 
 ```{r}
 #| code-fold: true

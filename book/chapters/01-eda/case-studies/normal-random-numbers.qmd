@@ -106,7 +106,7 @@ four_plot_cs421(randn_cs)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-normal-random-numbers-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time. The run sequence plot does not show any obvious outliers.
 - The [lag plot](#sec-eda-lag-plot) (upper right) does not indicate any non-random pattern in the data.

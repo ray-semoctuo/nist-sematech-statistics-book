@@ -491,7 +491,7 @@ four_plot_eda23 <- function(x, hist_bins = 30) {
 
 **Sample Plot: Assumptions Hold**
 
-A [4-Plot](#sec-eda-4-plot) of 500 normal random numbers<!-- XREF: RANDN.DAT dataset; source handbook/datasets/RANDN.DAT --> reveals a process that has fixed location, fixed variation, is random, apparently has a fixed approximately normal distribution, and has no outliers.
+@fig-eda-4-plot-assumptions-hold, a [4-Plot](#sec-eda-4-plot) of 500 normal random numbers<!-- XREF: RANDN.DAT dataset; source handbook/datasets/RANDN.DAT -->, reveals a process that has fixed location, fixed variation, is random, apparently has a fixed approximately normal distribution, and has no outliers.
 
 ```{r}
 #| code-fold: true
@@ -505,7 +505,7 @@ four_plot_eda23(randn)
 
 **Sample Plot: Assumptions Do Not Hold**
 
-If one or more of the four underlying assumptions do not hold, then it will show up in the various plots, as in the following example<!-- XREF: LEW.DAT dataset; source handbook/datasets/LEW.DAT -->. For example, a [4-Plot](#sec-eda-4-plot) may reveal a process that has fixed location, fixed variation, is non-random (oscillatory), has a non-normal, U-shaped distribution, and has several outliers.
+If one or more of the four underlying assumptions do not hold, then it will show up in the various plots, as in the example in @fig-eda-4-plot-assumptions-do-not-hold<!-- XREF: LEW.DAT dataset; source handbook/datasets/LEW.DAT -->. For example, a [4-Plot](#sec-eda-4-plot) may reveal a process that has fixed location, fixed variation, is non-random (oscillatory), has a non-normal, U-shaped distribution, and has several outliers.
 
 ```{r}
 #| code-fold: true

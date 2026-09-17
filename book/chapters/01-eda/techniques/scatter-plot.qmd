@@ -70,7 +70,7 @@ ggplot(no_rel, aes(x, y)) +
   theme_light()
 ```
 
-This is a synthetic illustration: `x` and `y` were drawn independently from uniform distributions. Note in the plot above how for a given value of $X$ (say $X = 0.5$), the corresponding values of $Y$ range all over the place from $Y = -2$ to $Y = +2$. The same is true for other values of $X$. This lack of predictability in determining $Y$ from a given value of $X$, and the associated amorphous, non-structured appearance of the scatter plot, leads to the summary conclusion: no relationship.
+This is a synthetic illustration: `x` and `y` were drawn independently from uniform distributions. Note in @fig-scatter-plot-no-relationship how for a given value of $X$ (say $X = 0.5$), the corresponding values of $Y$ range all over the place from $Y = -2$ to $Y = +2$. The same is true for other values of $X$. This lack of predictability in determining $Y$ from a given value of $X$, and the associated amorphous, non-structured appearance of the scatter plot, leads to the summary conclusion: no relationship.
 
 **2. Strong Linear (Positive Correlation) Relationship**
 
@@ -88,7 +88,7 @@ ggplot(lew3, aes(x, y)) +
   theme_light()
 ```
 
-Note in the plot above of the LEW3.DAT data set how a straight line comfortably fits through the data; hence a linear relationship exists. The scatter about the line is quite small, so there is a strong linear relationship. The slope of the line is positive (small values of $X$ correspond to small values of $Y$; large values of $X$ correspond to large values of $Y$), so there is a positive co-relation (that is, a positive correlation) between $X$ and $Y$.
+Note in @fig-scatter-plot-strong-linear-positive of the LEW3.DAT data set how a straight line comfortably fits through the data; hence a linear relationship exists. The scatter about the line is quite small, so there is a strong linear relationship. The slope of the line is positive (small values of $X$ correspond to small values of $Y$; large values of $X$ correspond to large values of $Y$), so there is a positive co-relation (that is, a positive correlation) between $X$ and $Y$.
 
 **3. Strong Linear (Negative Correlation) Relationship**
 
@@ -105,7 +105,7 @@ ggplot(neg_lin, aes(x, y)) +
   theme_light()
 ```
 
-This is a synthetic illustration. Note in the plot above how a straight line comfortably fits through the data; hence there is a linear relationship. The scatter about the line is quite small, so there is a strong linear relationship. The slope of the line is negative (small values of $X$ correspond to large values of $Y$; large values of $X$ correspond to small values of $Y$), so there is a negative co-relation (that is, a negative correlation) between $X$ and $Y$.
+This is a synthetic illustration. Note in @fig-scatter-plot-strong-linear-negative how a straight line comfortably fits through the data; hence there is a linear relationship. The scatter about the line is quite small, so there is a strong linear relationship. The slope of the line is negative (small values of $X$ correspond to large values of $Y$; large values of $X$ correspond to small values of $Y$), so there is a negative co-relation (that is, a negative correlation) between $X$ and $Y$.
 
 **4. Exact Linear (Positive Correlation) Relationship**
 
@@ -121,7 +121,7 @@ ggplot(exact_lin, aes(x, y)) +
   theme_light()
 ```
 
-This is a synthetic illustration: `y` is a deterministic linear function of `x` with no added noise. Note in the plot above how a straight line comfortably fits through the data; hence there is a linear relationship. The scatter about the line is zero — there is perfect predictability between $X$ and $Y$ — so there is an exact linear relationship. The slope of the line is positive (small values of $X$ correspond to small values of $Y$; large values of $X$ correspond to large values of $Y$), so there is a positive co-relation (that is, a positive correlation) between $X$ and $Y$.
+This is a synthetic illustration: `y` is a deterministic linear function of `x` with no added noise. Note in @fig-scatter-plot-exact-linear how a straight line comfortably fits through the data; hence there is a linear relationship. The scatter about the line is zero — there is perfect predictability between $X$ and $Y$ — so there is an exact linear relationship. The slope of the line is positive (small values of $X$ correspond to small values of $Y$; large values of $X$ correspond to large values of $Y$), so there is a positive co-relation (that is, a positive correlation) between $X$ and $Y$.
 
 **5. Quadratic Relationship**
 
@@ -138,7 +138,7 @@ ggplot(quad, aes(x, y)) +
   theme_light()
 ```
 
-This is a synthetic illustration. Note in the plot above how no imaginable simple straight line could ever adequately describe the relationship between $X$ and $Y$ — a curved (or curvilinear, or non-linear) function is needed. The simplest such curvilinear function is a quadratic model
+This is a synthetic illustration. Note in @fig-scatter-plot-quadratic how no imaginable simple straight line could ever adequately describe the relationship between $X$ and $Y$ — a curved (or curvilinear, or non-linear) function is needed. The simplest such curvilinear function is a quadratic model
 
 $$Y_i = A + BX_i + CX_i^2 + E_i$$
 

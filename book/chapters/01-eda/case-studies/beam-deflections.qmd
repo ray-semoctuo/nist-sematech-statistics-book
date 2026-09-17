@@ -102,7 +102,7 @@ four_plot_cs425(lew_cs)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-beam-deflections-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time.
 - The [lag plot](#sec-eda-lag-plot) (upper right) shows that the data are not random. The lag plot further indicates the presence of a few outliers.
@@ -496,7 +496,7 @@ four_plot_cs425(resid_nist_cs425)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-beam-deflections-residuals-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location. There does seem to be some shifts in scale. A start-up effect was detected previously by the complex demodulation amplitude plot. There does appear to be a few outliers.
 - The [lag plot](#sec-eda-lag-plot) (upper right) shows that the data are random. The outliers also appear in the lag plot.

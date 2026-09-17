@@ -82,13 +82,13 @@ random_series <- rnorm(500)
 lag_plot(random_series)
 ```
 
-We can make the following conclusions based on the above plot of a synthetic random (white noise) series (200 random numbers were used in the original example, based on the NORMAL2.DAT data set; a synthetic series of the same kind used in the [Autocorrelation Plot](#sec-eda-autocorrelation-plot) random example is shown here for consistency between the two pages):
+We can make the following conclusions based on @fig-lag-plot-random of a synthetic random (white noise) series (200 random numbers were used in the original example, based on the NORMAL2.DAT data set; a synthetic series of the same kind used in the [Autocorrelation Plot](#sec-eda-autocorrelation-plot) random example is shown here for consistency between the two pages):
 
 1. The data are random.
 2. The data exhibit no autocorrelation.
 3. The data contain no outliers.
 
-The lag plot shown above is for lag = 1. Note the absence of structure. One cannot infer, from a current value $Y_{i-1}$, the next value $Y_i$. Thus for a known value $Y_{i-1}$ on the horizontal axis, the $Y_i$ value could be virtually anything. Such non-association is the essence of randomness.
+The lag plot shown in @fig-lag-plot-random is for lag = 1. Note the absence of structure. One cannot infer, from a current value $Y_{i-1}$, the next value $Y_i$. Thus for a known value $Y_{i-1}$ on the horizontal axis, the $Y_i$ value could be virtually anything. Such non-association is the essence of randomness.
 
 ##### Moderate Autocorrelation
 
@@ -100,12 +100,12 @@ flicker <- read_table(here::here("datasets", "FLICKER.DAT"), skip = 25, col_name
 lag_plot(flicker$y, alpha = 1 / 2)
 ```
 
-We can make the following conclusions based on the above plot of the FLICKER.DAT data set:
+We can make the following conclusions based on @fig-lag-plot-moderate of the FLICKER.DAT data set:
 
 1. The data are from an underlying autoregressive model with moderate positive autocorrelation.
 2. The data contain no outliers.
 
-In the plot above for lag = 1, note how the points tend to cluster (albeit noisily) along the diagonal. Such clustering is the lag plot signature of moderate autocorrelation.
+In @fig-lag-plot-moderate for lag = 1, note how the points tend to cluster (albeit noisily) along the diagonal. Such clustering is the lag plot signature of moderate autocorrelation.
 
 If the process were completely random, knowledge of a current observation (say $Y_{i-1} = 0$) would yield virtually no knowledge about the next observation $Y_i$. If the process has moderate autocorrelation, as above, and if $Y_{i-1} = 0$, then the range of possible values for $Y_i$ is seen to be restricted to a smaller range. This suggests prediction is possible using an autoregressive model.
 
@@ -125,7 +125,7 @@ randwalk <- read_table(here::here("datasets", "RANDWALK.DAT"), skip = 25, col_na
 lag_plot(randwalk$y, alpha = 1 / 2)
 ```
 
-We can make the following conclusions based on the above plot of the RANDWALK.DAT data set:
+We can make the following conclusions based on @fig-lag-plot-strong of the RANDWALK.DAT data set:
 
 1. The data come from an underlying autoregressive model with strong positive autocorrelation.
 2. The data contain no outliers.
@@ -149,20 +149,20 @@ lew <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y",
 lag_plot(lew$y)
 ```
 
-We can make the following conclusions based on the above plot of the LEW.DAT data set:
+We can make the following conclusions based on @fig-lag-plot-sinusoidal of the LEW.DAT data set:
 
 1. The data come from an underlying single-cycle sinusoidal model.
 2. The data contain three outliers.
 
-In the plot above for lag = 1, note the tight elliptical clustering of points. Processes with a single-cycle sinusoidal model will have such elliptical lag plots.
+In @fig-lag-plot-sinusoidal for lag = 1, note the tight elliptical clustering of points. Processes with a single-cycle sinusoidal model will have such elliptical lag plots.
 
-*Consequences of Ignoring the Cyclical Pattern:* If one were to naively assume that the above process came from the null model $Y_i = A_0 + E_i$ and then estimate the constant by the sample mean, the analysis would suffer because the sample mean would be biased and meaningless, and the confidence limits would be meaningless and optimistically small. The proper model
+*Consequences of Ignoring the Cyclical Pattern:* If one were to naively assume that this process came from the null model $Y_i = A_0 + E_i$ and then estimate the constant by the sample mean, the analysis would suffer because the sample mean would be biased and meaningless, and the confidence limits would be meaningless and optimistically small. The proper model
 
 $$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
 
 (where $\alpha$ is the amplitude, $\omega$ is the frequency — between 0 and 0.5 cycles per observation — and $\phi$ is the phase) can be fit by standard non-linear least squares<!-- XREF: Process Modeling chapter, non-linear least squares; source handbook/pmd/section1/pmd142.htm -->, to estimate the coefficients and their uncertainties.
 
-The lag plot is also of value in outlier detection. Note in the above plot that there appear to be 4 points lying off the ellipse. However, in a lag plot, each point in the original data set $Y$ shows up twice -- once as $Y_i$ and once as $Y_{i-1}$. Hence the outlier near the top of the plot at $Y_i = 300$ is the same raw data value that appears further right at $Y_{i-1} = 300$. Thus $(201, 300)$ and $(300, -506)$ are due to the same outlier, namely the 158th data point: 300. The correct value for this 158th point should be approximately -300 and so it appears that a sign got dropped in the data collection. The other two points lying off the ellipse, at roughly $(-35, -15)$ and $(141, 115)$, are caused by two faulty data values: the 4th data point of -15 should be about +125 and the 5th data point of +141 should be about -50, respectively. Hence the 4 apparent lag plot outliers are traceable to 3 actual outliers in the original run sequence: at points 4 (-15), 5 (141) and 158 (300). In retrospect, only one of these (point 158 (= 300)) is an obvious outlier in the [Run-Sequence Plot](#sec-eda-run-sequence-plot).
+The lag plot is also of value in outlier detection. Note in @fig-lag-plot-sinusoidal that there appear to be 4 points lying off the ellipse. However, in a lag plot, each point in the original data set $Y$ shows up twice -- once as $Y_i$ and once as $Y_{i-1}$. Hence the outlier near the top of the plot at $Y_i = 300$ is the same raw data value that appears further right at $Y_{i-1} = 300$. Thus $(201, 300)$ and $(300, -506)$ are due to the same outlier, namely the 158th data point: 300. The correct value for this 158th point should be approximately -300 and so it appears that a sign got dropped in the data collection. The other two points lying off the ellipse, at roughly $(-35, -15)$ and $(141, 115)$, are caused by two faulty data values: the 4th data point of -15 should be about +125 and the 5th data point of +141 should be about -50, respectively. Hence the 4 apparent lag plot outliers are traceable to 3 actual outliers in the original run sequence: at points 4 (-15), 5 (141) and 158 (300). In retrospect, only one of these (point 158 (= 300)) is an obvious outlier in the [Run-Sequence Plot](#sec-eda-run-sequence-plot).
 
 (NIST's original text for this example states different coordinates, $(-500, 300)$, $(300, 200)$, $(100, 100)$, and $(0, -50)$, which match a lag plot with the two axes swapped from the $Y_{i-1}$-horizontal/$Y_i$-vertical convention stated above in the Definition and used consistently on this page -- an inconsistency between NIST's own Definition text and the axis mapping actually used to generate that particular figure. The coordinates above are for our plot, which follows the stated Definition.)
 

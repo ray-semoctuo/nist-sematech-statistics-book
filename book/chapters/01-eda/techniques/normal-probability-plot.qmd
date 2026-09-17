@@ -136,7 +136,7 @@ The following normal probability plot is from the heat flow meter data (ZARR13.D
 normal_prob_plot(zarr13$y)
 ```
 
-We can make the following conclusions from the above plot:
+We can make the following conclusions from @fig-normal-probability-plot-normal:
 
 - The normal probability plot shows a strongly linear pattern. There are only minor deviations from the line fit to the points on the probability plot.
 - The normal distribution appears to be a good model for these data.
@@ -169,7 +169,7 @@ tuklamb <- read_table(here::here("datasets", "TUKLAMB.DAT"), skip = 25, col_name
 normal_prob_plot(tuklamb$y)
 ```
 
-We can make the following conclusions from the above plot:
+We can make the following conclusions from @fig-normal-probability-plot-short-tails:
 
 - The normal probability plot shows a non-linear pattern.
 - The normal distribution is not a good model for these data.
@@ -193,7 +193,7 @@ double_exp <- -sign(u) * log(1 - 2 * abs(u))
 normal_prob_plot(double_exp)
 ```
 
-We can make the following conclusions from the above plot:
+We can make the following conclusions from @fig-normal-probability-plot-long-tails:
 
 - The normal probability plot shows a reasonably linear pattern in the center of the data. However, the tails, particularly the lower tail, show departures from the fitted line.
 - A distribution other than the normal distribution would be a good model for these data.
@@ -219,7 +219,7 @@ sunspot <- read_table(
 normal_prob_plot(sunspot$y)
 ```
 
-We can make the following conclusions from the above plot of the SUNSPOT.DAT data set:
+We can make the following conclusions from @fig-normal-probability-plot-skewed-right of the SUNSPOT.DAT data set:
 
 - The normal probability plot shows a strongly non-linear pattern. Specifically, it shows a quadratic pattern in which all the points fall below the fitted reference line.
 - The normal distribution is not a good model for these data.

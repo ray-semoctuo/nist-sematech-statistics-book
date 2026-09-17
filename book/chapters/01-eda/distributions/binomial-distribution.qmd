@@ -44,9 +44,9 @@ The formula for the binomial cumulative probability function is
 
 $$F(x;p,n) = \sum_{i=0}^{x}{\binom{n}{i}(p)^{i}(1-p)^{(n-i)}}$$
 
-Because the binomial distribution is discrete, its cumulative distribution function is a right-continuous step function, so the plot below uses `geom_step()`.
+Because the binomial distribution is discrete, its cumulative distribution function is a right-continuous step function, so @fig-binomial-dist-cdf uses `geom_step()`.
 
-The following is the plot of the binomial cumulative distribution function for the same values of $n$ and $p$ as the pmf plot above.
+@fig-binomial-dist-cdf shows the binomial cumulative distribution function for the same values of $n$ and $p$ as @fig-binomial-dist-pmf.
 
 ```{r}
 #| code-fold: true

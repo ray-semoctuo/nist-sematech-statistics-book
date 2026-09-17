@@ -77,12 +77,12 @@ Autocorrelation plots are formed by:
   Although this definition has less bias, the $(1/N)$ formulation has some desirable statistical properties and is the form most commonly used in the statistics literature (and the form R's `acf()` function uses, which is what the plots on this page are built with). See pages 20 and 49-50 in Chatfield<!-- XREF: EDA bibliography entry for Chatfield; source handbook/eda/section4/eda43.htm#Chatfield --> for details.
 
 - Horizontal axis: Time lag $h$ ($h = 1, 2, 3, \ldots$)
-- The above plot also contains several horizontal reference lines. The middle line is at zero. The other four lines are 95% and 99% confidence bands. Note that there are two distinct formulas for generating the confidence bands.
+- @fig-autocorrelation-plot-sample also contains several horizontal reference lines. The middle line is at zero. The other four lines are 95% and 99% confidence bands. Note that there are two distinct formulas for generating the confidence bands.
   1. If the autocorrelation plot is being used to test for randomness (i.e., there is no time dependence in the data), the following formula is recommended:
 
      $$\pm \frac{z_{1-\alpha/2}}{\sqrt{N}}$$
 
-     where $N$ is the sample size, $z$ is the cumulative distribution function of the standard normal distribution and $\alpha$ is the significance level. In this case, the confidence bands have fixed width that depends on the sample size. This is the formula that was used to generate the confidence bands in the plot above.
+     where $N$ is the sample size, $z$ is the cumulative distribution function of the standard normal distribution and $\alpha$ is the significance level. In this case, the confidence bands have fixed width that depends on the sample size. This is the formula that was used to generate the confidence bands in @fig-autocorrelation-plot-sample.
   2. Autocorrelation plots are also used in the model identification stage for fitting ARIMA models. In this case, a moving average model is assumed for the data and the following confidence bands should be generated:
 
      $$\pm z_{1-\alpha/2} \sqrt{\frac{1}{N}\left(1 + 2\sum_{i=1}^{k}{y_i^2}\right)}$$
@@ -142,7 +142,7 @@ There is no associative ability to infer from a current value $Y_i$ as to what t
 
 *2. Moderate Autocorrelation*
 
-The FLICKER.DAT data set shown in the Sample Plot above is itself an example of this case: the plot starts with a moderately high autocorrelation at lag 1 (approximately 0.75) that gradually decreases. The decreasing autocorrelation is generally linear, but with significant noise. Such a pattern is the autocorrelation plot signature of "moderate autocorrelation", which in turn provides moderate predictability if modeled properly.
+The FLICKER.DAT data set shown in @fig-autocorrelation-plot-sample is itself an example of this case: the plot starts with a moderately high autocorrelation at lag 1 (approximately 0.75) that gradually decreases. The decreasing autocorrelation is generally linear, but with significant noise. Such a pattern is the autocorrelation plot signature of "moderate autocorrelation", which in turn provides moderate predictability if modeled properly.
 
 The next step would be to estimate the parameters for the autoregressive model:
 
@@ -164,7 +164,7 @@ randwalk <- read_table(here::here("datasets", "RANDWALK.DAT"), skip = 25, col_na
 acf_plot(randwalk$y, lag_max = 125)
 ```
 
-We can make the following conclusions from the above plot: the data come from an underlying autoregressive model with strong positive autocorrelation.
+We can make the following conclusions from @fig-autocorrelation-plot-strong: the data come from an underlying autoregressive model with strong positive autocorrelation.
 
 The plot starts with a high autocorrelation at lag 1 (only slightly less than 1) that slowly declines. It continues decreasing until it becomes negative and starts showing an increasing negative autocorrelation. The decreasing autocorrelation is generally linear with little noise. Such a pattern is the autocorrelation plot signature of "strong autocorrelation", which in turn provides high predictability if modeled properly.
 
@@ -188,7 +188,7 @@ lew <- read_table(here::here("datasets", "LEW.DAT"), skip = 25, col_names = "y",
 acf_plot(lew$y, lag_max = 50)
 ```
 
-We can make the following conclusions from the above plot: the data come from an underlying sinusoidal model.
+We can make the following conclusions from @fig-autocorrelation-plot-sinusoidal: the data come from an underlying sinusoidal model.
 
 The plot exhibits an alternating sequence of positive and negative spikes. These spikes are not decaying to zero. Such a pattern is the autocorrelation plot signature of a sinusoidal model.
 

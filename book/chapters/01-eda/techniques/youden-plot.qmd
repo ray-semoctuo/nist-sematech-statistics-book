@@ -39,7 +39,7 @@ ggplot(ugiansky, aes(y2, y1, label = factor(lab), color = factor(lab))) +
   theme_light()
 ```
 
-This plot, from the UGIANSKY.DAT ASTM interlaboratory stress-corrosion study (7 labs, each running 5 specimens of two materials), shows:
+@fig-youden-plot-sample, from the UGIANSKY.DAT ASTM interlaboratory stress-corrosion study (7 labs, each running 5 specimens of two materials), shows:
 
 - Not all labs are equivalent.
 - Lab 4 shows the widest spread between its own runs, ranging from well below the 45-degree reference line to well above it — a within-lab variability problem.

@@ -103,7 +103,7 @@ four_plot_cs426(mavro_cs)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-filter-transmittance-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates a significant shift in location around $x = 35$.
 - The linear appearance in the [lag plot](#sec-eda-lag-plot) (upper right) indicates a non-random pattern in the data.

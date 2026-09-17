@@ -81,7 +81,7 @@ four_plot <- function(x, hist_bins = 30) {
 four_plot(lew$y)
 ```
 
-This 4-plot reveals the following:
+@fig-4-plot-sample reveals the following:
 
 - the fixed location assumption is justified, as shown by the run sequence plot in the upper left corner;
 - the fixed variation assumption is justified, as shown by the run sequence plot in the upper left corner;

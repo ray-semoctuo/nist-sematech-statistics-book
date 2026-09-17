@@ -42,9 +42,9 @@ The formula for the Poisson cumulative probability function is
 
 $$F(x;\lambda) = \sum_{i=0}^{x}{\frac{e^{-\lambda}\lambda^{i}}{i!}}$$
 
-Because the Poisson distribution is discrete, its cumulative distribution function is a right-continuous step function, so the plot below uses `geom_step()`.
+Because the Poisson distribution is discrete, its cumulative distribution function is a right-continuous step function, so @fig-poisson-dist-cdf uses `geom_step()`.
 
-The following is the plot of the Poisson cumulative distribution function for the same values of $\lambda$ as the pmf plot above.
+@fig-poisson-dist-cdf shows the Poisson cumulative distribution function for the same values of $\lambda$ as @fig-poisson-dist-pmf.
 
 ```{r}
 #| code-fold: true

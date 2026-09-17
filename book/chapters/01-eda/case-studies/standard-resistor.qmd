@@ -104,7 +104,7 @@ four_plot_cs427(resistor_cs$y)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-standard-resistor-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates significant shifts in both location and variation. Specifically, the location is increasing with time. The variability seems greater in the first and last third of the data than it does in the middle third.
 - The [lag plot](#sec-eda-lag-plot) (upper right) shows a significant non-random pattern in the data. Specifically, the strong linear appearance of this plot is indicative of a model that relates $Y_t$ to $Y_{t-1}$.

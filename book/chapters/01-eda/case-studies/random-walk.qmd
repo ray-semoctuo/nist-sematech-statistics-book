@@ -108,7 +108,7 @@ four_plot_cs423(randwalk_cs)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-random-walk-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates significant shifts in location over time.
 - The [lag plot](#sec-eda-lag-plot) (upper right) indicates significant non-randomness in the data.
@@ -167,7 +167,7 @@ This spectral plot shows a single dominant low frequency peak.
 
 **Quantitative Output**
 
-Although the 4-plot above clearly shows the violation of the assumptions, we supplement the graphical output with some quantitative measures.
+Although @fig-eda-random-walk-4-plot clearly shows the violation of the assumptions, we supplement the graphical output with some quantitative measures.
 
 **Summary Statistics**
 
@@ -355,7 +355,7 @@ four_plot_cs423(resid(ar1_fit_cs423))
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-random-walk-residuals-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates no significant shifts in location or scale over time.
 - The [lag plot](#sec-eda-lag-plot) (upper right) exhibits a random appearance.

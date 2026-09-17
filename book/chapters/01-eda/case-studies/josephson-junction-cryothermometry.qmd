@@ -105,7 +105,7 @@ four_plot_cs424(soulen_cs)
 
 **Interpretation**
 
-The assumptions are addressed by the graphics shown above:
+The assumptions are addressed by the graphics shown in @fig-eda-josephson-junction-4-plot:
 
 - The [run sequence plot](#sec-eda-run-sequence-plot) (upper left) indicates that the data do not have any significant shifts in location or scale over time.
 - The [lag plot](#sec-eda-lag-plot) (upper right) does not indicate any non-random pattern in the data.

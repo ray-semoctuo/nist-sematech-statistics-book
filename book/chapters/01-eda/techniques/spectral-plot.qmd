@@ -106,7 +106,7 @@ We can make the following conclusions from this plot of a random series:
 - There is no identifiable pattern in the spectrum.
 - The data are random.
 
-For random data, the spectral plot should show no dominant peaks or distinct pattern in the spectrum. For the plot above, there are no clearly dominant peaks and the peaks seem to fluctuate at random. This type of appearance of the spectral plot indicates that there are no significant cyclic patterns in the data.
+For random data, the spectral plot should show no dominant peaks or distinct pattern in the spectrum. For @fig-spectral-plot-random, there are no clearly dominant peaks and the peaks seem to fluctuate at random. This type of appearance of the spectral plot indicates that there are no significant cyclic patterns in the data.
 
 ##### Strong Autocorrelation and Autoregressive Model
 
@@ -118,7 +118,7 @@ randwalk <- read_table(here::here("datasets", "RANDWALK.DAT"), skip = 25, col_na
 spectral_plot(randwalk$y)
 ```
 
-We can make the following conclusions from the above plot of the RANDWALK.DAT data set:
+We can make the following conclusions from @fig-spectral-plot-strong of the RANDWALK.DAT data set:
 
 - There is a strong dominant peak near zero.
 - The peak decays rapidly towards zero.
@@ -145,7 +145,7 @@ Then the system should be reexamined to find an explanation for the strong autoc
 spectral_plot(lew$y)
 ```
 
-We can make the following conclusions from the above plot of the LEW.DAT data set:
+We can make the following conclusions from @fig-spectral-plot-sinusoidal of the LEW.DAT data set:
 
 - There is a single dominant peak at approximately 0.3.
 - There is an underlying single-cycle sinusoidal model.
