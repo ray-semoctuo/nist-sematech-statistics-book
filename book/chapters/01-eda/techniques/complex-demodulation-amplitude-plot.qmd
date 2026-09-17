@@ -8,7 +8,7 @@ $$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
 
 In this equation, $\alpha$ is the amplitude, $\phi$ is the phase shift, and $\omega$ is the dominant frequency. In the above model, $\alpha$ and $\phi$ are constant, that is they do not vary with time, $t_i$.
 
-The complex demodulation amplitude plot (Granger, 1964<!-- XREF: EDA bibliography entry for Granger; source handbook/eda/section4/eda43.htm#Granger -->) is used to determine if the assumption of constant amplitude is justifiable. If the slope of the complex demodulation amplitude plot is not zero, then the above model is typically replaced with the model:
+The complex demodulation amplitude plot [@Granger] is used to determine if the assumption of constant amplitude is justifiable. If the slope of the complex demodulation amplitude plot is not zero, then the above model is typically replaced with the model:
 
 $$Y_i = C + \alpha_i\sin(2\pi\omega t_i + \phi) + E_i$$
 
@@ -84,7 +84,7 @@ The complex demodulation amplitude plot is formed by:
 - Vertical axis: Amplitude
 - Horizontal axis: Time
 
-The mathematical computations for determining the amplitude are beyond the scope of the Handbook. Consult Granger (1964)<!-- XREF: EDA bibliography entry for Granger; source handbook/eda/section4/eda43.htm#Granger --> for details.
+The mathematical computations for determining the amplitude are beyond the scope of the Handbook. Consult Granger [@Granger] for details.
 
 **Questions**
 

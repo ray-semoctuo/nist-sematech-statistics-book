@@ -164,7 +164,7 @@ tibble(p = seq(0.001, 1, length.out = 401)) |>
 
 **Parameter Estimation**
 
-For the full sample case, the maximum likelihood estimator of the scale parameter is the sample mean. Maximum likelihood estimation for the exponential distribution is discussed in the chapter on reliability (Chapter 8). It is also discussed in chapter 19 of Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson -->.
+For the full sample case, the maximum likelihood estimator of the scale parameter is the sample mean. Maximum likelihood estimation for the exponential distribution is discussed in the chapter on reliability (Chapter 8). It is also discussed in chapter 19 of Johnson, Kotz, and Balakrishnan [@Johnson].
 
 **Comments**
 

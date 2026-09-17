@@ -2,7 +2,7 @@
 
 **Purpose: Check for Shifts in Location and Scale and Outliers**
 
-Run sequence plots (Chambers 1983<!-- XREF: EDA bibliography entry for Chambers; source handbook/eda/section4/eda43.htm#Chambers -->) are an easy way to graphically summarize a univariate data set. A common assumption of univariate data sets is that they behave like:
+Run sequence plots [@Chambers] are an easy way to graphically summarize a univariate data set. A common assumption of univariate data sets is that they behave like:
 
 1. random drawings;
 2. from a fixed distribution;

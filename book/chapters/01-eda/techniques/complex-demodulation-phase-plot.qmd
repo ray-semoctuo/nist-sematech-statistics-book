@@ -8,7 +8,7 @@ $$Y_i = C + \alpha\sin(2\pi\omega t_i + \phi) + E_i$$
 
 In this equation, $\alpha$ is the amplitude, $\phi$ is the phase shift, and $\omega$ is the dominant frequency. In the above model, $\alpha$ and $\phi$ are constant, that is they do not vary with time $t_i$.
 
-The complex demodulation phase plot (Granger, 1964<!-- XREF: EDA bibliography entry for Granger; source handbook/eda/section4/eda43.htm#Granger -->) is used to improve the estimate of the frequency (i.e., $\omega$) in this model.
+The complex demodulation phase plot [@Granger] is used to improve the estimate of the frequency (i.e., $\omega$) in this model.
 
 If the complex demodulation phase plot shows lines sloping from left to right, then the estimate of the frequency should be increased. If it shows lines sloping right to left, then the frequency should be decreased. If there is essentially zero slope, then the frequency estimate does not need to be modified.
 
@@ -93,7 +93,7 @@ The complex demodulation phase plot is formed by:
 - Vertical axis: Phase
 - Horizontal axis: Time
 
-The mathematical computations for the phase plot are beyond the scope of the Handbook. Consult Granger (1964)<!-- XREF: EDA bibliography entry for Granger; source handbook/eda/section4/eda43.htm#Granger --> for details.
+The mathematical computations for the phase plot are beyond the scope of the Handbook. Consult Granger [@Granger] for details.
 
 **Questions**
 

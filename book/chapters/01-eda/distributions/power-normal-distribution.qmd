@@ -181,7 +181,7 @@ tibble(p_prob = seq(0.001, 0.999, length.out = 401)) |>
 
 **Common Statistics**
 
-The statistics for the power normal distribution are complicated and require tables. Nelson<!-- XREF: reference to Nelson's discussion of the mean, median, mode, and standard deviation of the power normal distribution and tables of these statistics; source handbook/eda/section4/eda43.htm#Nelson2 --> discusses the mean, median, mode, and standard deviation of the power normal distribution and provides references to the appropriate tables.
+The statistics for the power normal distribution are complicated and require tables. Nelson [@Nelson2] discusses the mean, median, mode, and standard deviation of the power normal distribution and provides references to the appropriate tables.
 
 **Software**
 

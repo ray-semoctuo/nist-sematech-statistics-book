@@ -2,7 +2,7 @@
 
 **Purpose: Check to Determine if a Factor of Interest Has an Effect Robust over All Other Factors**
 
-The block plot (Filliben 1993<!-- XREF: EDA bibliography entry for Filliben 1993; source handbook/eda/section4/eda43.htm#Filliben -->) is an EDA tool for assessing whether the factor of interest (the primary factor) has a statistically significant effect on the response, and whether that conclusion about the primary factor effect is valid robustly over all other nuisance or secondary factors in the experiment.
+The block plot [@Filliben] is an EDA tool for assessing whether the factor of interest (the primary factor) has a statistically significant effect on the response, and whether that conclusion about the primary factor effect is valid robustly over all other nuisance or secondary factors in the experiment.
 
 It replaces the analysis of variance test<!-- XREF: Product and Process Comparisons chapter, analysis of variance; source handbook/prc/section4/prc42.htm --> with a less assumption-dependent binomial test and should be routinely used whenever we are trying to robustly decide whether a primary factor has an effect.
 

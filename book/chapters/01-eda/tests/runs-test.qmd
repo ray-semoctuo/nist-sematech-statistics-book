@@ -2,7 +2,7 @@
 
 **Purpose: Detect Non-Randomness**
 
-The runs test (Bradley, 1968<!-- XREF: EDA bibliography entry for Bradley 1968; source handbook/eda/section4/eda43.htm#Bradley -->) can be used to decide if a data set is from a random process.
+The runs test [@Bradley] can be used to decide if a data set is from a random process.
 
 A run is defined as a series of increasing values or a series of decreasing values. The number of increasing, or decreasing, values is the length of the run. In a random data set, the probability that the ($i$+1)th value is larger or smaller than the $i$th value follows a [binomial distribution](#sec-eda-binomial-distribution), which forms the basis of the runs test.
 
@@ -41,7 +41,7 @@ Critical Region: the runs test rejects the null hypothesis if
 
 $$|Z| > Z_{1-\alpha/2}$$
 
-For a large-sample runs test (where $n_1 > 10$ and $n_2 > 10$), the test statistic is compared to a standard normal table<!-- XREF: EDA Section 1.3.6.7.1, Standard Normal Table; source handbook/eda/section3/eda3671.htm -->. That is, at the 5% significance level, a test statistic with an absolute value greater than 1.96 indicates non-randomness. For a small-sample runs test, there are tables to determine critical values that depend on values of $n_1$ and $n_2$ (Mendenhall, 1982<!-- XREF: EDA bibliography entry for Mendenhall 1982; source handbook/eda/section4/eda43.htm#Mendenhall -->).
+For a large-sample runs test (where $n_1 > 10$ and $n_2 > 10$), the test statistic is compared to a standard normal table<!-- XREF: EDA Section 1.3.6.7.1, Standard Normal Table; source handbook/eda/section3/eda3671.htm -->. That is, at the 5% significance level, a test statistic with an absolute value greater than 1.96 indicates non-randomness. For a small-sample runs test, there are tables to determine critical values that depend on values of $n_1$ and $n_2$ [@Mendenhall].
 
 **Runs Test Example**
 

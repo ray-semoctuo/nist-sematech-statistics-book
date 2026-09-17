@@ -2,7 +2,7 @@
 
 **Purpose: Test for Distributional Adequacy**
 
-The chi-square test (Snedecor and Cochran, 1989<!-- XREF: EDA bibliography entry for Snedecor and Cochran 1989; source handbook/eda/section4/eda43.htm#Snedecor -->) is used to test if a sample of data came from a population with a specific distribution.
+The chi-square test [@Snedecor] is used to test if a sample of data came from a population with a specific distribution.
 
 An attractive feature of the chi-square goodness-of-fit test is that it can be applied to any univariate distribution for which you can calculate the cumulative distribution function<!-- XREF: EDA Section 1.3.6.2, CDF; source handbook/eda/section3/eda362.htm#CDF -->. The chi-square goodness-of-fit test is applied to binned data (i.e., data put into classes). This is actually not a restriction since for non-binned data you can simply calculate a histogram or frequency table before generating the chi-square test. However, the value of the chi-square test statistic is dependent on how the data are binned. Another disadvantage of the chi-square test is that it requires a sufficient sample size in order for the chi-square approximation to be valid.
 
@@ -119,7 +119,7 @@ Critical region: Reject H_0 if Chi^2 > 42.557
 
 **Application Example**
 
-This example uses the data set described in the Fatigue Life of Aluminum Alloy Specimens<!-- XREF: EDA Case Studies (Section 1.4), Fatigue Life of Aluminum Alloy Specimens; source handbook/eda/section4/eda429.htm --> case study, which comprises 101 measured values of the fatigue life (thousands of cycles until rupture) of rectangular strips of 6061-T6 aluminum sheeting that were subjected to periodic loading until failure, as reported by Birnbaum and Saunders (1958)<!-- XREF: EDA bibliography entry for Birnbaum and Saunders 1958; source handbook/eda/section4/eda43.htm#Birnbaum -->. To test whether these data are consistent with a 3-parameter Weibull probability model, one can employ the chi-square goodness-of-fit test, after binning the measured values into $k = 10$ bins chosen so that each is expected to include about 10 observations. The maximum likelihood estimates of the Weibull parameters based on the bin counts are slightly different from their counterparts based on the individual observations.
+This example uses the data set described in the Fatigue Life of Aluminum Alloy Specimens<!-- XREF: EDA Case Studies (Section 1.4), Fatigue Life of Aluminum Alloy Specimens; source handbook/eda/section4/eda429.htm --> case study, which comprises 101 measured values of the fatigue life (thousands of cycles until rupture) of rectangular strips of 6061-T6 aluminum sheeting that were subjected to periodic loading until failure, as reported by Birnbaum and Saunders [@Birnbaum]. To test whether these data are consistent with a 3-parameter Weibull probability model, one can employ the chi-square goodness-of-fit test, after binning the measured values into $k = 10$ bins chosen so that each is expected to include about 10 observations. The maximum likelihood estimates of the Weibull parameters based on the bin counts are slightly different from their counterparts based on the individual observations.
 
 ```{r}
 #| code-fold: true

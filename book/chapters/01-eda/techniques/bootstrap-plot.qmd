@@ -2,7 +2,7 @@
 
 **Purpose: Estimate Uncertainty**
 
-The bootstrap (Efron and Gong<!-- XREF: EDA bibliography entry for Efron and Gong; source handbook/eda/section4/eda43.htm#Efron -->) plot is used to estimate the uncertainty of a statistic.
+The bootstrap [@Efron] plot is used to estimate the uncertainty of a statistic.
 
 **Generate Subsamples with Replacement**
 
@@ -112,7 +112,7 @@ The most common uncertainty calculation is generating a confidence interval for 
 
 **Caution on Use of the Bootstrap**
 
-The bootstrap is not appropriate for all distributions and statistics (Efron and Tibshirani<!-- XREF: EDA bibliography entry for Efron and Tibshirani; source handbook/eda/section4/eda43.htm#TIBRASHANI -->). For example, because of the shape of the uniform distribution, the bootstrap is not appropriate for estimating the distribution of statistics that are heavily dependent on the tails, such as the range.
+The bootstrap is not appropriate for all distributions and statistics (Efron and Tibshirani<!-- Efron and Tibshirani reference not present in NIST's eda43.htm bibliography; left uncited -->). For example, because of the shape of the uniform distribution, the bootstrap is not appropriate for estimating the distribution of statistics that are heavily dependent on the tails, such as the range.
 
 **Related Techniques**
 
@@ -120,7 +120,7 @@ The bootstrap is not appropriate for all distributions and statistics (Efron and
 
 Jackknife
 
-The jackknife is a technique that is closely related to the bootstrap. The jackknife is beyond the scope of this handbook. See the Efron and Gong<!-- XREF: EDA bibliography entry for Efron and Gong; source handbook/eda/section4/eda43.htm#Efron --> article for a discussion of the jackknife.
+The jackknife is a technique that is closely related to the bootstrap. The jackknife is beyond the scope of this handbook. See the Efron and Gong [@Efron] article for a discussion of the jackknife.
 
 **Case Study**
 

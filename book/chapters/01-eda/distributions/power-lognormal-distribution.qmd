@@ -189,11 +189,11 @@ tibble(p_prob = seq(0.001, 0.999, length.out = 401)) |>
 
 **Common Statistics**
 
-The statistics for the power lognormal distribution are complicated and require tables. Nelson<!-- XREF: reference to Nelson's discussion of the mean, median, mode, and standard deviation of the power lognormal distribution and tables of these statistics; source handbook/eda/section4/eda43.htm#Nelson2 --> discusses the mean, median, mode, and standard deviation of the power lognormal distribution and provides references to the appropriate tables.
+The statistics for the power lognormal distribution are complicated and require tables. Nelson [@Nelson2] discusses the mean, median, mode, and standard deviation of the power lognormal distribution and provides references to the appropriate tables.
 
 **Parameter Estimation**
 
-Nelson<!-- XREF: reference to Nelson's discussion of maximum likelihood estimation for the power lognormal distribution; source handbook/eda/section4/eda43.htm#Nelson2 --> discusses maximum likelihood estimation for the power lognormal distribution. These estimates need to be performed with computer software. Software for maximum likelihood estimation of the parameters of the power lognormal distribution is not as readily available as for other reliability distributions such as the exponential, Weibull, and lognormal.
+Nelson [@Nelson2] discusses maximum likelihood estimation for the power lognormal distribution. These estimates need to be performed with computer software. Software for maximum likelihood estimation of the parameters of the power lognormal distribution is not as readily available as for other reliability distributions such as the exponential, Weibull, and lognormal.
 
 **Software**
 

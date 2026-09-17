@@ -6,7 +6,7 @@ For example, suppose a set of 50 data points had a correlation coefficient of 0.
 
 Since perfect normality implies perfect correlation (i.e., a correlation value of 1), we are only interested in rejecting normality for correlation values that are too low. That is, this is a lower one-tailed test.
 
-The values in this table were determined from simulation studies by Filliben and Devaney<!-- XREF: EDA bibliography entries for Filliben (PPCC) and Devaney; source handbook/eda/section4/eda43.htm#PPCC and handbook/eda/section4/eda43.htm#Devaney -->. Like the [t* distribution table](#sec-eda-t-star-distribution-table), these values have no simple closed-form generating function, so they are reproduced here directly from the original table rather than computed from an R distribution function.
+The values in this table were determined from simulation studies by Filliben and Devaney [@PPCC; @Devaney]. Like the [t* distribution table](#sec-eda-t-star-distribution-table), these values have no simple closed-form generating function, so they are reproduced here directly from the original table rather than computed from an R distribution function.
 
 **Critical values of the normal PPCC for testing if data come from a normal distribution**
 

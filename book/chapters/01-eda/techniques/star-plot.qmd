@@ -2,7 +2,7 @@
 
 **Purpose: Display Multivariate Data**
 
-The star plot (Chambers 1983<!-- XREF: EDA bibliography entry for Chambers; source handbook/eda/section4/eda43.htm#Chambers -->) is a method of displaying multivariate data. Each star represents a single observation. Typically, star plots are generated in a multi-plot format with many stars on each page and each star representing one observation.
+The star plot [@Chambers] is a method of displaying multivariate data. Each star represents a single observation. Typically, star plots are generated in a multi-plot format with many stars on each page and each star representing one observation.
 
 Star plots are used to examine the relative values for a single data point (e.g., point 3 is large for variables 2 and 4, small for variables 1, 3, 5, and 6) and to locate similar points or dissimilar points.
 
@@ -136,7 +136,7 @@ The star plot can be used to answer the following questions:
 
 Star plots are helpful for small-to-moderate-sized multivariate data sets. Their primary weakness is that their effectiveness is limited to data sets with less than a few hundred points. After that, they tend to be overwhelming.
 
-Graphical techniques suited for large data sets are discussed by Scott<!-- XREF: EDA bibliography entry for Scott; source handbook/eda/section4/eda43.htm#Scott -->.
+Graphical techniques suited for large data sets are discussed by Scott [@Scott].
 
 **Related Techniques**
 

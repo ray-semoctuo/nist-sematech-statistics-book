@@ -109,7 +109,7 @@ tibble(x = seq(-4, 4, length.out = 401)) |>
   theme_light()
 ```
 
-Hazard plots are most commonly used in reliability applications. Note that Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson --> refer to this as the conditional failure density function rather than the hazard function.
+Hazard plots are most commonly used in reliability applications. Note that Johnson, Kotz, and Balakrishnan [@Johnson] refer to this as the conditional failure density function rather than the hazard function.
 
 **Cumulative Hazard Function**
 
@@ -135,7 +135,7 @@ tibble(x = seq(-4, 4, length.out = 401)) |>
   theme_light()
 ```
 
-Cumulative hazard plots are most commonly used in reliability applications. Note that Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson --> refer to this as the hazard function rather than the cumulative hazard function.
+Cumulative hazard plots are most commonly used in reliability applications. Note that Johnson, Kotz, and Balakrishnan [@Johnson] refer to this as the hazard function rather than the cumulative hazard function.
 
 **Survival Function**
 

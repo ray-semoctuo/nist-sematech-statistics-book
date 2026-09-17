@@ -2,7 +2,7 @@
 
 **Purpose: Check If Data Follow a Given Distribution**
 
-The probability plot (Chambers et al., 1983<!-- XREF: EDA bibliography entry for Chambers et al.; source handbook/eda/section4/eda43.htm#Chambers -->) is a graphical technique for assessing whether or not a data set follows a given distribution such as the normal or Weibull.
+The probability plot [@Chambers] is a graphical technique for assessing whether or not a data set follows a given distribution such as the normal or Weibull.
 
 The data are plotted against a theoretical distribution in such a way that the points should form approximately a straight line. Departures from this straight line indicate departures from the specified distribution.
 

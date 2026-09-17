@@ -122,7 +122,7 @@ The lognormal is also a skewed distribution. Therefore the mean and median do no
 
 There are various alternatives to the mean and median for measuring location. These alternatives were developed to address non-normal data since the mean is an optimal estimator if in fact your data are normal.
 
-Tukey and Mosteller<!-- XREF: EDA bibliography entry for Tukey and Mosteller; source handbook/eda/section4/eda43.htm#Tukey --> defined two types of robustness where robustness is a lack of susceptibility to the effects of nonnormality.
+Tukey and Mosteller [@Tukey] defined two types of robustness where robustness is a lack of susceptibility to the effects of nonnormality.
 
 - Robustness of validity means that the confidence intervals for the population location have a 95% chance of covering the population location regardless of what the underlying distribution is.
 - Robustness of efficiency refers to high effectiveness in the face of non-normal tails. That is, confidence intervals for the population location tend to be almost as narrow as the best that could be done if we knew the true shape of the distribution.

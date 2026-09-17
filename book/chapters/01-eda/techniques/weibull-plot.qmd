@@ -2,7 +2,7 @@
 
 **Purpose: Graphical Check To See If Data Come From a Population That Would Be Fit by a Weibull Distribution**
 
-The Weibull plot (Nelson 1982<!-- XREF: EDA bibliography entry for Nelson; source handbook/eda/section4/eda43.htm#Nelson -->) is a graphical technique for determining if a data set comes from a population that would logically be fit by a 2-parameter [Weibull distribution](#sec-eda-weibull-distribution) (the location is assumed to be zero).
+The Weibull plot [@Nelson] is a graphical technique for determining if a data set comes from a population that would logically be fit by a 2-parameter [Weibull distribution](#sec-eda-weibull-distribution) (the location is assumed to be zero).
 
 The Weibull plot has special scales that are designed so that if the data do in fact follow a Weibull distribution, the points will be linear (or nearly linear). The least squares fit of this line yields estimates for the shape and scale parameters of the Weibull distribution (the location is assumed to be zero).
 

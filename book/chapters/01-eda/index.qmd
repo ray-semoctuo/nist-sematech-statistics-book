@@ -46,7 +46,7 @@ EDA is not identical to statistical graphics although the two terms are used alm
 
 **History**
 
-The seminal work in EDA is Tukey's *Exploratory Data Analysis* (1977)<!-- XREF: EDA bibliography entry for Tukey; source handbook/eda/section4/eda43.htm#Tukey -->. Over the years it has benefitted from other noteworthy publications such as Mosteller and Tukey's *Data Analysis and Regression* (1977)<!-- XREF: EDA bibliography entry for Mosteller and Tukey; source handbook/eda/section4/eda43.htm#Mosteller -->, Hoaglin's *Interactive Data Analysis* (1977)<!-- XREF: EDA bibliography entry for Hoaglin (Mcneil); source handbook/eda/section4/eda43.htm#Mcneil -->, and Velleman and Hoaglin's *The ABC's of EDA* (1981)<!-- XREF: EDA bibliography entry for Velleman and Hoaglin; source handbook/eda/section4/eda43.htm#Velleman -->, and has gained a large following as "the" way to analyze a data set.
+The seminal work in EDA is Tukey's *Exploratory Data Analysis* [@Tukey]. Over the years it has benefitted from other noteworthy publications such as Mosteller and Tukey's *Data Analysis and Regression* [@Mosteller], Hoaglin's *Interactive Data Analysis* [@McNeil] (NIST's own text attributes this work to Hoaglin, but the bibliography entry it links to is authored by McNeil, not Hoaglin — we reproduce NIST's original attribution here and flag the discrepancy rather than silently correcting it), and Velleman and Hoaglin's *The ABC's of EDA* [@Velleman], and has gained a large following as "the" way to analyze a data set.
 
 **Techniques**
 

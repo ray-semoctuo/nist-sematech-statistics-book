@@ -2,7 +2,7 @@
 
 **Purpose: Find the Transformation of the X Variable that Maximizes the Correlation between a Y and an X Variable**
 
-When performing a linear fit of $Y$ against $X$, an appropriate transformation of $X$ can often significantly improve the fit. The Box-Cox transformation (Box and Cox, 1964<!-- XREF: EDA bibliography entry for Box and Cox, 1964; source handbook/eda/section4/eda43.htm#Boxcox -->) is a particularly useful family of transformations. It is defined as:
+When performing a linear fit of $Y$ against $X$, an appropriate transformation of $X$ can often significantly improve the fit. The Box-Cox transformation [@Boxcox] is a particularly useful family of transformations. It is defined as:
 
 $$T(X) = (X^{\lambda} - 1)/\lambda$$
 
@@ -10,7 +10,7 @@ where $X$ is the variable being transformed and $\lambda$ is the transformation 
 
 The Box-Cox linearity plot is a plot of the correlation between $Y$ and the transformed $X$ for given values of $\lambda$. That is, $\lambda$ is the coordinate for the horizontal axis variable and the value of the correlation between $Y$ and the transformed $X$ is the coordinate for the vertical axis of the plot. The value of $\lambda$ corresponding to the maximum correlation (or minimum for negative correlation) on the plot is then the optimal choice for $\lambda$.
 
-Transforming $X$ is used to improve the fit. The Box-Cox transformation applied to $Y$ can be used as the basis for meeting the error assumptions<!-- XREF: Process Modeling chapter, error assumptions; source handbook/pmd/section2/pmd21.htm -->. That case is not covered here. See page 225 of (Draper and Smith, 1981<!-- XREF: EDA bibliography entry for Draper and Smith, 1981; source handbook/eda/section4/eda43.htm#Draper -->) or page 77 of (Ryan, 1997<!-- XREF: EDA bibliography entry for Ryan, 1997; source handbook/eda/section4/eda43.htm#Ryan -->) for a discussion of this case.
+Transforming $X$ is used to improve the fit. The Box-Cox transformation applied to $Y$ can be used as the basis for meeting the error assumptions<!-- XREF: Process Modeling chapter, error assumptions; source handbook/pmd/section2/pmd21.htm -->. That case is not covered here. See page 225 of [@Draper] or page 77 of [@Ryan] for a discussion of this case.
 
 **Sample Plot**
 

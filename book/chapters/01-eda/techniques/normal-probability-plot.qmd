@@ -2,7 +2,7 @@
 
 **Purpose: Check If Data Are Approximately Normally Distributed**
 
-The normal probability plot (Chambers et al., 1983<!-- XREF: EDA bibliography entry for Chambers et al.; source handbook/eda/section4/eda43.htm#Chambers -->) is a graphical technique for assessing whether or not a data set is approximately normally distributed.
+The normal probability plot [@Chambers] is a graphical technique for assessing whether or not a data set is approximately normally distributed.
 
 The data are plotted against a theoretical normal distribution in such a way that the points should form an approximate straight line. Departures from this straight line indicate departures from normality.
 

@@ -40,7 +40,7 @@ These plots all have a similar shape. The difference is in the heaviness of the 
 
 **Cumulative Distribution Function**
 
-The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the *t* distribution is complicated and is not included here. It is given in the Evans, Hastings, and Peacock book<!-- XREF: EDA bibliography entry for Evans, Hastings, and Peacock; source handbook/eda/section4/eda43.htm#EVANS -->.
+The formula for the [cumulative distribution function](#sec-eda-related-distributions) of the *t* distribution is complicated and is not included here. It is given in the Evans, Hastings, and Peacock book [@Evans].
 
 The following are the plots of the *t* cumulative distribution function with the same values of $\nu$ as the pdf plots above.
 

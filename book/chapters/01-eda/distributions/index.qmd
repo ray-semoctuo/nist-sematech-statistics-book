@@ -21,7 +21,7 @@ Some practical uses of probability distributions are:
 
 #### Gallery of Distributions {#sec-eda-366}
 
-Detailed information on a few of the most common distributions is available below. There are a large number of distributions used in statistical applications. It is beyond the scope of this book to discuss more than a few of these. Two excellent sources for additional detailed information on a large array of distributions are Johnson, Kotz, and Balakrishnan<!-- XREF: EDA bibliography entry for Johnson, Kotz, and Balakrishnan; source handbook/eda/section4/eda43.htm#Johnson --> and Evans, Hastings, and Peacock<!-- XREF: EDA bibliography entry for Evans, Hastings, and Peacock; source handbook/eda/section4/eda43.htm#Evans -->.
+Detailed information on a few of the most common distributions is available below. There are a large number of distributions used in statistical applications. It is beyond the scope of this book to discuss more than a few of these. Two excellent sources for additional detailed information on a large array of distributions are Johnson, Kotz, and Balakrishnan [@Johnson] and Evans, Hastings, and Peacock [@Evans].
 
 Equations for the probability functions are given for the [standard form](#sec-eda-location-and-scale-parameters) of the distribution. [Formulas](#sec-eda-location-and-scale-parameters) exist for defining the functions with [location and scale parameters](#sec-eda-location-and-scale-parameters) in terms of the standard form of the distribution.
 
@@ -71,7 +71,7 @@ Be aware that different sources may give formulas that are different from those 
 
 Several commonly used tables for probability distributions can be referenced below.
 
-The values from these tables can also be obtained from most general purpose statistical software programs (in R, via the `qnorm()`, `qt()`, `qf()`, and `qchisq()` functions used to generate them here). Most introductory statistics textbooks (e.g., Snedecor and Cochran<!-- XREF: EDA bibliography entry for Snedecor and Cochran; source handbook/eda/section4/eda43.htm#Snedecor -->) contain more extensive tables than are included here. These tables are included for convenience.
+The values from these tables can also be obtained from most general purpose statistical software programs (in R, via the `qnorm()`, `qt()`, `qf()`, and `qchisq()` functions used to generate them here). Most introductory statistics textbooks (e.g., Snedecor and Cochran [@Snedecor]) contain more extensive tables than are included here. These tables are included for convenience.
 
 {{< include distributions/standard-normal-cdf-table.qmd >}}
 

@@ -2,7 +2,7 @@
 
 **Purpose: Check Randomness**
 
-Autocorrelation plots (Box and Jenkins, pp. 28-32<!-- XREF: EDA bibliography entry for Box and Jenkins; source handbook/eda/section4/eda43.htm#Box -->) are a commonly-used tool for checking randomness in a data set. This randomness is ascertained by computing autocorrelations for data values at varying time lags. If random, such autocorrelations should be near zero for any and all time-lag separations. If non-random, then one or more of the autocorrelations will be significantly non-zero.
+Autocorrelation plots [@Box, pp. 28-32] are a commonly-used tool for checking randomness in a data set. This randomness is ascertained by computing autocorrelations for data values at varying time lags. If random, such autocorrelations should be near zero for any and all time-lag separations. If non-random, then one or more of the autocorrelations will be significantly non-zero.
 
 In addition, autocorrelation plots are used in the model identification stage for Box-Jenkins<!-- XREF: Process or Product Monitoring and Control chapter, Box-Jenkins autoregressive/moving average models; source handbook/pmc/section4/pmc4.htm --> autoregressive, moving average time series models.
 
@@ -74,7 +74,7 @@ Autocorrelation plots are formed by:
 
   $$C_h = \frac{1}{N-h}\sum_{t=1}^{N-h}(Y_t - \bar{Y})(Y_{t+h} - \bar{Y})$$
 
-  Although this definition has less bias, the $(1/N)$ formulation has some desirable statistical properties and is the form most commonly used in the statistics literature (and the form R's `acf()` function uses, which is what the plots on this page are built with). See pages 20 and 49-50 in Chatfield<!-- XREF: EDA bibliography entry for Chatfield; source handbook/eda/section4/eda43.htm#Chatfield --> for details.
+  Although this definition has less bias, the $(1/N)$ formulation has some desirable statistical properties and is the form most commonly used in the statistics literature (and the form R's `acf()` function uses, which is what the plots on this page are built with). See pages 20 and 49-50 in Chatfield [@Chatfield] for details.
 
 - Horizontal axis: Time lag $h$ ($h = 1, 2, 3, \ldots$)
 - @fig-autocorrelation-plot-sample also contains several horizontal reference lines. The middle line is at zero. The other four lines are 95% and 99% confidence bands. Note that there are two distinct formulas for generating the confidence bands.

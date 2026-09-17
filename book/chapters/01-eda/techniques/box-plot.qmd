@@ -2,7 +2,7 @@
 
 **Purpose: Check Location and Variation Shifts**
 
-Box plots (Chambers 1983<!-- XREF: EDA bibliography entry for Chambers 1983; source handbook/eda/section4/eda43.htm#Chambers -->) are an excellent tool for conveying location and variation information in data sets, particularly for detecting and illustrating location and variation changes between different groups of data.
+Box plots [@Chambers] are an excellent tool for conveying location and variation information in data sets, particularly for detecting and illustrating location and variation changes between different groups of data.
 
 **Sample Plot: This Box Plot Reveals that Machine Has a Significant Effect on Energy with Respect to Location and Possibly Variation**
 
