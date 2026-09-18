@@ -27,7 +27,7 @@ Changes in the precision of the instrument, particularly anomalies and degradati
 
 The base line for this type of control chart is the pooled standard deviation, $s_1$, as defined in [Data collection and analysis](#sec-mpc-232).
 
-**Example of control chart for a mass balance**<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
+**Example of control chart for a mass balance**<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance; source handbook/mpc/section3/mpc3511.htm; data handbook/datasets/MASS.DAT -->
 
 Only the upper control limit, $UCL$, is of interest for detecting degradation in the instrument. As long as the short-term standard deviations fall within the upper control limit established from historical data, there is reason for confidence that the precision of the instrument has not degraded (i.e., common cause variations).
 
@@ -54,37 +54,17 @@ For $\alpha = 0.05$, $J = 6$, and $K = 6$, the critical value and control limit 
 
 ```{r}
 #| code-fold: true
-#| label: fig-mpc-control-limit-sd
-#| fig-cap: "Illustrative control chart for short-term standard deviations, K = 6 occasions, with the upper control limit computed from the F-distribution"
+#| label: f-critical-value-mpc231
 #| message: false
-library(tidyverse)
-
 alpha_mpc231 <- 0.05
 J_mpc231 <- 6
 K_mpc231 <- 6
 
 F_mpc231 <- qf(1 - alpha_mpc231, J_mpc231 - 1, K_mpc231 * (J_mpc231 - 1))
 F_mpc231
-
-set.seed(20240617)
-s1_mpc231 <- 0.05
-ucl_mpc231 <- s1_mpc231 * sqrt(F_mpc231)
-
-sd_demo_mpc231 <- tibble(
-  occasion = seq_len(K_mpc231),
-  s_k = c(0.041, 0.052, 0.038, 0.061, 0.047, 0.055)
-)
-
-ggplot(sd_demo_mpc231, aes(occasion, s_k)) +
-  geom_hline(yintercept = s1_mpc231, color = "black") +
-  geom_hline(yintercept = ucl_mpc231, color = "firebrick", linetype = "dashed") +
-  geom_line(color = "grey60") +
-  geom_point(color = "steelblue4", size = 2) +
-  labs(x = "Occasion", y = "Short-term standard deviation") +
-  theme_light()
 ```
 
-The computed critical value is $F_{0.05,\,5,\,30} \approx$ `r round(F_mpc231, 4)`, matching NIST's own sample calculation for this case. With a pooled historical standard deviation of $s_1 =$ `r s1_mpc231`, the upper control limit is $UCL = s_1\sqrt{F} \approx$ `r round(ucl_mpc231, 4)` (dashed line); all six illustrative occasions fall below it, indicating no degradation in instrument precision.
+The computed critical value is $F_{0.05,\,5,\,30} \approx$ `r round(F_mpc231, 4)`, matching NIST's own sample calculation for this case.
 
 #### Data collection {#sec-mpc-232}
 
@@ -133,11 +113,40 @@ The individual short-term standard deviations along with identifications for all
 
 **Monitoring future precision**
 
-Once the base line and control limit for the control chart have been determined from historical data, the measurement process enters the monitoring stage. NIST's original text shows a control chart for precision of a mass balance here (not yet reproduced in this book; see the source case study), where the control limit is based on the data taken prior to 1985.<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
+Once the base line and control limit for the control chart have been determined from historical data, the measurement process enters the monitoring stage. In the control chart shown below, the control limit is based on historical standard deviations pooled from the check standard data (NIST's own sample code pools the full historical record from 1975-1988 rather than only data prior to 1985 as the surrounding narrative describes; we follow the sample code, since it is what reproduces NIST's stated control limit of 0.067 micrograms).
 
 **Each new standard deviation is monitored on the control chart**
 
-Each new short-term standard deviation based on $J$ measurements is plotted on the control chart; points that exceed the control limits probably indicate lack of statistical control. Drift over time indicates degradation of the instrument. Points out of control require remedial action, and possible causes of out-of-control signals need to be understood when developing [strategies for dealing with outliers](#sec-mpc-234).<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
+Each new short-term standard deviation based on $J$ measurements is plotted on the control chart; points that exceed the control limits probably indicate lack of statistical control. Drift over time indicates degradation of the instrument. Points out of control require remedial action, and possible causes of out-of-control signals need to be understood when developing [strategies for dealing with outliers](#sec-mpc-234).<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance; source handbook/mpc/section3/mpc3511.htm; data handbook/datasets/MASS.DAT -->
+
+**Control chart for precision for a mass balance from historical standard deviations for the balance with 3 degrees of freedom each. The control chart identifies two outliers and slight degradation over time in the precision of the balance**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-precision-balance
+#| fig-cap: "Control chart for precision of balance #12: standard deviations with 3 degrees of freedom plotted vs. year, with the upper control limit computed at the 1% significance level"
+#| message: false
+library(tidyverse)
+
+mass_mpc233 <- read_table(
+  here::here("datasets", "MASS.DAT"),
+  skip = 25,
+  col_names = c("date_year", "std_id", "std_value", "balance_id", "std_dev", "design_id"),
+  col_types = "dddddd"
+)
+
+sp_mpc233 <- sqrt(mean(mass_mpc233$std_dev^2))
+ucl_mpc233 <- sp_mpc233 * sqrt(qf(0.99, 3, 351))
+
+ggplot(mass_mpc233, aes(date_year, std_dev)) +
+  geom_point(color = "steelblue4", size = 1.4) +
+  geom_hline(yintercept = sp_mpc233, color = "black") +
+  geom_hline(yintercept = ucl_mpc233, color = "firebrick", linetype = "dashed") +
+  labs(x = "Time, years", y = "Standard deviation, micrograms") +
+  theme_light()
+```
+
+The pooled standard deviation is $s_1 \approx$ `r round(sp_mpc233, 5)` micrograms, and the control limit at the 1% significance level is `r round(ucl_mpc233, 3)` micrograms (dashed line), matching NIST's stated control limit of 0.067 micrograms. The control chart shows that the precision of the balance remained in control through the first five months of 1988 with only two violations of the control limits. For those occasions, the calibrations were discarded and repeated. Clearly, for the second violation, something significant occurred that invalidated the calibration results. However, it is also clear from the pattern of standard deviations over time that the precision of the balance was gradually degrading and more and more points were approaching the control limits. This finding led to a decision to replace this balance for high accuracy calibrations.
 
 **Monitoring where the number of measurements are different from J**
 
