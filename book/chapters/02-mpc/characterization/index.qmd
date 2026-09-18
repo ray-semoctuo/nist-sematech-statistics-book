@@ -1,0 +1,17 @@
+## Characterization {#sec-mpc-1}
+
+The primary goal of this section is to lay the groundwork for understanding the measurement process in terms of the errors that affect the process.
+
+1. [What are the issues for characterization?](#sec-mpc-11)
+   1. [Purpose](#sec-mpc-111)
+   2. [Reference base](#sec-mpc-112)
+   3. [Bias and Accuracy](#sec-mpc-113)
+   4. [Variability](#sec-mpc-114)
+2. [What is a check standard?](#sec-mpc-12)
+   1. [Assumptions](#sec-mpc-121)
+   2. [Data collection](#sec-mpc-122)
+   3. [Analysis](#sec-mpc-123)
+
+{{< include characterization/issues-for-characterization.qmd >}}
+
+{{< include characterization/what-is-a-check-standard.qmd >}}

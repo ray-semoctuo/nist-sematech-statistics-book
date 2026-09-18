@@ -1,0 +1,247 @@
+### What are the issues for characterization? {#sec-mpc-11}
+
+**'Goodness' of measurements**
+
+A measurement process can be thought of as a well-run production process in which measurements are the output. The 'goodness' of measurements is the issue, and goodness is characterized in terms of the errors that affect the measurements.
+
+**Bias, variability and uncertainty**
+
+The goodness of measurements is quantified in terms of
+
+- [Bias](#sec-mpc-113)
+- Short-term variability or instrument precision
+- Day-to-day or long-term variability
+- Uncertainty<!-- XREF: MPC Section 2.5, Uncertainty Analysis; source handbook/mpc/section5/mpc5.htm -->
+
+**Requires ongoing statistical control program**
+
+The continuation of goodness is guaranteed by a statistical control program that controls both
+
+- Short-term variability or instrument precision<!-- XREF: MPC Section 2.2.3, How is short-term variability controlled?; source handbook/mpc/section2/mpc23.htm -->
+- Long-term variability<!-- XREF: MPC Section 2.2.2, How are bias and variability controlled?; source handbook/mpc/section2/mpc22.htm --> which controls bias and day-to-day variability of the process
+
+**Scope is limited to ongoing processes**
+
+The techniques in this chapter are intended primarily for ongoing processes. One-time tests and special tests or destructive tests are difficult to characterize. Examples of ongoing processes are:
+
+- Calibration where similar test items are measured on a regular basis
+- Certification where materials are characterized on a regular basis
+- Production where the metrology (tool) errors may be significant
+- Special studies where data can be collected over the life of the study
+
+**Application to production processes**
+
+The material in this chapter is pertinent to the study of production processes for which the size of the metrology (tool) error may be an important consideration. More specific guidance on assessing metrology errors can be found in the section on gauge studies<!-- XREF: MPC Section 2.4, Gauge R&R Studies; source handbook/mpc/section4/mpc4.htm -->.
+
+#### Purpose {#sec-mpc-111}
+
+**Purpose is to understand and quantify the effect of error on reported values**
+
+The purpose of characterization is to develop an understanding of the sources of error in the measurement process and how they affect specific measurement results. This section provides the background for:
+
+- identifying sources of error in the measurement process
+- understanding and quantifying errors in the measurement process
+- codifying the effects of these errors on a specific reported value in a statement of uncertainty
+
+**Important concepts**
+
+Characterization relies upon the understanding of certain underlying concepts of measurement systems; namely,
+
+- [reference base (authority) for the measurement](#sec-mpc-112)
+- [bias](#sec-mpc-113)
+- [variability](#sec-mpc-114)
+- [check standard](#sec-mpc-12)
+
+**Reported value is a generic term that identifies the result that is transmitted to the customer**
+
+The reported value is the measurement result for a particular test item. It can be:
+
+- a single measurement
+- an average of several measurements
+- a least-squares prediction from a model
+- a combination of several measurement results that are related by a physical model
+
+#### Reference base {#sec-mpc-112}
+
+**Ultimate authority**
+
+The most critical element of any measurement process is the relationship between a single measurement and the reference base for the unit of measurement. The reference base is the ultimate source of authority for the measurement unit.
+
+**For fundamental units**
+
+Reference bases for fundamental units of measurement (length, mass, temperature, voltage, and time) and some derived units (such as pressure, force, flow rate, etc.) are maintained by national and regional standards laboratories. Consensus values from interlaboratory tests or instrumentation/standards as maintained in specific environments may serve as reference bases for other units of measurement.
+
+**For comparison purposes**
+
+A reference base, for comparison purposes, may be based on an agreement among participating laboratories or organizations and derived from
+
+- measurements made with a standard test method
+- measurements derived from an interlaboratory test
+
+#### Bias and Accuracy {#sec-mpc-113}
+
+**Definition of Accuracy and Bias**
+
+Accuracy is a qualitative term referring to whether there is agreement between a measurement made on an object and its true (target or reference) value. Bias is a quantitative term describing the difference between the average of measurements made on the same object and its true value. In particular, for a measurement laboratory, bias is the difference (generally unknown) between a laboratory's average value (over time) for a test item and the average that would be achieved by the reference laboratory if it undertook the same measurements on the same test item.
+
+**Depiction of bias and unbiased measurements**
+
+The traditional "dartboard" metaphor: unbiased measurements scatter around the bullseye (the target/true value), while biased measurements scatter around a point displaced from the bullseye.
+
+![Dartboard depiction of unbiased (left) and biased (right) measurements relative to a target](characterization/images/mpc-bias-target.svg){#fig-mpc-bias-target}
+
+The same idea is shown below as a histogram of simulated measurements against the target value.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-bias-depiction
+#| fig-cap: "Simulated measurements relative to a target value, illustrating unbiased (left) and biased (right) measurement processes"
+#| message: false
+library(tidyverse)
+
+set.seed(20240613)
+n_mpc113 <- 200
+target_mpc113 <- 10
+
+bias_demo_mpc113 <- bind_rows(
+  tibble(y = rnorm(n_mpc113, mean = target_mpc113, sd = 0.5), process = "Unbiased"),
+  tibble(y = rnorm(n_mpc113, mean = target_mpc113 + 1.5, sd = 0.5), process = "Biased")
+)
+
+ggplot(bias_demo_mpc113, aes(y)) +
+  geom_histogram(bins = 20, color = "white", fill = "steelblue4") +
+  geom_vline(xintercept = target_mpc113, color = "firebrick", linetype = "dashed") +
+  facet_wrap(~process) +
+  labs(x = "Measurement", y = "Count") +
+  theme_light()
+```
+
+The dashed line marks the target (true) value. **Unbiased** measurements are centered on the target; **biased** measurements are centered away from the target.
+
+**Identification of bias**
+
+Bias in a measurement process can be identified by:
+
+1. Calibration<!-- XREF: MPC Section 2.3, Calibration; source handbook/mpc/section3/mpc3.htm --> of standards and/or instruments by a reference laboratory, where a value is assigned to the client's standard based on comparisons with the reference laboratory's standards.
+2. [Check standards](#sec-mpc-12), where violations of the control limits on a control chart for the check standard suggest that re-calibration of standards or instruments is needed.
+3. Measurement assurance programs, where artifacts from a reference laboratory or other qualified agency are sent to a client and measured in the client's environment as a 'blind' sample.
+4. Interlaboratory comparisons, where reference standards or materials are circulated among several laboratories.
+
+**Reduction of bias**
+
+Bias can be eliminated or reduced by calibration of standards and/or instruments. Because of costs and time constraints, the majority of calibrations are performed by secondary or tertiary laboratories and are related to the reference base via a chain of intercomparisons that start at the reference laboratory.
+
+Bias can also be reduced by corrections to in-house measurements based on comparisons with artifacts or instruments circulated for that purpose (reference materials).
+
+**Caution**
+
+Errors that contribute to bias can be present even where all equipment and standards are properly calibrated and under control. Temperature probably has the most potential for introducing this type of bias into the measurements. For example, a constant heat source will introduce serious errors in dimensional measurements of metal objects. Temperature affects chemical and electrical measurements as well.
+
+Generally speaking, errors of this type can be identified only by those who are thoroughly familiar with the measurement technology. The reader is advised to consult the technical literature and experts in the field for guidance.
+
+#### Variability {#sec-mpc-114}
+
+**Sources of time-dependent variability**
+
+Variability is the tendency of the measurement process to produce slightly different measurements on the same test item, where conditions of measurement are either stable or vary over time, temperature, operators, etc. In this chapter we consider two sources of time-dependent variability:
+
+- Short-term variability ascribed to the precision of the instrument
+- Long-term variability related to changes in environment and handling techniques
+
+**Depiction of two measurement processes with the same short-term variability over 10 days where process 1 has negligible between-day variability and process 2 has large between-day variability**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-variability-depiction
+#| fig-cap: "Simulated short-term measurement distributions over 10 days, illustrating small (process 1) versus large (process 2) between-day variability"
+#| message: false
+library(ggridges)
+
+set.seed(2020)
+
+label_mpc114 <- as_labeller(c(process_1 = "Process 1", process_2 = "Process 2"))
+
+dnorm_curve_mpc114 <- function(x) {
+  dnorm(seq(40, 160, 1), mean = x, sd = 10)
+}
+
+n_days_mpc114 <- 10
+
+process_simulation_mpc114 <- tibble(
+  day = seq_len(n_days_mpc114),
+  process_1 = rnorm(n_days_mpc114, mean = 100, sd = 2),
+  process_2 = rnorm(n_days_mpc114, mean = 120, sd = 15)
+) |>
+  pivot_longer(c(process_1, process_2), names_to = "mean_process", values_to = "mean_values") |>
+  mutate(simulated_distribution = map(mean_values, dnorm_curve_mpc114)) |>
+  unnest(cols = c(simulated_distribution)) |>
+  mutate(x_values = rep(seq(40, 160, 1), times = 2 * n_days_mpc114))
+
+process_simulation_mpc114 |>
+  ggplot(aes(x = x_values, y = day, height = simulated_distribution * 100, fill = as.factor(day))) +
+  facet_wrap(vars(mean_process), labeller = label_mpc114) +
+  geom_ridgeline(alpha = 0.8) +
+  geom_vline(xintercept = 100, color = "black") +
+  geom_vline(xintercept = c(70, 130), color = "firebrick", linetype = "dashed") +
+  labs(x = "Process Value", y = "Distributions Over Time", fill = "Day") +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  scale_fill_brewer(palette = "Spectral") +
+  theme_classic() +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+Distributions of short-term measurements over 10 days where distances from the centerlines illustrate between-day variability.
+
+**Short-term variability**
+
+Short-term errors affect the precision of the instrument. Even very precise instruments exhibit small changes caused by random errors. It is useful to think in terms of measurements performed with a single instrument over minutes or hours; this is to be understood, normally, as the time that it takes to complete a measurement sequence.
+
+**Terminology**
+
+Four terms are in common usage to describe short-term phenomena. They are interchangeable.
+
+1. precision
+2. repeatability
+3. within-time variability
+4. short-term variability
+
+**Precision is quantified by a standard deviation**
+
+The measure of precision is a standard deviation. Good precision implies a small standard deviation. This standard deviation is called the short-term standard deviation of the process or the repeatability standard deviation.
+
+**Caution -- long-term variability may be dominant**
+
+With very precise instrumentation, it is not unusual to find that the variability exhibited by the measurement process from day-to-day often exceeds the precision of the instrument because of small changes in environmental conditions and handling techniques which cannot be controlled or corrected in the measurement process. The measurement process is not completely characterized until this source of variability is quantified.
+
+**Terminology**
+
+Three terms are in common usage to describe long-term phenomena. They are interchangeable.
+
+1. day-to-day variability
+2. long-term variability
+3. reproducibility
+
+**Caution -- regarding term 'reproducibility'**
+
+The term 'reproducibility' is given very specific definitions in some national and international standards. However, the definitions are not always in agreement. Therefore, it is used here only in a generic sense to indicate variability across days.
+
+**Definitions in this Handbook**
+
+We adopt precise definitions and provide data collection and analysis techniques in the sections on [check standards](#sec-mpc-12) and measurement control<!-- XREF: MPC Section 2.2, Statistical control of a measurement process; source handbook/mpc/section2/mpc2.htm --> for estimating:
+
+- [Level-1 standard deviation for short-term variability](#sec-mpc-123)
+- [Level-2 standard deviation for day-to-day variability](#sec-mpc-123)
+
+In the section on gauge studies<!-- XREF: MPC Section 2.4, Gauge R&R Studies; source handbook/mpc/section4/mpc4.htm -->, the concept of variability is extended to include very long-term measurement variability:
+
+- Level-1 standard deviation for short-term variability<!-- XREF: MPC Section 2.4.4.1; source handbook/mpc/section4/mpc441.htm -->
+- Level-2 standard deviation for day-to-day variability<!-- XREF: MPC Section 2.4.4.2; source handbook/mpc/section4/mpc442.htm -->
+- Level-3 standard deviation for very long-term variability<!-- XREF: MPC Section 2.4.4.3; source handbook/mpc/section4/mpc443.htm -->
+
+We refer to the standard deviations associated with these three kinds of uncertainty as "Level 1, 2, and 3 standard deviations", respectively.
+
+**Long-term variability is quantified by a standard deviation**
+
+The measure of long-term variability is the standard deviation of measurements taken over several days, weeks or months.
+
+The simplest method for doing this assessment is by analysis of a [check standard](#sec-mpc-12) database. The measurements on the check standards are structured to cover a long time interval and to capture all sources of variation in the measurement process.

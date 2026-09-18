@@ -1,0 +1,142 @@
+### What is a check standard? {#sec-mpc-12}
+
+**A check standard is useful for gathering data on the process**
+
+Check standard methodology is a tool for collecting data on the measurement process to expose errors that afflict the process over time. Time-dependent sources of error are evaluated and quantified from the database of check standard measurements. It is a device for controlling the bias and long-term variability of the process once a baseline for these quantities has been established from historical data on the check standard.
+
+**Think in terms of data; a check standard can be an artifact or defined quantity**
+
+The check standard should be thought of in terms of a database of measurements. It can be defined as an artifact or as a characteristic of the measurement process whose value can be replicated from measurements taken over the life of the process. Examples are:
+
+- measurements on a stable artifact
+- differences between values of two reference standards as estimated from a calibration experiment
+- values of a process characteristic, such as a bias term, which is estimated from measurements on reference standards and/or test items.
+
+An artifact check standard must be close in material content and geometry to the test items that are measured in the workload. If possible, it should be one of the test items from the workload. Obviously, it should be a stable artifact and should be available to the measurement process at all times.
+
+**Solves the difficulty of sampling the process**
+
+Measurement processes are similar to production processes in that they are continual and are expected to produce identical results (within acceptable limits) over time, instruments, operators, and environmental conditions. However, it is difficult to sample the output of the measurement process because, normally, test items change with each measurement sequence.
+
+**Surrogate for unseen measurements**
+
+Measurements on the check standard, spaced over time at regular intervals, act as surrogates for measurements that could be made on test items if sufficient time and resources were available.
+
+#### Assumptions {#sec-mpc-121}
+
+**Case study: Resistivity check standard**<!-- XREF: MPC Case Studies (Section 2.6), Resistivity check standard, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
+Before applying the quality control procedures recommended in this chapter to check standard data, basic assumptions should be examined. The basic assumptions underlying the quality control procedures are:
+
+1. The data come from a single statistical distribution.
+2. The distribution is a normal distribution.
+3. The errors are uncorrelated over time.
+
+An easy method for checking the assumption of a single normal distribution is to construct a [histogram](../01-eda/index.qmd#sec-eda-histogram) of the check standard data. The histogram should follow a bell-shaped pattern with a single hump. Types of anomalies that indicate a problem with the measurement system are:
+
+1. a double hump indicating that errors are being drawn from two or more distributions;
+2. long tails indicating outliers in the process;
+3. flat pattern or one with humps at either end indicating that the measurement process in not in control or not properly specified.
+
+Another graphical method for testing the normality assumption is a [probability plot](../01-eda/index.qmd#sec-eda-normal-probability-plot). The points are expected to fall approximately on a straight line if the data come from a normal distribution. Outliers, or data from other distributions, will produce an S-shaped curve.
+
+A graphical method for testing for correlation among measurements is a [time-lag plot](../01-eda/index.qmd#sec-eda-lag-plot). Correlation will frequently not be a problem if measurements are properly structured over time. Correlation problems generally occur when measurements are taken so close together in time that the instrument cannot properly recover from one measurement to the next. Correlations over time are usually present but are often negligible.
+
+#### Data collection {#sec-mpc-122}
+
+**Schedule for making measurements**
+
+A schedule for making check standard measurements over time (once a day, twice a week, or whatever is appropriate for sampling all conditions of measurement) should be set up and adhered to. The check standard measurements should be structured in the same way as values reported on the test items. For example, if the reported values are averages of two repetitions made within 5 minutes of each other, the check standard values should be averages of the two measurements made in the same manner.
+
+**Exception**
+
+One exception to this rule is that there should be at least $J = 2$ repetitions per day. Without this redundancy, there is no way to check on the short-term precision of the measurement system.
+
+**Depiction of schedule for making check standard measurements with four repetitions per day over K days on the surface of a silicon wafer with the repetitions randomized at various positions on the wafer**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-data-collection-schedule
+#| fig-cap: "Illustration of a 2-level measurement design: 4 repetitions per day, randomized across positions on a wafer, over K days"
+#| message: false
+library(tidyverse)
+
+set.seed(20240613)
+K_mpc122 <- 6
+positions_mpc122 <- expand_grid(day = seq_len(K_mpc122), rep = 1:4) |>
+  mutate(
+    angle = runif(n(), 0, 2 * pi),
+    radius = sqrt(runif(n(), 0, 1))
+  )
+
+ggplot(positions_mpc122, aes(radius * cos(angle), radius * sin(angle))) +
+  geom_point(size = 2) +
+  coord_equal() +
+  facet_wrap(~day, labeller = labeller(day = ~ paste("Day", .))) +
+  labs(x = NULL, y = NULL, title = "K days -- 4 repetitions, randomized wafer positions") +
+  theme_light() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank())
+```
+
+**Case study: Resistivity check standard for measurements on silicon wafers**<!-- XREF: MPC Case Studies (Section 2.6), Resistivity check standard, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
+The values for the check standard should be recorded along with pertinent environmental readings and identifications for all other significant factors. The best way to record this information is in one file with one line or row (on a spreadsheet) of information in fixed fields for each check standard measurement. A list of typical entries follows.
+
+1. Identification for check standard
+2. Date
+3. Identification for the measurement design (if applicable)
+4. Identification for the instrument
+5. Check standard value
+6. Short-term standard deviation from $J$ repetitions
+7. Degrees of freedom
+8. Operator identification
+9. Environmental readings (if pertinent)
+
+#### Analysis {#sec-mpc-123}
+
+**Short-term or level-1 standard deviations from J repetitions**
+
+An analysis of the check standard data is the basis for quantifying random errors in the measurement process -- particularly time-dependent errors.
+
+Given that we have a database of check standard measurements as described in [data collection](#sec-mpc-122) where
+
+$$Y_{kj}\ (k=1, \ldots, K,\ j=1, \ldots, J)$$
+
+represents the $j$th repetition on the $k$th day, the mean for the $k$th day is
+
+$$\overline{Y}_{k \bullet} = \frac{1}{J}\sum_{j=1}^{J} Y_{kj}$$
+
+and the short-term (level-1) standard deviation with $v = J - 1$ degrees of freedom is
+
+$$s_k = \sqrt{\frac{1}{J-1} \sum_{j=1}^{J} \left( Y_{kj} - \overline{Y}_{k \bullet} \right)^2}$$
+
+**Drawback of short-term standard deviations**
+
+An individual short-term standard deviation will not be a reliable estimate of precision if the degrees of freedom is less than ten, but the individual estimates can be pooled over the $K$ days to obtain a more reliable estimate. The pooled level-1 standard deviation estimate with $v = K(J - 1)$ degrees of freedom is
+
+$$s_1 = \sqrt{\frac{1}{K} \sum_{k=1}^{K} s_k^2}$$
+
+This standard deviation can be interpreted as quantifying the basic precision of the instrumentation used in the measurement process.
+
+**Process (level-2) standard deviation**
+
+The level-2 standard deviation of the check standard is appropriate for representing the process variability. It is computed with $v = K - 1$ degrees of freedom as:
+
+$$s_{chkstd} = s_2 = \sqrt{\frac{1}{K-1} \sum_{k=1}^{K} \left( \overline{Y}_{k \bullet} - \overline{Y}_{\bullet \bullet} \right)^2}$$
+
+where
+
+$$\overline{Y}_{\bullet \bullet} = \frac{1}{K} \sum_{k=1}^{K} \overline{Y}_{k \bullet}$$
+
+is the grand mean of the $KJ$ check standard measurements.
+
+**Use in quality control**
+
+The check standard data and standard deviations that are described in this section are used for controlling two aspects of a measurement process:
+
+1. Control of short-term variability<!-- XREF: MPC Section 2.2.3, How is short-term variability controlled?; source handbook/mpc/section2/mpc23.htm -->
+2. Control of bias and long-term variability<!-- XREF: MPC Section 2.2.2, How are bias and variability controlled?; source handbook/mpc/section2/mpc22.htm -->
+
+**Case study: Resistivity check standard**<!-- XREF: MPC Case Studies (Section 2.6), Resistivity check standard, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
+For an example, see the case study for resistivity where several check standards were measured $J = 6$ times per day over several days.

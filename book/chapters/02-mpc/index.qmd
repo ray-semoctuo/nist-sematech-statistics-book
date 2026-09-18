@@ -1,13 +1,23 @@
 # Measurement Process Characterization {#sec-mpc}
 
-::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/mpc/`.
-:::
+{{< include characterization/index.qmd >}}
 
-<!--
-TODO:
-- Port narrative content from handbook/mpc/mpc.htm and handbook/mpc/section*/*.htm
-- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+## Statistical Control of a Measurement Process {#sec-mpc-2}
+
+<!-- Source: handbook/mpc/section2/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Calibration {#sec-mpc-3}
+
+<!-- Source: handbook/mpc/section3/. TODO: port narrative content, re-implement worked examples in R. This section includes the large Catalog of Calibration Designs (2.3.4) -- scope this with the user before drafting: ~60-70 largely repetitive design-matrix worked examples. -->
+
+## Gauge R&R Studies {#sec-mpc-4}
+
+<!-- Source: handbook/mpc/section4/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Uncertainty Analysis {#sec-mpc-5}
+
+<!-- Source: handbook/mpc/section5/ (note: archive also has section5_recovered -- investigate before trusting section5 as canonical). TODO: port narrative content, re-implement worked examples in R. -->
+
+## Case Studies {#sec-mpc-6}
+
+<!-- Source: handbook/mpc/section6/ (note: archive also has section6_original and section6_recovered -- investigate before trusting section6 as canonical). TODO: port narrative content, re-implement worked examples in R. -->
