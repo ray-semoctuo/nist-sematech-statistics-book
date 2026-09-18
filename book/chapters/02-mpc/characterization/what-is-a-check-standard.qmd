@@ -52,31 +52,11 @@ A schedule for making check standard measurements over time (once a day, twice a
 
 One exception to this rule is that there should be at least $J = 2$ repetitions per day. Without this redundancy, there is no way to check on the short-term precision of the measurement system.
 
-**Depiction of schedule for making check standard measurements with four repetitions per day over K days on the surface of a silicon wafer with the repetitions randomized at various positions on the wafer**
+**Depiction of schedule for making check standard measurements with four repetitions per day over K days on the surface of a silicon wafer with the repetitions at fixed positions on the wafer**
 
-```{r}
-#| code-fold: true
-#| label: fig-mpc-data-collection-schedule
-#| fig-cap: "Illustration of a 2-level measurement design: 4 repetitions per day, randomized across positions on a wafer, over K days"
-#| message: false
-library(tidyverse)
+![A 2-level design for check standard measurements: J = 4 repetitions per day (sites 1-4 on the wafer) over K days](characterization/images/mpc-data-collection-schedule.svg){#fig-mpc-data-collection-schedule}
 
-set.seed(20240613)
-K_mpc122 <- 6
-positions_mpc122 <- expand_grid(day = seq_len(K_mpc122), rep = 1:4) |>
-  mutate(
-    angle = runif(n(), 0, 2 * pi),
-    radius = sqrt(runif(n(), 0, 1))
-  )
-
-ggplot(positions_mpc122, aes(radius * cos(angle), radius * sin(angle))) +
-  geom_point(size = 2) +
-  coord_equal() +
-  facet_wrap(~day, labeller = labeller(day = ~ paste("Day", .))) +
-  labs(x = NULL, y = NULL, title = "K days -- 4 repetitions, randomized wafer positions") +
-  theme_light() +
-  theme(axis.text = element_blank(), axis.ticks = element_blank())
-```
+*K* days -- 4 repetitions
 
 **Case study: Resistivity check standard for measurements on silicon wafers**<!-- XREF: MPC Case Studies (Section 2.6), Resistivity check standard, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
 

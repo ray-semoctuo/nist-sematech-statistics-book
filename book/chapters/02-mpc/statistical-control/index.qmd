@@ -1,0 +1,22 @@
+## Statistical Control of a Measurement Process {#sec-mpc-2}
+
+The purpose of this section is to outline the steps that can be taken to exercise statistical control over the measurement process and demonstrate the validity of the uncertainty statement. Measurement processes can change both with respect to bias and variability. A change in instrument precision may be readily noted as measurements are being recorded, but changes in bias or long-term variability are difficult to catch when the process is looking at a multitude of artifacts over time.
+
+1. [What are the issues in controlling the measurement process?](#sec-mpc-21)
+2. [How are bias and variability controlled?](#sec-mpc-22)
+   1. [Shewhart control chart](#sec-mpc-221)
+   2. [EWMA control chart](#sec-mpc-2211)
+   3. [Data collection](#sec-mpc-222)
+   4. [Monitoring bias and long-term variability](#sec-mpc-223)
+   5. [Remedial actions](#sec-mpc-224)
+3. [How is short-term variability controlled?](#sec-mpc-23)
+   1. [Control chart for standard deviations](#sec-mpc-231)
+   2. [Data collection](#sec-mpc-232)
+   3. [Monitoring short-term precision](#sec-mpc-233)
+   4. [Remedial actions](#sec-mpc-234)
+
+{{< include statistical-control/issues-in-controlling.qmd >}}
+
+{{< include statistical-control/bias-and-variability.qmd >}}
+
+{{< include statistical-control/short-term-variability.qmd >}}

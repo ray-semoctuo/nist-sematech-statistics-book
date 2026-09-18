@@ -1,0 +1,176 @@
+### How is short-term variability controlled? {#sec-mpc-23}
+
+**Emphasis on instruments**
+
+Short-term variability or instrument precision is controlled by monitoring standard deviations from repeated measurements on the instrument(s) of interest. The database can come from measurements on a single artifact or a representative set of artifacts.
+
+**Artifacts**
+
+The artifacts must be of the same type and geometry as items that are measured in the workload, such as:
+
+1. Items from the workload
+2. A single check standard chosen for this purpose
+3. A collection of artifacts set aside for this specific purpose<!-- XREF: MPC Case Studies (Section 2.6), Resistivity; source handbook/mpc/section6/mpc62.htm -->
+
+**Concepts covered in this section**
+
+1. [Control chart methodology for standard deviations](#sec-mpc-231)
+2. [Data collection and analysis](#sec-mpc-232)
+3. [Monitoring](#sec-mpc-233)
+4. [Remedies and strategies for dealing with out-of-control signals](#sec-mpc-234)
+
+#### Control chart for standard deviations {#sec-mpc-231}
+
+**Degradation of instrument or anomalous behavior on one occasion**
+
+Changes in the precision of the instrument, particularly anomalies and degradation, must be addressed. Changes in precision can be detected by a statistical control procedure based on the $F$-distribution where the short-term standard deviations are plotted on the control chart.
+
+The base line for this type of control chart is the pooled standard deviation, $s_1$, as defined in [Data collection and analysis](#sec-mpc-232).
+
+**Only the upper control limit matters**
+
+Only the upper control limit, $UCL$, is of interest for detecting degradation in the instrument. As long as the short-term standard deviations fall within the upper control limit established from historical data, there is reason for confidence that the precision of the instrument has not degraded (i.e., common cause variations).
+
+**The control limit is based on the F-distribution**
+
+The control limit is
+
+$$UCL = s_1 \sqrt{F_{\alpha,\ J-1,\ K(J-1)}}$$
+
+where the quantity under the radical is the upper $\alpha$ critical value from the [F table](../01-eda/index.qmd#sec-eda-f-distribution-table) with degrees of freedom $(J-1)$ and $K(J-1)$. The numerator degrees of freedom, $v_1 = (J-1)$, are associated with the standard deviation computed from the current measurements, and the denominator degrees of freedom, $v_2 = K(J-1)$, correspond to the pooled standard deviation of the historical data. The probability $\alpha$ is chosen to be small, say 0.05.
+
+The justification for this control limit, as opposed to the more conventional standard deviation control limit, is that we are essentially performing the following hypothesis test:
+
+$$H_0:\ \sigma_1 = \sigma_2$$
+$$H_a:\ \sigma_1 < \sigma_2$$
+
+where $\sigma_1$ is the population value for the $s_1$ defined above and $\sigma_2$ is the value against which the standard deviation of the current value is being tested. Generally, $s_1$ is based on sufficient historical data that it is reasonable to make the assumption that $\sigma_1$ is a "known" value.
+
+The upper control limit above is then derived based on the standard $F$ test for equal standard deviations. Justification and details of this derivation are given in Cameron and Hailes [-@CameronHailes].
+
+**Worked example**
+
+For $\alpha = 0.05$, $J = 6$, and $K = 6$, the critical value and control limit are computed as follows.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-control-limit-sd
+#| fig-cap: "Illustrative control chart for short-term standard deviations, K = 6 occasions, with the upper control limit computed from the F-distribution"
+#| message: false
+library(tidyverse)
+
+alpha_mpc231 <- 0.05
+J_mpc231 <- 6
+K_mpc231 <- 6
+
+F_mpc231 <- qf(1 - alpha_mpc231, J_mpc231 - 1, K_mpc231 * (J_mpc231 - 1))
+F_mpc231
+
+set.seed(20240617)
+s1_mpc231 <- 0.05
+ucl_mpc231 <- s1_mpc231 * sqrt(F_mpc231)
+
+sd_demo_mpc231 <- tibble(
+  occasion = seq_len(K_mpc231),
+  s_k = c(0.041, 0.052, 0.038, 0.061, 0.047, 0.055)
+)
+
+ggplot(sd_demo_mpc231, aes(occasion, s_k)) +
+  geom_hline(yintercept = s1_mpc231, color = "black") +
+  geom_hline(yintercept = ucl_mpc231, color = "firebrick", linetype = "dashed") +
+  geom_line(color = "grey60") +
+  geom_point(color = "steelblue4", size = 2) +
+  labs(x = "Occasion", y = "Short-term standard deviation") +
+  theme_light()
+```
+
+The computed critical value is $F_{0.05,\,5,\,30} \approx$ `r round(F_mpc231, 4)`, matching NIST's own sample calculation for this case. With a pooled historical standard deviation of $s_1 =$ `r s1_mpc231`, the upper control limit is $UCL = s_1\sqrt{F} \approx$ `r round(ucl_mpc231, 4)` (dashed line); all six illustrative occasions fall below it, indicating no degradation in instrument precision.
+
+#### Data collection {#sec-mpc-232}
+
+**Schedule for a single instrument**
+
+A schedule should be set up for making measurements with a single instrument (once a day, twice a week, or whatever is appropriate for sampling all conditions of measurement).<!-- XREF: MPC Case Studies (Section 2.6), Resistivity; source handbook/mpc/section6/mpc62.htm -->
+
+**Short-term standard deviations**
+
+The measurements are denoted
+
+$$Y_{kj}\ (k=1,\ldots,K,\ j=1,\ldots,J)$$
+
+where there are $J$ measurements on each of $K$ occasions. The average for the $k$th occasion is:
+
+$$\overline{Y}_{k\bullet} = \frac{1}{J}\sum_{j=1}^{J} Y_{kj}$$
+
+The short-term (repeatability) standard deviation for the $k$th occasion is:
+
+$$s_k = \sqrt{\frac{1}{J-1}\sum_{j=1}^{J} \left(Y_{kj} - \overline{Y}_{k\bullet}\right)^2}$$
+
+with $(J-1)$ degrees of freedom.
+
+**Pooled standard deviation**
+
+The repeatability standard deviations are pooled over the $K$ occasions to obtain an estimate with $K(J-1)$ degrees of freedom of the level-1 standard deviation
+
+$$s_1 = \sqrt{\frac{1}{K}\sum_{k=1}^{K} s_k^2}$$
+
+Note: The same notation is used for the repeatability standard deviation whether it is based on one set of measurements or pooled over several sets.
+
+**Database**
+
+The individual short-term standard deviations along with identifications for all significant factors are recorded in a file. The best way to record this information is by using one file with one line (row in a spreadsheet) of information in fixed fields for each group. A list of typical entries follows:
+
+1. Identification of test item or check standard
+2. Date
+3. Short-term standard deviation
+4. Degrees of freedom
+5. Instrument
+6. Operator
+
+#### Monitoring short-term precision {#sec-mpc-233}
+
+**Monitoring future precision**
+
+Once the base line and control limit for the control chart have been determined from historical data, the measurement process enters the monitoring stage.
+
+**Each new standard deviation is monitored on the control chart**
+
+Each new short-term standard deviation based on $J$ measurements is plotted on the control chart; points that exceed the control limits probably indicate lack of statistical control. Drift over time indicates degradation of the instrument. Points out of control require remedial action, and possible causes of out-of-control signals need to be understood when developing [strategies for dealing with outliers](#sec-mpc-234).<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
+
+**Monitoring where the number of measurements differs from J**
+
+There is no requirement that future standard deviations be based on $J$, the number of measurements in the historical database. However, a change in the number of measurements leads to a change in the test for control, and it may not be convenient to draw a control chart where the control limits are changing with each new measurement sequence.
+
+For a new standard deviation based on $J'$ measurements, the precision of the instrument is in control if
+
+$$s_{new} < s_1 \sqrt{F_{\alpha,\ J'-1,\ K(J-1)}}$$
+
+Notice that the numerator degrees of freedom, $v_1 = J' - 1$, changes but the denominator degrees of freedom, $v_2 = K(J-1)$, remains the same.
+
+#### Remedial actions {#sec-mpc-234}
+
+**Examine possible causes**
+
+A. Causes that do **not** warrant corrective action (but which do require that the current measurement be discarded) are:
+
+1. Chance failure where the precision is actually in control
+2. Glitch in setting up or operating the measurement process
+3. Error in recording of data
+
+B. Changes in instrument performance can be due to:
+
+1. Degradation in electronics or mechanical components
+2. Changes in environmental conditions
+3. Effect of a new or inexperienced operator
+
+**Repeat measurements**
+
+Repeat the measurement sequence to establish whether or not the out-of-control signal was simply a chance occurrence, glitch, or whether it flagged a permanent change or trend in the process.
+
+**Assign new value to test item**
+
+With high precision processes, for which the uncertainty must be guaranteed, new values should be assigned to the test items based on new measurement data.
+
+**Check for degradation**
+
+Examine the patterns of recent standard deviations. If the process is gradually drifting out of control because of degradation in instrumentation or artifacts, instruments may need to be repaired or replaced.

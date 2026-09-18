@@ -2,9 +2,7 @@
 
 {{< include characterization/index.qmd >}}
 
-## Statistical Control of a Measurement Process {#sec-mpc-2}
-
-<!-- Source: handbook/mpc/section2/. TODO: port narrative content, re-implement worked examples in R. -->
+{{< include statistical-control/index.qmd >}}
 
 ## Calibration {#sec-mpc-3}
 

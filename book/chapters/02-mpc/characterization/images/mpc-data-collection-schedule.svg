@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 260" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .edge { stroke: #4A4A4A; stroke-width: 1; fill: none; }
+    .node { fill: #36648B; stroke: #1B3A52; stroke-width: 1.2; }
+    .wafer { fill: #36648B; stroke: #1B3A52; stroke-width: 1.2; }
+    .day-label { font-size: 15px; fill: #1B1B1B; text-anchor: middle; }
+    .rep-label { font-size: 12px; fill: white; text-anchor: middle; }
+    .ellipsis { font-size: 20px; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <!-- root node -->
+  <circle class="node" cx="410" cy="18" r="5" />
+
+  <!-- day 1 -->
+  <line class="edge" x1="410" y1="18" x2="80" y2="95" />
+  <circle class="node" cx="80" cy="95" r="5" />
+  <text class="day-label" x="80" y="80">day 1</text>
+  <line class="edge" x1="80" y1="95" x2="80" y2="164" />
+  <ellipse class="wafer" cx="80" cy="190" rx="55" ry="26" />
+  <text class="rep-label" x="62" y="184">1</text>
+  <text class="rep-label" x="98" y="184">2</text>
+  <text class="rep-label" x="62" y="200">4</text>
+  <text class="rep-label" x="98" y="200">3</text>
+
+  <!-- day 2 -->
+  <line class="edge" x1="410" y1="18" x2="220" y2="95" />
+  <circle class="node" cx="220" cy="95" r="5" />
+  <text class="day-label" x="220" y="80">day 2</text>
+  <line class="edge" x1="220" y1="95" x2="220" y2="164" />
+  <ellipse class="wafer" cx="220" cy="190" rx="55" ry="26" />
+  <text class="rep-label" x="202" y="184">1</text>
+  <text class="rep-label" x="238" y="184">2</text>
+  <text class="rep-label" x="202" y="200">4</text>
+  <text class="rep-label" x="238" y="200">3</text>
+
+  <!-- day 3 -->
+  <line class="edge" x1="410" y1="18" x2="360" y2="95" />
+  <circle class="node" cx="360" cy="95" r="5" />
+  <text class="day-label" x="360" y="80">day 3</text>
+  <line class="edge" x1="360" y1="95" x2="360" y2="164" />
+  <ellipse class="wafer" cx="360" cy="190" rx="55" ry="26" />
+  <text class="rep-label" x="342" y="184">1</text>
+  <text class="rep-label" x="378" y="184">2</text>
+  <text class="rep-label" x="342" y="200">4</text>
+  <text class="rep-label" x="378" y="200">3</text>
+
+  <!-- ellipsis (no node, generic "more days") -->
+  <text class="ellipsis" x="475" y="100">&#8230;</text>
+
+  <!-- day K-1 -->
+  <line class="edge" x1="410" y1="18" x2="600" y2="95" />
+  <circle class="node" cx="600" cy="95" r="5" />
+  <text class="day-label" x="600" y="80">day K-1</text>
+  <line class="edge" x1="600" y1="95" x2="600" y2="164" />
+  <ellipse class="wafer" cx="600" cy="190" rx="55" ry="26" />
+  <text class="rep-label" x="582" y="184">1</text>
+  <text class="rep-label" x="618" y="184">2</text>
+  <text class="rep-label" x="582" y="200">4</text>
+  <text class="rep-label" x="618" y="200">3</text>
+
+  <!-- day K -->
+  <line class="edge" x1="410" y1="18" x2="740" y2="95" />
+  <circle class="node" cx="740" cy="95" r="5" />
+  <text class="day-label" x="740" y="80">day K</text>
+  <line class="edge" x1="740" y1="95" x2="740" y2="164" />
+  <ellipse class="wafer" cx="740" cy="190" rx="55" ry="26" />
+  <text class="rep-label" x="722" y="184">1</text>
+  <text class="rep-label" x="758" y="184">2</text>
+  <text class="rep-label" x="722" y="200">4</text>
+  <text class="rep-label" x="758" y="200">3</text>
+</svg>
