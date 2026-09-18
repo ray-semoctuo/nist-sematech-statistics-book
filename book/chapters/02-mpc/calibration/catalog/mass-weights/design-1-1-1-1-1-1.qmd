@@ -1,0 +1,91 @@
+##### Design for 1,1,1,1,1,1 {#sec-mpc-design-1-1-1-1-1-1}
+
+```
+Design 1,1,1,1,1,1
+
+
+ OBSERVATIONS   1   1   1   1   1   1
+
+
+     X(1)       +   -
+     X(2)       +       -
+     X(3)       +           -
+     X(4)       +               -
+     X(5)       +                   -
+     X(6)           +   -
+     X(7)           +       -
+     X(8)           +           -
+     X(9)           +               -
+     X(10)              +   -
+     X(11)              +       -
+     X(12)              +           -
+     X(13)                  +   -
+     X(14)                  +       -
+     X(15)                      +   -
+
+
+ RESTRAINT      +   +
+
+ CHECK STANDARD                 +
+
+ DEGREES OF FREEDOM  =   10
+
+
+
+                             SOLUTION MATRIX
+                              DIVISOR  =   8
+
+ OBSERVATIONS      1      1      1      1      1      1
+
+    Y(1)           1     -1      0      0      0      0
+    Y(2)           1      0     -1      0      0      0
+    Y(3)           1      0      0     -1      0      0
+    Y(4)           1      0      0      0     -1      0
+    Y(5)           2      1      1      1      1      0
+    Y(6)           0      1     -1      0      0      0
+    Y(7)           0      1      0     -1      0      0
+    Y(8)           0      1      0      0     -1      0
+    Y(9)           1      2      1      1      1      0
+    Y(10)          0      0      1     -1      0      0
+    Y(11)          0      0      1      0     -1      0
+    Y(12)          1      1      2      1      1      0
+    Y(13)          0      0      0      1     -1      0
+    Y(14)          1      1      1      2      1      0
+    Y(15)          1      1      1      1      2      0
+    R*             6      6      6      6      6      6
+
+    R* = sum of two reference standards
+
+
+
+ FACTORS FOR COMPUTING REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+               1   1   1   1   1   1
+  1  0.2887    +
+  1  0.2887        +
+  1  0.5000            +
+  1  0.5000                +
+  1  0.5000                    +
+  1  0.5000                        +
+  2  0.8165            +   +
+  3  1.1180            +   +   +
+  4  1.4142            +   +   +   +
+  1  0.5000                    +
+
+
+ FACTORS FOR COMPUTING BETWEEN-DAY STANDARD DEVIATIONS
+ WT  FACTOR
+               1   1   1   1   1   1
+  1  0.7071    +
+  1  0.7071        +
+  1  1.2247            +
+  1  1.2247                +
+  1  1.2247                    +
+  1  1.2247                        +
+  2  2.0000            +   +
+  3  2.7386            +   +   +
+  4  3.4641            +   +   +   +
+  1  1.2247                    +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

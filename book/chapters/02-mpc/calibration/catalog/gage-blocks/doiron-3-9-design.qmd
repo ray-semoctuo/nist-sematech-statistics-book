@@ -1,0 +1,57 @@
+##### Doiron 3-9 Design {#sec-mpc-design-doiron-3-9}
+
+```
+ Doiron 3-9 Design
+
+
+ OBSERVATIONS   1   1   1
+
+
+     Y(1)       +   -
+     Y(2)           -   +
+     Y(3)       +       -
+     Y(4)       -   +
+     Y(5)       -       +
+     Y(6)           +   -
+     Y(7)       -   +
+     Y(8)           -   +
+     Y(9)       +       -
+
+
+ RESTRAINT      +
+
+
+ CHECK STANDARD     +
+
+
+ DEGREES OF FREEDOM  =      7
+
+
+
+               SOLUTION MATRIX
+                DIVISOR  =  9
+
+ OBSERVATIONS     1       1      1
+
+    Y(1)          0      -2     -1
+    Y(2)          0      -1      1
+    Y(3)          0      -1     -2
+    Y(4)          0       2      1
+    Y(5)          0       1      2
+    Y(6)          0       1     -1
+    Y(7)          0       2      1
+    Y(8)          0      -1      1
+    Y(9)          0      -1     -2
+    R(1)          9       9      9
+
+
+ FACTORS FOR COMPUTING REPEATABILITY STANDARD DEVIATIONS
+ NOM FACTOR
+               1   1   1
+  1  0.0000    +
+  1  0.4714        +
+  1  0.4714            +
+  1  0.4714        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

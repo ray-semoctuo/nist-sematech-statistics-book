@@ -1,0 +1,89 @@
+##### Design for 1,1,1,1,1,1,1,1 weights {#sec-mpc-design-1-1-1-1-1-1-1-1-weights}
+
+```
+ OBSERVATIONS   1   1   1   1   1   1   1   1
+
+
+     Y(1)       +       -
+     Y(2)       +           -
+     Y(3)       +               -
+     Y(4)       +                   -
+     Y(5)       +                       -
+     Y(6)       +                           -
+     Y(7)           +   -
+     Y(8)           +       -
+     Y(9)           +           -
+     Y(10)          +               -
+     Y(11)          +                   -
+     Y(12)          +                       -
+
+
+ RESTRAINT      +   +
+
+ CHECK STANDARD                         +
+
+DEGREES OF FREEDOM  =  5
+
+
+
+                             SOLUTION MATRIX
+                               DIVISOR = 12
+
+ OBSERVATIONS      1      1      1      1      1      1      1      1
+
+    Y(1)           1     -1     -6      0      0      0      0      0
+    Y(2)           1     -1      0     -6      0      0      0      0
+    Y(3)           1     -1      0      0     -6      0      0      0
+    Y(4)           1     -1      0      0      0     -6      0      0
+    Y(5)           1     -1      0      0      0      0     -6      0
+    Y(6)           1     -1      0      0      0      0      0     -6
+    Y(7)          -1      1     -6      0      0      0      0      0
+    Y(8)          -1      1      0     -6      0      0      0      0
+    Y(9)          -1      1      0      0     -6      0      0      0
+    Y(10)         -1      1      0      0      0     -6      0      0
+    Y(11)         -1      1      0      0      0      0     -6      0
+    Y(12)         -1      1      0      0      0      0      0     -6
+    R*             6      6      6      6      6      6      6      6
+
+    R* = sum of the two reference standards
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+
+  WT   K1      1   1   1   1   1   1   1   1
+  1  0.2887    +
+  1  0.2887        +
+  1  0.7071            +
+  1  0.7071                +
+  1  0.7071                    +
+  1  0.7071                        +
+  1  0.7071                            +
+  1  0.7071                                +
+  2  1.0000            +   +
+  3  1.2247            +   +   +
+  4  1.4142            +   +   +   +
+  5  1.5811            +   +   +   +   +
+  6  1.7321            +   +   +   +   +   +
+  1  0.7071                            +
+
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+
+  WT   K2      1   1   1   1   1   1   1   1
+  1  0.7071    +
+  1  0.7071        +
+  1  1.2247            +
+  1  1.2247                +
+  1  1.2247                    +
+  1  1.2247                        +
+  1  1.2247                            +
+  1  1.2247                                +
+  2  2.0000            +   +
+  3  2.7386            +   +   +
+  4  3.4641            +   +   +   +
+  5  4.1833            +   +   +   +   +
+  6  4.8990            +   +   +   +   +   +
+  1  1.2247                            +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

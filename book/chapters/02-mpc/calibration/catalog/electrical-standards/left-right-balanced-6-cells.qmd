@@ -1,0 +1,70 @@
+##### Left-right balanced design for 6 standard cells {#sec-mpc-design-left-right-balanced-6-cells}
+
+Design 1,1,1,1,1,1
+
+```
+
+                       CELLS
+OBSERVATIONS    1   1   1   1   1   1
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)           +   -
+     Y(4)           +       -
+     Y(5)               +   -
+     Y(6)               +       -
+     Y(7)                   +   -
+     Y(8)                   +       -
+     Y(9)                       +   -
+     Y(10)      -               +
+     Y(11)      -                   +
+     Y(12)          -               +
+     Y(13)      +           -
+     Y(14)          +           -
+     Y(15)              +           -
+
+
+ RESTRAINT      +   +   +   +   +   +
+
+
+ DEGREES OF FREEDOM = 9
+
+
+                            SOLUTION MATRIX
+                              DIVISOR = 6
+
+ OBSERVATIONS      1      1      1      1      1      1      P
+
+    Y(1)           1     -1      0      0      0      0      1
+    Y(2)           1      0     -1      0      0      0      1
+    Y(3)           0      1     -1      0      0      0      1
+    Y(4)           0      1      0     -1      0      0      1
+    Y(5)           0      0      1     -1      0      0      1
+    Y(6)           0      0      1      0     -1      0      1
+    Y(7)           0      0      0      1     -1      0      1
+    Y(8)           0      0      0      1      0     -1      1
+    Y(9)           0      0      0      0      1     -1      1
+    Y(10)         -1      0      0      0      1      0      1
+    Y(11)         -1      0      0      0      0      1      1
+    Y(12)          0     -1      0      0      0      1      1
+    Y(13)          1      0      0     -1      0      0      1
+    Y(14)          0      1      0      0     -1      0      1
+    Y(15)          0      0      1      0      0     -1      1
+    R*             1      1      1      1      1      1      0
+
+    R* = AVERAGE VALUE OF 6 REFERENCE CELLS
+
+    P = LEFT-RIGHT BIAS
+
+
+ FACTORS FOR COMPUTING STANDARD DEVIATIONS
+  V  FACTOR            CELLS
+               1   1   1   1   1   1
+  1  0.3727    +
+  1  0.3727        +
+  1  0.3727            +
+  1  0.3727                +
+  1  0.3727                    +
+  1  0.3727                        +
+```
+
+<!-- XREF: MPC Section 2.3.4, Explanation of notation and interpretation of tables; not yet migrated; source handbook/mpc/section3/mpc34.htm#convention -->

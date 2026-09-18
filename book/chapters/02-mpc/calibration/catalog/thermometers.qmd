@@ -1,0 +1,53 @@
+#### Thermometers in a bath {#sec-mpc-346}
+
+**Measurement sequence**
+
+Calibration of liquid in glass thermometers is usually carried out in a controlled bath where the temperature in the bath is increased steadily over time to calibrate the thermometers over their entire range. One way of accounting for the temperature drift is to measure the temperature of the bath with a standard resistance thermometer at the beginning, middle and end of each run of $K$ test thermometers. The test thermometers themselves are measured twice during the run in the following time sequence:
+
+$$ R_1, \, T_1, \, T_2, \, \ldots, \, T_K, \, R_2, \, T_K', \, \ldots, \, T_2', \, T_1', \, R_3 $$
+
+where $R_1, \, R_2, \, R_3$ represent the measurements on the standard resistance thermometer and $T_1, \, T_2, \, \ldots, \, T_K$ and $T_1', \, T_2', \, \ldots, \, T_K'$ represent the pair of measurements on the $K$ test thermometers.
+
+**Assumptions regarding temperature**
+
+The assumptions for the analysis are that:
+
+- Equal time intervals are maintained between measurements on the test items.
+- Temperature increases by $\Delta T$ with each interval.
+- A temperature change of $\phi$ is allowed for the reading of the resistance thermometer in the middle of the run.
+
+**Indications for test thermometers**
+
+It can be shown ([@CameronHailes]) that the average reading for a test thermometer is its indication at the temperature implied by the average of the three resistance readings. The standard deviation associated with this indication is calculated from difference readings where
+
+$$ d_i = T_i - T_i' $$
+
+is the difference for the $i$th thermometer. This difference is an estimate of $\phi + 2(K-i)\Delta$.
+
+**Estimates of drift**
+
+The estimates of the shift due to the resistance thermometer and temperature drift are given by:
+
+$$ \widehat{\phi} = \frac{2}{K(K+1)} \left( 3 \sum_{i=1}^K i d_i - (K+1) \sum_{i=1}^K d_i  \right) $$
+
+$$ \widehat{\Delta} = \frac{3}{K(K^2 - 1)} \left( (K+1) \sum_{i=1}^K d_i - 2 \sum_{i=1}^K i d_i \right) \, . $$
+
+**Standard deviations**
+
+The residual variance is given by
+
+$$ {\large s}^2 = \frac{1}{(K-2)} \sum_{i=1}^K \left( d_i - \widehat{\phi} -2(K-i)\widehat{\Delta} \right) ^2 \, . $$
+
+The standard deviation of the indication assigned to the $i$th test thermometer is
+
+$$ {\large s}_{test} = \frac{{\large s}}{\sqrt{2}} $$
+
+and the standard deviation for the estimates of shift and drift are
+
+$$ {\large s}_\phi = \frac{\sqrt{2} (2K-1)}{K(K+1)} {\large s} $$
+
+and
+
+$$ {\large s}_\Delta = \frac{\sqrt{3}}{K(K^2 -1)} {\large s} \, , $$
+
+respectively.

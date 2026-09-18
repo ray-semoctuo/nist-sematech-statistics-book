@@ -1,0 +1,69 @@
+##### Doiron 7-14 Design {#sec-mpc-design-doiron-7-14}
+
+```
+ Doiron 7-14 Design
+
+ OBSERVATIONS   1   1   1   1   1   1   1
+
+     Y(1)       +   -
+     Y(2)                   -       +
+     Y(3)               +       -
+     Y(4)           +                   -
+     Y(5)       +                   -
+     Y(6)               -       +
+     Y(7)           +       -
+     Y(8)               +               -
+     Y(9)                       +   -
+     Y(10)      -                       +
+     Y(11)          -               +
+     Y(12)              -   +
+     Y(13)      -           +
+     Y(14)                      -       +
+
+ RESTRAINT      +
+
+
+ CHECK STANDARD     +
+
+
+ DEGREES OF FREEDOM  =      8
+
+
+                      PARAMETER VALUES
+                       DIVISOR = 1015
+
+ OBSERVATIONS   1         1      1      1      1      1      1
+
+    Y(1)        0      -406   -203   -203   -203   -203   -203
+    Y(2)        0         0    -35   -210     35    210      0
+    Y(3)        0         0    175     35   -175    -35      0
+    Y(4)        0       203   -116     29   -116     29   -261
+    Y(5)        0      -203   -229   -214   -264   -424   -174
+    Y(6)        0         0   -175    -35    175     35      0
+    Y(7)        0       203    -61   -221    -26    -11     29
+    Y(8)        0         0    305     90    130     55   -145
+    Y(9)        0         0    220     15    360   -160    145
+    Y(10)       0       203    319    174    319    174    464
+    Y(11)       0      -203     26     11     61    221    -29
+    Y(12)       0         0   -360    160   -220    -15   -145
+    Y(13)       0       203    264    424    229    214    174
+    Y(14)       0         0   -130    -55   -305    -90    145
+    R*       1015      1015   1015   1015   1015   1015   1015
+
+    R* = Value of the reference standard
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ NOM FACTOR
+               1   1   1   1   1   1   1
+  1  0.0000    +
+  1  0.6325        +
+  1  0.7841            +
+  1  0.6463                +
+  1  0.7841                    +
+  1  0.6463                        +
+  1  0.6761                            +
+  1  0.6325        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

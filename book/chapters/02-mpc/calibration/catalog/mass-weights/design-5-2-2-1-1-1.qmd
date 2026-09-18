@@ -1,0 +1,73 @@
+##### Design for 5,2,2,1,1,1 {#sec-mpc-design-5-2-2-1-1-1}
+
+```
+Design 5,2,2,1,1,1
+
+
+ OBSERVATIONS   5   2   2   1   1   1
+
+
+     Y(1)       +   -   -   -   -   +
+     Y(2)       +   -   -   -   +   -
+     Y(3)       +   -   -   +   -   -
+     Y(4)       +   -       -   -   -
+     Y(5)       +       -   -   -   -
+     Y(6)           +   -   +   -
+     Y(7)           +   -   -       +
+     Y(8)           +   -       +   -
+
+
+ RESTRAINT      +   +   +   +
+
+ CHECK STANDARD                 +
+
+
+ DEGREES OF FREEDOM  =  3
+
+
+
+                             SOLUTION MATRIX
+                              DIVISOR =  70
+
+ OBSERVATIONS      5      2      2      1      1      1
+
+
+    Y(1)          15     -8     -8      1      1     21
+    Y(2)          15     -8     -8      1     21      1
+    Y(3)           5    -12    -12     19     -1     -1
+    Y(4)           0      2     12    -14    -14    -14
+    Y(5)           0     12      2    -14    -14    -14
+    Y(6)          -5      8    -12      9    -11     -1
+    Y(7)           5     12     -8     -9      1     11
+    Y(8)           0     10    -10      0     10    -10
+    R*            35     14     14      7      7      7
+
+    R* = sum of the four reference standards
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+               5   2   2   1   1   1
+  5  0.3273    +
+  2  0.3854        +
+  2  0.3854            +
+  1  0.4326                +
+  1  0.4645                    +
+  1  0.4645                        +
+  1  0.4645                    +
+
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT  FACTOR
+               5   2   2   1   1   1
+  5  1.0000    +
+  2  0.8718        +
+  2  0.8718            +
+  1  0.9165                +
+  1  1.0198                    +
+  1  1.0198                        +
+  1  1.0198                    +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

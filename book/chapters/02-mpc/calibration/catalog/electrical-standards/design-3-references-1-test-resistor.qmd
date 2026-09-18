@@ -1,0 +1,45 @@
+##### Design for 3 references and 1 test resistor {#sec-mpc-design-design-3-references-1-test-resistor}
+
+Design 1,1,1,1
+
+```
+
+ OBSERVATIONS   1   1   1   1
+
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)       +           -
+     Y(4)       -           +
+     Y(5)       -       +
+     Y(6)       -   +
+
+ RESTRAINT      +   +   +
+
+ DEGREES OF FREEDOM = 3
+
+                      SOLUTION MATRIX
+                        DIVISOR = 6
+
+OBSERVATIONS       1      1      1      1
+
+    Y(1)           1     -2      1      1
+    Y(2)           1      1     -2      1
+    Y(3)           0      0      0     -3
+    Y(4)           0      0      0      3
+    Y(5)          -1     -1      2     -1
+    Y(6)          -1      2     -1     -1
+    R              2      2      2      2
+
+    R = AVERAGE VALUE OF 3 REFERENCE RESISTORS
+
+ FACTORS FOR COMPUTING STANDARD DEVIATIONS
+ OHM FACTORS     RESISTORS
+               1   1   1   1
+  1  0.3333    +
+  1  0.5270        +
+  1  0.5270            +
+  1  0.7817                +
+
+```
+
+<!-- XREF: MPC Section 2.3.4, Explanation of notation and interpretation of tables; not yet migrated; source handbook/mpc/section3/mpc34.htm#convention -->

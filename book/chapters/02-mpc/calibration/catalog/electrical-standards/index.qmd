@@ -1,0 +1,77 @@
+#### Designs for electrical quantities {#sec-mpc-343}
+
+**Standard cells**
+
+Banks of saturated standard cells that are nominally one volt are the basis for maintaining the unit of voltage in many laboratories.
+
+**Bias problem**
+
+It has been observed that potentiometer measurements of the difference between two saturated standard cells, connected in series opposition, are effected by a thermal emf which remains constant even when the direction of the circuit is reversed.
+
+**Designs for eliminating bias**
+
+A calibration design for comparing standard cells can be constructed to be left-right balanced so that:
+
+- A constant bias, $P$, does not contaminate the estimates for the individual cells.
+- $P$ is estimated as the average of difference measurements.
+
+**Designs for electrical quantities**
+
+Designs are given for the following classes of electrical artifacts. These designs are left-right balanced and may be appropriate for artifacts other than electrical standards.
+
+- Saturated standard reference cells
+- Saturated standard test cells
+- Zeners
+- Resistors
+
+**Standard cells in a single box**
+
+[Left-right balanced designs](#sec-mpc-3311) for comparing standard cells among themselves where the restraint is over all reference cells are listed below. These designs are **not** appropriate for assigning values to test cells.
+
+Estimates for individual standard cells and the bias term, $P$, are shown under the heading, 'SOLUTION MATRIX'. These designs also have the advantage of requiring a change of connections to only one cell at a time.
+
+1. [Design for 3 standard cells](#sec-mpc-design-left-right-balanced-3-cells)
+2. [Design for 4 standard cells](#sec-mpc-design-left-right-balanced-4-cells)
+3. [Design for 5 standard cells](#sec-mpc-design-left-right-balanced-5-cells)
+4. [Design for 6 standard cells](#sec-mpc-design-left-right-balanced-6-cells)
+
+{{< include calibration/catalog/electrical-standards/left-right-balanced-3-cells.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/left-right-balanced-4-cells.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/left-right-balanced-5-cells.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/left-right-balanced-6-cells.qmd >}}
+
+**Test cells**
+
+Calibration designs for assigning values to test cells in a common environment on the basis of comparisons with reference cells with known values are shown below. The designs in this catalog are left-right balanced.
+
+1. [Design for 4 test cells and 4 reference cells](#sec-mpc-design-left-right-balanced-4-references-4-test-items)
+2. [Design for 8 test cells and 8 reference cells](#sec-mpc-design-design-8-references-8-test-items)
+
+{{< include calibration/catalog/electrical-standards/left-right-balanced-4-references-4-test-items.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/design-8-references-8-test-items.qmd >}}
+
+**Zeners**
+
+Increasingly, zeners are replacing saturated standard cells as artifacts for maintaining and disseminating the volt. Values are assigned to test zeners, based on a group of reference zeners, using calibration designs.
+
+1. [Design for 4 reference zeners and 2 test zeners](#sec-mpc-design-design-4-reference-zeners-2-test-zeners)
+2. [Design for 4 reference zeners and 3 test zeners](#sec-mpc-design-design-4-reference-zeners-3-test-zeners)
+
+{{< include calibration/catalog/electrical-standards/design-4-reference-zeners-2-test-zeners.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/design-4-reference-zeners-3-test-zeners.qmd >}}
+
+**Standard resistors**
+
+Designs for comparing standard resistors that are used for maintaining and disseminating the ohm are listed in this section.
+
+1. [Design for 3 reference resistors and 1 test resistor](#sec-mpc-design-design-3-references-1-test-resistor)
+2. [Design for 4 reference resistors and 1 test resistor](#sec-mpc-design-design-4-references-1-test-resistor)
+
+{{< include calibration/catalog/electrical-standards/design-3-references-1-test-resistor.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/design-4-references-1-test-resistor.qmd >}}

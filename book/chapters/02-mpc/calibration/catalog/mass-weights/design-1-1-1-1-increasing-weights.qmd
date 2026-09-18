@@ -1,0 +1,67 @@
+##### Design for 1,1,1,1 Increasing Weights {#sec-mpc-design-1-1-1-1-increasing-weights}
+
+```
+ Design 1,1,1,1 for increasing weights
+
+
+ OBSERVATIONS   1   1   1   1
+
+
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)       +           -
+     Y(4)           +   -
+     Y(5)           +       -
+     Y(6)               +   -
+
+
+ RESTRAINT                  +
+
+ CHECK STANDARD         +
+
+
+ DEGREES OF FREEDOM  =  3
+
+
+
+                        SOLUTION MATRIX
+                         DIVISOR  =  4
+
+ OBSERVATIONS      1      1      1      1
+
+
+    Y(1)           1     -1      0      0
+    Y(2)           1      0     -1      0
+    Y(3)           2      1      1      0
+    Y(4)           0      1     -1      0
+    Y(5)           1      2      1      0
+    Y(6)           1      1      2      0
+    R*             4      4      4      4
+
+    R* = value of reference standard
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT    K1
+               1   1   1   1
+  1  0.7071    +
+  1  0.7071        +
+  1  0.7071            +
+  1  0.0000                +
+  2  1.2247    +   +
+  1  0.7071            +
+
+
+FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT    K2
+               1   1   1   1
+  1  1.4142    +
+  1  1.4142        +
+  1  1.4142            +
+  1  0.0000                +
+  2  2.4495    +   +
+  1  1.4142            +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

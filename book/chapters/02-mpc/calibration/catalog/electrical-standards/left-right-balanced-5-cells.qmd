@@ -1,0 +1,60 @@
+##### Left-right balanced design for 5 standard cells {#sec-mpc-design-left-right-balanced-5-cells}
+
+Design 1,1,1,1,1
+
+```
+OBSERVATIONS     1   1   1   1   1
+
+
+      Y(1)       +   -
+      Y(2)       +       -
+      Y(3)           +   -
+      Y(4)           +       -
+      Y(5)               +   -
+      Y(6)               +       -
+      Y(7)                   +   -
+      Y(8)       -           +
+      Y(9)       -               +
+      Y(10)          -           +
+
+
+  RESTRAINT      +   +   +   +   +
+
+
+  DEGREES OF FREEDOM  =  5
+
+
+                            SOLUTION MATRIX
+                              DIVISOR = 5
+
+  OBSERVATIONS      1      1      1      1      1      P
+
+
+     Y(1)           1     -1      0      0      0      1
+     Y(2)           1      0     -1      0      0      1
+     Y(3)           0      1     -1      0      0      1
+     Y(4)           0      1      0     -1      0      1
+     Y(5)           0      0      1     -1      0      1
+     Y(6)           0      0      1      0     -1      1
+     Y(7)           0      0      0      1     -1      1
+     Y(8)          -1      0      0      1      0      1
+     Y(9)          -1      0      0      0      1      1
+     Y(10)          0     -1      0      0      1      1
+     R*             1      1      1      1      1      0
+
+     R* = AVERAGE VALUE OF 5 REFERENCE CELLS
+
+     P = LEFT-RIGHT BIAS
+
+
+  FACTORS FOR COMPUTING REPEATABILITY STANDARD DEVIATIONS
+   V  FACTOR          CELLS
+                1   1   1   1   1
+   1  0.4000    +
+   1  0.4000        +
+   1  0.4000            +
+   1  0.4000                +
+   1  0.4000                    +
+```
+
+<!-- XREF: MPC Section 2.3.4, Explanation of notation and interpretation of tables; not yet migrated; source handbook/mpc/section3/mpc34.htm#convention -->

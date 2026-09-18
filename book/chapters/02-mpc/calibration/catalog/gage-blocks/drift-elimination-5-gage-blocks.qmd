@@ -1,0 +1,62 @@
+##### Drift-eliminating design for 5 gage blocks {#sec-mpc-design-drift-elim-5}
+
+```
+ CAMERON-HAILES DESIGN FOR 5 GAGE BLOCKS + DRIFT
+
+ OBSERVATIONS   1   1   1   1   1
+
+     Y(1)       1  -1   0   0   0
+     Y(2)       0   1  -1   0   0
+     Y(3)       0   0   1  -1   0
+     Y(4)       0   0   0   1  -1
+     Y(5)      -1   0   0   0   1
+     Y(6)      -1   0   0   1   0
+     Y(7)       0   1   0  -1   0
+     Y(8)       0  -1   0   0   1
+     Y(9)       0   0   1   0  -1
+     Y(10)      1   0  -1   0   0
+
+
+ RESTRAINT      +   +
+
+
+ CHECK STANDARD +   -
+
+
+ DEGREES OF FREEDOM  =   5
+
+
+                              SOLUTION MATRIX
+                              DIVISOR = 330
+
+ OBSERVATIONS      1      1      1      1      1     Drift
+
+    Y(1)          66    -66      0      0      0     -9
+    Y(2)         -33     33    -99    -33    -33     -7
+    Y(3)           0      0     66    -66      0     -5
+    Y(4)           0      0      0     66    -66     -3
+    Y(5)         -33     33     33     33     99     -1
+    Y(6)         -33     33     33     99     33      1
+    Y(7)         -33     33    -33    -99    -33      3
+    Y(8)          33    -33     33     33     99      5
+    Y(9)           0      0     66      0    -66      7
+    Y(10)         33    -33    -99    -33    -33      9
+    R*           165    165    165    165    165      0
+
+    R* = Sum of the two reference standards
+
+
+  FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+  NOM FACTOR
+               1   1   1   1   1
+  1  0.3162    +
+  1  0.3162        +
+  1  0.5477            +
+  1  0.5477                +
+  1  0.5477                    +
+  2  0.8944            +   +
+  3  1.2247            +   +   +
+  0  0.6325    +   -
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

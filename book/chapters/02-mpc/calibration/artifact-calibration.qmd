@@ -1,0 +1,49 @@
+### What is artifact (single-point) calibration? {#sec-mpc-32}
+
+**Purpose**
+
+Artifact calibration is a measurement process that assigns values to the property of an artifact relative to a reference standard(s). The purpose of calibration is to eliminate or reduce bias in the user's measurement system relative to the reference base.
+
+The calibration procedure compares an "unknown" or test item(s) with a reference standard(s) of the same nominal value (hence, the term single-point calibration) according to a specific algorithm called a calibration design.
+
+**Assumptions**
+
+The calibration procedure is based on the assumption that individual readings on test items and reference standards are subject to:
+
+- Bias that is a function of the measuring system or instrument
+- Random error that may be uncontrollable
+
+**What is bias?**
+
+The operational definition of bias is that it is the difference between values that would be assigned to an artifact by the client laboratory and the laboratory maintaining the reference standards. Values, in this sense, are understood to be the long-term averages that would be achieved in both laboratories.
+
+**Calibration model for eliminating bias requires a reference standard that is very close in value to the test item**
+
+One approach to eliminating bias is to select a reference standard that is almost identical to the test item; measure the two artifacts with a comparator type of instrument; and take the difference of the two measurements to cancel the bias. The only requirement on the instrument is that it be linear over the small range needed for the two artifacts.
+
+The test item has value $X^*$, as yet to be assigned, and the reference standard has an assigned value $R^*$. Given a measurement, $X$, on the test item and a measurement, $R$, on the reference standard,
+
+$$
+\begin{aligned}
+X &= Bias + X^* + error_1 \\
+R &= Bias + R^* + error_2
+\end{aligned}
+$$
+
+the difference between the test item and the reference is estimated by
+
+$$D = X - R \, ,$$
+
+and the value of the test item is reported as
+
+$$\widehat{Test} = X^* = D + R^* \, .$$
+
+**Need for redundancy leads to calibration designs**
+
+A deficiency in relying on a single difference to estimate $D$ is that there is no way of assessing the effect of random errors. The obvious solution is to:
+
+- Repeat the calibration measurements $J$ times
+- Average the results
+- Compute a standard deviation from the $J$ results
+
+Schedules of redundant intercomparisons involving measurements on several reference standards and test items in a connected sequence are called calibration designs<!-- XREF: MPC Section 2.3.3, Calibration designs, not yet migrated to this book; source handbook/mpc/section3/mpc33.htm --> and are discussed in later sections.

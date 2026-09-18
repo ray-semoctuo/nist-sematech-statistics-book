@@ -1,0 +1,82 @@
+##### Design for 4 reference zeners and 3 test zeners {#sec-mpc-design-design-4-reference-zeners-3-test-zeners}
+
+Design for 4 references and 3 test zeners.
+
+```
+                       ZENERS
+
+ OBSERVATIONS   1   1   1   1   1   1   1
+
+     Y(1)       -   +
+     Y(2)       -       +
+     Y(3)           +       -
+     Y(4)       +                       -
+     Y(5)       +                   -
+     Y(6)       +               -
+     Y(7)           -           +
+     Y(8)           -               +
+     Y(9)           -                   +
+     Y(10)              -               +
+     Y(11)              -           +
+     Y(12)              -       +
+     Y(13)                  +   -
+     Y(14)                  +       -
+     Y(15)                  +           -
+     Y(16)              +   -
+     Y(17)          +       -
+     Y(18)      -       +
+
+
+ RESTRAINT      +   +   +   +
+
+ CHECK STANDARD +   -
+
+
+ DEGREES OF FREEDOM = 11
+
+
+
+                             SOLUTION MATRIX
+                             DIVISOR  = 1260
+
+ OBSERVATIONS     1      1      1      1      1      1      1     P
+
+
+    Y(1)        -196    196    -56     56      0      0      0   70
+    Y(2)        -160    -20    160     20      0      0      0   70
+    Y(3)          20    160    -20   -160      0      0      0   70
+    Y(4)         143    -53    -17    -73      0      0   -315   70
+    Y(5)         143    -53    -17    -73      0   -315      0   70
+    Y(6)         143    -53    -17    -73   -315      0      0   70
+    Y(7)          53   -143     73     17    315      0      0   70
+    Y(8)          53   -143     73     17      0    315      0   70
+    Y(9)          53   -143     73     17      0      0    315   70
+    Y(10)         17     73   -143     53      0      0    315   70
+    Y(11)         17     73   -143     53      0    315      0   70
+    Y(12)         17     73   -143     53    315      0      0   70
+    Y(13)        -73    -17    -53    143   -315      0      0   70
+    Y(14)        -73    -17    -53    143      0   -315      0   70
+    Y(15)        -73    -17    -53    143      0      0   -315   70
+    Y(16)         56    -56    196   -196      0      0      0   70
+    Y(17)         20    160    -20   -160      0      0      0   70
+    Y(18)       -160    -20    160     20      0      0      0   70
+    R*           315    315    315    315    315    315    315    0
+
+    R* = Average value of the 4 reference zeners
+
+    P = left-right effect
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+
+  V    K1      1   1   1   1   1   1   1
+  1  0.5000                    +
+  1  0.5000                        +
+  1  0.5000                            +
+  2  0.7071                    +   +
+  3  0.8660                    +   +   +
+  0  0.5578    +   -
+```
+
+<!-- XREF: MPC Section 2.3.4, Explanation of notation and interpretation of tables; not yet migrated; source handbook/mpc/section3/mpc34.htm#convention -->

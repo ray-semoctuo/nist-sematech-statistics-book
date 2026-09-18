@@ -278,6 +278,39 @@ ggplot(mass_mpc223, aes(date_year, std_value)) +
 
 The control chart shows only two violations of the control limits before 1985. For those occasions, the calibrations were discarded and repeated. After 1985, the points cluster increasingly close to and above the upper control limit -- an unequal distribution of data points on the two sides of the baseline that indicates a change in either the process average (possibly related to a change in the reference standards) or the variability (possibly caused by a change in the instrument precision).
 
+Unfortunately, it takes time for the patterns in the data to emerge because individual violations of the control limits do not necessarily point to a permanent shift in the process. If the limits for the control chart are re-calculated based on the data after 1985, the extent of the change is obvious.
+
+**Revised control chart based on check standard measurements after 1985**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-shewhart-kilogram-revised
+#| fig-cap: "Revised Shewhart control chart for kilogram check standard measurements: baseline and control limits computed separately for data prior to 1985 and data after 1985"
+#| message: false
+mn_post_mpc223 <- mean(mass_mpc223$std_value[mass_mpc223$date_year > 85])
+std_post_mpc223 <- sd(mass_mpc223$std_value[mass_mpc223$date_year > 85])
+lcl_post_mpc223 <- mn_post_mpc223 - 3 * std_post_mpc223
+ucl_post_mpc223 <- mn_post_mpc223 + 3 * std_post_mpc223
+
+seg_mpc223 <- tibble(
+  x0 = c(75, 85), x1 = c(85, max(mass_mpc223$date_year)),
+  mean = c(mn_mpc223, mn_post_mpc223),
+  lcl = c(lcl_mpc223, lcl_post_mpc223),
+  ucl = c(ucl_mpc223, ucl_post_mpc223)
+)
+
+ggplot(mass_mpc223, aes(date_year, std_value)) +
+  geom_point(aes(color = date_year > 85), size = 1.4) +
+  scale_color_manual(values = c("grey60", "steelblue4"), guide = "none") +
+  geom_segment(data = seg_mpc223, aes(x = x0, xend = x1, y = mean, yend = mean), color = "black", inherit.aes = FALSE) +
+  geom_segment(data = seg_mpc223, aes(x = x0, xend = x1, y = lcl, yend = lcl), color = "firebrick", linetype = "dashed", inherit.aes = FALSE) +
+  geom_segment(data = seg_mpc223, aes(x = x0, xend = x1, y = ucl, yend = ucl), color = "firebrick", linetype = "dashed", inherit.aes = FALSE) +
+  labs(x = "Year", y = "Check standard value (correction to nominal, mg)") +
+  theme_light()
+```
+
+Because the exponentially weighted moving average (EWMA) control chart is capable of detecting small changes, it may be a better choice for a high precision process that is producing many control values.
+
 **EWMA chart for measurements on kilogram check standard showing multiple violations of the control limits for the EWMA statistics**
 
 ```{r}

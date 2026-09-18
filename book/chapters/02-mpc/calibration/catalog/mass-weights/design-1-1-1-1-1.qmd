@@ -1,0 +1,153 @@
+##### Design for 1,1,1,1,1 {#sec-mpc-design-1-1-1-1-1}
+
+**CASE 1: CHECK STANDARD = DIFFERENCE BETWEEN FIRST TWO WEIGHTS**
+
+```
+ OBSERVATIONS   1   1   1   1   1
+
+
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)       +           -
+     Y(4)       +               -
+     Y(5)           +   -
+     Y(6)           +       -
+     Y(7)           +           -
+     Y(8)               +   -
+     Y(9)               +       -
+     Y(10)                  +   -
+
+
+ RESTRAINT      +   +
+
+ CHECK STANDARD +   -
+
+ DEGREES OF FREEDOM  =   6
+
+
+
+                         SOLUTION MATRIX
+                          DIVISOR =  10
+
+ OBSERVATIONS      1      1      1      1      1
+
+
+    Y(1)           2     -2      0      0      0
+    Y(2)           1     -1     -3     -1     -1
+    Y(3)           1     -1     -1     -3     -1
+    Y(4)           1     -1     -1     -1     -3
+    Y(5)          -1      1     -3     -1     -1
+    Y(6)          -1      1     -1     -3     -1
+    Y(7)          -1      1     -1     -1     -3
+    Y(8)           0      0      2     -2      0
+    Y(9)           0      0      2      0     -2
+    Y(10)          0      0      0      2     -2
+    R*             5      5      5      5      5
+
+    R* = sum of two reference standards
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+        K1     1   1   1   1   1
+  1  0.3162    +
+  1  0.3162        +
+  1  0.5477            +
+  1  0.5477                +
+  1  0.5477                    +
+  2  0.8944                +   +
+  3  1.2247            +   +   +
+  0  0.6325    +   -
+
+
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT  FACTOR
+        K2     1   1   1   1   1
+  1  0.7071    +
+  1  0.7071        +
+  1  1.2247            +
+  1  1.2247                +
+  1  1.2247                    +
+  2  2.0000                +   +
+  3  2.7386            +   +   +
+  0  1.4142     +   -
+```
+
+**CASE 2: CHECK STANDARD = FOURTH WEIGHT**
+
+```
+ OBSERVATIONS   1   1   1   1   1
+
+
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)       +           -
+     Y(4)       +               -
+     Y(5)           +   -
+     Y(6)           +       -
+     Y(7)           +           -
+     Y(8)               +   -
+     Y(9)               +       -
+     Y(10)                  +   -
+
+
+ RESTRAINT      +   +
+
+ CHECK STANDARD             +
+
+ DEGREES OF FREEDOM  =   6
+
+
+
+                         SOLUTION MATRIX
+                          DIVISOR =  10
+
+ OBSERVATIONS      1      1      1      1      1
+
+
+    Y(1)           2     -2      0      0      0
+    Y(2)           1     -1     -3     -1     -1
+    Y(3)           1     -1     -1     -3     -1
+    Y(4)           1     -1     -1     -1     -3
+    Y(5)          -1      1     -3     -1     -1
+    Y(6)          -1      1     -1     -3     -1
+    Y(7)          -1      1     -1     -1     -3
+    Y(8)           0      0      2     -2      0
+    Y(9)           0      0      2      0     -2
+    Y(10)          0      0      0      2     -2
+    R*             5      5      5      5      5
+
+    R* = sum of two reference standards
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+        K1     1   1   1   1   1
+  1  0.3162    +
+  1  0.3162        +
+  1  0.5477            +
+  1  0.5477                +
+  1  0.5477                    +
+  2  0.8944                +   +
+  3  1.2247            +   +   +
+  1  0.5477                +
+
+
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT  FACTOR
+        K2     1   1   1   1   1
+  1  0.7071    +
+  1  0.7071        +
+  1  1.2247            +
+  1  1.2247                +
+  1  1.2247                    +
+  2  2.0000                +   +
+  3  2.7386            +   +   +
+  1  1.2247                +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

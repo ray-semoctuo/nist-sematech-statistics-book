@@ -1,0 +1,88 @@
+##### Design for 5,3,2,1,1,1,1 {#sec-mpc-design-5-3-2-1-1-1-1}
+
+```
+Design 5,3,2,1,1,1,1
+
+
+ OBSERVATIONS   5   3   2   1   1   1   1
+
+
+     Y(1)       +   -   -
+     Y(2)       +   -       -   -
+     Y(3)       +   -               -   -
+     Y(4)       +       -   -   -   -
+     Y(5)       +       -   -   -       -
+     Y(6)       +       -   -       -   -
+     Y(7)       +       -       -   -   -
+     Y(8)           +   -   -
+     Y(9)           +   -       -
+     Y(10)          +   -           -
+     Y(11)          +   -               -
+
+
+ RESTRAINT      +   +   +
+
+ CHECK STANDARD                     +
+
+
+ DEGREES OF FREEDOM  =  5
+
+
+
+                             SOLUTION MATRIX
+                              DIVISOR =  40
+
+ OBSERVATIONS      5      3      2      1      1      1      1
+
+
+    Y(1)          20     -4    -16     12     12     12     12
+    Y(2)           0     -4      4     -8     -8      2      2
+    Y(3)           0     -4      4      2      2     -8     -8
+    Y(4)           0      0      0     -5     -5    -10     10
+    Y(5)           0      0      0     -5     -5     10    -10
+    Y(6)           0      0      0    -10     10     -5     -5
+    Y(7)           0      0      0     10    -10     -5     -5
+    Y(8)           0      4     -4    -12      8      3      3
+    Y(9)           0      4     -4      8    -12      3      3
+    Y(10)          0      4     -4      3      3    -12      8
+    Y(11)          0      4     -4      3      3      8    -12
+    R*            20     12      8      4      4      4      4
+
+    R* = sum of the three reference standards
+
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+               5   3   2   1   1   1   1
+  5  0.5000    +
+  3  0.2646        +
+  2  0.4690            +
+  1  0.6557                +
+  1  0.6557                    +
+  1  0.6557                        +
+  1  0.6557                            +
+  2  0.8485                +   +
+  3  1.1705                +   +   +
+  4  1.3711                +   +   +   +
+  1  0.6557                        +
+
+
+ FACTORS FOR LEVEL-2 STANDARD DEVIATIONS
+ WT  FACTOR
+               5   3   2   1   1   1   1
+  5  0.8660    +
+  3  0.8185        +
+  2  0.8485            +
+  1  1.0149                +
+  1  1.0149                    +
+  1  1.0149                        +
+  1  1.0149                            +
+  2  1.4560                +   +
+  3  1.8083                +   +   +
+  4  2.1166                +   +   +   +
+  1  1.0149                        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

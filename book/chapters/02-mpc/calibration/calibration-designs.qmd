@@ -1,0 +1,971 @@
+### What are calibration designs? {#sec-mpc-33}
+
+**Calibration designs are redundant schemes for intercomparing reference standards and test items**
+
+Calibration designs are redundant schemes for intercomparing reference standards and test items in such a way that the values can be assigned to the test items based on known values of reference standards. Artifacts that traditionally have been calibrated using calibration designs are:
+
+- mass weights
+- resistors
+- voltage standards
+- length standards
+- angle blocks
+- indexing tables
+- liquid-in-glass thermometers, etc.
+
+**Outline of section**
+
+The topics covered in this section are:
+
+- [Designs for elimination of left-right bias and linear drift](#sec-mpc-331)
+- [Solutions to calibration designs](#sec-mpc-332)
+- [Uncertainties of calibrated values](#sec-mpc-333)
+
+A [catalog of calibration designs](#sec-mpc-34) is provided in the next section.
+
+**Assumptions for calibration designs include demands on the quality of the artifacts**
+
+The assumptions that are necessary for working with calibration designs are that:
+
+- Random errors associated with the measurements are independent.
+- All measurements come from a distribution with the same standard deviation.
+- Reference standards and test items respond to the measuring environment in the same manner.
+- Handling procedures are consistent from item to item.
+- Reference standards and test items are stable during the time of measurement.
+- Bias is canceled by taking the difference between measurements on the test item and the reference standard.
+
+**Important concept - Restraint**
+
+The restraint is the known value of the reference standard or, for designs with two or more reference standards, the restraint is the summation of the values of the reference standards.
+
+**Requirements & properties of designs**
+
+Basic requirements are:
+
+- The differences must be nominally zero.
+- The design must be solvable for individual items given the restraint.
+
+It is possible to construct designs which do not have these properties. This will happen, for example, if reference standards are only compared among themselves and test items are only compared among themselves without any intercomparisons.
+
+**Practical considerations determine a 'good' design**
+
+We do not apply 'optimality' criteria in constructing calibration designs because the construction of a 'good' design depends on many factors, such as convenience in manipulating the test items, time, expense, and the maximum load of the instrument.
+
+- The number of measurements should be small.
+- The degrees of freedom should be greater than three.
+- The standard deviations of the estimates for the test items should be small enough for their intended purpose.
+
+**Check standard in a design**
+
+Designs listed in this Handbook have provision for a [check standard](#sec-mpc-12) in each series of measurements. The check standard is usually an artifact, of the same nominal size, type, and quality as the items to be calibrated. Check standards are used for:
+
+- [Controlling the calibration process](#sec-mpc-35)
+- [Quantifying the uncertainty of calibrated results](#sec-mpc-333)
+
+**Estimates that can be computed from a design**
+
+Calibration designs are solved by a restrained least-squares technique [@Zelen] which gives the following estimates:
+
+- Values for individual reference standards
+- Values for individual test items
+- Value for the check standard
+- Repeatability standard deviation and degrees of freedom
+- Standard deviations associated with values for reference standards and test items
+
+#### Elimination of special types of bias {#sec-mpc-331}
+
+**Assumptions which may be violated**
+
+Two of the usual assumptions relating to calibration measurements are not always valid and result in biases. These assumptions are:
+
+- Bias is canceled by taking the difference between the measurement on the test item and the measurement on the reference standard
+- Reference standards and test items remain stable throughout the measurement sequence
+
+**Ideal situation**
+
+In the ideal situation, bias is eliminated by taking the difference between a measurement $X$ on the test item and a measurement $R$ on the reference standard. However, there are situations where the ideal is not satisfied:
+
+- [Left-right (or constant instrument) bias](#sec-mpc-3311)
+- [Bias caused by instrument drift](#sec-mpc-3312)
+
+##### Left-right (constant instrument) bias {#sec-mpc-3311}
+
+**Left-right bias which is not eliminated by differencing**
+
+A situation can exist in which a bias, $P$, which is constant and independent of the direction of measurement, is introduced by the measurement instrument itself. This type of bias, which has been observed in measurements of standard voltage cells [@EickeCameron] and is not eliminated by reversing the direction of the current, is shown in the following equations.
+
+$$
+\begin{aligned}
+Y_1 &= X - R + P + error_1 \\
+Y_2 &= R - X + P + error_2
+\end{aligned}
+$$
+
+**Elimination of left-right bias requires two measurements in reverse direction**
+
+The difference between the test and the reference can be estimated without bias only by taking the difference between the two measurements shown above where $P$ cancels in the differencing so that
+
+$$ D = Y_1 - Y_2 = 2X - 2R \,. $$
+
+**The value of the test item depends on the known value of the reference standard, R\***
+
+The test item, $X$, can then be estimated without bias by
+
+$$ \widehat{Test} = X^* = \frac{1}{2}(Y_1 - Y_2) + R^* $$
+
+and $P$ can be estimated by
+
+$$ \widehat{P} = \frac{1}{2}(Y_1 + Y_2) \, . $$
+
+**Calibration designs that are left-right balanced**
+
+This type of scheme is called left-right balanced and the principle is extended to create a [catalog of left-right balanced designs](#sec-mpc-343) for intercomparing reference standards among themselves. These designs are appropriate *ONLY* for comparing reference standards in the same environment, or enclosure, and are not appropriate for comparing, say, across standard voltage cells in two boxes.
+
+1. [Left-right balanced design for a group of 3 artifacts](#sec-mpc-design-left-right-balanced-3-cells)
+2. [Left-right balanced design for a group of 4 artifacts](#sec-mpc-design-left-right-balanced-4-cells)
+3. [Left-right balanced design for a group of 5 artifacts](#sec-mpc-design-left-right-balanced-5-cells)
+4. [Left-right balanced design for a group of 6 artifacts](#sec-mpc-design-left-right-balanced-6-cells)
+
+##### Bias caused by instrument drift {#sec-mpc-3312}
+
+**Bias caused by linear drift over the time of measurement**
+
+The requirement that reference standards and test items be stable during the time of measurement cannot always be met because of changes in temperature caused by body heat, handling, etc.
+
+**Representation of linear drift**
+
+Linear drift for an even number of measurements is represented by
+
+$$ \ldots, -5d, -3d, -1d, +1d, +3d, +5d, \ldots $$
+
+and for an odd number of measurements by
+
+$$ \ldots, -3d, -2d, -1d, 0d, +1d, +2d, +3d, \ldots \, . $$
+
+**Assumptions for drift elimination**
+
+The effect can be mitigated by a drift-elimination scheme [@CameronHailes] which assumes:
+
+- Linear drift over time
+- Equally spaced measurements in time
+
+**Example of drift-elimination scheme**
+
+An example is given by substitution weighing where scale deflections on a balance are observed for $X$, a test weight, and $R$, a reference weight.
+
+$$
+\begin{aligned}
+Y_1 &= X - 3d_1 + error_1 \\
+Y_2 &= R - 1d_2 + error_2 \\
+Y_3 &= R + 1d_3 + error_3 \\
+Y_4 &= X + 3d_4 + error_4
+\end{aligned}
+$$
+
+**Estimates of drift-free difference and size of drift**
+
+The drift-free difference between the test and the reference is estimated by
+
+$$ D = \frac{1}{2} \left[(Y_1 - Y_2) - (Y_3 - Y_4)\right] $$
+
+and the size of the drift is estimated by
+
+$$ \widehat{d} = \frac{1}{4} \left( -Y_1 + Y_2 - Y_3 + Y_4 \right) $$
+
+**Calibration designs for eliminating linear drift**
+
+This principle is extended to create a [catalog of drift-elimination designs](#sec-mpc-342) for multiple reference standards and test items. These designs are listed under calibration designs for gauge blocks because they have traditionally been used to counteract the effect of temperature build-up in the comparator during calibration.
+
+#### Solutions to calibration designs {#sec-mpc-332}
+
+**Solutions for designs listed in the catalog**
+
+Solutions for all designs that are [cataloged in this Handbook](#sec-mpc-34) are included with the designs. [Solutions for other designs](#sec-mpc-3321) can be computed from the instructions on the following page given some familiarity with matrices.
+
+**Measurements for the 1,1,1 design**
+
+The use of the tables shown in the catalog are illustrated for three artifacts; namely, a reference standard with known value $R^*$ and a check standard and a test item with unknown values. All artifacts are of the same nominal size. The design is referred to as a [1,1,1 design](#sec-mpc-design-1-1-1) for
+
+- $n$ = 3 difference measurements
+- $m$ = 3 artifacts
+
+**Convention for showing the measurement sequence and identifying the reference and check standards**
+
+The convention for showing the measurement sequence is shown below. Nominal values are underlined in the first line showing that this design is appropriate for comparing three items of the same nominal size such as three one-kilogram weights. The reference standard is the first artifact, the check standard is the second, and the test item is the third.
+
+```
+                 1     1     1
+
+          Y(1) = +     -
+
+          Y(2) = +           -
+
+          Y(3) =       +     -
+
+  Restraint      +
+
+  Check standard       +
+```
+
+**Limitation of this design**
+
+This design has degrees of freedom
+
+$$ \nu = n - m + 1 = 1 $$
+
+**Convention for showing least-squares estimates for individual items**
+
+The table shown below lists the coefficients for finding the estimates for the individual items. The estimates are computed by taking the cross-product of the appropriate column for the item of interest with the column of measurement data and dividing by the divisor shown at the top of the table.
+
+```
+                        SOLUTION MATRIX
+                          DIVISOR = 3
+
+     OBSERVATIONS      1      1      1
+
+        Y(1)           0     -2     -1
+        Y(2)           0     -1     -2
+        Y(3)           0      1     -1
+        R*             3      3      3
+```
+
+**Solutions for individual items from the table above**
+
+For example, the solution for the reference standard is shown under the first column; for the check standard under the second column; and for the test item under the third column. Notice that the estimate for the reference standard is guaranteed to be $R^*$, regardless of the measurement results, because of the restraint that is imposed on the design. The estimates are as follows:
+
+$$ \widehat{R^*} = \frac{1}{3}(0 Y_1 + 0 Y_2 + 0 Y_3) + R^* $$
+
+$$ \widehat{Chk} = \frac{1}{3}(-2 Y_1 - 1 Y_2 + 1 Y_3) + R^* $$
+
+$$ \widehat{Test} = \frac{1}{3}(-1 Y_1 - 2 Y_2 - 1 Y_3) + R^* $$
+
+**Convention for showing standard deviations for individual items and combinations of items**
+
+The standard deviations are computed from two tables of factors as shown below. The standard deviations for combinations of items include appropriate covariance terms.
+
+```
+     FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+
+     WT  FACTOR
+           K1      1   1   1
+      1  0.0000    +
+      1  0.8165        +
+      1  0.8165            +
+      2  1.4142        +   +
+      1  0.8165        +
+
+     FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+
+     WT  FACTOR
+
+           K2      1   1   1
+      1  0.0000    +
+      1  1.4142        +
+      1  1.4142            +
+      2  2.4495        +   +
+      1  1.4142        +
+```
+
+We can confirm these factors directly from the design and restraint by matrix computation, following the general method given in [General matrix solutions to calibration designs](#sec-mpc-3321):
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+# design matrix X for the 1,1,1 design (rows Y1..Y3, columns R, Chk, Test)
+X_111 <- matrix(c(
+  1, -1,  0,
+  1,  0, -1,
+  0,  1, -1
+), nrow = 3, byrow = TRUE)
+
+r_111 <- c(1, 0, 0)          # restraint on the reference standard only
+m_111 <- ncol(X_111)
+
+XtX_111 <- t(X_111) %*% X_111
+A_111 <- rbind(cbind(XtX_111, r_111), c(r_111, 0))
+Ainv_111 <- solve(A_111)
+Q_111 <- Ainv_111[1:m_111, 1:m_111]
+
+D_111 <- (Q_111 %*% t(X_111) %*% X_111) %*% t(Q_111 %*% t(X_111) %*% X_111)
+
+k_factors <- tibble(
+  item = c("R*", "Chk", "Test"),
+  K1 = sqrt(diag(Q_111)),
+  K2 = sqrt(diag(D_111))
+)
+k_factors
+```
+
+This reproduces NIST's stated factors: $K_1 = (0, 0.8165, 0.8165)$ and $K_2 = (0, 1.4142, 1.4142)$ for the reference standard, check standard, and test item respectively.
+
+**Unifying equation**
+
+The standard deviation for each item is computed using the unifying equation:
+
+$$ {\large s}_{test} = \sqrt{K_1^2 {\large s}_1^2 + K_2^2 {\large s}_{days}^2} $$
+
+**Standard deviations for 1,1,1 design from the tables of factors**
+
+For the 1,1,1 design, the standard deviations are:
+
+$$ {\large s}_{R^*} = 0 $$
+
+$$ {\large s}_{chk} = \sqrt{(0.8165 \cdot {\large s}_1)^2 + (1.4142 \cdot {\large s}_{days})^2)} =
+ \sqrt{\frac{2}{3} {\large s}_1^2 + 2 {\large s}_{days}^2} $$
+
+$$ {\large s}_{test} = \sqrt{(0.8165 \cdot {\large s}_1)^2 + (1.4142 \cdot {\large s}_{days})^2} =
+ \sqrt{\frac{2}{3} {\large s}_1^2 + 2 {\large s}_{days}^2} $$
+
+$$ {\large s}_{chk+test} = \sqrt{(1.4142 \cdot {\large s}_1)^2 + (2.4495 \cdot {\large s}_{days})^2)} =
+ \sqrt{2 {\large s}_1^2 + 6 {\large s}_{days}^2} $$
+
+**Process standard deviations must be known from historical data**
+
+In order to apply these equations, we need an estimate of the standard deviation, ${\large s}_{days}$, that describes day-to-day changes in the measurement process. This standard deviation is in turn derived from the [level-2 standard deviation](#sec-mpc-3332), ${\large s}_2$, for the check standard. This standard deviation is estimated from historical data on the check standard; it can be negligible, in which case the calculations are simplified.
+
+The [repeatability standard deviation](#sec-mpc-3332), ${\large s}_1$, is estimated from historical data, usually from data of several designs.
+
+**Steps in computing standard deviations**
+
+The steps in computing the standard deviation for a test item are:
+
+- Compute the [repeatability standard deviation](#sec-mpc-3332) from the design or historical data.
+- Compute the [standard deviation of the check standard](#sec-mpc-3332) from historical data.
+- Locate the factors, $K_1$ and $K_2$, for the **check standard**; for the 1,1,1 design the factors are 0.8165 and 1.4142, respectively, where the check standard entries are last in the tables.
+- Apply the unifying equation to the check standard to estimate the standard deviation for days. Notice that the standard deviation of the check standard is the same as the [level-2 standard deviation](#sec-mpc-3332), ${\large s}_2$, that is referred to on some pages. The equation for the between-days standard deviation from the unifying equation is
+
+$$ {\large s}_{days} = \frac{1}{K_2} \sqrt{{\large s}_2^2 - K_1^2 {\large s}_1^2} $$
+
+  Thus, for the example above
+
+$$ {\large s}_{days} = \frac{1}{\sqrt{2}} \sqrt{{\large s}_2^2 - \frac{2}{3} {\large s}_1^2} $$
+
+- This is the number that is entered into the NIST mass calibration software as the between-time standard deviation.<!-- TODO: missing bib entry for Varner (source handbook/mpc/section7/mpc7.htm#Varner); a "CroarkinVarner" entry exists in references.bib but its title does not clearly match "NIST mass calibration software," so it is not cited here without confirmation --> If you are using this software, this is the only computation that you need to make because the standard deviations for the test items are computed automatically by the software.
+- If the computation under the radical sign gives a negative number, set ${\large s}_{days} = 0$. (This is possible and indicates that there is no contribution to uncertainty from day-to-day effects.)
+- For completeness, the computations of the standard deviations for the test item and for the sum of the test and the check standard using the appropriate factors are shown below.
+
+$$ {\large s}_{test} = \sqrt{\frac{2}{3} {\large s}_1^2 + 2 {\large s}_{days}^2}
+                     = \sqrt{\frac{2}{3} {\large s}_1^2 + \frac{5}{2} \left( {\large s}_2^2 - \frac{2}{3} {\large s}_1^2 \right) }
+                     = {\large s}_2 $$
+
+$$ {\large s}_{test+chk} = \sqrt{2 {\large s}_1^2 + 6 {\large s}_{days}^2}
+                         = \sqrt{2 {\large s}_1^2 + \frac{13}{2} \left( {\large s}_2^2 - \frac{2}{3} {\large s}_1^2 \right)}
+                         = \sqrt{3} \, {\large s}_2 $$
+
+##### General matrix solutions to calibration designs {#sec-mpc-3321}
+
+**Requirements**
+
+Solutions for all designs that are cataloged in this Handbook are included with the designs. Solutions for other designs can be computed from the instructions below given some familiarity with matrices. The matrix manipulations that are required for the calculations are:
+
+- transposition (indicated by ')
+- multiplication
+- inversion
+
+**Notation**
+
+- $n$ = number of difference measurements
+- $m$ = number of artifacts
+- $(n - m + 1)$ = degrees of freedom
+- $X$ = ($n\times m$) design matrix
+- $r'$ = ($m\times1$) vector identifying the restraint
+- $v(i)'$ = ($m\times1$) vector identifying $i$th item of interest consisting of a 1 in the $i$th position and zeros elsewhere
+- $R^*$ = value of the reference standard
+- $Y$ = ($m\times1$) vector of observed difference measurements
+
+**Convention for showing the measurement sequence**
+
+The convention for showing the measurement sequence is illustrated with the three measurements that make up a [1,1,1 design](#sec-mpc-design-1-1-1) for 1 reference standard, 1 check standard, and 1 test item. Nominal values are underlined in the first line.
+
+```
+                 1     1     1
+          Y(1) = +     -
+
+          Y(2) = +           -
+
+          Y(3) =       +     -
+```
+
+**Matrix algebra for solving a design**
+
+The ($m\times n$) design matrix $X$ is constructed by replacing the pluses (+), minuses (-) and blanks with the entries 1, -1, and 0 respectively.
+
+The ($m\times m$) matrix of normal equations, $X'X$, is formed and augmented by the restraint vector to form an $(m+1)\times(m+1)$ matrix, $A$:
+
+$$ A = \begin{bmatrix} X'X & r' \\ r & 0 \end{bmatrix} $$
+
+**Inverse of design matrix**
+
+The $A$ matrix is inverted and shown in the form:
+
+$$ A^{-1} = \begin{bmatrix} Q & h' \\ h & 0 \end{bmatrix} $$
+
+where $Q$ is an $m\times m$ matrix that, when multiplied by $s^2$, yields the usual variance-covariance matrix.
+
+**Estimates of values of individual artifacts**
+
+The least-squares estimates for the values of the individual artifacts are contained in the ($m\times1$) matrix, $B$, where
+
+$$ B = QX'Y + h'R^* $$
+
+where $Q$ is the upper left element of the $A^{-1}$ matrix shown above. The structure of the individual estimates is contained in the $QX'$ matrix; i.e. the estimate for the $i$th item can be computed from $XQ$ and $Y$ by
+
+- Cross multiplying the $i$th column of $XQ$ with $Y$
+- And adding $R^* \cdot (\text{nominal test})/(\text{nominal restraint})$
+
+**Clarify with an example**
+
+We will clarify the above discussion with an example from the mass calibration process at NIST. In this example, two NIST kilograms are compared with a customer's unknown kilogram.
+
+The design matrix, $X$, is
+
+$$ X = \begin{bmatrix} 1 & -1 & 0 \\ 1 & 0 & -1 \\ 0 & 1 & -1 \end{bmatrix} $$
+
+The first two columns represent the two NIST kilograms while the third column represents the customer's kilogram (i.e., the kilogram being calibrated).
+
+The measurements obtained, i.e., the $Y$ matrix, are
+
+$$ Y = \begin{bmatrix} -0.3800 \\ -1.5900 \\ -1.2150 \end{bmatrix} $$
+
+The measurements are the differences between two measurements, as specified by the design matrix, measured in grams. That is, $Y(1)$ is the difference in measurement between NIST kilogram one and NIST kilogram two, $Y(2)$ is the difference in measurement between NIST kilogram one and the customer kilogram, and $Y(3)$ is the difference in measurement between NIST kilogram two and the customer kilogram.
+
+The value of the reference standard, $R^*$, is 0.82329.
+
+Then
+
+$$ X'X = \begin{bmatrix} 2 & -1 & -1 \\ -1 & 2 & -1 \\ -1 & -1 & 2 \end{bmatrix} $$
+
+If there are three weights with known values for weights one and two, then
+
+$$ r = \begin{bmatrix} 1 & 1 & 0 \end{bmatrix} $$
+
+Thus
+
+$$ A = \begin{bmatrix} 2 & -1 & -1 & 1 \\ -1 & 2 & -1 & 1 \\ -1 & -1 & 2 & 0 \\ 1 & 1 & 0 & 0 \end{bmatrix} $$
+
+and so
+
+$$ A^{-1} = \frac{1}{6} \begin{bmatrix} 1 & -1 & 0 & 3 \\ -1 & 1 & 0 & 3 \\ 0 & 0 & 3 & 3 \\ 3 & 3 & 3 & 0 \end{bmatrix} $$
+
+From $A^{-1}$, we have
+
+$$ Q = \frac{1}{6} \begin{bmatrix} 1 & -1 & 0 \\ -1 & 1 & 0 \\ 0 & 0 & 3 \end{bmatrix} $$
+
+We then compute $QX'$
+
+$$ QX' = \frac{1}{6} \begin{bmatrix} 2 & 1 & -1 \\ -2 & -1 & 1 \\ 0 & -3 & -3 \end{bmatrix} $$
+
+We then compute $B = QX'Y + h'R^*$
+
+This yields the following least-squares coefficient estimates:
+
+$$ B = \begin{bmatrix} 0.2225 & 0.6008 & 1.8141 \end{bmatrix} $$
+
+We can verify this whole computation directly in R:
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+X_kg <- matrix(c(
+  1, -1,  0,
+  1,  0, -1,
+  0,  1, -1
+), nrow = 3, byrow = TRUE)
+
+Y_kg <- c(-0.3800, -1.5900, -1.2150)
+Rstar_kg <- 0.82329
+r_kg <- c(1, 1, 0)
+m_kg <- ncol(X_kg)
+
+XtX_kg <- t(X_kg) %*% X_kg
+A_kg <- rbind(cbind(XtX_kg, r_kg), c(r_kg, 0))
+Ainv_kg <- solve(A_kg)
+Q_kg <- Ainv_kg[1:m_kg, 1:m_kg]
+h_kg <- Ainv_kg[1:m_kg, m_kg + 1]
+
+B_kg <- Q_kg %*% t(X_kg) %*% Y_kg + h_kg * Rstar_kg
+round(as.vector(B_kg), 4)
+```
+
+The computed values, `r paste(round(as.vector(B_kg), 4), collapse = ", ")`, agree with NIST's stated $B = (0.2225, \ 0.6008, \ 1.8141)$ to the reported precision.
+
+**Standard deviations of estimates**
+
+The standard deviation for the $i$th item is:
+
+$$ s_{item_i} = \sqrt{v(i)' Q v(i) \, {\large s}_1^2 + v(i)' D v(i) \, {\large s}_{days}^2} $$
+
+where
+
+$$ D = (QX'X)(QX'X)' $$
+
+The process standard deviation, which is a measure of the overall precision of the (NIST) mass calibration process,
+
+$$ {\large s}_1 = \sqrt{\frac{1}{n-m+1} Y'(I - XQX')Y} $$
+
+is the residual standard deviation from the design, and $s_{days}$ is the standard deviation for days, which can only be estimated from [check standard measurements](#sec-mpc-3332).
+
+**Example**
+
+We continue the example started above. Since $n$ = 3 and $m$ = 3, the formula reduces to:
+
+$$ {\large s}_1 = \sqrt{Y'(I - XQX')Y} $$
+
+Substituting the values shown above for $X$, $Y$, and $Q$ results in
+
+$$ (I - XQX') = \begin{bmatrix} 0.3333 & -0.3333 & 0.3333 \\ -0.3333 & 0.3333 & -0.3333 \\ 0.3333 & -0.3333 & 0.3333 \end{bmatrix} $$
+
+and
+
+$$ Y'(I - XQX')Y = 0.0000083333 $$
+
+Finally, taking the square root gives
+
+$$ {\large s}_1 = 0.002887 $$
+
+The next step is to compute the standard deviation of item 3 (the customer's kilogram), that is $s_{item_3}$. We start by substituting the values for $X$ and $Q$ and computing $D$
+
+$$ D = (QX'X)(QX'X)' = \begin{bmatrix} 0.5 & -0.5 & 0.0 \\ -0.5 & 0.5 & 0.0 \\ 0.0 & 0.0 & 1.5 \end{bmatrix} $$
+
+Next, we substitute $v(i)' = [0 \ 0 \ 1]$ and $s_{days}^2 = 0.02111^2$ (this value is taken from a check standard and not computed from the values given in this example).
+
+We obtain the following computations
+
+$$ v(i)'Qv(i) = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix} \frac{1}{6}\begin{bmatrix} 1 & -1 & 0 \\ -1 & 1 & 0 \\ 0 & 0 & 3 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} = 0.5 $$
+
+and
+
+$$ v(i)'Dv(i) = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 0.5 & -0.5 & 0 \\ -0.5 & 0.5 & 0.0 \\ 0 & 0 & 1.5 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} = 1.5 $$
+
+and
+
+$$ s_{item(i)} = \sqrt{v_i'Qv_i \, {\large s}_1^2 + v_i'Dv_i \, {\large s}_{days}^2} $$
+
+$$ s_{item(3)} = \sqrt{0.5 \cdot (0.002887)^2 + 1.5 \cdot (0.0211)^2} = 0.02593 $$
+
+We confirm the entire chain of computation -- $s_1$, $D$, and $s_{item_3}$ -- in R:
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+I3 <- diag(3)
+XQXt_kg <- X_kg %*% Q_kg %*% t(X_kg)
+resid_kg <- as.numeric(t(Y_kg) %*% (I3 - XQXt_kg) %*% Y_kg)
+s1_kg <- sqrt(resid_kg / (3 - 3 + 1))
+
+D_kg <- (Q_kg %*% t(X_kg) %*% X_kg) %*% t(Q_kg %*% t(X_kg) %*% X_kg)
+
+v3 <- c(0, 0, 1)
+s_days_kg <- 0.0211
+s_item3_kg <- sqrt(as.numeric(t(v3) %*% Q_kg %*% v3) * s1_kg^2 +
+                     as.numeric(t(v3) %*% D_kg %*% v3) * s_days_kg^2)
+
+tibble(quantity = c("s1", "s_item3"), value = c(s1_kg, s_item3_kg))
+```
+
+This reproduces NIST's stated $s_1 = 0.002887$ and $s_{item_3} = 0.02593$ to the reported precision.
+
+#### Uncertainties of calibrated values {#sec-mpc-333}
+
+**Uncertainty analysis follows the ISO principles**
+
+This section discusses the calculation of uncertainties of calibrated values from calibration designs. The discussion follows the guidelines in the section on classifying and combining components of uncertainty.<!-- XREF: MPC Section 2.5.2, Classifying and combining components of uncertainty; not yet migrated; source handbook/mpc/section5/mpc52.htm --> Two types of evaluations are covered.
+
+1. type A evaluations<!-- XREF: MPC Section 2.5.3, Type A evaluations; not yet migrated; source handbook/mpc/section5/mpc53.htm --> of time-dependent sources of random error
+2. type B evaluations<!-- XREF: MPC Section 2.5.4, Type B evaluations; not yet migrated; source handbook/mpc/section5/mpc54.htm --> of other sources of error
+
+The latter includes, but is not limited to, uncertainties from sources that are not replicated in the calibration design such as uncertainties of values assigned to reference standards.
+
+**Uncertainties for test items**
+
+Uncertainties associated with calibrated values for test items from designs require calculations that are specific to the individual designs. The steps involved are outlined below.
+
+**Outline for the section on uncertainty analysis**
+
+- [Historical perspective](#sec-mpc-3331)
+- [Assumptions](#sec-mpc-3331)
+- [Example of more realistic model](#sec-mpc-3331)
+- [Computation of repeatability standard deviations](#sec-mpc-3332)
+- [Computation of level-2 standard deviations](#sec-mpc-3332)
+- [Combination of repeatability and level-2 standard deviations](#sec-mpc-3333)
+- [Example of computations for 1,1,1,1 design](#sec-mpc-3334)
+- [Type B uncertainty associated with the restraint](#sec-mpc-3335)
+- [Expanded uncertainty of calibrated values](#sec-mpc-3336)
+
+##### Type A evaluations for calibration designs {#sec-mpc-3331}
+
+**Change over time**
+
+Type A evaluations<!-- XREF: MPC Section 2.5.3, Type A evaluations; not yet migrated; source handbook/mpc/section5/mpc53.htm --> for calibration processes must take into account changes in the measurement process that occur over time.<!-- XREF: MPC Section 2.5.3.1, Changes in the measurement process that occur over time; not yet migrated; source handbook/mpc/section5/mpc531.htm -->
+
+**Historically, uncertainties considered only instrument imprecision**
+
+Historically, computations of uncertainties for calibrated values have treated the precision of the comparator instrument as the primary source of random uncertainty in the result. However, as the precision of instrumentation has improved, effects of other sources of variability have begun to show themselves in measurement processes. This is not universally true, but for many processes, instrument imprecision (short-term variability) cannot explain all the variation in the process.
+
+**Effects of environmental changes**
+
+Effects of humidity, temperature, and other environmental conditions which cannot be closely controlled or corrected must be considered. These tend to exhibit themselves over time, say, as between-day effects. The discussion of between-day (level-2) effects<!-- XREF: MPC Section 2.4.3.2, Between-day (level-2) effects; not yet migrated; source handbook/mpc/section4/mpc432.htm --> relating to gauge studies<!-- XREF: MPC Section 2.4, Gauge R&R Studies; not yet migrated; source handbook/mpc/section4/mpc4.htm --> carries over to the calibration setting, but the computations are not as straightforward.
+
+**Assumptions which are specific to this section**
+
+The computations in this section depend on specific assumptions:
+
+1. Short-term effects associated with instrument response
+   - come from a single distribution
+   - vary randomly from measurement to measurement within a design.
+2. Day-to-day effects
+   - come from a single distribution
+   - vary from artifact to artifact but remain constant for a single calibration
+   - vary from calibration to calibration
+
+**These assumptions have proved useful but may need to be expanded in the future**
+
+These assumptions have proved useful for characterizing high precision measurement processes, but more complicated models may eventually be needed which take the relative magnitudes of the test items into account. For example, in mass calibration, a 100 g weight can be compared with a summation of 50g, 30g and 20 g weights in a single measurement. A sophisticated model might consider the size of the effect as relative to the nominal masses or volumes.
+
+**Example of the two models for a design for calibrating test item using one reference standard**
+
+To contrast the simple model with the more complicated model, a measurement of the difference between $X$, the test item, with unknown and yet to be determined value, $X^*$, and a reference standard, $R$, with known value, $R^*$, and the reverse measurement are shown below.
+
+Model (1) takes into account only instrument imprecision so that:
+
+$$
+\begin{aligned}
+Y_1 &= X - R + error_1 \\
+Y_2 &= R - X + error_2
+\end{aligned}
+$$
+
+with the error terms random errors that come from the imprecision of the measuring instrument.
+
+Model (2) allows for both instrument imprecision and level-2 effects such that:
+
+$$
+\begin{aligned}
+Y_1 &= (X + \Delta_X) - (R + \Delta_R) + error_1 \\
+Y_2 &= (R + \Delta_R) - (X + \Delta_X) + error_2
+\end{aligned}
+$$
+
+where the delta terms explain small changes in the values of the artifacts that occur over time. For both models, the value of the test item is estimated as
+
+$$ \widehat{Test} = X^* = \frac{1}{2} (Y_1 - Y_2) + R^* $$
+
+**Standard deviations from both models**
+
+For model (1), the standard deviation of the test item is
+
+$$ {\large s}_{test} = \frac{{\large s}_1}{\sqrt{2}} \, . $$
+
+For model (2), the standard deviation of the test item is
+
+$$ {\large s}_{test} = \sqrt{\frac{{\large s}_1^2}{2} + \frac{{\large s}_2^2}{2}} \, . $$
+
+**Note on relative contributions of both components to uncertainty**
+
+In both cases, ${\large s}_1$ is the repeatability standard deviation that describes the precision of the instrument and ${\large s}_2$ is the level-2 standard deviation<!-- XREF: MPC Section 2.4.4.2, Level-2 standard deviation; not yet migrated; source handbook/mpc/section4/mpc442.htm --> that describes day-to-day changes. One thing to notice in the standard deviation for the test item is the contribution of ${\large s}_2$ relative to the total uncertainty. If ${\large s}_2$ is large relative to ${\large s}_1$, or dominates, the uncertainty will not be appreciably reduced by adding measurements to the calibration design.
+
+##### Repeatability and level-2 standard deviations {#sec-mpc-3332}
+
+**Repeatability standard deviation comes from the data of a single design**
+
+The repeatability standard deviation of the instrument can be computed in two ways.
+
+1. It can be computed as the residual standard deviation from the design and should be available as output from any software package that reduces data from calibration designs. The matrix equations for this computation are shown in the section on [solutions to calibration designs](#sec-mpc-332). The standard deviation has degrees of freedom
+
+   $$ \nu = n - m + 1 $$
+
+   for $n$ difference measurements and $m$ items. Typically the degrees of freedom are very small. For two differences measurements on a reference standard and test item, the degrees of freedom is $\nu = 1$.
+
+**A more reliable estimate comes from pooling over historical data**
+
+2. A more reliable estimate of the standard deviation can be computed by pooling variances from $K$ calibrations (and then taking its square root) using the same instrument (assuming the instrument is in statistical control). The formula for the pooled estimate is
+
+   $$ {\large s}_1 = \sqrt{\frac{1}{\sum_{k} \nu_k}\sum_{k} \nu_k {\large s}_k^2} \, . $$
+
+**Level-2 standard deviation is estimated from check standard measurements**
+
+The level-2 standard deviation<!-- XREF: MPC Section 2.4.4.2, Level-2 standard deviation; not yet migrated; source handbook/mpc/section4/mpc442.htm --> cannot be estimated from the data of the calibration design. It cannot generally be estimated from repeated designs involving the test items. The best mechanism for capturing the day-to-day effects is a [check standard](#sec-mpc-12), which is treated as a test item and included in each calibration design. Values of the check standard, estimated over time from the calibration design, are used to estimate the standard deviation.
+
+**Assumptions**
+
+The check standard value must be stable over time, and the measurements must be in statistical control for this procedure to be valid. For this purpose, it is necessary to keep a historical record of values for a given check standard, and these values should be kept by instrument and by design.
+
+**Computation of level-2 standard deviation**
+
+Given $K$ historical check standard values,
+
+$$ C_1, \, C_2, \, \ldots, \, C_K $$
+
+the standard deviation of the check standard values is computed as
+
+$$ {\large s}_C = {\large s}_2 = \sqrt{\frac{1}{K-1} \sum_{k=1}^{K} \left( C_k - \overline{C}_{\bullet} \right)^2} $$
+
+where
+
+$$ \overline{C}_{\bullet} = \frac{1}{K} \sum_{k=1}^{K} C_k $$
+
+with degrees of freedom $\nu = K - 1$.
+
+##### Combination of repeatability and level-2 standard deviations {#sec-mpc-3333}
+
+**Standard deviation of test item depends on several factors**
+
+The final question is how to combine the repeatability standard deviation and the standard deviation of the check standard to estimate the standard deviation of the test item. This computation depends on:
+
+- structure of the design
+- position of the check standard in the design
+- position of the reference standards in the design
+- position of the test item in the design
+
+**Derivations require matrix algebra**
+
+Tables for estimating standard deviations for all test items are reported along with the solutions for [all designs in the catalog](#sec-mpc-34). The [use of the tables](#sec-mpc-3334) for estimating the standard deviations for test items is illustrated for the 1,1,1,1 design. [Matrix equations](#sec-mpc-3321) can be used for deriving estimates for designs that are not in the catalog.
+
+The check standard for each design is either an additional test item in the design, other than the test items that are submitted for calibration, or it is a construction, such as the difference between two reference standards as estimated by the design.
+
+##### Calculation of standard deviations for 1,1,1,1 design {#sec-mpc-3334}
+
+**Design with two reference standards and two test items**
+
+An example is shown below for a [1,1,1,1 design](#sec-mpc-design-1-1-1-1) for two reference standards, $R_1$ and $R_2$, and two test items, $X_1$ and $X_2$, and six difference measurements. The restraint, $R^*$, is the sum of values of the two reference standards, and the check standard, which is independent of the restraint, is the difference between the values of the reference standards. The design and its solution are reproduced below.
+
+**Check standard is the difference between the two reference standards**
+
+```
+     OBSERVATIONS   1   1   1   1
+
+         Y(1)       +   -
+         Y(2)       +       -
+         Y(3)       +           -
+         Y(4)           +   -
+         Y(5)           +       -
+         Y(6)               +   -
+
+
+     RESTRAINT      +   +
+
+
+     CHECK STANDARD +   -
+
+
+     DEGREES OF FREEDOM  =  3
+
+
+                         SOLUTION MATRIX
+                          DIVISOR  =  8
+
+     OBSERVATIONS      1      1      1      1
+
+        Y(1)           2     -2      0      0
+        Y(2)           1     -1     -3     -1
+        Y(3)           1     -1     -1     -3
+        Y(4)          -1      1     -3     -1
+        Y(5)          -1      1     -1     -3
+        Y(6)           0      0      2     -2
+        R*             4      4      4      4
+```
+
+**Explanation of solution matrix**
+
+The solution matrix gives values for the test items of
+
+$$
+\begin{aligned}
+X_1^* &= \frac{1}{8} \left( -3Y_2 - Y_3 - 3Y_4 - Y_5 + 2Y_6 \right) + \frac{1}{2} R^* \\
+X_2^* &= \frac{1}{8} \left( -Y_2 - 3Y_3 - Y_4 - 3Y_5 - 2Y_6 \right) + \frac{1}{2} R^*
+\end{aligned}
+$$
+
+**Factors for computing contributions of repeatability and level-2 standard deviations to uncertainty**
+
+```
+     FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+     WT  FACTOR
+            K1     1   1   1   1
+      1  0.3536    +
+      1  0.3536        +
+      1  0.6124            +
+      1  0.6124                +
+      0  0.7071    +   -
+
+
+     FACTORS FOR LEVEL-2 STANDARD DEVIATIONS
+     WT  FACTOR
+            K2     1   1   1   1
+      1  0.7071    +
+      1  0.7071        +
+      1  1.2247            +
+      1  1.2247                +
+      0  1.4141    +   -
+```
+
+The first table shows factors for computing the contribution of the repeatability standard deviation to the total uncertainty. The second table shows factors for computing the contribution of the between-day standard deviation to the uncertainty. Notice that the check standard is the last entry in each table.
+
+We can reproduce both the solution matrix and the $K_1$/$K_2$ factor tables directly from the design and restraint matrices:
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+X_1111 <- matrix(c(
+  1, -1,  0,  0,
+  1,  0, -1,  0,
+  1,  0,  0, -1,
+  0,  1, -1,  0,
+  0,  1,  0, -1,
+  0,  0,  1, -1
+), nrow = 6, byrow = TRUE)
+
+r_1111 <- c(1, 1, 0, 0)   # restraint = sum of the two reference standards
+m_1111 <- ncol(X_1111)
+
+XtX_1111 <- t(X_1111) %*% X_1111
+A_1111 <- rbind(cbind(XtX_1111, r_1111), c(r_1111, 0))
+Ainv_1111 <- solve(A_1111)
+Q_1111 <- Ainv_1111[1:m_1111, 1:m_1111]
+
+D_1111 <- (Q_1111 %*% t(X_1111) %*% X_1111) %*% t(Q_1111 %*% t(X_1111) %*% X_1111)
+
+v_chk <- c(1, -1, 0, 0)   # check standard = R1 - R2
+
+k_factors_1111 <- tibble(
+  item = c("R1", "R2", "X1", "X2", "chk"),
+  K1 = c(sqrt(diag(Q_1111)), sqrt(as.numeric(t(v_chk) %*% Q_1111 %*% v_chk))),
+  K2 = c(sqrt(diag(D_1111)), sqrt(as.numeric(t(v_chk) %*% D_1111 %*% v_chk)))
+)
+k_factors_1111
+```
+
+This reproduces NIST's stated factors ($K_1 = 0.3536$, $K_2 = 0.7071$ for $R_1$ and $R_2$; $K_1 = 0.6124$, $K_2 = 1.2247$ for $X_1$ and $X_2$; $K_1 = 0.7071$, $K_2 = 1.4141$ for the check standard, up to the last-digit rounding NIST used).
+
+**Unifying equation**
+
+The unifying equation is:
+
+$$ {\large s}_{test} = \sqrt{K_1^2 {\large s}_1^2 + K_2^2 {\large s}_{days}^2 } \, . $$
+
+**Standard deviations are computed using the factors from the tables with the unifying equation**
+
+The steps in computing the standard deviation for a test item are:
+
+- Compute the [repeatability standard deviation](#sec-mpc-3332) from historical data.
+- Compute the [standard deviation of the check standard](#sec-mpc-3332) from historical data.
+- Locate the factors, $K_1$ and $K_2$, for the check standard.
+- Compute the between-day variance (using the unifying equation for the check standard). For this example,
+
+$$
+\begin{array}{l}
+{\large s}_2^2 = \left\{ \left( \sqrt{0.5} \, {\large s}_1 \right)^2 + \left( \sqrt{2} \, {\large s}_{days} \right)^2 \right\}
+               = \left\{ \frac{1}{2} {\large s}_1^2 + 2 {\large s}_{days}^2  \right\} \\
+\begin{array}{l}
+\text{implies} \\
+\,\,\, \Longrightarrow
+\end{array} \\
+{\large s}_{days}^2 = \frac{1}{2} \left\{ {\large s}_2^2 - \frac{1}{2}{\large s}_1^2  \right\} \, .
+\end{array}
+$$
+
+- If this variance estimate is negative, set ${\large s}_{days} = 0$. (This is possible and indicates that there is no contribution to uncertainty from day-to-day effects.)
+- Locate the factors, $K_1$ and $K_2$, for the test items, and compute the standard deviations using the unifying equation. For this example,
+
+$$ {\large s}_{X_1} = \sqrt{\frac{3}{8} {\large s}_1^2 + \frac{3}{2} {\large s}_{days}^2}
+                    = \sqrt{\frac{3}{8} {\large s}_1^2 + \frac{3}{2} \cdot \frac{1}{2} \left\{ {\large s}_2^2 - \frac{1}{2}{\large s}_1^2 \right\} }
+                    = \sqrt{\frac{3}{4} {\large s}_2^2} $$
+
+and
+
+$$ {\large s}_{X_2} = {\large s}_{X_1} \, . $$
+
+We can verify this algebraic simplification symbolically is consistent, by checking it numerically over a grid of $s_1$ values holding $s_2$ fixed:
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+s2_fixed <- 0.05
+s1_grid <- seq(0.001, 0.04, length.out = 8)
+
+check_tbl <- tibble(s1 = s1_grid) |>
+  mutate(
+    s_days_sq = pmax(0, 0.5 * (s2_fixed^2 - 0.5 * s1^2)),
+    s_X1_direct = sqrt((3 / 8) * s1^2 + (3 / 2) * s_days_sq),
+    s_X1_simplified = sqrt((3 / 4) * s2_fixed^2)
+  )
+check_tbl
+```
+
+As expected, `s_X1_direct` equals `s_X1_simplified` (up to floating-point rounding) for every value of $s_1$, confirming NIST's algebraic simplification $s_{X_1} = \sqrt{\tfrac{3}{4}s_2^2}$ holds independent of $s_1$.
+
+##### Type B uncertainty {#sec-mpc-3335}
+
+**Type B uncertainty associated with the restraint**
+
+The reference standard is assumed to have known value, $R^*$, for the purpose of solving the calibration design. For the purpose of computing a standard uncertainty, it has a type B uncertainty<!-- XREF: MPC Section 2.5.4, Type B evaluations; not yet migrated; source handbook/mpc/section5/mpc54.htm --> that contributes to the uncertainty of the test item.
+
+The value of $R^*$ comes from a higher-level calibration laboratory or process, and its value is usually reported along with its uncertainty, $U$. If the laboratory also reports the $k$ factor for computing $U$, then the standard deviation of the restraint is
+
+$$ {\large s}_{R^*} = \frac{U}{k} \, . $$
+
+If $k$ is not reported, then a conservative way of proceeding is to assume $k$ = 2.
+
+**Situation where the test is different in size from the reference**
+
+Usually, a reference standard and test item are of the same nominal size and the calibration relies on measuring the small difference between the two; for example, the intercomparison of a reference kilogram compared with a test kilogram. The calibration may also consist of an intercomparison of the reference with a summation of artifacts where the summation is of the same nominal size as the reference; for example, a reference kilogram compared with 500 g + 300 g + 200 g test weights.
+
+**Type B uncertainty for the test artifact**
+
+The type B uncertainty that accrues to the test artifact from the uncertainty of the reference standard is proportional to their nominal sizes; i.e.,
+
+$$ {\large s}_B = \frac{\text{Nominal Test}}{\text{Nominal Restraint}} {\large s}_{R^*} \, . $$
+
+##### Expanded uncertainties {#sec-mpc-3336}
+
+**Standard uncertainty**
+
+The standard uncertainty for the test item is
+
+$$ u = \sqrt{ {\large s}_{test}^2 + \left( \frac{\text{Nominal Test}}{\text{Nominal Restraint}} \right)^2 \left( {\large s}_{R^*} \right)^2 } \, . $$
+
+**Expanded uncertainty**
+
+The expanded uncertainty<!-- XREF: MPC Section 2.5.7, Expanded uncertainty; not yet migrated; source handbook/mpc/section5/mpc57.htm --> is computed as
+
+$$ U = k u $$
+
+where $k$ is either the critical value from the [t table](../01-eda/index.qmd#sec-eda-t-distribution-table) for degrees of freedom $\nu$ or $k$ is set equal to 2.
+
+**Problem of the degrees of freedom**
+
+The calculation of degrees of freedom, $\nu$, can be a problem. Sometimes it can be computed using the Welch-Satterthwaite approximation<!-- XREF: MPC Section 2.5.7.1, Welch-Satterthwaite approximation; not yet migrated; source handbook/mpc/section5/mpc571.htm --> and the structure of the uncertainty of the test item. Degrees of freedom for the standard deviation of the restraint is assumed to be infinite. The coefficients in the Welch-Satterthwaite formula must all be positive for the approximation to be reliable.
+
+**Standard deviation for test item from the 1,1,1,1 design**
+
+For the [1,1,1,1 design](#sec-mpc-3334), the standard deviation of the test items can be rewritten by substituting in the equation
+
+$$ {\large s}_{X_1} = {\large s}_{X_2} =
+   \sqrt{\frac{3}{8}{\large s}_1^2 + \frac{3}{2} {\large s}_{days}^2 } =
+   \sqrt{\frac{3}{8}{\large s}_1^2 + \frac{3}{2} \left\{ \frac{1}{2} {\large s}_2^2 - \frac{1}{4} {\large s}_1^2 \right\} } =
+   \frac{\sqrt{3}}{2} {\large s}_2 $$
+
+so that the degrees of freedom depends only on the degrees of freedom in the standard deviation of the check standard. This device may not work satisfactorily for all designs.
+
+**Standard uncertainty from the 1,1,1,1 design**
+
+To complete the calculation shown in the equation at the top of the page, the nominal value of the test item (which is equal to 1) is divided by the nominal value of the restraint (which is also equal to 1), and the result is squared. Thus, the standard uncertainty is
+
+$$ u = \sqrt{\frac{3}{4} {\large s}_2^2 + {\large s}_{R^*}^2} \, . $$
+
+**Degrees of freedom using the Welch-Satterthwaite approximation**
+
+Therefore, the degrees of freedom is approximated as
+
+$$ \nu = \frac{u^4}{\frac{1}{n-1} \left( \frac{9}{16}{\large s}_2^4 \right)} $$
+
+where $n - 1$ is the degrees of freedom associated with the check standard uncertainty. Notice that the standard deviation of the restraint drops out of the calculation because of an infinite degrees of freedom.

@@ -4,9 +4,7 @@
 
 {{< include statistical-control/index.qmd >}}
 
-## Calibration {#sec-mpc-3}
-
-<!-- Source: handbook/mpc/section3/. TODO: port narrative content, re-implement worked examples in R. This section includes the large Catalog of Calibration Designs (2.3.4) -- scope this with the user before drafting: ~60-70 largely repetitive design-matrix worked examples. -->
+{{< include calibration/index.qmd >}}
 
 ## Gauge R&R Studies {#sec-mpc-4}
 

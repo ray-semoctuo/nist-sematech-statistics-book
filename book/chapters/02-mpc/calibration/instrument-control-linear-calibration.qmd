@@ -1,0 +1,187 @@
+### Instrument control for linear calibration {#sec-mpc-37}
+
+**Purpose**
+
+The purpose of the control program is to guarantee that the calibration of an instrument does not degrade over time.
+
+**Approach**
+
+This is accomplished by exercising quality control on the instrument's output in much the same way that quality control is exercised on components in a process using a modification of the [Shewhart control chart](#sec-mpc-221).
+
+**Check standards needed for the control program**
+
+For linear calibration, it is sufficient to control the end-points and the middle of the calibration interval to ensure that the instrument does not drift out of calibration. Therefore, check standards are required at three points; namely,
+
+- at the lower-end of the regime
+- at the mid-range of the regime
+- at the upper-end of the regime
+
+**Data collection**
+
+One measurement is needed on each check standard for each checking period. It is advisable to start by making control measurements at the start of each day or as often as experience dictates. The time between checks can be lengthened if the instrument continues to stay in control.
+
+**Definition of control value**
+
+To conform to the notation in the section on instrument corrections, $X^*$ denotes the known value of a standard, and $X$ denotes the measurement on the standard.
+
+A control value is defined as the difference
+
+$$ W = X^* - X $$
+
+If the calibration is perfect, control values will be randomly distributed about zero and fall within appropriate upper and lower limits on a control chart.
+
+**Calculation of control limits**
+
+The upper and lower control limits [@CroarkinVarner] are, respectively,
+
+$$ l_{upper} = +\frac{s}{\hat{b}}t_{\alpha/2}^{*}(\nu) $$
+
+$$ l_{lower} = -\frac{s}{\hat{b}}t_{\alpha/2}^{*}(\nu) $$
+
+where $s$ is the residual standard deviation of the fit from the calibration experiment, and $\hat{b}$ is the estimated slope of the linear calibration curve.
+
+**Values t\***
+
+The critical value, $t_{\alpha/2}^{*}$, can be found in the [t\* table](../01-eda/index.qmd#sec-eda-t-star-distribution-table); $\nu$ is the degrees of freedom for the residual standard deviation; and $\alpha$ is equal to 0.05.
+
+**Determining t\***
+
+For the case where $\alpha = 0.05$ and $\nu = 38$, the critical value of the $t^*$ statistic is 2.497575.
+
+R code (adapted below) and Dataplot code can be used to determine $t^*$ critical values using a standard $t$-table for the $\zeta$ quantile and $\nu$ degrees of freedom where $\zeta$ is computed as
+
+$$ \zeta = \frac{1}{2} \left[ 1 - e^{\frac{\ln (1-\alpha)}{m}} \right] $$
+
+where $m$ is the number of check standards.
+
+**Sample Code**
+
+```{r}
+#| code-fold: true
+#| label: t-star-critical-value-mpc37
+#| message: false
+alpha_mpc37 <- 0.05
+m_mpc37 <- 3
+nu_mpc37 <- 38
+
+zeta_mpc37 <- 0.5 * (1 - exp(log(1 - alpha_mpc37) / m_mpc37))
+tstar_mpc37 <- qt(zeta_mpc37, nu_mpc37, lower.tail = FALSE)
+tstar_mpc37
+```
+
+The computed critical value is $t^*_{0.025}(38) \approx$ `r round(tstar_mpc37, 6)`, matching NIST's stated value of 2.497575.
+
+**Sensitivity to departure from linearity**
+
+If
+
+$$ l_{lower} \le W \le l_{upper} $$
+
+the instrument is in statistical control. Statistical control in this context implies not only that measurements are repeatable within certain limits but also that instrument response remains linear. The test is sensitive to departures from linearity.
+
+**Control chart for a system corrected by a linear calibration curve**
+
+An example of [measurements of line widths on photomask standards](#sec-mpc-371), made with an optical imaging system and corrected by a linear calibration curve, are shown as an example. The three control measurements were made on reference standards with values at the lower, mid-point, and upper end of the calibration interval.
+
+#### Control chart for a linear calibration line {#sec-mpc-371}
+
+**Purpose**
+
+Line widths of three photomask reference standards (at the low, middle and high end of the calibration line) were measured on six days with an optical imaging system that had been calibrated from similar measurements on 10 reference artifacts. The [control values](#sec-mpc-37) and [limits for the control chart](#sec-mpc-37), which depend on the intercept and slope of the linear calibration line, monitor the calibration and linearity of the optical imaging system.
+
+**Initial calibration experiment**
+
+The initial calibration experiment consisted of 40 measurements (not shown here) on 10 artifacts and produced a linear calibration line with:
+
+- Intercept = 0.2357
+- Slope = 0.9870
+- Residual standard deviation = 0.06203 micrometers
+- Degrees of freedom = 38
+
+**Line width measurements made with an optical imaging system**
+
+The control measurements, $Y$, and known values, $X$, for the three artifacts at the upper, mid-range, and lower end (U, M, L) of the calibration line are shown in the following table:
+
+| DAY | POSITION | X    | Y    |
+|-----|----------|------|------|
+| 1   | L        | 0.76 | 1.12 |
+| 1   | M        | 3.29 | 3.49 |
+| 1   | U        | 8.89 | 9.11 |
+| 2   | L        | 0.76 | 0.99 |
+| 2   | M        | 3.29 | 3.53 |
+| 2   | U        | 8.89 | 8.89 |
+| 3   | L        | 0.76 | 1.05 |
+| 3   | M        | 3.29 | 3.46 |
+| 3   | U        | 8.89 | 9.02 |
+| 4   | L        | 0.76 | 0.76 |
+| 4   | M        | 3.29 | 3.75 |
+| 4   | U        | 8.89 | 9.30 |
+| 5   | L        | 0.76 | 0.96 |
+| 5   | M        | 3.29 | 3.53 |
+| 5   | U        | 8.89 | 9.05 |
+| 6   | L        | 0.76 | 1.03 |
+| 6   | M        | 3.29 | 3.52 |
+| 6   | U        | 8.89 | 9.02 |
+
+The reader can download the [data as a text file](../../datasets/LINEWID.DAT).
+
+**Control chart**
+
+The control chart shown below reproduces NIST's example, using the control-value definition $W = X^* - X$ with the measurement corrected by the initial calibration line, i.e. $X = (Y - \text{intercept})/\text{slope}$, and [the control limits above](#sec-mpc-37) evaluated with $s = 0.06203$, $\hat{b} = 0.9870$, $\nu = 38$, and $t^*_{0.025}(38) = 2.497575$.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-371-control-chart
+#| fig-cap: "Control chart for optical imaging system: control values for line-width measurements on three photomask standards (lower, mid-range, upper) over six days, corrected for the linear calibration line"
+#| message: false
+library(tidyverse)
+
+linewid_mpc371 <- read_table(
+  here::here("datasets", "LINEWID.DAT"),
+  skip = 25,
+  col_names = c("day", "position", "x", "y"),
+  col_types = "dcdd"
+)
+
+intercept_mpc371 <- 0.2357
+slope_mpc371 <- 0.9870
+sd_mpc371 <- 0.06203
+df_mpc371 <- 38
+alpha_mpc371 <- 0.05
+m_mpc371 <- 3
+
+zeta_mpc371 <- 0.5 * (1 - exp(log(1 - alpha_mpc371) / m_mpc371))
+tstar_mpc371 <- qt(zeta_mpc371, df_mpc371, lower.tail = FALSE)
+
+linewid_mpc371 <- linewid_mpc371 |>
+  mutate(
+    position = factor(position, levels = c("L", "M", "U")),
+    w = ((y - intercept_mpc371) / slope_mpc371) - x
+  )
+
+ucl_mpc371 <- sd_mpc371 / slope_mpc371 * tstar_mpc371
+lcl_mpc371 <- -ucl_mpc371
+
+ggplot(linewid_mpc371, aes(day, w)) +
+  geom_point(aes(shape = position), color = "steelblue4", size = 2.2) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_hline(yintercept = ucl_mpc371, color = "firebrick", linetype = "dashed") +
+  geom_hline(yintercept = lcl_mpc371, color = "firebrick", linetype = "dashed") +
+  scale_x_continuous(breaks = 1:6) +
+  labs(
+    x = "Time in days",
+    y = expression(paste("control values ( ", mu, "m)")),
+    shape = "Position"
+  ) +
+  theme_light()
+```
+
+The pooled residual standard deviation used above, $s =$ `r sd_mpc371`, together with $\hat{b} =$ `r slope_mpc371` and $t^*_{0.025}(38) =$ `r round(tstar_mpc371, 6)`, gives control limits of $\pm$ `r round(ucl_mpc371, 4)` micrometers, matching the limits shown on NIST's original control chart. The largest departures occur on day 4, where all three control values (L: `r round(linewid_mpc371$w[linewid_mpc371$day == 4 & linewid_mpc371$position == "L"], 4)`, M: `r round(linewid_mpc371$w[linewid_mpc371$day == 4 & linewid_mpc371$position == "M"], 4)`, U: `r round(linewid_mpc371$w[linewid_mpc371$day == 4 & linewid_mpc371$position == "U"], 4)`) fall outside the control limits, confirming NIST's stated interpretation below.
+
+**Interpretation of control chart**
+
+The control measurements show no evidence of drift and are within the control limits except on the fourth day when all three control values are outside the limits. The cause of the problem on that day cannot be diagnosed from the data at hand, but all measurements made on that day, including workload items, should be rejected and remeasured.
+
+#### Table of t* distribution {#sec-mpc-372}
+
+Critical values of the t\* distribution for testing the output of a linear calibration line at 3 points, at significance level $\alpha = 0.05$, are needed to compute [the control limits](#sec-mpc-37). This is the same t\* table used elsewhere in the handbook; rather than reproduce all 120 rows a second time, see the full table at [Critical Values of the t\* Distribution](../01-eda/index.qmd#sec-eda-t-star-distribution-table).

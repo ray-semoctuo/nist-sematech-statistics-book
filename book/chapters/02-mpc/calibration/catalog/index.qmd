@@ -1,0 +1,123 @@
+### Catalog of calibration designs {#sec-mpc-34}
+
+**Important concept - Restraint**
+
+The designs are constructed for measuring differences among reference standards and test items, singly or in combinations. Values for individual standards and test items can be computed from the design only if the value (called the restraint = $R^*$) of one or more reference standards is known. The methodology for constructing and solving calibration designs is described briefly in [matrix solutions](#sec-mpc-3321) and in more detail in a NIST publication ([@Cameronetal]).
+
+**Designs listed in this catalog**
+
+Designs are listed by traditional subject area although many of the designs are appropriate generally for intercomparisons of artifact standards.
+
+1. [Designs for mass weights](#sec-mpc-341)
+2. [Drift-eliminating designs for gage blocks](#sec-mpc-342)
+3. [Left-right balanced designs for electrical standards](#sec-mpc-343)
+4. [Designs for roundness standards](#sec-mpc-344)
+5. [Designs for angle blocks](#sec-mpc-345)
+6. [Drift-eliminating design for thermometers in a bath](#sec-mpc-346)
+7. [Drift-eliminating designs for humidity cylinders](#sec-mpc-347)
+
+**Properties of designs in this catalog**
+
+Basic requirements are:
+
+1. The differences must be nominally zero.
+2. The design must be solvable for individual items given the restraint.
+
+Other desirable properties are:
+
+1. The number of measurements should be small.
+2. The degrees of freedom should be greater than zero.
+3. The standard deviations of the estimates for the test items should be small enough for their intended purpose.
+
+**Information: Design, Solution, Factors for computing standard deviations**
+
+Given
+
+- $n$ = number of difference measurements
+- $m$ = number of artifacts (reference standards + test items) to be calibrated
+
+the following information is shown for each design:
+
+- Design matrix -- ($n \times m$)
+- Vector that identifies standards in the restraint -- ($1 \times m$)
+- Degrees of freedom = ($n - m + 1$)
+- Solution matrix for given restraint -- ($n \times m$)
+- Table of factors for computing standard deviations
+
+**Convention for showing the measurement sequence**
+
+Nominal sizes of standards and test items are shown at the top of the design. Pluses (+) indicate items that are measured together; and minuses (-) indicate items are not measured together. The difference measurements are constructed from the design of pluses and minuses. For example, a 1,1,1 design for one reference standard and two test items of the same nominal size with three measurements is shown below:
+
+```
+                 1     1     1
+
+          Y(1) = +     -
+
+          Y(2) = +           -
+
+          Y(3) =       +     -
+```
+
+**Solution matrix -- example and interpretation**
+
+The cross-product of the column of difference measurements and $R^*$ with a column from the solution matrix, divided by the named divisor, gives the value for an individual item. For example,
+
+```
+                 Solution matrix
+                   Divisor = 3
+
+                 1       1      1
+
+          Y(1)   0      -2     -1
+          Y(2)   0      -1     -2
+          Y(3)   0      +1     -1
+          R*    +3      +3     +3
+```
+
+implies that estimates for the restraint and the two test items are:
+
+$$
+\begin{aligned}
+\widehat{R^*}    &= \frac{1}{3} \left\{ 0 Y_1 + 0 Y_2 + 0 Y_3 + 3 R^*  \right\} = R^* \\
+\widehat{Test}_1 &= \frac{1}{3} \left\{ -2 Y_1 - Y_2 + Y_3 + 3 R^* \right\} \\
+\widehat{Test}_2 &= \frac{1}{3} \left\{ -Y_1 - 2 Y_2 - Y_3 + 3 R^* \right\}
+\end{aligned}
+$$
+
+**Interpretation of table of factors**
+
+The factors in this table provide information on precision. The repeatability standard deviation, ${\large s}_1$, is multiplied by the appropriate factor to obtain the standard deviation for an individual item or combination of items. For example,
+
+```
+        Sum    Factor     1      1      1
+
+        1      0.0000     +
+        1      0.8166           +
+        1      0.8166                   +
+        2      1.4142            +      +
+```
+
+implies that the standard deviations for the estimates are:
+
+$$
+\begin{aligned}
+{\large s}_{R^*} &= 0 \\
+{\large s}_{{test}_{ \, 1}} &= 0.8166 \cdot {\large s}_1 \\
+{\large s}_{{test}_{ \, 2}} &= 0.8166 \cdot {\large s}_1 \\
+{\large s}_{{test}_{\, 1+2}} &= 1.4142 \cdot {\large s}_1
+\end{aligned}
+$$
+
+{{< include calibration/catalog/mass-weights/index.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/index.qmd >}}
+
+{{< include calibration/catalog/electrical-standards/index.qmd >}}
+
+{{< include calibration/catalog/roundness-standards.qmd >}}
+
+{{< include calibration/catalog/angle-blocks.qmd >}}
+
+{{< include calibration/catalog/thermometers.qmd >}}
+
+{{< include calibration/catalog/humidity-standards.qmd >}}

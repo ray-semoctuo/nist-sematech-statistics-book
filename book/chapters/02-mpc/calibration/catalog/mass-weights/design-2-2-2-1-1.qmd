@@ -1,0 +1,73 @@
+##### Design for 2,2,2,1,1 {#sec-mpc-design-2-2-2-1-1}
+
+```
+Design 2,2,2,1,1
+
+
+ OBSERVATIONS   2   2   2   1   1
+
+
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)           +   -
+     Y(4)       +           -   -
+     Y(5)           +       -   -
+     Y(6)               +   -   -
+     Y(7)                   +   -
+
+
+ RESTRAINT      +   +
+
+ CHECK STANDARD             +
+
+
+ DEGREES OF FREEDOM  =      3
+
+
+
+                        SOLUTION MATRIX
+                         DIVISOR =  16
+
+ OBSERVATIONS      2      2      2      1      1
+
+
+    Y(1)           4     -4      0      0      0
+    Y(2)           2     -2     -6     -1     -1
+    Y(3)          -2      2     -6     -1     -1
+    Y(4)           2     -2     -2     -3     -3
+    Y(5)          -2      2     -2     -3     -3
+    Y(6)           0      0      4     -2     -2
+    Y(7)           0      0      0      8     -8
+    R*             8      8      8      4      4
+
+    R* = sum of the two reference standards
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+               2   2   2   1   1
+  2  0.3536    +
+  2  0.3536        +
+  2  0.6124            +
+  1  0.5863                +
+  1  0.5863                    +
+  2  0.6124                +   +
+  4  1.0000            +   +   +
+  1  0.5863                +
+
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT  FACTOR
+               2   2   2   1   1
+  2  0.7071    +
+  2  0.7071        +
+  2  1.2247            +
+  1  1.0607               +
+  1  1.0607                    +
+  2  1.5811                +   +
+  4  2.2361            +   +   +
+  1  1.0607                +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

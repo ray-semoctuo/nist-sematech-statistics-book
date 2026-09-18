@@ -1,0 +1,66 @@
+### Issues in calibration {#sec-mpc-31}
+
+**Calibration reduces bias**
+
+Calibration is a measurement process that assigns values to the property of an artifact or to the response of an instrument relative to reference standards or to a designated measurement process. The purpose of calibration is to eliminate or reduce bias in the user's measurement system relative to the reference base.
+
+**Artifact & instrument calibration**
+
+The calibration procedure compares an "unknown" or test item(s) or instrument with reference standards according to a specific algorithm. Two general types of calibration are considered in this Handbook:
+
+- [artifact calibration at a single point](#sec-mpc-32)
+- instrument calibration over a regime<!-- XREF: MPC Section 2.3.6, Instrument calibration over a regime, not yet migrated to this book; source handbook/mpc/section3/mpc36.htm -->
+
+**Types of calibration not discussed**
+
+The procedures in this Handbook are appropriate for calibrations at secondary or lower levels of the traceability chain where reference standards for the unit already exist. Calibration from first principles of physics and reciprocity calibration are not discussed.
+
+#### Reference base {#sec-mpc-311}
+
+**Ultimate authority**
+
+The most critical element of any measurement process is the relationship between a single measurement and the reference base for the unit of measurement. The reference base is the ultimate source of authority for the measurement unit.
+
+**Base and derived units of measurement**
+
+The base units of measurement in the Le Systeme International d'Unites (SI) are [@Taylor]:
+
+- kilogram - mass
+- meter - length
+- second - time
+- ampere - electric current
+- kelvin - thermodynamic temperature
+- mole - amount of substance
+- candela - luminous intensity
+
+These units are maintained by the Bureau International des Poids et Mesures in Paris. Local reference bases for these units and SI derived units such as:
+
+- pascal - pressure
+- newton - force
+- hertz - frequency
+- ohm - resistance
+- degrees Celsius - Celsius temperature, etc.
+
+are maintained by national and regional standards laboratories.
+
+**Other sources**
+
+Consensus values from interlaboratory tests or instrumentation/standards as maintained in specific environments may serve as reference bases for other units of measurement.
+
+#### Reference standards {#sec-mpc-312}
+
+**Primary reference standards**
+
+A reference standard for a unit of measurement is an artifact that embodies the quantity of interest in a way that ties its value to the reference base.
+
+At the highest level, a primary reference standard is assigned a value by direct comparison with the reference base. Mass is the only unit of measurement that is defined by an artifact. The kilogram is defined as the mass of a platinum-iridium kilogram that is maintained by the Bureau International des Poids et Mesures in Sevres, France. (This reflects the SI definition in effect when NIST wrote this text; since the 2019 redefinition of the SI, the kilogram is instead defined by fixing the numerical value of the Planck constant, and the platinum-iridium artifact is no longer the primary reference.)
+
+Primary reference standards for other units come from realizations of the units embodied in artifact standards. For example, the reference base for length is the meter which is defined as the length of the path by light in vacuum during a time interval of 1/299,792,458 of a second.
+
+**Secondary reference standards**
+
+Secondary reference standards are calibrated by comparing with primary standards using a high precision comparator and making appropriate corrections for non-ideal conditions of measurement.
+
+Secondary reference standards for mass are stainless steel kilograms, which are calibrated by comparing with a primary standard on a high precision balance and correcting for the buoyancy of air. In turn these weights become the reference standards for assigning values to test weights.
+
+Secondary reference standards for length are gage blocks, which are calibrated by comparing with primary gage block standards on a mechanical comparator and correcting for temperature. In turn, these gage blocks become the reference standards for assigning values to test sets of gage blocks.

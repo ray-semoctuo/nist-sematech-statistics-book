@@ -1,0 +1,64 @@
+##### Doiron 6-12 Design {#sec-mpc-design-doiron-6-12}
+
+```
+ Doiron 6-12 Design
+
+ OBSERVATIONS   1   1   1   1   1   1
+
+     Y(1)       +   -
+     Y(2)                   -   +
+     Y(3)               -           +
+     Y(4)                       -   +
+     Y(5)           -       +
+     Y(6)               +   -
+     Y(7)       +                   -
+     Y(8)           +           -
+     Y(9)           +   -
+     Y(10)      -               +
+     Y(11)          +               -
+     Y(12)      -           +
+
+ RESTRAINT      +
+
+
+ CHECK STANDARD     +
+
+
+ DEGREES OF FREEDOM  =      7
+
+
+                      SOLUTION MATRIX
+                       DIVISOR = 360
+
+ OBSERVATIONS   1         1      1      1      1      1
+
+    Y(1)        0      -136    -96    -76    -72    -76
+    Y(2)        0        -4    -24    -79     72     11
+    Y(3)        0       -20   -120    -35      0     55
+    Y(4)        0         4     24    -11    -72     79
+    Y(5)        0       -60      0     75      0    -15
+    Y(6)        0        20    120    -55      0     35
+    Y(7)        0       -76    -96    -61    -72   -151
+    Y(8)        0        64     24      4    -72      4
+    Y(9)        0        40   -120    -20      0    -20
+    Y(10)       0        72     72     72    144     72
+    Y(11)       0        60      0     15      0    -75
+    Y(12)       0        76     96    151     72     61
+    R*        360       360    360    360    360    360
+
+    R* = Value of the reference standard
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ NOM FACTOR
+               1   1   1   1   1   1
+  1  0.0000    +
+  1  0.6146        +
+  1  0.7746            +
+  1  0.6476                +
+  1  0.6325                    +
+  1  0.6476                        +
+  1  0.6146        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

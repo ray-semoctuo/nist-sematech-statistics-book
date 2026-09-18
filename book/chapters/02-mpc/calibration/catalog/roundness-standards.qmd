@@ -1,0 +1,144 @@
+#### Roundness measurements {#sec-mpc-344}
+
+**Roundness measurements**
+
+Measurements of roundness require 360° traces of the workpiece made with a turntable-type instrument or a stylus-type instrument. A least squares fit of points on the trace to a circle define the parameters of noncircularity of the workpiece. A diagram of the measurement method is shown below.<!-- XREF: diagram of the roundness measurement method (trace, spindle center, Y, P, R); source handbook/mpc/section3/mpc344.gif -->
+
+**Diagram of the measurement method**
+
+The diagram shows the trace and $Y$, the distance from the spindle center to the trace at the angle. A least squares circle fit to data at equally spaced angles gives estimates of $P - R$, the noncircularity, where $R$ = radius of the circle and $P$ = distance from the center of the circle to the trace.
+
+**Low precision measurements**
+
+Some measurements of roundness do not require a high level of precision, such as measurements on cylinders, spheres, and ring gages where roundness is not of primary importance. For this purpose, a single trace is made of the workpiece.
+
+**Weakness of single trace method**
+
+The weakness of this method is that the deviations contain both the spindle error and the workpiece error, and these two errors cannot be separated with the single trace. Because the spindle error is usually small and within known limits, its effect can be ignored except when the most precise measurements are needed.
+
+**High precision measurements**
+
+High precision measurements of roundness are appropriate where an object, such as a hemisphere, is intended to be used primarily as a roundness standard.
+
+**Measurement method**
+
+The measurement sequence involves making multiple traces of the roundness standard where the standard is rotated between traces. Least-squares analysis of the resulting measurements enables the noncircularity of the spindle to be separated from the profile of the standard.
+
+**Choice of measurement method**
+
+A synopsis of the measurement method and the estimation technique are given in this chapter for:
+
+1. [Single-trace method](#sec-mpc-design-single-trace-roundness)
+2. [Multiple-trace method](#sec-mpc-design-multiple-trace-roundness)
+
+The reader is encouraged to obtain a copy of the publication on roundness ([@ReeveRoundness]) for a more complete description of the measurement method and analysis.
+
+##### Single-trace roundness design {#sec-mpc-design-single-trace-roundness}
+
+**Low precision measurements**
+
+Some measurements of roundness do not require a high level of precision, such as measurements on cylinders, spheres, and ring gages where roundness is not of primary importance. The [diagram of the measurement method](#sec-mpc-344) shows the trace and $Y$, the distance from the spindle center to the trace at the angle. A least-squares circle fit to data at equally spaced angles gives estimates of $P - R$, the noncircularity, where $R$ is the radius of the circle and $P$ is the distance from the center of the circle to the trace.
+
+**Single trace method**
+
+For this purpose, a single trace covering exactly 360° is made of the workpiece and measurements $Y_i$ at angles $\theta_i$ of the distance between the center of the spindle and the trace, are made at
+
+$$ \theta_i \{ i=1, \, \ldots, \, N\} $$
+
+equally spaced angles. A least-squares circle fit to the data gives the following estimators of the parameters of the circle.
+
+$$
+\begin{aligned}
+\widehat{R} &= \frac{1}{N} \sum_{i=1}^{N} Y_i \\
+\widehat{a} &= \frac{2}{N} \sum_{i=1}^{N} Y_i \, \cos(\theta_i) \\
+\widehat{b} &= \frac{2}{N} \sum_{i=1}^{N} Y_i \, \sin(\theta_i)
+\end{aligned}
+$$
+
+**Noncircularity of workpiece**
+
+The deviation of the trace from the circle at angle $\theta_i$, which defines the noncircularity of the workpiece, is estimated by:
+
+$$ \widehat{\Delta} = Y_i - \widehat{R} - \widehat{a} \, \cos(\theta_i) - \widehat{b} \, \sin(\theta_i) \, . $$
+
+**Weakness of single trace method**
+
+The weakness of this method is that the deviations contain both the spindle error and the workpiece error, and these two errors cannot be separated with the single trace. Because the spindle error is usually small and within known limits, its effect can be ignored except when the most precise measurements are needed.
+
+##### Multiple-trace roundness designs {#sec-mpc-design-multiple-trace-roundness}
+
+**High precision measurements**
+
+High precision roundness measurements are required when an object, such as a hemisphere, is intended to be used primarily as a roundness standard. The method outlined on this page is appropriate for either a turntable-type instrument or a spindle-type instrument.
+
+**Measurement method**
+
+The measurement sequence involves making multiple traces of the roundness standard where the standard is rotated between traces. Least-squares analysis of the resulting measurements enables the noncircularity of the spindle to be separated from the profile of the standard. The reader is referred to the publication on the subject ([@ReeveRoundness]) for details covering measurement techniques and analysis.
+
+**Method of n traces**
+
+The number of traces that are made on the workpiece is arbitrary but should not be less than four. The workpiece is centered as well as possible under the spindle. The mark on the workpiece which denotes the zero angular position is aligned with the zero position of the spindle as shown in the [graph](#sec-mpc-344). A trace is made with the workpiece in this position. The workpiece is then rotated clockwise by $360/n$ degrees and another trace is made. This process is continued until $n$ traces have been recorded.
+
+**Mathematical model for estimation**
+
+For $i = 1, \ldots, n$, the $i$th angular position is denoted by
+
+$$ \theta_i = \frac{360(i-1)}{n} \; \text{deg} \,\, . $$
+
+**Definition of terms relating to distances to the least squares circle**
+
+The deviation from the least squares circle (LSC) of the workpiece at the $\theta_i$ position is $\alpha_i$.
+
+The deviation of the spindle from its LSC at the $\alpha_i$ position is $\beta_i$.
+
+**Terms relating to parameters of least squares circle**
+
+For the $j$th graph, let the three parameters that define the LSC be given by
+
+$$ R_j, \, a_j, \, b_j $$
+
+defining the radius $R$, $a$, and $b$ as shown in the graph. In an idealized measurement system these parameters would be constant for all $j$. In reality, each rotation of the workpiece causes it to shift a small amount vertically and horizontally. To account for this shift, separate parameters are needed for each trace.
+
+**Correction for obstruction to stylus**
+
+Let $Y_{ij}$ be the observed distance (in polar graph units) from the center of the $j$th graph to the point on the curve that corresponds to the $\theta_i$ position of the spindle. If $K$ is the magnification factor of the instrument in microinches/polar graph unit and $\delta$ is the angle between the lever arm of the stylus and the tangent to the workpiece at the point of contact (which normally can be set to zero if there is no obstruction), the transformed observations to be used in the estimation equations are:
+
+$$ Z_{ij} = K \, \cos (\delta) \, Y_{ij} \, . $$
+
+**Estimates for parameters**
+
+The estimation of the individual parameters is obtained as a least-squares solution that requires six restraints which essentially guarantee that the sum of the vertical and horizontal deviations of the spindle from the center of the LSC are zero. The expressions for the estimators are as follows:
+
+$$
+\begin{aligned}
+\widehat{\alpha}_i &= \sum_{j=1}^n \sum_{k=1}^n t_{k-i+j+n} \, Z_{kj} \\
+\widehat{\beta}_i  &= \sum_{j=1}^n \sum_{k=1}^n t_{k-i+1+n} \, Z_{kj} \\
+\widehat{R}_j  &= \sum_{k=1}^n Z_{kj} \\
+\widehat{a}_j  &=  \frac{2}{n} \sum_{k=1}^n Z_{kj} \, \cos (\theta_k) \\
+\widehat{b}_j  &=  \frac{2}{n} \sum_{k=1}^n Z_{kj} \, \sin (\theta_k) \,\, ,
+\end{aligned}
+$$
+
+where
+
+$$
+\begin{aligned}
+t_m &= \frac{n-3}{n^2} ; \,\, m=1 \\
+t_m &= -\frac{1}{n^2} \left( 1 + 2 \cos (\theta_m) \right) ; \,\, 2 \le m \le n \,\, .
+\end{aligned}
+$$
+
+Finally, the standard deviations of the profile estimators are given by:
+
+$$ {\large s}_{\alpha_i} = {\large s}_{\beta_i} = \frac{\sqrt{n-3}}{n} {\large s} \, ; \,\, (i = 1, \, \ldots, \, n) \, . $$
+
+**Computation of standard deviation**
+
+The computation of the residual standard deviation of the fit requires, first, the computation of the predicted values,
+
+$$ \widehat{Z}_{ij} = \widehat{\alpha}_{i+j-1} - \widehat{\beta}_i + \widehat{R}_j + \widehat{a}_j \, \cos(\theta_i) +
+   \widehat{b}_j \, \sin(\theta_i) \,\, . $$
+
+The residual standard deviation with $\nu = n^2 - 5n + 6$ degrees of freedom is
+
+$$ {\large s} = \sqrt{\frac{1}{n^2 - 5n + 6} \sum_{j=1}^n \sum_{i=1}^n \left(  Z_{ij} - \widehat{Z}_{ij} \right) ^2} \,\, . $$

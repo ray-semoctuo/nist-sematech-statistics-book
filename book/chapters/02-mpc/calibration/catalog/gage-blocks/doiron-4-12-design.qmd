@@ -1,0 +1,62 @@
+##### Doiron 4-12 Design {#sec-mpc-design-doiron-4-12}
+
+```
+ Doiron 4-12 Design
+
+ OBSERVATIONS   1   1   1   1
+
+     Y(1)       +   -
+     Y(2)       +           +
+     Y(3)               +   -
+     Y(4)       -   +
+     Y(5)           +   -
+     Y(6)           -       +
+     Y(7)       +       -
+     Y(8)           +       -
+     Y(9)       +           -
+     Y(10)          -   +
+     Y(11)      -       +
+     Y(12)              -   +
+
+ RESTRAINT      +
+
+
+ CHECK STANDARD     +
+
+
+ DEGREES OF FREEDOM  =      9
+
+
+                      SOLUTION MATRIX
+                       DIVISOR  =  8
+
+ OBSERVATIONS     1       1      1      1
+
+    Y(1)          0      -2     -1     -1
+    Y(2)          0       1      1      2
+    Y(3)          0       0      1     -1
+    Y(4)          0       2      1      1
+    Y(5)          0       1     -1      0
+    Y(6)          0      -1      0      1
+    Y(7)          0      -1     -2     -1
+    Y(8)          0       1      0     -1
+    Y(9)          0      -1     -1     -2
+    Y(10)         0      -1      1      0
+    Y(11)         0       1      2      1
+    Y(12)         0       0     -1      1
+    R*            6       6      6      4
+
+    R* = Value of the reference standard
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ NOM FACTOR
+               1   1   1   1
+  1  0.0000    +
+  1  0.5000        +
+  1  0.5000            +
+  1  0.5000                +
+  1  0.5000        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

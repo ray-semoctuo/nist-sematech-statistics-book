@@ -1,0 +1,59 @@
+##### Left-right balanced design for 4 standard cells {#sec-mpc-design-left-right-balanced-4-cells}
+
+Design 1,1,1,1
+
+```
+
+ OBSERVATIONS   1   1   1   1
+     Y(1)       +   -
+     Y(2)       +       -
+     Y(3)           +   -
+     Y(4)           +       -
+     Y(5)               +   -
+     Y(6)       -       +
+     Y(7)           -   +
+     Y(8)           -       +
+     Y(9)       -           +
+     Y(10)              -   +
+     Y(11)      -   +
+     Y(12)      +           -
+
+ RESTRAINT      +   +   +   +
+
+
+ DEGREES OF FREEDOM  =  8
+
+
+                         SOLUTION MATRIX
+                           DIVISOR =  8
+ OBSERVATIONS      1      1      1      1      P
+
+    Y(1)           1     -1      0      0      1
+    Y(2)           1      0     -1      0      1
+    Y(3)           0      1     -1      0      1
+    Y(4)           0      1      0     -1      1
+    Y(5)           0      0      1     -1      1
+    Y(6)          -1      0      1      0      1
+    Y(7)           0     -1      1      0      1
+    Y(8)           0     -1      0      1      1
+    Y(9)          -1      0      0      1      1
+    Y(10)          0      0     -1      1      1
+    Y(11)         -1      1      0      0      1
+    Y(12)          1      0      0     -1      1
+    R*             2      2      2      2      0
+
+    R* = AVERAGE VALUE OF 4 REFERENCE CELLS
+
+    P = LEFT-RIGHT BIAS
+
+
+ FACTORS FOR COMPUTING STANDARD DEVIATIONS
+  V  FACTOR        CELLS
+               1   1   1   1
+  1  0.3062    +
+  1  0.3062        +
+  1  0.3062            +
+  1  0.3062                +
+```
+
+<!-- XREF: MPC Section 2.3.4, Explanation of notation and interpretation of tables; not yet migrated; source handbook/mpc/section3/mpc34.htm#convention -->

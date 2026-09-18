@@ -1,0 +1,138 @@
+#### Mass weights {#sec-mpc-341}
+
+**Tie to kilogram reference standards**
+
+Near-accurate mass measurements require a sequence of designs that relate the masses of individual weights to a reference kilogram(s) standard [@JaegerDavis]. Weights generally come in sets, and an entire set may require several series to calibrate all the weights in the set.
+
+**Example of weight set**
+
+A 5,3,2,1 weight set would have the following weights:
+
+- 1000 g
+- 500 g, 300 g, 200 g, 100 g
+- 50 g, 30 g, 20 g, 10 g
+- 5 g, 3 g, 2 g, 1 g
+- 0.5 g, 0.3 g, 0.2 g, 0.1 g
+
+**Depiction of a design with three series for calibrating a 5,3,2,1 weight set with weights between 1 kg and 10 g**
+
+The full sequence proceeds in three series, linking the one-kilogram test weights down through the 100 g, 10 g, and smaller weights.
+
+![Three linked calibration series for a 5,3,2,1 weight set: each series' weights sum to become the restraint for the series below (redrawn from NIST's original figure for readability)](calibration/catalog/mass-weights/images/mpc-mass-weight-series.svg){#fig-mpc-mass-weight-series}
+
+**First series using 1,1,1,1 design**
+
+The calibrations start with a comparison of the one kilogram test weight with the reference kilograms (see the graphic above). The [1,1,1,1 design](#sec-mpc-design-1-1-1-1) requires two kilogram reference standards with known values, $R_1^*$ and $R_2^*$. The fourth kilogram in this design is actually a summation of the 500, 300, 200 g weights which becomes the restraint in the next series.
+
+The restraint for the first series is the known average mass of the reference kilograms,
+
+$$ R^* = \frac{R_1^* + R_2^*}{2} \, .$$
+
+The design assigns values to all weights including the individual reference standards. For this design, the check standard is not an artifact standard but is defined as the difference between the values assigned to the reference kilograms by the design; namely,
+
+$$ C = \left( \widehat{R_1^*} - \widehat{R_2^*} \right) \, . $$
+
+**Second series using 5,3,2,1,1,1 design**
+
+The second series is a [5,3,2,1,1,1 design](#sec-mpc-design-5-3-2-1-1-1) where the restraint over the 500g, 300g and 200g weights comes from the value assigned to the summation in the first series; i.e.,
+
+$$ R^* = \sum 1 = \widehat{X}_{500} + \widehat{X}_{300} + \widehat{X}_{200} \, .$$
+
+The weights assigned values by this series are:
+
+- 500g, 300g, 200 g and 100g test weights
+- 100 g check standard (2nd 100g weight in the design)
+- Summation of the 50g, 30g, 20g weights.
+
+**Other starting points**
+
+The calibration sequence can also start with a [1,1,1 design](#sec-mpc-design-1-1-1). This design has the disadvantage that it does **not** have provision for a check standard.
+
+**Better choice of design**
+
+A better choice is a [1,1,1,1,1 design](#sec-mpc-design-1-1-1-1-1) which allows for two reference kilograms and a kilogram check standard which occupies the 4th position among the weights. This is preferable to the 1,1,1,1 design but has the disadvantage of requiring the laboratory to maintain three kilogram standards.
+
+**Important detail**
+
+The solutions are only applicable for the restraints as shown.
+
+**Designs for decreasing weight sets**
+
+1. [1,1,1 design](#sec-mpc-design-1-1-1)
+2. [1,1,1,1 design](#sec-mpc-design-1-1-1-1)
+3. [1,1,1,1,1 design](#sec-mpc-design-1-1-1-1-1)
+4. [1,1,1,1,1,1 design](#sec-mpc-design-1-1-1-1-1-1)
+5. [2,1,1,1 design](#sec-mpc-design-2-1-1-1)
+6. [2,2,1,1,1 design](#sec-mpc-design-2-2-1-1-1)
+7. [2,2,2,1,1 design](#sec-mpc-design-2-2-2-1-1)
+8. [5,2,2,1,1,1 design](#sec-mpc-design-5-2-2-1-1-1)
+9. [5,2,2,1,1,1,1 design](#sec-mpc-design-5-2-2-1-1-1-1)
+10. [5,3,2,1,1,1 design](#sec-mpc-design-5-3-2-1-1-1)
+11. [5,3,2,1,1,1,1 design](#sec-mpc-design-5-3-2-1-1-1-1)
+12. [5,3,2,2,1,1,1 design](#sec-mpc-design-5-3-2-2-1-1-1)
+13. [5,4,4,3,2,2,1,1 design](#sec-mpc-design-5-4-4-3-2-2-1-1)
+14. [5,5,2,2,1,1,1,1 design](#sec-mpc-design-5-5-2-2-1-1-1-1)
+15. [5,5,3,2,1,1,1 design](#sec-mpc-design-5-5-3-2-1-1-1)
+16. [1,1,1,1,1,1,1,1 design](#sec-mpc-design-1-1-1-1-1-1-1-1-weights)
+17. [3,2,1,1,1 design (Case A)](#sec-mpc-design-3-2-1-1-1-weights-case-a)
+
+**Design for pound weights**
+
+18. [10-and 20-pound weights design](#sec-mpc-design-10-and-20-pound-weights)
+
+**Designs for increasing weight sets**
+
+19. [1,1,1 increasing weights design](#sec-mpc-design-1-1-1-increasing-weights)
+20. [1,1,1,1 increasing weights design](#sec-mpc-design-1-1-1-1-increasing-weights)
+21. [5,3,2,1,1 design](#sec-mpc-design-5-3-2-1-1-weights)
+22. [5,3,2,1,1,1 design](#sec-mpc-design-5-3-2-1-1-1-weights)
+23. [5,2,2,1,1,1 design](#sec-mpc-design-5-2-2-1-1-1) (NIST's source page for this design, mpc341n.htm, is byte-identical to the page for design 8 above, mpc3418.htm -- both link to the same design here rather than duplicating it)
+24. [3,2,1,1,1 design (Case B)](#sec-mpc-design-3-2-1-1-1-weights-case-b)
+
+Designs 17 and 24 share the same nominal title ("Design for 3,2,1,1,1 weights") in NIST's original handbook but are genuinely different designs (different divisors and solution matrices); they are distinguished here as Case A and Case B.
+
+{{< include calibration/catalog/mass-weights/design-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-1-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-1-1-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-2-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-2-2-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-2-2-2-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-2-2-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-2-2-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-3-2-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-3-2-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-3-2-2-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-4-4-3-2-2-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-5-2-2-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-5-3-2-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-1-1-1-1-1-1-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-3-2-1-1-1-a.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-10-and-20-pound-weights.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-1-1-1-increasing-weights.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-1-1-1-1-increasing-weights.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-3-2-1-1.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-5-3-2-1-1-1-weights.qmd >}}
+
+{{< include calibration/catalog/mass-weights/design-3-2-1-1-1-b.qmd >}}

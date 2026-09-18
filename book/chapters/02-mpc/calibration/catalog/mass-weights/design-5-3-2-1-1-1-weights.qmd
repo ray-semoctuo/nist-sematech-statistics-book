@@ -1,0 +1,74 @@
+##### Design for 5,3,2,1,1,1 weights {#sec-mpc-design-5-3-2-1-1-1-weights}
+
+```
+ OBSERVATIONS   5   3   2   1   1   1
+
+
+     Y(1)       +   -   -   +   -
+     Y(2)       +   -   -       +   -
+     Y(3)       +   -   -   -       +
+     Y(4)       +   -   -
+     Y(5)       +       -   -   -   -
+     Y(6)           +   -   +   -   -
+     Y(7)           +   -   -   +   -
+     Y(8)           +   -   -   -   +
+     Y(9)               +   -   -
+     Y(10)              +   -       -
+     Y(11)              +       -   -
+
+
+ RESTRAINT                      +   +
+
+ CHECK STANDARD                 +   -
+
+ DEGREES OF FREEDOM = 6
+
+
+                             SOLUTION MATRIX
+                              DIVISOR  =  368
+
+ OBSERVATIONS      5      3      2      1      1      1
+
+
+    Y(1)         147     37     30     69    -23     23
+    Y(2)          32    -32    -16      0     46    -46
+    Y(3)         -83   -101    -62    -69    -23     23
+    Y(4)          32    -32    -16      0      0      0
+    Y(5)         240    128     64      0      0      0
+    Y(6)         196    172     40     92      0      0
+    Y(7)         -34     34    -52    -46     46    -46
+    Y(8)         -34     34    -52    -46    -46     46
+    Y(9)         127     57     86    -23    -23     23
+    Y(10)        127     57     86    -23     23    -23
+    Y(11)        242    126    132     46      0      0
+    R*           920    552    368    184    184    184
+
+    R* = Average of reference weights
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT    K1
+               5   3   2   1   1   1
+  5  1.2737    +
+  3  0.7888        +
+  2  0.5989            +
+  1  0.4330                +
+  1  0.2500                    +
+  1  0.2500                        +
+  1  2.5216    +   +   +
+  0  0.5000                    +   -
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT    K2
+               5   3   2   1   1   1
+  5  3.6742    +
+  3  2.3452        +
+  2  1.7321            +
+  1  1.2247                +
+  1  0.7071                    +
+  1  0.7071                        +
+  1  7.2801    +   +   +
+  0  1.4142                    +   -
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

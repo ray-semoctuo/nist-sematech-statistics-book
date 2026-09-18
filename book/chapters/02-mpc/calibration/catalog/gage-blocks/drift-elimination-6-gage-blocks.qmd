@@ -1,0 +1,78 @@
+##### Drift-eliminating design for 6 gage blocks {#sec-mpc-design-drift-elim-6}
+
+```
+ CAMERON-HAILES DESIGN FOR 6 GAGE BLOCKS + DRIFT
+
+ OBSERVATIONS   1   1   1   1   1   1
+
+
+     Y(1)       +   -
+     Y(2)           +   -
+     Y(3)               +   -
+     Y(4)                   +       -
+     Y(5)                       -   +
+     Y(6)       -               +
+     Y(7)               +           -
+     Y(8)       -           +
+     Y(9)           +           -
+     Y(10)              -           +
+     Y(11)      +           -
+     Y(12)          -           +
+     Y(13)                  -   +
+     Y(14)              -           +
+     Y(15)          -       +
+     Y(16)      -       +
+     Y(17)          +           -
+     Y(18)      +               -
+
+
+ RESTRAINT      +   +
+
+
+ CHECK STANDARD +   -
+
+
+ DEGREES OF FREEDOM  =   12
+
+
+                              SOLUTION MATRIX
+                              DIVISOR = 4728
+
+ OBSERVATIONS      1      1      1      1      1     1   Drift
+
+    Y(1)         689   -689     31    111    -79     25   -17
+    Y(2)        -360    360  -1320   -456   -144   -912   -15
+    Y(3)         -40     40    904   -576    -16    424   -13
+    Y(4)          43    -43   -499    501   -101  -1165   -11
+    Y(5)          52    -52    716    276   -452   1340    -9
+    Y(6)        -384    384    168    144    792    288    -7
+    Y(7)           3     -3    405    -75   -117   -741    -5
+    Y(8)        -289    289    385    921    239    463    -3
+    Y(9)        -305    305   -199   -255   -713   -313    -1
+    Y(10)         -3      3   -405     75    117    741     1
+    Y(11)        289   -289   -385   -921   -239   -463     3
+    Y(12)        305   -305    199    255    713    313     5
+    Y(13)        -95     95   -217   -777    553   -175     7
+    Y(14)         -3      3   -405     75    117    741     9
+    Y(15)        400   -400    416   1032    160    488    11
+    Y(16)       -329    329   1289    345    223    887    13
+    Y(17)       -305    305   -199   -255   -713   -313    15
+    Y(18)        384   -384   -168   -144   -792   -288    17
+    R*          2364   2364   2364   2364   2364   2364     0
+
+    R* = Sum of the two reference standards
+
+
+  FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+  NOM FACTOR
+               1   1   1   1   1   1
+  1  0.2699    +
+  1  0.2699        +
+  1  0.5253            +
+  1  0.4545                +
+  1  0.3989                    +
+  1  0.5890                        +
+  0  0.5399    +   -
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

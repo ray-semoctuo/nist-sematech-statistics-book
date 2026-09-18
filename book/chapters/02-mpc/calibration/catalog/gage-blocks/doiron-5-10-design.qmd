@@ -1,0 +1,59 @@
+##### Doiron 5-10 Design {#sec-mpc-design-doiron-5-10}
+
+```
+ Doiron 5-10 Design
+
+ OBSERVATIONS   1   1   1   1   1
+
+     Y(1)       +   -
+     Y(2)                   -   +
+     Y(3)       +       -
+     Y(4)           -           +
+     Y(5)               -   +
+     Y(6)       +           -
+     Y(7)       -       +
+     Y(8)               +       -
+     Y(9)       -           +
+     Y(10)          +           -
+
+ RESTRAINT      +
+
+
+ CHECK STANDARD     +
+
+
+ DEGREES OF FREEDOM  =      6
+
+
+                      SOLUTION MATRIX
+                       DIVISOR =  90
+
+ OBSERVATIONS    1        1      1      1      1
+
+    Y(1)         0      -50    -10    -10    -30
+    Y(2)         0       20      4    -14     30
+    Y(3)         0      -10    -29    -11    -15
+    Y(4)         0      -20      5      5     15
+    Y(5)         0        0    -18     18      0
+    Y(6)         0      -10    -11    -29    -15
+    Y(7)         0       10     29     11     15
+    Y(8)         0      -20     14     -4    -30
+    Y(9)         0       10     11     29     15
+    Y(10)        0       20     -5     -5    -15
+    R*          90       90     90     90     90
+
+    R* = Value of the reference standard
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ NOM FACTOR
+               1   1   1   1   1
+  1  0.0000    +
+  1  0.7454        +
+  1  0.5676            +
+  1  0.5676                +
+  1  0.7071                    +
+  1  0.7454        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

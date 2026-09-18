@@ -1,0 +1,78 @@
+##### Design for 5,3,2,1,1,1 {#sec-mpc-design-5-3-2-1-1-1}
+
+```
+ OBSERVATIONS   5   3   2   1   1   1
+
+
+     Y(1)       +   -   -   +   -
+     Y(2)       +   -   -       +   -
+     Y(3)       +   -   -   -       +
+     Y(4)       +   -   -
+     Y(5)       +       -   -   -   -
+     Y(6)           +   -   +   -   -
+     Y(7)           +   -   -   +   -
+     Y(8)           +   -   -   -   +
+     Y(9)               +   -   -
+     Y(10)              +   -       -
+     Y(11)              +       -   -
+
+
+ RESTRAINT      +   +   +
+
+ CHECK STANDARD                 +
+
+
+ DEGREES OF FREEDOM  =   6
+
+
+                             SOLUTION MATRIX
+                              DIVISOR = 920
+
+ OBSERVATIONS      5      3      2      1      1      1
+
+
+    Y(1)         100    -68    -32    119   -111      4
+    Y(2)         100    -68    -32      4    119   -111
+    Y(3)         100    -68    -32   -111      4    119
+    Y(4)         100    -68    -32      4      4      4
+    Y(5)          60     -4    -56   -108   -108   -108
+    Y(6)         -20    124   -104    128   -102   -102
+    Y(7)         -20    124   -104   -102    128   -102
+    Y(8)         -20    124   -104   -102   -102    128
+    Y(9)         -20    -60     80   -125   -125    -10
+    Y(10)        -20    -60     80   -125    -10   -125
+    Y(11)        -20    -60     80    -10   -125   -125
+    R*           460    276    184     92     92     92
+
+    R* = sum of the three reference standards
+
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ WT  FACTOR
+               5   3   2   1   1   1
+  5  0.2331    +
+  3  0.2985        +
+  2  0.2638            +
+  1  0.3551                +
+  1  0.3551                    +
+  1  0.3551                        +
+  2  0.5043                +   +
+  3  0.6203                +   +   +
+  1  0.3551                    +
+
+ FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+ WT  FACTOR
+               5   3   2   1   1   1
+  5  0.8660    +
+  3  0.8185        +
+  2  0.8485            +
+  1  1.0149                +
+  1  1.0149                    +
+  1  1.0149                        +
+  2  1.4560                +   +
+  3  1.8083                +   +   +
+  1  1.0149                    +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

@@ -1,0 +1,54 @@
+##### Doiron 4-8 Design {#sec-mpc-design-doiron-4-8}
+
+```
+ Doiron 4-8 Design
+
+ OBSERVATIONS   1   1   1   1
+
+     Y(1)       +   -
+     Y(2)               +   -
+     Y(3)       -           +
+     Y(4)           +   -
+     Y(5)       -   +
+     Y(6)               -   +
+     Y(7)       +           -
+     Y(8)           -   +
+
+ RESTRAINT      +
+
+
+ CHECK STANDARD     +
+
+
+ DEGREES OF FREEDOM  =   5
+
+
+                SOLUTION MATRIX
+                 DIVISOR  =  8
+
+ OBSERVATIONS     1       1      1      1
+
+    Y(1)          0      -3     -2     -1
+    Y(2)          0       1      2     -1
+    Y(3)          0       1      2      3
+    Y(4)          0       1     -2     -1
+    Y(5)          0       3      2      1
+    Y(6)          0      -1     -2      1
+    Y(7)          0      -1     -2     -3
+    Y(8)          0      -1      2      1
+    R*            8       8      8      8
+
+    R* = Value of the reference standard
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+ NOM FACTOR
+               1   1   1   1
+  1  0.0000    +
+  1  0.6124        +
+  1  0.7071            +
+  1  0.6124                +
+  1  0.6124        +
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

@@ -1,0 +1,889 @@
+### Instrument calibration over a regime {#sec-mpc-36}
+
+**Topics**
+
+This section discusses the creation of a calibration curve for calibrating instruments (gauges) whose responses cover a large range. Topics are:
+
+- [Models for instrument calibration](#sec-mpc-361)
+- [Data collection](#sec-mpc-362)
+- [Assumptions](#sec-mpc-363)
+- [Conditions that can invalidate the calibration procedure](#sec-mpc-364)
+- [Data analysis and model validation](#sec-mpc-365)
+- [Calibration of future measurements](#sec-mpc-366)
+- [Uncertainties of calibrated values](#sec-mpc-367)
+
+**Purpose of instrument calibration**
+
+Instrument calibration is intended to eliminate or reduce bias in an instrument's readings over a range for all continuous values. For this purpose, reference standards with known values for selected points covering the range of interest are measured with the instrument in question. Then a functional relationship is established between the values of the standards and the corresponding measurements. There are two basic situations.
+
+**Instruments which require correction for bias**
+
+The instrument reads in the same units as the reference standards. The purpose of the calibration is to identify and eliminate any bias in the instrument relative to the defined unit of measurement. For example, optical imaging systems that measure the width of lines on semiconductors read in micrometers, the unit of interest. Nonetheless, these instruments must be calibrated to values of reference standards if line width measurements across the industry are to agree with each other.
+
+**Instruments whose measurements act as surrogates for other measurements**
+
+The instrument reads in different units than the reference standards. The purpose of the calibration is to convert the instrument readings to the units of interest. An example is densitometer measurements that act as surrogates for measurements of radiation dosage. For this purpose, reference standards are irradiated at several dosage levels and then measured by radiometry. The same reference standards are measured by densitometer. The calibrated results of future densitometer readings on medical devices are the basis for deciding if the devices have been sterilized at the proper radiation level.
+
+**Basic steps for correcting the instrument for bias**
+
+The calibration method is the same for both situations and requires the following basic steps:
+
+- Selection of reference standards with known values to cover the range of interest.
+- Measurements on the reference standards with the instrument to be calibrated.
+- Functional relationship between the measured and known values of the reference standards (usually a least-squares fit to the data) called a calibration curve.
+- Correction of all measurements by the inverse of the calibration curve.
+
+**Schematic example of a calibration curve and resulting value**
+
+A schematic explanation is provided by the figure below for load cell calibration. The loadcell measurements (shown as points) are plotted on the y-axis against the corresponding values of known load shown on the x-axis. A quadratic fit to the loadcell data produces the calibration curve that is shown as the solid line. For a future measurement with the load cell, $Y' = 1.344$ on the y-axis, a dotted line is drawn through $Y'$ parallel to the x-axis. At the point where it intersects the calibration curve, another dotted line is drawn parallel to the y-axis. Its point of intersection with the x-axis is the calibrated value, $X'$.
+
+This is the same load cell #32066 data used throughout this section (see [Data on load cell #32066](#sec-mpc-3651)); the calibration curve is fit and the value $X'$ is found by inverting the [quadratic calibration curve](#sec-mpc-366) below.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-36-schematic
+#| fig-cap: "Schematic quadratic calibration curve for load cell #32066: a future response Y' = 1.344 is corrected to a calibrated load X' by inverting the fitted quadratic curve"
+#| message: false
+#| warning: false
+library(tidyverse)
+
+loadcell_mpc36 <- read_table(
+  here::here("datasets", "LOADCELL.DAT"),
+  skip = 25,
+  col_names = c("x", "y"),
+  col_types = "dd"
+)
+
+fit_mpc36 <- lm(y ~ x + I(x^2), data = loadcell_mpc36)
+a_mpc36 <- coef(fit_mpc36)[1]
+b_mpc36 <- coef(fit_mpc36)[2]
+c_mpc36 <- coef(fit_mpc36)[3]
+
+yprime_mpc36 <- 1.344
+xprime_mpc36 <- (-b_mpc36 + sqrt(b_mpc36^2 - 4 * c_mpc36 * (a_mpc36 - yprime_mpc36))) / (2 * c_mpc36)
+
+curve_mpc36 <- tibble(x = seq(min(loadcell_mpc36$x), max(loadcell_mpc36$x), length.out = 200)) |>
+  mutate(y = a_mpc36 + b_mpc36 * x + c_mpc36 * x^2)
+
+ggplot() +
+  geom_point(data = loadcell_mpc36, aes(x, y), color = "steelblue4", size = 1.6) +
+  geom_line(data = curve_mpc36, aes(x, y)) +
+  geom_segment(aes(x = 0, xend = xprime_mpc36, y = yprime_mpc36, yend = yprime_mpc36),
+               linetype = "dashed", color = "firebrick") +
+  geom_segment(aes(x = xprime_mpc36, xend = xprime_mpc36, y = 0, yend = yprime_mpc36),
+               linetype = "dashed", color = "firebrick") +
+  labs(x = "Load, psi", y = "Readings") +
+  theme_light()
+```
+
+Inverting the fitted quadratic curve at $Y' =$ `r yprime_mpc36` gives $X' \approx$ `r round(xprime_mpc36, 3)`, close to NIST's stated schematic value of $X' = 13.417$ (the small difference is attributable to the number of significant digits NIST carried for $\hat a$, $\hat b$, $\hat c$ when originally drawing this figure; we use the full-precision fit computed directly from the data, verified below in [Data analysis and model validation](#sec-mpc-365)).
+
+#### Models for instrument calibration {#sec-mpc-361}
+
+**Notation**
+
+The following notation is used in this chapter in discussing models for calibration curves.
+
+- $Y$ denotes a measurement on a reference standard
+- $X$ denotes the known value of a reference standard
+- $\epsilon$ denotes measurement error
+- $a$, $b$, and $c$ denote coefficients to be determined
+
+**Possible forms for calibration curves**
+
+There are several models for calibration curves that can be considered for instrument calibration. They fall into the following classes:
+
+Linear:
+
+$$ Y = a + bX + \epsilon $$
+
+Quadratic:
+
+$$ Y = a + bX + cX^2 + \epsilon $$
+
+Power:
+
+$$ Y = aX^b\epsilon $$
+
+Non-linear:
+
+$$ Y = g(X) + \epsilon $$
+
+**Special case of linear model -- no calibration required**
+
+An instrument requires no calibration if
+
+$$ a = 0 \ \text{ and } \ b = 1 $$
+
+i.e., if measurements on the reference standards agree with their known values given an allowance for measurement error, the instrument is already calibrated. Guidance on collecting data, estimating and testing the coefficients is given on other pages.
+
+**Advantages of the linear model**
+
+The linear model [@ISO11095] is widely applied to instrument calibration because it has several advantages over more complicated models.
+
+- Computation of coefficients and standard deviations is easy.
+- Correction for bias is easy.
+- There is often a theoretical basis for the model.
+- The analysis of uncertainty is tractable.
+
+**Warning on excluding the intercept term from the model**
+
+It is often tempting to exclude the intercept, $a$, from the model because a zero stimulus on the x-axis should lead to a zero response on the y-axis. However, the correct procedure is to fit the full model and test for the significance of the intercept term.
+
+**Quadratic model and higher order polynomials**
+
+Responses of instruments or measurement systems which cannot be linearized, and for which no theoretical model exists, can sometimes be described by a quadratic model (or higher-order polynomial). An example is a load cell where force exerted on the cell is a non-linear function of load.
+
+**Disadvantages of quadratic models**
+
+Disadvantages of quadratic and higher-order polynomials are:
+
+- They may require more reference standards to capture the region of curvature.
+- There is rarely a theoretical justification; however, the adequacy of the model can be tested statistically.
+- The correction for bias is more complicated than for the linear model.
+- The uncertainty analysis is difficult.
+
+**Warning**
+
+A plot of the data, although always recommended, is not sufficient for identifying the correct model for the calibration curve. Instrument responses may not appear non-linear over a large interval. If the response and the known values are in the same units, differences from the known values should be plotted versus the known values.
+
+**Power model treated as a linear model**
+
+The power model is appropriate when the measurement error is proportional to the response rather than being additive. It is frequently used for calibrating instruments that measure dosage levels of irradiated materials.
+
+The power model is a special case of a non-linear model that can be linearized by a natural logarithm transformation to
+
+$$ Y = \log_e(a) + b \cdot \log_e(X) + \log_e(\epsilon) $$
+
+so that the model to be fit to the data is of the familiar linear form
+
+$$ W = a' + bZ + e $$
+
+where $W$, $Z$, and $e$ are the transforms of the variables, $Y$, $X$ and the measurement error, respectively, and $a'$ is the natural logarithm of $a$.
+
+**Non-linear models and their limitations**
+
+Instruments whose responses are not linear in the coefficients can sometimes be described by non-linear models. In some cases, there are theoretical foundations for the models; in other cases, the models are developed by trial and error. Two classes of non-linear functions that have been shown to have practical value as calibration functions are:
+
+- Exponential
+- Rational
+
+Non-linear models are an important class of calibration models, but they have several significant limitations.
+
+- The model itself may be difficult to ascertain and verify.
+- There can be severe computational difficulties in estimating the coefficients.
+- Correction for bias cannot be applied algebraically and can only be approximated by interpolation.
+- Uncertainty analysis is very difficult.
+
+**Example of an exponential function**
+
+An exponential function is shown in the equation below. Instruments for measuring the ultrasonic response of reference standards with various levels of defects (holes) that are submerged in a fluid are described by this function.
+
+$$ Y = \frac{e^{-aX}}{b + cX} + \epsilon $$
+
+**Example of a rational function**
+
+A rational function is shown in the equation below. Scanning electron microscope measurements of line widths on semiconductors are described by this function.<!-- TODO: missing bib entry for Kirby (source handbook/mpc/section7/mpc7.htm#Kirby) -->
+
+$$ Y = \frac{a + bX + cX^2}{a_1 + b_1X + c_1X^2} + \epsilon $$
+
+#### Data collection {#sec-mpc-362}
+
+**Data collection**
+
+The process of collecting data for creating the calibration curve is critical to the success of the calibration program. General rules for designing calibration experiments apply, and guidelines that are adequate for the calibration models in this chapter are given below.
+
+**Selection of reference standards**
+
+A minimum of five reference standards is required for a linear calibration curve, and ten reference standards should be adequate for more complicated calibration models.
+
+The optimal strategy in selecting the reference standards is to space the reference standards at points corresponding to equal increments on the y-axis, covering the range of the instrument. Frequently, this strategy is not realistic because the person producing the reference materials is often not the same as the person who is creating the calibration curve. Spacing the reference standards at equal intervals on the x-axis is a good alternative.
+
+**Exception to the rule above -- bracketing**
+
+If the instrument is not to be calibrated over its entire range, but only over a very short range for a specific application, then it may not be necessary to develop a complete calibration curve, and a bracketing technique [@ISO11095] will provide satisfactory results. The bracketing technique assumes that the instrument is linear over the interval of interest, and, in this case, only two reference standards are required -- one at each end of the interval.
+
+**Number of repetitions on each reference standard**
+
+A minimum of two measurements on each reference standard is required and four is recommended. The repetitions should be separated in time by days or weeks. These repetitions provide the data for determining whether a candidate model is adequate for calibrating the instrument.
+
+#### Assumptions for instrument calibration {#sec-mpc-363}
+
+**Assumption regarding reference values**
+
+The basic assumption regarding the reference values of artifacts that are measured in the calibration experiment is that they are known without error. In reality, this condition is rarely met because these values themselves usually come from a measurement process. Systematic errors in the reference values will always bias the results, and random errors in the reference values can bias the results.
+
+**Rule of thumb**
+
+It has been shown by Bruce Hoadly, in an internal NIST publication, that the best way to mitigate the effect of random fluctuations in the reference values is to plan for a large spread of values on the x-axis relative to the precision of the instrument.
+
+**Assumptions regarding measurement errors**
+
+The basic assumptions regarding measurement errors associated with the instrument are that they are:
+
+- free from outliers
+- independent
+- of equal precision
+- from a normal distribution.
+
+#### What can go wrong with the calibration procedure {#sec-mpc-364}
+
+**Calibration procedure may fail to eliminate bias**
+
+There are several circumstances where the calibration curve will not reduce or eliminate bias as intended. Some are discussed on this page. A critical exploratory analysis of the calibration data should expose such problems.
+
+**Lack of precision**
+
+Poor instrument precision or unsuspected day-to-day effects may result in standard deviations that are large enough to jeopardize the calibration. There is nothing intrinsic to the calibration procedure that will improve precision, and the best strategy, before committing to a particular instrument, is to estimate the instrument's precision in the environment of interest to decide if it is good enough for the precision required.
+
+**Outliers in the calibration data**
+
+Outliers in the calibration data can seriously distort the calibration curve, particularly if they lie near one of the endpoints of the calibration interval.
+
+- Isolated outliers (single points) should be deleted from the calibration data.
+- An entire day's results which are inconsistent with the other data should be examined and rectified before proceeding with the analysis.
+
+**Systematic differences among operators**
+
+It is possible for different operators to produce measurements with biases that differ in sign and magnitude. This is not usually a problem for automated instrumentation, but for instruments that depend on line of sight, results may differ significantly by operator. To diagnose this problem, measurements by different operators on the same artifacts are plotted and compared. Small differences among operators can be accepted as part of the imprecision of the measurement process, but large systematic differences among operators require resolution. Possible solutions are to retrain the operators or maintain separate calibration curves by operator.
+
+**Lack of system control**
+
+The calibration procedure, once established, relies on the instrument continuing to respond in the same way over time. If the system drifts or takes unpredictable excursions, the calibrated values may not be properly corrected for bias, and depending on the direction of change, the calibration may further degrade the accuracy of the measurements. To assure that future measurements are properly corrected for bias, the calibration procedure should be coupled with a [statistical control procedure for the instrument](#sec-mpc-37).
+
+**Example of differences among repetitions in the calibration data**
+
+An important point, but one that is rarely considered, is that there can be differences in responses from repetition to repetition that will invalidate the analysis. A plot of the aggregate of the calibration data may not identify changes in the instrument response from day-to-day. What is needed is a plot of the fine structure of the data that exposes any day to day differences in the calibration data.
+
+**Warning -- calibration can fail because of day-to-day changes**
+
+A straight-line fit to the aggregate data will produce a 'calibration curve'. However, if straight lines fit separately to each day's measurements show very disparate responses, the instrument, at best, will require calibration on a daily basis and, at worst, may be sufficiently lacking in control to be usable.
+
+##### Example of day-to-day changes in calibration {#sec-mpc-3641}
+
+**Calibration data over 4 days**
+
+Line width measurements on 10 NIST reference standards were made with an optical imaging system on each of four days. The four data points for each reference value appear to overlap in a plot of the aggregate data because of the wide spread in reference values relative to the precision. That plot suggests that a linear calibration line is appropriate for calibrating the imaging system.<!-- XREF: figure of 4-day aggregate line-width measurements not migrated; source handbook/mpc/section3/mpc3641a.gif -->
+
+A plot of the differences between each measurement and the corresponding reference value gives no indication of problems in the control of the imaging system from day to day, because days are not identified in that plot.<!-- XREF: figure of differences from reference values, days not identified; source handbook/mpc/section3/mpc3641b.gif -->
+
+A third plot, with linear calibration lines fit to each day's measurements individually, shows how the response of the imaging system changes dramatically from day to day. The slope of the calibration line goes from positive on day 1 to negative on day 3.<!-- XREF: figure of per-day calibration lines; source handbook/mpc/section3/mpc3641c.gif --> (No dataset or sample code accompanies this example page in the source handbook, so the three figures are described here rather than reproduced.)
+
+**Interpretation of calibration findings**
+
+Given the lack of control for this measurement process, any calibration procedure built on the average of the calibration data will fail to properly correct the system on some days and invalidate resulting measurements. There is no good solution to this problem except daily calibration.
+
+#### Data analysis and model validation {#sec-mpc-365}
+
+**First step -- plot the calibration data**
+
+If the model for the calibration curve is not known from theoretical considerations or experience, it is necessary to identify and validate a model for the calibration curve. To begin this process, the calibration data are plotted as a function of known values of the reference standards; this plot should suggest a candidate model for describing the data. A linear model should always be a consideration. If the responses and their known values are in the same units, a plot of differences between responses and known values is more informative than a plot of the data for exposing structure in the data.
+
+**Warning -- regarding statistical software**
+
+Once an initial model has been chosen, the coefficients in the model are estimated from the data using a statistical software package. It is impossible to over-emphasize the importance of using reliable and documented software for this analysis.
+
+**Output required from a software package**
+
+The software package will use the method of least squares for estimating the coefficients. The software package should also be capable of performing a 'weighted' fit for situations where errors of measurement are non-constant over the calibration interval. The choice of weights is usually the responsibility of the user. The software package should, at the minimum, provide the following information:
+
+- Coefficients of the calibration curve
+- Standard deviations of the coefficients
+- Residual standard deviation of the fit
+- F-ratio for goodness of fit (if there are repetitions on the y-axis at each reference value)
+
+**Typical analysis of a quadratic fit**
+
+Load cell measurements are modeled as a quadratic function of known loads as shown below. There are three repetitions at each load level for a total of 33 measurements (see [Data on load cell #32066](#sec-mpc-3651)).
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-365-loadcell-fit
+#| message: false
+#| warning: false
+library(tidyverse)
+library(broom)
+
+loadcell_mpc365 <- read_table(
+  here::here("datasets", "LOADCELL.DAT"),
+  skip = 25,
+  col_names = c("x", "y"),
+  col_types = "dd"
+)
+
+fit_mpc365 <- lm(y ~ x + I(x^2), data = loadcell_mpc365)
+tidy(fit_mpc365)
+```
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-365-loadcell-anova
+#| message: false
+lof_mpc365 <- lm(y ~ factor(x), data = loadcell_mpc365)
+anova(fit_mpc365, lof_mpc365)
+
+s1_mpc365 <- summary(fit_mpc365)$sigma
+s1_mpc365
+```
+
+This reproduces NIST's stated results exactly: $\hat a =$ `r formatC(coef(fit_mpc365)[1], format = "e", digits = 3)`, $\hat b =$ `r formatC(coef(fit_mpc365)[2], format = "e", digits = 3)`, $\hat c =$ `r formatC(coef(fit_mpc365)[3], format = "e", digits = 3)`, with a residual standard deviation of `r formatC(s1_mpc365, format = "e", digits = 3)` on 30 degrees of freedom, and a lack-of-fit $F$-ratio of 0.3477 with 8 and 22 degrees of freedom ($p = 0.9368$).
+
+Parameter estimates for model $y = a + bx + cx^2 + \epsilon$:
+
+| Parameter | Estimate    | Std. Error | t-value  | Pr(>&#124;t&#124;) |
+|-----------|-------------|------------|----------|---------------------|
+| a         | -1.840e-05  | 2.451e-05  | -0.751   | 0.459               |
+| b         | 1.001e-01   | 4.839e-06  | 20687.891| <2e-16              |
+| c         | 7.032e-06   | 2.014e-07  | 34.922   | <2e-16              |
+
+Residual standard error = 3.764e-05 (30 degrees of freedom). Multiple R-squared = 1.
+
+Analysis of variance table:
+
+| Source of Variation | Degrees of Freedom | Sum of Squares | Mean Square | F-Ratio | Pr(>F)  |
+|----------------------|---------------------|-----------------|-------------|---------|---------|
+| Model                | 2                   | 12.695          | 6.3475      | 4.48e+09| <2.2e-16|
+| Residual             | 30                  | 4.2504e-08      | 1.4170e-09  |         |         |
+| (Lack of fit)        | 8                   | 4.7700e-09      | 5.9625e-10  | 0.3477  | 0.9368  |
+| (Pure error)         | 22                  | 3.7733e-08      | 1.7151e-09  |         |         |
+| Total                | 32                  | 12.695          |             |         |         |
+
+The analyses shown above can be reproduced using Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section3/mpc365.dp --> The reader can download the [data as a text file](../../datasets/LOADCELL.DAT).
+
+Note: Dataplot reports a probability associated with the F-ratio (for example, 93.68 % for the lack-of-fit test), where a probability greater than 95 % indicates an F-ratio that is significant at the 5 % level. R reports a p-value that corresponds to the probability greater than the F-ratio, so a value less than 0.05 would indicate significance at the 5 % level. Other software may report in other ways; therefore, it is necessary to check the interpretation for each package.
+
+**The F-ratio is used to test the goodness of the fit to the data**
+
+The F-ratio provides information on the model as a good descriptor of the data. The F-ratio is compared with a critical value from the [F table](../01-eda/index.qmd#sec-eda-f-distribution-table). An F-ratio smaller than the critical value indicates that all significant structure has been captured by the model.
+
+**F-ratio**
+
+For the load cell analysis, a plot of the data suggests a linear fit. However, the linear fit gives a very large F-ratio. For the quadratic fit, the F-ratio is 0.3477 with $\nu_1 = 8$ and $\nu_2 = 22$ degrees of freedom.
+
+```{r}
+#| code-fold: true
+#| label: f-critical-value-mpc365
+#| message: false
+Fcrit_mpc365 <- qf(0.95, 8, 22)
+Fcrit_mpc365
+```
+
+The critical value is $F_{0.05,\,8,\,22} \approx$ `r round(Fcrit_mpc365, 2)`, indicating that the quadratic function is sufficient for describing the data (NIST's original text states this critical value as "F(0.05, 8, 20) = 2.45," but the degrees of freedom used throughout the surrounding lack-of-fit test, and confirmed by the ANOVA table above, are 8 and 22, not 8 and 20; $F_{0.05,\,8,\,20} = 2.45$ while $F_{0.05,\,8,\,22} \approx$ `r round(Fcrit_mpc365, 4)`. We use the value consistent with the stated degrees of freedom. Either way the conclusion is unchanged, since 0.3477 is far below both critical values). A fact to keep in mind is that an F-ratio that shows an adequate fit does not rule out a better-fitting alternative model.
+
+**The t-values are used to test the significance of individual coefficients**
+
+The t-values can be compared with critical values from a [t table](../01-eda/index.qmd#sec-eda-t-distribution-table). However, for a test at the 5 % significance level, the t-value for the intercept term, $a$, is not significant, while the t-values for the linear and quadratic terms are significant, indicating that these coefficients are needed in the model. If the intercept is dropped from the model, the analysis is repeated to obtain new estimates for the coefficients, $b$ and $c$.
+
+**Residual standard deviation**
+
+The residual standard deviation estimates the standard deviation of a single measurement with the load cell.
+
+**Further considerations and tests of assumptions**
+
+The residuals (differences between the measurements and their fitted values) from the fit should also be examined for outliers and structure that might invalidate the calibration curve. They are also a good indicator of whether basic assumptions of normality and equal precision for all measurements are valid.
+
+If the initial model proves inappropriate for the data, a strategy for improving the model is followed.<!-- XREF: MPC Section 2.3.6.5.4, Strategies for dealing with an inadequate model; page not present as a separate numbered subsection in the source handbook at the time of this migration -->
+
+##### Data on load cell #32066 {#sec-mpc-3651}
+
+**Three repetitions on a load cell at eleven known loads**
+
+| X   | Y       |
+|-----|---------|
+| 2   | 0.20024 |
+| 2   | 0.20016 |
+| 2   | 0.20024 |
+| 4   | 0.40056 |
+| 4   | 0.40045 |
+| 4   | 0.40054 |
+| 6   | 0.60087 |
+| 6   | 0.60075 |
+| 6   | 0.60086 |
+| 8   | 0.80130 |
+| 8   | 0.80122 |
+| 8   | 0.80127 |
+| 10  | 1.00173 |
+| 10  | 1.00164 |
+| 10  | 1.00173 |
+| 12  | 1.20227 |
+| 12  | 1.20218 |
+| 12  | 1.20227 |
+| 14  | 1.40282 |
+| 14  | 1.40278 |
+| 14  | 1.40279 |
+| 16  | 1.60344 |
+| 16  | 1.60339 |
+| 16  | 1.60341 |
+| 18  | 1.80412 |
+| 18  | 1.80409 |
+| 18  | 1.80411 |
+| 20  | 2.00485 |
+| 20  | 2.00481 |
+| 20  | 2.00483 |
+| 21  | 2.10526 |
+| 21  | 2.10524 |
+| 21  | 2.10524 |
+
+The reader can download the [data as a text file](../../datasets/LOADCELL.DAT).
+
+##### Table of t distribution {#sec-mpc-3652}
+
+Critical values of the Student's t distribution at the 5 % significance level, needed for [testing the intercept and slope of a calibration curve](#sec-mpc-366) and for the [control procedure for linear calibration](#sec-mpc-37), are needed on this and the following page. This is the same t table used elsewhere in the handbook; rather than reproduce it a second time, see the full table at [Critical Values of the Student's t Distribution](../01-eda/index.qmd#sec-eda-t-distribution-table).
+
+##### Table of critical values of F distribution {#sec-mpc-3653}
+
+Critical values of the F distribution at the 5 % significance level, needed for [testing the goodness of fit of a calibration curve](#sec-mpc-365), are needed on this page. This is the same F table used elsewhere in the handbook; rather than reproduce it a second time, see the full table at [Upper Critical Values of the F Distribution](../01-eda/index.qmd#sec-eda-f-distribution-table).
+
+#### Calibration of future measurements {#sec-mpc-366}
+
+**Purpose**
+
+The purpose of creating the calibration curve is to correct future measurements made with the same instrument to the correct units of measurement. The calibration curve can be applied many, many times before it is discarded or reworked as long as the instrument remains in statistical control. Chemical measurements are an exception where frequently the calibration curve is used only for a single batch of measurements, and a new calibration curve is created for the next batch.
+
+**Notation**
+
+The notation for this section is as follows:
+
+- $Y'$ denotes a future measurement.
+- $X'$ denotes the associated calibrated value.
+- $\hat a, \, \hat b, \, \hat c$ are the estimates of the coefficients $a, \, b, \, c$.
+- $s_a, \, s_b, \, s_c$ are standard deviations of the coefficients $a, \, b, \, c$.
+
+**Procedure**
+
+To apply a correction to a future measurement, $Y'$, to obtain the calibrated value $X'$, requires the inverse of the calibration curve.
+
+**Linear calibration line**
+
+The inverse of the calibration line for the linear model
+
+$$ Y = a + bX + \epsilon $$
+
+gives the calibrated value
+
+$$ X' = \frac{Y' - \hat{a}}{\hat{b}} $$
+
+**Tests for the intercept and slope of calibration curve -- if both conditions hold, no calibration is needed**
+
+Before correcting for the calibration line by the equation above, the intercept and slope should be tested for $a = 0$, and $b = 1$. If both
+
+$$ \left|\frac{\hat{a}}{s_a}\right| < t_{1-\alpha/2, \nu} \ \text{ and } \
+   \left|\frac{\hat{b}-1}{s_b}\right| < t_{1-\alpha/2, \nu} $$
+
+there is no need for calibration. If, on the other hand, only the test for $a=0$ fails, the error is constant; if only the test for $b=1$ fails, the errors are related to the size of the reference standards.
+
+**Table look-up for t-factor**
+
+The factor, $t_{1-\alpha/2, \, \nu}$, is found in the [t table](../01-eda/index.qmd#sec-eda-t-distribution-table) where $\nu$ is the degrees of freedom for the residual standard deviation from the calibration curve, and $\alpha$ is chosen to be small, say, 0.05.
+
+**Quadratic calibration curve**
+
+The inverse of the calibration curve for the [quadratic model](#sec-mpc-361)
+
+$$ Y = a + bX + cX^2 + \epsilon $$
+
+requires a root
+
+$$ X' = \frac{-\hat{b} \pm \sqrt{\hat{b}^2 - 4 \hat{c} \left( \hat{a} - Y'
+\right)}}{2 \hat{c}} $$
+
+The correct root (+ or -) can usually be identified from practical considerations.
+
+**Power curve**
+
+The inverse of the calibration curve for the power model
+
+$$ Y = aX^b\epsilon $$
+
+gives the calibrated value
+
+$$ X' = \exp \left( \frac{\log_e(Y') - \log_e(\hat{a})}{\hat{b}} \right) $$
+
+where $b$ and the natural logarithm of $a$ are estimated from the power model transformed to a linear function.
+
+**Non-linear and other calibration curves**
+
+For more complicated models, the inverse for the calibration curve is obtained by interpolation from a graph of the function or from predicted values of the function.
+
+#### Uncertainties of calibrated values {#sec-mpc-367}
+
+**Purpose**
+
+The purpose is to quantify the uncertainty of a 'future' result that has been corrected by the calibration curve. In principle, the uncertainty quantifies any possible difference between the calibrated value and its reference base (which normally depends on reference standards).
+
+**Explanation in terms of reference artifacts**
+
+Measurements of interest are future measurements on unknown artifacts, but one way to look at the problem is to ask: If a measurement is made on one of the reference standards and the calibration curve is applied to obtain the calibrated value, how well will this value agree with the 'known' value of the reference standard?
+
+**Difficulties**
+
+The answer is not easy because of the intersection of two uncertainties associated with
+
+- the calibration curve itself because of limited data
+- the 'future' measurement
+
+If the calibration experiment were to be repeated, a slightly different calibration curve would result even for a system in statistical control. An exposition of the intersection of the two uncertainties is given for the calibration of proving rings [@HockersmithKu].
+
+**ISO approach to uncertainty can be based on check standards or propagation of error**
+
+General procedures for computing an uncertainty based on ISO principles of uncertainty analysis are given in the chapter on modeling.<!-- XREF: Process Modeling chapter, general ISO uncertainty procedures; source handbook/pmd/pmd.htm -->
+
+Type A uncertainties for calibrated values from calibration curves can be derived from
+
+- check standard values
+- propagation of error
+
+An example of type A uncertainties of calibrated values from a linear calibration curve are analyzed from measurements on linewidth check standards. Comparison of the uncertainties from check standards and propagation of error for the linewidth calibration data are also illustrated.
+
+An example of the derivation of propagation of error type A uncertainties for calibrated values from a quadratic calibration curve for loadcells is discussed on the next page.
+
+##### Uncertainty for quadratic calibration using propagation of error {#sec-mpc-3671}
+
+**Propagation of error for uncertainty of calibrated values of loadcells**
+
+The purpose of this page is to show the propagation of error for calibrated values of a loadcell based on a quadratic calibration curve where the model for instrument response is
+
+$$ Y = a + bX + cX^2 + \epsilon $$
+
+The calibration data are instrument responses at known loads (psi), and estimates of the quadratic coefficients, $a, \, b, \, c$, and their associated standard deviations are shown with the analysis. A graph of the calibration curve showing a measurement $Y'$ corrected to $X'$, the proper load (psi), is shown in [the schematic figure above](#sec-mpc-36).
+
+**Uncertainty of the calibrated value X'**
+
+The uncertainty to be evaluated is the uncertainty of the calibrated value, $X'$, computed for any future measurement, $Y'$, made with the calibrated instrument where
+
+$$ X' = \frac{-\hat{b} \pm \sqrt{\hat{b}^2 - 4 \hat{c} \left( \hat{a} - Y' \right)}}{2 \hat{c}} $$
+
+**Partial derivatives**
+
+The partial derivatives are needed to compute uncertainty.
+
+$$ \frac{\partial{X'}}{\partial{Y'}} =
+\frac{1}{\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}} $$
+
+$$ \frac{\partial{X'}}{\partial{\hat{a}}} =
+     \frac{-1}{\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}} $$
+
+$$ \frac{\partial{X'}}{\partial{\hat{b}}} =
+\frac{-1 + \frac{\hat{b}}{\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}}}{2\hat{c}} $$
+
+$$ \frac{\partial{X'}}{\partial{\hat{c}}} =
+\frac{-\hat{a} + Y'}{\hat{c}\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}} -
+\frac{-\hat{b} + \sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}}{2\hat{c}^{2}} $$
+
+**The variance of the calibrated value from propagation of error**
+
+The variance of $X'$ is defined from propagation of error as follows:
+
+$$ u^{2} = \left( \frac{\partial{X'}}{\partial{Y'}}\right) ^{2} (s_{Y'})^{2} +
+\left( \frac{\partial{X'}}{\partial{\hat{a}}}\right) ^{2} (s_{\hat{a}})^{2} +
+\left( \frac{\partial{X'}}{\partial{\hat{b}}}\right) ^{2} (s_{\hat{b}})^{2} +
+\left( \frac{\partial{X'}}{\partial{\hat{c}}}\right )^{2} (s_{\hat{c}})^{2} $$
+
+The values of the coefficients and their respective standard deviations from the quadratic fit to the calibration curve are substituted in the equation. The standard deviation of the measurement, $Y$, may not be the same as the standard deviation from the fit to the calibration data if the measurements to be corrected are taken with a different system; here we assume that the instrument to be calibrated has a standard deviation that is essentially the same as the instrument used for collecting the calibration data and the residual standard deviation from the quadratic fit is the appropriate estimate.
+
+We reuse the quadratic fit to the 33-observation load cell #32066 data computed in [Data analysis and model validation](#sec-mpc-365):
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-3671-loadcell-coefs
+#| message: false
+#| warning: false
+library(tidyverse)
+
+loadcell_mpc3671 <- read_table(
+  here::here("datasets", "LOADCELL.DAT"),
+  skip = 25,
+  col_names = c("x", "y"),
+  col_types = "dd"
+)
+
+fit_mpc3671 <- lm(y ~ x + I(x^2), data = loadcell_mpc3671)
+V_mpc3671 <- vcov(fit_mpc3671)
+
+a_mpc3671 <- coef(fit_mpc3671)[1]
+b_mpc3671 <- coef(fit_mpc3671)[2]
+c_mpc3671 <- coef(fit_mpc3671)[3]
+sa_mpc3671 <- sqrt(V_mpc3671[1, 1])
+sb_mpc3671 <- sqrt(V_mpc3671[2, 2])
+sc_mpc3671 <- sqrt(V_mpc3671[3, 3])
+sy_mpc3671 <- summary(fit_mpc3671)$sigma
+
+tibble(
+  term = c("a", "b", "c", "sy"),
+  estimate = c(a_mpc3671, b_mpc3671, c_mpc3671, sy_mpc3671),
+  std_error = c(sa_mpc3671, sb_mpc3671, sc_mpc3671, NA)
+)
+```
+
+```
+a  = -0.183980e-04
+sa =  0.2450e-04
+b  =  0.100102
+sb =  0.4838e-05
+c  =  0.703186e-05
+sc =  0.2013e-06
+sy =  0.0000376353
+```
+
+Our fit, run directly on the canonical 33-observation `LOADCELL.DAT` (11 load levels, 3 repetitions each, matching the dataset's own header description), reproduces NIST's originally published coefficients and standard errors exactly ($\hat a =$ `r formatC(a_mpc3671, format = "e", digits = 6)`, $s_{\hat a} =$ `r formatC(sa_mpc3671, format = "e", digits = 4)`, $\hat b =$ `r formatC(b_mpc3671, format = "e", digits = 6)`, $s_{\hat b} =$ `r formatC(sb_mpc3671, format = "e", digits = 4)`, $\hat c =$ `r formatC(c_mpc3671, format = "e", digits = 6)`, $s_{\hat c} =$ `r formatC(sc_mpc3671, format = "e", digits = 4)`, $s_Y =$ `r formatC(sy_mpc3671, format = "e", digits = 6)`).
+
+**A note on a discrepancy with NIST's currently published page.** NIST's live handbook page for this section shows a second, slightly different set of coefficients ($\hat a = -0.1850148\times10^{-5}$, $s_{\hat a} = 0.2081\times10^{-4}$, $s_{\hat b} = 0.3681\times10^{-5}$, $s_{\hat c} = 0.1460\times10^{-6}$, $s_Y = 0.0000340856$, on 51 residual degrees of freedom), introduced by a 2017 editorial note stating that "R code had a 'skip=1' when reading the file resulting in first line of data not being read." We traced this: the working data file behind that 2017 revision (`handbook/mpc/section3/loadcell.dat` in this repository's source mirror) has 54 rows rather than 33, because the block of load levels 10 through 21 appears twice. That duplication is inconsistent with `LOADCELL.DAT`'s own documented structure (11 load levels $\times$ 3 repetitions = 33 rows) and with the [original 33-observation, 30-degree-of-freedom analysis shown on the model-validation page](#sec-mpc-365), which our fit reproduces exactly, including the full covariance matrix (below). We therefore use the 33-observation analysis throughout this section rather than the 2017 revision, and flag this rather than silently choosing one set of numbers.
+
+**Covariance terms for loadcell data**
+
+The variance-covariance terms for the loadcell data set are shown below.
+
+```
+            a              b              c
+a      6.0049021e-10
+b     -1.0759599e-10   2.3408589e-11
+c      4.0191106e-12  -9.5051441e-13   4.0538705e-14
+```
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-3671-covariance
+#| message: false
+V_mpc3671
+```
+
+The diagonal elements are the variances of the coefficients, $a, \, b, \, c$, respectively, and the off-diagonal elements are the covariance terms; our computed matrix agrees with NIST's stated values (above) to the reported precision.
+
+**Graph showing the standard deviations of calibrated values X' for given instrument responses Y' ignoring covariance terms in the propagation of error**
+
+**Problem with propagation of error**
+
+The propagation of errors shown above is not complete because it ignores the covariances among the coefficients, $a, \, b, \, c$. Unfortunately, some statistical software packages do not display these covariance terms with the other output from the analysis.
+
+**Recomputation of the standard deviation of X'**
+
+To account for the covariance terms, the variance of $X'$ is redefined by adding the covariance terms. Appropriate substitutions are made; the standard deviations are recomputed and graphed as a function of instrument response.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-3671-propagation-of-error
+#| fig-cap: "Standard deviation of the calibrated value X' as a function of instrument response Y', with and without the coefficient covariance terms in the propagation of error"
+#| message: false
+sy2_mpc3671 <- sy_mpc3671^2
+sa2_mpc3671 <- sa_mpc3671^2
+sb2_mpc3671 <- sb_mpc3671^2
+sc2_mpc3671 <- sc_mpc3671^2
+sab_mpc3671 <- V_mpc3671[1, 2]
+sac_mpc3671 <- V_mpc3671[1, 3]
+sbc_mpc3671 <- V_mpc3671[2, 3]
+
+yg_mpc3671 <- seq(min(loadcell_mpc3671$y), max(loadcell_mpc3671$y), length.out = 100)
+
+dfdy_g <- 1 / sqrt(b_mpc3671^2 - 4 * c_mpc3671 * (a_mpc3671 - yg_mpc3671))
+dfda_g <- -1 / sqrt(b_mpc3671^2 - 4 * c_mpc3671 * (a_mpc3671 - yg_mpc3671))
+dfdb_g <- (-1 + b_mpc3671 / sqrt(b_mpc3671^2 - 4 * c_mpc3671 * (a_mpc3671 - yg_mpc3671))) / (2 * c_mpc3671)
+dfdc_g <- (-a_mpc3671 + yg_mpc3671) / (c_mpc3671 * sqrt(b_mpc3671^2 - 4 * c_mpc3671 * (a_mpc3671 - yg_mpc3671))) -
+  (-b_mpc3671 + sqrt(b_mpc3671^2 - 4 * c_mpc3671 * (a_mpc3671 - yg_mpc3671))) / (2 * c_mpc3671^2)
+
+u2_noCov <- dfdy_g^2 * sy2_mpc3671 + dfda_g^2 * sa2_mpc3671 + dfdb_g^2 * sb2_mpc3671 + dfdc_g^2 * sc2_mpc3671
+u2_cov <- u2_noCov + 2 * dfda_g * dfdb_g * sab_mpc3671 + 2 * dfda_g * dfdc_g * sac_mpc3671 + 2 * dfdb_g * dfdc_g * sbc_mpc3671
+
+tibble(
+  y = yg_mpc3671,
+  `Ignoring covariance` = sqrt(u2_noCov),
+  `Including covariance` = sqrt(u2_cov)
+) |>
+  pivot_longer(-y, names_to = "method", values_to = "u") |>
+  ggplot(aes(y, u, color = method)) +
+  geom_line(linewidth = 0.9) +
+  scale_color_manual(values = c("Ignoring covariance" = "firebrick", "Including covariance" = "steelblue4")) +
+  labs(x = "Instrument response, Y'", y = "Standard deviation of X', psi", color = NULL) +
+  theme_light()
+```
+
+The graph shows the correct estimates for the standard deviation of $X'$ and gives a means for assessing the loss of accuracy that can be incurred by ignoring covariance terms. In this case, the uncertainty is reduced by including covariance terms, some of which are negative: over the range of the calibration data, the standard deviation of $X'$ ranges from `r formatC(min(sqrt(u2_noCov)), format = "e", digits = 3)` to `r formatC(max(sqrt(u2_noCov)), format = "e", digits = 3)` psi when covariance is ignored, versus `r formatC(min(sqrt(u2_cov)), format = "e", digits = 3)` to `r formatC(max(sqrt(u2_cov)), format = "e", digits = 3)` psi when it is included, confirming NIST's stated conclusion.
+
+**Sample code**
+
+The results in this section can be generated using R code and Dataplot code.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section3/mpc3671.dp --> The reader can download the [data as a text file](../../datasets/LOADCELL.DAT).
+
+##### Uncertainty for linear calibration using check standards {#sec-mpc-3672}
+
+**Check standards provide a mechanism for calculating uncertainties**
+
+The easiest method for calculating type A uncertainties for calibrated values from a calibration curve requires periodic measurements on check standards. The check standards, in this case, are artifacts at the lower, mid-point and upper ends of the calibration curve. The measurements on the check standard are made in a way that randomly samples the output of the calibration procedure.
+
+**Calculation of check standard values**
+
+The check standard values are the raw measurements on the artifacts corrected by the calibration curve. The standard deviation of these values should estimate the uncertainty associated with calibrated values. The success of this method of estimating the uncertainties depends on adequate sampling of the measurement process.
+
+**Measurements corrected by a linear calibration curve**
+
+As an example, consider [measurements of linewidths on photomask standards](#sec-mpc-371), made with an optical imaging system and corrected by a linear calibration curve. The three control measurements were made on reference standards with values at the lower, mid-point, and upper end of the calibration interval.
+
+**Compute the calibration standard deviation**
+
+For the linewidth data, the regression equation from the calibration experiment is
+
+$$ Y = a + bX + \epsilon $$
+
+and the estimated regression coefficients are the following.
+
+$$ \hat{a} = 0.2357 $$
+$$ \hat{b} = 0.9870 $$
+
+Next, we calculate the difference between the "predicted" $X$ from the regression fit and the observed $X$.
+
+$$ W_i = \frac{(Y_i - \hat{a})}{\hat{b}} - X_i $$
+
+Finally, we find the calibration standard deviation by calculating the standard deviation of the computed differences.
+
+$$ S = \sqrt{\frac{\sum \left( W_i - \overline{W} \right)^2}{n-1}} $$
+
+```{r}
+#| code-fold: true
+#| label: check-standard-sd-mpc3672
+#| message: false
+library(tidyverse)
+
+linewid_mpc3672 <- read_table(
+  here::here("datasets", "LINEWID.DAT"),
+  skip = 25,
+  col_names = c("day", "position", "x", "y"),
+  col_types = "dcdd"
+)
+
+a_mpc3672 <- 0.2357
+b_mpc3672 <- 0.9870
+
+w_mpc3672 <- ((linewid_mpc3672$y - a_mpc3672) / b_mpc3672) - linewid_mpc3672$x
+s_mpc3672 <- sd(w_mpc3672)
+s_mpc3672
+```
+
+The calibration standard deviation for the linewidth data is `r round(s_mpc3672, 3)` $\mu$m, matching NIST's stated 0.119 $\mu$m.
+
+The calculations in this section can be completed using R code and Dataplot code.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section3/mpc3672.dp --> The reader can download the [data as a text file](../../datasets/LINEWID.DAT).
+
+**Comparison with propagation of error**
+
+The standard deviation, `r round(s_mpc3672, 3)` $\mu$m, can be compared with a [propagation of error analysis](#sec-mpc-3673).
+
+**Other sources of uncertainty**
+
+In addition to the type A uncertainty, there may be other contributors to the uncertainty such as the uncertainties of the values of the reference materials from which the calibration curve was derived.
+
+##### Comparison of check standard analysis and propagation of error {#sec-mpc-3673}
+
+**Propagation of error for the linear calibration**
+
+The analysis of uncertainty for calibrated values from a linear calibration line can be addressed using propagation of error. On the previous page, the uncertainty was estimated from check standard values.
+
+**Estimates from calibration data**
+
+The calibration data consist of 40 measurements with an optical imaging system on 10 linewidth artifacts. A linear fit to the data gives a calibration curve with the following estimates for the intercept, $a$, and the slope, $b$:
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-3673-linear-fit
+#| message: false
+library(tidyverse)
+library(broom)
+
+calline_mpc3673 <- read_table(
+  here::here("datasets", "CALIBRATIONLINE.DAT"),
+  skip = 25,
+  col_names = c("x", "y", "c3", "c4", "c5"),
+  col_types = "ddddd"
+)
+
+fit_mpc3673 <- lm(y ~ x, data = calline_mpc3673)
+tidy(fit_mpc3673)
+```
+
+| Parameter | Estimate  | Std. Error | t-value    | Pr(>&#124;t&#124;) |
+|-----------|-----------|------------|------------|---------------------|
+| a         | 0.2357623 | 0.02430034 | 9.702014   | 7.860745e-12         |
+| b         | 0.9870377 | 0.00344058 | 286.881171 | 5.354121e-65         |
+
+with the following covariance matrix.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-3673-covariance
+#| message: false
+V_mpc3673 <- vcov(fit_mpc3673)
+V_mpc3673
+```
+
+|      | a             | b             |
+|------|---------------|---------------|
+| a    | 5.905067e-04  | -7.649453e-05 |
+| b    | -7.649453e-05 | 1.183759e-05  |
+
+Our fit of `CALIBRATIONLINE.DAT` (the first two columns, per the dataset's own header) reproduces NIST's stated coefficients, standard errors, and covariance matrix exactly to the reported precision.
+
+The results shown above can be generated with R code and Dataplot code.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section3/mpc3673.dp --> The reader can download the [data as a text file](../../datasets/CALIBRATIONLINE.DAT).
+
+**Propagation of error**
+
+The propagation of error is performed for the equation
+
+$$ X' = \frac{Y'- \hat{a}}{\hat{b}} $$
+
+so that the squared uncertainty of a calibrated value, $X'$, is
+
+$$ u^2 =
+\left[ \frac{\partial{X'}}{\partial{Y'}} \right]^2 s_{Y'}^2 +
+\left[ \frac{\partial{X'}}{\partial{\hat{a}}} \right]^2 s_{\hat{a}}^2 +
+\left[ \frac{\partial{X'}}{\partial{\hat{b}}} \right]^2 s_{\hat{b}}^2 +
+2 \left[ \frac{\partial{X'}}{\partial{\hat{a}}} \right]
+  \left[ \frac{\partial{X'}}{\partial{\hat{b}}} \right] s_{\hat{a}\hat{b}} $$
+
+where
+
+$$ \frac{\partial{X'}}{\partial{Y'}} = \frac{1}{\hat{b}} $$
+
+$$ \frac{\partial{X'}}{\partial{\hat{a}}} = \frac{-1}{\hat{b}} $$
+
+$$ \frac{\partial{X'}}{\partial{\hat{b}}} = \frac{-(Y'-\hat{a})}{\hat{b}^{2}} $$
+
+The uncertainty of the calibrated value, $X'$,
+
+$$ u^2 =
+\left( \frac{1}{\hat{b}} \right)^2 s_{Y'}^2 +
+\left( \frac{-1}{\hat{b}} \right)^2 s_{\hat{a}}^2 +
+\left( \frac{-(Y'-\hat{a})}{\hat{b}^{2}} \right)^2  s_{\hat{b}}^2 +
+2 \left( \frac{-1}{\hat{b}} \right)
+  \left( \frac{-(Y'-\hat{a})}{\hat{b}^{2}} \right) s_{\hat{a}\hat{b}} $$
+
+is dependent on the value of the instrument response $Y'$.
+
+**Graph showing standard deviation of calibrated value X' plotted as a function of instrument response Y' for a linear calibration**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-3673-propagation-of-error
+#| fig-cap: "Standard deviation of the calibrated value X' as a function of instrument response Y', for the linear calibration line fit to CALIBRATIONLINE.DAT"
+#| message: false
+a_mpc3673 <- coef(fit_mpc3673)[1]
+b_mpc3673 <- coef(fit_mpc3673)[2]
+sa2_mpc3673 <- V_mpc3673[1, 1]
+sb2_mpc3673 <- V_mpc3673[2, 2]
+sab_mpc3673 <- V_mpc3673[1, 2]
+sy2_mpc3673 <- summary(fit_mpc3673)$sigma^2
+
+ynew_mpc3673 <- seq(0, 12, by = 0.25)
+u2_mpc3673 <- sa2_mpc3673 / b_mpc3673^2 +
+  (ynew_mpc3673 - a_mpc3673)^2 * sb2_mpc3673 / b_mpc3673^4 +
+  sy2_mpc3673 / b_mpc3673^2 +
+  2 * (ynew_mpc3673 - a_mpc3673) * sab_mpc3673 / b_mpc3673^3
+u_mpc3673 <- sqrt(u2_mpc3673)
+
+tibble(y = ynew_mpc3673, u = u_mpc3673) |>
+  ggplot(aes(y, u)) +
+  geom_line(color = "steelblue4", linewidth = 0.9) +
+  labs(x = "Instrument response, Y' (micrometers)", y = "Standard deviation of X', micrometers") +
+  theme_light()
+```
+
+Over this range of instrument response, the maximum standard deviation of the calibrated value is `r round(max(u_mpc3673), 3)` $\mu$m (at $Y' =$ `r ynew_mpc3673[which.max(u_mpc3673)]`), matching NIST's stated maximum of 0.068 $\mu$m.
+
+**Comparison of check standard analysis and propagation of error**
+
+Comparison of the analysis of [check standard data](#sec-mpc-3672), which gives a standard deviation of `r round(s_mpc3672, 3)` $\mu$m, and propagation of error, which gives a maximum standard deviation of `r round(max(u_mpc3673), 3)` $\mu$m, suggests that the propagation of error may underestimate the type A uncertainty. The check standard measurements are undoubtedly sampling some sources of variability that do not appear in the formal propagation of error formula.

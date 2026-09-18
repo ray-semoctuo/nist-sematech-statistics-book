@@ -1,0 +1,49 @@
+## Calibration {#sec-mpc-3}
+
+The purpose of this section is to outline the procedures for calibrating artifacts and instruments while guaranteeing the 'goodness' of the calibration results. Calibration is a measurement process that assigns values to the property of an artifact or to the response of an instrument relative to reference standards or to a designated measurement process. The purpose of calibration is to eliminate or reduce bias in the user's measurement system relative to the reference base. The calibration procedure compares an "unknown" or test item(s) or instrument with reference standards according to a specific algorithm.
+
+1. [What are the issues for calibration?](#sec-mpc-31)
+   1. [Artifact or instrument calibration](#sec-mpc-31)
+   2. [Reference base](#sec-mpc-311)
+   3. [Reference standard(s)](#sec-mpc-312)
+2. [What is artifact (single-point) calibration?](#sec-mpc-32)
+3. [What are calibration designs?](#sec-mpc-33)
+   1. [Special types of bias (left-right effect & linear drift)](#sec-mpc-331)
+   2. [Solutions to calibration designs](#sec-mpc-332)
+   3. [Uncertainty of calibrated values](#sec-mpc-333)
+4. [Catalog of calibration designs](#sec-mpc-34)
+   1. [Mass weights](#sec-mpc-341)
+   2. [Drift-elimination designs for gauge blocks](#sec-mpc-342)
+   3. [Designs for electrical quantities](#sec-mpc-343)
+   4. [Roundness standards](#sec-mpc-344)
+   5. [Angle blocks](#sec-mpc-345)
+   6. [Thermometers in a bath](#sec-mpc-346)
+   7. [Humidity standards](#sec-mpc-347)
+5. [Control of artifact calibration](#sec-mpc-35)
+   1. [Control of the precision of the calibrating instrument](#sec-mpc-351)
+   2. [Control of bias and long-term variability](#sec-mpc-352)
+6. [What is instrument calibration over a regime?](#sec-mpc-36)
+   1. [Models for instrument calibration](#sec-mpc-361)
+   2. [Data collection](#sec-mpc-362)
+   3. [Assumptions](#sec-mpc-363)
+   4. [What can go wrong with the calibration procedure?](#sec-mpc-364)
+   5. [Data analysis and model validation](#sec-mpc-365)
+   6. [Calibration of future measurements](#sec-mpc-366)
+   7. [Uncertainties of calibrated values](#sec-mpc-367)
+7. [Control of instrument calibration](#sec-mpc-37)
+   1. [Control chart for linear calibration](#sec-mpc-371)
+   2. [Critical values of t\* statistic](#sec-mpc-372)
+
+{{< include calibration/issues-in-calibration.qmd >}}
+
+{{< include calibration/artifact-calibration.qmd >}}
+
+{{< include calibration/calibration-designs.qmd >}}
+
+{{< include calibration/catalog/index.qmd >}}
+
+{{< include calibration/control-of-artifact-calibration.qmd >}}
+
+{{< include calibration/instrument-calibration-over-a-regime.qmd >}}
+
+{{< include calibration/instrument-control-linear-calibration.qmd >}}

@@ -1,0 +1,70 @@
+#### Humidity standards {#sec-mpc-347}
+
+**Humidity standards**
+
+The calibration of humidity standards usually involves the comparison of reference weights with cylinders containing moisture. The designs shown in this catalog are drift-eliminating and may be suitable for artifacts other than humidity cylinders.
+
+**List of designs**
+
+- [2 reference weights and 3 cylinders](#sec-mpc-design-2-reference-weights-3-cylinders)
+
+##### Drift-elimination design for 2 reference weights and 3 cylinders {#sec-mpc-design-2-reference-weights-3-cylinders}
+
+```
+ OBSERVATIONS   1   1   1   1   1
+
+
+     Y(1)       +   -
+     Y(2)                   +   -
+     Y(3)               +   -
+     Y(4)           +   -
+     Y(5)       -               +
+     Y(6)       -           +
+     Y(7)               +       -
+     Y(8)           +       -
+     Y(9)           -           +
+     Y(10)      +       -
+
+
+ RESTRAINT      +   +
+
+
+ CHECK STANDARD +   -
+
+
+ DEGREES OF FREEDOM = 6
+
+
+                         SOLUTION MATRIX
+                          DIVISOR  =  10
+
+ OBSERVATIONS      1      1      1      1      1
+
+
+    Y(1)           2     -2      0      0      0
+    Y(2)           0      0      0      2     -2
+    Y(3)           0      0      2     -2      0
+    Y(4)          -1      1     -3     -1     -1
+    Y(5)          -1      1      1      1      3
+    Y(6)          -1      1      1      3      1
+    Y(7)           0      0      2      0     -2
+    Y(8)          -1      1     -1     -3     -1
+    Y(9)           1     -1      1      1      3
+    Y(10)          1     -1     -3     -1     -1
+    R*             5      5      5      5      5
+
+    R* = average value of the two reference weights
+
+
+ FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+
+ WT    K1      1   1   1   1   1
+  1  0.5477                    +
+  1  0.5477                +
+  1  0.5477            +
+  2  0.8944            +   +
+  3  1.2247            +   +   +
+  0  0.6325    +   -
+```
+
+[Explanation of notation and interpretation of tables](#sec-mpc-332)

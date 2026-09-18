@@ -1,0 +1,275 @@
+### Control of artifact calibration {#sec-mpc-35}
+
+**Purpose**
+
+The purpose of statistical control in the calibration process is to guarantee the 'goodness' of calibration results within predictable limits and to validate the statement of uncertainty of the result. Two types of control can be imposed on a calibration process that makes use of statistical designs:
+
+1. [Control of instrument precision or short-term variability](#sec-mpc-351)
+2. Control of bias and long-term variability
+   - [Example of a Shewhart control chart](#sec-mpc-3521)
+   - [Example of an EWMA control chart](#sec-mpc-3522)
+
+**Short-term standard deviation**
+
+The short-term standard deviation from each design is the basis for controlling instrument precision. Because the measurements for a single design are completed in a short time span, this standard deviation estimates the basic precision of the instrument. Designs should be chosen to have enough measurements so that the standard deviation from the design has at least 3 degrees of freedom where the degrees of freedom are ($n$ - $m$ + 1) with
+
+- $n$ = number of difference measurements
+- $m$ = number of artifacts.
+
+**Check standard**
+
+Measurements on a check standard provide the mechanism for controlling the bias and long-term variability of the calibration process. The check standard is treated as one of the test items in the calibration design, and its value as computed from each calibration run is the basis for accepting or rejecting the calibration. All designs cataloged in this Handbook<!-- XREF: MPC Section 2.3.4, Catalog of calibration designs, not yet migrated to this book; source handbook/mpc/section3/mpc34.htm --> have provision for a check standard.
+
+The check standard should be of the same type and geometry as items that are measured in the designs. These artifacts must be stable and available to the calibration process on a continuing basis. There should be a check standard at each critical level of measurement. For example, for mass calibrations there should be check standards at the 1 kg; 100 g, 10 g, 1 g, 0.1 g levels, etc. For gage blocks, there should be check standards at all nominal lengths.
+
+A check standard can also be a mathematical construction, such as the computed difference between the calibrated values of two reference standards in a design.
+
+**Database of check standard values**
+
+The creation and maintenance of the database of check standard values is an important aspect of the control process. The results from each calibration run are recorded in the database. The best way to record this information is in one file with one line (row in a spreadsheet) of information in fixed fields for each calibration run. A list of typical entries follows:
+
+1. Date
+2. Identification for check standard
+3. Identification for the calibration design
+4. Identification for the instrument
+5. Check standard value
+6. Repeatability standard deviation from design
+7. Degrees of freedom
+8. Operator identification
+9. Flag for out-of-control signal
+10. Environmental readings (if pertinent)
+
+#### Control of precision {#sec-mpc-351}
+
+**Control parameters from historical data**
+
+A modified control chart procedure is used for controlling instrument precision. The procedure is designed to be implemented in real time after a baseline and control limit for the instrument of interest have been established from the database of short-term standard deviations. A separate control chart is required for each instrument -- except where instruments are of the same type with the same basic precision, in which case they can be treated as one.
+
+The baseline is the process standard deviation that is pooled from $k = 1, \ldots, K$ individual repeatability standard deviations, $s_k$, in the database, each having $\nu_k$ degrees of freedom. The pooled repeatability standard deviation is
+
+$$s_1 = \sqrt{\frac{1}{\nu}\sum_{k=1}^K \nu_k \, s_k^2}$$
+
+with degrees of freedom
+
+$$\nu = \sum_{k=1}^K \nu_k \, .$$
+
+**Control procedure is invoked in real-time for each calibration run**
+
+The control procedure compares each new repeatability standard deviation that is recorded for the instrument with an upper control limit, $UCL$. Usually, only the upper control limit is of interest because we are primarily interested in detecting degradation in the instrument's precision. A possible complication is that the control limit is dependent on the degrees of freedom in the new standard deviation and is computed as follows:
+
+$$UCL = s_1 \sqrt{F_{\alpha,\, \nu_{new},\, \nu}}$$
+
+The quantity under the radical is the upper $\alpha$ percentage point from the [F table](../01-eda/index.qmd#sec-eda-f-distribution-table) where $\alpha$ is chosen small to be, say, 0.05. The other two terms refer to the degrees of freedom in the new standard deviation and the degrees of freedom in the process standard deviation.
+
+**Limitation of graphical method**
+
+The graphical method of plotting every new estimate of repeatability on a control chart does not work well when the $UCL$ can change with each calibration design, depending on the degrees of freedom. The algebraic equivalent is to test if the new standard deviation exceeds its control limit, in which case the short-term precision is judged to be out of control and the current calibration run is rejected. For more guidance, see [Remedies and strategies for dealing with out-of-control signals](#sec-mpc-234).
+
+As long as the repeatability standard deviations are in control, there is reason for confidence that the precision of the instrument has not degraded.
+
+**Case study: Mass balance precision**
+
+It is recommended that the repeatability standard deviations be plotted against time on a regular basis to check for gradual degradation in the instrument. Individual failures may not trigger a suspicion that the instrument is in need of adjustment or tuning.
+
+##### Example of control chart for precision {#sec-mpc-3511}
+
+**Example of a control chart for precision of a mass balance**
+
+Mass calibrations usually start with the comparison of kilograms standards using a high precision balance as a comparator. Many of the measurements at the kilogram level that were made at NIST between 1975 and 1989 were made on balance #12 using a 1,1,1,1 calibration design.<!-- XREF: MPC Section 2.3.4 catalog, 1,1,1,1 calibration design; source handbook/mpc/section3/mpc3412.htm --> The redundancy in the calibration design produces estimates for the individual kilograms and a repeatability standard deviation with three degrees of freedom for each calibration run. These standard deviations estimate the precision of the balance.
+
+**Need for monitoring precision**
+
+The precision of the balance is monitored to check for:
+
+1. Slow degradation in the balance
+2. Anomalous behavior at specific times
+
+**Monitoring technique for standard deviations**
+
+The standard deviations over time and many calibrations are tracked and monitored using a [control chart for standard deviations](#sec-mpc-351). The database and control limits are updated on a yearly or bi-yearly basis and standard deviations for each calibration run in the next cycle are compared with the control limits. In this case, the standard deviations from 117 calibrations between 1975 and 1985 were pooled to obtain a repeatability standard deviation with $\nu = 3 \times 117 = 351$ degrees of freedom, and the control limits were computed at the 1% significance level.
+
+**Control chart for precision**
+
+This is the same balance #12 check standard case study already presented in Section 2.2.3; see @fig-mpc-precision-balance above, where the pooled standard deviation is $s_1 \approx 0.03428$ micrograms and the upper control limit at the 1% significance level is 0.067 micrograms, matching NIST's stated control limit.
+
+**Interpretation of the control chart**
+
+The control chart shows that the precision of the balance remained in control through the first five months of 1988 with only two violations of the control limits. For those occasions, the calibrations were discarded and repeated. Clearly, for the second violation, something significant occurred that invalidated the calibration results.
+
+**Further interpretation of the control chart**
+
+However, it is also clear from the pattern of standard deviations over time that the precision of the balance was gradually degrading and more and more points were approaching the control limits. This finding led to a decision to replace this balance for high accuracy calibrations.
+
+#### Control of bias and long-term variability {#sec-mpc-352}
+
+**Control parameters are estimated using historical data**
+
+A control chart procedure is used for controlling bias and long-term variability. The procedure is designed to be implemented in real time after a baseline and control limits for the check standard of interest have been established from the database of check standard values. A separate control chart is required for each check standard. The control procedure outlined here is based on a Shewhart control chart with upper and lower control limits that are symmetric about the average. The [EWMA control procedure](#sec-mpc-3522) that is sensitive to small changes in the process is discussed on another page.
+
+**For a Shewhart control procedure, the average and standard deviation of historical check standard values are the parameters of interest**
+
+The check standard values are denoted by
+
+$$C_k \, (k=1, \ldots, K) \, .$$
+
+The baseline is the process average which is computed from the check standard values as
+
+$$\overline{C} = \frac{1}{K}\sum_{k=1}^K C_k \, .$$
+
+The process standard deviation is
+
+$$s_2 = \sqrt{\frac{1}{K-1}\sum_{k=1}^K (C_k - \overline{C})^2}$$
+
+with $K - 1$ degrees of freedom.
+
+**The control limits depend on the t distribution and the degrees of freedom in the process standard deviation**
+
+If $\overline{C}$ has been computed from historical data, the upper and lower control limits are:
+
+$$
+\begin{aligned}
+UCL &= \overline{C} + t_{1-\alpha/2,\, K-1} \cdot s_2 \\
+LCL &= \overline{C} - t_{1-\alpha/2,\, K-1} \cdot s_2
+\end{aligned}
+$$
+
+where $t_{1-\alpha/2,\, K-1}$ denotes the 1-$\alpha$/2 critical value from the [t table](../01-eda/index.qmd#sec-eda-t-distribution-table) with $\nu = K - 1$ degrees of freedom.
+
+**Sample code**
+
+Sample code for computing the $t$ value for a conservative case where $\alpha = 0.05$, $J = 6$, and $K = 6$, is shown below.
+
+```{r}
+#| code-fold: true
+#| label: t-critical-value-mpc352
+#| message: false
+alpha_mpc352 <- 0.05
+J_mpc352 <- 6
+K_mpc352 <- 6
+
+t_mpc352 <- qt(1 - alpha_mpc352 / 2, K_mpc352 - 1)
+t_mpc352
+```
+
+The computed critical value is $t_{0.975,\, 5} \approx$ `r round(t_mpc352, 4)`.
+
+**Simplification for large degrees of freedom**
+
+It is standard practice to use a value of 3 instead of a critical value from the $t$ table, given the process standard deviation has large degrees of freedom, say, $\nu > 15$.
+
+**The control procedure is invoked in real-time and a failure implies that the current calibration should be rejected**
+
+The control procedure compares the check standard value, $C$, from each calibration run with the upper and lower control limits. This procedure should be implemented in real time and does not necessarily require a graphical presentation. The check standard value can be compared algebraically with the control limits. The calibration run is judged to be out-of-control if either:
+
+$$C > UCL$$
+
+or
+
+$$C < LCL$$
+
+**Actions to be taken**
+
+If the check standard value exceeds one of the control limits, the process is judged to be out of control and the current calibration run is rejected. The best strategy in this situation is to repeat the calibration to see if the failure was a chance occurrence. Check standard values that remain in control, especially over a period of time, provide confidence that no new biases have been introduced into the measurement process and that the long-term variability of the process has not changed.
+
+**Out-of-control signals that recur require investigation**
+
+Out-of-control signals, particularly if they recur, can be symptomatic of one of the following conditions:
+
+- Change or damage to the reference standard(s)
+- Change or damage to the check standard
+- Change in the long-term variability of the calibration process
+
+For more guidance, see [Remedies and strategies for dealing with out-of-control signals](#sec-mpc-224).
+
+**Caution -- be sure to plot the data**
+
+If the tests for control are carried out algebraically, it is recommended that, at regular intervals, the check standard values be plotted against time to check for drift or anomalies in the measurement process.
+
+##### Example of Shewhart control chart for mass calibrations {#sec-mpc-3521}
+
+**Example of a control chart for mass calibrations at the kilogram level**
+
+Mass calibrations usually start with the comparison of four kilogram standards using a high precision balance as a comparator. Many of the measurements at the kilogram level that were made at NIST between 1975 and 1989 were made on balance #12 using a 1,1,1,1 calibration design.<!-- XREF: MPC Section 2.3.4 catalog, 1,1,1,1 calibration design; source handbook/mpc/section3/mpc3412.htm --> The restraint for this design is the known average of two kilogram reference standards. The redundancy in the calibration design produces individual estimates for the two test kilograms and the two reference standards.
+
+**Check standard**
+
+There is no slot in the 1,1,1,1 design for an artifact check standard when the first two kilograms are reference standards; the third kilogram is a test weight; and the fourth is a summation of smaller weights that act as the restraint in the next series. Therefore, the check standard is a computed difference between the values of the two reference standards as estimated from the design. The convention with mass calibrations is to report the correction to nominal, in this case the correction to 1000 g, as shown in the control chart below.
+
+**Need for monitoring**
+
+The kilogram check standard is monitored to check for:
+
+1. Long-term degradation in the calibration process
+2. Anomalous behavior at specific times
+
+**Monitoring technique for check standard values**
+
+Check standard values over time and many calibrations are tracked and monitored using a [Shewhart control chart](#sec-mpc-352). The database and control limits are updated when needed and check standard values for each calibration run in the next cycle are compared with the control limits. In this case, the values from 117 calibrations between 1975 and 1985 were averaged to obtain a baseline and process standard deviation with $\nu = 116$ degrees of freedom. Control limits are computed with a factor of $k = 3$ to identify truly anomalous data points.
+
+**Control chart of kilogram check standard measurements showing a change in the process after 1985**
+
+This is the same kilogram check standard case study already presented in Section 2.2.2.3; see @fig-mpc-shewhart-kilogram above, where the baseline and process standard deviation, $s =$ 0.03065 mg, are computed from the check standard data taken prior to 1985.
+
+**Interpretation of the control chart**
+
+The control chart shows only two violations of the control limits. For those occasions, the calibrations were discarded and repeated. The configuration of points is unacceptable if many points are close to a control limit and there is an unequal distribution of data points on the two sides of the control chart -- indicating a change in either:
+
+- process average which may be related to a change in the reference standards
+
+or
+
+- variability which may be caused by a change in the instrument precision or may be the result of other factors on the measurement process.
+
+**Small changes only become obvious over time**
+
+Unfortunately, it takes time for the patterns in the data to emerge because individual violations of the control limits do not necessarily point to a permanent shift in the process. The Shewhart control chart is not powerful for detecting small changes, say of the order of at most one standard deviation, which appears to be approximately the case in this application. This level of change might seem insignificant, but the [calculation of uncertainties](#sec-mpc-3332) for the calibration process depends on the control limits.
+
+**Re-establishing the limits based on recent data and EWMA option**
+
+If the limits for the control chart are re-calculated based on the data after 1985, the extent of the change is obvious. Because the exponentially weighted moving average (EWMA) control chart is capable of detecting small changes, it may be a better choice for a high precision process that is producing many control values.
+
+**Revised control chart based on check standard measurements after 1985**
+
+See @fig-mpc-shewhart-kilogram-revised (Section 2.2.2.3), which recomputes the baseline and control limits separately for the data prior to and after 1985.
+
+**Sample code**
+
+The reader can download the [data as a text file](../../datasets/MASS.DAT).
+
+##### Example of EWMA control chart for mass calibrations {#sec-mpc-3522}
+
+**Small changes only become obvious over time**
+
+Unfortunately, it takes time for the patterns in the data to emerge because individual violations of the control limits do not necessarily point to a permanent shift in the process. The Shewhart control chart is not powerful for detecting small changes, say of the order of at most one standard deviation, which appears to be the case for the [calibration data](#sec-mpc-3521) shown on the previous page. The EWMA (exponentially weighted moving average) control chart is better suited for this purpose.
+
+**Explanation of EWMA statistic at the kilogram level**
+
+The exponentially weighted moving average (EWMA) is a statistic for monitoring the process that averages the data in a way that gives less and less weight to data as they are further removed in time from the current measurement. The EWMA statistic at time $t$ is computed recursively from individual data points which are ordered in time to be
+
+$$Y_1, \, Y_2, \, \ldots, \, Y_t$$
+
+where the first EWMA statistic is the average of historical data.
+
+$$EWMA_{t+1} = \lambda Y_t + (1-\lambda)EWMA_t$$
+
+**Control mechanism for EWMA**
+
+The EWMA control chart can be made sensitive to small changes or a gradual drift in the process by the choice of the weighting factor, $\lambda$. A weighting factor between 0.2 - 0.3 has been suggested for this purpose [@Hunter], and 0.15 is another popular choice.
+
+**Limits for the control chart**
+
+The target or center line for the control chart is the average of historical data. The upper ($UCL$) and lower ($LCL$) limits are
+
+$$UCL = EWMA_1 + sk\sqrt{\frac{\lambda}{2-\lambda}}$$
+
+$$LCL = EWMA_1 - sk\sqrt{\frac{\lambda}{2-\lambda}}$$
+
+where $s$ is the standard deviation of the historical data; the function under the radical is a good approximation to the component of the standard deviation of the EWMA statistic that is a function of time; and $k$ is the [multiplicative factor](#sec-mpc-221), defined in the same manner as for the Shewhart control chart, which is usually taken to be 3.
+
+**Example of EWMA chart for check standard data for kilogram calibrations showing multiple violations of the control limits for the EWMA statistics**
+
+This is the same kilogram check standard case study already presented in Section 2.2.2.3; see @fig-mpc-ewma-kilogram above. The target (average) and process standard deviation are computed from the check standard data taken prior to 1985. The computation of the EWMA statistic begins with the data taken at the start of 1985. The control limits are calculated according to the equation above where the process standard deviation, $s =$ 0.03065 mg and $k = 3$. The EWMA statistics, and not the raw data, are of interest in looking for out-of-control signals. Because the EWMA statistic is a weighted average, it has a smaller standard deviation than a single control measurement, and, therefore, the EWMA control limits are narrower than the limits for a Shewhart control chart.
+
+**Interpretation of the control chart**
+
+The EWMA control chart shows many violations of the control limits starting at approximately the mid-point of 1986. This pattern emerges because the process average has actually shifted about one standard deviation, and the EWMA control chart is sensitive to small changes.

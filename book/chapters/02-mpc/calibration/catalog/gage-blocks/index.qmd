@@ -1,0 +1,108 @@
+#### Drift-elimination designs for gauge blocks {#sec-mpc-342}
+
+**Tie to the defined unit of length**
+
+The unit of length in many industries is maintained and disseminated by gauge blocks. The highest accuracy calibrations of gauge blocks are done by laser intererometry which allows the transfer of the unit of length to a gauge piece. Primary standards laboratories maintain master sets of English gauge blocks and metric gauge blocks which are calibrated in this manner. Gauge blocks ranging in sizes from 0.1 to 20 inches are required to support industrial processes in the United States.
+
+**Mechanical comparison of gauge blocks**
+
+However, the majority of gauge blocks are calibrated by comparison with master gauges using a mechanical comparator specifically designed for measuring the small difference between two blocks of the same nominal length. The measurements are temperature corrected from readings taken directly on the surfaces of the blocks. Measurements on 2 to 20 inch blocks require special handling techniques to minimize thermal effects. A typical calibration involves a set of 81 gauge blocks which are compared one-by-one with master gauges of the same nominal size.
+
+**Calibration designs for gauge blocks**
+
+Calibration designs allow comparison of several gauge blocks of the same nominal size to one master gauge in a manner that promotes economy of operation and minimizes wear on the master gauge. The calibration design is repeated for each size until measurements on all the blocks in the test sets are completed.
+
+**Problem of thermal drift**
+
+Measurements on gauge blocks are subject to drift from heat build-up in the comparator. This drift must be accounted for in the calibration experiment or the lengths assigned to the blocks will be contaminated by the drift term.
+
+**Elimination of linear drift**
+
+The designs in this catalog are constructed so that the solutions are immune to linear drift if the measurements are equally spaced over time. The size of the drift is the average of the *n* difference measurements. Keeping track of drift from design to design is useful because a marked change from its usual range of values may indicate a problem with the measurement system.
+
+**Assumption for Doiron designs**
+
+Mechanical measurements on gauge blocks take place successively with one block being inserted into the comparator followed by a second block and so on. This scenario leads to the assumption that the individual measurements are subject to drift [@Doiron]. Doiron lists designs meeting this criterion which also allow for:
+
+- two master blocks, $R_1$ and $R_2$
+- one check standard = difference between $R_1$ and $R_2$
+- one - nine test blocks
+
+**Properties of drift-elimination designs that use 1 master block**
+
+The designs are constructed to:
+
+- Be immune to linear drift
+- Minimize the standard deviations for test blocks (as much as possible)
+- Spread the measurements on each block throughout the design
+- Be completed in 5-10 minutes to keep the drift at the 5 nm level
+
+**Caution**
+
+Because of the large number of gauge blocks that are being intercompared and the need to eliminate drift, the Doiron designs are not completely balanced with respect to the test blocks. Therefore, the standard deviations are not equal for all blocks. If all the blocks are being calibrated for use in one facility, it is easiest to quote the largest of the standard deviations for all blocks rather than try to maintain a separate record on each block.
+
+**Definition of master block and check standard**
+
+At the National Institute of Standards and Technology (NIST), the first two blocks in the design are NIST masters which are designated $R_1$ and $R_2$, respectively. The $R_1$ block is a steel block, and the $R_2$ block is a chrome-carbide block. If the test blocks are steel, the reference is $R_1$; if the test blocks are chrome-carbide, the reference is $R_2$. The check standard is always the difference between $R_1$ and $R_2$ as estimated from the design and is independent of $R_1$ and $R_2$. The designs are listed in this section of the catalog as:
+
+1. [Doiron design for 3 gauge blocks - 6 measurements](#sec-mpc-design-doiron-3-6)
+2. [Doiron design for 3 gauge blocks - 9 measurements](#sec-mpc-design-doiron-3-9)
+3. [Doiron design for 4 gauge blocks - 8 measurements](#sec-mpc-design-doiron-4-8)
+4. [Doiron design for 4 gauge blocks - 12 measurements](#sec-mpc-design-doiron-4-12)
+5. [Doiron design for 5 gauge blocks - 10 measurements](#sec-mpc-design-doiron-5-10)
+6. [Doiron design for 6 gauge blocks - 12 measurements](#sec-mpc-design-doiron-6-12)
+7. [Doiron design for 7 gauge blocks - 14 measurements](#sec-mpc-design-doiron-7-14)
+8. [Doiron design for 8 gauge blocks - 16 measurements](#sec-mpc-design-doiron-8-16)
+9. [Doiron design for 9 gauge blocks - 18 measurements](#sec-mpc-design-doiron-9-18)
+10. [Doiron design for 10 gauge blocks - 20 measurements](#sec-mpc-design-doiron-10-20)
+11. [Doiron design for 11 gauge blocks - 22 measurements](#sec-mpc-design-doiron-11-22)
+
+**Properties of designs that use 2 master blocks**
+
+Historical designs for gauge blocks [@CameronHailes] work on the assumption that the difference measurements are contaminated by linear drift. This assumption is more restrictive and covers the case of drift in successive measurements but produces fewer designs. The Cameron/Hailes designs meeting this criterion allow for:
+
+- two reference (master) blocks, $R_1$ and $R_2$
+- check standard = difference between the two master blocks
+
+and assign equal uncertainties to values of all test blocks.
+
+The designs are listed in this section of the catalog as:
+
+1. [Cameron-Hailes design for 2 masters + 2 test blocks](#sec-mpc-design-drift-elim-4)
+2. [Cameron-Hailes design for 2 masters + 3 test blocks](#sec-mpc-design-drift-elim-5)
+3. [Cameron-Hailes design for 2 masters + 4 test blocks](#sec-mpc-design-drift-elim-6)
+4. [Cameron-Hailes design for 2 masters + 5 test blocks](#sec-mpc-design-drift-elim-7)
+
+**Important concept - check standard**
+
+The [check standards](#sec-mpc-12) for the designs in this section are not artifact standards but constructions from the design. The value of one master block or the average of two master blocks is the restraint for the design, and values for the masters, $R_1$ and $R_2$, are estimated from a set of measurements taken according to the design. The check standard value is the difference between the estimates, $R_1$ and $R_2$. [Measurement control](#sec-mpc-35) is exercised by comparing the current value of the check standard with its historical average.
+
+{{< include calibration/catalog/gage-blocks/doiron-3-6-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-3-9-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-4-8-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-4-12-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-5-10-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-6-12-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-7-14-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-8-16-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-9-18-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-10-20-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/doiron-11-22-design.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/drift-elimination-4-gage-blocks.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/drift-elimination-5-gage-blocks.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/drift-elimination-6-gage-blocks.qmd >}}
+
+{{< include calibration/catalog/gage-blocks/drift-elimination-7-gage-blocks.qmd >}}
