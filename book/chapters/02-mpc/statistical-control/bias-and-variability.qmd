@@ -16,51 +16,13 @@ A change in the variability of the measurements on the check standard can be due
 
 The control procedure monitors the progress of measurements on the check standard over time and signals when a significant change occurs. There are two control chart procedures that are suitable for this purpose.
 
-**Artifacts for process control must be stable and available**
+**Shewhart Chart is easy to implement**
 
-The check standard artifacts for controlling the bias or long-term variability of the process must be of the same type and geometry as items that are measured in the workload. The artifacts must be stable and available to the measurement process on a continuing basis. Usually, one artifact is sufficient. It can be:
+The [Shewhart control chart](#sec-mpc-221) has the advantage of being intuitive and easy to implement. It is characterized by a center line and symmetric upper and lower control limits. The chart is good for detecting large changes but not for quickly detecting small changes (of the order of one-half to one standard deviation) in the process.
 
-1. An individual item drawn at random from the workload
-2. A specific item reserved by the laboratory for the purpose<!-- XREF: MPC Case Studies (Section 2.6), Resistivity; source handbook/mpc/section6/mpc62.htm -->
+**Depiction of Shewhart control chart**
 
-**Topics covered in this section**
-
-1. [Shewhart control chart methodology](#sec-mpc-221)
-2. [EWMA control chart methodology](#sec-mpc-2211)
-3. [Data collection and analysis](#sec-mpc-222)
-4. [Monitoring](#sec-mpc-223)
-5. [Remedies and strategies for dealing with out-of-control signals](#sec-mpc-224)
-
-#### Shewhart control chart {#sec-mpc-221}
-
-**Chart has a baseline and symmetric control limits**
-
-The Shewhart control chart has a baseline and upper and lower limits, shown as dashed lines, that are symmetric about the baseline. Measurements are plotted on the chart versus a time line. Measurements that are outside the limits are considered to be out of control.
-
-**Baseline is the average from historical data**
-
-The baseline for the control chart is the accepted value, an average of the historical check standard values. A minimum of 100 check standard values is required to establish an accepted value.
-
-**Caution -- control limits are computed from the process standard deviation, not from rational subsets**
-
-The upper ($UCL$) and lower ($LCL$) control limits are:
-
-$$UCL = \text{Accepted value} + k \cdot \text{process standard deviation}$$
-$$LCL = \text{Accepted value} - k \cdot \text{process standard deviation}$$
-
-where the [process standard deviation](#sec-mpc-222) is the standard deviation computed from the check standard database.
-
-**Individual measurements cannot be assessed using the standard deviation from short-term repetitions**
-
-This procedure is an *individual observations* control chart. The previously described control charts depended on *rational subsets*, which use the standard deviations computed from the rational subsets to calculate the control limits. For a measurement process, the subgroups would consist of short-term repetitions which can characterize the precision of the instrument but not the long-term variability of the process. In measurement science, the interest is in assessing individual measurements (or averages of short-term repetitions). Thus, the standard deviation over time is the appropriate measure of variability.
-
-**Choice of k depends on number of measurements we are willing to reject**
-
-To achieve tight control of the measurement process, set $k = 2$, in which case approximately 5% of the measurements from a process that is in control will produce out-of-control signals. This assumes that there is a sufficiently large number of degrees of freedom ($>100$) for estimating the process standard deviation.
-
-To flag only those measurements that are egregiously out of control, set $k = 3$, in which case approximately 1% of the measurements from an in-control process will produce out-of-control signals.
-
-**Depiction of a Shewhart control chart**
+In the simplistic illustration of a Shewhart control chart shown below, the measurements are within the control limits with the exception of one measurement which exceeds the upper control limit.
 
 ```{r}
 #| code-fold: true
@@ -90,38 +52,13 @@ ggplot(shewhart_demo_mpc221, aes(time, y)) +
   theme_light()
 ```
 
-The dashed lines mark the upper and lower control limits at $k = 3$ process standard deviations from the baseline (solid line). All measurements fall within the limits except one, which is flagged as out of control.
+**EWMA Chart is better for detecting small changes**
 
-#### EWMA control chart {#sec-mpc-2211}
+The [EWMA control chart](#sec-mpc-2211) (exponentially weighted moving average) is more difficult to implement but should be considered if the goal is quick detection of small changes. The decision process for the EWMA chart is based on an exponentially decreasing (over time) function of prior measurements on the check standard while the decision process for the Shewhart chart is based on the current measurement only.
 
-**Small changes only become obvious over time**
+**Example of EWMA Chart**
 
-Because it takes time for the patterns in the data to emerge, a permanent shift in the process may not immediately cause individual violations of the control limits on a Shewhart control chart. The [Shewhart control chart](#sec-mpc-221) is not powerful for detecting small changes, say of the order of 1-1/2 standard deviations. The EWMA (exponentially weighted moving average) control chart is better suited to this purpose.
-
-**EWMA is a weighted average that discounts older data**
-
-The exponentially weighted moving average (EWMA) is a statistic for monitoring the process that averages the data in a way that gives less and less weight to data as they are further removed in time from the current measurement. The data $Y_1, Y_2, \ldots, Y_t$ are the check standard measurements ordered in time. The EWMA statistic at time $t$ is computed recursively from individual data points, with the first EWMA statistic, $EWMA_1$, being the arithmetic average of historical data.
-
-$$EWMA_{t+1} = \lambda Y_t + (1-\lambda) EWMA_t$$
-
-**Control mechanism for EWMA**
-
-The EWMA control chart can be made sensitive to small changes or a gradual drift in the process by the choice of the weighting factor, $\lambda$. A weighting factor of 0.2-0.3 is usually suggested for this purpose [@Hunter], and 0.15 is also a popular choice.
-
-**Limits for the control chart**
-
-The target or center line for the control chart is the average of historical data. The upper ($UCL$) and lower ($LCL$) limits are
-
-$$UCL = EWMA_1 + ks\sqrt{\frac{\lambda}{2-\lambda}}$$
-$$LCL = EWMA_1 - ks\sqrt{\frac{\lambda}{2-\lambda}}$$
-
-where $s$ times the radical expression is a good approximation to the standard deviation of the EWMA statistic and the factor $k$ is chosen in the same way as for the Shewhart control chart -- generally to be 2 or 3.
-
-**Procedure for implementing the EWMA control chart**
-
-The implementation of the EWMA control chart is the same as for any other type of control procedure. The procedure is built on the assumption that the "good" historical data are representative of the in-control process, with future data from the same process tested for agreement with the historical data. To start the procedure, a target (average) and process standard deviation are computed from historical check standard data. Then the procedure enters the [monitoring stage](#sec-mpc-223) with the EWMA statistics computed and tested against the control limits. The EWMA statistics are weighted averages, and thus their standard deviations are smaller than the standard deviations of the raw data and the corresponding control limits are narrower than the control limits for the Shewhart individual observations chart.
-
-**Depiction of an EWMA control chart**
+In the EWMA control chart below, the points represent the measurements (NIST's original figure shows red dots; ours uses steelblue to match the book's palette). Control is exercised via the exponentially weighted moving average (shown as the curved line) which, in this case, is approaching its upper control limit.
 
 ```{r}
 #| code-fold: true
@@ -161,7 +98,86 @@ ggplot(ewma_demo_mpc2211, aes(time)) +
   theme_light()
 ```
 
-The dashed lines mark the EWMA control limits at $k = 3$; the solid dark curve is the EWMA statistic, which approaches the upper control limit as the underlying process drifts upward.
+**Artifacts for process control must be stable and available**
+
+The check standard artifacts for controlling the bias or long-term variability of the process must be of the same type and geometry as items that are measured in the workload. The artifacts must be stable and available to the measurement process on a continuing basis. Usually, one artifact is sufficient. It can be:
+
+1. An individual item drawn at random from the workload
+2. A specific item reserved by the laboratory for the purpose
+
+**Case Study**
+
+*Check standard for resistivity measurements*<!-- XREF: MPC Case Studies (Section 2.6.2), Check standard for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
+**Topics covered in this section**
+
+1. [Shewhart control chart methodology](#sec-mpc-221)
+2. [EWMA control chart methodology](#sec-mpc-2211)
+3. [Data collection and analysis](#sec-mpc-222)
+4. [Monitoring](#sec-mpc-223)
+5. [Remedies and strategies for dealing with out-of-control signals](#sec-mpc-224)
+
+#### Shewhart control chart {#sec-mpc-221}
+
+**Example of Shewhart control chart for mass calibrations**<!-- XREF: MPC Case Studies (Section 3), mass calibration check standard data and analysis, not yet migrated to this book; source handbook/mpc/section3/mpc3521.htm -->
+
+The Shewhart control chart has a baseline and upper and lower limits, shown as dashed lines, that are symmetric about the baseline. Measurements are plotted on the chart versus a time line. Measurements that are outside the limits are considered to be out of control.
+
+**Baseline is the average from historical data**
+
+The baseline for the control chart is the accepted value, an average of the historical check standard values. A minimum of 100 check standard values is required to establish an accepted value.
+
+**Caution -- control limits are computed from the process standard deviation -- not from rational subsets**
+
+The upper ($UCL$) and lower ($LCL$) control limits are:
+
+$$UCL = \text{Accepted value} + k \cdot \text{process standard deviation}$$
+$$LCL = \text{Accepted value} - k \cdot \text{process standard deviation}$$
+
+where the [process standard deviation](#sec-mpc-222) is the standard deviation computed from the check standard database.
+
+**Individual measurements cannot be assessed using the standard deviation from short-term repetitions**
+
+This procedure is an *individual observations* control chart. The previously described control charts depended on *rational subsets*, which use the standard deviations computed from the rational subsets to calculate the control limits. For a measurement process, the subgroups would consist of short-term repetitions which can characterize the precision of the instrument but not the long-term variability of the process. In measurement science, the interest is in assessing individual measurements (or averages of short-term repetitions). Thus, the standard deviation over time is the appropriate measure of variability.
+
+**Choice of k depends on number of measurements we are willing to reject**
+
+To achieve tight control of the measurement process, set $k = 2$, in which case approximately 5% of the measurements from a process that is in control will produce out-of-control signals. This assumes that there is a sufficiently large number of degrees of freedom ($>100$) for estimating the process standard deviation.
+
+To flag only those measurements that are egregiously out of control, set $k = 3$, in which case approximately 1% of the measurements from an in-control process will produce out-of-control signals.
+
+See @fig-mpc-shewhart-depiction above for a depiction of a Shewhart control chart.
+
+#### EWMA control chart {#sec-mpc-2211}
+
+**Small changes only become obvious over time**
+
+Because it takes time for the patterns in the data to emerge, a permanent shift in the process may not immediately cause individual violations of the control limits on a Shewhart control chart. The [Shewhart control chart](#sec-mpc-221) is not powerful for detecting small changes, say of the order of 1-1/2 standard deviations. The EWMA (exponentially weighted moving average) control chart is better suited to this purpose.
+
+**Example of EWMA control chart for mass calibrations**<!-- XREF: MPC Case Studies (Section 3), mass calibration check standard data and analysis, not yet migrated to this book; source handbook/mpc/section3/mpc3522.htm -->
+
+The exponentially weighted moving average (EWMA) is a statistic for monitoring the process that averages the data in a way that gives less and less weight to data as they are further removed in time from the current measurement. The data $Y_1, Y_2, \ldots, Y_t$ are the check standard measurements ordered in time. The EWMA statistic at time $t$ is computed recursively from individual data points, with the first EWMA statistic, $EWMA_1$, being the arithmetic average of historical data.
+
+$$EWMA_{t+1} = \lambda Y_t + (1-\lambda) EWMA_t$$
+
+**Control mechanism for EWMA**
+
+The EWMA control chart can be made sensitive to small changes or a gradual drift in the process by the choice of the weighting factor, $\lambda$. A weighting factor of 0.2-0.3 is usually suggested for this purpose [@Hunter], and 0.15 is also a popular choice.
+
+**Limits for the control chart**
+
+The target or center line for the control chart is the average of historical data. The upper ($UCL$) and lower ($LCL$) limits are
+
+$$UCL = EWMA_1 + ks\sqrt{\frac{\lambda}{2-\lambda}}$$
+$$LCL = EWMA_1 - ks\sqrt{\frac{\lambda}{2-\lambda}}$$
+
+where $s$ times the radical expression is a good approximation to the standard deviation of the EWMA statistic and the factor $k$ is chosen in the same way as for the Shewhart control chart -- generally to be 2 or 3.
+
+**Procedure for implementing the EWMA control chart**
+
+The implementation of the EWMA control chart is the same as for any other type of control procedure. The procedure is built on the assumption that the "good" historical data are representative of the in-control process, with future data from the same process tested for agreement with the historical data. To start the procedure, a target (average) and process standard deviation are computed from historical check standard data. Then the procedure enters the [monitoring stage](#sec-mpc-223) with the EWMA statistics computed and tested against the control limits. The EWMA statistics are weighted averages, and thus their standard deviations are smaller than the standard deviations of the raw data and the corresponding control limits are narrower than the control limits for the Shewhart individual observations chart.
+
+See @fig-mpc-ewma-depiction above for a depiction of an EWMA control chart.
 
 #### Data collection {#sec-mpc-222}
 
@@ -172,6 +188,10 @@ A schedule should be set up for making measurements on the artifact (check stand
 For high-precision processes where the uncertainty of the result must be guaranteed, a measurement on the check standard should be included with every measurement sequence, if possible, and at least once a day.
 
 For each occasion, $J$ measurements are made on the check standard. If there is no interest in controlling the short-term variability or precision of the instrument, then one measurement is sufficient. However, a dual purpose is served by making two or three measurements that track both the bias and the short-term variability of the process with the same database.
+
+**Depiction of check standard measurements**
+
+Depiction of check standard measurements with J = 4 repetitions per day on the surface of a silicon wafer over K days where the repetitions are at fixed positions on the wafer (see @fig-mpc-data-collection-schedule).
 
 **Notation**
 
@@ -203,7 +223,7 @@ Check standard measurements should be structured in the same way as values repor
 
 **Database**
 
-Averages and short-term standard deviations computed from $J$ repetitions should be recorded in a file along with identifications for all significant factors.<!-- XREF: MPC Case Studies (Section 2.6), Resistivity, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm --> The best way to record this information is to use one file with one line (row in a spreadsheet) of information in fixed fields for each group. A list of typical entries follows:
+Averages and short-term standard deviations computed from $J$ repetitions should be recorded in a file along with identifications for all significant factors. The best way to record this information is to use one file with one line (row in a spreadsheet) of information in fixed fields for each group. A list of typical entries follows:
 
 1. Month
 2. Day
@@ -217,11 +237,82 @@ Averages and short-term standard deviations computed from $J$ repetitions should
 10. Operator identification
 11. Environmental readings (if pertinent)
 
+**Case Study**
+
+*Check standard for resistivity measurements*<!-- XREF: MPC Case Studies (Section 2.6.2), Check standard for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
 #### Monitoring bias and long-term variability {#sec-mpc-223}
 
 **Monitoring stage**
 
-Once the baseline and control limits for the control chart have been determined from historical data, and any bad observations removed and the control limits recomputed, the measurement process enters the monitoring stage. NIST's original example compares a [Shewhart control chart](#sec-mpc-221) and an [EWMA control chart](#sec-mpc-2211) for a kilogram mass calibration process, with both charts computed from the same historical data and 3-standard-deviation control limits.<!-- XREF: MPC Case Studies (Section 3), mass calibration check standard data and analysis, not yet migrated to this book; source handbook/mpc/section3/mpc3521.htm and mpc3522.htm -->
+Once the baseline and control limits for the control chart have been determined from historical data, and any bad observations removed and the control limits recomputed, the measurement process enters the monitoring stage. A Shewhart control chart and EWMA control chart for monitoring a mass calibration process are shown below.<!-- XREF: MPC Case Studies (Section 3), mass calibration check standard data and analysis; source handbook/mpc/section3/mpc3521.htm and mpc3522.htm; data handbook/datasets/MASS.DAT --> For the purpose of comparing the two techniques, the two control charts are based on the same data where the baseline and control limits are computed from the data taken prior to 1985. The monitoring stage begins at the start of 1985. Similarly, the control limits for both charts are 3-standard deviation limits. The check standard data and analysis are explained more fully in another section.
+
+**Shewhart control chart of measurements of kilogram check standard showing outliers and a shift in the process that occurred after 1985**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-shewhart-kilogram
+#| fig-cap: "Shewhart control chart of kilogram check standard measurements (1975-1988): baseline and 3-standard-deviation control limits computed from data prior to 1985"
+#| message: false
+library(tidyverse)
+
+mass_mpc223 <- read_table(
+  here::here("datasets", "MASS.DAT"),
+  skip = 25,
+  col_names = c("date_year", "std_id", "std_value", "balance_id", "std_dev", "design_id"),
+  col_types = "dddddd"
+)
+
+mn_mpc223 <- mean(mass_mpc223$std_value[mass_mpc223$date_year < 85])
+std_mpc223 <- sd(mass_mpc223$std_value[mass_mpc223$date_year < 85])
+lcl_mpc223 <- mn_mpc223 - 3 * std_mpc223
+ucl_mpc223 <- mn_mpc223 + 3 * std_mpc223
+
+ggplot(mass_mpc223, aes(date_year, std_value)) +
+  geom_point(color = "steelblue4", size = 1.4) +
+  geom_hline(yintercept = mn_mpc223, color = "black") +
+  geom_hline(yintercept = c(lcl_mpc223, ucl_mpc223), color = "firebrick", linetype = "dashed") +
+  labs(x = "Year", y = "Check standard value (correction to nominal, mg)") +
+  theme_light()
+```
+
+The control chart shows only two violations of the control limits before 1985. For those occasions, the calibrations were discarded and repeated. After 1985, the points cluster increasingly close to and above the upper control limit -- an unequal distribution of data points on the two sides of the baseline that indicates a change in either the process average (possibly related to a change in the reference standards) or the variability (possibly caused by a change in the instrument precision).
+
+**EWMA chart for measurements on kilogram check standard showing multiple violations of the control limits for the EWMA statistics**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-ewma-kilogram
+#| fig-cap: "EWMA control chart of kilogram check standard measurements: target and process standard deviation from data prior to 1985, lambda = 0.2, k = 3"
+#| message: false
+library(tidyverse)
+
+lambda_mpc223 <- 0.2
+k_mpc223 <- 3
+ucl_ewma_mpc223 <- mn_mpc223 + std_mpc223 * k_mpc223 * sqrt(lambda_mpc223 / (2 - lambda_mpc223))
+lcl_ewma_mpc223 <- mn_mpc223 - std_mpc223 * k_mpc223 * sqrt(lambda_mpc223 / (2 - lambda_mpc223))
+
+ind_mpc223 <- which(mass_mpc223$date_year > 85)
+ewma_mpc223 <- numeric(length(ind_mpc223) + 1)
+ewma_mpc223[1] <- mn_mpc223
+for (i in seq_along(ind_mpc223)) {
+  ewma_mpc223[i + 1] <- lambda_mpc223 * mass_mpc223$std_value[ind_mpc223[i]] + (1 - lambda_mpc223) * ewma_mpc223[i]
+}
+ewma_tbl_mpc223 <- tibble(date_year = mass_mpc223$date_year[ind_mpc223], ewma = ewma_mpc223[-1])
+
+ggplot(mass_mpc223, aes(date_year, std_value)) +
+  geom_point(aes(color = date_year > 85), size = 1.4, shape = 4) +
+  scale_color_manual(values = c("grey60", "steelblue4"), guide = "none") +
+  geom_hline(yintercept = mn_mpc223, color = "black") +
+  annotate("segment", x = 85, xend = max(mass_mpc223$date_year), y = ucl_ewma_mpc223, yend = ucl_ewma_mpc223, color = "firebrick", linetype = "dashed") +
+  annotate("segment", x = 85, xend = max(mass_mpc223$date_year), y = lcl_ewma_mpc223, yend = lcl_ewma_mpc223, color = "firebrick", linetype = "dashed") +
+  geom_line(data = ewma_tbl_mpc223, aes(date_year, ewma), color = "#00105A", linewidth = 0.8) +
+  geom_point(data = ewma_tbl_mpc223, aes(date_year, ewma), color = "#00105A", size = 1) +
+  labs(x = "Year", y = "Check standard value (correction to nominal, mg)") +
+  theme_light()
+```
+
+The target (average) and process standard deviation are computed from the check standard data taken prior to 1985. The computation of the EWMA statistic begins with the data taken at the start of 1985. In the control chart above, the raw data after 1985 are shown in steelblue (NIST's original figure uses green for the raw data after 1985, black dots for the EWMA statistic, and red for the control limits; we use steelblue for the post-1985 raw data and the book's dark navy for the EWMA statistic to match our palette), and the EWMA statistics are shown as the dark navy line superimposed on the raw data. The control limits are calculated according to the equation above where the process standard deviation, $s =$ `r round(std_mpc223, 5)` mg and $k = 3$. The EWMA statistics, and not the raw data, are of interest in looking for out-of-control signals. The EWMA control chart shows many violations of the control limits starting at approximately the mid-point of 1986. This pattern emerges because the process average has actually shifted about one standard deviation, and the EWMA control chart is sensitive to small changes.
 
 **Measurements that exceed the control limits require action**
 
@@ -229,7 +320,7 @@ The control strategy is based on the predictability of future measurements from 
 
 **Signs of significant trends or shifts**
 
-The control chart should be viewed in its entirety on a regular basis to identify drift or shift in the process. In NIST's kilogram check standard example, only a few points exceed the Shewhart control limits, but a small, significant shift in the process is visible only by examining the plot of control measurements over time in its entirety; a re-analysis of that data shows that the control limits should be updated based on the data collected after the shift. In the corresponding EWMA control chart, multiple violations of the control limits occur once the shift has persisted for a time. In the calibration environment, the incidence of several violations should alert the control engineer that a shift in the process has occurred, possibly because of damage or change in the value of a reference standard, and the process requires review. Because the EWMA statistic is a weighted average, it has a smaller standard deviation than a single control measurement, and, therefore, the EWMA control limits are narrower than the limits for the Shewhart control chart.
+The control chart should be viewed in its entirety on a regular basis to identify drift or shift in the process. In the Shewhart control chart shown above, only a few points exceed the control limits. The small, but significant, shift in the process that occurred after 1985 can only be identified by examining the plot of control measurements over time. A re-analysis of the kilogram check standard data shows that the control limits for the Shewhart control chart should be updated based on the data after 1985. In the EWMA control chart, multiple violations of the control limits occur after 1986. In the calibration environment, the incidence of several violations should alert the control engineer that a shift in the process has occurred, possibly because of damage or change in the value of a reference standard, and the process requires review.
 
 #### Remedial actions {#sec-mpc-224}
 

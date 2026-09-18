@@ -4,7 +4,7 @@
 
 Short-term variability or instrument precision is controlled by monitoring standard deviations from repeated measurements on the instrument(s) of interest. The database can come from measurements on a single artifact or a representative set of artifacts.
 
-**Artifacts**
+**Artifacts -- Case study: Resistivity**<!-- XREF: MPC Case Studies (Section 2.6), Resistivity; source handbook/mpc/section6/mpc62.htm -->
 
 The artifacts must be of the same type and geometry as items that are measured in the workload, such as:
 
@@ -27,7 +27,7 @@ Changes in the precision of the instrument, particularly anomalies and degradati
 
 The base line for this type of control chart is the pooled standard deviation, $s_1$, as defined in [Data collection and analysis](#sec-mpc-232).
 
-**Only the upper control limit matters**
+**Example of control chart for a mass balance**<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
 
 Only the upper control limit, $UCL$, is of interest for detecting degradation in the instrument. As long as the short-term standard deviations fall within the upper control limit established from historical data, there is reason for confidence that the precision of the instrument has not degraded (i.e., common cause variations).
 
@@ -48,7 +48,7 @@ where $\sigma_1$ is the population value for the $s_1$ defined above and $\sigma
 
 The upper control limit above is then derived based on the standard $F$ test for equal standard deviations. Justification and details of this derivation are given in Cameron and Hailes [-@CameronHailes].
 
-**Worked example**
+**Sample Code**
 
 For $\alpha = 0.05$, $J = 6$, and $K = 6$, the critical value and control limit are computed as follows.
 
@@ -88,9 +88,11 @@ The computed critical value is $F_{0.05,\,5,\,30} \approx$ `r round(F_mpc231, 4)
 
 #### Data collection {#sec-mpc-232}
 
-**Schedule for a single instrument**
+**Case Study**
 
-A schedule should be set up for making measurements with a single instrument (once a day, twice a week, or whatever is appropriate for sampling all conditions of measurement).<!-- XREF: MPC Case Studies (Section 2.6), Resistivity; source handbook/mpc/section6/mpc62.htm -->
+*Check standard for resistivity measurements*<!-- XREF: MPC Case Studies (Section 2.6.2), Check standard for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
+A schedule should be set up for making measurements with a single instrument (once a day, twice a week, or whatever is appropriate for sampling all conditions of measurement).
 
 **Short-term standard deviations**
 
@@ -131,13 +133,13 @@ The individual short-term standard deviations along with identifications for all
 
 **Monitoring future precision**
 
-Once the base line and control limit for the control chart have been determined from historical data, the measurement process enters the monitoring stage.
+Once the base line and control limit for the control chart have been determined from historical data, the measurement process enters the monitoring stage. NIST's original text shows a control chart for precision of a mass balance here (not yet reproduced in this book; see the source case study), where the control limit is based on the data taken prior to 1985.<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
 
 **Each new standard deviation is monitored on the control chart**
 
 Each new short-term standard deviation based on $J$ measurements is plotted on the control chart; points that exceed the control limits probably indicate lack of statistical control. Drift over time indicates degradation of the instrument. Points out of control require remedial action, and possible causes of out-of-control signals need to be understood when developing [strategies for dealing with outliers](#sec-mpc-234).<!-- XREF: MPC Case Studies (Section 3), control chart for precision of a mass balance, not yet migrated to this book; source handbook/mpc/section3/mpc3511.htm -->
 
-**Monitoring where the number of measurements differs from J**
+**Monitoring where the number of measurements are different from J**
 
 There is no requirement that future standard deviations be based on $J$, the number of measurements in the historical database. However, a change in the number of measurements leads to a change in the test for control, and it may not be convenient to draw a control chart where the control limits are changing with each new measurement sequence.
 
