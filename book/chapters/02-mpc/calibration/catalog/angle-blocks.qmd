@@ -32,7 +32,7 @@ It is suggested that block 2 be reserved for a [check standard](#sec-mpc-12) tha
 
 **Calibration scheme**
 
-A calibration scheme developed by Charles Reeve ([@ReeveAngle]) at the National Institute of Standards and Technology for calibrating customer angle blocks is explained on this page. The reader is encouraged to obtain a copy of the publication for details on the calibration setup and quality control checks for angle block calibrations.
+A calibration scheme developed by Charles Reeve [@ReeveAngle] at the National Institute of Standards and Technology for calibrating customer angle blocks is explained on this page. The reader is encouraged to obtain a copy of the publication for details on the calibration setup and quality control checks for angle block calibrations.
 
 **Series of measurements for calibrating 4, 5, and 6 angle blocks simultaneously**
 
@@ -115,7 +115,7 @@ As an example, the design matrix for $n$ = 4 angle blocks is shown below.
   0      -1       1       0
 ```
 
-The design matrix is shown with the solution matrix for identification purposes only because the least-squares solution is weighted ([@ReeveAngle]) to account for the fact that test blocks are measured twice as many times as the reference block. The weight matrix is not shown.
+The design matrix is shown with the solution matrix for identification purposes only because the least-squares solution is weighted [@ReeveAngle] to account for the fact that test blocks are measured twice as many times as the reference block. The weight matrix is not shown.
 
 **Solutions to the calibration designs measurements**
 

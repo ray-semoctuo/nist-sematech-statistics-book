@@ -2,7 +2,7 @@
 
 **Important concept - Restraint**
 
-The designs are constructed for measuring differences among reference standards and test items, singly or in combinations. Values for individual standards and test items can be computed from the design only if the value (called the restraint = $R^*$) of one or more reference standards is known. The methodology for constructing and solving calibration designs is described briefly in [matrix solutions](#sec-mpc-3321) and in more detail in a NIST publication ([@Cameronetal]).
+The designs are constructed for measuring differences among reference standards and test items, singly or in combinations. Values for individual standards and test items can be computed from the design only if the value (called the restraint = $R^*$) of one or more reference standards is known. The methodology for constructing and solving calibration designs is described briefly in [matrix solutions](#sec-mpc-3321) and in more detail in a NIST publication [@Cameronetal].
 
 **Designs listed in this catalog**
 

@@ -18,7 +18,7 @@ The assumptions for the analysis are that:
 
 **Indications for test thermometers**
 
-It can be shown ([@CameronHailes]) that the average reading for a test thermometer is its indication at the temperature implied by the average of the three resistance readings. The standard deviation associated with this indication is calculated from difference readings where
+It can be shown [@CameronHailes] that the average reading for a test thermometer is its indication at the temperature implied by the average of the three resistance readings. The standard deviation associated with this indication is calculated from difference readings where
 
 $$ d_i = T_i - T_i' $$
 

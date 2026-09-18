@@ -2,9 +2,11 @@
 
 **Roundness measurements**
 
-Measurements of roundness require 360° traces of the workpiece made with a turntable-type instrument or a stylus-type instrument. A least squares fit of points on the trace to a circle define the parameters of noncircularity of the workpiece. A diagram of the measurement method is shown below.<!-- XREF: diagram of the roundness measurement method (trace, spindle center, Y, P, R); source handbook/mpc/section3/mpc344.gif -->
+Measurements of roundness require 360° traces of the workpiece made with a turntable-type instrument or a stylus-type instrument. A least squares fit of points on the trace to a circle define the parameters of noncircularity of the workpiece. A diagram of the measurement method is shown below.
 
 **Diagram of the measurement method**
+
+![Roundness measurement geometry: the trace, the least-squares (LS) circle, and the distance Y from the spindle center O to the trace at angle Θ − α](calibration/catalog/images/mpc344.gif){#fig-mpc-roundness-diagram}
 
 The diagram shows the trace and $Y$, the distance from the spindle center to the trace at the angle. A least squares circle fit to data at equally spaced angles gives estimates of $P - R$, the noncircularity, where $R$ = radius of the circle and $P$ = distance from the center of the circle to the trace.
 
@@ -31,7 +33,7 @@ A synopsis of the measurement method and the estimation technique are given in t
 1. [Single-trace method](#sec-mpc-design-single-trace-roundness)
 2. [Multiple-trace method](#sec-mpc-design-multiple-trace-roundness)
 
-The reader is encouraged to obtain a copy of the publication on roundness ([@ReeveRoundness]) for a more complete description of the measurement method and analysis.
+The reader is encouraged to obtain a copy of the publication on roundness [@ReeveRoundness] for a more complete description of the measurement method and analysis.
 
 ##### Single-trace roundness design {#sec-mpc-design-single-trace-roundness}
 
@@ -73,7 +75,7 @@ High precision roundness measurements are required when an object, such as a hem
 
 **Measurement method**
 
-The measurement sequence involves making multiple traces of the roundness standard where the standard is rotated between traces. Least-squares analysis of the resulting measurements enables the noncircularity of the spindle to be separated from the profile of the standard. The reader is referred to the publication on the subject ([@ReeveRoundness]) for details covering measurement techniques and analysis.
+The measurement sequence involves making multiple traces of the roundness standard where the standard is rotated between traces. Least-squares analysis of the resulting measurements enables the noncircularity of the spindle to be separated from the profile of the standard. The reader is referred to the publication on the subject [@ReeveRoundness] for details covering measurement techniques and analysis.
 
 **Method of n traces**
 

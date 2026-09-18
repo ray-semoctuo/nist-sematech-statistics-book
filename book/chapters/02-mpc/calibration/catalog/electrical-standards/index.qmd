@@ -35,6 +35,27 @@ Estimates for individual standard cells and the bias term, $P$, are shown under 
 3. [Design for 5 standard cells](#sec-mpc-design-left-right-balanced-5-cells)
 4. [Design for 6 standard cells](#sec-mpc-design-left-right-balanced-6-cells)
 
+**Test cells**
+
+Calibration designs for assigning values to test cells in a common environment on the basis of comparisons with reference cells with known values are shown below. The designs in this catalog are left-right balanced.
+
+5. [Design for 4 test cells and 4 reference cells](#sec-mpc-design-left-right-balanced-4-references-4-test-items)
+6. [Design for 8 test cells and 8 reference cells](#sec-mpc-design-design-8-references-8-test-items)
+
+**Zeners**
+
+Increasingly, zeners are replacing saturated standard cells as artifacts for maintaining and disseminating the volt. Values are assigned to test zeners, based on a group of reference zeners, using calibration designs.
+
+7. [Design for 4 reference zeners and 2 test zeners](#sec-mpc-design-design-4-reference-zeners-2-test-zeners)
+8. [Design for 4 reference zeners and 3 test zeners](#sec-mpc-design-design-4-reference-zeners-3-test-zeners)
+
+**Standard resistors**
+
+Designs for comparing standard resistors that are used for maintaining and disseminating the ohm are listed in this section.
+
+9. [Design for 3 reference resistors and 1 test resistor](#sec-mpc-design-design-3-references-1-test-resistor)
+10. [Design for 4 reference resistors and 1 test resistor](#sec-mpc-design-design-4-references-1-test-resistor)
+
 {{< include calibration/catalog/electrical-standards/left-right-balanced-3-cells.qmd >}}
 
 {{< include calibration/catalog/electrical-standards/left-right-balanced-4-cells.qmd >}}
@@ -43,34 +64,13 @@ Estimates for individual standard cells and the bias term, $P$, are shown under 
 
 {{< include calibration/catalog/electrical-standards/left-right-balanced-6-cells.qmd >}}
 
-**Test cells**
-
-Calibration designs for assigning values to test cells in a common environment on the basis of comparisons with reference cells with known values are shown below. The designs in this catalog are left-right balanced.
-
-1. [Design for 4 test cells and 4 reference cells](#sec-mpc-design-left-right-balanced-4-references-4-test-items)
-2. [Design for 8 test cells and 8 reference cells](#sec-mpc-design-design-8-references-8-test-items)
-
 {{< include calibration/catalog/electrical-standards/left-right-balanced-4-references-4-test-items.qmd >}}
 
 {{< include calibration/catalog/electrical-standards/design-8-references-8-test-items.qmd >}}
 
-**Zeners**
-
-Increasingly, zeners are replacing saturated standard cells as artifacts for maintaining and disseminating the volt. Values are assigned to test zeners, based on a group of reference zeners, using calibration designs.
-
-1. [Design for 4 reference zeners and 2 test zeners](#sec-mpc-design-design-4-reference-zeners-2-test-zeners)
-2. [Design for 4 reference zeners and 3 test zeners](#sec-mpc-design-design-4-reference-zeners-3-test-zeners)
-
 {{< include calibration/catalog/electrical-standards/design-4-reference-zeners-2-test-zeners.qmd >}}
 
 {{< include calibration/catalog/electrical-standards/design-4-reference-zeners-3-test-zeners.qmd >}}
-
-**Standard resistors**
-
-Designs for comparing standard resistors that are used for maintaining and disseminating the ohm are listed in this section.
-
-1. [Design for 3 reference resistors and 1 test resistor](#sec-mpc-design-design-3-references-1-test-resistor)
-2. [Design for 4 reference resistors and 1 test resistor](#sec-mpc-design-design-4-references-1-test-resistor)
 
 {{< include calibration/catalog/electrical-standards/design-3-references-1-test-resistor.qmd >}}
 
