@@ -53,7 +53,7 @@ The upper control limit above is then derived based on the standard $F$ test for
 For $\alpha = 0.05$, $J = 6$, and $K = 6$, the critical value and control limit are computed as follows.
 
 ```{r}
-#| code-fold: true
+#| code-fold: show
 #| label: f-critical-value-mpc231
 #| message: false
 alpha_mpc231 <- 0.05

@@ -6,7 +6,9 @@ The purpose of this section is to explain why calibration of angle blocks of the
 
 **Calibration schematic for five angle blocks showing the reference as block 1 in the center of the diagram, the check standard as block 2 at the top; and the test blocks as blocks 3, 4, and 5**
 
-A schematic of a calibration scheme for one reference block, one check standard, and three test blocks is shown below. The reference block, $R$, is shown in the center of the diagram and the check standard, $C$, is shown at the top of the diagram.<!-- XREF: schematic diagram of the 5-angle-block calibration design; source handbook/mpc/section3/mpc345.gif -->
+A schematic of a calibration scheme for one reference block, one check standard, and three test blocks is shown below. The reference block, $R$, is shown in the center of the diagram and the check standard, $C$, is shown at the top of the diagram.
+
+![Calibration scheme for 5 angle blocks: all four outer blocks are compared directly with the reference block, adjacent outer blocks are compared in a rotational sequence (2 to 3 to 4 to 5 to 2), and blocks opposite each other across the reference are compared along both sides of the diagram (redrawn from NIST's original figure for readability)](calibration/catalog/images/mpc-angle-block-schematic.svg){#fig-mpc-angle-block-schematic}
 
 **Block sizes**
 
@@ -102,17 +104,17 @@ For all series, there are $3(n - 1)$ difference measurements, with the first sub
 As an example, the design matrix for $n$ = 4 angle blocks is shown below.
 
 ```
-        1       1       1       1
+         1       1       1       1
 
-  0       1      -1       0
- -1       1       0       0
-  0       1       0      -1
-  0      -1       0       1
- -1       0       0       1
-  0       0      -1       1
-  0       0       1      -1
- -1       0       1       0
-  0      -1       1       0
+         0       1      -1       0
+        -1       1       0       0
+         0       1       0      -1
+         0      -1       0       1
+        -1       0       0       1
+         0       0      -1       1
+         0       0       1      -1
+        -1       0       1       0
+         0      -1       1       0
 ```
 
 The design matrix is shown with the solution matrix for identification purposes only because the least-squares solution is weighted [@ReeveAngle] to account for the fact that test blocks are measured twice as many times as the reference block. The weight matrix is not shown.

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 605" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .edge { stroke: #4A4A4A; stroke-width: 1.4; fill: none; }
+    .edge-arrow { stroke: #4A4A4A; stroke-width: 1.4; fill: none; marker-end: url(#arrowhead); }
+    .node-ref { fill: #1B3A52; stroke: #0D1F2D; stroke-width: 1.5; }
+    .node-check { fill: #36648B; stroke: #1B3A52; stroke-width: 1.5; }
+    .node-test { fill: #A6C8E0; stroke: #36648B; stroke-width: 1.5; }
+    .label-light { font-size: 15px; fill: white; text-anchor: middle; }
+    .num-light { font-size: 14px; font-weight: bold; fill: white; text-anchor: middle; }
+    .label-dark { font-size: 15px; fill: #0D1F2D; text-anchor: middle; }
+    .num-dark { font-size: 14px; font-weight: bold; fill: #0D1F2D; text-anchor: middle; }
+    .caption { font-size: 16px; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#4A4A4A" />
+    </marker>
+  </defs>
+
+  <!-- Spokes: outer circles point into the Reference block (arrowhead at Reference) -->
+  <line class="edge-arrow" x1="285" y1="177" x2="285" y2="233" />
+  <line class="edge-arrow" x1="177" y1="285" x2="233" y2="285" />
+  <line class="edge-arrow" x1="285" y1="393" x2="285" y2="337" />
+  <line class="edge-arrow" x1="393" y1="285" x2="337" y2="285" />
+
+  <!-- Tangent square around the Reference block (opposite pairs); arrowhead at 80% of line length -->
+  <line class="edge" x1="125" y1="337" x2="445" y2="337" /> <!-- Test1.S -> Test3.S (bottom) -->
+  <line class="edge-arrow" x1="355.4" y1="337" x2="381" y2="337" />
+  <line class="edge" x1="445" y1="233" x2="125" y2="233" /> <!-- Test3.N -> Test1.N (top) -->
+  <line class="edge-arrow" x1="214.6" y1="233" x2="189" y2="233" />
+  <line class="edge" x1="233" y1="125" x2="233" y2="445" /> <!-- Check.W -> Test2.W (left) -->
+  <line class="edge-arrow" x1="233" y1="355.4" x2="233" y2="381" />
+  <line class="edge" x1="337" y1="445" x2="337" y2="125" /> <!-- Test2.E -> Check.E (right) -->
+  <line class="edge-arrow" x1="337" y1="214.6" x2="337" y2="189" />
+
+  <!-- Rotational cycle among adjacent outer blocks: Check -> Test1 -> Test2 -> Test3 -> Check; arrowhead at 80% -->
+  <line class="edge" x1="233" y1="125" x2="125" y2="233" /> <!-- Check.W -> Test1.N -->
+  <line class="edge-arrow" x1="155.24" y1="202.76" x2="146.6" y2="211.4" />
+  <line class="edge" x1="125" y1="337" x2="233" y2="445" /> <!-- Test1.S -> Test2.W -->
+  <line class="edge-arrow" x1="202.76" y1="414.76" x2="211.4" y2="423.4" />
+  <line class="edge" x1="337" y1="445" x2="445" y2="337" /> <!-- Test2.E -> Test3.S -->
+  <line class="edge-arrow" x1="414.76" y1="367.24" x2="423.4" y2="358.6" />
+  <line class="edge" x1="445" y1="233" x2="337" y2="125" /> <!-- Test3.N -> Check.E -->
+  <line class="edge-arrow" x1="367.24" y1="155.24" x2="358.6" y2="146.6" />
+
+  <!-- Reference block (center) -->
+  <circle class="node-ref" cx="285" cy="285" r="52" />
+  <text class="label-light" x="285" y="277">Reference</text>
+  <text class="label-light" x="285" y="295">block</text>
+  <text class="num-light" x="285" y="317">1</text>
+
+  <!-- Check block (top) -->
+  <circle class="node-check" cx="285" cy="125" r="52" />
+  <text class="label-light" x="285" y="117">Check</text>
+  <text class="label-light" x="285" y="135">block</text>
+  <text class="num-light" x="285" y="157">2</text>
+
+  <!-- Test 1 (left) -->
+  <circle class="node-test" cx="125" cy="285" r="52" />
+  <text class="label-dark" x="125" y="288">Test 1</text>
+  <text class="num-dark" x="125" y="310">3</text>
+
+  <!-- Test 2 (bottom) -->
+  <circle class="node-test" cx="285" cy="445" r="52" />
+  <text class="label-dark" x="285" y="448">Test 2</text>
+  <text class="num-dark" x="285" y="470">4</text>
+
+  <!-- Test 3 (right) -->
+  <circle class="node-test" cx="445" cy="285" r="52" />
+  <text class="label-dark" x="445" y="288">Test 3</text>
+  <text class="num-dark" x="445" y="310">5</text>
+
+  <text class="caption" x="285" y="580">Design for 5 angle blocks</text>
+</svg>

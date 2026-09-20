@@ -140,7 +140,7 @@ where $t_{1-\alpha/2,\, K-1}$ denotes the 1-$\alpha$/2 critical value from the [
 Sample code for computing the $t$ value for a conservative case where $\alpha = 0.05$, $J = 6$, and $K = 6$, is shown below.
 
 ```{r}
-#| code-fold: true
+#| code-fold: show
 #| label: t-critical-value-mpc352
 #| message: false
 alpha_mpc352 <- 0.05

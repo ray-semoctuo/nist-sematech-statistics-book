@@ -57,7 +57,7 @@ where $m$ is the number of check standards.
 **Sample Code**
 
 ```{r}
-#| code-fold: true
+#| code-fold: show
 #| label: t-star-critical-value-mpc37
 #| message: false
 alpha_mpc37 <- 0.05
