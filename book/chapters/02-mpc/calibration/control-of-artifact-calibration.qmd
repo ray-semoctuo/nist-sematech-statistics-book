@@ -18,7 +18,7 @@ The short-term standard deviation from each design is the basis for controlling 
 
 **Check standard**
 
-Measurements on a check standard provide the mechanism for controlling the bias and long-term variability of the calibration process. The check standard is treated as one of the test items in the calibration design, and its value as computed from each calibration run is the basis for accepting or rejecting the calibration. All designs cataloged in this Handbook<!-- XREF: MPC Section 2.3.4, Catalog of calibration designs, not yet migrated to this book; source handbook/mpc/section3/mpc34.htm --> have provision for a check standard.
+Measurements on a check standard provide the mechanism for controlling the bias and long-term variability of the calibration process. The check standard is treated as one of the test items in the calibration design, and its value as computed from each calibration run is the basis for accepting or rejecting the calibration. [All designs cataloged in this Handbook](#sec-mpc-34) have provision for a check standard.
 
 The check standard should be of the same type and geometry as items that are measured in the designs. These artifacts must be stable and available to the calibration process on a continuing basis. There should be a check standard at each critical level of measurement. For example, for mass calibrations there should be check standards at the 1 kg; 100 g, 10 g, 1 g, 0.1 g levels, etc. For gage blocks, there should be check standards at all nominal lengths.
 
@@ -75,7 +75,7 @@ It is recommended that the repeatability standard deviations be plotted against 
 
 **Example of a control chart for precision of a mass balance**
 
-Mass calibrations usually start with the comparison of kilograms standards using a high precision balance as a comparator. Many of the measurements at the kilogram level that were made at NIST between 1975 and 1989 were made on balance #12 using a 1,1,1,1 calibration design.<!-- XREF: MPC Section 2.3.4 catalog, 1,1,1,1 calibration design; source handbook/mpc/section3/mpc3412.htm --> The redundancy in the calibration design produces estimates for the individual kilograms and a repeatability standard deviation with three degrees of freedom for each calibration run. These standard deviations estimate the precision of the balance.
+Mass calibrations usually start with the comparison of kilograms standards using a high precision balance as a comparator. Many of the measurements at the kilogram level that were made at NIST between 1975 and 1989 were made on balance #12 using a [1,1,1,1 calibration design](#sec-mpc-design-1-1-1-1). The redundancy in the calibration design produces estimates for the individual kilograms and a repeatability standard deviation with three degrees of freedom for each calibration run. These standard deviations estimate the precision of the balance.
 
 **Need for monitoring precision**
 
@@ -189,7 +189,7 @@ If the tests for control are carried out algebraically, it is recommended that, 
 
 **Example of a control chart for mass calibrations at the kilogram level**
 
-Mass calibrations usually start with the comparison of four kilogram standards using a high precision balance as a comparator. Many of the measurements at the kilogram level that were made at NIST between 1975 and 1989 were made on balance #12 using a 1,1,1,1 calibration design.<!-- XREF: MPC Section 2.3.4 catalog, 1,1,1,1 calibration design; source handbook/mpc/section3/mpc3412.htm --> The restraint for this design is the known average of two kilogram reference standards. The redundancy in the calibration design produces individual estimates for the two test kilograms and the two reference standards.
+Mass calibrations usually start with the comparison of four kilogram standards using a high precision balance as a comparator. Many of the measurements at the kilogram level that were made at NIST between 1975 and 1989 were made on balance #12 using a [1,1,1,1 calibration design](#sec-mpc-design-1-1-1-1). The restraint for this design is the known average of two kilogram reference standards. The redundancy in the calibration design produces individual estimates for the two test kilograms and the two reference standards.
 
 **Check standard**
 
