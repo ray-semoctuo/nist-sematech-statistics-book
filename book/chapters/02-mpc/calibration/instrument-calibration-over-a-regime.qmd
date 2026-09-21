@@ -183,7 +183,7 @@ $$ Y = \frac{e^{-aX}}{b + cX} + \epsilon $$
 
 **Example of a rational function**
 
-A rational function is shown in the equation below. Scanning electron microscope measurements of line widths on semiconductors are described by this function.<!-- TODO: missing bib entry for Kirby (source handbook/mpc/section7/mpc7.htm#Kirby) -->
+A rational function is shown in the equation below. Scanning electron microscope measurements of line widths on semiconductors are described by this function.
 
 $$ Y = \frac{a + bX + cX^2}{a_1 + b_1X + c_1X^2} + \epsilon $$
 
@@ -263,11 +263,19 @@ A straight-line fit to the aggregate data will produce a 'calibration curve'. Ho
 
 **Calibration data over 4 days**
 
-Line width measurements on 10 NIST reference standards were made with an optical imaging system on each of four days. The four data points for each reference value appear to overlap in a plot of the aggregate data because of the wide spread in reference values relative to the precision. That plot suggests that a linear calibration line is appropriate for calibrating the imaging system.<!-- XREF: figure of 4-day aggregate line-width measurements not migrated; source handbook/mpc/section3/mpc3641a.gif -->
+Line width measurements on 10 NIST reference standards were made with an optical imaging system on each of four days. The four data points for each reference value appear to overlap in a plot of the aggregate data because of the wide spread in reference values relative to the precision. That plot suggests that a linear calibration line is appropriate for calibrating the imaging system.
 
-A plot of the differences between each measurement and the corresponding reference value gives no indication of problems in the control of the imaging system from day to day, because days are not identified in that plot.<!-- XREF: figure of differences from reference values, days not identified; source handbook/mpc/section3/mpc3641b.gif -->
+![Line width measurements on 10 artifacts over 4 days](calibration/images/mpc3641a.gif){#fig-mpc-3641a}
 
-A third plot, with linear calibration lines fit to each day's measurements individually, shows how the response of the imaging system changes dramatically from day to day. The slope of the calibration line goes from positive on day 1 to negative on day 3.<!-- XREF: figure of per-day calibration lines; source handbook/mpc/section3/mpc3641c.gif --> (No dataset or sample code accompanies this example page in the source handbook, so the three figures are described here rather than reproduced.)
+A plot of the differences between each measurement and the corresponding reference value gives no indication of problems in the control of the imaging system from day to day, because days are not identified in that plot.
+
+![Differences from reference values, days not identified](calibration/images/mpc3641b.gif){#fig-mpc-3641b}
+
+A third plot, with linear calibration lines fit to each day's measurements individually, shows how the response of the imaging system changes dramatically from day to day. The slope of the calibration line goes from positive on day 1 to negative on day 3.
+
+![Linear fits to differences from reference values, fit separately for each of the 4 days](calibration/images/mpc3641c.gif){#fig-mpc-3641c}
+
+No dataset or sample code accompanies this example page in the source handbook. We identified a NIST dataset with a similar structure (`CALIBRATIONLINE.DAT`, 10 line-width artifacts measured in 4 repeated blocks, used elsewhere in this chapter for the original calibration-line fit) and tested it against all three plots above, including several candidate re-groupings of "day" and several candidate choices for which column represents the accepted reference value. It reproduces the first plot's overlapping-point structure well, but none of the combinations we tried reproduce the day-to-day sign reversal shown in the second and third plots. We could not identify the actual dataset behind these three figures, so the original NIST images are reproduced above rather than a chart built from our own data.
 
 **Interpretation of calibration findings**
 
