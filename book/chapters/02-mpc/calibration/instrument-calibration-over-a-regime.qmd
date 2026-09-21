@@ -230,7 +230,7 @@ The basic assumptions regarding measurement errors associated with the instrumen
 
 **Calibration procedure may fail to eliminate bias**
 
-There are several circumstances where the calibration curve will not reduce or eliminate bias as intended. Some are discussed on this page. A critical exploratory analysis of the calibration data should expose such problems.
+There are several circumstances where the calibration curve will not reduce or eliminate bias as intended. Some are discussed on this page (section). A critical exploratory analysis of the calibration data should expose such problems.
 
 **Lack of precision**
 
@@ -364,7 +364,7 @@ Note: Dataplot reports a probability associated with the F-ratio (for example, 9
 
 The F-ratio provides information on the model as a good descriptor of the data. The F-ratio is compared with a critical value from the [F table](../01-eda/index.qmd#sec-eda-f-distribution-table). An F-ratio smaller than the critical value indicates that all significant structure has been captured by the model.
 
-**F-ratio**
+**F-ratio < 1 always indicates a good fit**
 
 For the load cell analysis, a plot of the data suggests a linear fit. However, the linear fit gives a very large F-ratio. For the quadratic fit, the F-ratio is 0.3477 with $\nu_1 = 8$ and $\nu_2 = 22$ degrees of freedom.
 
@@ -376,11 +376,11 @@ Fcrit_mpc365 <- qf(0.95, 8, 22)
 Fcrit_mpc365
 ```
 
-The critical value is $F_{0.05,\,8,\,22} \approx$ `r round(Fcrit_mpc365, 2)`, indicating that the quadratic function is sufficient for describing the data (NIST's original text states this critical value as "F(0.05, 8, 20) = 2.45," but the degrees of freedom used throughout the surrounding lack-of-fit test, and confirmed by the ANOVA table above, are 8 and 22, not 8 and 20; $F_{0.05,\,8,\,20} = 2.45$ while $F_{0.05,\,8,\,22} \approx$ `r round(Fcrit_mpc365, 4)`. We use the value consistent with the stated degrees of freedom. Either way the conclusion is unchanged, since 0.3477 is far below both critical values). A fact to keep in mind is that an F-ratio that shows an adequate fit does not rule out a better-fitting alternative model.
+The critical value is $F_{0.05,\,8,\,22} \approx$ `r round(Fcrit_mpc365, 2)`, indicating that the quadratic function is sufficient for describing the data (NIST's original text states this critical value as "F(0.05, 8, 20) = 2.45," but the degrees of freedom used throughout the surrounding lack-of-fit test, and confirmed by the ANOVA table above, are 8 and 22, not 8 and 20; $F_{0.05,\,8,\,20} = 2.45$ while $F_{0.05,\,8,\,22} \approx$ `r round(Fcrit_mpc365, 4)`. We use the value consistent with the stated degrees of freedom. Either way the conclusion is unchanged, since 0.3477 is far below both critical values). A fact to keep in mind is that an F-ratio < 1 does not need to be checked against a critical value; it always indicates a good fit to the data.
 
 **The t-values are used to test the significance of individual coefficients**
 
-The t-values can be compared with critical values from a [t table](../01-eda/index.qmd#sec-eda-t-distribution-table). However, for a test at the 5 % significance level, the t-value for the intercept term, $a$, is not significant, while the t-values for the linear and quadratic terms are significant, indicating that these coefficients are needed in the model. If the intercept is dropped from the model, the analysis is repeated to obtain new estimates for the coefficients, $b$ and $c$.
+The t-values can be compared with critical values from a [t table](../01-eda/index.qmd#sec-eda-t-distribution-table). However, for a test at the 5% significance level, a t-value < 2 is a good indicator of non-significance. The t-value for the intercept term, $a$, is < 2 indicating that the intercept term is not significantly different from zero. The t-values for the linear and quadratic terms are significant indicating that these coefficients are needed in the model. If the intercept is dropped from the model, the analysis is repeated to obtain new estimates for the coefficients, $b$ and $c$.
 
 **Residual standard deviation**
 
@@ -436,11 +436,11 @@ The reader can download the [data as a text file](../../datasets/LOADCELL.DAT).
 
 ##### Table of t distribution {#sec-mpc-3652}
 
-Critical values of the Student's t distribution at the 5 % significance level, needed for [testing the intercept and slope of a calibration curve](#sec-mpc-366) and for the [control procedure for linear calibration](#sec-mpc-37), are needed on this and the following page. This is the same t table used elsewhere in the handbook; rather than reproduce it a second time, see the full table at [Critical Values of the Student's t Distribution](../01-eda/index.qmd#sec-eda-t-distribution-table).
+Critical values of the Student's t distribution at the 5 % significance level, needed for [testing the intercept and slope of a calibration curve](#sec-mpc-366) and for the [control procedure for linear calibration](#sec-mpc-37), are needed on this and the following page (section). This is the same t table used elsewhere in the handbook; rather than reproduce it a second time, see the full table at [Critical Values of the Student's t Distribution](../01-eda/index.qmd#sec-eda-t-distribution-table).
 
 ##### Table of critical values of F distribution {#sec-mpc-3653}
 
-Critical values of the F distribution at the 5 % significance level, needed for [testing the goodness of fit of a calibration curve](#sec-mpc-365), are needed on this page. This is the same F table used elsewhere in the handbook; rather than reproduce it a second time, see the full table at [Upper Critical Values of the F Distribution](../01-eda/index.qmd#sec-eda-f-distribution-table).
+Critical values of the F distribution at the 5 % significance level, needed for [testing the goodness of fit of a calibration curve](#sec-mpc-365), are needed on this page (section). This is the same F table used elsewhere in the handbook; rather than reproduce it a second time, see the full table at [Upper Critical Values of the F Distribution](../01-eda/index.qmd#sec-eda-f-distribution-table).
 
 #### Calibration of future measurements {#sec-mpc-366}
 
@@ -543,13 +543,13 @@ Type A uncertainties for calibrated values from calibration curves can be derive
 
 An example of type A uncertainties of calibrated values from a linear calibration curve are analyzed from measurements on linewidth check standards. Comparison of the uncertainties from check standards and propagation of error for the linewidth calibration data are also illustrated.
 
-An example of the derivation of propagation of error type A uncertainties for calibrated values from a quadratic calibration curve for loadcells is discussed on the next page.
+An example of the derivation of propagation of error type A uncertainties for calibrated values from a quadratic calibration curve for loadcells is discussed on the next page (section).
 
 ##### Uncertainty for quadratic calibration using propagation of error {#sec-mpc-3671}
 
 **Propagation of error for uncertainty of calibrated values of loadcells**
 
-The purpose of this page is to show the propagation of error for calibrated values of a loadcell based on a quadratic calibration curve where the model for instrument response is
+The purpose of this page (section) is to show the propagation of error for calibrated values of a loadcell based on a quadratic calibration curve where the model for instrument response is
 
 $$ Y = a + bX + cX^2 + \epsilon $$
 
@@ -780,7 +780,7 @@ In addition to the type A uncertainty, there may be other contributors to the un
 
 **Propagation of error for the linear calibration**
 
-The analysis of uncertainty for calibrated values from a linear calibration line can be addressed using propagation of error. On the previous page, the uncertainty was estimated from check standard values.
+The analysis of uncertainty for calibrated values from a linear calibration line can be addressed using propagation of error. On the previous page (section), the uncertainty was estimated from check standard values.
 
 **Estimates from calibration data**
 
