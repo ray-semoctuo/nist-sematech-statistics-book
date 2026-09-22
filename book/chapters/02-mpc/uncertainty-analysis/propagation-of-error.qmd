@@ -29,7 +29,7 @@ $$s_{area} = \sqrt{width^2 \cdot s_{length}^2 + length^2 \cdot s_{width}^2}$$
 
 [**Exact formula**]{#sec-mpc-55-exact}
 
-Goodman (1960) [@Goodman] derived an exact formula for the variance between two products. Given two random variables, $x$ and $y$ (correspond to width and length in the above approximate formula), the exact formula for the variance is:
+Goodman [-@Goodman] derived an exact formula for the variance between two products. Given two random variables, $x$ and $y$ (correspond to width and length in the above approximate formula), the exact formula for the variance is:
 
 $$V(\bar{x} \bar{y}) = \frac{1}{n} \left[ X^2 V(y) + Y^2 V(x) + 2XYE_{11} + 2X\frac{E_{12}}{n} + 2Y\frac{E_{21}}{n} + \frac{V(x) V(y)}{n} + \frac{Cov((\Delta x)^2, (\Delta y)^2) - E_{11}^2}{n^2} \right]$$
 
@@ -78,7 +78,7 @@ Covariance terms can be difficult to estimate if measurements are not made in pa
 
 1. If the measurements of $X$, $Z$ are independent, the associated covariance term is *zero*.
 2. Generally, reported values of test items from calibration designs have *non-zero* covariances that must be taken into account if $Y$ is a summation such as the mass of two weights, or the length of two gage blocks end-to-end, etc.
-3. Practically speaking, covariance terms should be included in the computation only if they have been estimated from sufficient data. See Ku (1966) [@Ku] for guidance on what constitutes sufficient data.
+3. Practically speaking, covariance terms should be included in the computation only if they have been estimated from sufficient data. See Ku [-@Ku] for guidance on what constitutes sufficient data.
 
 **Sensitivity coefficients**
 
@@ -138,7 +138,7 @@ The reported value, $Y$, is a function of averages of $N$ measurements on two va
 | $Y = \bar{X}\bar{Z}$ | $\dfrac{\bar{X}\bar{Z}}{\sqrt{N}} \sqrt{\dfrac{s_x^2}{\bar{X}^2} + \dfrac{s_z^2}{\bar{Z}^2} + 2\dfrac{s_{xz}^2}{\bar{X}\bar{Z}}}$ |
 | $Y = c(\bar{X})^a (\bar{Z})^b$ | $\dfrac{Y}{\sqrt{N}} \sqrt{a^2 \dfrac{s_x^2}{\bar{X}^2} + b^2 \dfrac{s_z^2}{\bar{Z}^2} + 2ab \dfrac{s_{xz}^2}{\bar{X}\bar{Z}}}$ |
 
-Note: the last row is an approximation. The exact result could be obtained starting from the [exact formula for the standard deviation of a product](#sec-mpc-55-exact) derived by Goodman (1960) [@Goodman].
+Note: the last row is an approximation. The exact result could be obtained starting from the [exact formula for the standard deviation of a product](#sec-mpc-55-exact) derived by Goodman [-@Goodman].
 
 #### Propagation of error for many variables {#sec-mpc-553}
 
