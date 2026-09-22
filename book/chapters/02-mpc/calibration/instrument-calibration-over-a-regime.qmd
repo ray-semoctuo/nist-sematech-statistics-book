@@ -553,7 +553,7 @@ The purpose of this page (section) is to show the propagation of error for calib
 
 $$ Y = a + bX + cX^2 + \epsilon $$
 
-The calibration data are instrument responses at known loads (psi), and estimates of the quadratic coefficients, $a, \, b, \, c$, and their associated standard deviations are shown with the analysis. A graph of the calibration curve showing a measurement $Y'$ corrected to $X'$, the proper load (psi), is shown in [the schematic figure above](#sec-mpc-36).
+The calibration data are instrument responses at known loads (psi), and estimates of the quadratic coefficients, $a, \, b, \, c$, and their associated standard deviations are shown with the analysis. A graph of the calibration curve showing a measurement $Y'$ corrected to $X'$, the proper load (psi), is shown in @fig-mpc-36-schematic above.
 
 **Uncertainty of the calibrated value X'**
 
@@ -637,6 +637,14 @@ Our fit, run directly on the canonical 33-observation `LOADCELL.DAT` (11 load le
 
 **A note on a discrepancy with NIST's currently published page.** NIST's live handbook page for this section shows a second, slightly different set of coefficients ($\hat a = -0.1850148\times10^{-5}$, $s_{\hat a} = 0.2081\times10^{-4}$, $s_{\hat b} = 0.3681\times10^{-5}$, $s_{\hat c} = 0.1460\times10^{-6}$, $s_Y = 0.0000340856$, on 51 residual degrees of freedom), introduced by a 2017 editorial note stating that "R code had a 'skip=1' when reading the file resulting in first line of data not being read." We traced this: the working data file behind that 2017 revision (`handbook/mpc/section3/loadcell.dat` in this repository's source mirror) has 54 rows rather than 33, because the block of load levels 10 through 21 appears twice. That duplication is inconsistent with `LOADCELL.DAT`'s own documented structure (11 load levels $\times$ 3 repetitions = 33 rows) and with the [original 33-observation, 30-degree-of-freedom analysis shown on the model-validation page](#sec-mpc-365), which our fit reproduces exactly, including the full covariance matrix (below). We therefore use the 33-observation analysis throughout this section rather than the 2017 revision, and flag this rather than silently choosing one set of numbers.
 
+**Graph showing the standard deviations of calibrated values X' for given instrument responses Y' ignoring covariance terms in the propagation of error**
+
+The standard deviation expressed above is not easily interpreted but it is easily graphed. A graph showing standard deviations of calibrated values, $X'$, as a function of instrument response, $Y'$, is shown in @fig-mpc-3671-propagation-of-error below (NIST's original presents this as a separate graph from the "including covariance" version discussed next; we combine both curves into the single comparison figure below rather than reproducing two nearly identical charts).
+
+**Problem with propagation of error**
+
+The propagation of errors shown above is not complete because it ignores the covariances among the coefficients, $a, \, b, \, c$. Unfortunately, some statistical software packages do not display these covariance terms with the other output from the analysis.
+
 **Covariance terms for loadcell data**
 
 The variance-covariance terms for the loadcell data set are shown below.
@@ -657,15 +665,19 @@ V_mpc3671
 
 The diagonal elements are the variances of the coefficients, $a, \, b, \, c$, respectively, and the off-diagonal elements are the covariance terms; our computed matrix agrees with NIST's stated values (above) to the reported precision.
 
-**Graph showing the standard deviations of calibrated values X' for given instrument responses Y' ignoring covariance terms in the propagation of error**
-
-**Problem with propagation of error**
-
-The propagation of errors shown above is not complete because it ignores the covariances among the coefficients, $a, \, b, \, c$. Unfortunately, some statistical software packages do not display these covariance terms with the other output from the analysis.
-
 **Recomputation of the standard deviation of X'**
 
 To account for the covariance terms, the variance of $X'$ is redefined by adding the covariance terms. Appropriate substitutions are made; the standard deviations are recomputed and graphed as a function of instrument response.
+
+$$u^2 = u^2 + 2\left(\frac{\partial X'}{\partial \hat{a}}\right)\left(\frac{\partial X'}{\partial \hat{b}}\right)s_{\hat{a}\hat{b}} + 2\left(\frac{\partial X'}{\partial \hat{a}}\right)\left(\frac{\partial X'}{\partial \hat{c}}\right)s_{\hat{a}\hat{c}} + 2\left(\frac{\partial X'}{\partial \hat{b}}\right)\left(\frac{\partial X'}{\partial \hat{c}}\right)s_{\hat{b}\hat{c}}$$
+
+```
+sab = -1.0759599e-10
+sac =  4.0191106e-12
+sbc = -9.5051441e-13
+```
+
+(NIST's live page shows different values here -- $s_{ab} = -7.027501\times10^{-11}$, $s_{ac} = 2.498281\times10^{-12}$, $s_{bc} = -5.244666\times10^{-13}$ -- from the same 2017 revised-dataset analysis flagged earlier in this section; those are inconsistent with the covariance matrix given just above on NIST's own page, which matches the values shown here. We use the values consistent with the 33-observation analysis used throughout this section.)
 
 ```{r}
 #| code-fold: true
