@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .edge { stroke: #4A4A4A; stroke-width: 1; fill: none; }
+    .node { fill: #36648B; stroke: #1B3A52; stroke-width: 1.2; }
+    .wafer { fill: #36648B; stroke: #1B3A52; stroke-width: 1.2; }
+    .run-label { font-size: 16px; font-weight: bold; fill: #00105A; text-anchor: middle; }
+    .day-label { font-size: 13px; fill: #1B1B1B; text-anchor: middle; }
+    .rep-label { font-size: 12px; fill: white; text-anchor: middle; }
+    .caption { font-size: 14px; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <!-- root -->
+  <circle class="node" cx="450" cy="18" r="5" />
+
+  <!-- Run 1 -->
+  <line class="edge" x1="450" y1="18" x2="220" y2="80" />
+  <circle class="node" cx="220" cy="80" r="5" />
+  <text class="run-label" x="220" y="65">run 1</text>
+
+  <!-- Run 2 -->
+  <line class="edge" x1="450" y1="18" x2="680" y2="80" />
+  <circle class="node" cx="680" cy="80" r="5" />
+  <text class="run-label" x="680" y="65">run 2</text>
+
+  <!-- Run 1 days -->
+  <line class="edge" x1="220" y1="80" x2="100" y2="150" />
+  <circle class="node" cx="100" cy="150" r="4" />
+  <text class="day-label" x="100" y="138">day 1</text>
+  <line class="edge" x1="100" y1="150" x2="100" y2="205" />
+  <ellipse class="wafer" cx="100" cy="230" rx="52" ry="25" />
+  <text class="rep-label" x="83" y="224">1</text>
+  <text class="rep-label" x="117" y="224">2</text>
+  <text class="rep-label" x="83" y="240">4</text>
+  <text class="rep-label" x="117" y="240">3</text>
+
+  <line class="edge" x1="220" y1="80" x2="220" y2="150" />
+  <circle class="node" cx="220" cy="150" r="4" />
+  <text class="day-label" x="220" y="138">day 2</text>
+  <line class="edge" x1="220" y1="150" x2="220" y2="205" />
+  <ellipse class="wafer" cx="220" cy="230" rx="52" ry="25" />
+  <text class="rep-label" x="203" y="224">1</text>
+  <text class="rep-label" x="237" y="224">2</text>
+  <text class="rep-label" x="203" y="240">4</text>
+  <text class="rep-label" x="237" y="240">3</text>
+
+  <line class="edge" x1="220" y1="80" x2="340" y2="150" />
+  <circle class="node" cx="340" cy="150" r="4" />
+  <text class="day-label" x="340" y="138">day 3</text>
+  <line class="edge" x1="340" y1="150" x2="340" y2="205" />
+  <ellipse class="wafer" cx="340" cy="230" rx="52" ry="25" />
+  <text class="rep-label" x="323" y="224">1</text>
+  <text class="rep-label" x="357" y="224">2</text>
+  <text class="rep-label" x="323" y="240">4</text>
+  <text class="rep-label" x="357" y="240">3</text>
+
+  <!-- Run 2 days -->
+  <line class="edge" x1="680" y1="80" x2="560" y2="150" />
+  <circle class="node" cx="560" cy="150" r="4" />
+  <text class="day-label" x="560" y="138">day 1</text>
+  <line class="edge" x1="560" y1="150" x2="560" y2="205" />
+  <ellipse class="wafer" cx="560" cy="230" rx="52" ry="25" />
+  <text class="rep-label" x="543" y="224">1</text>
+  <text class="rep-label" x="577" y="224">2</text>
+  <text class="rep-label" x="543" y="240">4</text>
+  <text class="rep-label" x="577" y="240">3</text>
+
+  <line class="edge" x1="680" y1="80" x2="680" y2="150" />
+  <circle class="node" cx="680" cy="150" r="4" />
+  <text class="day-label" x="680" y="138">day 2</text>
+  <line class="edge" x1="680" y1="150" x2="680" y2="205" />
+  <ellipse class="wafer" cx="680" cy="230" rx="52" ry="25" />
+  <text class="rep-label" x="663" y="224">1</text>
+  <text class="rep-label" x="697" y="224">2</text>
+  <text class="rep-label" x="663" y="240">4</text>
+  <text class="rep-label" x="697" y="240">3</text>
+
+  <line class="edge" x1="680" y1="80" x2="800" y2="150" />
+  <circle class="node" cx="800" cy="150" r="4" />
+  <text class="day-label" x="800" y="138">day 3</text>
+  <line class="edge" x1="800" y1="150" x2="800" y2="205" />
+  <ellipse class="wafer" cx="800" cy="230" rx="52" ry="25" />
+  <text class="rep-label" x="783" y="224">1</text>
+  <text class="rep-label" x="817" y="224">2</text>
+  <text class="rep-label" x="783" y="240">4</text>
+  <text class="rep-label" x="817" y="240">3</text>
+
+  <text class="caption" x="450" y="300">2 runs -- 3 days -- 4 repetitions</text>
+  <text class="caption" x="450" y="322" font-weight="bold">3-level nested design</text>
+</svg>

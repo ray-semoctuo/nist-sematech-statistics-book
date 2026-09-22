@@ -6,9 +6,7 @@
 
 {{< include calibration/index.qmd >}}
 
-## Gauge R&R Studies {#sec-mpc-4}
-
-<!-- Source: handbook/mpc/section4/. TODO: port narrative content, re-implement worked examples in R. -->
+{{< include gauge-rr/index.qmd >}}
 
 ## Uncertainty Analysis {#sec-mpc-5}
 

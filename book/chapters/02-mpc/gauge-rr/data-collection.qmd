@@ -1,0 +1,231 @@
+### How do we collect data for the study? {#sec-mpc-43}
+
+**Time-related analysis**
+
+The purpose of this page is to present several options for collecting data for estimating time-dependent effects in a measurement process.
+
+**Time intervals**
+
+The following levels of time-dependent errors are considered in this section based on the characteristics of many measurement systems and should be adapted to a specific measurement situation as needed.
+
+1. Level-1 Measurements taken over a short time to capture the precision of the gauge
+2. Level-2 Measurements taken over days (of other appropriate time increment)
+3. Level-3 Measurements taken over runs separated by months
+
+- [Simple design for 2 levels of random error](#sec-mpc-431)
+- [Nested design for 2 levels of random error](#sec-mpc-432)
+- [Nested design for 3 levels of random error](#sec-mpc-433)
+
+In all cases, data collection and analysis are straightforward, and there is no reason to estimate interaction terms when dealing with time-dependent errors. [Two levels](#sec-mpc-432) should be sufficient for characterizing most measurement systems. [Three levels](#sec-mpc-433) are recommended for measurement systems where sources of error are not well understood and have not previously been studied.
+
+#### Simple design {#sec-mpc-431}
+
+**Constraints on time and resources**
+
+In planning a gauge study, particularly for the first time, it is advisable to start with a simple design and progress to more complicated and/or labor intensive designs after acquiring some experience with data collection and analysis. The design recommended here is appropriate as a preliminary study of variability in the measurement process that occurs over time. It requires about two days of measurements separated by about a month with two repetitions per day.
+
+**Relationship to 2-level and 3-level nested designs**
+
+The disadvantage of this design is that there is minimal data for estimating variability over time. A [2-level nested design](#sec-mpc-432) and a [3-level nested design](#sec-mpc-433), both of which require measurements over time, are discussed on other pages.
+
+**Plan of action**
+
+Choose at least $Q = 10$ work pieces or check standards, which are essentially identical insofar as their expected responses to the measurement method. Measure each of the check standards twice with the same gauge, being careful to randomize the order of the check standards.
+
+After about a month, repeat the measurement sequence, randomizing anew the order in which the check standards are measured.
+
+**Notation**
+
+Measurements on the check standards are designated:
+
+$$
+\begin{eqnarray}
+Y_{11}, & Y_{12} \\
+Y_{21}, & Y_{22}
+\end{eqnarray}
+$$
+
+with the first index identifying the month of measurement and the second index identifying the repetition number.
+
+**Analysis of data**
+
+The level-1 standard deviation, which describes the basic precision of the gauge, is
+
+$$s_1 = \sqrt{\frac{1}{4Q}\sum_{i=1}^{Q} \left( (Y_{11} - Y_{12})^2 + (Y_{21} - Y_{22})^2 \right)}$$
+
+with $\nu_1 = 2Q$ degrees of freedom.
+
+The level-2 standard deviation, which describes the variability of the measurement process over time, is
+
+$$s_2 = \sqrt{\frac{1}{Q}\sum_{i=1}^{Q} \left( \frac{(Y_{11} + Y_{12}) - (Y_{21} + Y_{22})}{2} \right)^2}$$
+
+with $\nu_2 = Q$ degrees of freedom.
+
+**Relationship to uncertainty for a test item**<!-- XREF: MPC Section 2.5.6, Error budgets and sensitivity coefficients, not yet migrated to this book; source handbook/mpc/section5/mpc56.htm -->
+
+The standard deviation that defines the uncertainty for a single measurement on a test item, often referred to as the reproducibility standard deviation [@ASTME691], is given by
+
+$$s_R = \sqrt{s_{days}^2 + s_1^2} = \frac{s_2}{\sqrt{2}}$$
+
+The time-dependent component is
+
+$$s_{days} = \sqrt{\frac{1}{2} s_2^2 - s_1^2}$$
+
+There may be other sources of uncertainty in the measurement process that must be accounted for in a formal analysis of uncertainty.<!-- XREF: MPC Section 2.5, Uncertainty Analysis, not yet migrated to this book; source handbook/mpc/section5/mpc5.htm -->
+
+#### 2-level nested design {#sec-mpc-432}
+
+**Check standard measurements for estimating time-dependent sources of variability**
+
+Measurements on a [check standard](#sec-mpc-12) are recommended for studying the effect of sources of variability that manifest themselves over time. Data collection and analysis are straightforward, and there is no reason to estimate interaction terms when dealing with time-dependent errors. The measurements can be made at one of two levels. Two levels should be sufficient for characterizing most measurement systems. [Three levels](#sec-mpc-433) are recommended for measurement systems for which sources of error are not well understood and have not previously been studied.
+
+**Time intervals in a nested design**
+
+The following levels are based on the characteristics of many measurement systems and should be adapted to a specific measurement situation as needed.
+
+- Level-1 Measurements taken over a short term to estimate gauge precision
+- Level-2 Measurements taken over days (of other appropriate time increment)
+
+**Definition of number of measurements at each level**
+
+The following symbols are defined for this chapter:
+
+- Level-1 $J\ (J > 1)$ repetitions
+- Level-2 $K\ (K > 2)$ days
+
+**Schedule for making measurements**
+
+A schedule for making check standard measurements over time (once a day, twice a week, or whatever is appropriate for sampling all conditions of measurement) should be set up and adhered to. The check standard measurements should be structured in the same way as values reported on the test items. For example, if the reported values are averages of two repetitions made within 5 minutes of each other, the check standard values should be averages of the two measurements made in the same manner.
+
+**Exception**
+
+One exception to this rule is that there should be at least $J = 2$ repetitions per day, etc. Without this redundancy, there is no way to check on the short-term precision of the measurement system.
+
+**Depiction of schedule for making check standard measurements with 4 repetitions per day over K days on the surface of a silicon wafer**
+
+See @fig-mpc-data-collection-schedule (Section 2.1.2.2), which shows the same 2-level design for check standard measurements.
+
+**Operator considerations**
+
+The measurements should be taken with **ONE** operator. Operator is not usually a consideration with automated systems. However, systems that require decisions regarding line edge or other feature delineations may be operator dependent.
+
+**Case Study**
+
+*Resistivity check standard*<!-- XREF: MPC Case Studies (Section 2.6.2), Check standard for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc62.htm -->
+
+Results should be recorded along with pertinent environmental readings and identifications for significant factors. The best way to record this information is in one file with one line or row (on a spreadsheet) of information in fixed fields for each check standard measurement.
+
+**Data analysis of gauge precision**
+
+The check standard measurements are represented by
+
+$$Y_{kj}\ (k=1, \ldots, K,\ j=1, \ldots, J)$$
+
+for the $j$th repetition on the $k$th day. The mean for the $k$th day is
+
+$$\overline{Y}_{k\bullet} = \frac{1}{J}\sum_{j=1}^{J} Y_{kj}$$
+
+and the (level-1) standard deviation for gauge precision with $\nu = J - 1$ degrees of freedom is
+
+$$s_k = \sqrt{\frac{1}{J-1} \sum_{j=1}^{J} ( Y_{kj} - \overline{Y}_{k\bullet} )^2}$$
+
+**Pooling increases the reliability of the estimate of the standard deviation**
+
+The pooled level-1 standard deviation with $\nu = K(J-1)$ degrees of freedom is
+
+$$s_1 = \sqrt{\frac{1}{K} \sum_{k=1}^{K} s_k^2}$$
+
+**Data analysis of process (level-2) standard deviation**
+
+The level-2 standard deviation of the check standard represents the process variability. It is computed with $\nu = K - 1$ degrees of freedom as:
+
+$$s_{chkstd} = s_2 = \sqrt{\frac{1}{K-1} \sum_{k=1}^{K} \left( \overline{Y}_{k\bullet} - \overline{Y}_{\bullet\bullet} \right)^2}$$
+
+where
+
+$$\overline{Y}_{\bullet\bullet} = \frac{1}{K} \sum_{k=1}^{K} \overline{Y}_{k\bullet}$$
+
+**Relationship to uncertainty for a test item**<!-- XREF: MPC Section 2.5.6, Error budgets and sensitivity coefficients, not yet migrated to this book; source handbook/mpc/section5/mpc56.htm -->
+
+The standard deviation that defines the uncertainty for a single measurement on a test item, often referred to as the reproducibility standard deviation [@ASTME691], is given by
+
+$$s_R = \sqrt{s_{days}^2 + s_1^2} = \sqrt{s_2^2 + \frac{J-1}{J} s_1^2}$$
+
+The time-dependent component is
+
+$$s_{days} = \sqrt{s_2^2 - \frac{1}{J}s_1^2}$$
+
+There may be other sources of uncertainty in the measurement process that must be accounted for in a formal analysis of uncertainty.<!-- XREF: MPC Section 2.5, Uncertainty Analysis, not yet migrated to this book; source handbook/mpc/section5/mpc5.htm -->
+
+#### 3-level nested design {#sec-mpc-433}
+
+**Advantages of nested designs**
+
+A nested design is recommended for studying the effect of sources of variability that manifest themselves over time. Data collection and analysis are straightforward, and there is no reason to estimate interaction terms when dealing with time-dependent errors. Nested designs can be run at several levels. Three levels are recommended for measurement systems where sources of error are not well understood and have not previously been studied.
+
+**Time intervals in a nested design**
+
+The following levels are based on the characteristics of many measurement systems and should be adapted to a specific measurement situation as need be. A typical design is shown below.
+
+- Level-1 Measurements taken over a short-time to capture the precision of the gauge
+- Level-2 Measurements taken over days (or other appropriate time increment)
+- Level-3 Measurements taken over runs separated by months
+
+![A 3-level nested design: 2 runs, 3 days per run, 4 repetitions per day (redrawn from NIST's original figure for readability)](gauge-rr/images/mpc-3-level-nested-design.svg){#fig-mpc-3-level-nested-design}
+
+**Definition of number of measurements at each level**
+
+The following symbols are defined for this chapter:
+
+- Level-1 $J\ (J > 1)$ repetitions
+- Level-2 $K\ (K > 2)$ days
+- Level-3 $L\ (L > 2)$ runs
+
+For the design shown above, $J = 4$; $K = 3$ and $L = 2$. The design can be repeated for:
+
+- $Q\ (Q > 2)$ check standards
+- $I\ (I > 3)$ gauges if the intent is to characterize several similar gauges
+
+**2-level nested design**
+
+The design can be truncated at [two levels](#sec-mpc-432) to estimate [repeatability](#sec-mpc-441) and [day-to-day variability](#sec-mpc-442) if there is no reason to estimate longer-term effects. The analysis remains the same through the first two levels.
+
+**Advantages**
+
+This design has advantages in ease of use and computation. The number of repetitions at each level need not be large because information is being gathered on several check standards.
+
+**Operator considerations**
+
+The measurements should be made with **ONE** operator. Operator is not usually a consideration with automated systems. However, systems that require decisions regarding line edge or other feature delineations may be operator dependent. If there is reason to believe that results might differ significantly by operator, 'operators' can be substituted for 'runs' in the design. Choose $L\ (L > 2)$ operators at random from the pool of operators who are capable of making measurements at the same level of precision. (Conduct a small experiment with operators making repeatability measurements, if necessary, to verify comparability of precision among operators.) Then complete the data collection and analysis as outlined. In this case, the [level-3 standard deviation](#sec-mpc-443) estimates operator effect.
+
+**Caution**
+
+Be sure that the design is truly nested; i.e., that each operator reports results for the same set of circumstances, particularly with regard to day of measurement so that each operator measures every day, or every other day, and so forth.
+
+**Randomize on gauges**
+
+Randomize with respect to gauges for each check standard; i.e., choose the first check standard and randomize the gauges; choose the second check standard and randomize gauges; and so forth.
+
+**Record results in a file**
+
+Record the [average and standard deviation](#sec-mpc-44) from each group of $J$ repetitions by:
+
+- check standard
+- gauge
+
+**Case Study**
+
+*Resistivity gauges*<!-- XREF: MPC Case Studies (Section 2.6.1), Resistivity gauges, not yet migrated to this book; source handbook/mpc/section6/mpc61.htm -->
+
+Results should be recorded along with pertinent environmental readings and identifications for significant factors. The best way to record this information is in one file with one line or row (on a spreadsheet) of information in fixed fields for each check standard measurement. A list of typical entries follows.
+
+1. Month
+2. Day
+3. Year
+4. Operator identification
+5. Check standard identification
+6. Gauge identification
+7. Average of J repetitions
+8. Short-term standard deviation from $J$ repetitions
+9. Degrees of freedom
+10. Environmental readings (if pertinent)

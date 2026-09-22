@@ -1,0 +1,290 @@
+### How do we identify and analyze bias? {#sec-mpc-45}
+
+**Definition of bias**
+
+The terms 'bias' and 'systematic error' have the same meaning in this handbook. Bias is defined [@VIM] as the difference between the measurement result and its unknown 'true value'. It can often be estimated and/or eliminated by calibration to a reference standard.
+
+**Potential problem**
+
+Calibration relates output to 'true value' in an ideal environment. However, it may not assure that the gauge reacts properly in its working environment. Temperature, humidity, operator, wear, and other factors can introduce bias into the measurements. There is no single method for dealing with this problem, but the gauge study is intended to uncover biases in the measurement process.
+
+**Sources of bias**
+
+Sources of bias that are discussed in this Handbook include:
+
+- [Lack of gauge resolution](#sec-mpc-451)
+- [Lack of linearity](#sec-mpc-452)
+- [Drift](#sec-mpc-453)
+- [Hysteresis](#sec-mpc-46-hysteresis)
+- [Differences among gauges](#sec-mpc-454)
+- [Differences among geometries](#sec-mpc-455)
+- [Differences among operators](#sec-mpc-456)
+- [Remedial actions and strategies](#sec-mpc-456)
+
+#### Resolution {#sec-mpc-451}
+
+**Resolution**
+
+Resolution [@MSA] is the ability of the measurement system to detect and faithfully indicate small changes in the characteristic of the measurement result.
+
+**Definition from (MSA) manual**
+
+The resolution of the instrument is $\delta$ if there is an equal probability that the indicated value of any artifact, which differs from a reference standard by less than $\delta$, will be the same as the indicated value of the reference.
+
+**Good versus poor**
+
+A small $\delta$ implies good resolution -- the measurement system can discriminate between artifacts that are close together in value.
+
+A large $\delta$ implies poor resolution -- the measurement system can only discriminate between artifacts that are far apart in value.
+
+**Warning**
+
+The number of digits displayed does not indicate the resolution of the instrument.
+
+**Manufacturer's statement of resolution**
+
+Resolution as stated in the manufacturer's specifications is usually a function of the least-significant digit (LSD) of the instrument and other factors such as timing mechanisms. This value should be checked in the laboratory under actual conditions of measurement.
+
+**Experimental determination of resolution**
+
+To make a determination in the laboratory, select several artifacts with known values over a range from close in value to far apart. Start with the two artifacts that are farthest apart and make measurements on each artifact. Then, measure the two artifacts with the second largest difference, and so forth, until two artifacts are found which repeatedly give the same result. The difference between the values of these two artifacts estimates the resolution.
+
+**Consequence of poor resolution**
+
+No useful information can be gained from a study on a gauge with poor resolution relative to measurement needs.
+
+#### Linearity of the gauge {#sec-mpc-452}
+
+**Definition of linearity for gauge studies**
+
+Linearity is given a narrow interpretation in this Handbook to indicate that gauge response increases in equal increments to equal increments of stimulus, or, if the gauge is biased, that the bias remains constant throughout the course of the measurement process.
+
+**Data collection and repetitions**
+
+A determination of linearity requires $Q$ ($Q > 4$) reference standards that cover the range of interest in fairly equal increments and $J$ ($J > 1$) measurements on each reference standard. One measurement is made on each of the reference standards, and the process is repeated $J$ times.
+
+**Plot of the data**
+
+A test of linearity starts with a plot of the measured values versus corresponding values of the reference standards to obtain an indication of whether or not the points fall on a straight line with slope equal to 1 -- indicating linearity.
+
+**Least-squares estimates of bias and slope**
+
+A least-squares fit of the data to the model
+
+$$Y = a + bX + \text{measurement error}$$
+
+where $Y$ is the measurement result and $X$ is the value of the reference standard, produces an estimate of the intercept, $a$, and the slope, $b$.
+
+**Output from software package**
+
+The intercept and bias are estimated using a statistical software package that should provide the following information:
+
+- Estimates of the intercept and slope, $\hat{a}, \, \hat{b}$
+- Standard deviations of the intercept and slope
+- Residual standard deviation of the fit
+- F-test for goodness of fit
+
+**Test for linearity**
+
+[Tests for the slope and bias](#sec-mpc-365) are described in the section on instrument calibration. If the slope is different from one, the gauge is non-linear and requires [calibration](#sec-mpc-36) or repair. If the intercept is different from zero, the gauge has a bias.
+
+**Causes of non-linearity**
+
+The reference manual on Measurement Systems Analysis [@MSA] lists possible causes of gauge non-linearity that should be investigated if the gauge shows symptoms of non-linearity.
+
+1. Gauge not properly calibrated at the lower and upper ends of the operating range
+2. Error in the value of $X$ at the maximum or minimum range
+3. Worn gauge
+4. Internal design problems (electronics)
+
+**Note -- on artifact calibration**
+
+The requirement of linearity for artifact calibration is not so stringent. Where the gauge is used as a comparator for measuring small differences among test items and reference standards of the same nominal size, as with [calibration designs](#sec-mpc-33), the only requirement is that the gauge be linear over the small on-scale range needed to measure both the reference standard and the test item.
+
+**Situation where the calibration of the gauge is neglected**
+
+Sometimes it is not economically feasible to correct for the calibration of the gauge [@TurgelVecchia]. In this case, the bias that is incurred by neglecting the calibration is estimated as a component of uncertainty.
+
+#### Drift {#sec-mpc-453}
+
+**Definition**
+
+Drift can be defined [@VIM] as a slow change in the response of a gauge.
+
+**Instruments used as comparators for calibration**
+
+Short-term drift can be a problem for comparator measurements. The cause is frequently heat build-up in the instrument during the time of measurement. It would be difficult, and probably unproductive, to try to pinpoint the extent of such drift with a gauge study. The simplest solution is to use [drift-free designs](#sec-mpc-3312) for collecting calibration data. These designs mitigate the effect of linear drift on the results.
+
+Long-term drift should not be a problem for comparator measurements because such drift would be constant during a calibration design and would cancel in the difference measurements.
+
+**Instruments corrected by linear calibration**
+
+For instruments whose readings are corrected by a linear calibration line, drift can be detected using a [control chart technique](#sec-mpc-37) and measurements on three or more check standards.
+
+**Drift in direct reading instruments and uncertainty analysis**
+
+For other instruments, measurements can be made on a daily basis on two or more check standards over a preset time period, say, one month. These measurements are plotted on a time scale to determine the extent and nature of any drift. Drift rarely continues unabated at the same rate and in the same direction for a long time period.
+
+Thus, the expectation from such an experiment is to document the maximum change that is likely to occur during a set time period and plan adjustments to the instrument accordingly. A further impact of the findings is that uncorrected drift is treated as a type A component in the uncertainty analysis.<!-- XREF: MPC Section 2.5.3, Type A evaluations, not yet migrated to this book; source handbook/mpc/section5/mpc53.htm -->
+
+#### Differences among gauges {#sec-mpc-454}
+
+**Purpose**
+
+A gauge study should address whether gauges agree with one another and whether the agreement (or disagreement) is consistent over artifacts and time.
+
+**Data collection**
+
+For each gauge in the study, the analysis requires measurements on
+
+- $Q$ ($Q > 2$) check standards
+- $K$ ($K > 2$) days
+
+The measurements should be made by a single operator.
+
+**Data reduction**
+
+The steps in the analysis are:
+
+1. Measurements are averaged over days by artifact/gauge configuration.
+2. For each artifact, an average is computed over gauges.
+3. Differences from this average are then computed for each gauge.
+4. If the design is run as a [3-level design](#sec-mpc-433), the statistics are computed separately for each run.
+
+**Data from a gauge study**
+
+The data in the table below come from resistivity (ohm.cm) measurements on $Q = 5$ artifacts on $K = 6$ days. Two runs were made which were separated by about a month's time. The artifacts are silicon wafers and the gauges are four-point probes specifically designed for measuring resistivity of silicon wafers. Differences from the wafer means are shown in the table.
+
+**Biases for 5 probes from a gauge study with 5 artifacts on 6 days**
+
+```
+ Table of biases for probes and silicon wafers (ohm.cm)
+                          Wafers
+
+ Probe       138      139       140       141      142
+---------------------------------------------------------
+     1    0.02476  -0.00356   0.04002   0.03938   0.00620
+
+   181    0.01076   0.03944   0.01871  -0.01072   0.03761
+
+   182    0.01926   0.00574  -0.02008   0.02458  -0.00439
+
+  2062   -0.01754  -0.03226  -0.01258  -0.02802  -0.00110
+
+  2362   -0.03725  -0.00936  -0.02608  -0.02522  -0.03830
+```
+
+**Plot of differences among probes**
+
+A graphical analysis can be more effective for detecting differences among gauges than a table of differences.<!-- XREF: MPC Case Studies (Section 2.6.1.5), plot of differences among probes, not yet migrated to this book; source handbook/mpc/section6/mpc615.htm --> The differences are plotted versus artifact identification with each gauge identified by a separate plotting symbol. For ease of interpretation, the symbols for any one gauge can be connected by dotted lines.
+
+**Interpretation**
+
+Because the plots show differences from the average by artifact, the center line is the zero-line, and the differences are estimates of bias. Gauges that are *consistently* above or below the other gauges are biased high or low, respectively, relative to the average. The best estimate of bias for a particular gauge is its average bias over the $Q$ artifacts. For this data set, notice that probe #2362 is consistently biased low relative to the other probes.
+
+**Strategies for dealing with differences among gauges**
+
+Given that the gauges are a random sample of like-kind gauges, the best estimate in any situation is an average over all gauges. In the usual production or metrology setting, however, it may only be feasible to make the measurements on a particular piece with one gauge. Then, there are two methods of dealing with the differences among gauges.
+
+1. Correct each measurement made with a particular gauge for the bias of that gauge and report the standard deviation of the correction as a type A uncertainty.<!-- XREF: MPC Section 2.5.3.3.2, standard deviation of the correction as a type A uncertainty, not yet migrated to this book; source handbook/mpc/section5/mpc5332.htm -->
+2. Report each measurement as it occurs and assess a type A uncertainty for the differences among the gauges.<!-- XREF: MPC Section 2.5.3.1.2, type A uncertainty for the differences among the gauges, not yet migrated to this book; source handbook/mpc/section5/mpc5312.htm -->
+
+#### Geometry/configuration differences {#sec-mpc-455}
+
+**How to deal with configuration differences**
+
+The mechanism for identifying and/or dealing with differences among geometries or configurations in an instrument is basically the same as dealing with [differences among the gauges](#sec-mpc-454) themselves.
+
+**Example of differences among wiring configurations**
+
+An example is given of a study of configuration differences for a single gauge. The gauge, a 4-point probe for measuring resistivity of silicon wafers, can be wired in several ways. Because it was not possible to test all wiring configurations during the gauge study, measurements were made in only two configurations as a way of identifying possible problems.
+
+**Data on wiring configurations and a plot of differences between the 2 wiring configurations**
+
+[Measurements were made on six wafers](../../datasets/MPC536.DAT) over six days (except for 5 measurements on wafer 39) with probe #2062 wired in two configurations. This sequence of measurements was repeated after about a month resulting in two runs. Differences between measurements in the two configurations on the same day are shown in the following table.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-455-data
+#| message: false
+library(tidyverse)
+
+mpc536 <- read_table(
+  here::here("datasets", "MPC536.DAT"),
+  skip = 25,
+  col_names = c("wafer", "day", "probe", "d1", "d2"),
+  col_types = "ddddd"
+) |>
+  drop_na()
+
+mpc536 |> rename(`Run 1` = d1, `Run 2` = d2)
+```
+
+**Test of difference between configurations**
+
+Because there are only two configurations, a $t$-test is used to decide if there is a difference. If
+
+$$t = \left| \frac{\sqrt{N}}{s_{diff}} \text{Avg}_{diff} \right| > 2$$
+
+the difference between the two configurations is statistically significant.
+
+The average and standard deviation computed from the 29 differences in each run are shown in the table below along with the $t$-values which confirm that the differences are significant for both runs.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-455-ttest
+#| message: false
+ttest_mpc536 <- mpc536 |>
+  pivot_longer(c(d1, d2), names_to = "run", values_to = "diff") |>
+  mutate(run = if_else(run == "d1", "Run 1", "Run 2")) |>
+  summarise(.by = run, Average = mean(diff), `Std dev` = sd(diff), N = n()) |>
+  mutate(t = sqrt(N) / `Std dev` * Average)
+
+ttest_mpc536
+```
+
+Both runs match NIST's stated values exactly (Run 1: average $\approx$ `r round(ttest_mpc536$Average[1], 5)`, $t \approx$ `r round(ttest_mpc536$t[1], 1)`; Run 2: average $\approx$ `r round(ttest_mpc536$Average[2], 5)`, $t \approx$ `r round(ttest_mpc536$t[2], 1)`).
+
+**Unexpected result**
+
+The data reveal a wiring bias for both runs that changes direction between runs. This is a somewhat disturbing finding, and further study of the gauges is needed. Because neither wiring configuration is preferred or known to give the 'correct' result, the differences are treated as a component of the measurement uncertainty.<!-- XREF: MPC Section 2.5.3, measurement uncertainty, not yet migrated to this book; source handbook/mpc/section5/mpc53.htm#change -->
+
+#### Remedial actions and strategies {#sec-mpc-456}
+
+**Variability**
+
+The variability of the gauge in its normal operating mode needs to be examined in light of measurement requirements.
+
+If the standard deviation is too large, relative to requirements, the uncertainty can be reduced by making repeated measurements and taking advantage of the standard deviation of the average (which is reduced by a factor of $1/\sqrt{n}$ when $n$ measurements are averaged).
+
+**Causes of excess variability**
+
+If multiple measurements are not economically feasible in the workload, then the performance of the gauge must be improved. Causes of variability which should be examined are:
+
+- Wear
+- Environmental effects such as humidity
+- Temperature excursions
+- Operator technique
+
+**[Resolution](#sec-mpc-451)**
+
+There is no remedy for a gauge with insufficient resolution. The gauge will need to be replaced with a better gauge.
+
+**[Lack of linearity](#sec-mpc-452)**
+
+Lack of linearity can be dealt with by correcting the output of the gauge to account for bias that is dependent on the level of the stimulus. Lack of linearity can be tolerated (left uncorrected) if it does not increase the uncertainty of the measurement result beyond its requirement.
+
+**[Drift](#sec-mpc-453)**
+
+It would be very difficult to correct a gauge for drift unless there is sufficient history to document the direction and size of the drift. Drift can be tolerated if it does not increase the uncertainty of the measurement result beyond its requirement.
+
+**[Differences among gauges](#sec-mpc-454) or [configurations](#sec-mpc-455)**
+
+Significant differences among gauges/configurations can be treated in one of two ways:
+
+1. By correcting each measurement for the bias of the specific gauge/configuration.
+2. By accepting the difference as part of the uncertainty of the measurement process.
+
+**Differences among operators**
+
+Differences among operators can be viewed in the same way as differences among gauges. However, an operator who is incapable of making measurements to the required precision because of an untreatable condition, such as a vision problem, should be re-assigned to other tasks.

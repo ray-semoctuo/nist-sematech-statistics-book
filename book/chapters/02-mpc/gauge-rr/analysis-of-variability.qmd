@@ -1,0 +1,293 @@
+### How do we quantify variability of measurements? {#sec-mpc-44}
+
+**Analysis of variability from a nested design**
+
+The purpose of this section is to show the effect of various levels of time-dependent effects on the variability of the measurement process with standard deviations for each level of a 3-level nested design.
+
+- [Level 1 - repeatability/short-term precision](#sec-mpc-441)
+- [Level 2 - reproducibility/day-to-day](#sec-mpc-442)
+- [Level 3 - stability/run-to-run](#sec-mpc-443)
+
+The graph below depicts possible scenarios for a 2-level design (short-term repetitions and days) to illustrate the concepts.
+
+**Depiction of two measurement processes with the same short-term variability where one process has large between-day variability and the other has negligible between-day variability**
+
+See @fig-mpc-variability-depiction (Section 2.1.1.4), which illustrates this same concept with simulated short-term measurement distributions over multiple days (NIST's original figure here uses 6 days and labels the large-variability process as "process 1"; our figure uses 10 days and, for consistency with its own simulated data, labels the small-variability process as "process 1" -- the concept illustrated is identical).
+
+**Hint on using tabular method of analysis**
+
+An easy way to begin is with a 2-level table<!-- XREF: MPC Case Studies (Section 2.6.3.2), 2-level table, not yet migrated to this book; source handbook/mpc/section6/mpc632.htm --> with $J$ columns and $K$ rows for the repeatability/reproducibility measurements and proceed as follows:
+
+1. Compute an average for each row and put it in the $J + 1$ column.
+2. Compute the level-1 (repeatability) standard deviation for each row and put it in the $J + 2$ column.
+3. Compute the grand average and the level-2 standard deviation from data in the $J + 1$ column.
+4. Repeat the table for each of the $L$ runs.
+5. Compute the level-3 standard deviation from the $L$ grand averages.
+
+**Level-1: LK repeatability standard deviations can be computed from the data**
+
+The measurements from the nested design are denoted by
+
+$$Y_{lkj}\ (l = 1, \ldots, L,\ k=1, \ldots, K,\ j=1, \ldots, J)$$
+
+Equations corresponding to the tabular analysis are shown below. Level-1 [repeatability standard deviations](#sec-mpc-441), $s_{1lk}$, are pooled over the $K$ days and $L$ runs. Individual standard deviations with $(J - 1)$ degrees of freedom each are computed from $J$ repetitions as
+
+$$s_{1lk} = \sqrt{\frac{1}{J-1} \sum_{j=1}^{J}{(Y_{lkj} - \overline{Y}_{lk\bullet})^2}}$$
+
+where
+
+$$\overline{Y}_{lk\bullet} = \frac{1}{J}\sum_{j=1}^{J}{\overline{Y}_{lkj}}$$
+
+**Level-2: L reproducibility standard deviations can be computed from the data**
+
+The [level-2 standard deviation, $s_{2l}$, is pooled](#sec-mpc-442) over the $L$ runs. Individual standard deviations with $(K - 1)$ degrees of freedom each are computed from $K$ daily averages as
+
+$$s_{2l} = \sqrt{\frac{1}{K-1} \sum_{k=1}^{K}{\left( Y_{lk\bullet} - \overline{Y}_{l\bullet\bullet} \right)^2}}$$
+
+where
+
+$$\overline{Y}_{l\bullet\bullet} = \frac{1}{K}\sum_{k=1}^{K}{\overline{Y}_{lk\bullet}}$$
+
+**Level-3: A single global standard deviation can be computed from the L-run averages**
+
+A level-3 standard deviation with $(L - 1)$ degrees of freedom is computed from the $L$-run averages as
+
+$$s_3 = \sqrt{\frac{1}{L-1} \sum_{l=1}^{L}{\left( Y_{l\bullet\bullet} - \overline{Y}_{\bullet\bullet\bullet} \right)^2}}$$
+
+where
+
+$$\overline{Y}_{\bullet\bullet\bullet} = \frac{1}{L}\sum_{l=1}^{L}{\overline{Y}_{l\bullet\bullet}}$$
+
+**Relationship to uncertainty for a test item**<!-- XREF: MPC Section 2.5.6, Error budgets and sensitivity coefficients, not yet migrated to this book; source handbook/mpc/section5/mpc56.htm -->
+
+The standard deviation that defines the uncertainty for a single measurement on a test item is given by
+
+$$s_R = \sqrt{s_{runs}^2 + s_{days}^2 + s_1^2} = \sqrt{s_3^2 + \frac{K-1}{K} s_2^2 + \frac{J-1}{J} s_1^2}$$
+
+where the pooled values, $s_1$ and $s_2$, are the usual
+
+$$s_1 = \sqrt{\frac{\sum_{l=1}^{L}{\sum_{k=1}^{K}{s_{1lk}^{2}}}}{LK}}$$
+
+and
+
+$$s_2 = \sqrt{\frac{1}{L} \sum_{l=1}^{L}{s_{2l}^{2}}}$$
+
+The time-dependent components can be computed individually as:
+
+$$s_{runs} = \sqrt{s_3^2 - \frac{1}{K} s_2^2}$$
+
+$$s_{days} = \sqrt{s_2^2 - \frac{1}{J} s_1^2}$$
+
+There may be other sources of uncertainty in the measurement process that must be accounted for in a formal analysis of uncertainty.<!-- XREF: MPC Section 2.5, Uncertainty Analysis, not yet migrated to this book; source handbook/mpc/section5/mpc5.htm -->
+
+#### Analysis of repeatability {#sec-mpc-441}
+
+**Case study: Resistivity probes**<!-- XREF: MPC Case Studies (Section 2.6.1), Resistivity probes, not yet migrated to this book; source handbook/mpc/section6/mpc61.htm -->
+
+The repeatability quantifies the basic precision for the gauge. A [level-1 repeatability standard deviation](#sec-mpc-44) is computed for each group of $J$ repetitions, and a graphical analysis is recommended for deciding if repeatability is dependent on the check standard, the operator, or the gauge. Two graphs are recommended.<!-- XREF: MPC Case Studies (Section 2.6.1.2/2.6.1.3), plots of repeatability standard deviations, not yet migrated to this book; source handbook/mpc/section6/mpc612.htm and mpc613.htm --> These should show:
+
+- Plot of repeatability standard deviations versus check standard with day coded
+- Plot of repeatability standard deviations versus check standard with gauge coded
+
+Typically, we expect the standard deviation to be gauge dependent -- in which case there should be a separate standard deviation for each gauge. If the gauges are all at the same level of precision, the values can be combined over all gauges.
+
+**Repeatability standard deviations can be pooled over operators, runs, and check standards**
+
+A repeatability standard deviation from $J$ repetitions is not a reliable estimate of the precision of the gauge. Fortunately, these standard deviations can be pooled over days; runs; and check standards, if appropriate, to produce a more reliable precision measure. The table below shows a mechanism for pooling. The pooled repeatability standard deviation, $s_1$, has $LK(J - 1)$ degrees of freedom for measurements taken over:
+
+- $J$ repetitions
+- $K$ days
+- $L$ runs
+
+**Basic pooling rules**
+
+The table below gives the mechanism for pooling repeatability standard deviations over days and runs. The pooled value is an average of weighted variances and is shown as the last entry in the right-hand column of the table. The pooling can also cover check standards, if appropriate.
+
+**View of entire dataset from the nested design**
+
+To illustrate the calculations, a [subset of data](../../datasets/MPC441.DAT) collected in a nested design for one check standard (#140) and one probe (#2362) are shown below. The measurements are resistivity (ohm.cm) readings with six repetitions per day. The individual level-1 standard deviations from the six repetitions and degrees of freedom are recorded in the last two columns of the database.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-441-data
+#| message: false
+library(tidyverse)
+
+mpc441 <- read_table(
+  here::here("datasets", "MPC441.DAT"),
+  skip = 25,
+  col_names = c("run", "wafer", "probe", "month", "day", "op", "temp", "average", "stddev", "df"),
+  col_types = "iffiifdddi"
+)
+
+mpc441
+```
+
+**Pooled repeatability standard deviations over days, runs**
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-441-pooled
+#| message: false
+SS_mpc441 <- sum(mpc441$df * mpc441$stddev^2)
+nu_mpc441 <- sum(mpc441$df)
+s1_mpc441 <- sqrt(SS_mpc441 / nu_mpc441)
+
+tibble(
+  `Source of variability` = "Probe 2362 (12 groups: run 1-2, day 1-6)",
+  `Degrees of freedom` = nu_mpc441,
+  `Sum of squares` = round(SS_mpc441, 5)
+)
+```
+
+The pooled value of $s_1$ is $s_1 = \sqrt{SS/\nu} \approx$ `r round(s1_mpc441, 5)`, matching NIST's stated pooled repeatability standard deviation of 0.07871 exactly.
+
+The calculations displayed in the table above can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section4/mpc441.dp -->
+
+#### Analysis of reproducibility {#sec-mpc-442}
+
+**Case study: Resistivity gauges**<!-- XREF: MPC Case Studies (Section 2.6.1), Resistivity gauges, not yet migrated to this book; source handbook/mpc/section6/mpc61.htm -->
+
+Day-to-day variability can be assessed by a graph of check standard values<!-- XREF: MPC Case Studies (Section 2.6.1.4), graph of check standard values, not yet migrated to this book; source handbook/mpc/section6/mpc614.htm --> (averaged over $J$ repetitions) versus day with a separate graph for each check standard. Graphs for all check standards should be plotted on the same page to obtain an overall view of the measurement situation.
+
+**Pooling results in more reliable estimates**
+
+The [level-2 standard deviations](#sec-mpc-44) with $(K - 1)$ degrees of freedom are computed from the check standard values for days and pooled over runs as shown in the table below. The pooled level-2 standard deviation has degrees of freedom $L(K - 1)$ for measurements made over:
+
+- $K$ days
+- $L$ runs
+
+**Mechanism for pooling**
+
+The table below gives the mechanism for pooling level-2 standard deviations over runs. The pooled value is an average of weighted variances and is the last entry in the right-hand column of the table. The pooling can be extended in the same manner to cover check standards, if appropriate.
+
+The table was generated using a [subset of data](#sec-mpc-441) (shown on the previous page) collected in a nested design on one check standard (#140) with probe (#2362) over six days. The data are analyzed for between-day effects. The level-2 standard deviations and pooled level-2 standard deviations over runs 1 and 2 are:
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-442-pooled
+#| message: false
+lvl2_mpc442 <- mpc441 |>
+  summarise(.by = run, s2i = sd(average), n = n()) |>
+  mutate(SSi = (n - 1) * s2i^2)
+
+SS2_mpc442 <- sum(lvl2_mpc442$SSi)
+nu2_mpc442 <- sum(lvl2_mpc442$n - 1)
+s2_mpc442 <- sqrt(SS2_mpc442 / nu2_mpc442)
+
+lvl2_mpc442 |>
+  transmute(
+    `Source of variability` = paste("Run", run),
+    `Standard deviation` = round(s2i, 6),
+    `Degrees of freedom` = n - 1,
+    `Sum of squares` = round(SSi, 6)
+  )
+```
+
+The pooled value $s_2 = \sqrt{\sum SS_i / \sum \nu_i} \approx$ `r round(s2_mpc442, 5)`, matching NIST's stated pooled level-2 standard deviation of 0.02742 exactly.
+
+**Relationship to day effect**
+
+The level-2 standard deviation is related to the standard deviation for between-day precision and gauge precision by
+
+$$s_{days} = \sqrt{s_2^2 - \frac{1}{J} s_1^2}$$
+
+The size of the day effect can be calculated by subtraction using the formula above once the other two standard deviations have been estimated reliably.
+
+**Computation of variance component for days**
+
+For our example, the variance component for between days is
+
+```{r}
+#| code-fold: true
+#| label: variance-component-days-mpc442
+#| message: false
+J_mpc442 <- 6
+var_days_mpc442 <- s2_mpc442^2 - (1 / J_mpc442) * s1_mpc441^2
+var_days_mpc442
+```
+
+The negative number for the variance is interpreted as meaning that the variance component for days is zero. However, with only `r nu2_mpc442` degrees of freedom for the level-2 standard deviation, this estimate is not necessarily reliable. The standard deviation for days over the entire database shows a significant component for days.<!-- XREF: MPC Case Studies (Section 2.6.3), standard deviation for days over the entire database, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm#day -->
+
+**Sample code**
+
+The calculations included in this section can be implemented using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section4/mpc442.dp --> The reader can download the [data as a text file](../../datasets/MPC441.DAT).
+
+#### Analysis of stability {#sec-mpc-443}
+
+**Case study: Resistivity probes**<!-- XREF: MPC Case Studies (Section 2.6.1), Resistivity probes, not yet migrated to this book; source handbook/mpc/section6/mpc61.htm -->
+
+Run-to-run variability can be assessed graphically by a plot of check standard values<!-- XREF: MPC Case Studies (Section 2.6.1.4), plot of check standard values, not yet migrated to this book; source handbook/mpc/section6/mpc614.htm --> (averaged over $J$ repetitions) versus time with a separate graph for each check standard. Data on all check standards should be plotted on one page to obtain an overall view of the measurement situation.
+
+**Advantage of pooling**
+
+A [level-3 standard deviation](#sec-mpc-44) with $(L - 1)$ degrees of freedom is computed from the run averages. Because there will rarely be more than two runs per check standard, resulting in one degree of freedom per check standard, it is prudent to have three or more check standards in the design to take advantage of pooling. The mechanism for pooling over check standards is shown in the table below. The pooled standard deviation has $Q(L - 1)$ degrees and is shown as the last entry in the right-hand column of the table.
+
+**Example of pooling**
+
+The following table shows how the level-3 standard deviations for a single gauge (probe #2362) are pooled over check standards.
+
+```
+Level-3 standard deviations for a single gauge pooled over check standards
+
+ Source of variability   Standard deviation   Degrees of freedom   Sum of squares
+
+ Chk std 138                     0.0223                1                0.0004973
+ Chk std 139                     0.0027                1                0.0000073
+ Chk std 140                     0.0289                1                0.0008352
+ Chk std 141                     0.0133                1                0.0001769
+ Chk std 142                     0.0205                1                0.0004203
+                                                        --                ---------
+ Sum                                                    5                0.0019370
+
+ Pooled value = sqrt(SS/df)                                              0.0197
+```
+
+**Level-3 standard deviations**
+
+A [subset of data](#sec-mpc-441) collected in a nested design on one check standard (#140) with probe (#2362) for six days and two runs is analyzed for between-run effects. The level-3 standard deviation, computed from the averages of two runs, is
+
+```{r}
+#| code-fold: true
+#| label: level-3-sd-mpc443
+#| message: false
+runavg_mpc443 <- mpc441 |> summarise(.by = run, avg = mean(average))
+s3_mpc443 <- sd(runavg_mpc443$avg)
+s3_mpc443
+```
+
+matching NIST's stated value of 0.02885 exactly, with one degree of freedom. Dataplot code and R code can be used to perform the calculations for this data.<!-- XREF: Dataplot macro not migrated; source handbook/mpc/section4/mpc443.dp --> The reader can download the [data as a text file](../../datasets/MPC441.DAT).
+
+**Relationship to long-term changes, days and gauge precision**
+
+The size of the between-run effect can be calculated by subtraction using the standard deviations for days and gauge precision as
+
+$$s_{runs} = \sqrt{s_3^2 - \frac{1}{K} s_2^2} = \sqrt{s_3^2 - \frac{1}{k} s_{days}^2 - \frac{1}{KJ} s_1^2}$$
+
+#### Example of calculations {#sec-mpc-444}
+
+**Example of repeatability calculations**
+
+Short-term standard deviations based on
+
+- $J = 6$ repetitions with 5 degrees of freedom
+- $K = 6$ days
+- $L = 2$ runs
+
+were recorded with a probing instrument on $Q = 5$ wafers. The standard deviations were pooled over $K = 6$ days and $L = 2$ runs to give 60 degrees of freedom for each wafer. The pooling of repeatability standard deviations over the 5 wafers is demonstrated in the table below.
+
+**Pooled repeatability standard deviation for a single gauge**
+
+```
+ Source of variability     Sum of Squares (SS)   Degrees of freedom (DF)   Std Devs
+
+ Wafer #138                        0.48115                    60
+ Wafer #139                        0.69209                    60
+ Wafer #140                        0.48483                    60
+ Wafer #141                        1.21752                    60
+ Wafer #142                        0.30076                    60
+                                   --------                   ---
+ SUM                               3.17635                   300              0.10290
+```
+
+(NIST's live handbook page for this section, `mpc4444.htm`, is a near-duplicate of `mpc444.htm` with no incoming links from the rest of the site -- an orphaned page in the source. We treat `mpc444.htm` as the canonical version.)

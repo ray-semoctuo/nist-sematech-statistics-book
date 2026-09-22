@@ -1,0 +1,36 @@
+## Gauge R&R Studies {#sec-mpc-4}
+
+The purpose of this section is to outline the steps that can be taken to characterize the performance of gauges and instruments used in a production setting in terms of errors that affect the measurements.
+
+1. [What are the important issues?](#sec-mpc-41)
+2. [What are the design considerations for the study?](#sec-mpc-42)
+   1. Artifacts
+   2. Operators
+   3. Gauges, parameter levels, configurations
+3. [How do we collect data for the study?](#sec-mpc-43)
+   1. [Simple design](#sec-mpc-431)
+   2. [2-level nested design](#sec-mpc-432)
+   3. [3-level nested design](#sec-mpc-433)
+4. [How do we quantify variability of measurements?](#sec-mpc-44)
+   1. [Analysis of repeatability](#sec-mpc-441)
+   2. [Analysis of reproducibility](#sec-mpc-442)
+   3. [Analysis of stability](#sec-mpc-443)
+   4. [Example of calculations](#sec-mpc-444)
+5. [How do we identify and analyze bias?](#sec-mpc-45)
+   1. [Resolution](#sec-mpc-451)
+   2. [Linearity of the gauge](#sec-mpc-452)
+   3. [Drift](#sec-mpc-453)
+   4. [Differences among gauges](#sec-mpc-454)
+   5. [Geometry/configuration differences](#sec-mpc-455)
+   6. [Remedial actions and strategies](#sec-mpc-456)
+6. [How do we quantify uncertainties of measurements made with the gauges?](#sec-mpc-46)
+
+{{< include gauge-rr/issues-and-design.qmd >}}
+
+{{< include gauge-rr/data-collection.qmd >}}
+
+{{< include gauge-rr/analysis-of-variability.qmd >}}
+
+{{< include gauge-rr/analysis-of-bias.qmd >}}
+
+{{< include gauge-rr/uncertainty.qmd >}}

@@ -1,0 +1,70 @@
+### What are the important issues? {#sec-mpc-41}
+
+**Basic issues**
+
+The basic issue for the study is the behavior of gauges in a particular environment with respect to:
+
+- [Repeatability](#sec-mpc-441)
+- [Reproducibility](#sec-mpc-442)
+- [Stability](#sec-mpc-443)
+- [Bias](#sec-mpc-45)
+
+**Strategy**
+
+The strategy is to conduct and analyze a study that examines the behavior of similar gauges to see if:
+
+- They exhibit different levels of precision;
+- Instruments in the same environment produce equivalent results;
+- Operators in the same environment produce equivalent results;
+- Responses of individual gauges are affected by configuration or geometry changes or changes in setup procedures.
+
+**Other goals**
+
+Other goals are to:
+
+- [Test the resolution of instruments](#sec-mpc-451)
+- [Test the gauges for linearity](#sec-mpc-452)
+- [Estimate differences among gauges (bias)](#sec-mpc-454)
+- [Estimate differences caused by geometries, configurations](#sec-mpc-455)
+- [Estimate operator biases](#sec-mpc-456)
+- [Incorporate the findings in an uncertainty budget](#sec-mpc-46)
+
+### What are the design considerations for the study? {#sec-mpc-42}
+
+**Design considerations**
+
+Design considerations for a gauge study are choices of:
+
+- Artifacts (check standards)
+- Operators
+- Gauges
+- Parameter levels
+- Configurations, etc.
+
+**Selection of artifacts or check standards**
+
+The artifacts for the study are check standards or test items of a type that are typically measured with the gauges under study. It may be necessary to include check standards for different parameter levels if the gauge is a multi-response instrument. The discussion of [check standards](#sec-mpc-12) should be reviewed to determine the suitability of available artifacts.
+
+**Number of artifacts**
+
+The number of artifacts for the study should be $Q\ (Q > 2)$. Check standards for a gauge study are needed only for the limited time period (two or three months) of the study.
+
+**Selection of operators**
+
+Only those operators who are trained and experienced with the gauges should be enlisted in the study, with the following constraints:
+
+- If there is a small number of operators who are familiar with the gauges, they should all be included in the study.
+- If the study is intended to be representative of a large pool of operators, then a random sample of $L\ (L > 2)$ operators should be chosen from the pool.
+- If there is only one operator for the gauge type, that operator should make measurements on $K\ (K > 2)$ days.
+
+**Selection of gauges**
+
+If there is only a small number of gauges in the facility, then all gauges should be included in the study.
+
+If the study is intended to represent a larger pool of gauges, then a random sample of $I\ (I > 3)$ gauges should be chosen for the study.
+
+**Limit the initial study**
+
+If the gauges operate at several parameter levels (for example; frequencies), an initial study should be carried out at 1 or 2 levels before a larger study is undertaken.
+
+If there are differences in the way that the gauge can be operated, an initial study should be carried out for one or two configurations before a larger study is undertaken.
