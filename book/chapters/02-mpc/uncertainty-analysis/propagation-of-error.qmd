@@ -1,0 +1,208 @@
+### Propagation of error considerations {#sec-mpc-55}
+
+**Top-down approach consists of estimating the uncertainty from direct repetitions of the measurement result**
+
+The approach to uncertainty analysis that has been followed up to this point in the discussion has been what is called a top-down approach. Uncertainty components are estimated from direct repetitions of the measurement result. To contrast this with a propagation of error approach, consider the simple example where we estimate the area of a rectangle from replicate measurements of length and width. The area
+
+$$area = length \cdot width$$
+
+can be computed from each replicate. The standard deviation of the reported area is estimated directly from the replicates of area.
+
+**Advantages of top-down approach**
+
+This approach has the following advantages:
+
+- proper treatment of covariances between measurements of length and width
+- proper treatment of unsuspected sources of error that would emerge if measurements covered a range of operating conditions and a sufficiently long time period
+- independence from propagation of error model
+
+**Propagation of error approach combines estimates from individual auxiliary measurements**
+
+The formal propagation of error approach is to compute:
+
+1. standard deviation from the length measurements
+2. standard deviation from the width measurements
+
+and combine the two into a standard deviation for area using the approximation for products of two variables (ignoring a possible covariance between length and width),
+
+$$s_{area} = \sqrt{width^2 \cdot s_{length}^2 + length^2 \cdot s_{width}^2}$$
+
+[**Exact formula**]{#sec-mpc-55-exact}
+
+Goodman (1960) [@Goodman] derived an exact formula for the variance between two products. Given two random variables, $x$ and $y$ (correspond to width and length in the above approximate formula), the exact formula for the variance is:
+
+$$V(\bar{x} \bar{y}) = \frac{1}{n} \left[ X^2 V(y) + Y^2 V(x) + 2XYE_{11} + 2X\frac{E_{12}}{n} + 2Y\frac{E_{21}}{n} + \frac{V(x) V(y)}{n} + \frac{Cov((\Delta x)^2, (\Delta y)^2) - E_{11}^2}{n^2} \right]$$
+
+with
+
+- $X = E(x)$ and $Y = E(y)$ (corresponds to width and length, respectively, in the approximate formula)
+- $V(x)$ is the variance of $x$ and $V(y)$ is the variance $y$ (corresponds to $s^2$ for width and length, respectively, in the approximate formula)
+- $E_{ij} = \{(\Delta x)^i, (\Delta y)^j\}$ where $\Delta x = x - X$ and $\Delta y = y - Y$
+- $Cov((\Delta x)^2, (\Delta y)^2) = E_{22} - V(x) V(y)$
+
+To obtain the standard deviation, simply take the square root of the above formula. Also, an estimate of the statistic is obtained by substituting sample estimates for the corresponding population values on the right hand side of the equation.
+
+**Approximate formula assumes independence**
+
+The approximate formula assumes that length and width are independent. The exact formula assumes that length and width are not independent.
+
+**Disadvantages of propagation of error approach**
+
+In the ideal case, the propagation of error estimate above will not differ from the estimate made directly from the area measurements. However, in complicated scenarios, they may differ because of:
+
+- unsuspected covariances
+- disturbances that affect the reported value and not the elementary measurements (usually a result of mis-specification of the model)
+- mistakes in propagating the error through the defining formulas
+
+**Propagation of error formula**
+
+Sometimes the measurement of interest cannot be replicated directly and it is necessary to estimate its uncertainty via propagation of error formulas [@Ku]. The propagation of error formula for
+
+$$Y = f(X, Z, \ldots)$$
+
+a function of one or more variables with measurements, $(X, Z, \ldots)$ gives the following estimate for the standard deviation of $Y$:
+
+$$s_y = \sqrt{\left(\frac{\partial Y}{\partial X}\right)^2 s_x^2 + \left(\frac{\partial Y}{\partial Z}\right)^2 s_z^2 + \cdots + \left(\frac{\partial Y}{\partial X}\right)\left(\frac{\partial Y}{\partial Z}\right) s_{xz}^2 + \cdots}$$
+
+where
+
+- $s_x$ is the standard deviation of the $X$ measurements
+- $s_z$ is the standard deviation of $Z$ measurements
+- $s_y$ is the standard deviation of $Y$ measurements
+- $\partial Y / \partial X$ is the partial derivative of the function $Y$ with respect to $X$, etc.
+- $s_{xz}$ is the estimated covariance between the $X, Z$ measurements
+
+**Treatment of covariance terms**
+
+Covariance terms can be difficult to estimate if measurements are not made in pairs. Sometimes, these terms are omitted from the formula. Guidance on when this is acceptable practice is given below:
+
+1. If the measurements of $X$, $Z$ are independent, the associated covariance term is *zero*.
+2. Generally, reported values of test items from calibration designs have *non-zero* covariances that must be taken into account if $Y$ is a summation such as the mass of two weights, or the length of two gage blocks end-to-end, etc.
+3. Practically speaking, covariance terms should be included in the computation only if they have been estimated from sufficient data. See Ku (1966) [@Ku] for guidance on what constitutes sufficient data.
+
+**Sensitivity coefficients**
+
+The partial derivatives are the [sensitivity coefficients](#sec-mpc-56) for the associated components.
+
+**Examples of propagation of error analyses**
+
+Examples of propagation of error that are shown in this chapter are:
+
+- Case study of propagation of error for resistivity measurements<!-- XREF: MPC Case Studies (Section 2.6.4), Case study of propagation of error for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc64.htm -->
+- [Comparison of check standard analysis and propagation of error for linear calibration](#sec-mpc-3673)
+- [Propagation of error for quadratic calibration showing effect of covariance terms](#sec-mpc-3671)
+
+**Specific formulas**
+
+Formulas for specific functions can be found in the following sections:
+
+- [functions of a single variable](#sec-mpc-551)
+- [functions of two variables](#sec-mpc-552)
+- [functions of many variables](#sec-mpc-553)
+
+#### Formulas for functions of one variable {#sec-mpc-551}
+
+**Case: Y=f(X)**
+
+Standard deviations of reported values that are functions of a single variable are reproduced from a paper by H. Ku [@Ku].
+
+The reported value, $Y$, is a function of the average of $N$ measurements on a single variable.
+
+| Notes | Function $Y$ of $\bar{X}$ ($\bar{X}$ is an average of $N$ measurements) | Standard deviation of $Y$ ($s_x$ = standard deviation of $X$) |
+|:---|:---:|:---:|
+|  | $Y = \bar{X}$ | $\dfrac{1}{\sqrt{N}} s_x$ |
+|  | $Y = \dfrac{\bar{X}}{1+\bar{X}}$ | $\dfrac{s_x}{\sqrt{N} \left(1 + \bar{X}\right)^2}$ |
+|  | $Y = (\bar{X})^2$ | $\dfrac{2\bar{X}}{\sqrt{N}} s_x$ |
+|  | $Y = \sqrt{\bar{X}}$ | $\dfrac{s_x}{2\sqrt{N\bar{X}}}$ |
+|  | $Y = \ln \bar{X}$ | $\dfrac{s_x}{\bar{X}\sqrt{N}}$ |
+| Approximation could be seriously in error if N is small | $Y = e^{\bar{X}}$ | $\dfrac{e^{\bar{X}}}{\sqrt{N}} s_x$ |
+| Not directly derived from the formulas | $Y = \dfrac{100 \, s_x}{\bar{X}}$ | $\dfrac{Y}{\sqrt{2(N-1)}}$ |
+
+Note: for the last row, we need to assume that the original data follow an approximately normal distribution.
+
+#### Formulas for functions of two variables {#sec-mpc-552}
+
+**Case: Y=f(X,Z)**
+
+Standard deviations of reported values that are functions of measurements on two variables are reproduced from a paper by H. Ku [@Ku].
+
+The reported value, $Y$, is a function of averages of $N$ measurements on two variables.
+
+*Note: Covariance term is to be included only if there is a reliable estimate.* ($s_x$ = standard deviation of $X$; $s_z$ = standard deviation of $Z$; $s_{xz}^2$ = covariance of $X, Z$)
+
+| Function $Y$ of $\bar{X}$, $\bar{Z}$ | Standard deviation of $Y$ |
+|:---:|:---:|
+| $Y = A\bar{X} + B\bar{Z}$ | $\dfrac{1}{\sqrt{N}} \sqrt{A^2 s_x^2 + B^2 s_z^2 + 2AB s_{xz}^2}$ |
+| $Y = \dfrac{\bar{X}}{\bar{Z}}$ | $\dfrac{1}{\sqrt{N}} \dfrac{\bar{X}}{\bar{Z}} \sqrt{\dfrac{s_x^2}{(\bar{X})^2} + \dfrac{s_z^2}{(\bar{Z})^2} - 2\dfrac{s_{xz}}{\bar{X}\bar{Z}}}$ |
+| $Y = \dfrac{\bar{X}}{\bar{X} + \bar{Z}}$ | $\left(\dfrac{Y}{\bar{X}}\right)^2 \dfrac{1}{\sqrt{N}} \sqrt{(\bar{X})^2 s_z^2 + (\bar{Z})^2 s_x^2 - 2\bar{X}\bar{Z} s_{xz}^2}$ |
+| $Y = \bar{X}\bar{Z}$ | $\dfrac{\bar{X}\bar{Z}}{\sqrt{N}} \sqrt{\dfrac{s_x^2}{\bar{X}^2} + \dfrac{s_z^2}{\bar{Z}^2} + 2\dfrac{s_{xz}^2}{\bar{X}\bar{Z}}}$ |
+| $Y = c(\bar{X})^a (\bar{Z})^b$ | $\dfrac{Y}{\sqrt{N}} \sqrt{a^2 \dfrac{s_x^2}{\bar{X}^2} + b^2 \dfrac{s_z^2}{\bar{Z}^2} + 2ab \dfrac{s_{xz}^2}{\bar{X}\bar{Z}}}$ |
+
+Note: the last row is an approximation. The exact result could be obtained starting from the [exact formula for the standard deviation of a product](#sec-mpc-55-exact) derived by Goodman (1960) [@Goodman].
+
+#### Propagation of error for many variables {#sec-mpc-553}
+
+**Example from fluid flow with a nonlinear function**
+
+Computing uncertainty for measurands based on more complicated functions can be done using basic propagation of errors principles. For example, suppose we want to compute the uncertainty of the discharge coefficient for fluid flow [@Whetstone]. The measurement equation is
+
+$$C_d = \frac{\dot{m} \sqrt{1-\left(\frac{d}{D}\right)^4}}{K d^2 F \sqrt{\rho} \sqrt{\Delta P}}$$
+
+where
+
+$$\begin{eqnarray*}
+C_d       &=& \text{discharge coefficient} \\
+\dot{m}   &=& \text{mass flow rate} \\
+d         &=& \text{orifice diameter} \\
+D         &=& \text{pipe diameter} \\
+\rho      &=& \text{fluid density} \\
+\Delta P  &=& \text{differential pressure} \\
+K         &=& \text{constant} \\
+F         &=& \text{thermal expansion factor (constant)} \\
+\end{eqnarray*}$$
+
+Assuming the variables in the equation are uncorrelated, the squared uncertainty of the discharge coefficient is
+
+$$s^2_{Cd} = \left[\frac{\partial C_d}{\partial \dot{m}}\right]^2 s^2_{\dot m} + \left[\frac{\partial C_d}{\partial d}\right]^2 s^2_d + \left[\frac{\partial C_d}{\partial D}\right]^2 s^2_D + \left[\frac{\partial C_d}{\partial \rho}\right]^2 s^2_{\rho} + \left[\frac{\partial C_d}{\partial \Delta P}\right]^2 s^2_{\Delta P}$$
+
+and the partial derivatives are the following.
+
+$$\frac{\partial C_d}{\partial \dot{m}} = \frac{\sqrt{1-\left(\frac{d}{D}\right)^4}}{K d^2 F \sqrt{\rho} \sqrt{\Delta P}}$$
+
+$$\frac{\partial C_d}{\partial d} = \frac{-2\dot{m} d}{K F D^4 \sqrt{\rho} \sqrt{\Delta P} \sqrt{1-\left(\frac{d}{D}\right)^4}} - \frac{2 \dot{m} \sqrt{1-\left(\frac{d}{D}\right)^4}}{K d^3 F \sqrt{\rho} \sqrt{\Delta P}}$$
+
+$$\frac{\partial C_d}{\partial D} = \frac{2 \dot{m} d^2}{K F D^5 \sqrt{\rho} \sqrt{\Delta P} \sqrt{1-\left(\frac{d}{D}\right)^4}}$$
+
+$$\frac{\partial C_d}{\partial \rho} = \frac{-\dot{m} \sqrt{1-\left(\frac{d}{D}\right)^4}}{2 K d^2 F \rho^{\frac{3}{2}} \sqrt{\Delta P}}$$
+
+$$\frac{\partial C_d}{\partial \Delta P} = \frac{-\dot{m} \sqrt{1-\left(\frac{d}{D}\right)^4}}{2 K d^2 F \sqrt{\rho} (\Delta P)^{\frac{3}{2}}}$$
+
+**Software can simplify propagation of error**
+
+Propagation of error for more complicated functions can be done reliably with software capable of symbolic computations or algebraic representations.
+
+Symbolic computation software can also be used to combine the partial derivatives with the appropriate standard deviations, and then the standard deviation for the discharge coefficient can be evaluated and plotted for specific values of the secondary variables, as shown in the [comparison of check standard analysis and propagation of error](#sec-mpc-3673).
+
+**Simplification for dealing with multiplicative variables**
+
+Propagation of error for several variables can be simplified considerably for the special case where:
+
+- the function, $Y$, is a simple multiplicative function of secondary variables, and
+- uncertainty is evaluated as a percentage.
+
+For three variables, $X, Z, W$, the function
+
+$$Y = X \cdot Z \cdot W$$
+
+has a standard deviation in absolute units of
+
+$$\begin{eqnarray*}
+s_Y & = & \sqrt{(ZW)^2 s_x^2 + (XW)^2 s_z^2 + (XZ)^2 s_w^2} \\
+    & = & Y \sqrt{\frac{s_x^2}{X^2} + \frac{s_z^2}{Z^2} + \frac{s_w^2}{W^2}} \\
+\end{eqnarray*}$$
+
+In percent units, the standard deviation can be written as
+
+$$\frac{s_Y}{Y} = \sqrt{\frac{s_x^2}{X^2} + \frac{s_z^2}{Z^2} + \frac{s_w^2}{W^2}}$$
+
+if all covariances are negligible. These formulas are easily extended to more than three variables.

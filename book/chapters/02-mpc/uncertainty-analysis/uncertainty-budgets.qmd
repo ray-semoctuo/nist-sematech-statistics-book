@@ -1,0 +1,221 @@
+### Uncertainty budgets and sensitivity coefficients {#sec-mpc-56}
+
+**Case study showing uncertainty budget**<!-- XREF: MPC Case Studies (Section 2.6.3), Case study showing uncertainty budget, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm -->
+
+Uncertainty components are listed in a table along with their corresponding sensitivity coefficients, standard deviations and degrees of freedom. A table of typical entries illustrates the concept.
+
+**Typical budget of type A and type B uncertainty components**
+
+| Type A components | Sensitivity coefficient | Standard deviation | Degrees freedom |
+|:---|:---:|:---:|:---:|
+| 1. Time (repeatability) | $a_1$ | $s_1$ | $\nu_1$ |
+| 2. Time (reproducibility) | $a_2$ | $s_2$ | $\nu_2$ |
+| 3. Time (long-term) | $a_3$ | $s_3$ | $\nu_3$ |
+| **Type B components** | | | |
+| 4. Reference standard | (nominal test / nominal ref) | $s_4$ | $\nu_4$ |
+
+**Sensitivity coefficients show how components are related to result**
+
+The sensitivity coefficient shows the relationship of the individual uncertainty component to the standard deviation of the reported value for a test item. The sensitivity coefficient relates to the result that is being reported and not to the method of estimating uncertainty components where the uncertainty, $u$, is
+
+$$u = \sqrt{\sum_{i=1}^R a_i^2 s_i^2}$$
+
+**Sensitivity coefficients for type A components of uncertainty**
+
+This section defines sensitivity coefficients that are appropriate for type A components estimated from repeated measurements. The pages on [type A evaluations](#sec-mpc-531), particularly the pages related to [estimation of repeatability and reproducibility components](#sec-mpc-5311), should be reviewed before continuing on this page. The convention for the notation for sensitivity coefficients for this section is that:
+
+1. $a_1$ refers to the sensitivity coefficient for the repeatability standard deviation, $s_1$
+2. $a_2$ refers to the sensitivity coefficient for the reproducibility standard deviation, $s_2$
+3. $a_3$ refers to the sensitivity coefficient for the stability standard deviation, $s_3$
+
+with some of the coefficients possibly equal to zero.
+
+**Note on long-term errors**
+
+Even if **no** day-to-day nor run-to-run measurements were made in determining the reported value, the sensitivity coefficient is non-zero if that standard deviation proved to be significant in the analysis of data.
+
+**Sensitivity coefficients for other type A components of random error**
+
+[Procedures for estimating differences among instruments, operators, etc.](#sec-mpc-5312), which are treated as random components of uncertainty in the laboratory, show how to estimate the standard deviations so that the sensitivity coefficients = 1.
+
+**Sensitivity coefficients for type A components for bias**
+
+This Handbook follows the ISO guidelines in that biases are corrected (correction may be zero), and the uncertainty component is the standard deviation of the correction. [Procedures for dealing with biases](#sec-mpc-533) show how to estimate the standard deviation of the correction so that the sensitivity coefficients are equal to one.
+
+**Sensitivity coefficients for specific applications**
+
+The following pages outline methods for computing sensitivity coefficients where the components of uncertainty are derived in the following manner:
+
+1. [From measurements on the test item itself](#sec-mpc-561)
+2. [From measurements on a check standard](#sec-mpc-562)
+3. [From measurements in a 2-level design](#sec-mpc-563)
+4. [From measurements in a 3-level design](#sec-mpc-564)
+
+and give an example of an [uncertainty budget with sensitivity coefficients from a 3-level design](#sec-mpc-565).
+
+**Sensitivity coefficients for type B evaluations**
+
+The majority of sensitivity coefficients for type B evaluations will be one with a few exceptions. The sensitivity coefficient for the uncertainty of a reference standard is the nominal value of the test item divided by the nominal value of the reference standard.
+
+**Case study -- sensitivity coefficients for propagation of error**<!-- XREF: MPC Case Studies (Section 2.6.4), Case study-sensitivity coefficients for propagation of error, not yet migrated to this book; source handbook/mpc/section6/mpc64.htm -->
+
+If the uncertainty of the reported value is calculated from [propagation of error](#sec-mpc-55), the sensitivity coefficients are the multipliers of the individual variance terms in the propagation of error formula. Formulas are given for selected functions of:
+
+1. [functions of a single variable](#sec-mpc-551)
+2. [functions of two variables](#sec-mpc-552)
+3. [several variables](#sec-mpc-553)
+
+#### Sensitivity coefficients for measurements on the test item {#sec-mpc-561}
+
+**From data on the test item itself**
+
+If the temporal component is estimated from $N$ short-term readings on the test item itself
+
+$$Y_1, \,\, Y_2, \,\, \ldots, \,\, Y_N$$
+
+and
+
+$$s_1 = \frac{1}{\sqrt{N-1}} \sqrt{\sum_{i=1}^N (Y_i - \bar{Y})^2}$$
+
+and the reported value is the average, the standard deviation of the reported value is
+
+$$s_{reported \, value} = \frac{1}{\sqrt{N}} s_1$$
+
+with degrees of freedom $\nu_1 = N-1$.
+
+**Sensitivity coefficients**
+
+The sensitivity coefficient is $a_1 = \sqrt{\frac{1}{N}}$. The risk in using this method is that it may seriously underestimate the uncertainty.
+
+**To improve the reliability of the uncertainty calculation**
+
+If possible, the measurements on the test item should be repeated over $M$ days and averaged to estimate the reported value. The standard deviation for the reported value is computed from the daily averages, and the standard deviation for the temporal component is:
+
+$$s_{reported \, value} = \frac{1}{\sqrt{M}} \sqrt{\frac{1}{M-1} \sum_{m=1}^M \left(\bar{Y}_{m\bullet} - \bar{Y}_{\bullet\bullet}\right)^2}$$
+
+with degrees of freedom $\nu_2 = M-1$ where $\bar{Y}_{m\bullet}$ are the daily averages and $\bar{Y}_{\bullet\bullet}$ is the grand average.
+
+The sensitivity coefficients are: $a_1 = 0$; $a_2 = \sqrt{\frac{1}{M}}$.
+
+**Note on long-term errors**
+
+Even if **no** day-to-day nor run-to-run measurements were made in determining the reported value, the sensitivity coefficient is non-zero if that standard deviation proved to be significant in the analysis of data.
+
+#### Sensitivity coefficients for measurements on a check standard {#sec-mpc-562}
+
+**From measurements on check standards**
+
+If the temporal component of the measurement process is evaluated from [measurements on a check standard](#sec-mpc-123) and there are $M$ days ($M = 1$ is permissible) of measurements on the test item that are **structured in the same manner as the measurements on the check standard**, the standard deviation for the reported value is
+
+$$s_{reported \, value} = \frac{1}{\sqrt{M}} s_2$$
+
+with degrees of freedom $\nu_2 = K - 1$ from the $K$ entries in the check standard database.
+
+**Standard deviation from check standard measurements**
+
+The computation of the standard deviation from the check standard values and its relationship to components of instrument precision and day-to-day variability of the process are explained in the section on [two-level nested designs using check standards](#sec-mpc-432).
+
+**Sensitivity coefficients**
+
+The sensitivity coefficients are: $a_1 = 0; \, a_2 = \sqrt{\frac{1}{M}}$.
+
+#### Sensitivity coefficients for measurements from a 2-level design {#sec-mpc-563}
+
+**Sensitivity coefficients from a 2-level design**
+
+If the temporal components are estimated from a [2-level nested design](#sec-mpc-43), and the reported value for a test item is an average over
+
+- $N$ short-term repetitions
+- $M$ ($M = 1$ is permissible) days
+
+of measurements on the test item, the standard deviation for the reported value is:
+
+$$s_{reported \, value} = \sqrt{\frac{1}{M}s_{days}^2 + \frac{1}{MN} s_1^2}$$
+
+See the relationships in the section on [2-level nested design](#sec-mpc-432) for definitions of the standard deviations and their respective degrees of freedom.
+
+**Problem with estimating degrees of freedom**
+
+If degrees of freedom are required for the uncertainty of the reported value, the formula above cannot be used directly and must be rewritten in terms of the standard deviations, $s_1$ and $s_2$.
+
+$$s_{reported \, value} = \sqrt{\frac{1}{M}s_2^2 + \frac{J-N}{MNJ} s_1^2}$$
+
+**Sensitivity coefficients**
+
+The sensitivity coefficients are: $a_1 = \sqrt{\frac{(J-N)}{MNJ}} ; \, a_2 = \sqrt{\frac{1}{M}}$.
+
+Specific sensitivity coefficients are shown in the table below for selections of $N, \, M$.
+
+**Sensitivity coefficients for two components of uncertainty**
+
+| Number short-term $N$ | Number day-to-day $M$ | Short-term sensitivity coefficient $a_1$ | Day-to-day sensitivity coefficient $a_2$ |
+|:---:|:---:|:---:|:---:|
+| $1$ | $1$ | $\sqrt{(J-1)/J}$ | $1$ |
+| $N$ | $1$ | $\sqrt{(J-N)/(NJ)}$ | $1$ |
+| $N$ | $M$ | $\sqrt{(J-N)/(MNJ)}$ | $\sqrt{1/M}$ |
+
+#### Sensitivity coefficients for measurements from a 3-level design {#sec-mpc-564}
+
+**Sensitivity coefficients from a 3-level design**<!-- XREF: MPC Case Studies (Section 2.6.3), Case study showing sensitivity coefficients for 3-level design, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm -->
+
+If the temporal components are estimated from a [3-level nested design](#sec-mpc-433) and the reported value is an average over
+
+- $N$ short-term repetitions
+- $M$ days
+- $P$ runs
+
+of measurements on the test item, the standard deviation for the reported value is:
+
+$$s_{reported \, value} = \sqrt{\frac{1}{P} s_{runs}^2 + \frac{1}{PM} s_{days}^2 + \frac{1}{PMN} s_1^2}$$
+
+See the section on [analysis of variability](#sec-mpc-44) for definitions and relationships among the standard deviations shown in the equation above.
+
+**Problem with estimating degrees of freedom**
+
+If degrees of freedom are required for the uncertainty, the formula above cannot be used directly and must be rewritten in terms of the standard deviations $s_1$, $s_2$, and $s_3$.
+
+$$s_{reported \, value} = \sqrt{\frac{1}{P} s_3^2 + \frac{K-M}{PMK} s_2^2 + \frac{J-N}{PMNJ} s_1^2}$$
+
+**Sensitivity coefficients**
+
+The sensitivity coefficients are:
+
+$$\begin{eqnarray*}
+a_1 & = & \sqrt{\frac{(J-N)}{PMNJ}} \\
+a_2 & = & \sqrt{\frac{(K-M)}{PMK}} \\
+a_3 & = & \sqrt{\frac{1}{P}} \\
+\end{eqnarray*}$$
+
+Specific sensitivity coefficients are shown in the table below for selections of $N, \, M, \, P$. In addition, the following constraints must be observed:
+
+$$J \ge N \text{ and } K \le M$$
+
+**Sensitivity coefficients for three components of uncertainty**
+
+| Number short-term $N$ | Number day-to-day $M$ | Number run-to-run $P$ | Short-term $a_1$ | Day-to-day $a_2$ | Run-to-run $a_3$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| $1$ | $1$ | $1$ | $\sqrt{(J-1)/J}$ | $\sqrt{(K-1)/K}$ | $1$ |
+| $N$ | $1$ | $1$ | $\sqrt{(J-N)/(NJ)}$ | $\sqrt{(K-1)/K}$ | $1$ |
+| $N$ | $M$ | $1$ | $\sqrt{(J-N)/(MNJ)}$ | $\sqrt{(K-M)/(MK)}$ | $1$ |
+| $N$ | $M$ | $P$ | $\sqrt{(J-N)/(PMNJ)}$ | $\sqrt{(K-M)/(MPK)}$ | $\sqrt{1/P}$ |
+
+#### Example of uncertainty budget {#sec-mpc-565}
+
+**Example of uncertainty budget for three components of temporal uncertainty**
+
+An uncertainty budget that illustrates several principles of uncertainty analysis is shown below. The reported value for a test item is the average of $N$ short-term measurements where the temporal components of uncertainty were estimated from a [3-level nested design](#sec-mpc-43) with $J$ short-term repetitions over $K$ days.
+
+The number of measurements made on the test item is the same as the number of short-term measurements in the design; i.e., $N = J$. Because there were no repetitions over days or runs on the test item, $M = 1; \, P = 1$. The [sensitivity coefficients for this design](#sec-mpc-564) are shown on the foregoing page.
+
+**Example of instrument bias**
+
+This example also illustrates the case where the measuring instrument is biased relative to the other instruments in the laboratory, with a [bias correction](#sec-mpc-5332) applied accordingly. The sensitivity coefficient, given that the bias correction is based on measurements on $Q$ artifacts, is defined as $a_4 = 1$, and the standard deviation, $s_4$, is the [standard deviation of the correction.](#sec-mpc-5332)
+
+**Example of error budget for type A and type B uncertainties**
+
+| Type A components | Sensitivity coefficient | Standard deviation | Degrees freedom |
+|:---|:---:|:---:|:---:|
+| 1. Repeatability | $a_1 = 0$ | $s_1$ | $J - 1$ |
+| 2. Reproducibility | $a_2 = \sqrt{(K-1)/K}$ | $s_2$ | $K - 1$ |
+| 3. Stability | $a_3 = 1$ | $s_3$ | $L - 1$ |
+| 4. Instrument bias | $a_4 = 1$ | $s_4$ | $Q - 1$ |

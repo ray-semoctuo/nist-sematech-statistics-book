@@ -1,0 +1,41 @@
+### Standard and expanded uncertainties {#sec-mpc-57}
+
+**Definition of standard uncertainty**
+
+The sensitivity coefficients and standard deviations are combined by root sum of squares to obtain a 'standard uncertainty'. Given $R$ components, the standard uncertainty is:
+
+$$u = \sqrt{\sum_{i=1}^R a_i^2 s_i^2}$$
+
+**Expanded uncertainty assures a high level of confidence**
+
+If the purpose of the uncertainty statement is to provide coverage with a high level of confidence, an expanded uncertainty is computed as
+
+$$U = k \cdot u$$
+
+where $k$ is chosen to be the $t_{1-\alpha/2, \, \nu}$ critical value from the [t-table](../01-eda/index.qmd#sec-eda-t-distribution-table) with $\nu$ [degrees of freedom](#sec-mpc-571). For large degrees of freedom, $k = 2$ approximates 95% coverage.
+
+**Interpretation of uncertainty statement**
+
+The expanded uncertainty defined above is assumed to provide a high level of coverage for the unknown true value of the measurement of interest so that for any measurement result, $Y$,
+
+$$Y - U \le \text{True Value} \le Y + U$$
+
+#### Degrees of freedom {#sec-mpc-571}
+
+**Degrees of freedom for individual components of uncertainty**
+
+Degrees of freedom for type A uncertainties are the degrees of freedom for the respective standard deviations. Degrees of freedom for Type B evaluations may be available from published reports or calibration certificates. Special cases where the standard deviation must be estimated from fragmentary data or scientific judgment are assumed to have infinite degrees of freedom; for example,
+
+- Worst-case estimate based on a robustness study or other evidence
+- Estimate based on an assumed distribution of possible errors
+- Type B uncertainty component for which degrees of freedom are not documented
+
+**Degrees of freedom for the standard uncertainty**
+
+Degrees of freedom for the standard uncertainty, $u$, which may be a combination of many standard deviations, is not generally known. This is particularly troublesome if there are large components of uncertainty with small degrees of freedom. In this case, the degrees of freedom is approximated by the Welch-Satterthwaite formula [@Brownlee].
+
+$$\nu = \frac{u^4}{\sum_{i=1}^R \frac{a_i^4 s_i^4}{\nu_i}}$$
+
+**Case study: Uncertainty and degrees of freedom**<!-- XREF: MPC Case Studies (Section 2.6.3.2), Uncertainty and degrees of freedom, not yet migrated to this book; source handbook/mpc/section6/mpc632.htm#errorbudget -->
+
+A case study of type A uncertainty analysis<!-- XREF: MPC Case Studies (Section 2.6.3), Case study of type A uncertainty analysis, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm --> shows the computations of temporal components of uncertainty; instrument bias; geometrical bias; standard uncertainty; degrees of freedom; and expanded uncertainty.

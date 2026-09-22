@@ -61,7 +61,7 @@ $$s_2 = \sqrt{\frac{1}{Q}\sum_{i=1}^{Q} \left( \frac{(Y_{11} + Y_{12}) - (Y_{21}
 
 with $\nu_2 = Q$ degrees of freedom.
 
-**Relationship to uncertainty for a test item**<!-- XREF: MPC Section 2.5.6, Error budgets and sensitivity coefficients, not yet migrated to this book; source handbook/mpc/section5/mpc56.htm -->
+**Relationship to uncertainty for a test item** (see [uncertainty budgets and sensitivity coefficients](#sec-mpc-56))
 
 The standard deviation that defines the uncertainty for a single measurement on a test item, often referred to as the reproducibility standard deviation [@ASTME691], is given by
 
@@ -71,7 +71,7 @@ The time-dependent component is
 
 $$s_{days} = \sqrt{\frac{1}{2} s_2^2 - s_1^2}$$
 
-There may be other sources of uncertainty in the measurement process that must be accounted for in a formal analysis of uncertainty.<!-- XREF: MPC Section 2.5, Uncertainty Analysis, not yet migrated to this book; source handbook/mpc/section5/mpc5.htm -->
+There may be other sources of uncertainty in the measurement process that must be accounted for in a [formal analysis of uncertainty](#sec-mpc-5).
 
 #### 2-level nested design {#sec-mpc-432}
 

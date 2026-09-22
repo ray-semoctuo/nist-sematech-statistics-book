@@ -1,0 +1,66 @@
+### Treatment of uncorrected bias {#sec-mpc-58}
+
+**Background**
+
+The ISO Guide [@GUM] for expressing measurement uncertainties assumes that all biases are corrected and that the uncertainty applies to the corrected result. For measurements at the factory floor level, this approach has several disadvantages. It may not be practical, may be expensive and may not be economically sound to correct for biases that do not impact the commercial value of the product [@TurgelVecchia].
+
+**Reasons for not correcting for bias**
+
+Corrections may be expensive to implement if they require modifications to existing software and "paper and pencil" corrections can be both time consuming and prone to error. In the scientific or metrology laboratory, biases may be documented in certain situations, but the mechanism that causes the bias may not be fully understood, or repeatable, which makes it difficult to argue for correction. In these cases, the best course of action is to report the measurement as taken and adjust the uncertainty to account for the "bias".
+
+**The question is how to adjust the uncertainty**
+
+A method needs to be developed which assures that the resulting uncertainty has the following properties [@Phillips]:
+
+1. The final uncertainty must be greater than or equal to the uncertainty that would be quoted if the bias were corrected.
+2. The final uncertainty must reduce to the same uncertainty given that the bias correction is applied.
+3. The level of coverage that is achieved by the final uncertainty statement should be at least the level obtained for the case of corrected bias.
+4. The method should be transferable so that both the uncertainty and the bias can be used as components of uncertainty in another uncertainty statement.
+5. The method should be easy to implement.
+
+#### Computation of revised uncertainty {#sec-mpc-581}
+
+**Definition of the bias and corrected measurement**
+
+If the bias is $\delta$ and the corrected measurement is defined by
+
+$$Y_{cor} = Y - \delta,$$
+
+the corrected value of $Y$ has the usual [expanded uncertainty](#sec-mpc-57) interval which is symmetric around the unknown true value for the measurement process and is of the following type:
+
+$$Y_{cor} - U \, \le \, \text{True Value} \, \le \, Y_{cor} + U$$
+
+**Definition of asymmetric uncertainty interval to account for uncorrected measurement**
+
+If no correction is made for the bias, the uncertainty interval is contaminated by the effect of the bias term as follows:
+
+$$Y - (U + \delta) \, \le \, \text{True Value} \, \le \, Y + (U - \delta)$$
+
+and can be rewritten in terms of upper and lower endpoints that are asymmetric around the true value; namely,
+
+$$Y - U_- \, \le \, \text{True Value} \, \le \, Y + U_+$$
+
+**Conditions on the relationship between the bias and U**
+
+The definition above can lead to a negative uncertainty limit; e.g., if the bias is positive and greater than $U$, the upper endpoint becomes negative. The requirement that the uncertainty limits be greater than or equal to zero for all values of the bias guarantees non-negative uncertainty limits and is accepted at the cost of somewhat wider uncertainty intervals. This leads to the following set of restrictions on the uncertainty limits:
+
+$$U_- = \begin{cases} U + \delta & \text{if } \,\, U + \delta > 0 \\ 0 & \text{if } \,\, U + \delta \le 0 \end{cases}$$
+
+$$U_+ = \begin{cases} U - \delta & \text{if } \,\, U - \delta > 0 \\ 0 & \text{if } \,\, U - \delta \le 0 \end{cases}$$
+
+**Situation where bias is not known exactly but must be estimated**
+
+If the bias is not known exactly, its magnitude is estimated from repeated measurements, from sparse data or from theoretical considerations, and the standard deviation is estimated from repeated measurements or from an [assumed distribution](#sec-mpc-541). The standard deviation of the bias becomes a component in the uncertainty analysis with the [standard uncertainty](#sec-mpc-57) restructured to be:
+
+$$u_c = \sqrt{u^2 + u_{bias}^2}$$
+
+and the expanded uncertainty limits become:
+
+$$\begin{aligned}
+U_- &= k \cdot u_c + \delta \\
+U_+ &= k \cdot u_c - \delta
+\end{aligned}$$
+
+**Interpretation**
+
+The uncertainty intervals described above have the [desirable properties](#sec-mpc-58) outlined on a previous page. For more information on theory and industrial examples, the reader should consult the paper by the authors of this technique [@Phillips].

@@ -8,9 +8,7 @@
 
 {{< include gauge-rr/index.qmd >}}
 
-## Uncertainty Analysis {#sec-mpc-5}
-
-<!-- Source: handbook/mpc/section5/ (note: archive also has section5_recovered -- investigate before trusting section5 as canonical). TODO: port narrative content, re-implement worked examples in R. -->
+{{< include uncertainty-analysis/index.qmd >}}
 
 ## Case Studies {#sec-mpc-6}
 

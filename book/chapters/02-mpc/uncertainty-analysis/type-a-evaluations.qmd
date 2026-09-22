@@ -1,0 +1,594 @@
+### Type A evaluations {#sec-mpc-53}
+
+**Type A evaluations apply to both error and bias**
+
+Type A evaluations can apply to both random error and bias. The only requirement is that the calculation of the uncertainty component be based on a statistical analysis of data. The distinction to keep in mind with regard to random error and bias is that:
+
+- random errors cannot be corrected
+- biases can, theoretically at least, be corrected or eliminated from the result.
+
+**Caveat for biases**
+
+The ISO guidelines are based on the assumption that all biases are corrected and that the only uncertainty from this source is the uncertainty of the correction. The section on [type A evaluations of bias](#sec-mpc-533) gives guidance on how to assess, correct and calculate uncertainties related to bias.
+
+**Random error and bias require different types of analyses**
+
+How the source of error affects the reported value and the context for the uncertainty determines whether an analysis of random error or bias is appropriate.
+
+Consider a laboratory with several instruments that can reasonably be assumed to be representative of all similar instruments. Then the differences among these instruments can be considered to be a random effect if the uncertainty statement is intended to apply to the result of any instrument, selected at random, from this batch.
+
+If, on the other hand, the uncertainty statement is intended to apply to one specific instrument, then the bias of this instrument relative to the group is the component of interest.
+
+The following pages outline methods for type A evaluations of:
+
+1. [Random errors](#sec-mpc-531)
+2. [Bias](#sec-mpc-533)
+
+#### Type A evaluations of random components {#sec-mpc-531}
+
+**Type A evaluations of random components**
+
+Type A sources of uncertainty fall into three main categories:
+
+1. [Uncertainties that reveal themselves over time](#sec-mpc-5311)
+2. [Uncertainties caused by specific conditions of measurement](#sec-mpc-5312)
+3. [Uncertainties caused by material inhomogeneities](#sec-mpc-532)
+
+**Time-dependent changes are a primary source of random errors**
+
+One of the most important indicators of random error is time, with the root cause perhaps being environmental changes over time. [Three levels of time-dependent effects](#sec-mpc-5311) are discussed in this section.
+
+**Many possible configurations may exist in a laboratory for making measurements**
+
+Other sources of uncertainty are related to measurement configurations within the laboratory. Measurements on test items are usually made on a single day, with a single operator, on a single instrument, etc. If the intent of the uncertainty is to characterize all measurements made in the laboratory, the uncertainty should account for any differences due to:
+
+1. instruments
+2. operators
+3. geometries
+4. other
+
+**Examples of causes of differences within a laboratory**
+
+Examples of causes of differences within a well-maintained laboratory are:
+
+1. Differences among instruments for measurements of derived units, such as sheet resistance of silicon, where the instruments cannot be directly calibrated to a reference base
+2. Differences among operators for optical measurements that are not automated and depend strongly on operator sightings
+3. Differences among geometrical or electrical configurations of the instrumentation
+
+**Calibrated instruments do not fall in this class**
+
+Calibrated instruments do not normally fall in this class because uncertainties associated with the instrument's calibration are reported as type B evaluations, and the instruments in the laboratory should agree within the calibration uncertainties. Instruments whose responses are not directly calibrated to the defined unit are candidates for type A evaluations. This covers situations in which the measurement is defined by a test procedure or standard practice using a specific instrument type.
+
+**Evaluation depends on the context for the uncertainty**
+
+How these differences are treated depends primarily on the context for the uncertainty statement. The differences, depending on the context, will be treated either as [random differences](#sec-mpc-5312), or as [bias differences](#sec-mpc-533).
+
+**Uncertainties due to inhomogeneities**
+
+Artifacts, electrical devices, and chemical substances, etc. can be inhomogeneous relative to the quantity that is being characterized by the measurement process. If this fact is known beforehand, it may be possible to measure the artifact very carefully at a specific site and then direct the user to also measure at this site. In this case, there is no contribution to measurement uncertainty from inhomogeneity.
+
+However, this is not always possible, and measurements may be destructive. As an example, compositions of chemical compounds may vary from bottle to bottle. If the reported value for the lot is established from measurements on a few bottles drawn at random from the lot, this variability must be taken into account in the uncertainty statement.
+
+Methods for testing for [inhomogeneity](#sec-mpc-532) and assessing the appropriate uncertainty are discussed on another page.
+
+##### Type A evaluations of time-dependent effects {#sec-mpc-5311}
+
+**Time-dependent changes are a primary source of random errors**
+
+One of the most important indicators of random error is time. Effects not specifically studied, such as environmental changes, exhibit themselves over time. Three levels of time-dependent errors are discussed in this section. These can be usefully characterized as:
+
+1. [Level-1](#sec-mpc-431) or short-term errors (repeatability, imprecision)
+2. [Level-2](#sec-mpc-432) or day-to-day errors (reproducibility)
+3. [Level-3](#sec-mpc-433) or long-term errors (stability -- which may not be a concern for all processes)
+
+**Day-to-day errors can be the dominant source of uncertainty**
+
+With instrumentation that is exceedingly precise in the short run, changes over time, often caused by small environmental effects, are frequently the dominant source of uncertainty in the measurement process. The uncertainty statement is not 'true' to its purpose if it describes a situation that cannot be reproduced over time. The customer for the uncertainty is entitled to know the range of possible results for the measurement result, independent of the day or time of year when the measurement was made.
+
+**Two levels may be sufficient**
+
+Two levels of time-dependent errors are probably sufficient for describing the majority of measurement processes. Three levels may be needed for new measurement processes or processes whose characteristics are not well understood.
+
+**Measurements on test item are used to assess uncertainty only when no other data are available**
+
+Repeated measurements on the test item generally do not cover a sufficient time period to capture day-to-day changes in the measurement process. The standard deviation of these measurements is quoted as the estimate of uncertainty only if no other data are available for the assessment. For $J$ short-term measurements, this standard deviation has $\nu = J - 1$ degrees of freedom.
+
+**A check standard is the best device for capturing all sources of random error**
+
+The best approach for capturing information on time-dependent sources of uncertainties is to intersperse the workload with measurements on a [check standard](#sec-mpc-12) taken at set intervals over the life of the process. The standard deviation of the check standard measurements estimates the overall temporal component of uncertainty directly -- thereby obviating the estimation of individual components.
+
+**Nested design for estimating type A uncertainties**
+
+*Case study: Temporal uncertainty from a 3-level nested design*<!-- XREF: MPC Case Studies (Section 2.6.3), Temporal uncertainty from a 3-level nested design, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm#nesteddesign -->
+
+A less-efficient method for estimating time-dependent sources of uncertainty is a designed experiment. Measurements can be made specifically for estimating two or three levels of errors. There are many ways to do this, but the easiest method is a [nested design](#sec-mpc-43) where $J$ short-term measurements are replicated on $K$ days and the entire operation is then replicated over $L$ runs (months, etc.). The analysis of these data leads to:
+
+- $s_1$ = standard deviation with $(J-1)$ degrees of freedom for short-term errors
+- $s_2$ = standard deviation with $(K-1)$ degrees of freedom for day-to-day errors
+- $s_3$ = standard deviation with $(L-1)$ degrees of freedom for very long-term errors
+
+**Approaches given in this chapter**
+
+The computation of the uncertainty of the reported value for a test item is outlined for situations where temporal sources of uncertainty are estimated from:
+
+1. [measurements on the test item itself](#sec-mpc-561)
+2. [measurements on a check standard](#sec-mpc-562)
+3. [measurements from a 2-level nested design](#sec-mpc-563) (gauge study)
+4. [measurements from a 3-level nested design](#sec-mpc-564) (gauge study)
+
+##### Measurement configuration within the laboratory {#sec-mpc-5312}
+
+**Purpose of this page**
+
+The purpose of this page is to outline options for estimating uncertainties related to the specific measurement configuration under which the test item is measured, given other possible measurement configurations. Some of these may be controllable and some of them may not, such as:
+
+- instrument
+- operator
+- temperature
+- humidity
+
+The effect of uncontrollable environmental conditions in the laboratory can often be estimated from check standard data taken over a period of time, and [methods for calculating components of uncertainty](#sec-mpc-5311) are discussed on other pages. Uncertainties resulting from controllable factors, such as operators or instruments chosen for a specific measurement, are discussed on this page.
+
+**First, decide on context for uncertainty**
+
+The approach depends primarily on the context for the uncertainty statement. For example, if instrument effect is the question, one approach is to regard, say, the instruments in the laboratory as a random sample of instruments of the same type and to compute an uncertainty that applies to all results regardless of the particular instrument on which the measurements are made. The other approach is to compute an uncertainty that applies to [results using a specific instrument](#sec-mpc-533).
+
+**Next, evaluate whether or not there are differences**
+
+To treat instruments as a random source of uncertainty requires that we first determine if differences due to instruments are significant. The same can be said for operators, etc.
+
+**Plan for collecting data**
+
+To evaluate the measurement process for instruments, select a random sample of $I\ (I > 4)$ instruments from those available. Make measurements on $Q\ (Q > 2)$ artifacts with each instrument.
+
+**Graph showing differences among instruments**<!-- XREF: MPC Case Studies (Section 2.6.1.5), Graph showing differences among instruments, not yet migrated to this book; source handbook/mpc/section6/mpc615.htm -->
+
+For a graphical analysis, differences from the average for each artifact can be plotted versus artifact, with instruments individually identified by a special plotting symbol. The plot is examined to determine if some instruments always read high or low relative to the other instruments and if this behavior is consistent across artifacts. If there are systematic and significant differences among instruments, a type A uncertainty for instruments is computed. Notice that in the graph for resistivity probes, there are differences among the probes with probes #4 and #5, for example, consistently reading low relative to the other probes. A standard deviation that describes the differences among the probes is included as a component of the uncertainty.
+
+**Standard deviation for instruments**
+
+Given the measurements,
+
+$$Y_{11}, Y_{12}, \cdots, Y_{1I}, \cdots, Y_{Q1}, Y_{Q2}, \cdots, Y_{QI}$$
+
+for each of $Q$ artifacts and $I$ instruments, the pooled standard deviation that describes the differences among instruments is:
+
+$$s_{inst} = \sqrt{\frac{1}{Q} \left( \frac{1}{I-1} \right) \sum_{q=1}^Q \sum_{i=1}^I (Y_{qi} - \overline{Y}_{q\bullet})^2}$$
+
+where
+
+$$\overline{Y}_{q\bullet} = \frac{1}{I} \sum_{i=1}^I Y_{qi} \,\, .$$
+
+**Example of resistivity measurements on silicon wafers**
+
+[A two-way table of resistivity measurements (ohm.cm)](../../datasets/MPC5312.DAT) with 5 probes on 5 wafers (identified as: 138, 139, 140, 141, 142) is shown below. Standard deviations for probes with 4 degrees of freedom each are shown for each wafer. The pooled standard deviation over all wafers, with 20 degrees of freedom, is the type A standard deviation for instruments.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-5312-resistivity
+#| message: false
+library(tidyverse)
+
+mpc5312 <- read_table(
+  here::here("datasets", "MPC5312.DAT"),
+  skip = 25,
+  col_names = c("probe", "w138", "w139", "w140", "w141", "w142"),
+  col_types = "fddddd"
+)
+
+mpc5312
+```
+
+```{r}
+#| label: tbl-mpc-5312-pooled-sd
+#| message: false
+wafer_sd <- mpc5312 |>
+  pivot_longer(starts_with("w"), names_to = "wafer", values_to = "resistivity") |>
+  summarise(.by = wafer, `Std dev` = sd(resistivity), DF = n() - 1)
+
+wafer_sd
+
+pooled_sd_inst <- sqrt(mean(wafer_sd$`Std dev`^2))
+pooled_df_inst <- sum(wafer_sd$DF)
+```
+
+The pooled standard deviation is `r round(pooled_sd_inst, 5)` with `r pooled_df_inst` degrees of freedom, matching NIST's stated pooled standard deviation of 0.02770 with 20 degrees of freedom.
+
+#### Material inhomogeneity {#sec-mpc-532}
+
+**Purpose of this page**
+
+The purpose of this page is to outline methods for assessing uncertainties related to material inhomogeneities. Artifacts, electrical devices, and chemical substances, etc. can be inhomogeneous relative to the quantity that is being characterized by the measurement process.
+
+**Effect of inhomogeneity on the uncertainty**
+
+Inhomogeneity can be a factor in the uncertainty analysis where
+
+1. an artifact is characterized by a single value and the artifact is inhomogeneous over its surface, etc.
+2. a lot of items is assigned a single value from a few samples from the lot and the lot is inhomogeneous from sample to sample.
+
+An unfortunate aspect of this situation is that the uncertainty from inhomogeneity may dominate the uncertainty. If the measurement process itself is very precise and in statistical control, the total uncertainty may still be unacceptable for practical purposes because of material inhomogeneities.
+
+**Targeted measurements can eliminate the effect of inhomogeneity**
+
+It may be possible to measure an artifact very carefully at a specific site and direct the user to also measure at this site. In this case there is no contribution to measurement uncertainty from inhomogeneity.
+
+**Example**
+
+Silicon wafers are doped with boron to produce desired levels of resistivity (ohm.cm). Manufacturing processes for semiconductors are not yet capable (at least at the time this was originally written) of producing 2" diameter wafers with constant resistivity over the surfaces. However, because measurements made at the center of a wafer by a certification laboratory can be reproduced in the industrial setting, the inhomogeneity is not a factor in the uncertainty analysis -- as long as only the center-point of the wafer is used for future measurements.
+
+**Random inhomogeneities**
+
+Random inhomogeneities are assessed using statistical methods for quantifying random errors. An example of inhomogeneity is a chemical compound which cannot be sufficiently homogenized with respect to isotopes of interest. Isotopic ratio determinations, which are destructive, must be determined from measurements on a few bottles drawn at random from the lot.
+
+**Best strategy**
+
+The best strategy is to draw a sample of bottles from the lot for the purpose of [identifying and quantifying between-bottle variability](#sec-mpc-5321). These measurements can be made with a method that lacks the accuracy required to certify isotopic ratios, but is precise enough to allow between-bottle comparisons. A second sample is drawn from the lot and measured with an accurate method for determining isotopic ratios, and the reported value for the lot is taken to be the average of these determinations. There are therefore two components of uncertainty assessed:
+
+1. component that quantifies the imprecision of the average
+2. component that quantifies how much an individual bottle can deviate from the average.
+
+**Systematic inhomogeneities**
+
+Systematic inhomogeneities require a somewhat different approach. Roughness can vary systematically over the surface of a 2" square metal piece lathed to have a specific roughness profile. The certification laboratory can measure the piece at several sites, but unless it is possible to characterize roughness as a mathematical function of position on the piece, inhomogeneity must be assessed as a source of uncertainty.
+
+**Best strategy**
+
+In this situation, the best strategy is to compute the reported value as the average of measurements made over the surface of the piece and assess an uncertainty for departures from the average. The component of uncertainty can be assessed by one of several [methods for evaluating bias](#sec-mpc-533) -- depending on the type of inhomogeneity.
+
+[**Standard method**]{#sec-mpc-532-stddevinh}
+
+The simplest approach to the computation of uncertainty for systematic inhomogeneity is to compute the maximum deviation from the reported value and, assuming a [uniform, normal or triangular distribution](#sec-mpc-541) for the distribution of inhomogeneity, compute the appropriate standard deviation. Sometimes the approximate shape of the distribution can be inferred from the inhomogeneity measurements. The standard deviation for inhomogeneity assuming a uniform distribution is:
+
+$$s_{inh} = \frac{1}{\sqrt{3}} MaxDeviation$$
+
+##### Data collection and analysis {#sec-mpc-5321}
+
+**Purpose of this page**
+
+The purpose of this page is to outline methods for:
+
+- collecting data
+- testing for inhomogeneity
+- quantifying the component of uncertainty
+
+**Balanced measurements at 2-levels**
+
+The simplest scheme for identifying and quantifying the effect of inhomogeneity of a measurement result is a balanced (equal number of measurements per cell) [2-level nested design.](#sec-mpc-432) For example, $K$ bottles of a chemical compound are drawn at random from a lot and $J\ (J > 1)$ measurements are made per bottle. The measurements are denoted by
+
+$$Y_{11}, Y_{12}, \cdots, Y_{1j}; \, \cdots; \, Y_{k1}, Y_{k2}, \cdots, Y_{kj}$$
+
+where the $k$ index runs over bottles and the $j$ index runs over repetitions within a bottle.
+
+**Analysis of measurements**
+
+The between (bottle) variance is calculated using [an analysis of variance technique](#sec-mpc-432) that is repeated here for convenience.
+
+$$s_{inh}^2 = \frac{1}{K-1} \sum_{k=1}^K (\overline{Y}_{k\bullet} - \overline{Y}_{\bullet\bullet})^2 - \frac{1}{KJ(J-1)} \sum_{k=1}^K \sum_{j=1}^J (Y_{kj} - \overline{Y}_{k\bullet})^2$$
+
+where
+
+$$\overline{Y}_{k\bullet} = \frac{1}{J} \sum_{j=1}^J Y_{kj}$$
+
+and
+
+$$\overline{Y}_{\bullet\bullet} = \frac{1}{K} \sum_{k=1}^K \overline{Y}_{k\bullet} \,\, .$$
+
+**Between bottle variance may be negative**
+
+If this variance is negative, there is no contribution to uncertainty, and the bottles are equivalent with regard to their chemical compositions. Even if the variance is positive, inhomogeneity still may not be statistically significant,<!-- XREF: EDA Section 1.3.5.4, Statistical significance, not yet migrated to this book; source handbook/eda/section3/eda354.htm --> in which case it is not required to be included as a component of the uncertainty.
+
+If the between-bottle variance is statistically significantly (i.e., judged to be greater than zero), then inhomogeneity contributes to the uncertainty of the reported value.
+
+**Certification, reported value and associated uncertainty**
+
+The purpose of assessing inhomogeneity is to be able to assign a value to the entire batch based on the average of a few bottles, and the determination of inhomogeneity is usually made by a less accurate method than the certification method. The reported value for the batch would be the **average of $N$ repetitions on $Q$ bottles** using the certification method.
+
+The uncertainty calculation is summarized below for the case where the only contribution to uncertainty from the measurement method itself is the repeatability standard deviation, $s_1$, associated with the certification method. For more complicated scenarios, see the pages on [uncertainty budgets.](#sec-mpc-56)
+
+If
+
+$$s_{inh}^2 \le 0 \Rightarrow s_{reported \, value} = \frac{1}{\sqrt{QN}} s_1$$
+
+If $s_{inh}^2 > 0$, we need to distinguish two cases and their interpretations:
+
+1. The standard deviation
+
+   $$s_{reported \, value} = \sqrt{\frac{Q+1}{Q} s_{inh}^2 + \frac{1}{QN} s_1^2}$$
+
+   leads to an interval that covers the difference between the reported value and the average for a bottle selected at random from the batch.
+
+2. The standard deviation
+
+   $$s_{reported \, value} = \sqrt{\frac{Q+1}{Q} s_{inh}^2 + \frac{QN+1}{QN} s_1^2}$$
+
+   allows one to test the instrument using a single measurement. The prediction interval for the difference between the reported value and a single measurement, made with the same precision as the certification measurements, on a bottle selected at random from the batch. This is appropriate when the instrument under test is similar to the certification instrument. If the difference is not within the interval, the user's instrument is in need of calibration.
+
+**Relationship to prediction intervals**
+
+When the standard deviation for inhomogeneity is included in the calculation, as in the last two cases above, the uncertainty interval becomes a *prediction interval* [@HahnMeeker] and is interpreted as characterizing a future measurement on a bottle drawn at random from the lot.
+
+#### Type A evaluations of bias {#sec-mpc-533}
+
+**Sources of bias relate to the specific measurement environment**
+
+The sources of bias discussed on this page cover specific measurement configurations. Measurements on test items are usually made on a single day, with a single operator, with a single instrument, etc. Even if the intent of the uncertainty is to characterize only those measurements made in one specific configuration, the uncertainty must account for any significant differences due to:
+
+1. instruments
+2. operators
+3. geometries
+4. other
+
+**Calibrated instruments do not fall in this class**
+
+Calibrated instruments do not normally fall in this class because uncertainties associated with the instrument's calibration are reported as type B evaluations, and the instruments in the laboratory should agree within the calibration uncertainties. Instruments whose responses are not directly calibrated to the defined unit are candidates for type A evaluations. This covers situations where the measurement is defined by a test procedure or standard practice using a specific instrument type.
+
+**The best strategy is to correct for bias and compute the uncertainty of the correction**
+
+This problem was treated on the foregoing page as an [analysis of random error](#sec-mpc-531) for the case where the uncertainty was intended to apply to all measurements for all configurations. If measurements for only *one configuration* are of interest, such as measurements made with a specific instrument, or if a smaller uncertainty is required, the differences among, say, instruments are treated as biases. The *best strategy* in this situation is to correct all measurements made with a specific instrument to the average for the instruments in the laboratory and compute a type A uncertainty for the correction. This strategy, of course, relies on the assumption that the instruments in the laboratory represent a random sample of all instruments of a specific type.
+
+**Only limited comparisons can be made among sources of possible bias**
+
+However, suppose that it is possible to make comparisons among, say, only two instruments and neither is known to be 'unbiased'. This scenario requires a different strategy because the average will not necessarily be an unbiased result. The best strategy if there is a significant difference between the instruments, and this should be tested, is to apply a 'zero' correction and assess a type A uncertainty of the correction.
+
+**Guidelines for treatment of biases**
+
+The discussion above is intended to point out that there are many possible scenarios for biases and that they should be treated on a case-by-case basis. A plan is needed for:
+
+- gathering data
+- testing for bias (graphically and/or statistically)
+- estimating biases
+- assessing uncertainties associated with significant biases.
+
+caused by:
+
+- instruments
+- operators
+- configurations, geometries, etc.
+- inhomogeneities
+
+**Plan for testing for assessing bias**
+
+Measurements needed for assessing biases among instruments, say, requires a random sample of $I\ (I > 1)$ instruments from those available and measurements on $Q\ (Q > 2)$ artifacts with each instrument. The same can be said for the other sources of possible bias. General strategies for dealing with significant biases are given in the table below.
+
+Data collection and analysis for assessing biases related to:
+
+- [lack of resolution of instrument](#sec-mpc-451)
+- [non-linearity of instrument](#sec-mpc-452)
+- [drift](#sec-mpc-453)
+
+are addressed in the section on [gauge studies.](#sec-mpc-4)
+
+**Sources of data for evaluating this type of bias**
+
+Databases for evaluating bias may be available from:
+
+- [check standards](#sec-mpc-12)
+- [gauge R and R studies](#sec-mpc-4)
+- control measurements<!-- XREF: MPC Section 2.2, Statistical Control of a Measurement Process; source handbook/mpc/section2/mpc2.htm -->
+
+**Strategies for assessing corrections and uncertainties associated with significant biases**
+
+| Type of bias | Examples | Type of correction | Uncertainty |
+|:---|:---|:---|:---|
+| 1. [Inconsistent](#sec-mpc-5331) | [Sign change (+ to -)](#sec-mpc-5331-exsign) Varying magnitude | [Zero](#sec-mpc-52-zero) | [Based on maximum bias](#sec-mpc-5331-change) |
+| 2. [Consistent](#sec-mpc-5332) | [Instrument bias](#sec-mpc-5332-exprobe) ~ same magnitude over many artifacts | [Bias](#sec-mpc-5332-biases) (for a single instrument) = difference from average over several instruments | [Standard deviation of correction](#sec-mpc-5332-stddevbias) |
+| 3. [Not correctable because of sparse data - consistent or inconsistent](#sec-mpc-5333) | [Limited testing;](#sec-mpc-5333-exwiring) e.g., only 2 instruments, operators, configurations, etc. | [Zero](#sec-mpc-52-zero) | [Standard deviation of correction](#sec-mpc-5333-stddevcorr) |
+| 4. Not correctable - consistent | Lack of resolution, non-linearity, drift, [material inhomogeneity](#sec-mpc-532-stddevinh) | [Zero](#sec-mpc-52-zero) | Based on maximum bias |
+
+**Strategy for no significant bias**
+
+If there is no significant bias over time, there is no correction and no contribution to uncertainty.
+
+##### Inconsistent bias {#sec-mpc-5331}
+
+[**Strategy for inconsistent bias -- apply a zero correction**]{#sec-mpc-5331-change}
+
+If there is significant bias but it changes direction over time, a zero correction is assumed and the standard deviation of the correction is reported as a type A uncertainty; namely,
+
+$$s_{correction} = \frac{1}{\sqrt{3}} MaxBias$$
+
+**Computations based on uniform or normal distribution**
+
+The equation for estimating the standard deviation of the correction assumes that biases are [uniformly distributed](#sec-mpc-541-uniform) between {-max |bias|, + max |bias|}. This assumption is quite conservative. It gives a larger uncertainty than the assumption that the biases are [normally distributed](#sec-mpc-541-normal). If normality is a more reasonable assumption, substitute the number '3' for the 'square root of 3' in the equation above.
+
+[**Example of change in bias over time**]{#sec-mpc-5331-exsign}
+
+The results of resistivity measurements with five probes on five silicon wafers are shown below for probe #283, which is the probe of interest at this level with the artifacts being 1 ohm.cm wafers. The bias for probe #283 is negative for run 1 and positive for run 2 with the runs separated by a two-month time period. The correction is taken to be zero.
+
+```
+          Table of biases (ohm.cm) for probe 283
+            Wafer Probe    Run 1       Run 2
+
+            -----------------------------------
+
+              11   283   0.0000340  -0.0001841
+              26   283  -0.0001000   0.0000861
+              42   283   0.0000181   0.0000781
+             131   283  -0.0000701   0.0001580
+             208   283  -0.0000240   0.0001879
+
+          Average  283  -0.0000284   0.0000652
+```
+
+A conservative assumption is that the bias could fall somewhere within the limits $\pm$ a, with a = maximum bias or 0.0000652 ohm.cm. The standard deviation of the correction is included as a type A systematic component of the uncertainty.
+
+$$s_{correction} = \frac{1}{\sqrt{3}} MaxBias = 0.000038 \, \text{ohm.cm}$$
+
+##### Consistent bias {#sec-mpc-5332}
+
+**Consistent bias**
+
+Bias that is significant and persists consistently over time for a specific instrument, operator, or configuration should be corrected if it can be reliably estimated from repeated measurements. Results with the instrument of interest are then corrected to:
+
+$$Corrected\ result = Measurement - Estimate\ of\ bias$$
+
+The example below shows how bias can be identified graphically from measurements on five artifacts with five instruments and estimated from the differences among the instruments.
+
+**Graph showing consistent bias for probe #5**<!-- XREF: MPC Case Studies (Section 2.6.1.5), Graph showing consistent bias for probe #5, not yet migrated to this book; source handbook/mpc/section6/mpc615.htm -->
+
+An analysis of bias for five instruments based on measurements on five artifacts shows differences from the average for each artifact plotted versus artifact with instruments individually identified by a special plotting symbol. The plot is examined to determine if some instruments always read high or low relative to the other instruments, and if this behavior is consistent across artifacts. Notice that on the graph for resistivity probes, probe #2362, (#5 on the graph), which is the instrument of interest for this measurement process, consistently reads low relative to the other probes. This behavior is consistent over 2 runs that are separated by a two-month time period.
+
+**Strategy - correct for bias**
+
+Because there is significant and consistent bias for the instrument of interest, the measurements made with that instrument should be corrected for its average bias relative to the other instruments.
+
+[**Computation of bias**]{#sec-mpc-5332-biases}
+
+Given the measurements,
+
+$$Y_{qi}\ (q = 1, \cdots, Q, \,\, i = 1, \cdots, I)$$
+
+on $Q$ artifacts with $I$ instruments, the average bias for instrument, $I'$ say, is
+
+$$\overline{B}_{I'} = \frac{1}{Q} \sum_{q=1}^Q \left( Y_{qI'} - \overline{Y}_{q\bullet} \right)$$
+
+where
+
+$$\overline{Y}_{q\bullet} = \frac{1}{I} \sum_{i=1}^I Y_{qi} \,\, .$$
+
+**Computation of correction**
+
+The correction that should be made to measurements made with instrument $I'$ is
+
+$$Y_{corrected} = Y_{measured} - \overline{B}_{I'}$$
+
+[**Type A uncertainty of the correction**]{#sec-mpc-5332-stddevbias}
+
+The type A uncertainty of the correction is the standard deviation of the average bias or
+
+$$s_{correction} = \frac{1}{\sqrt{Q}} s_{bias} = \frac{1}{\sqrt{Q}} \sqrt{\frac{1}{Q-1} \sum_{q=1}^Q \left(Y_{qI'} - \overline{Y}_{q\bullet} - \overline{B}_{I'}\right)^2}$$
+
+[**Example of consistent bias for probe #2362 used to measure resistivity of silicon wafers**]{#sec-mpc-5332-exprobe}
+
+The table below comes from the [table of resistivity measurements](#sec-mpc-5312) from a type A analysis of random effects with the average for each wafer subtracted from each measurement. The differences, as shown, represent the biases for each probe with respect to the other probes. Probe #2362 has an average bias, over the five wafers, of -0.02724 ohm.cm. If measurements made with this probe are corrected for this bias, the standard deviation of the correction is a type A uncertainty.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-5332-probe-biases
+#| message: false
+probe_biases <- mpc5312 |>
+  pivot_longer(starts_with("w"), names_to = "wafer", values_to = "resistivity") |>
+  mutate(bias = resistivity - mean(resistivity), .by = wafer) |>
+  select(probe, wafer, bias) |>
+  pivot_wider(names_from = wafer, values_from = bias)
+
+probe_biases
+```
+
+```{r}
+#| label: tbl-mpc-5332-probe-2362
+#| message: false
+bias_2362 <- probe_biases |>
+  filter(probe == 2362) |>
+  select(-probe) |>
+  unlist()
+
+avg_bias_2362 <- mean(bias_2362)
+sd_bias_2362 <- sd(bias_2362)
+sd_corr_2362 <- sd_bias_2362 / sqrt(5)
+```
+
+The average bias for probe #2362 is `r round(avg_bias_2362, 5)`, matching NIST's stated -0.02724. The standard deviation of the bias is `r round(sd_bias_2362, 5)` with 4 degrees of freedom, and the standard deviation of the correction is `r round(sd_bias_2362, 5)`/$\sqrt{5}$ = `r round(sd_corr_2362, 5)`, matching NIST's stated values of 0.01171 and 0.00523 respectively.
+
+**Note on different approaches to instrument bias**
+
+The analysis on this page considers the case where only one instrument is used to make the certification measurements; namely probe #2362, and the certified values are corrected for bias due to this probe. The analysis in the section on [type A analysis of random effects](#sec-mpc-5312) considers the case where any one of the probes could be used to make the certification measurements.
+
+##### Bias with sparse data {#sec-mpc-5333}
+
+**Strategy for dealing with limited data**
+
+The purpose of this discussion is to outline methods for dealing with biases that may be real but which cannot be estimated reliably because of the sparsity of the data. For example, a test between two, of many possible, configurations of the measurement process cannot produce a reliable enough estimate of bias to permit a correction, but it can reveal problems with the measurement process. The strategy for a significant bias is to apply a 'zero' correction. The type A uncertainty component is the standard deviation of the correction, and the calculation depends on whether the bias is
+
+- [inconsistent](#sec-mpc-5331)
+- [consistent](#sec-mpc-5332)
+
+[**Example of differences among wiring settings**]{#sec-mpc-5333-exwiring}
+
+An example is given of a study of wiring settings for a single gauge. The gauge, a 4-point probe for measuring resistivity of silicon wafers, can be wired in several ways. Because it was not possible to test all wiring configurations during the gauge study, measurements were made in only two configurations as a way of identifying possible problems.
+
+**Data on wiring configurations**
+
+Measurements were made on six wafers over six days (except for 5 measurements on wafer 39) with probe #2062 wired in two configurations. This sequence of measurements was repeated after about a month resulting in two runs. A [database of differences between measurements in the two configurations](#sec-mpc-455) on the same day are analyzed for significance.
+
+**Plot of the differences**
+
+A plot of the differences between the 2 configurations shows that the differences for run 1 are, for the most part, < zero, and the differences for run 2 are > zero. The [table of raw measurements](#sec-mpc-455) is given in the gauge R & R chapter, which uses this same data set.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-5333-wiring-differences
+#| message: false
+#| fig-cap: "Differences between 2 wiring configurations, sequenced by wafer and day"
+mpc536_5333 <- read_table(
+  here::here("datasets", "MPC536.DAT"),
+  skip = 25,
+  col_names = c("wafer", "day", "probe", "d1", "d2"),
+  col_types = "ddddd"
+) |>
+  drop_na() |>
+  mutate(sequence = row_number()) |>
+  pivot_longer(c(d1, d2), names_to = "run", values_to = "diff") |>
+  mutate(run = if_else(run == "d1", "Run 1", "Run 2"))
+
+mpc536_5333 |>
+  ggplot(aes(sequence, diff, shape = run, color = run)) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "grey40") +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("Run 1" = "firebrick", "Run 2" = "steelblue4")) +
+  facet_wrap(~run, ncol = 1) +
+  labs(
+    x = "Sequence by wafer and day",
+    y = "ohm.cm",
+    subtitle = "Differences between 2 wiring configurations"
+  ) +
+  theme_light() +
+  theme(
+    plot.title.position = "plot",
+    legend.position = "none"
+  )
+```
+
+The plot confirms NIST's description: the differences for run 1 fall mostly below zero, and the differences for run 2 fall mostly above zero.
+
+**Statistical test for difference between 2 configurations**
+
+A t-statistic is used as an approximate test where we are assuming the differences are approximately normal. The average difference and standard deviation of the difference are required for this test. If
+
+$$t = \left| \frac{\sqrt{N}}{s_{diff}} Avg_{diff} \right| > 2$$
+
+the difference between the two configurations is statistically significant.
+
+The average and standard deviation computed from the $N = 29$ differences in each run from the table above are shown along with corresponding t-values which confirm that the differences are significant, but in opposite directions, for both runs.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-5333-wiring-ttest
+#| message: false
+mpc536_5333 |>
+  summarise(.by = run, Probe = unique(probe), Average = mean(diff), `Std dev` = sd(diff), N = n()) |>
+  mutate(t = sqrt(N) / `Std dev` * Average)
+```
+
+The results match NIST's stated table (Run 1: average -0.00383, std dev 0.00514, t $\approx$ -4.0; Run 2: average 0.00489, std dev 0.00400, t $\approx$ 6.6) computed from `MPC536.DAT`, the same data set used for the [table of raw measurements](#sec-mpc-455) in the gauge R & R chapter.
+
+[**Case of inconsistent bias**]{#sec-mpc-5333-stddevcorr}
+
+The data reveal a significant wiring bias for both runs that changes direction between runs. Because of this inconsistency, a 'zero' correction is applied to the results, and the type A uncertainty is taken to be
+
+$$s_{correction} = \frac{1}{\sqrt{3}} MaxBias$$
+
+For this study, the type A uncertainty for wiring bias is
+
+$$s_{correction} = \frac{1}{\sqrt{3}} 0.00489 \, \text{ohm.cm} = 0.0028 \, \text{ohm.cm}$$
+
+**Case of consistent bias**
+
+Even if the bias is consistent over time, a 'zero' correction is applied to the results, and for a single run, the estimated standard deviation of the correction is
+
+$$s_{correction} = \frac{1}{\sqrt{N}} s_{diff}$$
+
+For two runs (1 and 2), the estimated standard deviation of the correction is
+
+$$s_{correction} = \frac{1}{\sqrt{2N}} \sqrt{s_{diff_1}^2 + s_{diff_2}^2}$$

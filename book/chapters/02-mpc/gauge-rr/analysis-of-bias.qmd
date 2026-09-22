@@ -125,7 +125,7 @@ For instruments whose readings are corrected by a linear calibration line, drift
 
 For other instruments, measurements can be made on a daily basis on two or more check standards over a preset time period, say, one month. These measurements are plotted on a time scale to determine the extent and nature of any drift. Drift rarely continues unabated at the same rate and in the same direction for a long time period.
 
-Thus, the expectation from such an experiment is to document the maximum change that is likely to occur during a set time period and plan adjustments to the instrument accordingly. A further impact of the findings is that uncorrected drift is treated as a type A component in the uncertainty analysis.<!-- XREF: MPC Section 2.5.3, Type A evaluations, not yet migrated to this book; source handbook/mpc/section5/mpc53.htm -->
+Thus, the expectation from such an experiment is to document the maximum change that is likely to occur during a set time period and plan adjustments to the instrument accordingly. A further impact of the findings is that uncorrected drift is treated as a [type A component](#sec-mpc-53) in the uncertainty analysis.
 
 #### Differences among gauges {#sec-mpc-454}
 
@@ -186,8 +186,8 @@ Because the plots show differences from the average by artifact, the center line
 
 Given that the gauges are a random sample of like-kind gauges, the best estimate in any situation is an average over all gauges. In the usual production or metrology setting, however, it may only be feasible to make the measurements on a particular piece with one gauge. Then, there are two methods of dealing with the differences among gauges.
 
-1. Correct each measurement made with a particular gauge for the bias of that gauge and report the standard deviation of the correction as a type A uncertainty.<!-- XREF: MPC Section 2.5.3.3.2, standard deviation of the correction as a type A uncertainty, not yet migrated to this book; source handbook/mpc/section5/mpc5332.htm -->
-2. Report each measurement as it occurs and assess a type A uncertainty for the differences among the gauges.<!-- XREF: MPC Section 2.5.3.1.2, type A uncertainty for the differences among the gauges, not yet migrated to this book; source handbook/mpc/section5/mpc5312.htm -->
+1. Correct each measurement made with a particular gauge for the bias of that gauge and report the [standard deviation of the correction](#sec-mpc-5332) as a type A uncertainty.
+2. Report each measurement as it occurs and assess a [type A uncertainty for the differences among the gauges](#sec-mpc-5312).
 
 #### Geometry/configuration differences {#sec-mpc-455}
 
@@ -247,7 +247,7 @@ Both runs match NIST's stated values exactly (Run 1: average $\approx$ `r round(
 
 **Unexpected result**
 
-The data reveal a wiring bias for both runs that changes direction between runs. This is a somewhat disturbing finding, and further study of the gauges is needed. Because neither wiring configuration is preferred or known to give the 'correct' result, the differences are treated as a component of the measurement uncertainty.<!-- XREF: MPC Section 2.5.3, measurement uncertainty, not yet migrated to this book; source handbook/mpc/section5/mpc53.htm#change -->
+The data reveal a wiring bias for both runs that changes direction between runs. This is a somewhat disturbing finding, and further study of the gauges is needed. Because neither wiring configuration is preferred or known to give the 'correct' result, the differences are treated as a component of the [measurement uncertainty](#sec-mpc-5331).
 
 #### Remedial actions and strategies {#sec-mpc-456}
 

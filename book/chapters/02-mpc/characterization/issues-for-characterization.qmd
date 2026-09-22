@@ -11,7 +11,7 @@ The goodness of measurements is quantified in terms of
 - [Bias](#sec-mpc-113)
 - Short-term variability or instrument precision
 - Day-to-day or long-term variability
-- Uncertainty<!-- XREF: MPC Section 2.5, Uncertainty Analysis; source handbook/mpc/section5/mpc5.htm -->
+- [Uncertainty](#sec-mpc-5)
 
 **Requires ongoing statistical control program**
 

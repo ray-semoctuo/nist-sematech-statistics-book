@@ -574,10 +574,10 @@ This reproduces NIST's stated $s_1 = 0.002887$ and $s_{item_3} = 0.02593$ to the
 
 **Uncertainty analysis follows the ISO principles**
 
-This section discusses the calculation of uncertainties of calibrated values from calibration designs. The discussion follows the guidelines in the section on classifying and combining components of uncertainty.<!-- XREF: MPC Section 2.5.2, Classifying and combining components of uncertainty; not yet migrated; source handbook/mpc/section5/mpc52.htm --> Two types of evaluations are covered.
+This section discusses the calculation of uncertainties of calibrated values from calibration designs. The discussion follows the guidelines in the section on [classifying and combining components of uncertainty](#sec-mpc-52). Two types of evaluations are covered.
 
-1. type A evaluations<!-- XREF: MPC Section 2.5.3, Type A evaluations; not yet migrated; source handbook/mpc/section5/mpc53.htm --> of time-dependent sources of random error
-2. type B evaluations<!-- XREF: MPC Section 2.5.4, Type B evaluations; not yet migrated; source handbook/mpc/section5/mpc54.htm --> of other sources of error
+1. [type A evaluations](#sec-mpc-53) of time-dependent sources of random error
+2. [type B evaluations](#sec-mpc-54) of other sources of error
 
 The latter includes, but is not limited to, uncertainties from sources that are not replicated in the calibration design such as uncertainties of values assigned to reference standards.
 
@@ -601,7 +601,7 @@ Uncertainties associated with calibrated values for test items from designs requ
 
 **Change over time**
 
-Type A evaluations<!-- XREF: MPC Section 2.5.3, Type A evaluations; not yet migrated; source handbook/mpc/section5/mpc53.htm --> for calibration processes must take into account changes in the measurement process that occur over time.<!-- XREF: MPC Section 2.5.3.1, Changes in the measurement process that occur over time; not yet migrated; source handbook/mpc/section5/mpc531.htm -->
+[Type A evaluations](#sec-mpc-53) for calibration processes must take into account [changes in the measurement process that occur over time](#sec-mpc-531).
 
 **Historically, uncertainties considered only instrument imprecision**
 
@@ -907,7 +907,7 @@ As expected, `s_X1_direct` equals `s_X1_simplified` (up to floating-point roundi
 
 **Type B uncertainty associated with the restraint**
 
-The reference standard is assumed to have known value, $R^*$, for the purpose of solving the calibration design. For the purpose of computing a standard uncertainty, it has a type B uncertainty<!-- XREF: MPC Section 2.5.4, Type B evaluations; not yet migrated; source handbook/mpc/section5/mpc54.htm --> that contributes to the uncertainty of the test item.
+The reference standard is assumed to have known value, $R^*$, for the purpose of solving the calibration design. For the purpose of computing a standard uncertainty, it has a [type B uncertainty](#sec-mpc-54) that contributes to the uncertainty of the test item.
 
 The value of $R^*$ comes from a higher-level calibration laboratory or process, and its value is usually reported along with its uncertainty, $U$. If the laboratory also reports the $k$ factor for computing $U$, then the standard deviation of the restraint is
 
@@ -935,7 +935,7 @@ $$ u = \sqrt{ {\large s}_{test}^2 + \left( \frac{\text{Nominal Test}}{\text{Nomi
 
 **Expanded uncertainty**
 
-The expanded uncertainty<!-- XREF: MPC Section 2.5.7, Expanded uncertainty; not yet migrated; source handbook/mpc/section5/mpc57.htm --> is computed as
+The [expanded uncertainty](#sec-mpc-57) is computed as
 
 $$ U = k u $$
 
@@ -943,7 +943,7 @@ where $k$ is either the critical value from the [t table](../01-eda/index.qmd#se
 
 **Problem of the degrees of freedom**
 
-The calculation of degrees of freedom, $\nu$, can be a problem. Sometimes it can be computed using the Welch-Satterthwaite approximation<!-- XREF: MPC Section 2.5.7.1, Welch-Satterthwaite approximation; not yet migrated; source handbook/mpc/section5/mpc571.htm --> and the structure of the uncertainty of the test item. Degrees of freedom for the standard deviation of the restraint is assumed to be infinite. The coefficients in the Welch-Satterthwaite formula must all be positive for the approximation to be reliable.
+The calculation of degrees of freedom, $\nu$, can be a problem. Sometimes it can be computed using the [Welch-Satterthwaite approximation](#sec-mpc-571) and the structure of the uncertainty of the test item. Degrees of freedom for the standard deviation of the restraint is assumed to be infinite. The coefficients in the Welch-Satterthwaite formula must all be positive for the approximation to be reliable.
 
 **Standard deviation for test item from the 1,1,1,1 design**
 

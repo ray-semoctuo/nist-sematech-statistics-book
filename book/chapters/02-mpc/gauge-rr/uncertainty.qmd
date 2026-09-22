@@ -2,7 +2,7 @@
 
 **Gauge studies can be used as the basis for uncertainty assessment**
 
-One reason for conducting a gauge study is to quantify uncertainties in the measurement process that would be difficult to quantify under conditions of actual measurement.<!-- XREF: MPC Section 2.5, Uncertainty Analysis, not yet migrated to this book; source handbook/mpc/section5/mpc5.htm -->
+One reason for conducting a gauge study is to quantify uncertainties in the measurement process that would be difficult to quantify under conditions of actual measurement.
 
 This is a reasonable approach to take if the results are truly representative of the measurement process in its working environment. Consideration should be given to all sources of error, particularly those sources of error which do not exhibit themselves in the short-term run.
 
@@ -24,7 +24,7 @@ The following sections outline the general approach to uncertainty analysis and 
 4. Propagation of error
 5. Error budgets and sensitivity coefficients
 6. Standard and expanded uncertainties
-7. Treatment of uncorrected biases<!-- XREF: MPC Section 2.5, Uncertainty Analysis (2.5.2-2.5.8), not yet migrated to this book; source handbook/mpc/section5/mpc52.htm through mpc58.htm -->
+7. [Treatment of uncorrected biases](#sec-mpc-58)
 
 **Type A evaluations of random error**
 
@@ -36,7 +36,7 @@ The following sections outline the general approach to uncertainty analysis and 
 
 **Biases -- Rule of thumb**
 
-The approach for biases is to estimate the maximum bias from a gauge study and compute a standard uncertainty from the maximum bias assuming a suitable distribution.<!-- XREF: MPC Section 2.5.4.1, assuming a suitable distribution, not yet migrated to this book; source handbook/mpc/section5/mpc541.htm#normal --> The formulas shown below assume a uniform distribution for each bias.
+The approach for biases is to estimate the maximum bias from a gauge study and compute a standard uncertainty from the maximum bias [assuming a suitable distribution](#sec-mpc-541). The formulas shown below assume a uniform distribution for each bias.
 
 **[Determining resolution](#sec-mpc-451)**
 
@@ -50,7 +50,7 @@ If the maximum departure from linearity for the gauge has been determined from a
 
 $$s_{linearity} = \text{Max} \left| Y_{observed} - Y_{fitted} \right| \, / \sqrt{3}$$
 
-**Hysteresis** {#sec-mpc-46-hysteresis}
+[**Hysteresis**]{#sec-mpc-46-hysteresis}
 
 Hysteresis, as a performance specification, is defined [@NCSL] as the maximum difference between the upscale and downscale readings on the same artifact during a full range traverse in each direction. The standard uncertainty for hysteresis is
 

@@ -1,0 +1,169 @@
+### Issues {#sec-mpc-51}
+
+**Issues for uncertainty analysis**
+
+Evaluation of uncertainty is an ongoing process that can consume time and resources. It can also require the services of someone who is familiar with data analysis techniques, particularly statistical analysis. Therefore, it is important for laboratory personnel who are approaching uncertainty analysis for the first time to be aware of the resources required and to carefully lay out a plan for data collection and analysis.
+
+**Problem areas**
+
+Some laboratories, such as test laboratories, may not have the resources to undertake detailed uncertainty analyses even though, increasingly, quality management standards such as the ISO 9000 series are requiring that all measurement results be accompanied by statements of uncertainty.
+
+Other situations where uncertainty analyses are problematical are:
+
+- One-of-a-kind measurements
+- Dynamic measurements that depend strongly on the application for the measurement
+
+**Directions being pursued**
+
+What can be done in these situations? There is no definitive answer at this time. Several organizations, such as the National Conference of Standards Laboratories [@NCSL] and the International Organization for Standardization (ISO), are investigating methods for dealing with this problem, and there is a document in draft that will recommend a simplified approach to uncertainty analysis based on results of interlaboratory tests.
+
+**Relationship to interlaboratory test results**
+
+Many laboratories or industries participate in interlaboratory studies where the test method itself is evaluated for:
+
+- repeatability within laboratories
+- reproducibility across laboratories
+
+These evaluations do not lead to uncertainty statements because the purpose of the interlaboratory test is to evaluate, and then improve, the test method as it is applied across the industry. The purpose of uncertainty analysis is to evaluate the result of a particular measurement, in a particular laboratory, at a particular time. However, the two purposes are related.
+
+**Default recommendation for test laboratories**
+
+If a test laboratory has been party to an interlaboratory test that follows the recommendations and analyses of an American Society for Testing Materials standard [@ASTME691] or an ISO standard [@ISO5725], the laboratory can, as a default, represent its standard uncertainty for a single measurement as the reproducibility standard deviation as defined in ASTM E691 and ISO 5725. This standard deviation includes components for within-laboratory repeatability common to all laboratories and between-laboratory variation.
+
+**Drawbacks of this procedure**
+
+The standard deviation computed in this manner describes a future single measurement made at a laboratory randomly drawn from the group and leads to a prediction interval [@HahnMeeker] rather than a confidence interval. It is not an ideal solution and may produce either an unrealistically small or unacceptably large uncertainty for a particular laboratory. The procedure can reward laboratories with poor performance or those that do not follow the test procedures to the letter and punish laboratories with good performance. Further, the procedure does not take into account sources of uncertainty other than those captured in the interlaboratory test. Because the interlaboratory test is a snapshot at one point in time, characteristics of the measurement process over time cannot be accurately evaluated. Therefore, it is a strategy to be used only where there is no possibility of conducting a realistic uncertainty investigation.
+
+### Approach {#sec-mpc-52}
+
+**Procedures in this chapter**
+
+The procedures in this chapter are intended for test laboratories, calibration laboratories, and scientific laboratories that report results of measurements from ongoing or well-documented processes.
+
+**Pertinent sections**
+
+The following pages outline methods for estimating the individual uncertainty components, which are consistent with materials presented in other sections of this Handbook, and rules and equations for combining them into a final expanded uncertainty. The general framework is:
+
+1. [ISO Approach](#sec-mpc-52-iso)
+2. [Outline of steps to uncertainty analysis](#sec-mpc-521-steps)
+3. [Methods for type A evaluations](#sec-mpc-53)
+4. [Methods for type B evaluations](#sec-mpc-54)
+5. [Propagation of error considerations](#sec-mpc-55)
+6. [Uncertainty budgets and sensitivity coefficients](#sec-mpc-56)
+7. [Standard and expanded uncertainties](#sec-mpc-57)
+8. [Treatment of uncorrected bias](#sec-mpc-58)
+
+**Specific situations are outlined in other places in this chapter**
+
+Methods for calculating uncertainties for specific results are explained in the following sections:
+
+- [Calibrated values of artifacts](#sec-mpc-333)
+- [Calibrated values from calibration curves](#sec-mpc-367)
+  - [From propagation of error](#sec-mpc-3671)
+  - [From check standard measurements](#sec-mpc-3672)
+  - [Comparison of check standards and propagation of error](#sec-mpc-3673)
+- [Gauge R & R studies](#sec-mpc-46)
+- Type A components for resistivity measurements<!-- XREF: MPC Case Studies (Section 2.6.3), Type A components for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm -->
+- Type B components for resistivity measurements<!-- XREF: MPC Case Studies (Section 2.6.4), Type B components for resistivity measurements, not yet migrated to this book; source handbook/mpc/section6/mpc64.htm -->
+
+[**ISO definition of uncertainty**]{#sec-mpc-52-iso}
+
+Uncertainty, as defined in the ISO Guide to the Expression of Uncertainty in Measurement [@GUM] and the International Vocabulary of Basic and General Terms in Metrology [@VIM], is a
+
+> "parameter, associated with the result of a measurement, that characterizes the dispersion of the values that could reasonably be attributed to the measurand."
+
+**Consistent with historical view of uncertainty**
+
+This definition is consistent with the well-established concept that an uncertainty statement assigns credible limits to the accuracy of a reported value, stating to what extent that value may differ from its reference value [@Eisenhart]. In some cases, reference values will be traceable to a national standard, and in certain other cases, reference values will be consensus values based on measurements made according to a specific protocol by a group of laboratories.
+
+**Accounts for both random error and bias**
+
+The estimation of a possible discrepancy takes into account both random error and bias in the measurement process. The distinction to keep in mind with regard to random error and bias is that random errors cannot be corrected, and biases can, theoretically at least, be corrected or eliminated from the measurement result.
+
+**Relationship to precision and bias statements**
+
+Precision and bias are properties of a measurement *method*. Uncertainty is a property of a *specific result* for a single test item that depends on a specific measurement configuration (laboratory/instrument/operator, etc.). It depends on the repeatability of the instrument; the reproducibility of the result over time; the number of measurements in the test result; and all sources of random and systematic error that could contribute to disagreement between the result and its reference value.
+
+**Handbook follows the ISO approach**
+
+This Handbook follows the ISO approach [@GUM] to stating and combining components of uncertainty. To this basic structure, it adds a statistical framework for estimating individual components, particularly those that are classified as [type A uncertainties](#sec-mpc-53).
+
+[**Basic ISO tenets**]{#sec-mpc-52-zero}
+
+The ISO approach is based on the following rules:
+
+- Each uncertainty component is quantified by a standard deviation.
+- All biases are assumed to be corrected and any uncertainty is the uncertainty of the correction.
+- Zero corrections are allowed if the bias cannot be corrected and an uncertainty is assessed.
+- All uncertainty intervals are symmetric.
+
+**ISO approach to classifying sources of error**
+
+Components are grouped into two major categories, depending on the source of the data and not on the type of error, and each component is quantified by a standard deviation. The categories are:
+
+- Type A -- components evaluated by statistical methods
+- Type B -- components evaluated by other means (or in other laboratories)
+
+**Interpretation of this classification**
+
+One way of interpreting this classification is that it distinguishes between information that comes from sources local to the measurement process and information from other sources -- although this interpretation does not always hold. In the computation of the final uncertainty it makes no difference how the components are classified because the ISO guidelines treat type A and type B evaluations in the same manner.
+
+**Rule of quadrature**
+
+All uncertainty components (standard deviations) are combined by root-sum-squares (quadrature) to arrive at a 'standard uncertainty', $u$, which is the standard deviation of the reported value, taking into account all sources of error, both random and systematic, that affect the measurement result.
+
+**Expanded uncertainty for a high degree of confidence**
+
+If the purpose of the uncertainty statement is to provide coverage with a high level of confidence, an expanded uncertainty is computed as
+
+$$U = k u$$
+
+where $k$ is chosen to be the $t_{\alpha/2,\nu}$ critical value from the [t-table](#sec-mpc-3652) for $\nu$ degrees of freedom.
+
+For large degrees of freedom, it is suggested to use $k = 2$ to approximate 95% coverage. Details for these calculations are found under [degrees of freedom](#sec-mpc-571).
+
+**Type B evaluations**
+
+[Type B evaluations](#sec-mpc-54) apply to random errors and biases for which there is little or no data from the local process, and to random errors and biases from other measurement processes.
+
+#### Steps {#sec-mpc-521}
+
+**Steps in uncertainty analysis -- define the result to be reported**
+
+The first step in the uncertainty evaluation is the definition of the result to be reported for the test item for which an uncertainty is required. The computation of the standard deviation depends on the number of repetitions on the test item and the range of environmental and operational conditions over which the repetitions were made, in addition to other sources of error, such as calibration uncertainties for reference standards, which influence the final result. If the value for the test item cannot be measured directly, but must be calculated from measurements on secondary quantities, the equation for combining the various quantities must be defined. The steps to be followed in an uncertainty analysis are outlined for two situations:
+
+**Outline of steps to be followed in the evaluation of uncertainty for a single quantity**
+
+A. **Reported value involves measurements on one quantity.**
+
+1. Compute a type A standard deviation for random sources of error from:
+   - [Replicated results for the test item.](#sec-mpc-561)
+   - [Measurements on a check standard.](#sec-mpc-562)
+   - [Measurements made according to a 2-level designed experiment](#sec-mpc-563)
+   - [Measurements made according to a 3-level designed experiment](#sec-mpc-564)
+2. Make sure that the collected data and analysis cover all sources of random error such as:
+   - [instrument imprecision](#sec-mpc-531)
+   - [day-to-day variation](#sec-mpc-531)
+   - [long-term variation](#sec-mpc-531)
+
+   and bias such as:
+   - [differences among instruments](#sec-mpc-533)
+   - [operator differences.](#sec-mpc-533)
+3. Compute a standard deviation for each [type B component](#sec-mpc-54) of uncertainty.
+4. Combine type A and type B standard deviations into a [standard uncertainty](#sec-mpc-57) for the reported result using [sensitivity factors](#sec-mpc-56).
+5. Compute an [expanded uncertainty.](#sec-mpc-57)
+
+**Outline of steps to be followed in the evaluation of uncertainty involving several secondary quantities**
+
+B. **Reported value involves more than one quantity.**
+
+1. Write down the equation showing the relationship between the quantities.
+   - Write-out the [propagation of error equation](#sec-mpc-55) and do a preliminary evaluation, if possible, based on propagation of error.
+2. If the measurement result **can be replicated directly**, regardless of the number of secondary quantities in the individual repetitions, treat the uncertainty evaluation as in (A.1) to (A.5) above, being sure to evaluate all sources of random error in the process.
+3. If the measurement result **cannot be replicated directly**, treat *each measurement quantity* as in (A.1) and (A.2) and:
+   - Compute a standard deviation for each measurement quantity.
+   - Combine the standard deviations for the individual quantities into a standard deviation for the reported result via [propagation of error.](#sec-mpc-55)
+4. Compute a standard deviation for each [type B component of uncertainty.](#sec-mpc-54)
+5. Combine type A and type B standard deviations into a [standard uncertainty](#sec-mpc-57) for the reported result.
+6. Compute an [expanded uncertainty.](#sec-mpc-57)
+7. Compare the uncertainty derived by propagation of error with the uncertainty derived by data analysis techniques.

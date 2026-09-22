@@ -58,7 +58,7 @@ where
 
 $$\overline{Y}_{\bullet\bullet\bullet} = \frac{1}{L}\sum_{l=1}^{L}{\overline{Y}_{l\bullet\bullet}}$$
 
-**Relationship to uncertainty for a test item**<!-- XREF: MPC Section 2.5.6, Error budgets and sensitivity coefficients, not yet migrated to this book; source handbook/mpc/section5/mpc56.htm -->
+**Relationship to uncertainty for a test item** (see [uncertainty budgets and sensitivity coefficients](#sec-mpc-56))
 
 The standard deviation that defines the uncertainty for a single measurement on a test item is given by
 
@@ -78,7 +78,7 @@ $$s_{runs} = \sqrt{s_3^2 - \frac{1}{K} s_2^2}$$
 
 $$s_{days} = \sqrt{s_2^2 - \frac{1}{J} s_1^2}$$
 
-There may be other sources of uncertainty in the measurement process that must be accounted for in a formal analysis of uncertainty.<!-- XREF: MPC Section 2.5, Uncertainty Analysis, not yet migrated to this book; source handbook/mpc/section5/mpc5.htm -->
+There may be other sources of uncertainty in the measurement process that must be accounted for in a [formal analysis of uncertainty](#sec-mpc-5).
 
 #### Analysis of repeatability {#sec-mpc-441}
 

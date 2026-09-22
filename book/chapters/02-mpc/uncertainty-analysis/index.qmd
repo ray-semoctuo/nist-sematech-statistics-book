@@ -1,0 +1,47 @@
+## Uncertainty Analysis {#sec-mpc-5}
+
+This section discusses the uncertainty of measurement results. Uncertainty is a measure of the 'goodness' of a result. Without such a measure, it is impossible to judge the fitness of the value as a basis for making decisions relating to health, safety, commerce or scientific excellence.
+
+1. [What are the issues for uncertainty analysis?](#sec-mpc-51)
+2. [Approach to uncertainty analysis](#sec-mpc-52)
+   1. [Steps](#sec-mpc-521)
+3. [Type A evaluations](#sec-mpc-53)
+   1. [Type A evaluations of random error](#sec-mpc-531)
+      1. [Time-dependent components](#sec-mpc-5311)
+      2. [Measurement configurations](#sec-mpc-5312)
+   2. [Type A evaluations of material inhomogeneities](#sec-mpc-532)
+      1. [Data collection and analysis](#sec-mpc-5321)
+   3. [Type A evaluations of bias](#sec-mpc-533)
+      1. [Treatment of inconsistent bias](#sec-mpc-5331)
+      2. [Treatment of consistent bias](#sec-mpc-5332)
+      3. [Treatment of bias with sparse data](#sec-mpc-5333)
+4. [Type B evaluations](#sec-mpc-54)
+   1. [Assumed distributions](#sec-mpc-541)
+5. [Propagation of error considerations](#sec-mpc-55)
+   1. [Functions of a single variable](#sec-mpc-551)
+   2. [Functions of two variables](#sec-mpc-552)
+   3. [Functions of several variables](#sec-mpc-553)
+6. [Uncertainty budgets and sensitivity coefficients](#sec-mpc-56)
+   1. [Sensitivity coefficients for measurements on the test item](#sec-mpc-561)
+   2. [Sensitivity coefficients for measurements on a check standard](#sec-mpc-562)
+   3. [Sensitivity coefficients for measurements with a 2-level design](#sec-mpc-563)
+   4. [Sensitivity coefficients for measurements with a 3-level design](#sec-mpc-564)
+   5. [Example of uncertainty budget](#sec-mpc-565)
+7. [Standard and expanded uncertainties](#sec-mpc-57)
+   1. [Degrees of freedom](#sec-mpc-571)
+8. [Treatment of uncorrected bias](#sec-mpc-58)
+   1. [Computation of revised uncertainty](#sec-mpc-581)
+
+{{< include uncertainty-analysis/issues-and-approach.qmd >}}
+
+{{< include uncertainty-analysis/type-a-evaluations.qmd >}}
+
+{{< include uncertainty-analysis/type-b-evaluations.qmd >}}
+
+{{< include uncertainty-analysis/propagation-of-error.qmd >}}
+
+{{< include uncertainty-analysis/uncertainty-budgets.qmd >}}
+
+{{< include uncertainty-analysis/standard-and-expanded-uncertainties.qmd >}}
+
+{{< include uncertainty-analysis/treatment-of-uncorrected-bias.qmd >}}
