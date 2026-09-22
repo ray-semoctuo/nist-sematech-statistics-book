@@ -63,4 +63,4 @@ U_+ &= k \cdot u_c - \delta
 
 **Interpretation**
 
-The uncertainty intervals described above have the [desirable properties](#sec-mpc-58) outlined on a previous page. For more information on theory and industrial examples, the reader should consult the paper by the authors of this technique [@Phillips].
+The uncertainty intervals described above have the [desirable properties](#sec-mpc-58) outlined on a previous page (section). For more information on theory and industrial examples, the reader should consult the paper by the authors of this technique [@Phillips].

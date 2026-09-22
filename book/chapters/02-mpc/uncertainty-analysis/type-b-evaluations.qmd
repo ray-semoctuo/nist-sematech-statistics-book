@@ -41,7 +41,7 @@ Following the Guide to the Expression of Uncertainty of Measurement (GUM) [@GUM]
 
 **Difficulty of obtaining reliable uncertainty estimates**
 
-The methods described on this page attempt to avoid the difficulty of allowing for sources of error for which reliable estimates of uncertainty do not exist. The methods are based on assumptions that may, or may not, be valid and require the experimenter to consider the effect of the assumptions on the final uncertainty.
+The methods described on this page (section) attempt to avoid the difficulty of allowing for sources of error for which reliable estimates of uncertainty do not exist. The methods are based on assumptions that may, or may not, be valid and require the experimenter to consider the effect of the assumptions on the final uncertainty.
 
 The ISO guidelines do not allow worst-case estimates of bias to be added to the other components, but require they in some way be converted to equivalent standard deviations. The approach is to consider that any error or bias, for the situation at hand, is a random draw from a known statistical distribution. Then the standard deviation is calculated from known (or assumed) characteristics of the distribution. Distributions that can be considered are:
 

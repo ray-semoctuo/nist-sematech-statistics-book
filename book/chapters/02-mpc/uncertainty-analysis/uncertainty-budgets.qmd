@@ -22,7 +22,7 @@ $$u = \sqrt{\sum_{i=1}^R a_i^2 s_i^2}$$
 
 **Sensitivity coefficients for type A components of uncertainty**
 
-This section defines sensitivity coefficients that are appropriate for type A components estimated from repeated measurements. The pages on [type A evaluations](#sec-mpc-531), particularly the pages related to [estimation of repeatability and reproducibility components](#sec-mpc-5311), should be reviewed before continuing on this page. The convention for the notation for sensitivity coefficients for this section is that:
+This section defines sensitivity coefficients that are appropriate for type A components estimated from repeated measurements. The pages (sections) on [type A evaluations](#sec-mpc-531), particularly the pages (sections) related to [estimation of repeatability and reproducibility components](#sec-mpc-5311), should be reviewed before continuing on this page (section). The convention for the notation for sensitivity coefficients for this section is that:
 
 1. $a_1$ refers to the sensitivity coefficient for the repeatability standard deviation, $s_1$
 2. $a_2$ refers to the sensitivity coefficient for the reproducibility standard deviation, $s_2$
@@ -44,7 +44,7 @@ This Handbook follows the ISO guidelines in that biases are corrected (correctio
 
 **Sensitivity coefficients for specific applications**
 
-The following pages outline methods for computing sensitivity coefficients where the components of uncertainty are derived in the following manner:
+The following pages (sections) outline methods for computing sensitivity coefficients where the components of uncertainty are derived in the following manner:
 
 1. [From measurements on the test item itself](#sec-mpc-561)
 2. [From measurements on a check standard](#sec-mpc-562)
@@ -205,7 +205,7 @@ $$J \ge N \text{ and } K \le M$$
 
 An uncertainty budget that illustrates several principles of uncertainty analysis is shown below. The reported value for a test item is the average of $N$ short-term measurements where the temporal components of uncertainty were estimated from a [3-level nested design](#sec-mpc-43) with $J$ short-term repetitions over $K$ days.
 
-The number of measurements made on the test item is the same as the number of short-term measurements in the design; i.e., $N = J$. Because there were no repetitions over days or runs on the test item, $M = 1; \, P = 1$. The [sensitivity coefficients for this design](#sec-mpc-564) are shown on the foregoing page.
+The number of measurements made on the test item is the same as the number of short-term measurements in the design; i.e., $N = J$. Because there were no repetitions over days or runs on the test item, $M = 1; \, P = 1$. The [sensitivity coefficients for this design](#sec-mpc-564) are shown on the foregoing page (section).
 
 **Example of instrument bias**
 

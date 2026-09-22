@@ -19,7 +19,7 @@ Consider a laboratory with several instruments that can reasonably be assumed to
 
 If, on the other hand, the uncertainty statement is intended to apply to one specific instrument, then the bias of this instrument relative to the group is the component of interest.
 
-The following pages outline methods for type A evaluations of:
+The following pages (sections) outline methods for type A evaluations of:
 
 1. [Random errors](#sec-mpc-531)
 2. [Bias](#sec-mpc-533)
@@ -69,7 +69,7 @@ Artifacts, electrical devices, and chemical substances, etc. can be inhomogeneou
 
 However, this is not always possible, and measurements may be destructive. As an example, compositions of chemical compounds may vary from bottle to bottle. If the reported value for the lot is established from measurements on a few bottles drawn at random from the lot, this variability must be taken into account in the uncertainty statement.
 
-Methods for testing for [inhomogeneity](#sec-mpc-532) and assessing the appropriate uncertainty are discussed on another page.
+Methods for testing for [inhomogeneity](#sec-mpc-532) and assessing the appropriate uncertainty are discussed on another page (section).
 
 ##### Type A evaluations of time-dependent effects {#sec-mpc-5311}
 
@@ -118,16 +118,16 @@ The computation of the uncertainty of the reported value for a test item is outl
 
 ##### Measurement configuration within the laboratory {#sec-mpc-5312}
 
-**Purpose of this page**
+**Purpose of this section**
 
-The purpose of this page is to outline options for estimating uncertainties related to the specific measurement configuration under which the test item is measured, given other possible measurement configurations. Some of these may be controllable and some of them may not, such as:
+The purpose of this page (section) is to outline options for estimating uncertainties related to the specific measurement configuration under which the test item is measured, given other possible measurement configurations. Some of these may be controllable and some of them may not, such as:
 
 - instrument
 - operator
 - temperature
 - humidity
 
-The effect of uncontrollable environmental conditions in the laboratory can often be estimated from check standard data taken over a period of time, and [methods for calculating components of uncertainty](#sec-mpc-5311) are discussed on other pages. Uncertainties resulting from controllable factors, such as operators or instruments chosen for a specific measurement, are discussed on this page.
+The effect of uncontrollable environmental conditions in the laboratory can often be estimated from check standard data taken over a period of time, and [methods for calculating components of uncertainty](#sec-mpc-5311) are discussed on other pages (sections). Uncertainties resulting from controllable factors, such as operators or instruments chosen for a specific measurement, are discussed on this page (section).
 
 **First, decide on context for uncertainty**
 
@@ -196,9 +196,9 @@ The pooled standard deviation is `r round(pooled_sd_inst, 5)` with `r pooled_df_
 
 #### Material inhomogeneity {#sec-mpc-532}
 
-**Purpose of this page**
+**Purpose of this section**
 
-The purpose of this page is to outline methods for assessing uncertainties related to material inhomogeneities. Artifacts, electrical devices, and chemical substances, etc. can be inhomogeneous relative to the quantity that is being characterized by the measurement process.
+The purpose of this page (section) is to outline methods for assessing uncertainties related to material inhomogeneities. Artifacts, electrical devices, and chemical substances, etc. can be inhomogeneous relative to the quantity that is being characterized by the measurement process.
 
 **Effect of inhomogeneity on the uncertainty**
 
@@ -244,9 +244,9 @@ $$s_{inh} = \frac{1}{\sqrt{3}} MaxDeviation$$
 
 ##### Data collection and analysis {#sec-mpc-5321}
 
-**Purpose of this page**
+**Purpose of this section**
 
-The purpose of this page is to outline methods for:
+The purpose of this page (section) is to outline methods for:
 
 - collecting data
 - testing for inhomogeneity
@@ -284,7 +284,7 @@ If the between-bottle variance is statistically significantly (i.e., judged to b
 
 The purpose of assessing inhomogeneity is to be able to assign a value to the entire batch based on the average of a few bottles, and the determination of inhomogeneity is usually made by a less accurate method than the certification method. The reported value for the batch would be the **average of $N$ repetitions on $Q$ bottles** using the certification method.
 
-The uncertainty calculation is summarized below for the case where the only contribution to uncertainty from the measurement method itself is the repeatability standard deviation, $s_1$, associated with the certification method. For more complicated scenarios, see the pages on [uncertainty budgets.](#sec-mpc-56)
+The uncertainty calculation is summarized below for the case where the only contribution to uncertainty from the measurement method itself is the repeatability standard deviation, $s_1$, associated with the certification method. For more complicated scenarios, see the pages (sections) on [uncertainty budgets.](#sec-mpc-56)
 
 If
 
@@ -312,7 +312,7 @@ When the standard deviation for inhomogeneity is included in the calculation, as
 
 **Sources of bias relate to the specific measurement environment**
 
-The sources of bias discussed on this page cover specific measurement configurations. Measurements on test items are usually made on a single day, with a single operator, with a single instrument, etc. Even if the intent of the uncertainty is to characterize only those measurements made in one specific configuration, the uncertainty must account for any significant differences due to:
+The sources of bias discussed on this page (section) cover specific measurement configurations. Measurements on test items are usually made on a single day, with a single operator, with a single instrument, etc. Even if the intent of the uncertainty is to characterize only those measurements made in one specific configuration, the uncertainty must account for any significant differences due to:
 
 1. instruments
 2. operators
@@ -325,7 +325,7 @@ Calibrated instruments do not normally fall in this class because uncertainties 
 
 **The best strategy is to correct for bias and compute the uncertainty of the correction**
 
-This problem was treated on the foregoing page as an [analysis of random error](#sec-mpc-531) for the case where the uncertainty was intended to apply to all measurements for all configurations. If measurements for only *one configuration* are of interest, such as measurements made with a specific instrument, or if a smaller uncertainty is required, the differences among, say, instruments are treated as biases. The *best strategy* in this situation is to correct all measurements made with a specific instrument to the average for the instruments in the laboratory and compute a type A uncertainty for the correction. This strategy, of course, relies on the assumption that the instruments in the laboratory represent a random sample of all instruments of a specific type.
+This problem was treated on the foregoing page (section) as an [analysis of random error](#sec-mpc-531) for the case where the uncertainty was intended to apply to all measurements for all configurations. If measurements for only *one configuration* are of interest, such as measurements made with a specific instrument, or if a smaller uncertainty is required, the differences among, say, instruments are treated as biases. The *best strategy* in this situation is to correct all measurements made with a specific instrument to the average for the instruments in the laboratory and compute a type A uncertainty for the correction. This strategy, of course, relies on the assumption that the instruments in the laboratory represent a random sample of all instruments of a specific type.
 
 **Only limited comparisons can be made among sources of possible bias**
 
@@ -493,7 +493,7 @@ The average bias for probe #2362 is `r round(avg_bias_2362, 5)`, matching NIST's
 
 **Note on different approaches to instrument bias**
 
-The analysis on this page considers the case where only one instrument is used to make the certification measurements; namely probe #2362, and the certified values are corrected for bias due to this probe. The analysis in the section on [type A analysis of random effects](#sec-mpc-5312) considers the case where any one of the probes could be used to make the certification measurements.
+The analysis on this page (section) considers the case where only one instrument is used to make the certification measurements; namely probe #2362, and the certified values are corrected for bias due to this probe. The analysis in the section on [type A analysis of random effects](#sec-mpc-5312) considers the case where any one of the probes could be used to make the certification measurements.
 
 ##### Bias with sparse data {#sec-mpc-5333}
 
