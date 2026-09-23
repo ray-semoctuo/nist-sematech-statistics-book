@@ -1,0 +1,189 @@
+### Type B uncertainty analysis and propagation of error {#sec-mpc-64}
+
+**Focus of this case study**
+
+The purpose of this case study is to demonstrate uncertainty analysis using statistical techniques coupled with type B analyses and propagation of error. It is a continuation of the case study of [type A uncertainties](#sec-mpc-63).
+
+**Background -- description of measurements and constraints**
+
+The measurements in question are volume resistivities (ohm.cm) of silicon wafers which have the following definition:
+
+$$\rho = X \cdot K_a \cdot F_T \cdot t \cdot F_{t/s}$$
+
+with explanations of the quantities and their nominal values shown below:
+
+- $\rho = resistivity = 0.00128 \, ohm.cm$
+- $X = voltage/current \, (ohm)$
+- $t = thickness_{wafer}(cm) = 0.628 \, cm$
+- $K_a = factor_{electrical} = 4.50 \, ohm.cm$
+- $F_T = correction_{temp} \approx 1 \, C$
+- $F_{t/s} = factor_{thickness/separation} \approx 1.0$
+
+**Type A evaluations**
+
+The resistivity measurements, discussed in the [case study of type A evaluations](#sec-mpc-63), were replicated to cover the following sources of uncertainty in the measurement process, and the associated uncertainties are reported in units of resistivity (ohm.cm).
+
+- [Repeatability of measurements at the center of the wafer](#sec-mpc-632)
+- [Day-to-day effects](#sec-mpc-632-day)
+- [Run-to-run effects](#sec-mpc-632)
+- [Bias due to probe #2362](#sec-mpc-632-probebias)
+- [Bias due to wiring configuration](#sec-mpc-632-configbias)
+
+**Need for propagation of error** {#sec-mpc-64-formula}
+
+Not all factors could be replicated during the gauge experiment. Wafer thickness and measurements required for the scale corrections were measured off-line. Thus, the type B evaluation of uncertainty is computed using propagation of error. The [propagation of error formula](#sec-mpc-553) in units of resistivity is as follows:
+
+$$s_p = \rho \sqrt{\frac{s_X^2}{X^2} + \frac{s_t^2}{t^2} + \frac{s_{Ka}^2}{K_a^2} + \frac{s_{FT}^2}{F_T^2} + \frac{s_{F(t/s)}^2}{F_{t/s}^2}}$$
+
+**Standard deviations for type B evaluations**
+
+Standard deviations for the type B components are summarized here. For a complete explanation, see the publication (Ehrstein and Croarkin) [@Ehrstein].
+
+**Electrical measurements**
+
+There are two basic sources of uncertainty for the electrical measurements. The first is the least-count of the digital volt meter in the measurement of $X$ with a maximum bound of
+
+$$a = 0.0000534 \, ohm$$
+
+which is assumed to be the half-width of a uniform distribution. The second is the uncertainty of the electrical scale factor. This has two sources of uncertainty:
+
+1. error in the solution of the transcendental equation for determining the factor
+2. errors in measured voltages
+
+The maximum bounds to these errors are assumed to be half-widths of
+
+$$a = 0.0001 \, ohm.cm \text{ and } a = 0.00038 \, ohm.cm$$
+
+respectively, from [uniform distributions](#sec-mpc-541-uniform). The corresponding standard deviations are shown below.
+
+$$s_X = 0.0000534 / \sqrt{3} = 0.0000308 \, ohm$$
+
+$$s_{Ka} = \sqrt{\frac{0.0001^2}{3} + \frac{0.00038^2}{3}} = 0.000227 \, ohm.cm$$
+
+**Thickness**
+
+The standard deviation for thickness, $t$, accounts for two sources of uncertainty:
+
+1. calibration of the thickness measuring tool with precision gauge blocks
+2. variation in thicknesses of the silicon wafers
+
+The maximum bounds to these errors are assumed to be half-widths of
+
+$$a = 0.000015 \, cm \text{ and } a = 0.000001 \, cm$$
+
+respectively, from [uniform distributions](#sec-mpc-541-uniform). Thus, the standard deviation for thickness is
+
+$$s_t = \sqrt{\frac{0.000015^2}{3} + \frac{0.000001^2}{3}} = 0.00000868 \, cm$$
+
+**Temperature correction**
+
+The standard deviation for the temperature correction is calculated from its defining equation as shown below. Thus, the standard deviation for the correction is the standard deviation associated with the measurement of temperature multiplied by the temperature coefficient, $C(t) = 0.0083$. The maximum bound to the error of the temperature measurement is assumed to be the half-width
+
+$$a = 0.13 \, C$$
+
+of a [triangular distribution](#sec-mpc-541-triangular). Thus the standard deviation of the correction for
+
+$$F_T = 1 - C(t) \cdot (T - 23 \, C)$$
+
+is
+
+$$s_{F(T)} = C(t) \cdot s_T = 0.0083 \sqrt{\frac{0.13^2}{6}} = 0.000441 \, C$$
+
+**Thickness scale factor**
+
+The standard deviation for the thickness scale factor is negligible.
+
+**Associated sensitivity coefficients**
+
+Sensitivity coefficients for translating the standard deviations for the type B components into units of resistivity (ohm.cm) from the propagation of error equation are listed below and in the error budget. The sensitivity coefficient for a source is the multiplicative factor associated with the standard deviation in the [formula](#sec-mpc-64-formula) above; i.e., the partial derivative with respect to that variable from the [propagation of error equation.](#sec-mpc-55)
+
+$$a_6 = (\rho / X) = 100/0.111 = 900.901$$
+
+$$a_7 = (\rho / K_a) = 100/4.50 = 22.222$$
+
+$$a_8 = (\rho / t) = 100/0.628 = 159.24$$
+
+$$a_9 = (\rho / F_T) = 100$$
+
+$$a_{10} = (\rho / F_{t/s}) = 100$$
+
+**Sensitivity coefficients and degrees of freedom**
+
+Sensitivity coefficients for the type A components are shown in the [case study of type A uncertainty analysis](#sec-mpc-632) and repeated below. Degrees of freedom for type B uncertainties based on assumed distributions, according to the [convention](#sec-mpc-54-df), are assumed to be infinite.
+
+**Error budget showing sensitivity coefficients, standard deviations and degrees of freedom**
+
+The error budget showing sensitivity coefficients for computing the relative standard uncertainty of volume resistivity (ohm.cm) with degrees of freedom is outlined below.
+
+**Error budget for volume resistivity (ohm.cm)**
+
+| Source | Type | Sensitivity | Standard Deviation | DF |
+|:---|:---:|:---|:---|---:|
+| Repeatability | A | $a_1 = 0$ | 0.0729 | 300 |
+| Reproducibility | A | $a_2 = \sqrt{5/6}$ | 0.0362 | 50 |
+| Run-to-run | A | $a_3 = 1$ | 0.0197 | 5 |
+| Probe #2362 | A | $a_4 = \sqrt{1/10}$ | 0.0162 | 5 |
+| Wiring Configuration | A | $a_5 = 1$ | 0 | -- |
+| Resistance ratio | B | $a_6 = 900.901$ | 0.0000308 | $\infty$ |
+| Electrical scale | B | $a_7 = 22.222$ | 0.000227 | $\infty$ |
+| Thickness | B | $a_8 = 159.20$ | 0.00000868 | $\infty$ |
+| Temperature correction | B | $a_9 = 100$ | 0.000441 | $\infty$ |
+| Thickness scale | B | $a_{10} = 100$ | 0 | -- |
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-64-error-budget
+#| message: false
+library(tidyverse)
+
+budget_mpc64 <- tibble(
+  Source = c("Repeatability", "Reproducibility", "Run-to-run", "Probe #2362", "Wiring Configuration",
+             "Resistance ratio", "Electrical scale", "Thickness", "Temperature correction", "Thickness scale"),
+  Type = c("A", "A", "A", "A", "A", "B", "B", "B", "B", "B"),
+  a = c(0, sqrt(5 / 6), 1, sqrt(1 / 10), 1, 900.901, 22.222, 159.20, 100, 100),
+  s = c(0.0729, 0.0362, 0.0197, 0.0162, 0, 0.0000308, 0.000227, 0.00000868, 0.000441, 0),
+  DF = c(300, 50, 5, 5, NA, Inf, Inf, Inf, Inf, NA)
+)
+
+budget_mpc64
+```
+
+**Standard uncertainty**
+
+The standard uncertainty is computed as:
+
+$$u = \sqrt{\sum_{i=1}^{10} a_i^2 \cdot s_i^2} = 0.065 \, ohm.cm$$
+
+```{r}
+#| label: mpc-64-uncertainty
+#| message: false
+u_mpc64 <- sqrt(sum(budget_mpc64$a^2 * budget_mpc64$s^2))
+```
+
+This reproduces as `r round(u_mpc64, 3)` ohm.cm, matching NIST's stated 0.065 ohm.cm.
+
+**Approximate degrees of freedom and expanded uncertainty**
+
+The degrees of freedom associated with $u$ are approximated by the Welch-Satterthwaite formula as:
+
+$$\nu = \frac{u^4}{\sum_{i=1}^{5} \frac{a_i^4 \cdot s_i^4}{\nu_i}} = 42$$
+
+This calculation is not affected by components with infinite degrees of freedom, and therefore, the degrees of freedom for the standard uncertainty is the same as the degrees of freedom for the type A uncertainty. The critical value at the 0.05 significance level with 42 degrees of freedom, from the [t-table](../01-eda/index.qmd#sec-eda-t-distribution-table), is 2.018 so the expanded uncertainty is
+
+$$U = 2.018 \cdot u = 0.13 \, ohm.cm$$
+
+```{r}
+#| label: mpc-64-df
+#| message: false
+type_a_mpc64 <- budget_mpc64 |> filter(Type == "A")
+denom_mpc64 <- sum((type_a_mpc64$a^4 * type_a_mpc64$s^4) / type_a_mpc64$DF, na.rm = TRUE)
+
+nu_full_u <- u_mpc64^4 / denom_mpc64
+
+u_type_a_only <- sqrt(sum(type_a_mpc64$a^2 * type_a_mpc64$s^2))
+nu_mpc64 <- u_type_a_only^4 / denom_mpc64
+
+U_mpc64 <- qt(1 - 0.05 / 2, round(nu_mpc64)) * u_mpc64
+```
+
+Plugging the full standard uncertainty ($u \approx$ `r round(u_mpc64, 3)`) into this formula, as literally written, gives $\nu \approx$ `r round(nu_full_u, 0)` -- not NIST's stated 42. Reproducing 42 requires using only the type A standard uncertainty ($u \approx$ `r round(u_type_a_only, 4)`, the same quantity computed in the [type A case study](#sec-mpc-632)) in the numerator, which gives $\nu \approx$ `r round(nu_mpc64, 0)`. This confirms NIST's own explanatory sentence -- the degrees of freedom are carried over unchanged from the type A calculation rather than recomputed from the enlarged, type-B-inclusive $u$ -- but also shows that the formula as printed on this page does not, in fact, reproduce 42 when evaluated literally with $u = 0.065$. The expanded uncertainty $U \approx$ `r round(U_mpc64, 2)` ohm.cm, using $k = 2.018$ at 42 degrees of freedom, does match NIST's stated 0.13 ohm.cm.

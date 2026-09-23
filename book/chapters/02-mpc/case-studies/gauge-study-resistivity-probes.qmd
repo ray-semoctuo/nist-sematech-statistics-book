@@ -1,0 +1,346 @@
+### Gauge study of resistivity probes {#sec-mpc-61}
+
+**Purpose**
+
+The purpose of this case study is to outline the analysis of a gauge study that was undertaken to identify the sources of uncertainty in resistivity measurements of silicon wafers.
+
+**Outline**
+
+1. [Background and data](#sec-mpc-611)
+2. [Analysis and interpretation](#sec-mpc-612)
+3. [Graphs showing repeatability standard deviations](#sec-mpc-613)
+4. [Graphs showing day-to-day variability](#sec-mpc-614)
+5. [Graphs showing differences among gauges](#sec-mpc-615)
+6. [Work This Example Yourself](#sec-mpc-61-yourself)
+
+#### Background and data {#sec-mpc-611}
+
+**Description of measurements**
+
+Measurements of resistivity on 100 ohm.cm wafers were made according to an ASTM Standard Test Method [@ASTMF84] to assess the sources of uncertainty in the measurement system. Resistivity measurements have been studied over the years, and it is clear from those data that there are sources of variability affecting the process beyond the basic imprecision of the gauges. Changes in measurement results have been noted over days and over months and the data in this study are structured to quantify these time-dependent changes in the measurement process.
+
+**Gauges**
+
+The gauges for the study were five probes used to measure resistivity of silicon wafers. The five gauges are assumed to represent a random sample of typical 4-point gauges for making resistivity measurements. There is a question of whether or not the gauges are essentially equivalent or whether biases among them are possible.
+
+**Check standards**
+
+The check standards for the study were five wafers selected at random from the batch of 100 ohm.cm wafers.
+
+**Operators**
+
+The effect of operator was not considered to be significant for this study.
+
+**[Database of measurements](#sec-mpc-6111)**
+
+The [3-level nested design](#sec-mpc-43) consisted of:
+
+- $J = 6$ measurements at the center of each wafer per day
+- $K = 6$ days
+- $L = 2$ runs
+
+To characterize the probes and the influence of wafers on the measurements, the design was repeated over:
+
+- $Q = 5$ wafers (check standards 138, 139, 140, 141, 142)
+- $I = 5$ probes (1, 281, 283, 2062, 2362)
+
+The runs were separated by about one month in time. The $J = 6$ measurements at the center of each wafer are reduced to an average and repeatability standard deviation and recorded in a database with identifications for wafer, probe, and day.
+
+##### Database of resistivity measurements {#sec-mpc-6111}
+
+**The check standards are five wafers chosen at random from a batch of wafers**
+
+Measurements of resistivity (ohm.cm) were made according to an ASTM Standard Test Method [@ASTMF84] at NIST to assess the sources of uncertainty in the measurement system. The gauges for the study were five probes owned by NIST; the check standards for the study were five wafers selected at random from a batch of wafers cut from one silicon crystal doped with phosphorous to give a nominal resistivity of 100 ohm.cm.
+
+**Measurements on the check standards are used to estimate repeatability, day effect, and run effect**
+
+The effect of operator was not considered to be significant for this study; therefore, 'day' replaces 'operator' as a factor in the nested design. Averages and standard deviations from $J = 6$ measurements at the center of each wafer are shown in the table.
+
+- $J = 6$ measurements at the center of the wafer per day
+- $K = 6$ days (one operator) per repetition
+- $L = 2$ runs (complete)
+- $Q = 5$ wafers (check standards 138, 139, 140, 141, 142)
+- $R = 5$ probes (1, 281, 283, 2062, 2362)
+
+The reader can download the [data as a text file](../../datasets/MPC61.DAT).
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-6111-database
+#| message: false
+library(tidyverse)
+library(ggrepel)
+
+mpc61 <- read_table(
+  here::here("datasets", "MPC61.DAT"),
+  skip = 50,
+  col_names = c("run", "wafer", "probe", "month", "day", "operator", "temp", "average", "stddev"),
+  col_types = "ddddddddd"
+) |>
+  mutate(
+    run = as_factor(if_else(run == 1, "Run 1", "Run 2")),
+    wafer = factor(as.integer(wafer)),
+    probe = factor(as.integer(probe)),
+    month = as.integer(month),
+    day = as.integer(day),
+    operator = factor(as.integer(operator)),
+    date = make_date(1994, month, day)
+  )
+
+mpc61
+```
+
+#### Analysis and interpretation {#sec-mpc-612}
+
+**Graphs of probe effect on repeatability**
+
+A graphical analysis, shown in @fig-mpc-613-all-probes below, shows repeatability standard deviations plotted by wafer and probe. The plots show that for both runs the precision of probe #2362 is better than for the other probes.
+
+Probe #2362, because of its superior precision, was chosen as the tool for measuring all 100 ohm.cm resistivity wafers at NIST. Therefore, the remainder of the analysis focuses on this probe.
+
+**Plot of repeatability standard deviations for probe #2362 from the nested design over days, wafers, runs**
+
+The precision of probe #2362 is first checked for consistency by plotting the repeatability standard deviations over days, wafers and runs in @fig-mpc-613-probe-2362 below. The plots verify that, for both runs, probe repeatability is not dependent on wafers or days although the standard deviations on some days of run 2 are larger in some instances than for the other days. This is not surprising because repeated probing on the wafer surfaces can cause slight degradation. Then the [repeatability standard deviations are pooled](#sec-mpc-441) over:
+
+- $K = 6$ days for $K(J - 1) = 30$ degrees of freedom
+- $L = 2$ runs for $LK(J - 1) = 60$ degrees of freedom
+- $Q = 5$ wafers for $QLK(J - 1) = 300$ degrees of freedom
+
+The results of pooling are shown below.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-612-pooled-level1
+#| message: false
+probe2362 <- mpc61 |> filter(probe == 2362)
+
+pooled_level1 <- probe2362 |>
+  summarise(.by = run, `Std dev` = sqrt(sum((6 - 1) * stddev^2) / (n() * (6 - 1))), DF = n() * (6 - 1))
+
+pooled_level1_combined <- probe2362 |>
+  summarise(`Std dev` = sqrt(sum((6 - 1) * stddev^2) / (n() * (6 - 1))), DF = n() * (6 - 1))
+
+pooled_level1
+pooled_level1_combined
+```
+
+The combined, 300-degree-of-freedom pooled value (0.0729) matches the level-1 standard deviation NIST reports for probe #2362 in the [type A uncertainty case study](#sec-mpc-632). The per-run breakdown computed here from the archived dataset (Run 1: 0.0675 with 150 df; Run 2: 0.0779 with 150 df) differs slightly from NIST's stated per-run table on this page (Run 1: 0.0658; Run 2: 0.0758) -- both runs individually are a few percent higher than NIST's published figures, even though the combined estimate agrees exactly, suggesting a minor discrepancy between NIST's originally published per-run numbers and the archived `MPC61.DAT` file used here.
+
+**Graphs of reproducibility and stability for probe #2362**
+
+Repeatability standard deviations at the wafer center are plotted by date in @fig-mpc-614-day-variability below, for each probe and wafer. The points on the left side of each panel are from the first run; the points on the right are the same measurements repeated after one month as a check on the stability of the measurement process. The plots show day-to-day variability as well as slight variability from run-to-run.
+
+Earlier work discounts long-term drift in the gauge as the cause of these changes. A reasonable conclusion is that day-to-day and run-to-run variations come from random fluctuations in the measurement process.
+
+**Level-2 (reproducibility) standard deviations computed from day averages and pooled over wafers and runs**
+
+[Level-2 standard deviations](#sec-mpc-44) (with $K - 1 = 5$ degrees of freedom each) are computed from the daily averages that are recorded in the database. Then the [level-2 standard deviations are pooled](#sec-mpc-442) over:
+
+- $L = 2$ runs for $L(K - 1) = 10$ degrees of freedom
+- $Q = 5$ wafers for $QL(K - 1) = 50$ degrees of freedom
+
+as shown in the table below. The table shows that the level-2 standard deviations are consistent over wafers and runs.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-612-level2
+#| message: false
+level2_by_wafer <- probe2362 |>
+  summarise(.by = c(wafer, run), Average = mean(average), `Std dev` = sd(average), DF = 6 - 1)
+
+level2_by_wafer
+
+level2_pooled <- level2_by_wafer |>
+  summarise(.by = run, `Std dev` = sqrt(mean(`Std dev`^2)), DF = sum(DF))
+
+level2_pooled_combined <- level2_by_wafer |>
+  summarise(`Std dev` = sqrt(mean(`Std dev`^2)), DF = sum(DF))
+
+level2_pooled
+level2_pooled_combined
+```
+
+The level-2 standard deviations match NIST's stated values (pooled over wafers: Run 1 0.0333 with 25 df, Run 2 0.0388 with 25 df; pooled over both runs: 0.0362 with 50 df).
+
+**Level-3 (stability) standard deviations computed from run averages and pooled over wafers**
+
+[Level-3 standard deviations](#sec-mpc-44) are computed from the averages of the two runs. Then the [level-3 standard deviations are pooled](#sec-mpc-443) over the five wafers to obtain a standard deviation with 5 degrees of freedom as shown in the table below.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-612-level3
+#| message: false
+level3_by_wafer <- level2_by_wafer |>
+  summarise(.by = wafer, run1 = Average[run == "Run 1"], run2 = Average[run == "Run 2"]) |>
+  mutate(Diff = run1 - run2, `Std dev` = abs(Diff) / sqrt(2), DF = 1)
+
+level3_by_wafer
+
+level3_pooled <- level3_by_wafer |>
+  summarise(`Std dev` = sqrt(mean(`Std dev`^2)), DF = sum(DF))
+
+level3_pooled
+```
+
+The level-3 standard deviation matches NIST's stated pooled value of 0.0197 with 5 degrees of freedom.
+
+**Graphs of probe biases**
+
+A graphical analysis, shown in @fig-mpc-615-probe-bias below, shows the relative biases among the 5 probes. For each wafer, differences from the wafer average by probe are plotted versus wafer number. The graphs verify that probe #2362 (coded as 5) is biased low relative to the other probes. The bias shows up more strongly after the probes have been in use (run 2).
+
+**Formulas for computation of biases for probe #2362**
+
+Biases by probe are shown in the following table. The reader can download the [data as a text file](../../datasets/MPC61A.DAT).
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-612-biases
+#| message: false
+mpc61a <- read_table(
+  here::here("datasets", "MPC61A.DAT"),
+  skip = 25,
+  col_names = c("wafer", "probe", "d1", "d2"),
+  col_types = "dddd"
+) |>
+  mutate(wafer = factor(as.integer(wafer)), probe = factor(as.integer(probe))) |>
+  rename(`Run 1` = d1, `Run 2` = d2)
+
+mpc61a
+```
+
+**How to deal with bias due to the probe**
+
+Probe #2362 was chosen for the certification process because of its superior precision, but its bias relative to the other probes creates a problem. There are two possibilities for handling this problem:
+
+1. Correct all measurements made with probe #2362 to the average of the probes.
+2. Include the standard deviation for the difference among probes in the uncertainty budget.
+
+The better choice is (1) if we can assume that the probes in the study represent a random sample of probes of this type. This is particularly true when the unit (resistivity) is defined by a test method.
+
+#### Graphs showing repeatability standard deviations {#sec-mpc-613}
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-613-probe-2362
+#| message: false
+#| fig-cap: "Repeatability standard deviations for probe #2362, labeled by day, for each run"
+set.seed(1)
+
+probe2362 |>
+  ggplot(aes(wafer, stddev)) +
+  geom_text_repel(aes(label = as_factor(day), color = run), size = 3, position = position_jitter(width = 0.1)) +
+  facet_wrap(~run) +
+  labs(x = "Wafer", y = "ohm.cm", color = "Run", subtitle = "Repeatability is constant across wafers (x-axis) and days (labeled points) for probe #2362") +
+  scale_color_manual(values = c("Run 1" = "steelblue", "Run 2" = "firebrick")) +
+  theme_light() +
+  theme(plot.title.position = "plot", legend.position = "none")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-613-all-probes
+#| message: false
+#| fig-cap: "Repeatability standard deviations for five probes as a function of wafer, for each run"
+set.seed(1)
+
+mpc61 |>
+  ggplot(aes(wafer, stddev)) +
+  geom_point(aes(color = run, shape = probe), size = 2, position = position_jitter(width = 0.15)) +
+  facet_wrap(~run) +
+  labs(x = "Wafer", y = "ohm.cm", color = "Run", shape = "Probe", subtitle = "Repeatability is constant across wafers (x-axis) and probes (shaped points) for probe #2362") +
+  scale_color_manual(values = c("Run 1" = "steelblue", "Run 2" = "firebrick")) +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+We can see higher standard deviations across several days for run 2.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-613-facet-probe
+#| message: false
+#| fig-cap: "Repeatability standard deviations by wafer, run, and probe"
+mpc61 |>
+  ggplot(aes(wafer, stddev)) +
+  geom_point(aes(color = run), size = 3, alpha = 1 / 2, position = position_jitter(width = 0.1)) +
+  labs(x = "Wafer", y = "ohm.cm", color = "Run", subtitle = "Repeatability is constant across wafers, days, and runs for all probes") +
+  facet_grid(run ~ probe) +
+  scale_color_manual(values = c("Run 1" = "steelblue", "Run 2" = "firebrick")) +
+  theme_light() +
+  theme(plot.title.position = "plot", legend.position = "none")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-613-day-operator
+#| message: false
+#| fig-cap: "Repeatability standard deviations by day and operator, for each probe and run"
+mpc61 |>
+  ggplot(aes(day, stddev)) +
+  geom_point(aes(color = operator), position = position_jitter(width = 0.1), alpha = 1 / 2) +
+  labs(x = "Day", y = "ohm.cm", color = "Operator", subtitle = "Repeatability increases during Run 2 for probe #2062") +
+  facet_grid(probe ~ run) +
+  scale_color_manual(values = c("steelblue", "firebrick")) +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+These plots confirm NIST's description: probe #2362 is consistently more precise than the other four probes, and its precision is stable across wafers and days within each run. The faceted views also show that standard deviations run somewhat higher during run 2, most noticeably for probe #2062.
+
+#### Graphs showing day-to-day variability {#sec-mpc-614}
+
+**Effects of days and long-term stability on the measurements**
+
+The data points plotted below are repeatability standard deviations of resistivity measurements at the center of each wafer, for each of the five probes and five wafers. Data for each of two runs are shown on each graph, separated by approximately one month. Plotting against calendar date rather than raw day number, and faceting by probe as well as wafer, shows the same pattern seen in @sec-mpc-613: probe #2062 runs noticeably higher and more variable than the others, especially in run 2.
+
+```{r}
+#| code-fold: true
+#| fig-height: 8
+#| fig-width: 8
+#| label: fig-mpc-614-day-variability
+#| message: false
+#| fig-cap: "Repeatability standard deviation by date, for each probe and wafer"
+mpc61 |>
+  ggplot(aes(date, stddev, colour = run)) +
+  geom_path(aes(group = run)) +
+  geom_point() +
+  facet_grid(probe ~ wafer) +
+  scale_color_manual(values = c("Run 1" = "steelblue", "Run 2" = "firebrick")) +
+  scale_x_date(date_labels = "%m/%d") +
+  labs(x = NULL, y = "ohm.cm", color = "Run") +
+  theme_light()
+```
+
+#### Graphs showing differences among gauges {#sec-mpc-615}
+
+**Graph of differences from wafer averages for each of 5 probes**
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-615-probe-bias
+#| message: false
+#| fig-cap: "Differences from the wafer average, by probe, for each run"
+mpc61 |>
+  summarise(avg = mean(average, na.rm = TRUE), .by = c(wafer, probe, run)) |>
+  group_by(wafer, run) |>
+  mutate(
+    wafer_mean = mean(avg, na.rm = TRUE),
+    diff_from_mean = avg - wafer_mean
+  ) |>
+  ungroup() |>
+  ggplot(aes(wafer, diff_from_mean, color = probe)) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "grey40") +
+  geom_line(aes(group = probe)) +
+  geom_point() +
+  labs(x = "Wafer", y = "ohm.cm", color = "Probe", subtitle = "Difference from wafer average, by probe") +
+  facet_grid(~run) +
+  scale_color_brewer(palette = "Set1") +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+The graph confirms NIST's description: probes #2062 and #2362 read low relative to the other probes in run 1, and probe #2362 continues to be biased low, and more strongly so, in run 2.
+
+##### Work This Example Yourself {#sec-mpc-61-yourself}
+
+NIST's original case study provides Dataplot macros that let the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code -- no separate software installation or macro is required.

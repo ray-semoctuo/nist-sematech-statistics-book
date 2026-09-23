@@ -1,0 +1,16 @@
+## Case Studies {#sec-mpc-6}
+
+The purpose of this section is to illustrate the planning, procedures, and analyses outlined in the various sections of this chapter with data taken from measurement processes at the National Institute of Standards and Technology.
+
+1. [Gauge study of resistivity probes](#sec-mpc-61)
+2. [Check standard study for resistivity measurements](#sec-mpc-62)
+3. [Type A uncertainty analysis](#sec-mpc-63)
+4. [Type B uncertainty analysis and propagation of error](#sec-mpc-64)
+
+{{< include case-studies/gauge-study-resistivity-probes.qmd >}}
+
+{{< include case-studies/check-standard-resistivity.qmd >}}
+
+{{< include case-studies/type-a-uncertainty-evaluation.qmd >}}
+
+{{< include case-studies/type-b-uncertainty-propagation.qmd >}}

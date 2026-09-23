@@ -1,0 +1,206 @@
+### Check standard for resistivity measurements {#sec-mpc-62}
+
+**Purpose**
+
+The purpose of this page is to outline the analysis of check standard data with respect to controlling the precision and long-term variability of the process.
+
+**Outline**
+
+1. [Background and data](#sec-mpc-621)
+2. [Analysis and interpretation](#sec-mpc-622)
+3. [Work This Example Yourself](#sec-mpc-62-yourself)
+
+#### Background and data {#sec-mpc-621}
+
+**Explanation of check standard measurements**
+
+The process involves the measurement of resistivity (ohm.cm) of individual silicon wafers cut from a single crystal (# 51939). The wafers were doped with phosphorous to give a nominal resistivity of 100 ohm.cm. A single wafer (#137), chosen at random from a batch of 130 wafers, was designated as the check standard for this process.
+
+**Design of data collection and [Database](#sec-mpc-6211)**
+
+The measurements were carried out according to an ASTM Test Method [@ASTMF84] with NIST probe #2362. The measurements on the check standard duplicate certification measurements that were being made, during the same time period, on individual wafers from crystal #51939. For the check standard there were:
+
+- $J = 6$ repetitions at the center of the wafer on each day
+- $K = 25$ days
+
+The $K = 25$ days cover the time during which the individual wafers were being certified at the National Institute of Standards and Technology.
+
+##### Database for resistivity check standard {#sec-mpc-6211}
+
+**Description of check standard**
+
+A single wafer (#137), chosen at random from a batch of 130 wafers, is the check standard for resistivity measurements at the 100 ohm.cm level at the National Institute of Standards and Technology. The average of six measurements at the center of the wafer is the check standard value for one occasion, and the standard deviation of the six measurements is the short-term standard deviation. The columns of the database contain the following:
+
+1. Crystal ID
+2. Check standard ID
+3. Month
+4. Day
+5. Hour
+6. Minute
+7. Operator
+8. Humidity
+9. Probe ID
+10. Temperature
+11. Check standard value
+12. Short-term standard deviation
+13. Degrees of freedom
+
+The reader can download the [data as a text file](../../datasets/MPC62.DAT).
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-6211-database
+#| message: false
+library(tidyverse)
+
+mpc62 <- read_table(
+  here::here("datasets", "MPC62.DAT"),
+  skip = 50,
+  col_names = c("crystal", "wafer", "month", "day", "hour", "minute", "operator", "humidity", "probe", "temp", "average", "stddev", "df"),
+  col_types = "ffiiiififdddi"
+)
+
+mpc62
+```
+
+#### Analysis and interpretation {#sec-mpc-622}
+
+**Estimates of the [repeatability standard deviation](#sec-mpc-441) and [level-2 standard deviation](#sec-mpc-442)**
+
+The level-1 standard deviations (with $J - 1 = 5$ degrees of freedom each) from the database are pooled over the $K = 25$ days to obtain a reliable estimate of repeatability.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-622-pooled
+#| message: false
+s1_mpc62 <- mpc62 |>
+  summarise(`Std dev` = sqrt(sum(df * stddev^2) / sum(df)), DF = sum(df))
+
+s1_mpc62
+
+s2_mpc62 <- mpc62 |>
+  summarise(`Std dev` = sd(average), DF = n() - 1)
+
+s2_mpc62
+```
+
+This pooled value matches NIST's stated repeatability standard deviation of $s_1 = 0.06139$ ohm.cm with $K(J-1) = 125$ degrees of freedom. The level-2 standard deviation, computed from the daily averages, matches NIST's stated $s_2 = 0.02680$ ohm.cm with $K - 1 = 24$ degrees of freedom.
+
+**Relationship to uncertainty calculations**
+
+These standard deviations are appropriate for estimating the uncertainty of the average of six measurements on a wafer that is of the same material and construction as the check standard. The computations are explained in the section on [sensitivity coefficients for check standard measurements](#sec-mpc-562). For other numbers of measurements on the test wafer, the computations are explained in the section on [sensitivity coefficients for level-2 designs](#sec-mpc-563).
+
+**Illustrative table showing computations of repeatability and level-2 standard deviations**
+
+A tabular presentation of a subset of check standard data ($J = 6$ repetitions and $K = 6$ days) illustrates the computations. The pooled repeatability standard deviation with $K(J - 1) = 30$ degrees of freedom from this limited database is shown below. A [level-2 standard deviation](#sec-mpc-442) with $K - 1 = 5$ degrees of freedom is computed from the center averages and is also shown below.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-6221-illustrative
+#| message: false
+mpc6221 <- tibble(
+  repetition = 1:6,
+  day1 = c(96.920, 97.118, 97.034, 97.047, 97.127, 96.995),
+  day2 = c(97.054, 96.947, 97.084, 97.099, 97.067, 96.984),
+  day3 = c(97.057, 97.110, 97.023, 97.087, 97.106, 97.053),
+  day4 = c(97.035, 97.047, 97.045, 97.076, 96.995, 97.065),
+  day5 = c(97.189, 96.945, 97.061, 97.117, 97.052, 96.976),
+  day6 = c(96.965, 97.013, 97.074, 97.070, 97.121, 96.997)
+) |>
+  pivot_longer(-repetition, names_to = "day", values_to = "resistivity")
+
+day_summary <- mpc6221 |>
+  summarise(.by = day, Average = mean(resistivity), `Std dev` = sd(resistivity), DF = n() - 1)
+
+day_summary
+
+pooled_repeatability <- day_summary |>
+  summarise(`Pooled repeatability std dev` = sqrt(sum(DF * `Std dev`^2) / sum(DF)), DF = sum(DF))
+
+level2_illustrative <- day_summary |>
+  summarise(`Level-2 std dev` = sd(Average), DF = n() - 1)
+
+pooled_repeatability
+level2_illustrative
+```
+
+Five of the six day averages and standard deviations reproduce NIST's stated per-day table exactly. Day 6 does not (we compute an average of 97.040 and a repeatability standard deviation of 0.0580 from the raw measurements shown above, versus NIST's stated 97.037 and 0.0614), which appears to be a small arithmetic slip in the original table rather than a transcription issue on our part. As a result, our pooled repeatability standard deviation (`r round(pooled_repeatability$"Pooled repeatability std dev", 4)` with 30 df) and level-2 standard deviation (`r round(level2_illustrative$"Level-2 std dev", 4)` with 5 df) are close to, but not exactly, NIST's stated illustrative values of 0.0625 and 0.0139.
+
+**[Control chart for probe #2362](#sec-mpc-623)**
+
+The control chart for monitoring the precision of probe #2362 is constructed as discussed in the section on [control charts for standard deviations](#sec-mpc-231). The upper control limit (UCL) for testing for degradation of the probe is computed using the critical value from the [F table](../01-eda/index.qmd#sec-eda-f-distribution-table) with numerator degrees of freedom $J - 1 = 5$ and denominator degrees of freedom $K(J - 1) = 125$. For a 0.05 significance level,
+
+$$F_{0.05, 5, 125} = 2.29$$
+
+$$UCL = s_1 \sqrt{F_{0.05, 5, 125}} = 0.09238 \, \text{ohm.cm}$$
+
+```{r}
+#| label: fig-mpc-623-control-chart
+#| code-fold: true
+#| message: false
+#| fig-cap: "Control chart for probe #2362 precision -- all standard deviations are based on 6 repetitions and the control limits are 95% limits"
+f_crit_mpc622 <- qf(0.95, 5, 125)
+ucl_precision_mpc622 <- s1_mpc62$`Std dev` * sqrt(f_crit_mpc622)
+
+mpc62 |>
+  mutate(occasion = row_number()) |>
+  ggplot(aes(occasion, stddev)) +
+  geom_hline(yintercept = ucl_precision_mpc622, linetype = "dashed", color = "firebrick") +
+  geom_point() +
+  geom_line() +
+  labs(x = "Occasion", y = "ohm.cm", subtitle = "Repeatability standard deviation for probe #2362") +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+The computed $F_{0.05,5,125} \approx$ `r round(f_crit_mpc622, 2)` and $UCL \approx$ `r round(ucl_precision_mpc622, 5)` ohm.cm match NIST's stated values.
+
+**Interpretation of control chart for probe #2362**
+
+The control chart shows two points exceeding the upper control limit. We expect 5% of the standard deviations to exceed the UCL for a measurement process that is in-control. Two outliers are not indicative of significant problems with the repeatability for the probe, but the probe should be monitored closely in the future.
+
+**[Control chart for bias and variability](#sec-mpc-624)**
+
+The control limits for monitoring the bias and long-term variability of resistivity with a [Shewhart control chart](#sec-mpc-221) are given by
+
+$$UCL = Average + 2 \cdot s_2 = 97.1234 \, \text{ohm.cm}$$
+
+$$Centerline = Average = 97.0698 \, \text{ohm.cm}$$
+
+$$LCL = Average - 2 \cdot s_2 = 97.0162 \, \text{ohm.cm}$$
+
+```{r}
+#| label: fig-mpc-624-control-chart
+#| code-fold: true
+#| message: false
+#| fig-cap: "Shewhart control chart for measurements on a resistivity check standard -- all measurements are averages of 6 repetitions"
+centerline_mpc622 <- mean(mpc62$average)
+ucl_bias_mpc622 <- centerline_mpc622 + 2 * s2_mpc62$`Std dev`
+lcl_bias_mpc622 <- centerline_mpc622 - 2 * s2_mpc62$`Std dev`
+
+mpc62 |>
+  mutate(occasion = row_number()) |>
+  ggplot(aes(occasion, average)) +
+  geom_hline(yintercept = c(ucl_bias_mpc622, lcl_bias_mpc622), linetype = "dashed", color = "firebrick") +
+  geom_hline(yintercept = centerline_mpc622, linetype = "solid", color = "grey40") +
+  geom_point() +
+  geom_line() +
+  labs(x = "Occasion", y = "ohm.cm", subtitle = "Check standard average resistivity") +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+The computed centerline `r round(centerline_mpc622, 4)`, UCL `r round(ucl_bias_mpc622, 4)`, and LCL `r round(lcl_bias_mpc622, 4)` match NIST's stated values.
+
+**Interpretation of control chart for bias**
+
+The control chart shows that the points scatter randomly about the center line with no serious problems, although one point exceeds the upper control limit and one point exceeds the lower control limit by a small amount. The conclusion is that there is:
+
+- No evidence of bias, change or drift in the measurement process.
+- No evidence of long-term lack of control.
+
+Future measurements that exceed the control limits must be evaluated for long-term changes in bias and/or variability.
+
+##### Work This Example Yourself {#sec-mpc-62-yourself}
+
+NIST's original case study provides Dataplot macros that let the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code -- no separate software installation or macro is required.

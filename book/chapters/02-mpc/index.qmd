@@ -10,6 +10,4 @@
 
 {{< include uncertainty-analysis/index.qmd >}}
 
-## Case Studies {#sec-mpc-6}
-
-<!-- Source: handbook/mpc/section6/ (note: archive also has section6_original and section6_recovered -- investigate before trusting section6 as canonical). TODO: port narrative content, re-implement worked examples in R. -->
+{{< include case-studies/index.qmd >}}

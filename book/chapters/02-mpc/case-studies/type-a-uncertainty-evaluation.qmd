@@ -1,0 +1,331 @@
+### Type A uncertainty analysis {#sec-mpc-63}
+
+**Purpose**
+
+The purpose of this case study is to demonstrate the computation of uncertainty for a measurement process with several sources of uncertainty from data taken during a [gauge study](#sec-mpc-61).
+
+**Outline**
+
+1. [Background and data for the study](#sec-mpc-631)
+2. [Graphical and quantitative analyses and interpretations](#sec-mpc-632)
+3. [Work This Example Yourself](#sec-mpc-63-yourself)
+
+#### Background and data {#sec-mpc-631}
+
+**Description of measurements**
+
+The measurements in question are resistivities (ohm.cm) of silicon wafers. The intent is to calculate an uncertainty associated with the resistivity measurements of approximately 100 silicon wafers that were certified with probe #2362 in wiring configuration A, according to ASTM Method F84 [@ASTMF84] which is the defined reference for this measurement. The reported value for each wafer is the average of six measurements made at the center of the wafer on a single day. Probe #2362 is one of five probes owned by the National Institute of Standards and Technology that is capable of making the measurements.
+
+**Sources of uncertainty in NIST measurements**
+
+The uncertainty analysis takes into account the following sources of variability:
+
+- [Repeatability of measurements at the center of the wafer](#sec-mpc-632)
+- [Day-to-day effects](#sec-mpc-632-day)
+- [Run-to-run effects](#sec-mpc-632)
+- [Bias due to probe #2362](#sec-mpc-632-probebias)
+- [Bias due to wiring configuration](#sec-mpc-632-configbias)
+
+**[Database](#sec-mpc-6311) of 3-level nested design -- for estimating time-dependent sources of uncertainty**
+
+The certification measurements themselves are not the primary source for estimating uncertainty components because they do not yield information on day-to-day effects and long-term effects. The standard deviations for the three time-dependent sources of uncertainty are estimated from a [3-level nested design](#sec-mpc-43). The design was replicated on each of $Q = 5$ wafers which were chosen at random, for this purpose, from the lot of wafers. The certification measurements were made between the two runs in order to check on the long-term stability of the process. The data consist of [repeatability standard deviations](#sec-mpc-44) (with $J - 1 = 5$ degrees of freedom each) from measurements at the wafer center.
+
+##### Database of resistivity measurements {#sec-mpc-6311}
+
+**Check standards are five wafers chosen at random from a batch of wafers**
+
+Measurements of resistivity (ohm.cm) were made according to an ASTM Standard Test Method [@ASTMF84] at the National Institute of Standards and Technology to assess the sources of uncertainty in the measurement system. The gauges for the study were five probes owned by NIST; the check standards for the study were five wafers selected at random from a batch of wafers cut from one silicon crystal doped with phosphorous to give a nominal resistivity of 100 ohm.cm.
+
+**Measurements on the check standards are used to estimate repeatability, day effect, run effect**
+
+The effect of operator was not considered to be significant for this study. Averages and standard deviations from $J = 6$ measurements at the center of each wafer are shown in the table.
+
+- $J = 6$ measurements at the center of the wafer per day
+- $K = 6$ days (one operator) per repetition
+- $L = 2$ runs (complete)
+- $Q = 5$ wafers (check standards 138, 139, 140, 141, 142)
+- $I = 5$ probes (1, 281, 283, 2062, 2362)
+
+The reader can download the [data as a text file](../../datasets/MPC61.DAT) -- this is the same database used in the [gauge study of resistivity probes](#sec-mpc-6111).
+
+##### Measurements on wiring configurations {#sec-mpc-6312}
+
+**Check wafers were measured with the probe wired in two configurations**
+
+Measurements of resistivity (ohm.cm) were made according to an ASTM Standard Test Method [@ASTMF84] to identify differences between 2 wiring configurations for probe #2362. The check standards for the study were five wafers selected at random from a batch of wafers cut from one silicon crystal doped with phosphorous to give a nominal resistivity of 100 ohm.cm.
+
+**Description of database**
+
+The data are averages of $K = 6$ days' measurements and $J = 6$ repetitions at the center of each wafer. There are $L = 2$ complete runs, separated by two months time, on each wafer.
+
+The data recorded in the 10 columns are:
+
+1. Wafer
+2. Probe
+3. Average -- configuration A; run 1
+4. Standard deviation -- configuration A; run 1
+5. Average -- configuration B; run 1
+6. Standard deviation -- configuration B; run 1
+7. Average -- configuration A; run 2
+8. Standard deviation -- configuration A; run 2
+9. Average -- configuration B; run 2
+10. Standard deviation -- configuration B; run 2
+
+The reader can download the [data as a text file](../../datasets/CHECK_STD.DAT).
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-6312-database
+#| message: false
+library(tidyverse)
+
+mpc6312 <- read_table(
+  here::here("datasets", "CHECK_STD.DAT"),
+  skip = 51,
+  col_names = c("wafer", "probe", "a1", "a1sd", "b1", "b1sd", "a2", "a2sd", "b2", "b2sd"),
+  col_types = "dddddddddd"
+) |>
+  mutate(wafer = factor(as.integer(wafer)), probe = factor(as.integer(probe)))
+
+mpc6312
+```
+
+#### Analysis and interpretation {#sec-mpc-632}
+
+**Purpose of this section**
+
+The purpose of this section is to outline an analysis of data taken during a gauge study to quantify the type A uncertainty component for resistivity (ohm.cm) measurements on silicon wafers made with a gauge that was part of the initial study.
+
+**Summary of standard deviations at three levels**
+
+The [level-1](#sec-mpc-441), [level-2](#sec-mpc-442), and [level-3](#sec-mpc-443) standard deviations for the uncertainty analysis are summarized in the table below from the [gauge case study](#sec-mpc-612).
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-632-summary
+#| message: false
+mpc61 <- read_table(
+  here::here("datasets", "MPC61.DAT"),
+  skip = 50,
+  col_names = c("run", "wafer", "probe", "month", "day", "operator", "temp", "average", "stddev"),
+  col_types = "ddddddddd"
+) |>
+  mutate(
+    run = as.integer(run),
+    wafer = factor(as.integer(wafer)),
+    probe = factor(as.integer(probe)),
+    month = as.integer(month),
+    day = as.integer(day),
+    operator = factor(as.integer(operator))
+  ) |>
+  filter(probe == 2362)
+
+s1_mpc63 <- mpc61 |> summarise(`Std dev` = sqrt(sum((6 - 1) * stddev^2) / (n() * (6 - 1))), DF = n() * (6 - 1))
+
+level2_by_wafer_mpc63 <- mpc61 |>
+  summarise(.by = c(wafer, run), Average = mean(average), `Std dev` = sd(average), DF = 6 - 1)
+s2_mpc63 <- level2_by_wafer_mpc63 |> summarise(`Std dev` = sqrt(mean(`Std dev`^2)), DF = sum(DF))
+
+level3_by_wafer_mpc63 <- level2_by_wafer_mpc63 |>
+  summarise(.by = wafer, run1 = Average[run == 1], run2 = Average[run == 2]) |>
+  mutate(`Std dev` = abs(run1 - run2) / sqrt(2), DF = 1)
+s3_mpc63 <- level3_by_wafer_mpc63 |> summarise(`Std dev` = sqrt(mean(`Std dev`^2)), DF = sum(DF))
+
+tibble(
+  Level = c("Level-1", "Level-2", "Level-3"),
+  Symbol = c("s1", "s2", "s3"),
+  Estimate = c(s1_mpc63$`Std dev`, s2_mpc63$`Std dev`, s3_mpc63$`Std dev`),
+  DF = c(s1_mpc63$DF, s2_mpc63$DF, s3_mpc63$DF)
+)
+```
+
+These reproduce NIST's stated standard deviations for probe #2362 ($s_1 = 0.0729$ with 300 df; $s_2 = 0.0362$ with 50 df; $s_3 = 0.0197$ with 5 df).
+
+**Calculation of individual components for days and runs** {#sec-mpc-632-day}
+
+The standard deviation that estimates the [day effect](#sec-mpc-442) is
+
+$$s_{days} = \sqrt{s_2^2 - \frac{1}{6} s_1^2} = 0.0217 \, \text{ohm.cm}$$
+
+The standard deviation that estimates the [run effect](#sec-mpc-443) is
+
+$$s_{runs} = \sqrt{s_3^2 - \frac{1}{6} s_2^2} = 0.0130 \, \text{ohm.cm}$$
+
+```{r}
+#| label: mpc-632-day-run
+s1v <- s1_mpc63$`Std dev`; s2v <- s2_mpc63$`Std dev`; s3v <- s3_mpc63$`Std dev`
+s_days_mpc63 <- sqrt(s2v^2 - (1 / 6) * s1v^2)
+s_runs_mpc63 <- sqrt(s3v^2 - (1 / 6) * s2v^2)
+```
+
+These reproduce as `r round(s_days_mpc63, 4)` ohm.cm and `r round(s_runs_mpc63, 4)` ohm.cm, matching NIST's stated 0.0217 and 0.0130.
+
+**Calculation of the standard deviation of the certified value showing sensitivity coefficients**
+
+The certified value for each wafer is the average of $N = 6$ repeatability measurements at the center of the wafer on $M = 1$ days and over $P = 1$ runs. Notice that $N$, $M$ and $P$ are not necessarily the same as the number of measurements in the gauge study per wafer; namely, $J$, $K$ and $L$. The standard deviation of a certified value (for time-dependent sources of error), is
+
+$$s = \sqrt{s_{runs}^2 + s_{days}^2 - \frac{1}{6} s_1^2}$$
+
+Standard deviations for days and runs are included in this calculation, even though there were no replications over days or runs for the certification measurements. These factors contribute to the overall uncertainty of the measurement process even though they are not sampled for the particular measurements of interest.
+
+**The equation must be rewritten to calculate degrees of freedom**
+
+Degrees of freedom cannot be calculated from the equation above because the calculations for the individual components involve differences among variances. The [table of sensitivity coefficients for a 3-level design](#sec-mpc-564) shows that for
+
+$$N = J, \, M = 1, \, P = 1$$
+
+the equation above can be rewritten in the form
+
+$$s = \sqrt{\frac{5}{6} s_2^2 + s_3^2}$$
+
+Then the degrees of freedom can be approximated using the Welch-Satterthwaite method.
+
+**Probe bias -- [Graphs of probe biases](#sec-mpc-615)**
+
+A graphical analysis shows the relative biases among the 5 probes. For each wafer, differences from the wafer average by probe are plotted versus wafer number. The graphs verify that probe #2362 (coded as 5) is biased low relative to the other probes. The bias shows up more strongly after the probes have been in use (run 2).
+
+**How to deal with bias due to the probe**
+
+Probe #2362 was chosen for the certification process because of its superior precision, but its bias relative to the other probes creates a problem. There are two possibilities for handling this problem:
+
+1. Correct all measurements made with probe #2362 to the average of the probes.
+2. Include the standard deviation for the difference among probes in the uncertainty budget.
+
+The best strategy, as followed in the certification process, is to correct all measurements for the average bias of probe #2362 and take the standard deviation of the correction as a type A component of uncertainty.
+
+**Correction for bias of probe #2362 and uncertainty** {#sec-mpc-632-probebias}
+
+Biases by probe and wafer are shown in the [gauge case study](#sec-mpc-612). Biases for probe #2362 are summarized in the table below for the two runs. The correction is taken to be the negative of the average bias. The standard deviation of the correction is the standard deviation of the average of the ten biases.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-632-probe-bias
+#| message: false
+mpc61a <- read_table(
+  here::here("datasets", "MPC61A.DAT"),
+  skip = 25,
+  col_names = c("wafer", "probe", "d1", "d2"),
+  col_types = "dddd"
+) |>
+  mutate(wafer = factor(as.integer(wafer)), probe = factor(as.integer(probe))) |>
+  filter(probe == 2362)
+
+mpc61a |> rename(`Run 1` = d1, `Run 2` = d2)
+
+bias_all_mpc63 <- c(mpc61a$d1, mpc61a$d2)
+avg_bias_mpc63 <- mean(bias_all_mpc63)
+sd_bias_mpc63 <- sd(bias_all_mpc63)
+
+tibble(`Average Run 1` = mean(mpc61a$d1), `Average Run 2` = mean(mpc61a$d2), `Average All` = avg_bias_mpc63, `Std dev (all 10)` = sd_bias_mpc63)
+```
+
+These reproduce NIST's stated values (Run 1 average -0.0272, Run 2 average -0.0513, overall average -0.0393, standard deviation of the 10 values 0.0162).
+
+**Configurations [Database](#sec-mpc-6312) and [plot of differences](#sec-mpc-6321)** {#sec-mpc-632-configbias}
+
+Measurements on the check wafers were made with the probe wired in two different configurations (A, B). A plot of differences between configuration A and configuration B shows no bias between the two configurations.
+
+**Test for difference between configurations**
+
+This finding is consistent over runs 1 and 2 and is confirmed by the [t-statistics](#sec-mpc-455) in the table below where the average differences and standard deviations are computed from 6 days of measurements on 5 wafers. A t-statistic < 2 indicates no significant difference. The conclusion is that there is no bias due to wiring configuration and no contribution to uncertainty from this source.
+
+```{r}
+#| code-fold: true
+#| label: tbl-mpc-632-config-ttest
+#| message: false
+config_diff <- mpc6312 |>
+  mutate(diff_run1 = a1 - b1, diff_run2 = a2 - b2) |>
+  select(wafer, diff_run1, diff_run2) |>
+  pivot_longer(-wafer, names_to = "status", values_to = "diff") |>
+  mutate(status = if_else(status == "diff_run1", "Pre", "Post"))
+
+config_ttest <- config_diff |>
+  summarise(.by = status, Average = mean(diff), `Std dev` = sd(diff), N = n(), DF = n() - 1) |>
+  mutate(t = abs(sqrt(N) / `Std dev` * Average))
+
+config_ttest
+```
+
+These reproduce NIST's stated values (Pre: average -0.00858, std dev 0.0242, t 1.9; Post: average -0.0110, std dev 0.0354, t 1.7).
+
+**Error budget showing sensitivity coefficients, standard deviations and degrees of freedom**
+
+The [error budget showing sensitivity coefficients](#sec-mpc-565) for computing the standard uncertainty and degrees of freedom is outlined below.
+
+**Error budget for resistivity (ohm.cm)**
+
+| Source | Type | Sensitivity | Standard Deviation | DF |
+|:---|:---:|:---|:---|---:|
+| Repeatability | A | $a_1 = 0$ | 0.0729 | 300 |
+| Reproducibility | A | $a_2 = \sqrt{5/6}$ | 0.0362 | 50 |
+| Run-to-run | A | $a_3 = 1$ | 0.0197 | 5 |
+| Probe #2362 | A | $a_4 = \sqrt{1/10}$ | 0.0162 | 5 |
+| Wiring Configuration A | A | $a_5 = 1$ | 0 | -- |
+
+**Standard uncertainty includes components for repeatability, days, runs and probe**
+
+The standard uncertainty is computed from the error budget as
+
+$$u = \sqrt{\sum_i a_i^2 \cdot s_i^2} = \sqrt{\frac{5}{6} s_2^2 + s_3^2 + \frac{1}{10} s_{probe}^2} = 0.0388 \, \text{ohm.cm}$$
+
+```{r}
+#| label: mpc-632-uncertainty
+s_probe_mpc63 <- sd_bias_mpc63
+u_mpc63 <- sqrt((5 / 6) * s2v^2 + s3v^2 + (1 / 10) * s_probe_mpc63^2)
+```
+
+This reproduces as `r round(u_mpc63, 4)` ohm.cm, matching NIST's stated 0.0388.
+
+**Approximate degrees of freedom and expanded uncertainty**
+
+The degrees of freedom associated with $u$ are approximated by the Welch-Satterthwaite formula as:
+
+$$\nu = \frac{u^4}{\sum_{i=1}^5 \frac{a_i^4 \cdot s_i^4}{\nu_i}} = 42$$
+
+where the $\nu_i$ are the degrees of freedom given in the rightmost column of the table.
+
+The critical value at the 0.05 significance level with 42 degrees of freedom, from the [t-table](../01-eda/index.qmd#sec-eda-t-distribution-table), is 2.018 so the expanded uncertainty is
+
+$$U = 2.018 \cdot u = 0.078 \, \text{ohm.cm}$$
+
+```{r}
+#| label: mpc-632-df
+a2sq_s2sq <- (5 / 6) * s2v^2
+a3sq_s3sq <- 1 * s3v^2
+a4sq_ssq <- (1 / 10) * s_probe_mpc63^2
+
+nu_mpc63 <- u_mpc63^4 / (a2sq_s2sq^2 / s2_mpc63$DF + a3sq_s3sq^2 / s3_mpc63$DF + a4sq_ssq^2 / 5)
+U_mpc63 <- qt(1 - 0.05 / 2, round(nu_mpc63)) * u_mpc63
+```
+
+This reproduces as $\nu \approx$ `r round(nu_mpc63, 0)` degrees of freedom and $U \approx$ `r round(U_mpc63, 3)` ohm.cm, matching NIST's stated 42 degrees of freedom and expanded uncertainty of 0.078 ohm.cm.
+
+##### Difference between 2 wiring configurations {#sec-mpc-6321}
+
+**Measurements with the probe configured in two ways**
+
+The graphs below are constructed from resistivity measurements (ohm.cm) on five wafers where the probe (#2362) was wired in two different configurations, A and B. The probe is a 4-point probe with many possible wiring configurations. For this experiment, only two configurations were tested as a means of identifying large discrepancies.
+
+**Interpretation**
+
+Differences between measurements in configurations A and B, made on the same day, are plotted over five wafers for each run. The two graphs represent two runs separated by approximately two months time. The dotted line in the center is the zero line. The pattern of data points scatters fairly randomly above and below the zero line -- indicating no difference between configurations for probe #2362. The conclusion applies to probe #2362 and cannot be extended to all probes of this type.
+
+```{r}
+#| code-fold: true
+#| label: fig-mpc-6321-config-diff
+#| message: false
+#| fig-cap: "Difference between configuration A and configuration B, by wafer, for each run"
+config_diff |>
+  mutate(status = factor(status, levels = c("Pre", "Post"), labels = c("Run 1", "Run 2"))) |>
+  ggplot(aes(wafer, diff)) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "grey40") +
+  geom_point(size = 2) +
+  facet_wrap(~status, ncol = 1) +
+  labs(x = "Wafer", y = "ohm.cm", subtitle = "Difference between wiring configurations A and B") +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+##### Work This Example Yourself {#sec-mpc-63-yourself}
+
+NIST's original case study provides Dataplot macros that let the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code -- no separate software installation or macro is required.
