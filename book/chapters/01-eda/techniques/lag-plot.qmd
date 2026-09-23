@@ -67,7 +67,7 @@ The lag plot is demonstrated in the beam deflection data case study<!-- XREF: ED
 
 Lag plots are not directly available in most general purpose statistical software programs. Since the lag plot is essentially a scatter plot with the two variables properly lagged, it should be feasible to write a macro for the lag plot in most statistical programs.
 
-**Examples** {#sec-eda-lag-plot-examples}
+[**Examples**]{#sec-eda-lag-plot-examples}
 
 Examples of the lag plot for several common situations are given below. These parallel the four situations shown in the [Autocorrelation Plot](#sec-eda-autocorrelation-plot) examples, using the same underlying data sets, plotted here as $Y_i$ versus $Y_{i-1}$ rather than as an autocorrelation function.
 

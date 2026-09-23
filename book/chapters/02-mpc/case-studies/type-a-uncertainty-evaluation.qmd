@@ -141,7 +141,7 @@ tibble(
 
 These reproduce NIST's stated standard deviations for probe #2362 ($s_1 = 0.0729$ with 300 df; $s_2 = 0.0362$ with 50 df; $s_3 = 0.0197$ with 5 df).
 
-**Calculation of individual components for days and runs** {#sec-mpc-632-day}
+[**Calculation of individual components for days and runs**]{#sec-mpc-632-day}
 
 The standard deviation that estimates the [day effect](#sec-mpc-442) is
 
@@ -193,7 +193,7 @@ Probe #2362 was chosen for the certification process because of its superior pre
 
 The best strategy, as followed in the certification process, is to correct all measurements for the average bias of probe #2362 and take the standard deviation of the correction as a type A component of uncertainty.
 
-**Correction for bias of probe #2362 and uncertainty** {#sec-mpc-632-probebias}
+[**Correction for bias of probe #2362 and uncertainty**]{#sec-mpc-632-probebias}
 
 Biases by probe and wafer are shown in the [gauge case study](#sec-mpc-612). Biases for probe #2362 are summarized in the table below for the two runs. The correction is taken to be the negative of the average bias. The standard deviation of the correction is the standard deviation of the average of the ten biases.
 
@@ -221,7 +221,7 @@ tibble(`Average Run 1` = mean(mpc61a$d1), `Average Run 2` = mean(mpc61a$d2), `Av
 
 These reproduce NIST's stated values (Run 1 average -0.0272, Run 2 average -0.0513, overall average -0.0393, standard deviation of the 10 values 0.0162).
 
-**Configurations [Database](#sec-mpc-6312) and [plot of differences](#sec-mpc-6321)** {#sec-mpc-632-configbias}
+[**Configurations [Database](#sec-mpc-6312) and [plot of differences](#sec-mpc-6321)**]{#sec-mpc-632-configbias}
 
 Measurements on the check wafers were made with the probe wired in two different configurations (A, B). A plot of differences between configuration A and configuration B shows no bias between the two configurations.
 

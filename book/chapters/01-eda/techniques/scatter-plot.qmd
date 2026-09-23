@@ -51,7 +51,7 @@ The cornerstone of science and engineering is the discovery of deterministic, pr
 
 Scatter plots reveal association, which is step one toward cause-and-effect. There is no statistical procedure, the scatter plot included, that proves cause-and-effect. Such proof is beyond the realm of statistics. Scatter plots can highly suggest cause-and-effect, but the ultimate proof of such is the scientist and engineer — in his/her noting the structure in the data and then explaining such structure via scientific and engineering experience and expertise.
 
-**Examples** {#sec-eda-scatter-plot-examples}
+[**Examples**]{#sec-eda-scatter-plot-examples}
 
 The following ten examples show the common types of relationship patterns a scatter plot can reveal. Except where a specific NIST data set is named in the original discussion, the data below are synthetic illustrations generated to visibly exhibit the named relationship, and are labeled as such.
 

@@ -29,7 +29,7 @@ The resistivity measurements, discussed in the [case study of type A evaluations
 - [Bias due to probe #2362](#sec-mpc-632-probebias)
 - [Bias due to wiring configuration](#sec-mpc-632-configbias)
 
-**Need for propagation of error** {#sec-mpc-64-formula}
+[**Need for propagation of error**]{#sec-mpc-64-formula}
 
 Not all factors could be replicated during the gauge experiment. Wafer thickness and measurements required for the scale corrections were measured off-line. Thus, the type B evaluation of uncertainty is computed using propagation of error. The [propagation of error formula](#sec-mpc-553) in units of resistivity is as follows:
 
@@ -37,7 +37,7 @@ $$s_p = \rho \sqrt{\frac{s_X^2}{X^2} + \frac{s_t^2}{t^2} + \frac{s_{Ka}^2}{K_a^2
 
 **Standard deviations for type B evaluations**
 
-Standard deviations for the type B components are summarized here. For a complete explanation, see the publication (Ehrstein and Croarkin) [@Ehrstein].
+Standard deviations for the type B components are summarized here. For a complete explanation, see the publication by Ehrstein and Croarkin [-@Ehrstein].
 
 **Electrical measurements**
 
