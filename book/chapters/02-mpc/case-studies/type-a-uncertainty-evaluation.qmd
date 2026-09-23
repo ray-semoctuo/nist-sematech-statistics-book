@@ -182,7 +182,7 @@ Then the degrees of freedom can be approximated using the Welch-Satterthwaite me
 
 **Probe bias -- [Graphs of probe biases](#sec-mpc-615)**
 
-A graphical analysis shows the relative biases among the 5 probes. For each wafer, differences from the wafer average by probe are plotted versus wafer number. The graphs verify that probe #2362 (coded as 5) is biased low relative to the other probes. The bias shows up more strongly after the probes have been in use (run 2).
+A graphical analysis, shown in @fig-mpc-615-probe-bias, shows the relative biases among the 5 probes. For each wafer, differences from the wafer average by probe are plotted versus wafer number. The graph verifies that probe #2362 is biased low relative to the other probes. The bias shows up more strongly after the probes have been in use (run 2).
 
 **How to deal with bias due to the probe**
 
@@ -306,6 +306,10 @@ This reproduces as $\nu \approx$ `r round(nu_mpc63, 0)` degrees of freedom and $
 
 The graphs below are constructed from resistivity measurements (ohm.cm) on five wafers where the probe (#2362) was wired in two different configurations, A and B. The probe is a 4-point probe with many possible wiring configurations. For this experiment, only two configurations were tested as a means of identifying large discrepancies.
 
+**Artifacts for the study**
+
+The five wafers; namely, #138, #139, #140, #141, and #142 were chosen at random from a batch of approximately 100 wafers that were being certified for resistivity.
+
 **Interpretation**
 
 Differences between measurements in configurations A and B, made on the same day, are plotted over five wafers for each run. The two graphs represent two runs separated by approximately two months time. The dotted line in the center is the zero line. The pattern of data points scatters fairly randomly above and below the zero line -- indicating no difference between configurations for probe #2362. The conclusion applies to probe #2362 and cannot be extended to all probes of this type.
@@ -315,15 +319,26 @@ Differences between measurements in configurations A and B, made on the same day
 #| label: fig-mpc-6321-config-diff
 #| message: false
 #| fig-cap: "Difference between configuration A and configuration B, by wafer, for each run"
-config_diff |>
-  mutate(status = factor(status, levels = c("Pre", "Post"), labels = c("Run 1", "Run 2"))) |>
-  ggplot(aes(wafer, diff)) +
-  geom_hline(yintercept = 0, linetype = "dotted", color = "grey40") +
-  geom_point(size = 2) +
-  facet_wrap(~status, ncol = 1) +
+wiring_config_diff <- mpc6312 |>
+  select(wafer, probe, matches("^[ab][12]$")) |>
+  pivot_longer(
+    cols = matches("^[ab][12]$"),
+    names_to = c(".value", "run"),
+    names_pattern = "^([ab])(\\d)$",
+    names_transform = list(run = as_factor)
+  ) |>
+  mutate(diff = a - b)
+
+wiring_config_diff |>
+  ggplot(aes(wafer, diff, color = run)) +
+  geom_hline(yintercept = 0, color = "grey40", linetype = "dotted") +
+  geom_point(position = position_jitter(width = 0.05), alpha = 1 / 2, size = 3) +
+  facet_wrap(~run, ncol = 1, labeller = as_labeller(c("1" = "Run 1", "2" = "Run 2"))) +
+  scale_y_continuous(limits = c(-0.1, 0.1)) +
+  scale_color_manual(values = c("steelblue", "firebrick")) +
   labs(x = "Wafer", y = "ohm.cm", subtitle = "Difference between wiring configurations A and B") +
   theme_light() +
-  theme(plot.title.position = "plot")
+  theme(plot.title.position = "plot", legend.position = "none")
 ```
 
 ##### Work This Example Yourself {#sec-mpc-63-yourself}
