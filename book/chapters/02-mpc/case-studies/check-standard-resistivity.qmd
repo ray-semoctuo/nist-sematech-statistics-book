@@ -146,8 +146,8 @@ mpc62 |>
   mutate(occasion = row_number()) |>
   ggplot(aes(occasion, stddev)) +
   geom_hline(yintercept = ucl_precision_mpc622, linetype = "dashed", color = "firebrick") +
-  geom_point() +
-  geom_line() +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
   labs(x = "Occasion", y = "ohm.cm", subtitle = "Repeatability standard deviation for probe #2362") +
   theme_light() +
   theme(plot.title.position = "plot")
@@ -183,8 +183,8 @@ mpc62 |>
   ggplot(aes(occasion, average)) +
   geom_hline(yintercept = c(ucl_bias_mpc622, lcl_bias_mpc622), linetype = "dashed", color = "firebrick") +
   geom_hline(yintercept = centerline_mpc622, linetype = "solid", color = "grey40") +
-  geom_point() +
-  geom_line() +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
   labs(x = "Occasion", y = "ohm.cm", subtitle = "Check standard average resistivity") +
   theme_light() +
   theme(plot.title.position = "plot")
