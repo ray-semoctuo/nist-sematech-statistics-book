@@ -1,0 +1,147 @@
+#### Two-Way Nested ANOVA {#sec-ppc-233}
+
+[**Description**]{#sec-ppc-233-description}
+
+Sometimes, constraints prevent us from crossing every level of one factor with every level of the other factor. In these cases we are forced into what is known as a *nested* layout. We say we have a nested layout when fewer than all levels of one factor occur within each level of the other factor. An example of this might be if we want to study the effects of different machines and different operators on some output characteristic, but we can't have the operators change the machines they run. In this case, each operator is not crossed with each machine but rather only runs one machine.
+
+[**Model**]{#sec-ppc-233-model}
+
+If Factor B is nested within Factor A, then a level of Factor B can only occur within one level of Factor A and there can be no interaction. This gives the following model:
+
+$$y_{ijk} = m + a_{i} + b_{j(i)} + \epsilon_{ijk}$$
+
+This equation indicates that each data value is the sum of a common value (grand mean), the level effect for Factor A, the level effect of Factor B nested within Factor A, and the residual.
+
+[**Estimation**]{#sec-ppc-233-estimation}
+
+For a nested design we typically use variance components methods to perform the analysis. We can sweep out the common value, the Factor A effects, the Factor B within A effects and the residuals using [value-splitting](#sec-ppc-2331) techniques. Sums of squares can be calculated and summarized in an ANOVA table as shown below.
+
+It is important to note that with this type of layout, since each level of one factor is only present with one level of the other factor, we can't estimate interaction between the two.
+
+[**ANOVA table for nested case**]{#sec-ppc-233-anova-table}
+
+| Source | Sum of Squares | DoF | Mean Square | $F_0$ |
+|:---|:---|:---|:---|:---|
+| A | $SSA = JK\sum{(\bar{y}_{i..} - \bar{y}_{...})^2}$ | $I - 1$ | $MSA = SSA/(I-1)$ | $MSA/MSB$ |
+| B within A | $SSB = K\sum\sum{(\bar{y}_{ij.} - \bar{y}_{i..})^2}$ | $I(J-1)$ | $MSB = SSB/(I(J-1))$ | $MSB/MSE$ |
+| Residuals | $SSE = \sum\sum\sum{(y_{ijk} - \bar{y}_{ij.})^2}$ | $IJ(K-1)$ | $MSE = SSE/(IJ(K-1))$ | |
+| Corr. Total | $SST = \sum\sum\sum{(y_{ijk} - \bar{y}_{...})^2}$ | $IJK-1$ | | |
+
+where
+
+$$\bar{y}_{i..} = \frac{1}{JK} \sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}}, \qquad \bar{y}_{ij.} = \frac{1}{K} \sum_{k=1}^{K}{y_{ijk}}, \qquad \bar{y}_{...} = \frac{1}{IJK} \sum_{i=1}^{I}{\sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}}}$$
+
+The row labeled "Corr. Total" in the ANOVA table contains the corrected total sum of squares and the associated degrees of freedom (DoF).
+
+As with the crossed layout, we can also use [CLM](#sec-ppc-22) techniques. We still have the problem that the model is saturated and no unique solution exists. We overcome this problem by applying to the model the constraints that the two main effects sum to zero.
+
+[**Testing**]{#sec-ppc-233-testing}
+
+We are testing that two main effects are zero. Again we just form a ratio ($F_0$) of each main effect mean square to the appropriate mean-squared error term. (Note that the error term for Factor A is not *MSE*, but is *MSB*.) If the assumptions stated below are true then those ratios follow an $F$ distribution and the test is performed by comparing the $F_0$ ratios to values in an $F$ table with the appropriate degrees of freedom and confidence level.
+
+[**Assumptions**]{#sec-ppc-233-assumptions}
+
+For estimation purposes, we assume the data can be adequately modeled by the model above and that there is more than one variance component. It is assumed that the random component can be modeled with a Gaussian distribution with fixed location and spread.
+
+[**Uses**]{#sec-ppc-233-uses}
+
+The two-way nested ANOVA is useful when we are constrained from combining all the levels of one factor with all of the levels of the other factor. These designs are most useful when we have what is called a random effects situation. When the levels of a factor are chosen at random rather than selected intentionally, we say we have a random effects model. An example of this is when we select lots from a production run, then select units from the lot. Here the units are nested within lots and the effect of each factor is random.
+
+[**Example**]{#sec-ppc-233-example}
+
+Let's change the [two-way machining example](#sec-ppc-232-example) slightly by assuming that we have five different machines making the same part and each machine has two operators, one for the day shift and one for the night shift. We take five samples from each machine for each operator. Because "operator" here plays the same structural role that "coolant" played in the [crossed example](#sec-ppc-232-example) — one factor level occurring alongside every level of the other — the underlying diameter measurements are identical to the crossed example's; only the factor's name and interpretation change (each operator only ever runs their own machine, so operator is nested within machine rather than crossed with it):
+
+```{r}
+#| code-fold: true
+nested <- crossed |>
+  mutate(
+    operator = factor(if_else(coolant == "A", "Day", "Night"), levels = c("Day", "Night")),
+    .keep = "unused"
+  )
+
+nested |>
+  mutate(sample = row_number(), .by = c(operator, machine)) |>
+  pivot_wider(names_from = machine, values_from = diameter, names_prefix = "Machine ") |>
+  arrange(operator, sample) |>
+  select(-sample)
+```
+
+[**Analyze**]{#sec-ppc-233-analyze}
+
+For analysis details see the [nested two-way value splitting example](#sec-ppc-2331). We can summarize the analysis results in an ANOVA table as follows. Because operator is nested within machine, we fit the model with R's `machine/operator` nesting syntax, and — as noted above — the correct denominator for testing the machine effect is the *Operator(Machine)* mean square, not the residual mean square, so we build the $F_0$ ratios by hand from the fitted sums of squares rather than reading them off `summary()` directly:
+
+```{r}
+fit_nested <- aov(diameter ~ machine / operator, data = nested)
+anova_nested <- broom::tidy(fit_nested)
+anova_nested
+
+ms_machine <- anova_nested$meansq[anova_nested$term == "machine"]
+ms_operator <- anova_nested$meansq[anova_nested$term == "machine:operator"]
+ms_residual_nested <- anova_nested$meansq[anova_nested$term == "Residuals"]
+
+f_machine <- ms_machine / ms_operator
+f_operator <- ms_operator / ms_residual_nested
+c(F_machine = f_machine, F_operator = f_operator)
+```
+
+[**Test**]{#sec-ppc-233-test}
+
+```{r}
+qf(0.95, df1 = 4, df2 = 5)
+qf(0.95, df1 = 5, df2 = 40)
+```
+
+By dividing the mean square for Machine by the mean square for Operator within Machine, or Operator(Machine), we obtain an $F_0$ value of 20.38, which is greater than the critical value of 5.19 for 4 and 5 degrees of freedom at the 0.05 significance level. The $F_0$ value for Operator(Machine), obtained by dividing its mean square by the residual mean square, is 0.43, which is less than the critical value of 2.45 for 5 and 40 degrees of freedom at the 0.05 significance level.
+
+[**Conclusion**]{#sec-ppc-233-conclusion}
+
+From the ANOVA table we can conclude that the Machine is the most important factor and is statistically significant. The effect of Operator nested within Machine is not statistically significant. Again, any improvement activities should be focused on the tools.
+
+##### Two-way Nested Value-Splitting Example {#sec-ppc-2331}
+
+[**Example: Operator is nested within machine**]{#sec-ppc-2331-example}
+
+The data table above contains data collected from five different lathes, each run by two different operators. Note we are concerned here with the effect of operators, so the layout is nested. If we were concerned with shift instead of operator, the layout would be crossed. The measurement is the diameter of a turned pin.
+
+For the nested two-way case, just as in the [crossed case](#sec-ppc-2321), the first thing we need to do is to sweep the cell means from the data table to obtain the residual values. We then sweep the nested factor (Operator) and the top level factor (Machine) to obtain the tables below.
+
+```{r}
+#| code-fold: true
+nested_cell_means <- nested |>
+  summarise(mean = mean(diameter), .by = c(machine, operator))
+
+nested_split <- nested |>
+  mutate(sample = row_number(), .by = c(machine, operator)) |>
+  left_join(nested_cell_means, by = c("machine", "operator")) |>
+  mutate(residual = diameter - mean)
+
+machine_means <- nested_cell_means |>
+  summarise(machine_mean = mean(mean), .by = machine)
+
+grand_mean_nested <- mean(machine_means$machine_mean)
+
+nested_effects <- nested_cell_means |>
+  left_join(machine_means, by = "machine") |>
+  mutate(
+    machine_effect = machine_mean - grand_mean_nested,
+    operator_effect = mean - machine_mean
+  )
+
+nested_effects |>
+  select(machine, operator, machine_effect, operator_effect)
+```
+
+[**What does this table tell us?**]{#sec-ppc-2331-interpretation}
+
+By looking at the residuals we see that machines 2 and 5 have the greatest variability. There does not appear to be much of an operator effect but there is clearly a strong machine effect.
+
+[**Calculate sums of squares and mean squares**]{#sec-ppc-2331-sums-of-squares}
+
+We can calculate the values for the ANOVA table according to the formulae in the table on the [nested two-way page](#sec-ppc-233-anova-table). This produces the table below. From the $F$-values we see that the machine effect is significant but the operator effect is not (here it is assumed that both factors are fixed):
+
+```{r}
+anova_nested
+c(F_machine = f_machine, F_operator = f_operator)
+```
+
+These sums of squares and mean squares match the value-splitting overlays above exactly — the manual sweep and the software fit are two views of the same calculation.

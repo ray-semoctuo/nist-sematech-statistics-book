@@ -1,0 +1,176 @@
+#### Two-Way Crossed ANOVA {#sec-ppc-232}
+
+[**Description**]{#sec-ppc-232-description}
+
+When we have two factors with at least two levels and one or more observations at each level, we say we have a two-way layout. We say that the two-way layout is crossed when every level of Factor A occurs with every level of Factor B. With this kind of layout we can estimate the effect of each factor (Main Effects) as well as any interaction between the factors.
+
+[**Model**]{#sec-ppc-232-model}
+
+If we assume that we have $K$ observations at each combination of $I$ levels of Factor A and $J$ levels of Factor B, then we can model the two-way layout with an equation of the form:
+
+$$y_{ijk} = m + a_{i} + b_{j} + (ab)_{ij} + \epsilon_{ijk}$$
+
+This equation just says that the $k$th data value for the $j$th level of Factor B and the $i$th level of Factor A is the sum of five components: the common value (grand mean), the level effect for Factor A, the level effect for Factor B, the interaction effect, and the residual. Note that $(ab)$ does not mean multiplication; rather that there is interaction between the two factors.
+
+[**Estimation**]{#sec-ppc-232-estimation}
+
+Like the one-way case, the estimation for the two-way layout can be done either by calculating the variance components or by using [CLM](#sec-ppc-22) techniques.
+
+For the two-way ANOVA, we display the data in a two-dimensional table with the levels of Factor A in columns and the levels of Factor B in rows. The replicate observations fill each cell. We can sweep out the common value, the row effects, the column effects, the interaction effects and the residuals using [value-splitting](#sec-ppc-2321) techniques. Sums of squares can be calculated and summarized in an ANOVA table as shown below.
+
+| Source | Sum of Squares | DoF | Mean Square | $F_0$ |
+|:---|:---|:---|:---|:---|
+| Rows | $SSR = JK\sum{(\bar{y}_{i..} - \bar{y}_{...})^2}$ | $I - 1$ | $MSR = SSR/(I-1)$ | $MSR/MSE$ |
+| Columns | $SSC = IK\sum{(\bar{y}_{.j.} - \bar{y}_{...})^2}$ | $J - 1$ | $MSC = SSC/(J-1)$ | $MSC/MSE$ |
+| Interaction | $SSI = K\sum\sum{(\bar{y}_{ij.} - \bar{y}_{i..} - \bar{y}_{.j.} + \bar{y}_{...})^2}$ | $(I-1)(J-1)$ | $MSI = SSI/((I-1)(J-1))$ | $MSI/MSE$ |
+| Residuals | $SSE = \sum\sum\sum{(y_{ijk} - \bar{y}_{ij.})^2}$ | $IJ(K-1)$ | $MSE = SSE/(IJ(K-1))$ | |
+| Corr. Total | $SST = \sum\sum\sum{(y_{ijk} - \bar{y}_{...})^2}$ | $IJK-1$ | | |
+
+where
+
+$$\bar{y}_{i..} = \frac{1}{JK} \sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}}, \qquad \bar{y}_{.j.} = \frac{1}{IK} \sum_{i=1}^{I}{\sum_{k=1}^{K}{y_{ijk}}}$$
+
+$$\bar{y}_{ij.} = \frac{1}{K} \sum_{k=1}^{K}{y_{ijk}}, \qquad \bar{y}_{...} = \frac{1}{IJK} \sum_{i=1}^{I}{\sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}}}$$
+
+The row labeled "Corr. Total" in the ANOVA table contains the corrected total sum of squares and the associated degrees of freedom (DoF).
+
+We can use [CLM](#sec-ppc-22) techniques to do the estimation. We still have the problem that the model is saturated and no unique solution exists. We overcome this problem by applying the constraints to the model that the two main effects and interaction effects each sum to zero.
+
+[**Testing**]{#sec-ppc-232-testing}
+
+Like testing in the [one-way case](#sec-ppc-231-testing), we are testing that two main effects and the interaction are zero. Again we just form a ratio of each main effect mean square and the interaction mean square to the residual mean square. If the assumptions stated below are true then those ratios follow an $F$ distribution and the test is performed by comparing the $F_0$ ratios to values in an $F$ table with the appropriate degrees of freedom and confidence level.
+
+[**Assumptions**]{#sec-ppc-232-assumptions}
+
+For estimation purposes, we assume the data can be adequately modeled as described in the model above. It is assumed that the random component can be modeled with a Gaussian distribution with fixed location and spread.
+
+[**Uses**]{#sec-ppc-232-uses}
+
+The two-way crossed ANOVA is useful when we want to compare the effect of multiple levels of two factors and we can combine every level of one factor with every level of the other factor. If we have multiple observations at each level, then we can also estimate the effects of interaction between the two factors.
+
+[**Example**]{#sec-ppc-232-example}
+
+Let's extend the [one-way machining example](#sec-ppc-231-example) by assuming that we want to test if there are any differences in pin diameters due to different types of coolant. We still have five different machines making the same part and we take five samples from each machine for each coolant type to obtain the following data. This data is available as a [text file](../../datasets/CHARACTERIZE-3_2_3_2.DAT).
+
+```{r}
+#| code-fold: true
+#| message: false
+crossed <- read_table(
+  here::here("datasets", "CHARACTERIZE-3_2_3_2.DAT"),
+  skip = 25,
+  col_names = c("coolant", "machine", "diameter"),
+  col_types = "cid"
+) |>
+  mutate(machine = factor(machine), coolant = factor(coolant))
+
+crossed |>
+  mutate(sample = row_number(), .by = c(coolant, machine)) |>
+  pivot_wider(names_from = machine, values_from = diameter, names_prefix = "Machine ") |>
+  arrange(coolant, sample) |>
+  select(-sample)
+```
+
+[**Analyze**]{#sec-ppc-232-analyze}
+
+For analysis details see the [crossed two-way value splitting example](#sec-ppc-2321). We can summarize the analysis results in an ANOVA table as follows:
+
+```{r}
+fit_crossed <- aov(diameter ~ machine * coolant, data = crossed)
+summary(fit_crossed)
+```
+
+[**Test**]{#sec-ppc-232-test}
+
+```{r}
+qf(0.95, df1 = 4, df2 = 40)
+qf(0.95, df1 = 1, df2 = 40)
+```
+
+By dividing the mean square for machine by the mean square for residuals we obtain an $F_0$ value of 8.77, which is greater than the critical value of 2.61 based on 4 and 40 degrees of freedom and a 0.05 significance level. Likewise the $F_0$ values for Coolant and Interaction, obtained by dividing their mean squares by the residual mean square, are 0.45 and 0.42 respectively — both less than their respective critical values of 4.08 and 2.61 (0.05 significance level).
+
+[**Conclusion**]{#sec-ppc-232-conclusion}
+
+From the ANOVA table we can conclude that machine is the most important factor and is statistically significant. Coolant is not significant and neither is the interaction. These results would lead us to believe that some tool-matching efforts would be useful for improving this process.
+
+##### Two-way Crossed Value-Splitting Example {#sec-ppc-2321}
+
+[**Example: Coolant is completely crossed with machine**]{#sec-ppc-2321-example}
+
+The data table below is five samples each collected from five different lathes each running two different types of coolant. The measurement is the diameter of a turned pin. For the crossed two-way case, the first thing we need to do is to sweep the cell means from the data table to obtain the residual values.
+
+[**The first step is to sweep out the cell means to obtain the residuals and means**]{#sec-ppc-2321-sweep-cells}
+
+```{r}
+cell_means <- crossed |>
+  summarise(mean = mean(diameter), .by = c(coolant, machine))
+
+cell_means |>
+  pivot_wider(names_from = machine, values_from = mean, names_prefix = "Machine ")
+```
+
+```{r}
+crossed_split <- crossed |>
+  mutate(sample = row_number(), .by = c(coolant, machine)) |>
+  left_join(cell_means, by = c("coolant", "machine")) |>
+  mutate(residual = diameter - mean)
+
+crossed_split |>
+  select(coolant, machine, sample, residual) |>
+  pivot_wider(names_from = machine, values_from = residual, names_prefix = "Machine ") |>
+  arrange(coolant, sample) |>
+  select(-sample)
+```
+
+[**Sweep the row means**]{#sec-ppc-2321-sweep-rows}
+
+The next step is to sweep out the row (coolant) means:
+
+```{r}
+row_means <- cell_means |>
+  summarise(row_mean = mean(mean), .by = coolant)
+
+cell_means |>
+  left_join(row_means, by = "coolant") |>
+  mutate(row_effect = mean - row_mean) |>
+  select(coolant, machine, row_effect) |>
+  pivot_wider(names_from = machine, values_from = row_effect, names_prefix = "Machine ")
+```
+
+[**Sweep the column means**]{#sec-ppc-2321-sweep-columns}
+
+Finally, we sweep the column means to obtain the grand mean, row (coolant) effects, column (machine) effects and the interaction effects:
+
+```{r}
+grand_mean_crossed <- mean(cell_means$mean)
+
+col_means <- cell_means |>
+  summarise(col_mean = mean(mean), .by = machine) |>
+  mutate(col_effect = col_mean - grand_mean_crossed)
+
+col_means |>
+  select(machine, col_effect) |>
+  pivot_wider(names_from = machine, values_from = col_effect, names_prefix = "Machine ")
+
+interaction_effects <- cell_means |>
+  left_join(row_means, by = "coolant") |>
+  left_join(col_means, by = "machine") |>
+  mutate(interaction = mean - row_mean - col_mean + grand_mean_crossed)
+
+interaction_effects |>
+  select(coolant, machine, interaction) |>
+  pivot_wider(names_from = machine, values_from = interaction, names_prefix = "Machine ")
+```
+
+[**What do these tables tell us?**]{#sec-ppc-2321-interpretation}
+
+By looking at the table of residuals, we see that the residuals for coolant B tend to be a little higher than for coolant A. This implies that there may be more variability in diameter when we use coolant B. From the effects table above, we see that machines 2 and 5 produce smaller pin diameters than the other machines. There is also a very slight coolant effect but the machine effect is larger. Finally, there also appears to be slight interaction effects. For instance, machines 1 and 2 had smaller diameters with coolant A but the opposite was true for machines 3, 4 and 5.
+
+[**Calculate sums of squares and mean squares**]{#sec-ppc-2321-sums-of-squares}
+
+We can calculate the values for the ANOVA table according to the formulae in the table on the [crossed two-way page](#sec-ppc-232-model). From the $F$-values we see that the machine effect is significant but the coolant and the interaction are not:
+
+```{r}
+summary(fit_crossed)
+```
+
+These sums of squares, mean squares, and $F$-values match the value-splitting overlays above exactly — the manual sweep and the software fit are two views of the same calculation.

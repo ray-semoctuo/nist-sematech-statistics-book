@@ -1,0 +1,78 @@
+### Discrete Models {#sec-ppc-24}
+
+[**Description**]{#sec-ppc-24-description}
+
+There are many instances when we are faced with the analysis of discrete data rather than continuous data. Examples of this are yield (good/bad), speed bins (slow/fast/faster/fastest), survey results (favor/oppose), etc. We then try to explain the discrete outcomes with some combination of discrete and/or continuous explanatory variables. In this situation the modeling techniques we have learned so far (CLM and ANOVA) are no longer appropriate.
+
+[**Contingency table analysis and log-linear model**]{#sec-ppc-24-contingency-vs-loglinear}
+
+There are two primary methods available for the analysis of discrete response data. The first one applies to situations in which we have discrete explanatory variables and discrete responses and is known as Contingency Table Analysis. The model for this is covered in detail in this section. The second model applies when we have both discrete and continuous explanatory variables and is referred to as a Log-Linear Model. That model is beyond the scope of this Handbook, but interested readers should refer to the reference section of this chapter for a list of useful books on the topic.<!-- XREF: PPC chapter references, not migrated to this book as its own section; source handbook/ppc/section2/ppcref.htm -->
+
+[**Model**]{#sec-ppc-24-model}
+
+Suppose we have $n$ individuals that we classify according to two criteria, A and B. Suppose there are $r$ levels of criterion A and $s$ levels of criterion B. These responses can be displayed in an $r \times s$ table. For example, suppose we have a box of manufactured parts that we classify as good or bad and whether they came from supplier 1, 2 or 3.
+
+Now, each cell of this table will have a count of the individuals who fall into its particular combination of classification levels. Let's call this count $N_{ij}$. The sum of all of these counts will be equal to the total number of individuals, $N$. Also, each row of the table will sum to $N_{i.}$ and each column will sum to $N_{.j}$.
+
+Under the assumption that there is no interaction between the two classifying variables (like the number of good or bad parts does not depend on which supplier they came from), we can calculate the counts we would expect to see in each cell. Let's call the expected count for any cell $E_{ij}$. Then the expected value for a cell is $E_{ij} = N_{i.} N_{.j}/N$. All we need to do then is to compare the expected counts to the observed counts. If there is a considerable difference between the observed counts and the expected values, then the two variables interact in some way.
+
+[**Estimation**]{#sec-ppc-24-estimation}
+
+The estimation is very simple. All we do is make a table of the observed counts and then calculate the expected counts as described above.
+
+[**Testing**]{#sec-ppc-24-testing}
+
+The test is performed using a Chi-Square goodness-of-fit test according to the following formula:
+
+$$\chi^2 = \sum{\sum{\frac{(\text{observed} - \text{expected})^2}{\text{expected}}}}$$
+
+where the summation is across all of the cells in the table.
+
+Given the assumptions stated below, this statistic has approximately a chi-square distribution and is therefore compared against a chi-square table with $(r-1)(s-1)$ degrees of freedom, with $r$ and $s$ as previously defined. If the value of the test statistic is less than the chi-square value for a given level of confidence, then the classifying variables are declared independent, otherwise they are judged to be dependent.
+
+[**Assumptions**]{#sec-ppc-24-assumptions}
+
+The estimation and testing results above hold regardless of whether the sample model is Poisson, multinomial, or product-multinomial. The chi-square results start to break down if the counts in any cell are small, say < 5.
+
+[**Uses**]{#sec-ppc-24-uses}
+
+The contingency table method is really just a test of interaction between discrete explanatory variables for discrete responses. The example given below is for two factors. The methods are equally applicable to more factors, but as with any interaction, as you add more factors the interpretation of the results becomes more difficult.
+
+[**Example**]{#sec-ppc-24-example}
+
+Suppose we are comparing the yield from two manufacturing processes. We want to know if one process has a higher yield.
+
+[**Make table of counts**]{#sec-ppc-24-make-table}
+
+```{r}
+#| code-fold: true
+yields <- matrix(
+  c(86, 14, 80, 20),
+  nrow = 2,
+  byrow = TRUE,
+  dimnames = list(c("Process A", "Process B"), c("Good", "Bad"))
+)
+addmargins(yields)
+```
+
+We obtain the expected values by the formula given above. This gives the table below.
+
+[**Calculate expected counts**]{#sec-ppc-24-expected-counts}
+
+```{r}
+chi_test <- chisq.test(yields, correct = FALSE)
+addmargins(round(chi_test$expected))
+```
+
+[**Calculate chi-square statistic and compare to table value**]{#sec-ppc-24-chi-square}
+
+```{r}
+chi_test$statistic
+qchisq(0.90, df = 1)
+```
+
+The chi-square statistic is 1.28. This is below the chi-square value for 1 degree of freedom and 90% confidence of 2.71. Therefore, we conclude that there is not a (significant) difference in process yield.
+
+[**Conclusion**]{#sec-ppc-24-conclusion}
+
+Therefore, we conclude that there is no statistically significant difference between the two processes.

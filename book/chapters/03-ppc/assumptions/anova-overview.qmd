@@ -1,0 +1,35 @@
+### Analysis of Variance Models (ANOVA) {#sec-ppc-23}
+
+*ANOVA allows us to compare the effects of multiple levels of multiple factors*
+
+One of the most common analysis activities in PPC is comparison. We often compare the performance of similar tools or processes. We also compare the effect of different treatments such as recipe settings. When we compare two things, such as two tools running the same operation, we use comparison techniques.<!-- XREF: PRC Chapter 7, Product and Process Comparisons, not yet migrated to this book; source handbook/prc/prc.htm --> When we want to compare multiple things, like multiple tools running the same operation or multiple tools with multiple operators running the same operation, we turn to ANOVA techniques to perform the analysis.
+
+*ANOVA splits the data into components*
+
+The easiest way to understand ANOVA is through a concept known as value splitting. ANOVA splits the observed data values into components that are attributable to the different levels of the factors. Value splitting is best explained by example.
+
+[**Example: Turned Pins**]{#sec-ppc-23-example}
+
+The simplest example of value splitting is when we just have one level of one factor. Suppose we have a turning operation in a machine shop where we are turning pins to a diameter of 0.125 ± 0.005 inches. Throughout the course of a day we take five samples of pins and obtain the following measurements: 0.125, 0.127, 0.124, 0.126, 0.128.
+
+We can split these data values into a common value (mean) and residuals (what's left over) as follows:
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pins <- tibble(diameter = c(0.125, 0.127, 0.124, 0.126, 0.128))
+
+pins |>
+  mutate(mean = mean(diameter), residual = diameter - mean)
+```
+
+From these tables, also called overlays, we can easily calculate the location and spread of the data as follows:
+
+```{r}
+pins |>
+  summarise(mean = mean(diameter), `std. deviation` = sd(diameter))
+```
+
+While the above example is a trivial structural layout, it illustrates how we can split data values into its components. In the next sections, we will look at more complicated structural layouts for the data. In particular we will look at multiple levels of one factor ([One-Way ANOVA](#sec-ppc-231)) and multiple levels of two factors (Two-Way ANOVA) where the factors are [crossed](#sec-ppc-232) and [nested](#sec-ppc-233).

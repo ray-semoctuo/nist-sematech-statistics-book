@@ -1,0 +1,207 @@
+#### One-Way ANOVA {#sec-ppc-231}
+
+[**Description**]{#sec-ppc-231-description}
+
+A one-way layout consists of a single factor with several levels and multiple observations at each level. With this kind of layout we can calculate the mean of the observations within each level of our factor. The residuals will tell us about the variation within each level. We can also average the means of each level to obtain a grand mean. We can then look at the deviation of the mean of each level from the grand mean to understand something about the level effects. Finally, we can compare the variation within levels to the variation across levels. Hence the name analysis of variance.
+
+[**Model**]{#sec-ppc-231-model}
+
+It is easy to model all of this with an equation of the form:
+
+$$y_{ij} = m + a_{i} + \epsilon_{ij}$$
+
+The equation indicates that the $j$th data value, from level $i$, is the sum of three components: the common value (grand mean), the level effect (the deviation of each level mean from the grand mean), and the residual (what's left over).
+
+[**Estimation**]{#sec-ppc-231-estimation}
+
+Estimation for the one-way layout can be performed one of two ways. First, we can calculate the total variation, within-level variation and across-level variation. These can be summarized in a table as shown below and tests can be made to determine if the factor levels are significant. The [value splitting example](#sec-ppc-2311) illustrates the calculations involved.
+
+[**ANOVA table for one-way case**]{#sec-ppc-231-anova-table}
+
+In general, the ANOVA table for the one-way case is given by:
+
+| Source | Sum of Squares | DoF | Mean Square | $F_0$ |
+|:---|:---|:---|:---|:---|
+| **Factor** | $SS_{F} = J \sum{(\bar{y}_{i.} - \bar{y}_{..})^2}$ | $I - 1$ | $MSF = SS_{F}/(I - 1)$ | $MSF/MSE$ |
+| **Residual** | $SS_{E} = \sum{\sum{(y_{ij} - \bar{y}_{i.})^2}}$ | $I(J-1)$ | $MSE = SS_{E}/(I(J - 1))$ | |
+| **Corr. Total** | $SST = \sum{\sum{(y_{ij} - \bar{y}_{..})^2}}$ | $IJ-1$ | | |
+
+where
+
+$$\bar{y}_{i.} = \frac{1}{J} \sum_{j=1}^{J}{y_{ij}}$$
+
+and
+
+$$\bar{y}_{..} = \frac{1}{IJ} \sum_{i=1}^{I}{\sum_{j=1}^{J}{y_{ij}}}$$
+
+The row labeled "Corr. Total" in the ANOVA table contains the corrected total sum of squares and the associated degrees of freedom (DoF).
+
+[**Level effects must sum to zero**]{#sec-ppc-231-sum-zero}
+
+The second way to estimate effects is through the use of [CLM](#sec-ppc-22) techniques. If you look at the model above you will notice that it is in the form of a CLM. The only problem is that the model is saturated and no unique solution exists. We overcome this problem by applying a constraint to the model. Since the level effects are just deviations from the grand mean, they must sum to zero. By applying the constraint that the level effects must sum to zero, we can now obtain a unique solution to the CLM equations. Most analysis programs will handle this for you automatically. See the chapter on Process Modeling<!-- XREF: PMD Chapter 4, Process Modeling, not yet migrated to this book; source handbook/pmd/pmd.htm --> for a more complete discussion on estimating the coefficients for these models.
+
+[**Testing**]{#sec-ppc-231-testing}
+
+We are testing to see if the observed data support the hypothesis that the levels of the factor are significantly different from each other. The way we do this is by comparing the within-level variance to the between-level variance.
+
+If we assume that the observations within each level have the same variance, we can calculate the variance within each level and pool<!-- XREF: PRC Chapter 7, Product and Process Comparisons, pooled variance; source handbook/prc/section4/prc42.htm --> these together to obtain an estimate of the overall population variance. This works out to be the mean square of the residuals.
+
+Similarly, if there really were no level effect, the mean square across levels would be an estimate of the overall variance. Therefore, if there really were no level effect, these two estimates would be just two different ways to estimate the same parameter and should be close numerically. However, if there is a level effect, the level mean square will be higher than the residual mean square.
+
+It can be shown that given the assumptions about the data stated below, the ratio of the level mean square and the residual mean square follows an [$F$ distribution](../01-eda/index.qmd#sec-eda-f-distribution) with degrees of freedom as shown in the ANOVA table. If the $F_0$ value is significant at a given significance level (greater than the cut-off value in a $F$ table), then there is a level effect present in the data.
+
+[**Assumptions**]{#sec-ppc-231-assumptions}
+
+For estimation purposes, we assume the data can adequately be modeled as the sum of a deterministic component and a random component. We further assume that the fixed (deterministic) component can be modeled as the sum of an overall mean and some contribution from the factor level. Finally, it is assumed that the random component can be modeled with a Gaussian distribution with fixed location and spread.
+
+[**Uses**]{#sec-ppc-231-uses}
+
+The one-way ANOVA is useful when we want to compare the effect of multiple levels of one factor and we have multiple observations at each level. The factor can be either discrete (different machine, different plants, different shifts, etc.) or continuous (different gas flows, temperatures, etc.).
+
+[**Example**]{#sec-ppc-231-example}
+
+Let's extend the [machining example](#sec-ppc-23-example) by assuming that we have five different machines making the same part and we take five random samples from each machine to obtain the following diameter data. The reader can download the [data as a text file](../../datasets/CHARACTERIZE-3_2_3_1.DAT).
+
+```{r}
+#| code-fold: true
+#| message: false
+machining <- read_table(
+  here::here("datasets", "CHARACTERIZE-3_2_3_1.DAT"),
+  skip = 25,
+  col_names = c("machine", "diameter"),
+  col_types = "id"
+) |>
+  mutate(machine = factor(machine))
+
+machining |>
+  mutate(sample = row_number(), .by = machine) |>
+  pivot_wider(names_from = machine, values_from = diameter, names_prefix = "Machine ") |>
+  select(-sample)
+```
+
+[**Analyze**]{#sec-ppc-231-analyze}
+
+Using ANOVA software or the techniques of the [value-splitting example](#sec-ppc-2311), we summarize the data in an ANOVA table as follows:
+
+```{r}
+fit <- aov(diameter ~ machine, data = machining)
+summary(fit)
+```
+
+[**Test**]{#sec-ppc-231-test}
+
+```{r}
+qf(0.95, df1 = 4, df2 = 20)
+```
+
+By dividing the factor-level mean square by the residual mean square, we obtain an $F_0$ value of 5.21, which is greater than the critical value of 2.87 from the $F$ distribution with 4 and 20 degrees of freedom and a significance level of 0.05. Therefore, there is sufficient evidence to reject the hypothesis that the levels are all the same.
+
+::: {.callout-note}
+NIST's original text reports $F_0 = 4.86$ for this example, obtained by dividing the *displayed* mean squares (0.000034/0.000007) after they had already been rounded to one significant figure. Carrying full precision through the calculation (as `aov()` does above) gives the sum of squares and mean squares NIST reports, but a ratio of 5.21 rather than 4.86. Both values comfortably exceed the critical value of 2.87, so the conclusion — a statistically significant machine effect — is unchanged either way.
+:::
+
+[**Conclusion**]{#sec-ppc-231-conclusion}
+
+From the analysis of these data we can conclude that the factor "machine" has an effect. There is a statistically significant difference in the pin diameters across the machines on which they were manufactured.
+
+##### One-Way Value-Splitting {#sec-ppc-2311}
+
+[**Example**]{#sec-ppc-2311-example}
+
+Let's use the data from the machining example to illustrate how to use the techniques of value-splitting to break each data value into its component parts. Once we have the component parts, it is then a trivial matter to calculate the sums of squares and form the $F$-value for the test.
+
+[**Calculate level-means**]{#sec-ppc-2311-level-means}
+
+Remember from our model, $y_{ij} = m + a_{i} + \epsilon_{ij}$, we say each observation is the sum of a common value, a level effect and a residual value. Value-splitting just breaks each observation into its component parts. The first step in value-splitting is to calculate the mean values within each machine to get the level means.
+
+```{r}
+level_means <- machining |>
+  summarise(mean = mean(diameter), .by = machine)
+level_means
+```
+
+[**Sweep level means**]{#sec-ppc-2311-sweep-levels}
+
+We can then *sweep* (subtract the level mean from each associated data value) the means through the original data table to get the residuals:
+
+```{r}
+machining_split <- machining |>
+  mutate(sample = row_number(), .by = machine) |>
+  left_join(level_means, by = "machine") |>
+  mutate(residual = diameter - mean)
+
+machining_split |>
+  select(machine, sample, residual) |>
+  pivot_wider(names_from = machine, values_from = residual, names_prefix = "Machine ") |>
+  select(-sample)
+```
+
+[**Calculate the grand mean**]{#sec-ppc-2311-grand-mean}
+
+The next step is to calculate the grand mean from the individual machine means as:
+
+```{r}
+grand_mean <- mean(level_means$mean)
+grand_mean
+```
+
+[**Sweep the grand mean through the level means**]{#sec-ppc-2311-sweep-grand-mean}
+
+Finally, we can sweep the grand mean through the individual level means to obtain the level effects:
+
+```{r}
+level_effects <- level_means |>
+  mutate(effect = mean - grand_mean)
+level_effects
+```
+
+It is easy to verify that the original data table can be constructed by adding the overall mean, the machine effect and the appropriate residual.
+
+[**Calculate ANOVA values**]{#sec-ppc-2311-calculate-anova}
+
+Now that we have the data values split and the overlays created, the next step is to calculate the various values in the [One-Way ANOVA table](#sec-ppc-231-anova-table). We have three values to calculate for each overlay. They are the sums of squares, the degrees of freedom, and the mean squares.
+
+[**Total sum of squares**]{#sec-ppc-2311-total-ss}
+
+The total sum of squares is calculated by summing the squares of all the data values and subtracting from this number the square of the grand mean times the total number of data values. We usually don't calculate the mean square for the total sum of squares because we don't use this value in any statistical test.
+
+[**Residual sum of squares, degrees of freedom and mean square**]{#sec-ppc-2311-residual-ss}
+
+The residual sum of squares is calculated by summing the squares of the residual values:
+
+```{r}
+ss_residual <- sum(machining_split$residual^2)
+df_residual <- nrow(machining) - n_distinct(machining$machine)
+ms_residual <- ss_residual / df_residual
+tibble(`Sum of Squares` = ss_residual, DoF = df_residual, `Mean Square` = ms_residual)
+```
+
+The degrees of freedom is the number of unconstrained values. Since the residuals for each level of the factor must sum to zero, once we know four of them, the last one is determined. This means we have four unconstrained values for each level, or 20 degrees of freedom.
+
+[**Level sum of squares, degrees of freedom and mean square**]{#sec-ppc-2311-level-ss}
+
+Finally, to obtain the sum of squares for the levels, we sum the squares of each value in the level effect overlay and multiply the sum by the number of observations for each level (in this case 5):
+
+```{r}
+n_per_level <- machining |> count(machine) |> pull(n) |> unique()
+
+ss_factor <- n_per_level * sum(level_effects$effect^2)
+df_factor <- n_distinct(machining$machine) - 1
+ms_factor <- ss_factor / df_factor
+tibble(`Sum of Squares` = ss_factor, DoF = df_factor, `Mean Square` = ms_factor)
+```
+
+Since the deviations from the level means must sum to zero, we have only four unconstrained values so the degrees of freedom for level effects is 4.
+
+[**Calculate $F$-value**]{#sec-ppc-2311-f-value}
+
+The last step is to calculate the $F$-value and perform the test of equal level means. The $F$-value is just the level mean square divided by the residual mean square:
+
+```{r}
+f_value <- ms_factor / ms_residual
+f_value
+```
+
+If we look in an $F$-table for 4 and 20 degrees of freedom at 95% confidence, we see that the critical value is 2.87 (`qf(0.95, 4, 20)`), which means that we have a significant result and that there is thus evidence of a strong machine effect. By looking at the level-effect overlay we see that this is driven by machines 2 and 4.
+
+These sums of squares and mean squares match the `aov()` summary in the [previous section](#sec-ppc-231-analyze) exactly — the manual sweep and the software fit are two views of the same calculation.

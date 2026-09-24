@@ -1,0 +1,59 @@
+### Continuous Linear Model {#sec-ppc-22}
+
+[**Description**]{#sec-ppc-22-description}
+
+The continuous linear model (CLM) is probably the most commonly used model in PPC. It is applicable in many instances ranging from simple control charts to response surface models.
+
+The CLM is a mathematical function that relates explanatory variables (either discrete or continuous) to a single continuous response variable. It is called linear because the coefficients of the terms are expressed as a linear sum. The terms themselves do not have to be linear.
+
+[**Model**]{#sec-ppc-22-model}
+
+The general form of the CLM is:
+
+$$y = a_{0} + \sum_{i=1}^{p}{a_{i} f(x_{i})} + \epsilon$$
+
+This equation just says that if we have $p$ explanatory variables then the response is modeled by a constant term plus a sum of functions of those explanatory variables, plus some random error term. This will become clear as we look at some examples below.
+
+[**Estimation**]{#sec-ppc-22-estimation}
+
+The coefficients for the parameters in the CLM are estimated by the method of least squares. This is a method that gives estimates which minimize the sum of the squared distances from the observations to the fitted line or plane. See the chapter on Process Modeling for a more complete discussion on estimating the coefficients for these models.<!-- XREF: PMD Chapter 4, Process Modeling, not yet migrated to this book; source handbook/pmd/pmd.htm -->
+
+[**Testing**]{#sec-ppc-22-testing}
+
+The tests for the CLM involve testing that the model as a whole is a good representation of the process and whether any of the coefficients in the model are zero or have no effect on the overall fit. Again, the details for testing are given in the chapter on Process Modeling.<!-- XREF: PMD Chapter 4, Process Modeling, not yet migrated to this book -->
+
+[**Assumptions**]{#sec-ppc-22-assumptions}
+
+For estimation purposes, there are no additional assumptions necessary for the CLM beyond those stated in the [general assumptions](#sec-ppc-21) section. For testing purposes, however, it is necessary to assume that the error term is adequately modeled by a Gaussian distribution.
+
+[**Uses**]{#sec-ppc-22-uses}
+
+The CLM has many uses such as building predictive process models over a range of process settings that exhibit linear behavior, control charts,<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, not yet migrated to this book; source handbook/pmc/pmc.htm --> process capability,<!-- XREF: PPC section 3.4, Data Analysis for PPC, not yet drafted; source handbook/ppc/section4/ppc46.htm --> building models from the data produced by designed experiments,<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm --> and building response surface models for automated process control applications.
+
+[**Examples**]{#sec-ppc-22-examples}
+
+**Shewhart Control Chart** — The simplest example of a very common usage of the CLM is the underlying model used for Shewhart control charts. This model assumes that the process parameter being measured is a constant with additive Gaussian noise and is given by:
+
+$$y = a_{0} + \epsilon$$
+
+**Diffusion Furnace** — Suppose we want to model the average wafer sheet resistance as a function of the location or zone in a furnace tube, the temperature, and the anneal time. In this case, let there be 3 distinct zones (front, center, back) and temperature and time are continuous explanatory variables. This model is given by the CLM:
+
+$$
+y = a_{0} + \begin{cases}
+a_{1} & \text{if front} \\
+a_{2} + a_{4}\,\text{temp} + a_{5}\,\text{time} + \epsilon & \text{if center} \\
+a_{3} & \text{if back}
+\end{cases}
+$$
+
+**Diffusion Furnace (cont.)** — Usually, the fitted line for the average wafer sheet resistance is not straight but has some curvature to it. This can be accommodated by adding a quadratic term for the time parameter as follows:
+
+$$
+y = a_{0} + \begin{cases}
+a_{1} & \text{if front} \\
+a_{2} + a_{4}\,\text{temp} + a_{5}\,\text{time} + a_{6}\,\text{time}^2 + \epsilon & \text{if center} \\
+a_{3} & \text{if back}
+\end{cases}
+$$
+
+This piecewise model of average wafer sheet resistance by furnace zone, temperature, and anneal time foreshadows the [Furnace Case Study](#sec-ppc-5) later in this chapter.

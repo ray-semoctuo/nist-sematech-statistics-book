@@ -1,0 +1,9 @@
+### General Assumptions {#sec-ppc-21}
+
+[**Assumption: process is sum of a systematic component and a random component**]{#sec-ppc-21-systematic}
+
+In order to employ the modeling techniques described in this section, there are a few assumptions about the process under study that must be made. First, we must assume that the process can adequately be modeled as the sum of a systematic component and a random component. The systematic component is the mathematical model part and the random component is the error or noise present in the system. We also assume that the systematic component is fixed over the range of operating conditions and that the random component has a constant location, spread and distributional form.
+
+[**Assumption: data used to fit these models are representative of the process being modeled**]{#sec-ppc-21-representative}
+
+Finally, we assume that the data used to fit these models are representative of the process being modeled. As a result, we must additionally assume that the measurement system used to collect the data has been studied and proven to be capable of making measurements to the desired precision and accuracy. If this is not the case, refer to the [Measurement Process Characterization](../02-mpc/index.qmd#sec-mpc) chapter of this Handbook.

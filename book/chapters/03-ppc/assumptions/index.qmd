@@ -1,0 +1,27 @@
+## Assumptions / Prerequisites {#sec-ppc-2}
+
+**Primary goal is to identify and quantify sources of variation**
+
+The primary goal of PPC is to identify and quantify sources of variation. Only by doing this will we be able to define an effective plan for variation reduction and process improvement. Sometimes, in order to achieve this goal, we must first build mathematical/statistical models of our processes. In these models we will identify influential factors and the responses on which they have an effect. We will use these models to understand how the sources of variation are influenced by the important factors. This subsection will review many of the modeling tools we have at our disposal to accomplish these tasks. In particular, the models covered in this section are linear models, Analysis of Variance (ANOVA) models and discrete models.
+
+1. [General Assumptions](#sec-ppc-21)
+2. [Continuous Linear](#sec-ppc-22)
+3. [Analysis of Variance](#sec-ppc-23)
+   1. [One-Way](#sec-ppc-231)
+   2. [Crossed](#sec-ppc-232)
+   3. [Nested](#sec-ppc-233)
+4. [Discrete](#sec-ppc-24)
+
+{{< include assumptions/general-assumptions.qmd >}}
+
+{{< include assumptions/continuous-linear-model.qmd >}}
+
+{{< include assumptions/anova-overview.qmd >}}
+
+{{< include assumptions/one-way-anova.qmd >}}
+
+{{< include assumptions/two-way-crossed-anova.qmd >}}
+
+{{< include assumptions/two-way-nested-anova.qmd >}}
+
+{{< include assumptions/discrete-models.qmd >}}
