@@ -1,13 +1,21 @@
 # Production Process Characterization {#sec-ppc}
 
-::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/ppc/`.
-:::
+The goal of this chapter is to learn how to plan and conduct a *Production Process Characterization Study* (PPC) on manufacturing processes. We will learn how to model manufacturing processes and use these models to design a data collection scheme and to guide data analysis activities. We will look in detail at how to analyze the data collected in characterization studies and how to interpret and report the results. The accompanying [Case Studies](#sec-ppc-5) provide detailed examples of several process characterization studies.
 
-<!--
-TODO:
-- Port narrative content from handbook/ppc/ppc.htm and handbook/ppc/section*/*.htm
-- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+{{< include introduction/index.qmd >}}
+
+## Assumptions / Prerequisites {#sec-ppc-2}
+
+<!-- Source: handbook/ppc/section2/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Data Collection for PPC {#sec-ppc-3}
+
+<!-- Source: handbook/ppc/section3/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Data Analysis for PPC {#sec-ppc-4}
+
+<!-- Source: handbook/ppc/section4/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Case Studies {#sec-ppc-5}
+
+<!-- Source: handbook/ppc/section5/ (Furnace and Machine Screw case studies). TODO: port narrative content, re-implement worked examples in R. -->

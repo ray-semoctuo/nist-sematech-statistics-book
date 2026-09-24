@@ -1,0 +1,334 @@
+### Terminology/Concepts {#sec-ppc-13}
+
+There are just a few fundamental concepts needed for PPC. This section will review these ideas briefly and provide links to other sections in the Handbook where they are covered in more detail.
+
+**[Distribution (location, spread, shape)](#sec-ppc-131)**
+
+For basic data analysis, we will need to understand how to estimate location, spread and shape from the data. These three measures comprise what is known as the *distribution* of the data. We will look at both graphical and numerical techniques.
+
+**[Process variability](#sec-ppc-132)**
+
+We need to thoroughly understand the concept of process variability. This includes how variation explains the possible range of expected data values, the various classifications of variability, and the role that variability plays in process stability and capability.
+
+**[Error propagation](#sec-ppc-133)**
+
+We also need to understand how variation propagates through our manufacturing processes and how to decompose the total observed variation into components attributable to the contributing sources.
+
+**[Populations and sampling](#sec-ppc-134)**
+
+It is important to have an understanding of the various issues related to sampling. We will define a *population* and discuss how to acquire representative random samples from the population of interest. We will also discuss a useful formula for estimating the number of observations required to answer specific questions.
+
+**[Modeling](#sec-ppc-135)**
+
+For modeling, we will need to know how to identify important factors and responses. We will also need to know how to graphically and quantitatively build models of the relationships between the factors and responses.
+
+**[Experiments](#sec-ppc-136)**
+
+Finally, we will need to know about the basics of designed experiments including screening designs and response surface designs so that we can quantify these relationships. This topic will receive only a cursory treatment in this chapter. It is covered in detail in the process improvement chapter.<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm --> However, examples of its use are in the case studies.
+
+#### Distribution (Location, Spread and Shape) {#sec-ppc-131}
+
+**Distributions are characterized by location, spread and shape**
+
+A fundamental concept in representing any of the outputs from a production process is that of a *distribution*. Distributions arise because any manufacturing process output will not yield the same value every time it is measured. There will be a natural scattering of the measured values about some central tendency value. This scattering about a central value is known as a distribution. A distribution is characterized by three values:
+
+**Location**
+: The location is the expected value of the output being measured. For a stable process, this is the value around which the process has stabilized.
+
+**Spread**
+: The spread is the expected amount of variation associated with the output. This tells us the range of possible values that we would expect to see.
+
+**Shape**
+: The shape shows how the variation is distributed about the location. This tells us if our variation is symmetric about the mean or if it is skewed or possibly multimodal.
+
+**A primary goal of PPC is to estimate the distributions of the process outputs**
+
+One of the primary goals of a PPC study is to characterize our process outputs in terms of these three measurements. If we can demonstrate that our process is stabilized about a constant location, with a constant variance and a known stable shape, then we have a process that is both predictable and controllable. This is required before we can set up control charts or conduct experiments.
+
+**Click on each item to read more detail**
+
+The table below shows the most common numerical and graphical measures of location, spread and shape.
+
+| Parameter | Numerical | Graphical |
+|:---|:---|:---|
+| Location | [mean, median](../01-eda/index.qmd#sec-eda-measures-of-location) | [scatter plot](../01-eda/index.qmd#sec-eda-scatter-plot), [box plot](../01-eda/index.qmd#sec-eda-box-plot), [histogram](../01-eda/index.qmd#sec-eda-histogram) |
+| Spread | [variance, range, inter-quartile range](../01-eda/index.qmd#sec-eda-measures-of-scale) | [box plot](../01-eda/index.qmd#sec-eda-box-plot), [histogram](../01-eda/index.qmd#sec-eda-histogram) |
+| Shape | [skewness, kurtosis](../01-eda/index.qmd#sec-eda-measures-of-skewness-and-kurtosis) | [box plot](../01-eda/index.qmd#sec-eda-box-plot), [histogram](../01-eda/index.qmd#sec-eda-histogram), [probability plot](../01-eda/index.qmd#sec-eda-probability-plot) |
+
+#### Process Variability {#sec-ppc-132}
+
+**Variability is present everywhere**
+
+All manufacturing and measurement processes exhibit variation. For example, when we take sample data on the output of a process, such as critical dimensions, oxide thickness, or resistivity, we observe that all the values are *NOT* the same. This results in a collection of observed values distributed about some location value. This is what we call spread or variability. We represent variability numerically with the [variance calculation](../01-eda/index.qmd#sec-eda-measures-of-scale) and graphically with a [histogram](../01-eda/index.qmd#sec-eda-histogram).
+
+**How does the standard deviation describe the spread of the data?**
+
+The standard deviation (square root of the variance) gives insight into the spread of the data through the use of what is known as the *Empirical Rule*. For a normal distribution (shown in the graph below), this rule is:
+
+Approximately 68.3% of the data are within a distance of one standard deviation from the average $(\bar{x} - s, \bar{x} + s)$.
+
+Approximately 95.4% of the data are within a distance of two standard deviations from the average $(\bar{x} - 2s, \bar{x} + 2s)$.
+
+Approximately 99.7% of the data are within a distance of three standard deviations from the average $(\bar{x} - 3s, \bar{x} + 3s)$.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-132-empirical-rule
+#| message: false
+#| fig-cap: "The empirical rule: percentage of a normal distribution within 1, 2, and 3 standard deviations of the mean"
+library(tidyverse)
+
+area_2sigma <- paste0(round(diff(pnorm(c(-1, 1))) * 100, 1), "%")
+area_4sigma <- paste0(round(diff(pnorm(c(-2, 2))) * 100, 1), "%")
+area_6sigma <- paste0(round(diff(pnorm(c(-3, 3))) * 100, 1), "%")
+
+tibble(x = c(-4, 4)) |>
+  ggplot() +
+  stat_function(mapping = aes(x = x),
+                fun = dnorm,
+                args = list(mean = 0, sd = 1),
+                color = "grey40") +
+  stat_function(mapping = aes(x = x),
+                fun = dnorm,
+                args = list(mean = 0, sd = 1),
+                xlim = c(-3, 3),
+                geom = "area",
+                fill = "steelblue", alpha = 0.2) +
+  stat_function(mapping = aes(x = x),
+                fun = dnorm,
+                args = list(mean = 0, sd = 1),
+                xlim = c(-2, 2),
+                geom = "area",
+                fill = "steelblue", alpha = 0.2) +
+  stat_function(mapping = aes(x = x),
+                fun = dnorm,
+                args = list(mean = 0, sd = 1),
+                xlim = c(-1, 1),
+                geom = "area",
+                fill = "steelblue", alpha = 0.2) +
+  annotate(
+    geom = "segment",
+    x = -1, y = 0.2, xend = 1, yend = 0.2, color = "firebrick",
+    arrow = arrow(length = unit(2, "mm"), ends = "both")
+  ) +
+  annotate(
+    geom = "segment",
+    x = -2, y = 0.05, xend = 2, yend = 0.05, color = "firebrick",
+    arrow = arrow(length = unit(2, "mm"), ends = "both")
+  ) +
+  annotate(
+    geom = "segment",
+    x = -3, y = 0.0, xend = 3, yend = 0.0, color = "firebrick",
+    arrow = arrow(length = unit(2, "mm"), ends = "both")
+  ) +
+  annotate(
+    geom = "label",
+    x = 3, y = 0.17,
+    label = "% of distribution\nbetween ±σ") +
+  annotate(
+    geom = "text",
+    x = c(1.5, 2.3, 3.1), y = c(0.21, 0.06, 0.02),
+    label = c(area_2sigma, area_4sigma, area_6sigma)
+    ) +
+  labs(
+    subtitle = "Probability Density"
+  ) +
+  scale_x_continuous(breaks = -4:4) +
+  theme_light() +
+  theme(
+    axis.title.y = element_blank(),
+    plot.title.position = "plot"
+  )
+```
+
+**Variability accumulates from many sources**
+
+This observed variability is an accumulation of many different sources of variation that have occurred throughout the manufacturing process. One of the more important activities of process characterization is to identify and quantify these various sources of variation so that they may be minimized.
+
+**There are also different types**
+
+There are not only different sources of variation, but there are also different *types* of variation. Two important classifications of variation for the purposes of PPC are *controlled variation* and *uncontrolled variation*.
+
+**[Click here to see examples](#sec-ppc-1321)**
+
+CONTROLLED VARIATION
+: Variation that is characterized by a *stable* and consistent pattern of variation over time. This type of variation will be *random* in nature and will be exhibited by a uniform fluctuation about a constant level.
+
+UNCONTROLLED VARIATION
+: Variation that is characterized by a pattern of variation that *changes* over time and hence is unpredictable. This type of variation will typically contain some structure.
+
+**Stable processes only exhibit controlled variation**
+
+This concept of controlled/uncontrolled variation is important in determining if a process is *stable*. A process is deemed stable if it runs in a consistent and predictable manner. This means that the average process value is constant and the variability is controlled. If the variation is uncontrolled, then either the process average is changing or the process variation is changing or both. The first process in the example below is stable; the second is not.
+
+In the course of process characterization we should endeavor to eliminate all sources of uncontrolled variation.
+
+##### Controlled/Uncontrolled Variation {#sec-ppc-1321}
+
+**Two trend plots**
+
+The two figures below are two trend plots from two different oxide growth processes. Thirty wafers were sampled from each process: one per day over 30 days. Thickness at the center was measured on each wafer. The *x-axis* of each graph is the wafer number and the *y-axis* is the film thickness in angstroms.
+
+**Examples of "in control" and "out of control" processes**
+
+The first process is an example of a process that is "in control" with random fluctuation about a process location of approximately 990. The second process is an example of a process that is "out of control" with a process location trending upward after observation 20.
+
+NIST's original examples used real trend-plot images without a downloadable dataset; the figures below are illustrative data, generated to match the description above, reproducing the same qualitative behavior.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-1321-controlled
+#| message: false
+#| fig-cap: "Illustrative process exhibiting controlled variation -- random fluctuation about a constant mean"
+set.seed(100)
+controlled <- tibble(wafer = 1:30, thickness = rnorm(30, mean = 990, sd = 8))
+
+controlled |>
+  ggplot(aes(wafer, thickness)) +
+  geom_hline(yintercept = 990, linetype = "dashed", color = "grey40") +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue", size = 2) +
+  labs(x = "Wafer", y = "Thickness (angstroms)") +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-1321-uncontrolled
+#| message: false
+#| fig-cap: "Illustrative process exhibiting uncontrolled variation -- a linear trend after observation 20"
+set.seed(101)
+uncontrolled <- tibble(
+  wafer = 1:30,
+  thickness = 990 + if_else(wafer <= 20, 0, (wafer - 20) * 2.5) + rnorm(30, sd = 8)
+)
+
+uncontrolled |>
+  ggplot(aes(wafer, thickness)) +
+  geom_hline(yintercept = 990, linetype = "dashed", color = "grey40") +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 2) +
+  labs(x = "Wafer", y = "Thickness (angstroms)") +
+  theme_light() +
+  theme(plot.title.position = "plot")
+```
+
+#### Propagating Error {#sec-ppc-133}
+
+**The variation we see can come from many sources**
+
+When we estimate the variance at a particular process step, this variance is typically not just a result of the current step, but rather is an accumulation of variation from previous steps and from measurement error. Therefore, an important question that we need to answer in PPC is how the variation from the different sources accumulates. This will allow us to partition the total variation and assign the parts to the various sources. Then we can attack the sources that contribute the most.
+
+**How do I partition the error?**
+
+Usually we can model the contribution of the various sources of error to the total error through a simple linear relationship. If we have a simple linear relationship between two variables, say,
+
+$$y = \mu + \alpha y_{1} + \beta y_{2} + \epsilon$$
+
+then the variance associated with, $y$, is given by
+
+$$\text{Var}(y) = \alpha^{2}\text{Var}(y_{1}) + \beta^{2}\text{Var}(y_{2}) + 2 \alpha \beta \text{Cov}(y_{1},y_{2})$$
+
+If the variables are not correlated, then there is no covariance and the last term in the above equation drops off. A good example of this is the case in which we have both process error and measurement error. Since these are usually independent of each other, the total observed variance is just the sum of the variances for process and measurement. Remember to never add standard deviations, we must add variances.
+
+**How do I calculate the individual components?**
+
+Of course, we rarely have the individual components of variation and wish to know the total variation. Usually, we have an estimate of the overall variance and wish to break that variance down into its individual components. This is known as *components of variance* estimation and is dealt with in detail in the [analysis of variance](#sec-ppc-44) page later in this chapter.
+
+#### Populations and Sampling {#sec-ppc-134}
+
+**We take samples from a target population and make inferences**
+
+In survey sampling, if you want to know what everyone thinks about a particular topic, you can just ask everyone and record their answers. Depending on how you define the term, **everyone** (all the adults in a town, all the males in the USA, etc.), it may be impossible or impractical to survey everyone. The other option is to survey a small group (Sample) of the people whose opinions you are interested in (Target Population), record their opinions and use that information to make inferences about what everyone thinks. Opinion pollsters have developed a whole body of tools for doing just that and many of those tools apply to manufacturing as well. We can use these sampling techniques to take a few measurements from a process and make statements about the behavior of that process.
+
+**Facts about a sample are not necessarily facts about a population**
+
+If it weren't for process variation we could just take one sample and everything would be known about the target population. Unfortunately this is never the case. We cannot take facts about the sample to be facts about the population. Our job is to reach appropriate conclusions about the population despite this variation. The more observations we take from a population, the more our sample data resembles the population. When we have reached the point at which facts about the sample are reasonable approximations of facts about the population, then we say the sample is adequate.
+
+**Four attributes of samples**
+
+Adequacy of a sample depends on the following four attributes:
+
+- Representativeness of the sample (is it random?)
+- Size of the sample
+- Variability in the population
+- Desired precision of the estimates
+
+We will learn about choosing representative samples of adequate size in the section on [defining sampling plans](#sec-ppc-33).
+
+#### Process Models {#sec-ppc-135}
+
+**Black box model and fishbone diagram**
+
+As we will see in Section 3 of this chapter, one of the first steps in PPC is to model the process that is under investigation. Two very useful tools for doing this are the ***black-box*** model and the ***fishbone diagram***.
+
+**We use the black-box model to describe our processes**
+
+We can use the simple *black-box* model, shown below, to describe most of the tools and processes we will encounter in PPC. The process will be stimulated by inputs. These inputs can either be controlled (such as recipe or machine settings) or uncontrolled (such as humidity, operators, power fluctuations, etc.). These inputs interact with our process and produce outputs. These outputs are usually some characteristic of our process that we can measure. The measurable inputs and outputs can be sampled in order to observe and understand how they behave and relate to each other.
+
+**Diagram of the black box model**
+
+![Black box model describing a process: controlled and uncontrolled inputs produce measurable outputs](introduction/images/black-box-model.svg){#fig-ppc-135-black-box}
+
+These inputs and outputs are also known as Factors and Responses, respectively.
+
+Factors
+: Observed inputs used to explain response behavior (also called explanatory variables). Factors may be fixed-level controlled inputs or sampled uncontrolled inputs.
+
+Responses
+: Sampled process outputs. Responses may also be functions of sampled outputs such as average thickness or uniformity.
+
+**Factors and Responses are further classified by variable type**
+
+We further categorize factors and responses according to their *Variable Type*, which indicates the amount of information they contain. As the name implies, this classification is useful for data modeling activities and is critical for selecting the proper analysis technique. The table below summarizes this categorization. The types are listed in order of the amount of information they contain with *Measurement* containing the most information and *Nominal* containing the least.
+
+**Table describing the different variable types**
+
+| Type | Description | Example |
+|:---|:---|:---|
+| Measurement | discrete/continuous, order is important, infinite range | particle count, oxide thickness, pressure, temperature |
+| Ordinal | discrete, order is important, finite range | run #, wafer #, site, bin |
+| Nominal | discrete, no order, very few possible values | good/bad, bin, high/medium/low, shift, operator |
+
+**Fishbone diagrams help to decompose complexity**
+
+We can use the fishbone diagram to further refine the modeling process. Fishbone diagrams are very useful for decomposing the complexity of our manufacturing processes. Typically, we choose a process characteristic (either Factors or Responses) and list out the general categories that may influence the characteristic (such as material, machine method, environment, etc.), and then provide more specific detail within each category. Examples of how to do this are given in the section on [Case Studies.](#sec-ppc-5)
+
+**Sample fishbone diagram**
+
+![Example of a fishbone diagram decomposing the complexity of a manufacturing process into major cause categories](introduction/images/fishbone-diagram.svg){#fig-ppc-135-fishbone}
+
+#### Experiments and Experimental Design {#sec-ppc-136}
+
+**Factors and responses**
+
+Besides just observing our processes for evidence of stability and capability, we quite often want to know about the relationships between the various **Factors** and **Responses**.
+
+**We look for correlations and causal relationships**
+
+There are generally two types of relationships that we are interested in for purposes of PPC. They are:
+
+Correlation
+: Two variables are said to be correlated if an observed change in the level of one variable is accompanied by a change in the level of another variable. The change may be in the same direction (positive correlation) or in the opposite direction (negative correlation).
+
+Causality
+: There is a causal relationship between two variables if a change in the level of one variable causes a change in the other variable.
+
+Note that correlation does not imply causality. It is possible for two variables to be associated with each other without one of them causing the observed behavior in the other. When this is the case it is usually because there is a third (possibly unknown) causal factor.
+
+**Our goal is to find causal relationships**
+
+Generally, our ultimate goal in PPC is to find and quantify causal relationships. Once this is done, we can then take advantage of these relationships to improve and control our processes.
+
+**Find correlations and then try to establish causal relationships**
+
+Generally, we first need to find and explore correlations and then try to establish causal relationships. It is much easier to find correlations as these are just properties of the data. It is much more difficult to prove causality as this additionally requires sound engineering judgment. There is a systematic procedure we can use to accomplish this in an efficient manner. We do this through the use of designed experiments.
+
+**First we screen, then we build models**
+
+When we have many potential factors and we want to see which ones are correlated and have the potential to be involved in causal relationships with the responses, we use screening designs<!-- XREF: PRI Section 5.3.3, Screening designs, not yet migrated to this book; source handbook/pri/section3/pri333.htm --> to reduce the number of candidates. Once we have a reduced set of influential factors, we can use response surface designs<!-- XREF: PRI Section 5.3.6, Response surface designs, not yet migrated to this book; source handbook/pri/section3/pri336.htm --> to model the causal relationships with the responses across the operating range of the process factors.
+
+**Techniques discussed in process improvement chapter**
+
+The techniques are covered in detail in the process improvement<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm --> section and will not be discussed much in this chapter. Examples of how the techniques are used in PPC are given in the [Case Studies](#sec-ppc-5).

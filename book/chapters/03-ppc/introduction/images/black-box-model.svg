@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .box { fill: #36648B; stroke: #1B3A52; stroke-width: 1.5; }
+    .arrow { stroke: #4A4A4A; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .title { font-size: 18px; font-weight: bold; fill: white; text-anchor: middle; }
+    .label { font-size: 14px; font-weight: bold; fill: #00105A; text-anchor: middle; }
+    .sublabel { font-size: 12px; fill: #1B1B1B; text-anchor: middle; }
+    .bracket { stroke: #7A7A7A; stroke-width: 1; fill: none; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4A4A4A" />
+    </marker>
+  </defs>
+
+  <!-- Process box -->
+  <rect class="box" x="240" y="110" width="160" height="100" rx="6" />
+  <text class="title" x="320" y="165">PROCESS</text>
+
+  <!-- Controlled inputs -->
+  <line class="arrow" x1="60" y1="130" x2="238" y2="130" />
+  <text class="sublabel" x="150" y="122">recipe, machine settings</text>
+
+  <!-- Uncontrolled inputs -->
+  <line class="arrow" x1="60" y1="190" x2="238" y2="190" />
+  <text class="sublabel" x="150" y="182">humidity, operators, power</text>
+
+  <text class="label" x="150" y="90">Inputs (Factors)</text>
+  <path class="bracket" d="M60,120 L45,120 L45,200 L60,200" />
+  <path class="bracket" d="M60,120 L45,120" />
+
+  <!-- Output -->
+  <line class="arrow" x1="402" y1="160" x2="580" y2="160" />
+  <text class="label" x="490" y="90">Outputs (Responses)</text>
+  <text class="sublabel" x="490" y="185">measured process characteristics</text>
+
+</svg>

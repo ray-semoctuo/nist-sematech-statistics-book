@@ -1,0 +1,25 @@
+## Introduction to Production Process Characterization {#sec-ppc-1}
+
+The goal of this section is to provide an introduction to PPC. We will define PPC and the terminology used and discuss some of the possible uses of a PPC study. Finally, we will look at the steps involved in designing and executing a PPC study.
+
+1. [What is PPC?](#sec-ppc-11)
+2. [What are PPC studies used for?](#sec-ppc-12)
+3. [What terminology is used in PPC?](#sec-ppc-13)
+   1. [Location, Spread and Shape](#sec-ppc-131)
+   2. [Process Variability](#sec-ppc-132)
+      1. [Controlled/Uncontrolled Variation](#sec-ppc-1321)
+   3. [Propagating Error](#sec-ppc-133)
+   4. [Populations and Sampling](#sec-ppc-134)
+   5. [Process Models](#sec-ppc-135)
+   6. [Experiments and Experimental Design](#sec-ppc-136)
+4. [What are the steps of a PPC?](#sec-ppc-14)
+   1. [Plan PPC](#sec-ppc-14-plan)
+   2. [Collect Data](#sec-ppc-14-collect)
+   3. [Analyze and Interpret Data](#sec-ppc-14-analyze)
+   4. [Report Conclusions](#sec-ppc-14-report)
+
+{{< include introduction/what-is-ppc.qmd >}}
+
+{{< include introduction/terminology.qmd >}}
+
+{{< include introduction/ppc-steps.qmd >}}

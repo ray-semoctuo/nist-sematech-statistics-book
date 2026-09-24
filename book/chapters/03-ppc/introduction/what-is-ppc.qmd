@@ -1,0 +1,53 @@
+### What is PPC? {#sec-ppc-11}
+
+**In PPC, we build data-based models**
+
+Process characterization is an activity in which we:
+
+- identify the key inputs and outputs of a process
+- collect data on their behavior over the entire operating range
+- estimate the steady-state behavior at optimal operating conditions
+- and build models describing the parameter relationships across the operating range
+
+The result of this activity is a set of mathematical process models that we can use to monitor and improve the process.
+
+**This is a three-step process**
+
+This activity is typically a three-step process.
+
+The Screening Step
+: In this phase we identify all possible significant process inputs and outputs and conduct a series of screening experiments in order to reduce that list to the key inputs and outputs. These experiments will also allow us to develop initial models of the relationships between those inputs and outputs.
+
+The Mapping Step
+: In this step we map the behavior of the key outputs over their expected operating ranges. We do this through a series of more detailed experiments called Response Surface experiments.
+
+The Passive Step
+: In this step we allow the process to run at nominal conditions and estimate the process stability and capability.
+
+**Not all of the steps need to be performed**
+
+The first two steps are only needed for new processes or when the process has undergone some significant engineering change. There are, however, many times throughout the life of a process when the third step is needed. Examples might be: initial process qualification, control chart development, after minor process adjustments, after schedule equipment maintenance, etc.
+
+### What are PPC Studies Used For? {#sec-ppc-12}
+
+**PPC is the core of any CI program**
+
+Process characterization is an integral part of any continuous improvement program. There are many steps in that program for which process characterization is required. These might include:
+
+**When process characterization is required**
+
+- when we are bringing a new process or tool into use.
+- when we are bringing a tool or process back up after scheduled/unscheduled maintenance.
+- when we want to compare tools or processes.
+- when we want to check the health of our process during the monitoring phase.
+- when we are troubleshooting a bad process.
+
+The techniques described in this chapter are equally applicable to the other chapters covered in this Handbook. These include:
+
+**Process characterization techniques are applicable in other areas**
+
+- calibration
+- process monitoring
+- process improvement
+- process/product comparison
+- reliability

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .spine { stroke: #1B3A52; stroke-width: 2.5; fill: none; }
+    .bone { stroke: #4A4A4A; stroke-width: 1.5; fill: none; }
+    .subbone { stroke: #7A7A7A; stroke-width: 1; fill: none; }
+    .category { font-size: 14px; font-weight: bold; fill: #00105A; text-anchor: middle; }
+    .cause { font-size: 11px; fill: #1B1B1B; }
+    .head { fill: #36648B; stroke: #1B3A52; stroke-width: 1.5; }
+    .head-label { font-size: 15px; font-weight: bold; fill: white; text-anchor: middle; }
+  </style>
+
+  <!-- Spine -->
+  <line class="spine" x1="40" y1="190" x2="560" y2="190" />
+
+  <!-- Head (effect) -->
+  <rect class="head" x="560" y="160" width="120" height="60" rx="6" />
+  <text class="head-label" x="620" y="195">Effect</text>
+
+  <!-- Top bones: Material, Machine -->
+  <line class="bone" x1="130" y1="190" x2="200" y2="60" />
+  <text class="category" x="205" y="50">Material</text>
+  <line class="subbone" x1="160" y1="140" x2="120" y2="120" />
+  <text class="cause" x="60" y="118">lot-to-lot variation</text>
+  <line class="subbone" x1="180" y1="110" x2="140" y2="90" />
+  <text class="cause" x="80" y="88">supplier</text>
+
+  <line class="bone" x1="310" y1="190" x2="380" y2="60" />
+  <text class="category" x="385" y="50">Machine</text>
+  <line class="subbone" x1="340" y1="140" x2="300" y2="120" />
+  <text class="cause" x="240" y="118">calibration</text>
+  <line class="subbone" x1="360" y1="110" x2="320" y2="90" />
+  <text class="cause" x="260" y="88">wear</text>
+
+  <!-- Bottom bones: Method, Environment -->
+  <line class="bone" x1="130" y1="190" x2="200" y2="320" />
+  <text class="category" x="205" y="335">Method</text>
+  <line class="subbone" x1="160" y1="240" x2="120" y2="260" />
+  <text class="cause" x="60" y="272">procedure</text>
+  <line class="subbone" x1="180" y1="270" x2="140" y2="290" />
+  <text class="cause" x="80" y="302">operator technique</text>
+
+  <line class="bone" x1="310" y1="190" x2="380" y2="320" />
+  <text class="category" x="385" y="335">Environment</text>
+  <line class="subbone" x1="340" y1="240" x2="300" y2="260" />
+  <text class="cause" x="240" y="272">temperature</text>
+  <line class="subbone" x1="360" y1="270" x2="320" y2="290" />
+  <text class="cause" x="260" y="302">humidity</text>
+
+</svg>
