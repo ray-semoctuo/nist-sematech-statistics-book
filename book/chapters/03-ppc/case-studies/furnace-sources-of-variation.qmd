@@ -1,0 +1,103 @@
+#### Identify Sources of Variation {#sec-ppc-513}
+
+The next part of the analysis is to break down the sources of variation.
+
+[**Box Plot by Run**]{#sec-ppc-513-boxplot-run}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the thickness by run number.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-513-boxplot-run
+#| fig-cap: "Box plot of film thickness by run"
+ggplot(furnace, aes(run, thickness)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mnt, linetype = "dashed", color = "grey40") +
+  labs(x = "Run", y = "Thickness (Å)") +
+  theme_light()
+```
+
+[**Conclusions From Box Plot**]{#sec-ppc-513-boxplot-run-conclusions}
+
+We can make the following conclusions from this box plot.
+
+1. There is significant run-to-run variation.
+2. Although the means of the runs are different, there is no discernable trend due to run.
+3. In addition to the run-to-run variation, there is significant within-run variation as well. This suggests that a box plot by furnace location may be useful as well.
+
+[**Box Plot by Furnace Location**]{#sec-ppc-513-boxplot-zone}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the thickness by furnace location.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-513-boxplot-zone
+#| fig-cap: "Box plot of film thickness by furnace location (zone)"
+ggplot(furnace, aes(zone, thickness)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mnt, linetype = "dashed", color = "grey40") +
+  labs(x = "Furnace Location", y = "Thickness (Å)") +
+  theme_light()
+```
+
+[**Conclusions From Box Plot**]{#sec-ppc-513-boxplot-zone-conclusions}
+
+We can make the following conclusions from this box plot.
+
+1. There is considerable variation within a given furnace location.
+2. The variation between furnace locations is small. That is, the locations and scales of each of the four furnace locations are fairly comparable (although furnace location 3 seems to have a few mild outliers).
+
+[**Box Plot by Wafer**]{#sec-ppc-513-boxplot-wafer}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the thickness by wafer.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-513-boxplot-wafer
+#| fig-cap: "Box plot of film thickness by wafer"
+ggplot(furnace, aes(wafer, thickness)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mnt, linetype = "dashed", color = "grey40") +
+  labs(x = "Wafer", y = "Thickness (Å)") +
+  theme_light()
+```
+
+[**Conclusion From Box Plot**]{#sec-ppc-513-boxplot-wafer-conclusions}
+
+From this box plot, we conclude that wafer does not seem to be a significant factor.
+
+[**Block Plot**]{#sec-ppc-513-block-plot}
+
+In order to show the combined effects of run, furnace location, and wafer, we draw a [block plot](../01-eda/index.qmd#sec-eda-block-plot) of the thickness. Note that for aesthetic reasons, we have used connecting lines rather than enclosing boxes.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-513-block-plot
+#| fig-cap: "Block plot of film thickness by furnace location, blocked within run"
+wafer_means <- furnace |>
+  summarise(mean_thickness = mean(thickness), .by = c(run, zone, wafer)) |>
+  mutate(x = as.numeric(run) * 5 + as.numeric(zone))
+
+run_boundary <- wafer_means |>
+  distinct(run, x) |>
+  summarise(x = min(x), .by = run) |>
+  pull(x) - 0.5
+
+ggplot(wafer_means, aes(x, mean_thickness, group = interaction(run, zone))) +
+  geom_vline(xintercept = run_boundary, linetype = "dotted", color = "grey60") +
+  geom_line(color = "grey40") +
+  geom_text(aes(label = wafer), fontface = "bold", size = 3.2) +
+  scale_x_continuous(
+    breaks = wafer_means |> summarise(x = mean(x), .by = run) |> pull(x),
+    labels = levels(furnace$run)
+  ) +
+  labs(x = "Run (each block of 4 bars is one furnace location within that run)", y = "Thickness (Å)") +
+  theme_light()
+```
+
+[**Conclusions From Block Plot**]{#sec-ppc-513-block-plot-conclusions}
+
+We can draw the following conclusions from this block plot.
+
+1. There is significant variation both between runs and between furnace locations. The between-run variation appears to be greater.
+2. Run 3 seems to be an outlier.

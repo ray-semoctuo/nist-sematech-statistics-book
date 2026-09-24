@@ -1,0 +1,5 @@
+#### Final Conclusions {#sec-ppc-515}
+
+[**Final Conclusions**]{#sec-ppc-515-conclusions}
+
+This simple study of a furnace oxide growth process indicated that the process is capable and showed that both run-to-run and zone-within-run are significant sources of variation. We should take this into account when designing the control strategy for this process. The results also pointed to where we should look when we perform process improvement activities.

@@ -1,0 +1,160 @@
+#### Initial Analysis of Response Variable {#sec-ppc-512}
+
+[**Initial Plots of Response Variable**]{#sec-ppc-512-plots}
+
+The initial step is to assess data quality and to look for anomalies. This is done by generating a [normal probability plot](../01-eda/index.qmd#sec-eda-normal-probability-plot), a [histogram](../01-eda/index.qmd#sec-eda-histogram), and a [box plot](../01-eda/index.qmd#sec-eda-box-plot). For convenience, these are generated on a single page.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-ppc-512-initial-plots
+#| fig-cap: "Normal probability plot, box plot, and histogram of film thickness"
+library(patchwork)
+
+p_qq <- ggplot(furnace, aes(sample = thickness)) +
+  stat_qq(color = "steelblue") +
+  stat_qq_line(color = "firebrick") +
+  labs(x = "Theoretical Quantiles", y = "Thickness (Å)", title = "Normal Probability Plot") +
+  theme_light()
+
+p_box <- ggplot(furnace, aes(y = thickness, x = "")) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  labs(x = NULL, y = "Thickness (Å)", title = "Box Plot") +
+  theme_light()
+
+p_hist <- ggplot(furnace, aes(thickness)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+  stat_function(fun = dnorm, args = list(mean = mean(furnace$thickness), sd = sd(furnace$thickness)), color = "firebrick", linewidth = 1) +
+  labs(x = "Thickness (Å)", y = "Density", title = "Histogram") +
+  theme_light()
+
+p_qq + p_box + p_hist
+```
+
+[**Conclusions From the Plots**]{#sec-ppc-512-conclusions-plots}
+
+We can make the following conclusions based on these initial plots.
+
+- The box plot indicates one outlier. However, this outlier is only slightly smaller than the other numbers.
+- The normal probability plot and the histogram (with an overlaid normal density) indicate that this data set is reasonably approximated by a normal distribution.
+
+[**Parameter Estimates**]{#sec-ppc-512-parameter-estimates}
+
+Parameter estimates for the film thickness are summarized in the following table.
+
+```{r}
+#| code-fold: true
+mnt <- mean(furnace$thickness)
+sdt <- sd(furnace$thickness)
+n <- nrow(furnace)
+stderr <- sdt / sqrt(n)
+dof <- n - 1
+alpha <- 0.05
+Tvalue <- qt(1 - alpha / 2, df = dof)
+
+tibble(
+  Type = c("Location", "Dispersion"),
+  Parameter = c("Mean", "Standard Deviation"),
+  Estimate = c(mnt, sdt),
+  `Lower (95%) CI` = c(mnt - Tvalue * stderr, sdt * sqrt(dof / qchisq(1 - alpha / 2, dof))),
+  `Upper (95%) CI` = c(mnt + Tvalue * stderr, sdt * sqrt(dof / qchisq(alpha / 2, dof)))
+)
+```
+
+[**Quantiles**]{#sec-ppc-512-quantiles}
+
+Quantiles for the film thickness are summarized in the following table.
+
+```{r}
+#| code-fold: true
+p <- c(0, 0.5, 2.5, 10, 25, 50, 75, 90, 95, 97.5, 99.5, 100) / 100
+tibble(
+  Percentile = scales::percent(p),
+  Quantile = round(quantile(furnace$thickness, probs = p, type = 6), 2)
+)
+```
+
+[**Capability Analysis**]{#sec-ppc-512-capability}
+
+From the above preliminary analysis, it looks reasonable to proceed with the [capability analysis](#sec-ppc-46). The lower specification limit is 460, the upper specification limit is 660, and the target specification is 560.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-512-capability
+#| fig-cap: "Histogram of film thickness with specification limits (LSL = 460, USL = 660, target = 560)"
+LSL <- 460
+USL <- 660
+Target <- 560
+
+ggplot(furnace, aes(thickness)) +
+  geom_histogram(binwidth = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+  geom_vline(xintercept = c(LSL, USL), color = "firebrick", linetype = "dashed") +
+  geom_vline(xintercept = Target, color = "grey40", linetype = "dotted") +
+  labs(x = "Thickness (Å)", y = "Count") +
+  theme_light()
+```
+
+[**Percent Defective**]{#sec-ppc-512-percent-defective}
+
+We summarize the percent defective (i.e., the number of items outside the specification limits) in the following table.
+
+```{r}
+#| code-fold: true
+defect_act_lt <- 100 * sum(furnace$thickness < LSL) / n
+defect_act_gt <- 100 * sum(furnace$thickness > USL) / n
+defect_act_total <- 100 * sum(furnace$thickness < LSL | furnace$thickness > USL) / n
+
+defect_theo_lt <- 100 * pnorm((LSL - mnt) / sdt)
+defect_theo_gt <- 100 * pnorm((USL - mnt) / sdt, lower.tail = FALSE)
+defect_theo_total <- defect_theo_lt + defect_theo_gt
+
+tibble(
+  Specification = c("Lower Specification Limit", "Upper Specification Limit", "Specification Target"),
+  Value = c(LSL, USL, Target),
+  `% Actual` = round(c(defect_act_lt, defect_act_gt, defect_act_total), 4),
+  `% Theoretical` = round(c(defect_theo_lt, defect_theo_gt, defect_theo_total), 5)
+)
+```
+
+The percent below LSL is $100\Phi\left(\frac{\text{LSL} - \bar{y}}{s}\right)$ and the percent above USL is $100\Phi\left(\frac{\text{USL} - \bar{y}}{s}\right)$, where $\Phi$ denotes the normal cumulative distribution function, $\bar{y}$ the sample mean, and $s$ the sample standard deviation.
+
+[**Capability Index Statistics**]{#sec-ppc-512-capability-indices}
+
+We summarize various capability index statistics in the following table.
+
+```{r}
+#| code-fold: true
+Cpi <- (USL - LSL) / (6 * sdt)
+Cp_cilo <- Cpi * sqrt(qchisq(alpha / 2, dof) / dof)
+Cp_ciup <- Cpi * sqrt(qchisq(1 - alpha / 2, dof) / dof)
+
+CpLi <- (mnt - LSL) / (3 * sdt)
+CpL_se <- sqrt(1 / (9 * n) + (CpLi^2) / (2 * dof))
+CpL_cilo <- CpLi - qnorm(1 - alpha / 2) * CpL_se
+CpL_ciup <- CpLi + qnorm(1 - alpha / 2) * CpL_se
+
+CpUi <- (USL - mnt) / (3 * sdt)
+CpU_se <- sqrt(1 / (9 * n) + (CpUi^2) / (2 * dof))
+CpU_cilo <- CpUi - qnorm(1 - alpha / 2) * CpU_se
+CpU_ciup <- CpUi + qnorm(1 - alpha / 2) * CpU_se
+
+Cpki <- min(CpLi, CpUi)
+Cpk_se <- sqrt(1 / (9 * n) + (Cpki^2) / (2 * dof))
+Cpk_cilo <- Cpki - qnorm(1 - alpha / 2) * Cpk_se
+Cpk_ciup <- Cpki + qnorm(1 - alpha / 2) * Cpk_se
+
+Cpmi <- (USL - LSL) / (6 * sqrt(sdt^2 + (mnt - Target)^2))
+Cpm_cilo <- Cpmi * sqrt(qchisq(alpha / 2, dof) / dof)
+Cpm_ciup <- Cpmi * sqrt(qchisq(1 - alpha / 2, dof) / dof)
+
+tibble(
+  `Capability Statistic` = c("Cp", "CpL", "CpU", "Cpk", "Cpm"),
+  Index = round(c(Cpi, CpLi, CpUi, Cpki, Cpmi), 3),
+  `Lower CI` = round(c(Cp_cilo, CpL_cilo, CpU_cilo, Cpk_cilo, Cpm_cilo), 3),
+  `Upper CI` = round(c(Cp_ciup, CpL_ciup, CpU_ciup, Cpk_ciup, Cpm_ciup), 3)
+)
+```
+
+[**Conclusions**]{#sec-ppc-512-conclusions}
+
+The above capability analysis indicates that the process is capable and we can proceed with the analysis.

@@ -1,0 +1,32 @@
+## Case Studies {#sec-ppc-5}
+
+This section presents several case studies that demonstrate the application of production process characterizations to specific problems.
+
+The following case studies are available.
+
+1. [Furnace Case Study](#sec-ppc-51)
+2. [Machine Screw Case Study](#sec-ppc-52)
+
+{{< include case-studies/furnace-background.qmd >}}
+
+{{< include case-studies/furnace-initial-analysis.qmd >}}
+
+{{< include case-studies/furnace-sources-of-variation.qmd >}}
+
+{{< include case-studies/furnace-anova.qmd >}}
+
+{{< include case-studies/furnace-conclusions.qmd >}}
+
+{{< include case-studies/furnace-work-yourself.qmd >}}
+
+{{< include case-studies/machine-background.qmd >}}
+
+{{< include case-studies/machine-box-plots.qmd >}}
+
+{{< include case-studies/machine-anova.qmd >}}
+
+{{< include case-studies/machine-throughput.qmd >}}
+
+{{< include case-studies/machine-conclusions.qmd >}}
+
+{{< include case-studies/machine-work-yourself.qmd >}}

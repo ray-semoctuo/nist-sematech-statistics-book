@@ -10,6 +10,4 @@ The goal of this chapter is to learn how to plan and conduct a *Production Proce
 
 {{< include analysis/index.qmd >}}
 
-## Case Studies {#sec-ppc-5}
-
-<!-- Source: handbook/ppc/section5/ (Furnace and Machine Screw case studies). TODO: port narrative content, re-implement worked examples in R. -->
+{{< include case-studies/index.qmd >}}

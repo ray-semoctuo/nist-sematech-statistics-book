@@ -1,0 +1,5 @@
+#### Final Conclusions {#sec-ppc-525}
+
+[**Final Conclusions**]{#sec-ppc-525-conclusions}
+
+The analysis shows that machines 1 and 2 had about the same variability but significantly different locations. The throughput for machine 2 was also higher with greater variability than for machine 1. An interview with the operator revealed that he realized the second machine was not set correctly. However, he did not want to change the settings because he knew a study was being conducted and was afraid he might impact the results by making changes. Machine 3 had significantly more variation and lower throughput. The operator indicated that the machine had to be taken down several times for minor repairs. Given the preceding analysis results, the team recommended replacing machine 3.

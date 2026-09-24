@@ -1,0 +1,77 @@
+#### Throughput {#sec-ppc-524}
+
+[**Summary of Throughput**]{#sec-ppc-524-summary}
+
+The throughput is summarized in the following table (this was part of the original data collection, not the result of analysis).
+
+```{r}
+#| code-fold: true
+throughput <- tibble(
+  machine = factor(rep(1:3, each = 3)),
+  day = factor(rep(1:3, 3)),
+  throughput = c(576, 604, 583, 657, 604, 586, 510, 546, 571)
+)
+
+throughput |>
+  pivot_wider(names_from = day, values_from = throughput, names_prefix = "Day ")
+```
+
+This table shows that machine 3 had significantly lower throughput.
+
+[**Graphical Representation of Throughput**]{#sec-ppc-524-graph}
+
+We can show the throughput graphically.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-524-throughput
+#| fig-cap: "Throughput by machine, with range bars connecting the minimum and maximum of each machine's three daily counts"
+throughput_range <- throughput |>
+  summarise(ymin = min(throughput), ymax = max(throughput), .by = machine)
+
+ggplot(throughput, aes(machine, throughput)) +
+  geom_segment(
+    data = throughput_range,
+    aes(x = machine, xend = machine, y = ymin, yend = ymax),
+    inherit.aes = FALSE, color = "grey40"
+  ) +
+  geom_point(color = "steelblue", size = 2.5) +
+  geom_hline(yintercept = mean(throughput$throughput), linetype = "dashed", color = "grey40") +
+  labs(x = "Machine", y = "Throughput") +
+  theme_light()
+```
+
+The graph clearly shows the lower throughput for machine 3.
+
+[**Analysis of Variance for Throughput**]{#sec-ppc-524-anova}
+
+We can confirm the statistical significance of the lower throughput of machine 3 by running an analysis of variance.
+
+```{r}
+#| code-fold: true
+fit_throughput <- aov(throughput ~ machine, data = throughput)
+summary(fit_throughput)
+```
+
+[**Interpretation of ANOVA Output**]{#sec-ppc-524-anova-interpretation}
+
+We summarize the level means for machine in the following table.
+
+```{r}
+#| code-fold: true
+throughput_summary <- summary(fit_throughput)[[1]]
+rmse_tp <- sqrt(throughput_summary["Residuals", "Mean Sq"])
+resid_dof_tp <- throughput_summary["Residuals", "Df"]
+Tvalue_tp <- qt(1 - alpha / 2, df = resid_dof_tp)
+
+throughput |>
+  summarise(n = n(), Mean = mean(throughput), .by = machine) |>
+  mutate(
+    `Standard Error` = rmse_tp / sqrt(n),
+    `Lower 95% CI` = round(Mean - Tvalue_tp * `Standard Error`, 2),
+    `Upper 95% CI` = round(Mean + Tvalue_tp * `Standard Error`, 2),
+    Mean = round(Mean, 2),
+    `Standard Error` = round(`Standard Error`, 2)
+  ) |>
+  rename(Level = machine, Number = n)
+```

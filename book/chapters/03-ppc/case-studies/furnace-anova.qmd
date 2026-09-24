@@ -1,0 +1,64 @@
+#### Analysis of Variance {#sec-ppc-514}
+
+[**Analysis of Variance**]{#sec-ppc-514-anova}
+
+The next step is to confirm our interpretation of the plots in the previous section by running a nested analysis of variance. Zone is nested within run, so — just as in the [nested ANOVA value-splitting example](#sec-ppc-2331) and the [variance-structure example](#sec-ppc-44) earlier in this chapter — the correct denominator for testing the Run effect is the Zone(Run) mean square, not the residual mean square. We build the $F_0$ ratios by hand from the fitted sums of squares rather than reading them off `summary()` directly:
+
+```{r}
+#| code-fold: true
+fit_nested <- aov(thickness ~ run / zone, data = furnace)
+anova_furnace <- broom::tidy(fit_nested)
+anova_furnace
+
+ms_run <- anova_furnace$meansq[anova_furnace$term == "run"]
+ms_zone_run <- anova_furnace$meansq[anova_furnace$term == "run:zone"]
+ms_within <- anova_furnace$meansq[anova_furnace$term == "Residuals"]
+
+f_run <- ms_run / ms_zone_run
+p_run <- pf(f_run, anova_furnace$df[anova_furnace$term == "run"], anova_furnace$df[anova_furnace$term == "run:zone"], lower.tail = FALSE)
+
+f_zone_run <- ms_zone_run / ms_within
+p_zone_run <- pf(f_zone_run, anova_furnace$df[anova_furnace$term == "run:zone"], anova_furnace$df[anova_furnace$term == "Residuals"], lower.tail = FALSE)
+
+tibble(
+  Source = c("Run", "Furnace Location [Run]", "Within"),
+  `Degrees of Freedom` = c(anova_furnace$df[anova_furnace$term == "run"], anova_furnace$df[anova_furnace$term == "run:zone"], anova_furnace$df[anova_furnace$term == "Residuals"]),
+  `Sum of Squares` = c(anova_furnace$sumsq[anova_furnace$term == "run"], anova_furnace$sumsq[anova_furnace$term == "run:zone"], anova_furnace$sumsq[anova_furnace$term == "Residuals"]),
+  `Mean Square Error` = c(ms_run, ms_zone_run, ms_within),
+  `F Ratio` = c(f_run, f_zone_run, NA),
+  `Prob > F` = c(p_run, p_zone_run, NA)
+)
+```
+
+[**Components of Variance**]{#sec-ppc-514-variance-components}
+
+From the above analysis of variance table, we can compute the components of variance. Recall that for this data set we have 2 wafers measured at 4 furnace locations for 21 runs. This leads to the following set of equations:
+
+$$3072.11 = (4 \times 2)\,\text{Var(Run)} + 2\,\text{Var(Furnace Location)} + \text{Var(Within)}$$
+$$571.659 = 2\,\text{Var(Furnace Location)} + \text{Var(Within)}$$
+$$120.893 = \text{Var(Within)}$$
+
+Rather than solve this system of equations by hand, we fit the equivalent random-effects model directly with `nlme::lme()`, which estimates the same variance components by restricted maximum likelihood:
+
+```{r}
+#| code-fold: true
+#| message: false
+library(nlme)
+
+fit_lme <- lme(thickness ~ 1, random = ~1 | run / zone, data = furnace, method = "REML")
+var_corr <- VarCorr(fit_lme)
+
+variance_components <- tibble(
+  Component = c("Run", "Furnace Location[Run]", "Within"),
+  `Variance Component` = as.numeric(var_corr[c(2, 4, 5), "Variance"])
+) |>
+  mutate(
+    `Percent of Total` = round(100 * `Variance Component` / sum(`Variance Component`), 2),
+    `Sqrt(Variance Component)` = round(sqrt(`Variance Component`), 3),
+    `Variance Component` = round(`Variance Component`, 5)
+  )
+
+variance_components
+```
+
+Solving these equations by hand gives the same result: subtracting the "Within" equation from the "Furnace Location" equation gives $\text{Var(Furnace Location)} = (571.659 - 120.893)/2$, and subtracting that from the "Run" equation gives $\text{Var(Run)} = (3072.11 - 571.659)/8$.

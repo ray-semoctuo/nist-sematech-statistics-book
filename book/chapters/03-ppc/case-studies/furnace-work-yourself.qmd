@@ -1,0 +1,9 @@
+#### Work This Example Yourself {#sec-ppc-516}
+
+NIST's original page for this section offers a Dataplot-driven, click-through walkthrough of the case study, running each analysis step interactively in Dataplot. Since this book reproduces the entire analysis directly in executable R throughout the preceding sections, working the example yourself is a matter of re-running the R code shown in each subsection with the [downloaded data](../../datasets/FURNACE.DAT), rather than stepping through a separate macro-driven tool:
+
+1. [Read the data](#sec-ppc-511-data) and reproduce the [initial normal probability plot, box plot, and histogram](#sec-ppc-512-plots), the [parameter estimates and quantiles](#sec-ppc-512-parameter-estimates), and the [capability analysis](#sec-ppc-512-capability).
+2. Reproduce the [box plots by run, furnace location, and wafer](#sec-ppc-513-boxplot-run) and the [block plot](#sec-ppc-513-block-plot) to identify sources of variation.
+3. Reproduce the [nested analysis of variance and components of variance](#sec-ppc-514-anova).
+
+Each step's code chunk in this book is self-contained and can be copied into an R session (with the `tidyverse`, `patchwork`, `broom`, and `nlme` packages loaded) to reproduce that step's output directly.

@@ -1,0 +1,71 @@
+### Machine Screw Case Study {#sec-ppc-52}
+
+This case study analyzes three automatic screw machines with the intent of replacing one of them.
+
+The case study is broken down into the following steps.
+
+1. [Background and Data](#sec-ppc-521)
+2. [Box Plots by Factor](#sec-ppc-522)
+3. [Analysis of Variance](#sec-ppc-523)
+4. [Throughput](#sec-ppc-524)
+5. [Final Conclusions](#sec-ppc-525)
+6. [Work This Example Yourself](#sec-ppc-526)
+
+#### Background and Data {#sec-ppc-521}
+
+[**Introduction**]{#sec-ppc-521-introduction}
+
+A machine shop has three automatic screw machines that produce various parts. The shop has enough capital to replace one of the machines. The quality control department has been asked to conduct a study and make a recommendation as to which machine should be replaced. It was decided to monitor one of the most commonly produced parts (an 1/8th inch diameter pin) on each of the machines and see which machine is the least stable.
+
+[**Goal**]{#sec-ppc-521-goal}
+
+The goal of this study is to determine which machine is least stable in manufacturing a steel pin with a diameter of 0.125 ± 0.003 inches. Stability will be measured in terms of a constant variance about a constant mean. If all machines are stable, the decision will be based on process variability and throughput. Namely, the machine with the highest variability and lowest throughput will be selected for replacement.
+
+[**Software**]{#sec-ppc-521-software}
+
+The analyses used in this case study can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/ppc/section5/ppc521.dp --> The R code reproduced throughout this case study follows NIST's own reference R script for it. The reader can download the data as a [text file](../../datasets/MACHINE.DAT).
+
+[**Process Model**]{#sec-ppc-521-process-model}
+
+The process model for this operation is trivial and need not be addressed.
+
+[**Sensitivity Model**]{#sec-ppc-521-sensitivity-model}
+
+The sensitivity model, however, is important and is given in the figure below. The material is not very important. All machines will receive barstock from the same source and the coolant will be the same. The method is important. Each machine is slightly different and the operator must make adjustments to the speed (how fast the part rotates), feed (how quickly the cut is made) and stops (where cuts are finished) for each machine. The same operator will be running all three machines simultaneously. Measurement is not too important. An experienced QC engineer will be collecting the samples and making the measurements. Finally, the machine condition is really what this study is all about. The wear on the ways and the lead screws will largely determine the stability of the machining process. Also, tool wear is important. The same type of tool inserts will be used on all three machines. The tool insert wear will be monitored by the operator and they will be changed as needed.
+
+![Sensitivity model for the machine screw study.](case-studies/images/machine-fishbone.svg){#fig-ppc-521-sensitivity-model}
+
+[**Sampling Plan**]{#sec-ppc-521-sampling-plan}
+
+Given our goal statement and process modeling, we can now define a sampling plan. The primary goal is to determine if the process is stable and to compare the variances of the three machines. We also need to monitor throughput so that we can compare the productivity of the three machines.
+
+There is an upcoming three-day run of the particular part of interest, so this study will be conducted on that run. There is a suspected time-of-day effect that we must account for. It is sometimes the case that the machines do not perform as well in the morning, when they are first started up, as they do later in the day. To account for this we will sample parts in the morning and in the afternoon. So as not to impact other QC operations too severely, it was decided to sample 10 parts, twice a day, for three days from each of the three machines. Daily throughput will be recorded as well.
+
+We are expecting readings around 0.125 ± 0.003 inches. The parts will be measured using a standard micrometer with readings recorded to 0.0001 of an inch. Throughput will be measured by reading the part counters on the machines at the end of each day.
+
+[**Data**]{#sec-ppc-521-data}
+
+The following are the data that were collected for this study.
+
+::: {.callout-note}
+NIST's original page links this table's download to `FURNACE.DAT`, evidently a copy-paste slip from the previous case study — the earlier "Software" paragraph on the same page correctly links to `MACHINE.DAT`, which is what the table below actually contains.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+machine_data <- read_table(
+  here::here("datasets", "MACHINE.DAT"),
+  skip = 25,
+  col_names = c("machine", "day", "time", "sample", "diameter"),
+  col_types = "iiiid"
+) |>
+  mutate(
+    machine = factor(machine),
+    day = factor(day),
+    time = factor(time, labels = c("AM", "PM")),
+    sample = factor(sample)
+  )
+
+machine_data
+```

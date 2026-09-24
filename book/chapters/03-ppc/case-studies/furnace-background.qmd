@@ -1,0 +1,66 @@
+### Furnace Case Study {#sec-ppc-51}
+
+This case study analyzes a furnace oxide growth process.
+
+The case study is broken down into the following steps.
+
+1. [Background and Data](#sec-ppc-511)
+2. [Initial Analysis of Response Variable](#sec-ppc-512)
+3. [Identify Sources of Variation](#sec-ppc-513)
+4. [Analysis of Variance](#sec-ppc-514)
+5. [Final Conclusions](#sec-ppc-515)
+6. [Work This Example Yourself](#sec-ppc-516)
+
+#### Background and Data {#sec-ppc-511}
+
+[**Introduction**]{#sec-ppc-511-introduction}
+
+In a semiconductor manufacturing process flow, we have a step whereby we grow an oxide film on the silicon wafer using a furnace. In this step, a cassette of wafers is placed in a quartz "boat" and the boats are placed in the furnace. The furnace can hold four boats. A gas flow is created in the furnace and it is brought up to temperature and held there for a specified period of time (which corresponds to the desired oxide thickness). This study was conducted to determine if the process was stable and to characterize sources of variation so that a process control strategy could be developed.
+
+[**Goal**]{#sec-ppc-511-goal}
+
+The goal of this study is to determine if this process is capable of consistently growing oxide films with a thickness of 560 Angstroms ± 100 Angstroms. An additional goal is to determine important sources of variation for use in the development of a process control strategy.
+
+[**Software**]{#sec-ppc-511-software}
+
+The analyses used in this case study can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/ppc/section5/ppc511.dp --> The R code reproduced throughout this case study follows NIST's own reference R script for it. The reader can download the data as a [text file](../../datasets/FURNACE.DAT).
+
+[**Process Model**]{#sec-ppc-511-process-model}
+
+In the picture below we are modeling this process with one output (film thickness) that is influenced by four controlled factors (gas flow, pressure, temperature and time) and two uncontrolled factors (run and zone). The four controlled factors are part of our recipe and will remain constant throughout this study. We know that there is run-to-run variation that is due to many different factors (input material variation, variation in consumables, etc.). We also know that the different zones in the furnace have an effect. A zone is a region of the furnace tube that holds one boat. There are four zones in these tubes. The zones in the middle of the tube grow oxide a little bit differently from the ones on the ends. In fact, there are temperature offsets in the recipe to help minimize this problem.
+
+![Process model for the furnace oxide growth study: film thickness is influenced by four controlled factors (gas flow, pressure, temperature, time) and two uncontrolled factors (zone, run).](case-studies/images/furnace-process-model.svg){#fig-ppc-511-process-model}
+
+[**Sensitivity Model**]{#sec-ppc-511-sensitivity-model}
+
+The sensitivity model for this process is fairly straightforward and is given in the figure below. The effects of the machine are mostly related to the preventative maintenance (PM) cycle. We want to make sure the quartz tube has been cleaned recently, the mass flow controllers are in good shape and the temperature controller has been calibrated recently. The same is true of the measurement equipment where the thickness readings will be taken. We want to make sure a [gauge study](../02-mpc/index.qmd#sec-mpc) has been performed. For material, the incoming wafers will certainly have an effect on the outgoing thickness as well as the quality of the gases used. Finally, the recipe will have an effect including gas flow, temperature offset for the different zones, and temperature profile (how quickly we raise the temperature, how long we hold it and how quickly we cool it off).
+
+![Sensitivity model for the furnace oxide growth study.](case-studies/images/furnace-fishbone.svg){#fig-ppc-511-sensitivity-model}
+
+[**Sampling Plan**]{#sec-ppc-511-sampling-plan}
+
+Given our goal statement and process modeling, we can now define a sampling plan. The primary goal is to determine if the process is capable. This just means that we need to monitor the process over some period of time and compare the estimates of process location and spread to the specifications. An additional goal is to identify sources of variation to aid in setting up a process control strategy. Some obvious sources of variation are incoming wafers, run-to-run variability, variation due to operators or shift, and variation due to zones within a furnace tube. One additional constraint that we must work under is that this study should not have a significant impact on normal production operations.
+
+Given these constraints, the following sampling plan was selected. It was decided to monitor the process for one day (three shifts). Because this process is operator independent, we will not keep shift or operator information but just record run number. For each run, we will randomly assign cassettes of wafers to a zone. We will select two wafers from each zone after processing and measure two sites on each wafer. This plan should give reasonable estimates of run-to-run variation and within zone variability as well as good overall estimates of process location and spread.
+
+We are expecting readings around 560 Angstroms. We would not expect many readings above 700 or below 400. The measurement equipment is accurate to within 0.5 Angstroms which is well within the accuracy needed for this study.
+
+[**Data**]{#sec-ppc-511-data}
+
+The following are the data that were collected for this study.
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+furnace <- read_table(
+  here::here("datasets", "FURNACE.DAT"),
+  skip = 25,
+  col_names = c("run", "zone", "wafer", "thickness"),
+  col_types = "iiid"
+) |>
+  mutate(run = factor(run), zone = factor(zone), wafer = factor(wafer))
+
+furnace
+```

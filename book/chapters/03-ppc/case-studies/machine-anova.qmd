@@ -1,0 +1,106 @@
+#### Analysis of Variance {#sec-ppc-523}
+
+[**Analysis of Variance Using All Factors**]{#sec-ppc-523-anova-all}
+
+We can confirm our interpretation of the box plots by running an analysis of variance when all four factors are included.
+
+```{r}
+#| code-fold: true
+fit_all <- aov(diameter ~ machine + day + time + sample, data = machine_data)
+summary(fit_all)
+```
+
+[**Interpretation of ANOVA Output**]{#sec-ppc-523-anova-all-interpretation}
+
+We fit the model
+
+$$Y_{ijklm} = \mu + \alpha_i + \beta_j + \tau_k + \phi_l + \epsilon_{ijklm}$$
+
+which has an overall mean, as opposed to the model
+
+$$Y_{ijklm} = A_i + B_j + C_k + D_l + \epsilon_{ijklm}$$
+
+These models are mathematically equivalent. The effect estimates in the first model are relative to the overall mean. The effect estimates for the second model can be obtained by simply adding the overall mean to effect estimates from the first model.
+
+Only the machine factor is statistically significant. This confirms what the box plots in the previous section had indicated graphically.
+
+[**Analysis of Variance Using Only Machine**]{#sec-ppc-523-anova-machine}
+
+The previous analysis of variance indicated that only the machine factor was statistically significant. The following table displays the ANOVA results using only the machine factor.
+
+```{r}
+#| code-fold: true
+fit_machine <- aov(diameter ~ machine, data = machine_data)
+summary(fit_machine)
+```
+
+[**Interpretation of ANOVA Output**]{#sec-ppc-523-anova-machine-interpretation}
+
+At this stage, we are interested in the level means for the machine variable. These can be summarized in the following table.
+
+```{r}
+#| code-fold: true
+machine_fit_summary <- summary(fit_machine)[[1]]
+rmse <- sqrt(machine_fit_summary["Residuals", "Mean Sq"])
+resid_dof <- machine_fit_summary["Residuals", "Df"]
+alpha <- 0.05
+Tvalue <- qt(1 - alpha / 2, df = resid_dof)
+
+machine_means <- machine_data |>
+  summarise(n = n(), Mean = mean(diameter), .by = machine) |>
+  mutate(
+    `Standard Error` = rmse / sqrt(n),
+    `Lower 95% CI` = round(Mean - Tvalue * `Standard Error`, 5),
+    `Upper 95% CI` = round(Mean + Tvalue * `Standard Error`, 5),
+    Mean = round(Mean, 5),
+    `Standard Error` = round(`Standard Error`, 5)
+  ) |>
+  rename(Level = machine, Number = n)
+
+machine_means
+```
+
+[**Model Validation**]{#sec-ppc-523-model-validation}
+
+As a final step, we validate the model<!-- XREF: PMD Chapter 4, Process Modeling, model validation, not yet migrated to this book; source handbook/pmd/section4/pmd44.htm --> by generating a [4-plot](../01-eda/index.qmd#sec-eda-4-plot) of the residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-523-model-validation
+#| fig-cap: "4-plot of the residuals from the machine-only ANOVA model"
+#| warning: false
+library(patchwork)
+
+residual_diagnostics <- machine_data |>
+  mutate(
+    residual = diameter - predict(fit_machine),
+    order = row_number(),
+    lag_residual = lag(residual) # first row has no prior residual, so this is NA
+  )
+
+p1 <- ggplot(residual_diagnostics, aes(order, residual)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
+  labs(x = "Sequence", y = "Residual", title = "Run Sequence Plot") +
+  theme_light()
+
+p2 <- ggplot(residual_diagnostics, aes(lag_residual, residual)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+  theme_light()
+
+p3 <- ggplot(residual_diagnostics, aes(residual)) +
+  geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+  labs(x = "Residual", y = "Count", title = "Histogram") +
+  theme_light()
+
+p4 <- ggplot(residual_diagnostics, aes(sample = residual)) +
+  stat_qq(color = "steelblue") +
+  stat_qq_line(color = "firebrick") +
+  labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+  theme_light()
+
+(p1 + p2) / (p3 + p4)
+```
+
+The 4-plot does not indicate any significant problems with the ANOVA model.

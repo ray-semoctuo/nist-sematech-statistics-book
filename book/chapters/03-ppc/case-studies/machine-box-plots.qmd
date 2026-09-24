@@ -1,0 +1,84 @@
+#### Box Plots by Factors {#sec-ppc-522}
+
+[**Initial Steps**]{#sec-ppc-522-initial-steps}
+
+The initial step is to plot [box plots](../01-eda/index.qmd#sec-eda-box-plot) of the measured diameter for each of the explanatory variables.
+
+[**Box Plot by Machine**]{#sec-ppc-522-boxplot-machine}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the diameter by machine.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-522-boxplot-machine
+#| fig-cap: "Box plot of diameter by machine"
+ggplot(machine_data, aes(machine, diameter)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mean(machine_data$diameter), linetype = "dashed", color = "grey40") +
+  labs(x = "Machine", y = "Diameter (inches)") +
+  theme_light()
+```
+
+[**Conclusions From Box Plot**]{#sec-ppc-522-boxplot-machine-conclusions}
+
+We can make the following conclusions from this box plot.
+
+1. The location appears to be significantly different for the three machines, with machine 2 having the smallest median diameter and machine 1 having the largest median diameter.
+2. Machines 1 and 2 have comparable variability while machine 3 has somewhat larger variability.
+
+[**Box Plot by Day**]{#sec-ppc-522-boxplot-day}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the diameter by day.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-522-boxplot-day
+#| fig-cap: "Box plot of diameter by day"
+ggplot(machine_data, aes(day, diameter)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mean(machine_data$diameter), linetype = "dashed", color = "grey40") +
+  labs(x = "Day", y = "Diameter (inches)") +
+  theme_light()
+```
+
+[**Conclusions From Box Plot**]{#sec-ppc-522-boxplot-day-conclusions}
+
+We can draw the following conclusion from this box plot. Neither the location nor the spread seem to differ significantly by day.
+
+[**Box Plot by Time of Day**]{#sec-ppc-522-boxplot-time}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the time of day.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-522-boxplot-time
+#| fig-cap: "Box plot of diameter by time of day"
+ggplot(machine_data, aes(time, diameter)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mean(machine_data$diameter), linetype = "dashed", color = "grey40") +
+  labs(x = "Time of Day", y = "Diameter (inches)") +
+  theme_light()
+```
+
+[**Conclusion From Box Plot**]{#sec-ppc-522-boxplot-time-conclusions}
+
+We can draw the following conclusion from this box plot. Neither the location nor the spread seem to differ significantly by time of day.
+
+[**Box Plot by Sample Number**]{#sec-ppc-522-boxplot-sample}
+
+The following is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the sample number.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-522-boxplot-sample
+#| fig-cap: "Box plot of diameter by sample number"
+ggplot(machine_data, aes(sample, diameter)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_hline(yintercept = mean(machine_data$diameter), linetype = "dashed", color = "grey40") +
+  labs(x = "Sample Number", y = "Diameter (inches)") +
+  theme_light()
+```
+
+[**Conclusion From Box Plot**]{#sec-ppc-522-boxplot-sample-conclusions}
+
+We can draw the following conclusion from this box plot. Although there are some minor differences in location and spread between the samples, these differences do not show a noticeable pattern and do not seem significant.
