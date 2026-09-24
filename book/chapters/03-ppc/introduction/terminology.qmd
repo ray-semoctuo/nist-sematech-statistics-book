@@ -269,7 +269,7 @@ We can use the simple *black-box* model, shown below, to describe most of the to
 
 **Diagram of the black box model**
 
-![Black box model describing a process: controlled and uncontrolled inputs produce measurable outputs](introduction/images/black-box-model.svg){#fig-ppc-135-black-box}
+![Black box model describing a process: numbered controlled inputs (factors) enter from the left and produce numbered outputs (responses) on the right, while uncontrolled inputs enter from the top (discrete co-factors, such as different machines or operators) and bottom (continuous co-factors, such as room temperature or controller drift)](introduction/images/black-box-model.svg){#fig-ppc-135-black-box}
 
 These inputs and outputs are also known as Factors and Responses, respectively.
 
@@ -297,7 +297,7 @@ We can use the fishbone diagram to further refine the modeling process. Fishbone
 
 **Sample fishbone diagram**
 
-![Example of a fishbone diagram decomposing the complexity of a manufacturing process into major cause categories](introduction/images/fishbone-diagram.svg){#fig-ppc-135-fishbone}
+![Example of a fishbone diagram decomposing a characteristic into four major cause categories -- Machine, Material, Measurement, and Method -- each with its own contributing sub-causes](introduction/images/fishbone-diagram.svg){#fig-ppc-135-fishbone}
 
 #### Experiments and Experimental Design {#sec-ppc-136}
 

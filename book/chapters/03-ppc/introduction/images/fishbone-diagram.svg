@@ -1,49 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" font-family="Helvetica, Arial, sans-serif">
   <style>
-    .spine { stroke: #1B3A52; stroke-width: 2.5; fill: none; }
-    .bone { stroke: #4A4A4A; stroke-width: 1.5; fill: none; }
-    .subbone { stroke: #7A7A7A; stroke-width: 1; fill: none; }
-    .category { font-size: 14px; font-weight: bold; fill: #00105A; text-anchor: middle; }
-    .cause { font-size: 11px; fill: #1B1B1B; }
-    .head { fill: #36648B; stroke: #1B3A52; stroke-width: 1.5; }
-    .head-label { font-size: 15px; font-weight: bold; fill: white; text-anchor: middle; }
+    .spine { stroke: #1B1B1B; stroke-width: 1.8; fill: none; }
+    .bone { stroke: #1B1B1B; stroke-width: 1.5; fill: none; }
+    .tick { stroke: #1B1B1B; stroke-width: 1.2; fill: none; }
+    .category { font-size: 15px; font-weight: bold; fill: #1B1B1B; text-anchor: middle; }
+    .cause-r { font-size: 12px; fill: #1B1B1B; text-anchor: start; }
+    .cause-l { font-size: 12px; fill: #1B1B1B; text-anchor: end; }
+    .head-label { font-size: 15px; font-weight: bold; fill: #1B1B1B; }
   </style>
 
+  <defs>
+    <marker id="arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#1B1B1B" />
+    </marker>
+  </defs>
+
   <!-- Spine -->
-  <line class="spine" x1="40" y1="190" x2="560" y2="190" />
+  <line class="spine" x1="30" y1="210" x2="470" y2="210" marker-end="url(#arrowhead)" />
+  <text class="head-label" x="485" y="215">Characteristic</text>
 
-  <!-- Head (effect) -->
-  <rect class="head" x="560" y="160" width="120" height="60" rx="6" />
-  <text class="head-label" x="620" y="195">Effect</text>
+  <!-- Machine (top-left) -->
+  <text class="category" x="70" y="32">Machine</text>
+  <line class="bone" x1="70" y1="50" x2="200" y2="210" />
+  <!-- Calibration: right side -->
+  <line class="tick" x1="115.5" y1="106" x2="137.5" y2="106" />
+  <text class="cause-r" x="141.5" y="110">Calibration</text>
+  <!-- Maintenance: left side -->
+  <line class="tick" x1="119.5" y1="138" x2="141.5" y2="138" />
+  <text class="cause-l" x="115.5" y="142">Maintenance</text>
+  <!-- Wear: right side -->
+  <line class="tick" x1="167.5" y1="170" x2="189.5" y2="170" />
+  <text class="cause-r" x="193.5" y="174">Wear</text>
+  <!-- Environment: left side -->
+  <line class="tick" x1="165" y1="194" x2="187" y2="194" />
+  <text class="cause-l" x="161" y="198">Environment</text>
 
-  <!-- Top bones: Material, Machine -->
-  <line class="bone" x1="130" y1="190" x2="200" y2="60" />
-  <text class="category" x="205" y="50">Material</text>
-  <line class="subbone" x1="160" y1="140" x2="120" y2="120" />
-  <text class="cause" x="60" y="118">lot-to-lot variation</text>
-  <line class="subbone" x1="180" y1="110" x2="140" y2="90" />
-  <text class="cause" x="80" y="88">supplier</text>
+  <!-- Material (top-right) -->
+  <text class="category" x="260" y="32">Material</text>
+  <line class="bone" x1="260" y1="50" x2="390" y2="210" />
+  <!-- Incoming: right side -->
+  <line class="tick" x1="312" y1="114" x2="334" y2="114" />
+  <text class="cause-r" x="338" y="118">Incoming</text>
+  <!-- Consumables: left side -->
+  <line class="tick" x1="322.5" y1="154" x2="344.5" y2="154" />
+  <text class="cause-l" x="318.5" y="158">Consumables</text>
+  <!-- Source: right side -->
+  <line class="tick" x1="370.5" y1="186" x2="392.5" y2="186" />
+  <text class="cause-r" x="396.5" y="190">Source</text>
 
-  <line class="bone" x1="310" y1="190" x2="380" y2="60" />
-  <text class="category" x="385" y="50">Machine</text>
-  <line class="subbone" x1="340" y1="140" x2="300" y2="120" />
-  <text class="cause" x="240" y="118">calibration</text>
-  <line class="subbone" x1="360" y1="110" x2="320" y2="90" />
-  <text class="cause" x="260" y="88">wear</text>
+  <!-- Measurement (bottom-left) -->
+  <text class="category" x="70" y="405">Measurement</text>
+  <line class="bone" x1="70" y1="380" x2="200" y2="210" />
+  <!-- Bias: right side -->
+  <line class="tick" x1="122" y1="312" x2="144" y2="312" />
+  <text class="cause-r" x="148" y="316">Bias</text>
+  <!-- Accuracy: left side -->
+  <line class="tick" x1="132.5" y1="269.5" x2="154.5" y2="269.5" />
+  <text class="cause-l" x="128.5" y="273.5">Accuracy</text>
+  <!-- Sampling: right side -->
+  <line class="tick" x1="180.5" y1="235.5" x2="202.5" y2="235.5" />
+  <text class="cause-r" x="206.5" y="239.5">Sampling</text>
 
-  <!-- Bottom bones: Method, Environment -->
-  <line class="bone" x1="130" y1="190" x2="200" y2="320" />
-  <text class="category" x="205" y="335">Method</text>
-  <line class="subbone" x1="160" y1="240" x2="120" y2="260" />
-  <text class="cause" x="60" y="272">procedure</text>
-  <line class="subbone" x1="180" y1="270" x2="140" y2="290" />
-  <text class="cause" x="80" y="302">operator technique</text>
-
-  <line class="bone" x1="310" y1="190" x2="380" y2="320" />
-  <text class="category" x="385" y="335">Environment</text>
-  <line class="subbone" x1="340" y1="240" x2="300" y2="260" />
-  <text class="cause" x="240" y="272">temperature</text>
-  <line class="subbone" x1="360" y1="270" x2="320" y2="290" />
-  <text class="cause" x="260" y="302">humidity</text>
+  <!-- Method (bottom-right) -->
+  <text class="category" x="260" y="405">Method</text>
+  <line class="bone" x1="260" y1="380" x2="390" y2="210" />
+  <!-- Recipe: right side -->
+  <line class="tick" x1="312" y1="312" x2="334" y2="312" />
+  <text class="cause-r" x="338" y="316">Recipe</text>
+  <!-- Operator: left side -->
+  <line class="tick" x1="329" y1="261" x2="351" y2="261" />
+  <text class="cause-l" x="325" y="265">Operator</text>
 
 </svg>
