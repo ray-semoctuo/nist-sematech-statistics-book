@@ -1,0 +1,16 @@
+### Define Goals {#sec-ppc-31}
+
+[**State concise goals**]{#sec-ppc-31-state}
+
+The goal statement is one of the most important parts of the characterization plan. With clearly and concisely stated goals, the rest of the planning process falls naturally into place.
+
+[**Goals usually defined in terms of key specifications**]{#sec-ppc-31-specifications}
+
+The goals are usually defined in terms of key specifications or manufacturing indices. We typically want to characterize a process and compare the results against these specifications. However, this is not always the case. We may, for instance, just want to quantify key process parameters and use our estimates of those parameters in some other activity like controller design or process improvement.
+
+[**Example goal statements**]{#sec-ppc-31-examples}
+
+Click on each of the links below to see Goal Statements for each of the case studies.
+
+1. Furnace Case Study (Goal)<!-- XREF: PPC section 3.5.1.1, Furnace Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc511.htm#goal -->
+2. Machine Case Study (Goal)<!-- XREF: PPC section 3.5.2.1, Machine Screw Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc521.htm#goal -->

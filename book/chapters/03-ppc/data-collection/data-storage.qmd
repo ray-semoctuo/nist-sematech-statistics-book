@@ -1,0 +1,20 @@
+#### Data Storage and Retrieval {#sec-ppc-334}
+
+[**Data control depends on facility size**]{#sec-ppc-334-facility-size}
+
+If you are in a small manufacturing facility or a lab, you can simply design a sampling plan, run the material, take the measurements, fill in the run sheet and go back to your computer to analyze the results. There really is not much to be concerned with regarding data storage and retrieval.
+
+In most larger facilities, however, the people handling the material usually have nothing to do with the design. Quite often the measurements are taken automatically and may not even be made in the same country where the material was produced. Your data go through a long chain of automatic acquisition, storage, reformatting, and retrieval before you are ever able to see it. All of these steps are fraught with peril and should be examined closely to ensure that valuable data are not lost or accidentally altered.
+
+[**Know the process involved**]{#sec-ppc-334-know-process}
+
+In the planning phase of the PPC, be sure to understand the entire data collection process. Things to watch out for include:
+
+- automatic measurement machines rejecting outliers
+- only summary statistics (mean and standard deviation) being saved
+- values for explanatory variables (location, operator, etc.) are not being saved
+- how missing values are handled
+
+[**Consult with support staff early on**]{#sec-ppc-334-consult}
+
+It is important to consult with someone from the organization responsible for maintaining the data system early in the planning phase of the PPC. It can also be worthwhile to perform some "dry runs" of the data collection to ensure you will be able to actually acquire the data in the format as defined in the plan.

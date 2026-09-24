@@ -1,0 +1,113 @@
+#### Selecting Sample Sizes {#sec-ppc-333}
+
+[**Consider these things when selecting a sample size**]{#sec-ppc-333-consider}
+
+When choosing a sample size, we must consider the following issues:
+
+- What population parameters we want to estimate
+- Cost of sampling (importance of information)
+- How much is already known
+- Spread (variability) of the population
+- Practicality: how hard is it to collect data
+- How precise we want the final estimates to be
+
+[**Cost of taking samples**]{#sec-ppc-333-cost}
+
+The cost of sampling issue helps us determine how precise our estimates should be. As we will see below, when choosing sample sizes we need to select risk values. If the decisions we will make from the sampling activity are very valuable, then we will want low risk values and hence larger sample sizes.
+
+[**Prior information**]{#sec-ppc-333-prior}
+
+If our process has been studied before, we can use that prior information to reduce sample sizes. This can be done by using prior mean and variance estimates and by stratifying the population to reduce variation within groups.
+
+[**Inherent variability**]{#sec-ppc-333-variability}
+
+We take samples to form estimates of some characteristic of the population of interest. The variance of that estimate is proportional to the inherent variability of the population divided by the sample size:
+
+$$\text{Var}(\hat{p}) \approx \frac{\sigma^2}{n}$$
+
+with $\hat{p}$ denoting the parameter we are trying to estimate. This means that if the variability of the population is large, then we must take many samples. Conversely, a small population variance means we don't have to take as many samples.
+
+[**Practicality**]{#sec-ppc-333-practicality}
+
+Of course the sample size you select must make sense. This is where the trade-offs usually occur. We want to take enough observations to obtain reasonably precise estimates of the parameters of interest but we also want to do this within a practical resource budget. The important thing is to quantify the risks associated with the chosen sample size.
+
+[**Sample size determination**]{#sec-ppc-333-determination}
+
+In summary, the steps involved in estimating a sample size are:
+
+1. There must be a statement about what is expected of the sample. We must determine what is it we are trying to estimate, how precise we want the estimate to be, and what are we going to do with the estimate once we have it. This should easily be derived from the goals.
+2. We must find some equation that connects the desired precision of the estimate with the sample size. This is a probability statement. A couple are given below; see your statistician if these are not appropriate for your situation.
+3. This equation may contain unknown properties of the population such as the mean or variance. This is where prior information can help.
+4. If you are stratifying the population in order to reduce variation, sample size determination must be performed for each stratum.
+5. The final sample size should be scrutinized for practicality. If it is unacceptable, the only way to reduce it is to accept less precision in the sample estimate.
+
+[**Sampling proportions**]{#sec-ppc-333-proportions}
+
+When we are sampling proportions we start with a probability statement about the desired precision. This is given by:
+
+$$Pr(|\hat{p} - P| \ge \delta) = \alpha$$
+
+where
+
+- $\hat{p}$ is the estimated proportion
+- **P** is the unknown population parameter
+- $\delta$ is the specified precision of the estimate
+- $\alpha$ is the probability value (usually low)
+
+This equation simply shows that we want the probability that the precision of our estimate being less than we want is $\alpha$. Of course we like to set $\alpha$ low, usually 0.1 or less. Using some assumptions about the proportion being approximately normally distributed we can obtain an estimate of the required sample size as:
+
+$$n = z_{\alpha}^{2}\left(\frac{pq}{\delta^2}\right)$$
+
+where $z$ is the ordinate on the Normal curve corresponding to $\alpha$.
+
+[**Example**]{#sec-ppc-333-example-proportion}
+
+Let's say we have a new process we want to try. We plan to run the new process and sample the output for yield (good/bad). Our current process has been yielding 65% ($p$ = 0.65, $q$ = 0.35). We decide that we want the estimate of the new process yield to be accurate to within $\delta$ = 0.10 at 95% confidence ($\alpha$ = 0.05, $z_{\alpha}$ = -2, the engineering rule-of-thumb approximation to the precise two-sided 95% value of ±1.96). Using the formula above we get a sample size estimate of $n$ = 91:
+
+```{r}
+p <- 0.65
+q <- 1 - p
+delta <- 0.10
+z_alpha <- 2
+
+n_proportion <- z_alpha^2 * (p * q / delta^2)
+n_proportion
+```
+
+Thus, if we draw 91 random parts from the output of the new process and estimate the yield, then we are 95% sure the yield estimate is within 0.10 of the true process yield.
+
+[**Estimating location: relative error**]{#sec-ppc-333-relative-error}
+
+If we are sampling continuous normally distributed variables, quite often we are concerned about the relative error of our estimates rather than the absolute error. The probability statement connecting the desired precision to the sample size is given by:
+
+$$Pr\left(\left|\frac{\bar{y} - \mu}{\mu}\right| \ge \delta\right) = \alpha$$
+
+where $\mu$ is the (unknown) population mean and $\bar{y}$ is the sample mean.
+
+Again, using the normality assumptions we obtain the estimated sample size to be:
+
+$$n \approx \frac{z_{\alpha}^{2}\sigma^{2}}{\delta^{2}\mu^{2}}$$
+
+with $\sigma^2$ denoting the population variance.
+
+[**Estimating location: absolute error**]{#sec-ppc-333-absolute-error}
+
+If instead of relative error, we wish to use absolute error, the equation for sample size looks a lot like the one for the case of proportions:
+
+$$n \approx z_{\alpha}^{2}\left(\frac{\sigma^{2}}{\delta^{2}}\right)$$
+
+where $\sigma$ is the population standard deviation (but in practice is usually replaced by an *engineering guesstimate*).
+
+[**Example**]{#sec-ppc-333-example-location}
+
+Suppose we want to sample a stable process that deposits a 500 Angstrom film on a semiconductor wafer in order to determine the process mean so that we can set up a control chart on the process. We want to estimate the mean within 10 Angstroms ($\delta$ = 10) of the true mean with 95% confidence ($\alpha$ = 0.05, $z_{\alpha}$ = -2). Our initial guess regarding the variation in the process is that one standard deviation is about 20 Angstroms. This gives a sample size estimate of $n$ = 16:
+
+```{r}
+sigma <- 20
+delta_abs <- 10
+
+n_location <- z_alpha^2 * (sigma^2 / delta_abs^2)
+n_location
+```
+
+Thus, if we take at least 16 samples from this process and estimate the mean film thickness, we can be 95% sure that the estimate is within 10 Angstroms of the true mean value.

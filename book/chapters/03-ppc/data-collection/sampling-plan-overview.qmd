@@ -1,0 +1,19 @@
+### Define Sampling Plan {#sec-ppc-33}
+
+[**Sampling plan is detailed outline of measurements to be taken**]{#sec-ppc-33-outline}
+
+A sampling plan is a detailed outline of which measurements will be taken at what times, on which material, in what manner, and by whom. Sampling plans should be designed in such a way that the resulting data will contain a representative sample of the parameters of interest and allow for all questions, as stated in the goals, to be answered.
+
+[**Steps in the sampling plan**]{#sec-ppc-33-steps}
+
+The steps involved in developing a sampling plan are:
+
+1. [identify the parameters to be measured, the range of possible values, and the required resolution](#sec-ppc-331)
+2. [design a sampling scheme that details how and when samples will be taken](#sec-ppc-332)
+3. [select sample sizes](#sec-ppc-333)
+4. [design data storage formats](#sec-ppc-334)
+5. [assign roles and responsibilities](#sec-ppc-335)
+
+[**Verify and execute**]{#sec-ppc-33-verify}
+
+Once the sampling plan has been developed, it can be verified and then passed on to the responsible parties for execution.

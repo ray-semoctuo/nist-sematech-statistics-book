@@ -1,0 +1,37 @@
+## Data Collection for PPC {#sec-ppc-3}
+
+[**Start with careful planning**]{#sec-ppc-3-planning}
+
+The data collection process for PPC starts with careful planning. The planning consists of the definition of clear and concise goals, developing process models and devising a sampling plan.
+
+[**Many things can go wrong in the data collection**]{#sec-ppc-3-pitfalls}
+
+This activity of course ends without the actual collection of the data which is usually not as straightforward as it might appear. Many things can go wrong in the execution of the sampling plan. The problems can be mitigated with the use of check lists and by carefully documenting all exceptions to the original sampling plan.
+
+1. [Set Goals](#sec-ppc-31)
+2. [Modeling Processes](#sec-ppc-32)
+   1. [Black-Box Models](#sec-ppc-32-black)
+   2. [Fishbone Diagrams](#sec-ppc-32-fish)
+   3. [Relationships and Sensitivities](#sec-ppc-32-rel)
+3. [Define the Sampling Plan](#sec-ppc-33)
+   1. [Identify the parameters, ranges and resolution](#sec-ppc-331)
+   2. [Design sampling scheme](#sec-ppc-332)
+   3. [Select sample sizes](#sec-ppc-333)
+   4. [Design data storage formats](#sec-ppc-334)
+   5. [Assign roles and responsibilities](#sec-ppc-335)
+
+{{< include data-collection/define-goals.qmd >}}
+
+{{< include data-collection/process-modeling.qmd >}}
+
+{{< include data-collection/sampling-plan-overview.qmd >}}
+
+{{< include data-collection/parameters-ranges-resolution.qmd >}}
+
+{{< include data-collection/sampling-scheme.qmd >}}
+
+{{< include data-collection/sample-sizes.qmd >}}
+
+{{< include data-collection/data-storage.qmd >}}
+
+{{< include data-collection/roles-responsibilities.qmd >}}

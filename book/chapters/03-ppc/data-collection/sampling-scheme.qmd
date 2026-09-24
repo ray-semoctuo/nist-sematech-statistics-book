@@ -1,0 +1,49 @@
+#### Choosing a Sampling Scheme {#sec-ppc-332}
+
+[**A sampling scheme defines what data will be obtained and how**]{#sec-ppc-332-defines}
+
+A sampling scheme is a detailed description of what data will be obtained and how this will be done. In PPC we are faced with two different situations for developing sampling schemes. The first is when we are conducting a controlled experiment. There are very efficient and exact methods for developing sampling schemes for designed experiments and the reader is referred to the Process Improvement chapter for details.<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm -->
+
+[**Passive data collection**]{#sec-ppc-332-passive}
+
+The second situation is when we are conducting a passive data collection (PDC) study to learn about the inherent properties of a process. These types of studies are usually for comparison purposes when we wish to compare properties of processes against each other or against some hypothesis. This is the situation that we will focus on here.
+
+[**There are two principles that guide our choice of sampling scheme**]{#sec-ppc-332-principles}
+
+Once we have selected our response parameters, it would seem to be a rather straightforward exercise to take some measurements, calculate some statistics and draw conclusions. There are, however, many things which can go wrong along the way that can be avoided with careful planning and knowing what to watch for. There are two overriding principles that will guide the design of our sampling scheme.
+
+[**The first is precision**]{#sec-ppc-332-precision}
+
+The first principle is that of *precision*. If the sampling scheme is properly laid out, the difference between our estimate of some parameter of interest and its *true* value will be due only to random variation. The size of this random variation is measured by a quantity called *standard error*. The magnitude of the standard error is known as precision. The smaller the standard error, the more precise are our estimates.
+
+[**Precision of an estimate depends on several factors**]{#sec-ppc-332-depends}
+
+The precision of any estimate will depend on:
+
+- the inherent variability of the process estimator
+- the measurement error
+- the number of independent replications (sample size)
+- the efficiency of the sampling scheme.
+
+[**The second is systematic sampling error (or confounded effects)**]{#sec-ppc-332-systematic}
+
+The second principle is the avoidance of systematic errors. Systematic sampling error occurs when the levels of one explanatory variable are the same as some other unaccounted for explanatory variable. This is also referred to as confounded effects. Systematic sampling error is best seen by example.
+
+> **Example 1:** We want to compare the effect of two different coolants on the resulting surface finish from a turning operation. It is decided to run one lot, change the coolant and then run another lot. With this sampling scheme, there is no way to distinguish the coolant effect from the lot effect or from tool wear considerations. There is systematic sampling error in this sampling scheme.
+
+> **Example 2:** We wish to examine the effect of two pre-clean procedures on the uniformity of an oxide growth process. We clean one cassette of wafers with one method and another cassette with the other method. We load one cassette in the front of the furnace tube and the other cassette in the middle. To complete the run, we fill the rest of the tube with other lots. With this sampling scheme, there is no way to distinguish between the effect of the different pre-clean methods and the cassette effect or the tube location effect. Again, we have systematic sampling errors.
+
+[**Stratification helps to overcome systematic error**]{#sec-ppc-332-stratification}
+
+The way to combat systematic sampling errors (and at the same time increase precision) is through stratification and randomization. Stratification is the process of segmenting our population across levels of some factor so as to minimize variability within those segments or *strata*. For instance, if we want to try several different process recipes to see which one is best, we may want to be sure to apply each of the recipes to each of the three work shifts. This will ensure that we eliminate any systematic errors caused by a shift effect. This is where the [ANOVA designs](#sec-ppc-23) are particularly useful.<!-- Note: NIST's original links to handbook/ppc/section2/ppc222.htm, which does not exist anywhere in this handbook mirror (the real ANOVA subsections are ppc231/232/233.htm) -- this appears to be a stale/broken link in NIST's own source, so we point at the ANOVA overview section instead. -->
+
+[**Randomization helps too**]{#sec-ppc-332-randomization}
+
+Randomization is the process of randomly applying the various treatment combinations. In the above example, we would not want to apply recipe 1, 2 and 3 in the same order for each of the three shifts but would instead randomize the order of the three recipes in each shift. This will avoid any systematic errors caused by the order of the recipes.
+
+[**Examples**]{#sec-ppc-332-examples}
+
+The issues here are many and complicated. Click on each of the links below to see the sampling schemes for each of the case studies.
+
+1. Case Study 1 (Sampling Plan)<!-- XREF: PPC section 3.5.1.1, Furnace Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc511.htm#data -->
+2. Case Study 2 (Sampling Plan)<!-- XREF: PPC section 3.5.2.1, Machine Screw Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc521.htm#data -->

@@ -1,0 +1,24 @@
+#### Identifying Parameters, Ranges and Resolution {#sec-ppc-331}
+
+Our goals and the models we built in the previous steps should provide all of the information needed for selecting parameters and determining the expected ranges and the required measurement resolution.
+
+[**Goals will tell us what to measure and how**]{#sec-ppc-331-goals}
+
+The first step is to carefully examine the goals. This will tell you which response variables need to be sampled and how. For instance, if our goal states that we want to determine if an oxide film can be grown on a wafer to within 10 Angstroms of the target value with a uniformity of <2%, then we know we have to measure the film thickness on the wafers to an accuracy of at least ± 3 Angstroms and we must measure at multiple sites on the wafer in order to calculate uniformity.
+
+The goals and the models we build will also indicate which explanatory variables need to be sampled and how. Since the fishbone diagrams define the known important relationships, these will be our best guide as to which explanatory variables are candidates for measurement.
+
+[**Ranges help screen outliers**]{#sec-ppc-331-ranges}
+
+Defining the expected ranges of values is useful for screening outliers. In the [machining example](#sec-ppc-231-example), we would not expect to see many values that vary more than ± 0.005" from nominal. Therefore we know that any values that are much beyond this interval are highly suspect and should be remeasured.
+
+[**Resolution helps choose measurement equipment**]{#sec-ppc-331-resolution}
+
+Finally, the required resolution for the measurements should be specified. This specification will help guide the choice of metrology equipment and help define the measurement procedures. As a rule of thumb, we would like our measurement resolution to be at least 1/10 of our tolerance. For the oxide growth example, this means that we want to measure with an accuracy of 2 Angstroms. Similarly, for the turning operation we would need to measure the diameter within 0.001". This means that vernier calipers would be adequate as the measurement device for this application.
+
+[**Examples**]{#sec-ppc-331-examples}
+
+Click on each of the links below to see the parameter descriptions for each of the case studies.
+
+1. Case Study 1 (Sampling Plan)<!-- XREF: PPC section 3.5.1.1, Furnace Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc511.htm#samplingplan -->
+2. Case Study 2 (Sampling Plan)<!-- XREF: PPC section 3.5.2.1, Machine Screw Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc521.htm#samplingplan -->

@@ -6,9 +6,7 @@ The goal of this chapter is to learn how to plan and conduct a *Production Proce
 
 {{< include assumptions/index.qmd >}}
 
-## Data Collection for PPC {#sec-ppc-3}
-
-<!-- Source: handbook/ppc/section3/. TODO: port narrative content, re-implement worked examples in R. -->
+{{< include data-collection/index.qmd >}}
 
 ## Data Analysis for PPC {#sec-ppc-4}
 

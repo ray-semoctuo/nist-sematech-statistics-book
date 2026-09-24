@@ -1,0 +1,30 @@
+### Process Modeling {#sec-ppc-32}
+
+[**Identify influential parameters**]{#sec-ppc-32-identify}
+
+Process modeling begins by identifying all of the important factors and responses. This is usually best done as a team effort and is limited to the scope set by the goal statement.
+
+[**Document with black-box models**]{#sec-ppc-32-black}
+
+This activity is best documented in the form of a black-box model as seen in the figure below. In this figure all of the outputs are shown on the right and all of the controllable inputs are shown on the left. Any inputs or factors that may be observable but not controllable are shown on the top or bottom.
+
+![Black-box model: controllable inputs (factors) enter from the left and are numbered 1 through *n*; outputs (responses) exit to the right, also numbered 1 through *n*. Uncontrolled discrete co-factors enter from the top and uncontrolled continuous co-factors enter from the bottom.](introduction/images/black-box-model.svg){#fig-ppc-32-black-box}
+
+[**Model relationships using fishbone diagrams**]{#sec-ppc-32-fish}
+
+The next step is to model relationships of the previously identified factors and responses. In this step we choose a parameter and identify all of the other parameters that may have an influence on it. This process is easily documented with fishbone diagrams as illustrated in the figure below. The influenced parameter is put on the center line and the influential factors are listed off of the centerline and can be grouped into major categories like Tool, Material, Work Methods and Environment.
+
+![Fishbone (Ishikawa) diagram: the influenced parameter sits on the center line, with influential factors grouped into major categories (here Machine, Material, Measurement, Method) branching off of it.](introduction/images/fishbone-diagram.svg){#fig-ppc-32-fishbone}
+
+[**Document relationships and sensitivities**]{#sec-ppc-32-rel}
+
+The final step is to document all known information about the relationships and sensitivities between the inputs and outputs. Some of the inputs may be correlated with each other as well as the outputs. There may be detailed mathematical models available from other studies or the information available may be vague such as for a machining process we know that as the feed rate increases, the quality of the finish decreases.
+
+It is best to document this kind of information in a table with all of the inputs and outputs listed both on the left column and on the top row. Then, correlation information can be filled in for each of the appropriate cells. See the case studies for an example.
+
+[**Examples**]{#sec-ppc-32-examples}
+
+Click on each of the links below to see the process models for each of the case studies.
+
+1. Case Study 1 (Process Model)<!-- XREF: PPC section 3.5.1.1, Furnace Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc511.htm#processmodel -->
+2. Case Study 2 (Process Model)<!-- XREF: PPC section 3.5.2.1, Machine Screw Case Study, Background and Data, not yet drafted; source handbook/ppc/section5/ppc521.htm#processmodel -->

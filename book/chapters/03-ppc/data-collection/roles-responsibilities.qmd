@@ -1,0 +1,19 @@
+#### Assign Roles and Responsibilities {#sec-ppc-335}
+
+[**PPC is a team effort, get everyone involved early**]{#sec-ppc-335-team}
+
+In today's manufacturing environment, it is unusual when an investigative study is conducted by a single individual. Most PPC studies will be a team effort. It is important that all individuals who will be involved in the study become a part of the team from the beginning. Many of the various collateral activities will need approvals and sign-offs. Be sure to account for that cycle time in your plan.
+
+[**Table showing roles and potential responsibilities**]{#sec-ppc-335-table}
+
+A partial list of these individuals along with their roles and potential responsibilities is given in the table below. There may be multiple occurrences of each of these individuals across shifts or process steps, so be sure to include everyone.
+
+| Role | Controls | Responsibilities |
+|:---|:---|:---|
+| **Tool Owner** | Controls Tool Operations | Schedules tool time; ensures tool state; advises on experimental design |
+| **Process Owner** | Controls Process Recipe | Advises on experimental design; controls recipe settings |
+| **Tool Operator** | Executes Experimental Plan | Executes experimental runs; may take measurements |
+| **Metrology** | Own Measurement Tools | Maintains metrology equipment; conducts gauge studies; may take measurements |
+| **CIM** | Owns Enterprise Information System | Maintains data collection system; maintains equipment interfaces and data formatters; maintains databases and information access |
+| **Statistician** | Consultant | Consults on experimental design; consults on data analysis |
+| **Quality Control** | Controls Material | Ensures quality of incoming material; must approve shipment of outgoing material (especially for recipe changes) |
