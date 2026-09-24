@@ -1,0 +1,69 @@
+### Assessing Process Capability {#sec-ppc-46}
+
+[**Capability compares a process against its specification**]{#sec-ppc-46-compares}
+
+Process capability analysis entails comparing the performance of a process against its specifications. We say that a process is capable if virtually all of the possible variable values fall within the specification limits.
+
+[**Use a capability chart**]{#sec-ppc-46-chart}
+
+Graphically, we assess process capability by plotting the process specification limits on a histogram of the observations. If the histogram falls within the specification limits, then the process is capable. This is illustrated in the graph below. Note how the process is shifted below target and the process variation is too large. This is an example of an incapable process.
+
+[**Notice how the process is off target and has too much variation**]{#sec-ppc-46-off-target}
+
+::: {.callout-note}
+NIST's original example used a real capability histogram without a downloadable dataset behind it. The measurements below are illustrative, generated with `set.seed()` to be off-target and over-spread relative to the specification limits, matching the description above.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-ppc-46-capability
+#| fig-cap: "Histogram of process observations with specification limits (LSL = 90, USL = 110, target = 100)"
+library(tidyverse)
+
+set.seed(77)
+LSL <- 90
+USL <- 110
+target <- 100
+
+capability_data <- tibble(x = rnorm(200, mean = 96, sd = 4.2))
+
+ggplot(capability_data, aes(x)) +
+  geom_histogram(binwidth = 2, fill = "steelblue", alpha = 0.6, color = "white") +
+  geom_vline(xintercept = c(LSL, USL), color = "firebrick", linetype = "dashed") +
+  geom_vline(xintercept = target, color = "grey40", linetype = "dotted") +
+  labs(x = "Measurement", y = "Count") +
+  theme_light()
+```
+
+Numerically, we measure capability with a capability index. The general equation for the capability index, $C_p$, is:
+
+[**Numerically, we use the $C_p$ index**]{#sec-ppc-46-cp}
+
+$$C_{p} = \frac{\text{USL} - \text{LSL}}{6s}$$
+
+[**Interpretation of the $C_p$ index**]{#sec-ppc-46-cp-interpretation}
+
+This equation just says that the measure of our process capability is how much of our observed process variation is covered by the process specifications. In this case the process variation is measured by 6 standard deviations (± 3 on each side of the mean). Clearly, if $C_p$ > 1.0, then the process specification covers almost all of our process observations.
+
+[**$C_p$ does not account for process that is off center**]{#sec-ppc-46-cp-limitation}
+
+The only problem with the $C_p$ index is that it does not account for a process that is off-center. We can modify this equation slightly to account for off-center processes to obtain the $C_{pk}$ index as follows:
+
+[**Or the $C_{pk}$ index**]{#sec-ppc-46-cpk}
+
+$$C_{pk} = \min\left[\frac{\text{USL} - \bar{x}}{3s}, \frac{\bar{x} - \text{LSL}}{3s}\right]$$
+
+[**$C_{pk}$ accounts for a process being off center**]{#sec-ppc-46-cpk-interpretation}
+
+This equation just says to take the minimum distance between our specification limits and the process mean and divide it by 3 standard deviations to arrive at the measure of process capability. This is all covered in more detail in the process capability<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, not yet migrated to this book; source handbook/pmc/section1/pmc16.htm --> section of the process monitoring chapter. For the example above, note how the $C_{pk}$ value is less than the $C_p$ value. This is because the process distribution is not centered between the specification limits.
+
+```{r}
+s <- sd(capability_data$x)
+xbar <- mean(capability_data$x)
+
+Cp <- (USL - LSL) / (6 * s)
+Cpk <- min((USL - xbar) / (3 * s), (xbar - LSL) / (3 * s))
+
+c(Cp = Cp, Cpk = Cpk)
+```

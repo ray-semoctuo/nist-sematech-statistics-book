@@ -1,0 +1,43 @@
+## Data Analysis for PPC {#sec-ppc-4}
+
+In this section we will learn how to analyze and interpret the data we collected in accordance with our data collection plan.
+
+1. [Initial Data Analysis](#sec-ppc-41)
+   1. [Gather Data](#sec-ppc-41-gather)
+   2. [Quality Checking the Data](#sec-ppc-41-check)
+   3. [Summary Analysis (Location, Spread and Shape)](#sec-ppc-41-summary)
+2. [Exploring Relationships](#sec-ppc-42)
+   1. [Response Correlations](#sec-ppc-421)
+   2. [Exploring Main Effects](#sec-ppc-422)
+   3. [Exploring First-Order Interactions](#sec-ppc-423)
+3. [Building Models](#sec-ppc-43)
+   1. [Fitting Polynomial Models](#sec-ppc-431)
+   2. [Fitting Physical Models](#sec-ppc-432)
+4. [Analyzing Variance Structure](#sec-ppc-44)
+5. [Assessing Process Stability](#sec-ppc-45)
+6. [Assessing Process Capability](#sec-ppc-46)
+7. [Checking Assumptions](#sec-ppc-47)
+
+{{< include analysis/first-steps.qmd >}}
+
+{{< include analysis/exploring-relationships.qmd >}}
+
+{{< include analysis/response-correlations.qmd >}}
+
+{{< include analysis/main-effects.qmd >}}
+
+{{< include analysis/first-order-interactions.qmd >}}
+
+{{< include analysis/building-models.qmd >}}
+
+{{< include analysis/polynomial-models.qmd >}}
+
+{{< include analysis/physical-models.qmd >}}
+
+{{< include analysis/variance-structure.qmd >}}
+
+{{< include analysis/process-stability.qmd >}}
+
+{{< include analysis/process-capability.qmd >}}
+
+{{< include analysis/checking-assumptions.qmd >}}

@@ -1,0 +1,13 @@
+### Initial Data Analysis {#sec-ppc-41}
+
+[**Gather all of the data into one place**]{#sec-ppc-41-gather}
+
+After executing the data collection plan for the characterization study, the data must be gathered up for analysis. Depending on the scope of the study, the data may reside in one place or in many different places. It may be in common factory databases, flat files on individual computers, or handwritten on run sheets. Whatever the case, the first step will be to collect all of the data from the various sources and enter it into a single data file. The most convenient format for most data analyses is the variables-in-columns format. This format has the variable names in column headings and the values for the variables in the rows.
+
+[**Perform a quality check on the data using graphical and numerical techniques**]{#sec-ppc-41-check}
+
+The next step is to perform a quality check on the data. Here we are typically looking for data entry problems, unusual data values, missing data, etc. The two most useful tools for this step are the [scatter plot](../01-eda/index.qmd#sec-eda-scatter-plot) and the [histogram](../01-eda/index.qmd#sec-eda-histogram). By constructing scatter plots of all of the response variables, any data entry problems will be easily identified. Histograms of response variables are also quite useful for identifying data entry problems. Histograms of explanatory variables help identify problems with the execution of the sampling plan. If the counts for each level of the explanatory variables are not the same as called for in the sampling plan, you know you may have an execution problem. Running numerical summary statistics on all of the variables (both response and explanatory) also helps to identify data problems.
+
+[**Summarize data by estimating location, spread and shape**]{#sec-ppc-41-summary}
+
+Once the data quality problems are identified and fixed, we should estimate the [location, spread and shape](#sec-ppc-131) for all of the response variables. This is easily done with a combination of histograms and numerical summary statistics.

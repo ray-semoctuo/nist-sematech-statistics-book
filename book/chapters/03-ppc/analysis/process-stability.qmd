@@ -1,0 +1,17 @@
+### Assessing Process Stability {#sec-ppc-45}
+
+[**A process is stable if it has a constant mean and a constant variance over time**]{#sec-ppc-45-definition}
+
+A manufacturing process cannot be released to production until it has been proven to be stable. Also, we cannot begin to talk about [process capability](#sec-ppc-46) until we have demonstrated stability in our process. A process is said to be stable when all of the response parameters that we use to measure the process have both constant means and constant variances over time, and also have a constant distribution. This is equivalent to our earlier definition of [controlled variation](#sec-ppc-1321).
+
+[**The graphical tool we use to assess stability is the scatter plot or the control chart**]{#sec-ppc-45-graphical}
+
+The graphical tool we use to assess process stability is the [scatter plot](../01-eda/index.qmd#sec-eda-scatter-plot). We collect a sufficient number of independent samples (greater than 100) from our process over a sufficiently long period of time (this can be specified in days, hours of processing time or number of parts processed) and plot them on a scatter plot with sample order on the x-axis and the sample value on the y-axis. The plot should look like constant random variation about a constant mean. Sometimes it is helpful to calculate control limits<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, not yet migrated to this book; source handbook/pmc/section3/pmc31.htm --> and plot them on the scatter plot along with the data. The two plots in the [controlled variation example](#sec-ppc-1321) are good illustrations of stable and unstable processes.
+
+[**Numerically, we assess its stationarity using the autocorrelation function**]{#sec-ppc-45-stationarity}
+
+Numerically, we evaluate process stability through a times series analysis concept known as stationarity.<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, not yet migrated to this book; source handbook/pmc/section4/pmc44.htm#stationary --> This is just another way of saying that the process has a constant mean and a constant variance. The numerical technique used to assess stationarity is the autocovariance function.<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, not yet migrated to this book; source handbook/pmc/section4/pmc44.htm#covar -->
+
+[**Graphical methods usually good enough**]{#sec-ppc-45-graphical-enough}
+
+Typically, graphical methods are good enough for evaluating process stability. The numerical methods are generally only used for modeling purposes.

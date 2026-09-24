@@ -1,0 +1,15 @@
+### Exploring Relationships {#sec-ppc-42}
+
+[**The first analysis of our data is exploration**]{#sec-ppc-42-first}
+
+Once we have a data file created in the desired format, checked the data integrity, and have estimated the summary statistics on the response variables, the next step is to start exploring the data and to try to understand the underlying structure. The most useful tools will be various forms of the basic scatter plot and box plot.
+
+These techniques will allow pairwise explorations for examining relationships between any pair of response variables, any pair of explanatory and response variables, or a response variable as a function of any two explanatory variables. Beyond three dimensions we are pretty much limited by our human frailties at visualization.
+
+[**Graph everything that makes sense**]{#sec-ppc-42-graph-everything}
+
+In this exploratory phase, the key is to graph everything that makes sense to graph. These pictures will not only reveal any additional quality problems with the data but will also reveal influential data points and will guide the subsequent modeling activities.
+
+[**Graph responses, then explanatory versus response, then conditional plots**]{#sec-ppc-42-order}
+
+The order that generally proves most effective for data analysis is to first graph all of the responses against each other in a pairwise fashion. Then we graph responses against the explanatory variables. This will give an indication of the main factors that have an effect on response variables. Finally, we graph response variables, conditioned on the levels of explanatory factors. This is what reveals interactions between explanatory variables. We will use nested [boxplots](../01-eda/index.qmd#sec-eda-box-plot) and [block plots](../01-eda/index.qmd#sec-eda-block-plot) to visualize interactions.

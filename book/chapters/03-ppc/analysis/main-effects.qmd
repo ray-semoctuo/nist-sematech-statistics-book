@@ -1,0 +1,165 @@
+#### Exploring Main Effects {#sec-ppc-422}
+
+[**The next step is to look for main effects**]{#sec-ppc-422-next-step}
+
+The next step in the exploratory analysis of our data is to see which factors have an effect on which response variables and to quantify that effect. [Scatter plots](../01-eda/index.qmd#sec-eda-scatter-plot) and [box plots](../01-eda/index.qmd#sec-eda-box-plot) will be the tools of choice here.
+
+[**Watch out for varying sample sizes across levels**]{#sec-ppc-422-sample-sizes}
+
+This step is relatively self explanatory. However there are two points of caution. First, be cognizant of not only the trends in these graphs but also the amount of data represented in those trends. This is especially true for categorical explanatory variables. There may be many more observations in some levels of the categorical variable than in others. In any event, take unequal sample sizes into account when making inferences.
+
+[**Graph implicit as well as explicit explanatory variables**]{#sec-ppc-422-implicit}
+
+The second point is to be sure to graph the responses against implicit explanatory variables (such as observation order) as well as the explicit explanatory variables. There may be interesting insights in these *hidden* explanatory variables.
+
+[**Example: wafer processing**]{#sec-ppc-422-example}
+
+In the example below, we have collected data on the particles added to a wafer during a particular processing step. We ran a number of cassettes through the process and sampled wafers from certain slots in the cassette. We also kept track of which load lock the wafers passed through. This was done for two different process temperatures. We measured both small particles (< 2 microns) and large particles (> 2 microns). We plot the responses (particle counts) against each of the explanatory variables.
+
+::: {.callout-note}
+NIST's original example used real box-plot images without a downloadable dataset behind them. The particle-count data below (and in the [next section](#sec-ppc-423)) is illustrative, generated with `set.seed()` to match the qualitative patterns NIST describes: no cassette effect, a slot effect (stronger for small particles, one distinct slot for large particles), a slight load-lock effect, and a strong temperature effect on small particles.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+set.seed(321)
+n_per_cell <- 8
+
+particles <- expand_grid(
+  slot = factor(1:5),
+  load_lock = factor(c("1", "2")),
+  temperature = factor(c("Low", "High"), levels = c("Low", "High")),
+  rep = 1:n_per_cell
+) |>
+  mutate(
+    cassette = factor(sample(1:3, n(), replace = TRUE)),
+    slot_effect_small = if_else(slot == "3", 6, 0),
+    slot_effect_large = if_else(slot == "5", 4, 0),
+    ll_effect = if_else(load_lock == "2", 1, 0),
+    temp_mult = if_else(temperature == "Low", 1, 0.4),
+    small_particles = pmax(0, round(
+      8 + slot_effect_small + ll_effect * 5 * temp_mult +
+        rnorm(n(), 0, 2 + 3 * (temperature == "Low"))
+    )),
+    large_particles = pmax(0, round(
+      3 + slot_effect_large + ll_effect * 1.5 * temp_mult +
+        rnorm(n(), 0, 1.2) + rbinom(n(), 1, 0.05) * rpois(n(), 8)
+    ))
+  ) |>
+  select(cassette, slot, load_lock, temperature, small_particles, large_particles)
+```
+
+[**Cassette does not appear to be an important factor for small or large particles**]{#sec-ppc-422-cassette}
+
+This first graph is a [box plot](../01-eda/index.qmd#sec-eda-box-plot) of the number of small particles added for each cassette type.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-small-by-cassette
+#| fig-cap: "Small particles by cassette"
+ggplot(particles, aes(cassette, small_particles)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  labs(x = "Cassette", y = "Small particle count") +
+  theme_light()
+```
+
+The second graph is a box plot of the number of large particles added for each cassette type.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-large-by-cassette
+#| fig-cap: "Large particles by cassette"
+ggplot(particles, aes(cassette, large_particles)) +
+  geom_boxplot(fill = "firebrick", alpha = 0.5) +
+  labs(x = "Cassette", y = "Large particle count") +
+  theme_light()
+```
+
+We conclude from these two box plots that cassette does not appear to be an important factor for small or large particles.
+
+[**There is a difference between slots for small particles, one slot is different for large particles**]{#sec-ppc-422-slot}
+
+We next generate box plots of small and large particles for the slot variable. First, the box plot for small particles.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-small-by-slot
+#| fig-cap: "Small particles by slot"
+ggplot(particles, aes(slot, small_particles)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  labs(x = "Slot", y = "Small particle count") +
+  theme_light()
+```
+
+Next, the box plot for large particles.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-large-by-slot
+#| fig-cap: "Large particles by slot"
+ggplot(particles, aes(slot, large_particles)) +
+  geom_boxplot(fill = "firebrick", alpha = 0.5) +
+  labs(x = "Slot", y = "Large particle count") +
+  theme_light()
+```
+
+We conclude that there is a difference between slots for small particles. We also conclude that one slot appears to be different for large particles.
+
+[**Load lock may have a slight effect for small and large particles**]{#sec-ppc-422-load-lock}
+
+We next generate box plots of small and large particles for the load lock variable. First, the box plot for small particles.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-small-by-load-lock
+#| fig-cap: "Small particles by load lock"
+ggplot(particles, aes(load_lock, small_particles)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  labs(x = "Load Lock", y = "Small particle count") +
+  theme_light()
+```
+
+Next, the box plot for large particles.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-large-by-load-lock
+#| fig-cap: "Large particles by load lock"
+ggplot(particles, aes(load_lock, large_particles)) +
+  geom_boxplot(fill = "firebrick", alpha = 0.5) +
+  labs(x = "Load Lock", y = "Large particle count") +
+  theme_light()
+```
+
+We conclude that there may be a slight effect for load lock for small and large particles.
+
+[**For small particles, temperature has a strong effect on both location and spread. For large particles, there may be a slight temperature effect but this may just be due to the outliers**]{#sec-ppc-422-temperature}
+
+We next generate box plots of small and large particles for the temperature variable. First, the box plot for small particles.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-small-by-temperature
+#| fig-cap: "Small particles by temperature"
+ggplot(particles, aes(temperature, small_particles)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  labs(x = "Temperature", y = "Small particle count") +
+  theme_light()
+```
+
+Next, the box plot for large particles.
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-422-large-by-temperature
+#| fig-cap: "Large particles by temperature"
+ggplot(particles, aes(temperature, large_particles)) +
+  geom_boxplot(fill = "firebrick", alpha = 0.5) +
+  labs(x = "Temperature", y = "Large particle count") +
+  theme_light()
+```
+
+We conclude that temperature has a strong effect on both location and spread for small particles. We conclude that there might be a small temperature effect for large particles, but this may just be due to outliers.

@@ -1,0 +1,81 @@
+### Analyzing Variance Structure {#sec-ppc-44}
+
+[**Studying variation is important in PPC**]{#sec-ppc-44-studying}
+
+One of the most common activities in process characterization work is to study the variation associated with the process and to try to determine the important sources of that variation. This is called *analysis of variance*. Refer to the section of this chapter on [ANOVA models](#sec-ppc-23) for a discussion of the theory behind this kind of analysis.
+
+[**The key is to know the structure**]{#sec-ppc-44-structure}
+
+The key to performing an analysis of variance is identifying the *structure* represented by the data. In the ANOVA models section we discussed [one-way](#sec-ppc-231) layouts and two-way layouts where the factors are either [crossed](#sec-ppc-232) or [nested](#sec-ppc-233). Review these sections if you want to learn more about ANOVA structural layouts.
+
+To perform the analysis, we just identify the structure, enter the data for each of the factors and levels into a statistical analysis program and then interpret the ANOVA table and other output. This is all illustrated in the example below.
+
+[**Example: furnace oxide thickness with a 1-way layout**]{#sec-ppc-44-example}
+
+The example is a furnace operation in semiconductor manufacture where we are growing an oxide layer on a wafer. Each lot of wafers is placed on quartz containers (boats) and then placed in a long tube-furnace. They are then raised to a certain temperature and held for a period of time in a gas flow. We want to understand the important factors in this operation. The furnace is broken down into four sections (zones) and two wafers from each lot in each zone are measured for the thickness of the oxide layer.
+
+This is the same furnace-run data used in the [Furnace Case Study](#sec-ppc-5) later in this chapter. The reader can download the [data as a text file](../../datasets/FURNACE.DAT).
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+furnace <- read_table(
+  here::here("datasets", "FURNACE.DAT"),
+  skip = 25,
+  col_names = c("run", "zone", "wafer", "thickness"),
+  col_types = "iiid"
+) |>
+  mutate(run = factor(run), zone = factor(zone))
+```
+
+[**Look at effect of zone location on oxide thickness**]{#sec-ppc-44-zone-effect}
+
+The first thing to look at is the effect of zone location on the oxide thickness. This is a classic one-way layout. The factor is furnace zone and we have four levels. A plot of the data and an ANOVA table are given below.
+
+[**The zone effect is masked by the lot-to-lot variation**]{#sec-ppc-44-masked}
+
+```{r}
+#| code-fold: true
+#| label: fig-ppc-44-thickness-by-zone
+#| fig-cap: "Oxide thickness by furnace zone"
+ggplot(furnace, aes(zone, thickness)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.5) +
+  geom_jitter(width = 0.1, alpha = 0.4) +
+  labs(x = "Zone", y = "Thickness (Å)") +
+  theme_light()
+```
+
+[**ANOVA table**]{#sec-ppc-44-anova-1}
+
+```{r}
+fit_zone <- aov(thickness ~ zone, data = furnace)
+summary(fit_zone)
+```
+
+[**Let's account for lot with a nested layout**]{#sec-ppc-44-nested}
+
+From the graph there does not appear to be much of a zone effect; in fact, the ANOVA table indicates that it is not significant. The problem is that variation due to lots is so large that it is masking the zone effect. We can fix this by adding a factor for lot. By treating this as a nested two-way layout, we obtain the ANOVA table below.
+
+[**Now both lot and zone are revealed as important**]{#sec-ppc-44-both-important}
+
+Zone is nested within lot (run), so — just as in the [nested ANOVA value-splitting example](#sec-ppc-2331) — the correct denominator for testing the Lot effect is the Zone(Lot) mean square, not the residual mean square. We build the $F_0$ ratios by hand from the fitted sums of squares rather than reading them off `summary()` directly:
+
+```{r}
+fit_nested <- aov(thickness ~ run / zone, data = furnace)
+anova_furnace <- broom::tidy(fit_nested)
+anova_furnace
+
+ms_lot <- anova_furnace$meansq[anova_furnace$term == "run"]
+ms_zone_lot <- anova_furnace$meansq[anova_furnace$term == "run:zone"]
+ms_residual_furnace <- anova_furnace$meansq[anova_furnace$term == "Residuals"]
+
+f_lot <- ms_lot / ms_zone_lot
+f_zone_lot <- ms_zone_lot / ms_residual_furnace
+c(F_lot = f_lot, F_zone_lot = f_zone_lot)
+```
+
+[**Conclusions**]{#sec-ppc-44-conclusions}
+
+Since the $p$-value is less than 0.05 for both lot and zone, we know that these factors are statistically significant at the 0.05 significance level.

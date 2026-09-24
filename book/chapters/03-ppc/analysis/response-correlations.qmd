@@ -1,0 +1,39 @@
+#### Response Correlations {#sec-ppc-421}
+
+[**Make scatter plots of all of the response variables**]{#sec-ppc-421-make-plots}
+
+In this first phase of exploring our data, we plot all of the response variables in a pairwise fashion. The individual scatter plots are displayed in a matrix form with the y-axis scaling the same for all plots in a row of the matrix.
+
+[**Check the slope of the data on the scatter plots**]{#sec-ppc-421-check-slope}
+
+The [scatterplot matrix](../01-eda/index.qmd#sec-eda-scatterplot-matrix) shows how the response variables are related to each other. If there is a linear trend with a positive slope, this indicates that the responses are positively correlated. If there is a linear trend with a negative slope, then the variables are negatively correlated. If the data appear random with no slope, the variables are probably not correlated. This will be important information for subsequent model building steps.
+
+[**This scatterplot matrix shows examples of both negatively and positively correlated variables**]{#sec-ppc-421-example}
+
+An example of a scatterplot matrix is given below. In this semiconductor manufacturing example, three responses, yield (Bin1), N-channel Id effective (NIDEFF), and P-channel Id effective (PIDEFF) are plotted against each other in a scatterplot matrix. We can see that Bin1 is positively correlated with NIDEFF and negatively correlated with PIDEFF. Also, as expected, NIDEFF is negatively correlated with PIDEFF. This kind of information will prove to be useful when we build models for yield improvement.
+
+::: {.callout-note}
+NIST's original example used a real scatterplot matrix image without a downloadable dataset behind it. The figure below is illustrative data, generated with `set.seed()` to match the correlation pattern described above (Bin1 positively correlated with NIDEFF and negatively correlated with PIDEFF; NIDEFF negatively correlated with PIDEFF), reproduced with `GGally::ggpairs()`.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-ppc-421-scatterplot-matrix
+#| fig-cap: "Scatterplot matrix of yield (Bin1), N-channel Id effective (NIDEFF), and P-channel Id effective (PIDEFF)"
+library(tidyverse)
+library(GGally)
+
+set.seed(200)
+n <- 100
+
+wafer_yield <- tibble(
+  nideff = rnorm(n, 520, 15),
+  pideff = -0.6 * (nideff - 520) + rnorm(n, 210, 8),
+  bin1 = 0.5 * (nideff - 520) - 0.4 * (pideff - 210) + rnorm(n, 78, 5)
+) |>
+  select(Bin1 = bin1, NIDEFF = nideff, PIDEFF = pideff)
+
+ggpairs(wafer_yield) +
+  theme_light()
+```

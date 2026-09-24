@@ -1,0 +1,15 @@
+#### Fitting Polynomial Models {#sec-ppc-431}
+
+[**Polynomial models are a great tool for determining which input factors drive responses and in what direction**]{#sec-ppc-431-tool}
+
+We use polynomial models to estimate and predict the shape of response values over a range of input parameter values. Polynomial models are a great tool for determining which input factors drive responses and in what direction. These are also the most common models used for analysis of designed experiments. A quadratic (second-order) polynomial model for two explanatory variables has the form of the equation below. The single x-terms are called the main effects. The squared terms are called the quadratic effects and are used to model curvature in the response surface. The cross-product terms are used to model interactions between the explanatory variables.
+
+$$Y = \alpha_0 + \alpha_1 x_1 + \alpha_2 x_2 + \alpha_{11} x_{1}^{2} + \alpha_{22} x_{2}^{2} + \alpha_{12} x_{1}x_{2} + \epsilon$$
+
+[**We generally don't need more than second-order equations**]{#sec-ppc-431-second-order}
+
+In most engineering and manufacturing applications we are concerned with at most second-order polynomial models. Polynomial equations obviously could become much more complicated as we increase the number of explanatory variables and hence the number of cross-product terms. Fortunately, we rarely see significant interaction terms above the two-factor level. This helps to keep the equations at a manageable level.
+
+[**Use multiple regression to fit polynomial models**]{#sec-ppc-431-regression}
+
+When the number of factors is small (less than 5), the complete polynomial equation can be fitted using the technique known as multiple regression. When the number of factors is large, we should use a technique known as *stepwise regression*. Most statistical analysis programs have a stepwise regression capability. We just enter all of the terms of the polynomial models and let the software choose which terms best describe the data. For a more thorough discussion of this topic and some examples, refer to the process improvement chapter.<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm -->

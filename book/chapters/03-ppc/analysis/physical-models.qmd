@@ -1,0 +1,62 @@
+#### Fitting Physical Models {#sec-ppc-432}
+
+[**Sometimes we want to use a physical model**]{#sec-ppc-432-physical}
+
+Sometimes, rather than approximating response behavior with [polynomial models](#sec-ppc-431), we know and can model the physics behind the underlying process. In these cases we would want to fit *physical models* to our data. This kind of modeling allows for better prediction and is less subject to variation than polynomial models (as long as the underlying process doesn't change).
+
+[**We will use a CMP process to illustrate**]{#sec-ppc-432-cmp}
+
+We will illustrate this concept with an example. We have collected data on a chemical/mechanical planarization process (CMP) at a particular semiconductor processing step. In this process, wafers are polished using a combination of chemicals in a polishing slurry using polishing pads. We polished a number of wafers for differing periods of time in order to calculate material removal rates.
+
+[**CMP removal rate can be modeled with a non-linear equation**]{#sec-ppc-432-nonlinear}
+
+From first principles we know that removal rate changes with time. Early on, removal rate is high and as the wafer becomes more planar the removal rate declines. This is easily modeled with an exponential function of the form:
+
+$$\text{removal rate} = p_1 + p_2 \times \exp^{p_3 \times \text{time}}$$
+
+where $p_1$, $p_2$, and $p_3$ are the parameters we want to estimate.
+
+[**A non-linear regression routine was used to fit the data to the equation**]{#sec-ppc-432-fit}
+
+The equation was fit to the data using a non-linear regression routine. A plot of the original data and the fitted line are given in the image below. The fit is quite good. This fitted equation was subsequently used in process optimization work.
+
+::: {.callout-note}
+NIST's original example used a real CMP data plot without a downloadable dataset behind it. The removal-rate data below is illustrative, generated with `set.seed()` to follow the same exponential-decay shape described above, then fit with `nls()`.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-ppc-432-cmp-fit
+#| fig-cap: "CMP removal rate versus polish time, with fitted exponential decay curve"
+library(tidyverse)
+
+set.seed(55)
+time <- rep(seq(5, 120, by = 5), each = 2)
+p1_true <- 50
+p2_true <- 800
+p3_true <- -0.03
+
+cmp <- tibble(
+  time = time,
+  removal_rate = p1_true + p2_true * exp(p3_true * time) + rnorm(length(time), 0, 15)
+)
+
+cmp_fit <- nls(
+  removal_rate ~ p1 + p2 * exp(p3 * time),
+  data = cmp,
+  start = list(p1 = 50, p2 = 800, p3 = -0.03)
+)
+
+cmp |>
+  mutate(fitted = predict(cmp_fit)) |>
+  ggplot(aes(time, removal_rate)) +
+  geom_point(color = "steelblue", alpha = 0.6) +
+  geom_line(aes(y = fitted), color = "firebrick", linewidth = 1) +
+  labs(x = "Polish Time (s)", y = "Removal Rate (Å/min)") +
+  theme_light()
+```
+
+```{r}
+summary(cmp_fit)
+```
