@@ -1,0 +1,32 @@
+### What is design of experiments (DOE)? {#sec-pmd-31}
+
+[**Systematic Approach to Data Collection**]{#sec-pmd-31-systematic}
+
+Design of experiments (DOE) is a systematic, rigorous approach to engineering problem-solving that applies principles and techniques at the data collection stage so as to ensure the generation of valid, defensible, and supportable engineering conclusions. In addition, all of this is carried out under the constraint of a minimal expenditure of engineering runs, time, and money.
+
+[**DOE Problem Areas**]{#sec-pmd-31-problem-areas}
+
+There are four general engineering problem areas in which DOE may be applied:
+
+1. Comparative
+2. Screening/Characterizing
+3. Modeling
+4. Optimizing
+
+[**Comparative**]{#sec-pmd-31-comparative}
+
+In the first case, the engineer is interested in assessing whether a change in a single factor has in fact resulted in a change/improvement to the process as a whole.
+
+[**Screening/Characterization**]{#sec-pmd-31-screening}
+
+In the second case, the engineer is interested in "understanding" the process as a whole in the sense that he/she wishes (after design and analysis) to have in hand a ranked list of important through unimportant factors (most important to least important) that affect the process.
+
+[**Modeling**]{#sec-pmd-31-modeling}
+
+In the third case, the engineer is interested in functionally modeling the process with the output being a good-fitting (= high predictive power) mathematical function, and to have good (= maximal accuracy) estimates of the coefficients in that function.
+
+[**Optimizing**]{#sec-pmd-31-optimizing}
+
+In the fourth case, the engineer is interested in determining optimal settings of the process factors; that is, to determine for each factor the level of the factor that optimizes the process response.
+
+In this section, we focus on case 3: modeling.

@@ -1,0 +1,17 @@
+#### The random errors have a constant standard deviation. {#sec-pmd-213}
+
+[**All Data Treated Equally by Most Process Modeling Methods**]{#sec-pmd-213-equally}
+
+Due to the presence of random variation, it can be difficult to determine whether or not all of the data in a data set are of equal quality. As a result, most process modeling procedures treat all of the data equally when using it to estimate the unknown parameters in the model. Most methods also use a single estimate of the amount of random variability in the data for computing prediction and calibration uncertainties. Treating all of the data in the same way also yields simpler, easier-to-use models. Not surprisingly, however, the decision to treat the data like this can have a negative effect on the quality of the resulting model too, if it turns out the data are not all of equal quality.
+
+[**Data Quality Measured by Standard Deviation**]{#sec-pmd-213-quality}
+
+Of course data quality can't be measured point-by-point since it is clear from direct observation of the data that the amount of error in each point varies. Instead, points that have the same underlying average squared error, or *variance*, are considered to be of equal quality. Even though the specific process response values observed at points that meet this criterion will have different errors, the data collected at such points will be of equal quality over repeated data collections. Since the standard deviation of the data at each set of explanatory variable values is simply the square root of its variance, the standard deviation of the data for each different combination of explanatory variables can also be used to measure data quality. The standard deviation is preferred, in fact, because it has the advantage of being measured in the same units as the response variable, making it easier to relate to this statistic.
+
+[**Assumption Not Needed for Weighted Least Squares**]{#sec-pmd-213-weighted}
+
+The assumption that the random errors have constant standard deviation is not implicit to [weighted least squares regression](#sec-pmd-143). Instead, it is assumed that the weights provided in the analysis correctly indicate the differing levels of variability present in the response variables. The weights are then used to adjust the amount of influence each data point has on the estimates of the model parameters to an appropriate level. They are also used to adjust prediction and calibration uncertainties to the correct levels for different regions of the data set.
+
+[**Assumption Does Apply to LOESS**]{#sec-pmd-213-loess}
+
+Even though it uses weighted least squares to estimate the model parameters, [LOESS](#sec-pmd-144) still relies on the assumption of a constant standard deviation. The weights used in LOESS actually reflect the relative level of similarity between mean response values at neighboring points in the explanatory variable space rather than the level of response precision at each set of explanatory variable values. Actually, because LOESS uses separate parameter estimates in each localized subset of data, it does not require the assumption of a constant standard deviation of the data for parameter estimation. The subsets of data used in LOESS are usually small enough that the precision of the data is roughly constant within each subset. LOESS normally makes no provisions for adjusting uncertainty computations for differing levels of precision across a data set, however.

@@ -1,0 +1,108 @@
+#### How can I test whether or not the random errors are distributed normally? {#sec-pmd-445}
+
+[**Histogram and Normal Probability Plot Used for Normality Checks**]{#sec-pmd-445-tools}
+
+The histogram<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Histogram; source handbook/eda/section3/eda33e.htm --> and the normal probability plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Normal Probability Plot; source handbook/eda/section3/eda33l.htm --> are used to check whether or not it is reasonable to assume that the random errors inherent in the process have been drawn from a normal distribution. The [normality assumption](#sec-pmd-214) is needed for the error rates we are willing to accept when making decisions about the process. If the random errors are not from a normal distribution, incorrect decisions will be made more or less frequently than the stated confidence levels for our inferences indicate.
+
+[**Normal Probability Plot**]{#sec-pmd-445-nppi}
+
+The normal probability plot is constructed by plotting the sorted values of the residuals versus the associated theoretical values from the standard normal distribution. Unlike most residual scatter plots, however, a random scatter of points does not indicate that the assumption being checked is met in this case. Instead, if the random errors are normally distributed, the plotted points will lie close to a straight line. Distinct curvature or other significant deviations from a straight line indicate that the random errors are probably not normally distributed. A few points that are far off the line suggest that the data has some outliers in it.
+
+[**Examples**]{#sec-pmd-445-examples}
+
+Normal probability plots for the [Pressure/Temperature example](#sec-pmd-11-example), the [Thermocouple Calibration example](#sec-pmd-133-example), and the [Polymer Relaxation example](#sec-pmd-422-polymer) are shown below. The normal probability plots for these three examples indicate that it is reasonable to assume that the random errors for these processes are drawn from approximately normal distributions. In each case there is a strong linear relationship between the residuals and the theoretical values from the standard normal distribution. Of course the plots do show that the relationship is not perfectly deterministic (and it never will be), but the linear relationship is still clear. Since none of the points in these plots deviate much from the linear relationship defined by the residuals, it is also reasonable to conclude that there are no outliers in any of these data sets.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-445-normal-probability-plots
+#| fig-cap: "Normal probability plots of the residuals for the pressure/temperature, thermocouple calibration, and polymer relaxation examples"
+library(tidyverse)
+library(patchwork)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+pressure_temp <- pressure_temp |> mutate(residual = resid(pt_fit))
+
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+clb1_fit <- loess(voltage ~ temperature, data = clb1, degree = 2, span = 0.3, family = "gaussian")
+clb1 <- clb1 |> mutate(residual = resid(clb1_fit))
+
+pr1 <- read_table(
+  here::here("datasets", "PR1.DAT"),
+  skip = 25,
+  col_names = c("time", "temperature", "torque"),
+  col_types = "ddd"
+)
+pr1_fit <- nls(
+  torque ~ b0 + b1 * exp(-(time / (b2 + b4 * temperature + b5 * temperature^2))^b3),
+  data = pr1,
+  start = list(b0 = 5, b1 = 3, b2 = 17.3, b4 = -0.73, b5 = 0.024, b3 = 1)
+)
+pr1 <- pr1 |> mutate(residual = resid(pr1_fit))
+
+normal_probability_plot <- function(residual, title) {
+  ggplot(tibble(residual = residual), aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(title = title, x = "Theoretical Quantiles", y = "Residual") +
+    theme_light()
+}
+
+p_pt <- normal_probability_plot(pressure_temp$residual, "Pressure/Temperature")
+p_tc <- normal_probability_plot(clb1$residual, "Thermocouple Calibration")
+p_pr <- normal_probability_plot(pr1$residual, "Polymer Relaxation")
+
+(p_pt + p_tc) / p_pr
+```
+
+[**Further Discussion and Examples**]{#sec-pmd-445-further}
+
+If the random errors from one of these processes were not normally distributed, then significant curvature may have been visible in the relationship between the residuals and the quantiles from the standard normal distribution, or there would be residuals at the upper and/or lower ends of the line that clearly did not fit the linear relationship followed by the bulk of the data. Examples of some typical cases obtained with non-normal random errors are illustrated in the general discussion<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Normal Probability Plot, examples of non-normal cases; source handbook/eda/section3/eda33l.htm#examples --> of the normal probability plot.
+
+[**Histogram**]{#sec-pmd-445-histogram}
+
+The normal probability plot helps us determine whether or not it is reasonable to assume that the random errors in a statistical process can be assumed to be drawn from a normal distribution. An advantage of the normal probability plot is that the human eye is very sensitive to deviations from a straight line that might indicate that the errors come from a non-normal distribution. However, when the normal probability plot suggests that the normality assumption may not be reasonable, it does not give us a very good idea what the distribution does look like. A histogram of the residuals from the fit, on the other hand, can provide a clearer picture of the shape of the distribution. The fact that the histogram provides more general distributional information than does the normal probability plot suggests that it will be harder to discern deviations from normality than with the more specifically-oriented normal probability plot.
+
+[**Examples**]{#sec-pmd-445-histogram-examples}
+
+Histograms for the three examples used to illustrate the normal probability plot are shown below. The histograms are all more-or-less bell-shaped, confirming the conclusions from the normal probability plots. Additional examples can be found in the gallery of graphical techniques.<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Histogram, gallery of examples; source handbook/eda/section3/eda33e.htm#examples -->
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-445-histograms
+#| fig-cap: "Histograms of the residuals for the pressure/temperature, thermocouple calibration, and polymer relaxation examples"
+residual_histogram <- function(residual, title) {
+  ggplot(tibble(residual = residual), aes(residual)) +
+    geom_histogram(bins = 8, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(title = title, x = "Residual", y = "Count") +
+    theme_light()
+}
+
+h_pt <- residual_histogram(pressure_temp$residual, "Pressure/Temperature")
+h_tc <- residual_histogram(clb1$residual, "Thermocouple Calibration")
+h_pr <- residual_histogram(pr1$residual, "Polymer Relaxation")
+
+(h_pt + h_tc) / h_pr
+```
+
+[**Important Note**]{#sec-pmd-445-important-note}
+
+One important detail to note about the normal probability plot and the histogram is that they provide information on the distribution of the random errors from the process only if
+
+1. the functional part of the model is correctly specified,
+2. the standard deviation is constant across the data,
+3. there is no drift in the process, and
+4. the random errors are independent from one run to the next.
+
+If the other residual plots indicate problems with the model, the normal probability plot and histogram will not be easily interpretable.

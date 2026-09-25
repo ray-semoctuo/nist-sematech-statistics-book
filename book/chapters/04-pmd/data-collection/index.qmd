@@ -1,0 +1,25 @@
+## Data Collection for Process Modeling {#sec-pmd-3}
+
+[**Collecting Good Data**]{#sec-pmd-3-collecting}
+
+This section lays out some general principles for collecting data for construction of process models. Using well-planned data collection procedures is often the difference between successful and unsuccessful experiments. In addition, well-designed experiments are often less expensive than those that are less well thought-out, regardless of overall success or failure.
+
+Specifically, this section will answer the question:
+
+> What can the analyst do even prior to collecting the data (that is, at the experimental design stage) that would allow the analyst to do an optimal job of modeling the process?
+
+1. [What is design of experiments (DOE)?](#sec-pmd-31)
+2. [Why is experimental design important for process modeling?](#sec-pmd-32)
+3. [What are some general design principles for process modeling?](#sec-pmd-33)
+4. [I've heard some people refer to "optimal" designs, shouldn't I use those?](#sec-pmd-34)
+5. [How can I tell if a particular experimental design is good for my application?](#sec-pmd-35)
+
+{{< include data-collection/design-of-experiments.qmd >}}
+
+{{< include data-collection/why-design-matters.qmd >}}
+
+{{< include data-collection/design-principles.qmd >}}
+
+{{< include data-collection/optimal-designs.qmd >}}
+
+{{< include data-collection/assessing-design-quality.qmd >}}

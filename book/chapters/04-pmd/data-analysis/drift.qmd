@@ -1,0 +1,97 @@
+#### How can I tell if there was drift in the measurement process? {#sec-pmd-443}
+
+[**Run Order Plots Reveal Drift in the Process**]{#sec-pmd-443-run-order}
+
+"Run order" or "run sequence" plots<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Run-Sequence Plot; source handbook/eda/section3/eda33p.htm --> of the residuals are used to check for drift in the process. The run order residual plot is a special type of scatter plot in which each residual is plotted versus an index that indicates the order (in time) in which the data were collected. This plot is useful, however, only if data have been collected in a randomized run order, or some other order that is not increasing or decreasing in any of the predictor variables used in the model. If the data have been collected in a time order that is increasing or decreasing with the predictor variables, then any drift in the process may not be able to be separated from the functional relationship between the predictors and the response. This is why [randomization is emphasized in experiment design](#sec-pmd-33-randomization).
+
+[**Pressure / Temperature Example**]{#sec-pmd-443-pt-example}
+
+To show in a more concrete way how run order plots work, the plot below shows the residuals from a straight-line fit to the [Pressure/Temperature data](#sec-pmd-11-example) plotted in run order. Comparing the run order plot to a listing of the data with the residuals<!-- XREF: Dataplot detail page not migrated; source handbook/pmd/section4/dep/dep443.htm --> shows how the residual for the first data point collected is plotted versus the run order index value 1, the second residual is plotted versus an index value of 2, and so forth.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-443-pt-run-order
+#| fig-cap: "Run sequence plot for the pressure/temperature data"
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+pressure_temp <- pressure_temp |> mutate(residual = resid(pt_fit))
+
+ggplot(pressure_temp, aes(run_order, residual)) +
+  geom_point(color = "steelblue") +
+  geom_line(color = "steelblue", alpha = 0.4) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Run Order", y = "Residual") +
+  theme_light()
+```
+
+[**No Drift Indicated**]{#sec-pmd-443-no-drift}
+
+Taken as a whole, this plot essentially shows that there is only random scatter in the relationship between the observed pressures and order in which the data were collected, rather than any systematic relationship. Although there appears to be a slight trend in the residuals when plotted in run order, the trend is small when measured against short-term random variation in the data, indicating that it is probably not a real effect. The presence of this apparent trend does emphasize, however, that practice and judgment are needed to correctly interpret these plots. Although residual plots are a very useful tool, if critical judgment is not used in their interpretation, you can see things that aren't there or miss things that are. One hint that the slight slope visible in the data is not worrisome in this case is the fact that the residuals overlap zero across all runs. If the process was drifting significantly, it is likely that there would be some parts of the run sequence in which the residuals would not overlap zero. If there is still some doubt about the slight trend visible in the data after using this graphical procedure, a term describing the drift can be added to the model and tested numerically to see if it has a significant impact on the results.
+
+[**Modification of Example**]{#sec-pmd-443-modification}
+
+To illustrate how the residuals from the Pressure/Temperature data would look if there were drift in the process, a modified version of the data was simulated. A small drift of 0.3 units/measurement was added to the process. A plot of the data is shown below. In this run sequence plot a clear, strong trend is visible and there are portions of the run order where the residuals do not overlap zero. Because the structure is so evident in this case, it is easy to conclude that some sort of drift is present. Then, of course, its cause needs to be determined so that appropriate steps can be taken to eliminate the drift from the process or to account for it in the model.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-443-pt-drift
+#| fig-cap: "Run sequence plot for pressure/temperature data with a simulated drift of 0.3 units per measurement"
+pressure_drift <- pressure_temp |> mutate(pressure_drifted = pressure + 0.3 * run_order)
+
+pt_drift_fit <- lm(pressure_drifted ~ temperature, data = pressure_drift)
+pressure_drift <- pressure_drift |> mutate(residual_drifted = resid(pt_drift_fit))
+
+ggplot(pressure_drift, aes(run_order, residual_drifted)) +
+  geom_point(color = "steelblue") +
+  geom_line(color = "steelblue", alpha = 0.4) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Run Order", y = "Residual") +
+  theme_light()
+```
+
+As in the case when the standard deviation was not constant across the data set, comparison<!-- XREF: Dataplot detail page not migrated; source handbook/pmd/section4/dep/dep443b.htm --> of these two versions of the data is interesting because the drift is not apparent in either data set when viewed in the scale of the data. This highlights the need for graphical residual analysis when developing process models.
+
+[**Applicable to Most Regression Methods**]{#sec-pmd-443-most-methods}
+
+The run sequence plot, like most types of residual plots, can be used to check for drift in many regression methods. It is not limited to least squares fitting or one particular type of model. The run sequence plot below shows the residuals from the fit of the nonlinear model
+
+$$ y = \beta_0 + \beta_1\exp\left[-\left(\frac{x_1}{\beta_2+\beta_4x_2+\beta_5x_2^2}\right)^{\beta_3}\right] + \varepsilon $$
+
+to the data from the [Polymer Relaxation example](#sec-pmd-422-polymer). The even spread of the residuals across the range of the data indicates that there is no apparent drift in this process.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-443-polymer-run-order
+#| fig-cap: "Run sequence plot for the polymer relaxation data, fitted with temperature incorporated into the beta2 term"
+pr1 <- read_table(
+  here::here("datasets", "PR1.DAT"),
+  skip = 25,
+  col_names = c("time", "temperature", "torque"),
+  col_types = "ddd"
+) |>
+  mutate(run_order = row_number())
+
+pr1_fit <- nls(
+  torque ~ b0 + b1 * exp(-(time / (b2 + b4 * temperature + b5 * temperature^2))^b3),
+  data = pr1,
+  start = list(b0 = 5, b1 = 3, b2 = 17.3, b4 = -0.73, b5 = 0.024, b3 = 1)
+)
+
+pr1 <- pr1 |> mutate(residual = resid(pr1_fit))
+
+ggplot(pr1, aes(run_order, residual)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Run Order", y = "Residual") +
+  theme_light()
+```

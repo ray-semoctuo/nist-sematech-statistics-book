@@ -1,0 +1,13 @@
+#### The data are randomly sampled from the process. {#sec-pmd-215}
+
+[**Data Must Reflect the Process**]{#sec-pmd-215-reflect}
+
+Since [the random variation inherent in the process is critical to obtaining satisfactory results from most modeling methods](#sec-pmd-211-rrv), it is important that the data reflect that random variation in a representative way. Because of the nearly infinite number of ways non-representative sampling might be done, however, few, if any, statistical methods would ever be able to correct for the effects that would have on the data. Instead, these methods rely on the assumption that the data will be representative of the process. This means that if the variation in the data is not representative of the process, the nature of the deterministic part of the model, described by the function, $f(\vec{x};\vec{\beta})$, will be incorrect. This, in turn, is likely to lead to incorrect conclusions being drawn when the model is used to answer scientific or engineering questions about the process.
+
+[**Data Best Reflects the Process Via Unbiased Sampling**]{#sec-pmd-215-unbiased}
+
+Given that we can never determine what the actual random errors in a particular data set are, representative samples of data are best obtained by randomly sampling data from the process. In a simple random sample, every response from the population(s) being sampled has an equal chance of being observed. As a result, while it cannot guarantee that each sample will be representative of the process, random sampling does ensure that the act of data collection does not leave behind any biases in the data, on average. This means that most of the time, over repeated samples, the data will be representative of the process. In addition, under random sampling, probability theory can be used to quantify how often particular modeling procedures will be affected by relatively extreme variations in the data, allowing us to control the error rates experienced when answering questions about the process.
+
+[**This Assumption Relatively Controllable**]{#sec-pmd-215-controllable}
+
+Obtaining data is of course something that is actually done by the analyst rather than being a feature of the process itself. This gives the analyst some ability to ensure that this assumption will be valid. Paying careful attention to data collection procedures and employing experimental design principles like randomization of the run order will yield a sample of data that is as close as possible to being perfectly randomly sampled from the process. Section 4.3.3<!-- XREF: PMD section 4.3.3, Data Collection for Process Modeling, not yet drafted; source handbook/pmd/section3/pmd33.htm --> has additional discussion of some of the principles of good experimental design.

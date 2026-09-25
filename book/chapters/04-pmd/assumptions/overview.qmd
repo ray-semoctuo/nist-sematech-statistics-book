@@ -1,0 +1,14 @@
+### What are the typical underlying assumptions in process modeling? {#sec-pmd-21}
+
+[**Overview of Section 4.2.1**]{#sec-pmd-21-overview}
+
+This section lists the typical assumptions underlying most process modeling methods. On each of the following pages, one of the six major assumptions is described individually; the reasons for its importance are also briefly discussed; and any methods that are not subject to that particular assumption are noted. As discussed on the [previous page](#sec-pmd-2), these are implicit assumptions based on properties inherent to the process modeling methods themselves. Successful use of these methods in any particular application hinges on the validity of the underlying assumptions, whether their existence is acknowledged or not. Section 4.4.4<!-- XREF: PMD section 4.4.4, Data Analysis for Process Modeling, model validation, not yet drafted; source handbook/pmd/section4/pmd44.htm --> discusses methods for checking the validity of these assumptions.
+
+[**Typical Assumptions for Process Modeling**]{#sec-pmd-21-typical}
+
+1. [The process is a statistical process.](#sec-pmd-211)
+2. [The means of the random errors are zero.](#sec-pmd-212)
+3. [The random errors have a constant standard deviation.](#sec-pmd-213)
+4. [The random errors follow a normal distribution.](#sec-pmd-214)
+5. [The data are randomly sampled from the process.](#sec-pmd-215)
+6. [The explanatory variables are observed without error.](#sec-pmd-216)

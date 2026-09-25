@@ -1,0 +1,49 @@
+#### How can I test whether any significant terms are missing or misspecified in the functional part of the model? {#sec-pmd-446}
+
+[**Statistical Tests Can Augment Ambiguous Residual Plots**]{#sec-pmd-446-statistical-tests}
+
+Although the residual plots discussed on pages [4.4.4.1](#sec-pmd-441) and [4.4.4.3](#sec-pmd-443) will often indicate whether any important variables are missing or misspecified in the functional part of the model, a statistical test of the hypothesis that the model is sufficient may be helpful if the plots leave any doubt. Although it may seem tempting to use this type of statistical test in place of residual plots since it apparently assesses the fit of the model objectively, no single test can provide the rich feedback to the user that a graphical analysis of the residuals can provide. Furthermore, while model completeness is one of the most important aspects of model adequacy, this type of test does not address other important aspects of model quality. In statistical jargon, this type of test for model adequacy is usually called a "lack-of-fit" test.
+
+[**General Strategy**]{#sec-pmd-446-strategy}
+
+The most common strategy used to test for model adequacy is to compare the amount of random variation in the residuals from the data used to fit the model with an estimate of the random variation in the process using data that are independent of the model. If these two estimates of the random variation are similar, that indicates that no significant terms are likely to be missing from the model. If the model-dependent estimate of the random variation is larger than the model-independent estimate, then significant terms probably are missing or misspecified in the functional part of the model.
+
+[**Testing Model Adequacy Requires Replicate Measurements**]{#sec-pmd-446-replicates}
+
+The need for a model-independent estimate of the random variation means that replicate measurements made under identical experimental conditions are required to carry out a lack-of-fit test. If no replicate measurements are available, then there will not be any baseline estimate of the random process variation to compare with the results from the model. This is the main reason that the use of replication is emphasized in [experimental design](#sec-pmd-33-replication).
+
+[**Data Used to Fit Model Can Be Partitioned to Compute Lack-of-Fit Statistic**]{#sec-pmd-446-partition}
+
+Although it might seem like two sets of data would be needed to carry out the lack-of-fit test using the strategy described above, one set of data to fit the model and compute the [residual standard deviation](#sec-pmd-431-rsd) and the other to compute the model-independent estimate of the random variation, that is usually not necessary. In most regression applications, the same data used to fit the model can also be used to carry out the lack-of-fit test, as long as the necessary replicate measurements are available. In these cases, the lack-of-fit statistic is computed by partitioning the residual standard deviation into two independent estimators of the random variation in the process. One estimator depends on the model and the sample means of the replicated sets of data ($\hat{\sigma}_m$), while the other estimator is a pooled standard deviation based on the variation observed in each set of replicated measurements ($\hat{\sigma}_r$). The squares of these two estimators of the random variation are often called the "mean square for lack-of-fit" and the "mean square for pure error," respectively, in statistics texts. The notation $\hat{\sigma}_m$ and $\hat{\sigma}_r$ is used here instead to emphasize the fact that, if the model fits the data, these quantities should both be good estimators of $\sigma$.
+
+[**Estimating $\sigma$ Using Replicate Measurements**]{#sec-pmd-446-sigma-replicates}
+
+The model-independent estimator of $\sigma$ is computed using the formula
+
+$$ \hat{\sigma}_r = \sqrt{\frac{1}{(n-n_u)} \sum_{i=1}^{n_u} \sum_{j=1}^{n_i} \ [y_{ij} - \bar{y}_i]^2} $$
+
+with $n$ denoting the sample size of the data set used to fit the model, $n_u$ is the number of unique combinations of predictor variable levels, $n_i$ is the number of replicated observations at the $i$th combination of predictor variable levels, the $y_{ij}$ are the regression responses indexed by their predictor variable levels and number of replicate measurements, and $\bar{y}_i$ is the mean of the responses at the $i$th combination of predictor variable levels. Notice that the formula for $\hat{\sigma}_r$ depends only on the data and not on the functional part of the model. This shows that $\hat{\sigma}_r$ will be a good estimator of $\sigma$, regardless of whether the model is a complete description of the process or not.
+
+[**Estimating $\sigma$ Using the Model**]{#sec-pmd-446-sigma-model}
+
+Unlike the formula for $\hat{\sigma}_r$, the formula for $\hat{\sigma}_m$
+
+$$ \hat{\sigma}_m = \sqrt{ \frac{1}{(n_u-p)} \sum_{i=1}^{n_u}  n_i[\bar{y}_i - f(\vec{x}_i;\hat{\vec{\beta}})]^2 } $$
+
+(with $p$ denoting the number of unknown parameters in the model) does depend on the functional part of the model. If the model were correct, the value of the function would be a good estimate of the mean value of the response for every combination of predictor variable values. When the function provides good estimates of the mean response at the $i$th combination, then $\hat{\sigma}_m$ should be close in value to $\hat{\sigma}_r$ and should also be a good estimate of $\sigma$. If, on the other hand, the function is missing any important terms (within the range of the data), or if any terms are misspecified, then the function will provide a poor estimate of the mean response for some combinations of the predictors and $\hat{\sigma}_m$ will tend to be greater than $\hat{\sigma}_r$.
+
+[**Carrying Out the Test for Lack-of-Fit**]{#sec-pmd-446-carrying-out}
+
+Combining the ideas presented in the previous two paragraphs, following the general strategy outlined [above](#sec-pmd-446-strategy), the adequacy of the functional part of the model can be assessed by comparing the values of $\hat{\sigma}_m$ and $\hat{\sigma}_r$. If $\hat{\sigma}_m > \hat{\sigma}_r$, then one or more important terms may be missing or misspecified in the functional part of the model. Because of the random error in the data, however, we know that $\hat{\sigma}_m$ will sometimes be larger than $\hat{\sigma}_r$ even when the model is adequate. To make sure that the hypothesis that the model is adequate is not rejected by chance, it is necessary to understand how much greater than $\hat{\sigma}_r$ the value of $\hat{\sigma}_m$ might typically be when the model does fit the data. Then the hypothesis can be rejected only when $\hat{\sigma}_m$ is significantly greater than $\hat{\sigma}_r$.
+
+When the model does fit the data, it turns out that the ratio
+
+$$ L = \frac{\hat{\sigma}_m^2}{\hat{\sigma}_r^2} $$
+
+follows an F distribution.<!-- XREF: EDA section 3.3.6.6.5, Gallery of Distributions, F Distribution; source handbook/eda/section3/eda3665.htm --> Knowing the probability distribution that describes the behavior of the statistic, $L$, we can control the probability of rejecting the hypothesis that the model is adequate in cases when the model actually is adequate. Rejecting the hypothesis that the model is adequate only when $L$ is greater than an upper-tail cut-off value from the F distribution with a user-specified probability of wrongly rejecting the hypothesis gives us a precise, objective, probabilistic definition of when $\hat{\sigma}_m$ is significantly greater than $\hat{\sigma}_r$. The user-specified probability used to obtain the cut-off value from the F distribution is called the "significance level" of the test. The significance level for most statistical tests is denoted by $\alpha$. The most commonly used value for the significance level is $\alpha=0.05$, which means that the hypothesis of an adequate model will only be rejected in 5% of tests for which the model really is adequate. Cut-off values can be computed using most statistical software or from tables<!-- XREF: EDA section 3.3.6.7.3, Gallery of Distributions, F Distribution tables; source handbook/eda/section3/eda3673.htm --> of the F distribution. In addition to needing the significance level to obtain the cut-off value, the F distribution is indexed by the degrees of freedom associated with each of the two estimators of $\sigma$. $\hat{\sigma}_m$, which appears in the numerator of $L$, has $n_u-p$ degrees of freedom. $\hat{\sigma}_r$, which appears in the denominator of $L$, has $n-n_u$ degrees of freedom.
+
+[**Alternative Formula for $\hat{\sigma}_m$**]{#sec-pmd-446-alternative-formula}
+
+Although the formula given above more clearly shows the nature of $\hat{\sigma}_m$, the numerically equivalent formula below is easier to use in computations
+
+$$ \hat{\sigma}_m = \sqrt{\frac{(n-p)\hat{\sigma}^2-(n-n_u)\hat{\sigma}^2_r}{n_u-p}} $$

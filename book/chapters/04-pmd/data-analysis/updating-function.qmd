@@ -1,0 +1,57 @@
+#### Updating the Function Based on Residual Plots {#sec-pmd-451}
+
+[**Residual Plots Guide Model Refinement**]{#sec-pmd-451-guide}
+
+If the plots of the residuals used to [check the adequacy of the functional part of the model](#sec-pmd-441) indicate problems, the structure exhibited in the plots can often be used to determine how to improve the functional part of the model. For example, suppose the initial model fit to the [thermocouple calibration](#sec-pmd-133-example) data was a quadratic polynomial. The scatter plot of the residuals versus temperature showed that there was structure left in the data when this model was used.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-451-quadratic-residuals
+#| fig-cap: "Residuals versus temperature from the quadratic model fit to the thermocouple calibration data"
+library(tidyverse)
+
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+
+clb1_quad_fit <- lm(voltage ~ poly(temperature, 2, raw = TRUE), data = clb1)
+clb1 <- clb1 |> mutate(residual_quad = resid(clb1_quad_fit))
+
+ggplot(clb1, aes(temperature, residual_quad)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+The shape of the residual plot, which looks like a cubic polynomial, suggests that adding another term to the polynomial might account for the structure left in the data by the quadratic model. After fitting the cubic polynomial, the magnitude of the residuals is greatly reduced, indicating a big improvement in the model.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-451-cubic-residuals
+#| fig-cap: "Residuals versus temperature from the cubic model fit to the thermocouple calibration data"
+clb1_cubic_fit <- lm(voltage ~ poly(temperature, 3, raw = TRUE), data = clb1)
+clb1 <- clb1 |> mutate(residual_cubic = resid(clb1_cubic_fit))
+
+ggplot(clb1, aes(temperature, residual_cubic)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+range(clb1$residual_quad) |> diff()
+range(clb1$residual_cubic) |> diff()
+```
+
+Going from the quadratic to the cubic model reduces the range of the residuals by a factor of roughly 25, similar to NIST's reported improvement of about a factor of 30 for this same refinement.
+
+[**Increasing Residual Complexity Suggests LOESS Model**]{#sec-pmd-451-loess}
+
+Although the model is improved, there is still structure in the residuals. Based on this structure, a higher-degree polynomial looks like it would fit the data. Polynomial models become numerically unstable as their degree increases, however. Therefore, after a few iterations like this, leading to polynomials of ever-increasing degree, the structure in the residuals is indicating that a polynomial does not actually describe the data very well. As a result, a different type of model, such as a nonlinear model or a LOESS model, is probably more appropriate for these data -- consistent with our use of [LOESS](#sec-pmd-133-example) for this data set throughout the rest of the book. The type of model needed to describe the data, however, can be arrived at systematically using the structure in the residuals at each step.

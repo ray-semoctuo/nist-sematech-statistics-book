@@ -1,0 +1,18 @@
+#### Weighted Least Squares {#sec-pmd-432}
+
+As mentioned in [Section 4.1](#sec-pmd-143), weighted least squares (WLS) regression is useful for estimating the values of model parameters when the response values have differing degrees of variability over the combinations of the predictor values. As suggested by the name, parameter estimation by the method of weighted least squares is closely related to parameter estimation by ["ordinary", "regular", "unweighted" or "equally-weighted" least squares](#sec-pmd-431).
+
+[**General WLS Criterion**]{#sec-pmd-432-general}
+
+In weighted least squares parameter estimation, as in regular least squares, the unknown values of the parameters, $\beta_0, \, \beta_1, \, \ldots \,$, in the regression function are estimated by finding the numerical values for the parameter estimates that minimize the sum of the squared deviations between the observed responses and the functional portion of the model. Unlike least squares, however, each term in the weighted least squares criterion includes an additional weight, $w_i$, that determines how much each observation in the data set influences the final parameter estimates. The weighted least squares criterion that is minimized to obtain the parameter estimates is
+
+$$ Q = \sum_{i=1}^{n} \ w_i[y_i - f(\vec{x}_i;\hat{\vec{\beta}})]^2 $$
+
+[**Some Points Mostly in Common with Regular LS (But Not Always!!!)**]{#sec-pmd-432-common}
+
+Like regular least squares estimators:
+
+1. The weighted least squares estimators are denoted by $\hat{\beta}_0, \, \hat{\beta}_1, \, \ldots \,$ to emphasize the fact that the estimators are not the same as the true values of the parameters.
+2. $\hat{\beta}_0, \hat{\beta}_1, \ldots \,$ are treated as the "variables" in the optimization, while values of the response and predictor variables and the weights are treated as constants.
+3. The parameter estimators will be functions of both the predictor and response variables and will generally be correlated with one another. (WLS estimators are also functions of the weights, $w_i$.)
+4. Weighted least squares minimization is usually done analytically for linear models and numerically for nonlinear models.

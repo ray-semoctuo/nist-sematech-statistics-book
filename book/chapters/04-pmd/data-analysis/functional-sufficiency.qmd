@@ -1,0 +1,103 @@
+#### How can I assess the sufficiency of the functional part of the model? {#sec-pmd-441}
+
+[**Main Tool: Scatter Plots**]{#sec-pmd-441-main-tool}
+
+Scatter plots<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Scatter Plot; source handbook/eda/section3/scatterp.htm --> of the residuals versus the predictor variables in the model and versus potential predictors that are not included in the model are the primary plots used to assess sufficiency of the functional part of the model. Plots in which the residuals do not exhibit any systematic structure indicate that the model fits the data well. Plots of the residuals versus other predictor variables, or potential predictors, that exhibit systematic structure indicate that the form of the function can be improved in some way.
+
+[**Pressure / Temperature Example**]{#sec-pmd-441-pt-example}
+
+The residual scatter plot below, of the residuals from a straight line fit to the [Pressure/Temperature data](#sec-pmd-11-example) introduced in Section 4.1.1 and also discussed in the [previous section](#sec-pmd-44-example), does not indicate any problems with the model. The reference line at 0 emphasizes that the residuals are split about 50-50 between positive and negative. There are no systematic patterns apparent in this plot. Of course, just as the $R^2$ statistic cannot justify a particular model on its own, no single residual plot can completely justify the adoption of a particular model either. If a plot of these residuals versus another variable did show systematic structure, the form of model with respect to that variable would need to be changed or that variable, if not in the model, would need to be added to the model. It is important to plot the residuals versus every available variable to ensure that a candidate model is the best model possible.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-441-pt-residuals
+#| fig-cap: "Residuals from a straight-line fit to the pressure/temperature data, plotted versus temperature"
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+pressure_temp <- pressure_temp |> mutate(residual = resid(pt_fit))
+
+ggplot(pressure_temp, aes(temperature, residual)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+[**Importance of Environmental Variables**]{#sec-pmd-441-environmental}
+
+One important class of potential predictor variables that is often overlooked is environmental variables. Environmental variables include things like ambient temperature in the area where measurements are being made and ambient humidity. In most cases environmental variables are not expected to have any noticeable effect on the process, but it is always good practice to check for unanticipated problems caused by environmental conditions. Sometimes the catch-all environmental variables can also be used to assess the validity of a model. For example, if an experiment is run over several days, a plot of the residuals versus day can be used to check for differences in the experimental conditions at different times. Any differences observed will not necessarily be attributable to a specific cause, but could justify further experiments to try to identify factors missing from the model, or other model misspecifications. The two residual plots below show the pressure/temperature residuals versus ambient lab temperature and day. In both cases the plots provide further evidence that the straight line model gives an adequate description of the data. The plot of the residuals versus day does look a little suspicious with a slight cyclic pattern between days, but doesn't indicate any overwhelming problems. It is likely that this apparent difference between days is just due to the random variation in the data.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-441-pt-environmental
+#| fig-cap: "Pressure/temperature residuals versus ambient lab temperature (left) and versus day (right)"
+library(patchwork)
+
+p_ambient <- ggplot(pressure_temp, aes(ambient_temp, residual)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Ambient Temperature", y = "Residual") +
+  theme_light()
+
+p_day <- ggplot(pressure_temp, aes(day, residual)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Day", y = "Residual") +
+  theme_light()
+
+p_ambient + p_day
+```
+
+[**Residual Scatter Plots Work Well for All Methods**]{#sec-pmd-441-all-methods}
+
+The examples of residual plots given above are for the simplest possible case, straight line regression via least squares, but the residual plots are used in exactly the same way for almost all of the other statistical methods used for model building. For example, the residual plot below is for the LOESS model fit to the [thermocouple calibration data](#sec-pmd-133-example) introduced in Section 4.1.3.3. Like the plots above, this plot does not signal any problems with the fit of the LOESS model to the data. The residuals are scattered both above and below the reference line at all temperatures. Residuals adjacent to one another in the plot do not tend to have similar signs. There are no obvious systematic patterns of any type in this plot.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-441-loess-residuals
+#| fig-cap: "Residuals from the LOESS model fit to the thermocouple calibration data"
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+
+clb1_fit <- loess(voltage ~ temperature, data = clb1, degree = 2, span = 0.3, family = "gaussian")
+clb1 <- clb1 |> mutate(residual = resid(clb1_fit))
+
+ggplot(clb1, aes(temperature, residual)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+[**An Alternative to the LOESS Model**]{#sec-pmd-441-alternative}
+
+Based on the plot of voltage (response) versus the temperature (predictor) for the thermocouple calibration data, a quadratic model would have been a reasonable initial model for these data. The quadratic model is the simplest possible model that could account for the curvature in the data. The scatter plot of the residuals versus temperature for a quadratic model fit to the data clearly indicates that it is a poor fit, however. This residual plot shows strong cyclic structure in the residuals. If the quadratic model did fit the data, then this structure would not be left behind in the residuals. One thing to note in comparing the residual plots for the quadratic and LOESS models, besides the amount of structure remaining in the data in each case, is the difference in the scales of the two plots. The residuals from the quadratic model have a range that is approximately fifty times the range of the LOESS residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-441-quadratic-residuals
+#| fig-cap: "Residuals from a quadratic model fit to the thermocouple calibration data"
+clb1_quad_fit <- lm(voltage ~ poly(temperature, 2, raw = TRUE), data = clb1)
+clb1 <- clb1 |> mutate(residual_quad = resid(clb1_quad_fit))
+
+ggplot(clb1, aes(temperature, residual_quad)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```

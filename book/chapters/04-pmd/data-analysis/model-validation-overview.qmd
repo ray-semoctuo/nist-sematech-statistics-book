@@ -1,0 +1,58 @@
+### How can I tell if a model fits my data? {#sec-pmd-44}
+
+[**$R^2$ Is Not Enough!**]{#sec-pmd-44-r2}
+
+Model validation is possibly the most important step in the model building sequence. It is also one of the most overlooked. Often the validation of a model seems to consist of nothing more than quoting the $R^2$ statistic from the fit (which measures the fraction of the total variability in the response that is accounted for by the model). Unfortunately, a high $R^2$ value does not guarantee that the model fits the data well. Use of a model that does not fit the data well cannot provide good answers to the underlying engineering or scientific questions under investigation.
+
+[**Main Tool: Graphical Residual Analysis**]{#sec-pmd-44-graphical}
+
+There are many statistical tools for model validation, but the primary tool for most process modeling applications is graphical residual analysis. Different types of plots of the [residuals](#sec-pmd-44-residuals) from a fitted model provide information on the adequacy of different aspects of the model. Numerical methods for model validation, such as the $R^2$ statistic, are also useful, but usually to a lesser degree than graphical methods. Graphical methods have an advantage over numerical methods for model validation because they readily illustrate a broad range of complex aspects of the relationship between the model and the data. Numerical methods for model validation tend to be narrowly focused on a particular aspect of the relationship between the model and the data and often try to compress that information into a single descriptive number or test result.
+
+[**Numerical Methods' Forte**]{#sec-pmd-44-numerical}
+
+Numerical methods do play an important role as confirmatory methods for graphical techniques, however. For example, the [lack-of-fit test](#sec-pmd-442) for assessing the correctness of the functional part of the model can aid in interpreting a borderline residual plot. There are also a few modeling situations in which graphical methods cannot easily be used. In these cases, numerical methods provide a fallback position for model validation. One common situation when numerical validation methods take precedence over graphical methods is when the number of parameters being estimated is relatively close to the size of the data set. In this situation residual plots are often difficult to interpret due to constraints on the residuals imposed by the estimation of the unknown parameters. One area in which this typically happens is in optimization applications using designed experiments. Logistic regression with binary data is another area in which graphical residual analysis can be difficult.
+
+[**Residuals**]{#sec-pmd-44-residuals}
+
+The residuals from a fitted model are the differences between the responses observed at each combination values of the explanatory variables and the corresponding prediction of the response computed using the regression function. Mathematically, the definition of the residual for the $i$th observation in the data set is written
+
+$$ e_i = y_i - f(\vec{x}_i;\hat{\vec{\beta}}) $$
+
+with $y_i$ denoting the $i$th response in the data set and $\vec{x}_i$ represents the list of explanatory variables, each set at the corresponding values found in the $i$th observation in the data set.
+
+[**Example**]{#sec-pmd-44-example}
+
+The data listed below are from the [Pressure/Temperature example](#sec-pmd-11-example) introduced in [Section 4.1.1](#sec-pmd-11). The first column shows the order in which the observations were made, the second column indicates the day on which each observation was made, and the third column gives the ambient temperature recorded when each measurement was made. The fourth column lists the temperature of the gas itself (the explanatory variable) and the fifth column contains the observed pressure of the gas (the response variable). Finally, the sixth column gives the corresponding values from the fitted straight-line regression function.
+
+$$ \hat{P} = 7.749695 + 3.930123T $$
+
+and the last column lists the residuals, the difference between columns five and six. The reader can download the pressure/temperature data as a [text file](../../datasets/MODEL-4_4_4.DAT).
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+pressure_temp
+```
+
+[**Why Use Residuals?**]{#sec-pmd-44-why}
+
+If the model fit to the data were correct, the residuals would approximate the random errors that make the relationship between the explanatory variables and the response variable a [statistical relationship](#sec-pmd-12) rather than a purely deterministic one. Therefore, if the residuals appear to behave randomly, it suggests that the model fits the data well. On the other hand, if non-random structure is evident in the residuals, it is a clear sign that the model fits the data poorly. The subsections listed below detail the types of plots to use to test different aspects of a model and give guidance on the correct interpretations of different results that could be observed for each type of plot.
+
+[**Model Validation Specifics**]{#sec-pmd-44-specifics}
+
+1. [How can I assess the sufficiency of the functional part of the model?](#sec-pmd-441)
+2. [How can I detect non-constant variation across the data?](#sec-pmd-442)
+3. [How can I tell if there was drift in the process?](#sec-pmd-443)
+4. [How can I assess whether the random errors are independent from one to the next?](#sec-pmd-444)
+5. [How can I test whether or not the random errors are distributed normally?](#sec-pmd-445)
+6. [How can I test whether any significant terms are missing or misspecified in the functional part of the model?](#sec-pmd-446)
+7. [How can I test whether all of the terms in the functional part of the model are necessary?](#sec-pmd-447)

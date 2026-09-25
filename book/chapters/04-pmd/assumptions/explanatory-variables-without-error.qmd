@@ -1,0 +1,67 @@
+#### The explanatory variables are observed without error. {#sec-pmd-216}
+
+[**Assumption Needed for Parameter Estimation**]{#sec-pmd-216-needed}
+
+As discussed [earlier](#sec-pmd-212) in this section, the random errors (the $\varepsilon$'s) in the basic model,
+
+$$ y = f(\vec{x};\vec{\beta}) + \varepsilon \, , $$
+
+must have a mean of zero at each combination of explanatory variable values to obtain valid estimates of the parameters in the functional part of the process model (the $\beta\,$'s). Some of the more obvious sources of random errors with non-zero means include
+
+1. drift in the process,
+2. drift in the measurement system used to obtain the process data, and
+3. use of a miscalibrated measurement system.
+
+However, the presence of *random* errors in the measured values of the explanatory variables is another, more subtle, source of $\varepsilon$'s with non-zero means.
+
+[**Explanatory Variables Observed with Random Error Add Terms to $\varepsilon$**]{#sec-pmd-216-add-terms}
+
+The values of explanatory variables observed with independent, normally distributed random errors, $\vec{\delta}$, can be differentiated from their true values using the definition
+
+$$ \vec{x}_{obs} = \vec{x}_{true} + \vec{\delta} $$
+
+Then applying the mean value theorem from multivariable calculus shows that the random errors in a model based on $\vec{x}_{obs}$,
+
+$$ y = f(\vec{x}_{obs};\vec{\beta}) + \varepsilon \, , $$
+
+are [@SeberWild1989]
+
+$$ \begin{array}{ccl}
+\varepsilon & = & y - f(\vec{x}_{obs};\vec{\beta}) \\
+            &   & \\
+            & = & y - f(\vec{x}_{true}+\vec{\delta};\vec{\beta})  \\
+            &   & \\
+            & = & y - f(\vec{x}_{true};\vec{\beta}) + \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta}) \\
+            &   & \\
+            & = & \varepsilon_y + \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})
+\end{array} $$
+
+with $\varepsilon_y$ denoting the random error associated with the basic form of the model,
+
+$$ y = f(\vec{x}_{true};\vec{\beta}) + \varepsilon_y \, , $$
+
+under all of the usual assumptions (denoted here more carefully than is usually necessary), and $\vec{x}^{\,*}$ is a value between $\vec{x}_{true}$ and $\vec{x}_{obs}$. This extra term in the expression of the random error, $\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$, complicates matters because $\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$ is typically not a constant. For most functions, $\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$ will depend on the explanatory variable values and, more importantly, on $\vec{\delta}$. This is the source of the problem with observing the explanatory variable values with random error.
+
+[**$\vec{\delta}$ Correlated with $\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$**]{#sec-pmd-216-correlated}
+
+Because each of the components of $\vec{x}^{\,*}$, denoted by $x^{\,*}_j$, are functions of the components of $\vec{\delta}$, similarly denoted by $\delta_j$, whenever any of the components of $\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$ simplify to expressions that are not constant, the random variables $\delta_j$ and $f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})$ will be correlated. This correlation will then usually induce a non-zero mean in the product $\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$.
+
+For example, a positive correlation between $\delta_j$ and $f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})$ means that when $\delta_j$ is large, $f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})$ will also tend to be large. Similarly, when $\delta_j$ is small, $f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})$ will also tend to be small. This could cause $\delta_j$ and $f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})$ to always have the same sign, which would preclude their product having a mean of zero since all of the values of $\delta_j f_j\,\!'(\vec{x}^{\,*};\vec{\beta})$ would be greater than or equal to zero. A negative correlation, on the other hand, could mean that these two random variables would always have opposite signs, resulting in a negative mean for $\delta_j f_j\,\!'(\vec{x}^{\,*};\vec{\beta})$. These examples are extreme, but illustrate how correlation can cause trouble even if both $\vec{\delta}$ and $\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$ have zero means individually. What will happen in any particular modeling situation will depend on the variability of the $\vec{\delta}$'s, the form of the function, the true values of the $\beta\,$'s, and the values of the explanatory variables.
+
+[**Biases Can Affect Parameter Estimates When Means of $\varepsilon$'s are 0**]{#sec-pmd-216-biases}
+
+Even if the $\varepsilon$'s have zero means, observation of the explanatory variables with random error can still bias the parameter estimates. Depending on the method used to estimate the parameters, the explanatory variables can be used in the computation of the parameter estimates in ways that keep the $\vec{\delta}$'s from canceling out. One unfortunate example of this phenomenon is the use of least squares to estimate the parameters of a straight line. In this case, because of the simplicity of the model,
+
+$$ y = \beta_0 + \beta_1x_{obs} + \varepsilon \, , $$
+
+the term $\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})$ simplifies to $\delta\beta_1$. Because this term does not involve $\vec{x}^{\,*}$, it does not induce non-zero means in the $\varepsilon$'s. With the way the explanatory variables enter into the formulas for the estimates of the $\beta\,$'s, the random errors in the explanatory variables do not cancel out on average. This results in parameter estimators that are biased and will not approach the true parameter values no matter how much data are collected.
+
+[**Berkson Model Does Not Depend on this Assumption**]{#sec-pmd-216-berkson}
+
+There is one type of model in which errors in the measurement of the explanatory variables do not bias the parameter estimates. The Berkson model [@Berkson1950] is a model in which the *observed* values of the explanatory variables are directly controlled by the experimenter while their true values vary for each observation. The differences between the observed and true values for each explanatory variable are assumed to be independent random variables from a normal distribution with a mean of zero. In addition, the errors associated with each explanatory variable must be independent of the errors associated with all of the other explanatory variables, and also independent of the observed values of each explanatory variable. Finally, the Berkson model requires the functional part of the model to be a straight line, a plane, or a higher-dimension first-order model in the explanatory variables. When these conditions are all met, the errors in the explanatory variables can be ignored.
+
+Applications for which the Berkson model correctly describes the data are most often situations in which the experimenter can adjust equipment settings so that the observed values of the explanatory variables will be known ahead of time. For example, in a study of the relationship between the temperature used to dry a sample for chemical analysis and the resulting concentration of a volatile constituent, an oven might be used to prepare samples at temperatures of 300 to 500 degrees in 50 degree increments. In reality, however, the true temperature inside the oven will probably not exactly equal 450 degrees each time that setting is used (or 300 when that setting is used, etc). The Berkson model would apply, though, as long as the errors in measuring the temperature randomly differed from one another each time an observed value of 450 degrees was used and the mean of the true temperatures over many repeated runs at an oven setting of 450 degrees really was 450 degrees. Then, as long as the model was also a straight line relating the concentration to the observed values of temperature, the errors in the measurement of temperature would not bias the estimates of the parameters.
+
+[**Assumption Validity Requires Careful Consideration**]{#sec-pmd-216-careful}
+
+The validity of this assumption requires careful consideration in scientific and engineering applications. In these types of applications it is most often the case that the response variable and the explanatory variables will all be measured with some random error. Fortunately, however, there is also usually some knowledge of the relative amount of information in the observed values of each variable. This allows a rough assessment of how much bias there will be in the estimated values of the parameters. As long as the biases in the parameter estimators have a negligible effect on the intended use of the model, then this assumption can be considered valid from a practical viewpoint. Section 4.4.4,<!-- XREF: PMD section 4.4.4, Data Analysis for Process Modeling, model validation, not yet drafted; source handbook/pmd/section4/pmd44.htm --> which covers model validation, points to a discussion of a practical method for checking the validity of this assumption.

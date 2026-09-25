@@ -1,0 +1,35 @@
+## Underlying Assumptions for Process Modeling {#sec-pmd-2}
+
+[**Implicit Assumptions Underlie Most Actions**]{#sec-pmd-2-implicit}
+
+Most, if not all, thoughtful actions that people take are based on ideas, or assumptions, about how those actions will affect the goals they want to achieve. The actual assumptions used to decide on a particular course of action are rarely laid out explicitly, however. Instead, they are only implied by the nature of the action itself. Implicit assumptions are inherent to process modeling actions, just as they are to most other types of action. It is important to understand what the implicit assumptions are for any process modeling method because the validity of these assumptions affect whether or not the goals of the analysis will be met.
+
+[**Checking Assumptions Provides Feedback on Actions**]{#sec-pmd-2-checking}
+
+If the implicit assumptions that underlie a particular action are not true, then that action is not likely to meet expectations either. Sometimes it is abundantly clear when a goal has been met, but unfortunately that is not always the case. In particular, it is usually not possible to obtain immediate feedback on the attainment of goals in most process modeling applications. The goals of process modeling, such as answering a scientific or engineering question, depend on the correctness of a process model, which can often only be directly and absolutely determined over time. In lieu of immediate, direct feedback, however, indirect information on the effectiveness of a process modeling analysis can be obtained by checking the validity of the underlying assumptions. Confirming that the underlying assumptions are valid helps ensure that the methods of analysis were appropriate and that the results will be consistent with the goals.
+
+[**Overview of Section 4.2**]{#sec-pmd-2-overview}
+
+This section discusses the specific underlying assumptions associated with most model-fitting methods. In discussing the underlying assumptions, some background is also provided on the consequences of stopping the modeling process short of completion and leaving the results of an analysis at odds with the underlying assumptions. Specific data analysis methods that can be used to check whether or not the assumptions hold in a particular case are discussed in Section 4.4.4.<!-- XREF: PMD section 4.4.4, Data Analysis for Process Modeling, model validation, not yet drafted; source handbook/pmd/section4/pmd44.htm -->
+
+1. [What are the typical underlying assumptions in process modeling?](#sec-pmd-21)
+   1. [The process is a statistical process.](#sec-pmd-211)
+   2. [The means of the random errors are zero.](#sec-pmd-212)
+   3. [The random errors have a constant standard deviation.](#sec-pmd-213)
+   4. [The random errors follow a normal distribution.](#sec-pmd-214)
+   5. [The data are randomly sampled from the process.](#sec-pmd-215)
+   6. [The explanatory variables are observed without error.](#sec-pmd-216)
+
+{{< include assumptions/overview.qmd >}}
+
+{{< include assumptions/statistical-process.qmd >}}
+
+{{< include assumptions/zero-mean-errors.qmd >}}
+
+{{< include assumptions/constant-standard-deviation.qmd >}}
+
+{{< include assumptions/normal-distribution.qmd >}}
+
+{{< include assumptions/random-sampling.qmd >}}
+
+{{< include assumptions/explanatory-variables-without-error.qmd >}}

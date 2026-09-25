@@ -1,0 +1,23 @@
+#### The process is a statistical process. {#sec-pmd-211}
+
+[**"Statistical" Implies Random Variation**]{#sec-pmd-211-sp}
+
+The most basic assumption inherent to all statistical methods for process modeling is that the process to be described is actually a statistical process. This assumption seems so obvious that it is sometimes overlooked by analysts immersed in the details of a process or in a rush to uncover information of interest from an exciting new data set. However, in order to successfully model a process using statistical methods, it must include random variation. Random variation is what makes the process statistical rather than purely deterministic.
+
+[**Role of Random Variation**]{#sec-pmd-211-rrv}
+
+The overall goal of all statistical procedures, including those designed for process modeling, is to enable valid conclusions to be drawn from noisy data. As a result, statistical procedures are designed to compare apparent effects found in a data set to the noise in the data in order to determine whether the effects are more likely to be caused by a repeatable underlying phenomenon of some sort or by fluctuations in the data that happened by chance. Thus the random variation in the process serves as a baseline for drawing conclusions about the nature of the deterministic part of the process. If there were no random noise in the process, then conclusions based on statistical methods would no longer make sense or be appropriate.
+
+[**This Assumption Usually Valid**]{#sec-pmd-211-valid}
+
+Fortunately this assumption is valid for most physical processes. There will be random error in the measurements almost any time things need to be measured. In fact, there are often other sources of random error, over and above measurement error, in complex, real-life processes. However, examples of non-statistical processes include
+
+1. physical processes in which the random error is negligible compared to the systematic errors,
+2. processes based on deterministic computer simulations,
+3. processes based on theoretical calculations.
+
+If models of these types of processes are needed, use of mathematical rather than statistical process modeling tools would be more appropriate.
+
+[**Distinguishing Process Types**]{#sec-pmd-211-distinguishing}
+
+One sure indicator that a process is statistical is if repeated observations of the process response under a particular fixed condition yields different results. The converse, repeated observations of the process response always yielding the same value, is not a sure indication of a non-statistical process, however. For example, in some types of computations in which complex numerical methods are used to approximate the solutions of theoretical equations, the results of a computation might deviate from the true solution in an essentially random way because of the interactions of round-off errors, multiple levels of approximation, stopping rules, and other sources of error. Even so, the result of the computation might be the same each time it is repeated because all of the initial conditions of the calculation are reset to the same values each time the calculation is made. As a result, scientific or engineering knowledge of the process must also always be used to determine whether or not a given process is statistical.

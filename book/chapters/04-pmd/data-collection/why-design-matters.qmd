@@ -1,0 +1,83 @@
+### Why is experimental design important for process modeling? {#sec-pmd-32}
+
+[**Output from Process Model is Fitted Mathematical Function**]{#sec-pmd-32-output}
+
+The output from process modeling is a fitted mathematical function with estimated coefficients. For example, in modeling resistivity, $y$, as a function of dopant density, $x$, an analyst may suggest the function
+
+$$ y = \beta_{0} + \beta_{1}x + \beta_{11}x^{2} + \varepsilon $$
+
+in which the coefficients to be estimated are $\beta_0$, $\beta_1$, and $\beta_{11}$. Even for a given functional form, there is an infinite number of potential coefficient values that potentially may be used. Each of these coefficient values will in turn yield predicted values.
+
+[**What are Good Coefficient Values?**]{#sec-pmd-32-good-values}
+
+Poor values of the coefficients are those for which the resulting predicted values are considerably different from the observed raw data $y$. Good values of the coefficients are those for which the resulting predicted values are close to the observed raw data $y$. The best values of the coefficients are those for which the resulting predicted values are close to the observed raw data $y$, and the statistical uncertainty connected with each coefficient is small.
+
+There are two considerations that are useful for the generation of "best" coefficients:
+
+1. Least squares criterion
+2. Design of experiment principles
+
+[**Least Squares Criterion**]{#sec-pmd-32-least-squares}
+
+For a given data set (e.g., 10 $(x,y)$ pairs), the most common procedure for obtaining the coefficients for
+
+$$ y = f(x;\vec{\beta} + \varepsilon) $$
+
+is the least squares estimation criterion.<!-- XREF: PMD section 4.4.3.1, Data Analysis for Process Modeling, least squares estimation criterion, not yet drafted; source handbook/pmd/section4/pmd431.htm --> This criterion yields coefficients with predicted values that are closest to the raw data $y$ in the sense that the sum of the squared differences between the raw data and the predicted values is as small as possible.
+
+The overwhelming majority of regression programs today use the least squares criterion for estimating the model coefficients. Least squares estimates are popular because
+
+1. the estimators are statistically optimal (BLUEs: Best Linear Unbiased Estimators);
+2. the estimation algorithm is mathematically tractable, in closed form, and therefore easily programmable.
+
+How then can this be improved? For a given set of $x$ values it cannot be; but frequently the choice of the $x$ values is under our control. If we can select the $x$ values, the coefficients will have less variability than if the $x$ are not controlled.
+
+[**Design of Experiment Principles**]{#sec-pmd-32-design-principles}
+
+As to what values should be used for the $x$'s, we look to established experimental design principles for guidance.
+
+[**Principle 1: Minimize Coefficient Estimation Variation**]{#sec-pmd-32-principle-1}
+
+The first principle of experimental design is to control the values within the $x$ vector such that after the $y$ data are collected, the subsequent model coefficients are as good, in the sense of having the smallest variation, as possible.
+
+The key underlying point with respect to design of experiments and process modeling is that even though (for simple $(x,y)$ fitting, for example) the least squares criterion may yield optimal (minimal variation) estimators for a given distribution of $x$ values, some distributions of data in the $x$ vector may yield better (smaller variation) coefficient estimates than other $x$ vectors. If the analyst can specify the values in the $x$ vector, then he or she may be able to drastically change and reduce the noisiness of the subsequent least squares coefficient estimates.
+
+[**Five Designs**]{#sec-pmd-32-five-designs}
+
+To see the effect of experimental design on process modeling, consider the following simplest case of fitting a line:
+
+$$ y = \beta_{0} + \beta_{1}x + \varepsilon $$
+
+Suppose the analyst can afford 10 observations (that is, 10 $(x,y)$ pairs) for the purpose of determining optimal (that is, minimal variation) estimators of $\beta_0$ and $\beta_1$. What 10 $x$ values should be used for the purpose of collecting the corresponding 10 $y$ values? Colloquially, where should the 10 $x$ values be sprinkled along the horizontal axis so as to minimize the variation of the least squares estimated coefficients for $\beta_0$ and $\beta_1$? Should the 10 $x$ values be:
+
+1. ten equi-spaced values across the range of interest?
+2. five replicated equi-spaced values across the range of interest?
+3. five values at the minimum of the $x$ range and five values at the maximum of the $x$ range?
+4. one value at the minimum, eight values at the mid-range, and one value at the maximum?
+5. four values at the minimum, two values at mid-range, and four values at the maximum?
+
+or (in terms of "quality" of the resulting estimates for $\beta_0$ and $\beta_1$) perhaps it doesn't make any difference?
+
+For each of the above five experimental designs, there will of course be $y$ data collected, followed by the generation of least squares estimates for $\beta_0$ and $\beta_1$, and so each design will in turn yield a fitted line.
+
+[**Are the Fitted Lines Better for Some Designs?**]{#sec-pmd-32-better}
+
+But are the fitted lines, i.e., the fitted process models, better for some designs than for others? Are the coefficient estimator variances smaller for some designs than for others? For given estimates, are the resulting predicted values better (that is, closer to the observed $y$ values) than for other designs? The answer to all of the above is YES. It DOES make a difference.
+
+The most popular answer to the above question about which design to use for linear modeling is design #1 with ten equi-spaced points. It can be shown, however, that the variance of the estimated slope parameter depends on the design according to the relationship
+
+$$ \text{Var}(\hat{\beta}_1) \propto \frac{1}{\sum_{i=1}^{n}(x_i-\bar{x})} $$
+
+Therefore to obtain minimum variance estimators, one maximizes the denominator on the right. To maximize the denominator, it is (for an arbitrarily fixed $\bar{x}$), best to position the $x$'s as far away from $\bar{x}$ as possible. This is done by positioning half of the $x$'s at the lower extreme and the other half at the upper extreme. This is design #3 above, and this "dumbbell" design (half low and half high) is in fact the best possible design for fitting a line. Upon reflection, this is intuitively arrived at by the adage that "2 points define a line", and so it makes the most sense to determine those 2 points as far apart as possible (at the extremes) and as well as possible (having half the data at each extreme). Hence the design of experiment solution to model processing when the model is a line is the "dumbbell" design--half the $x$'s at each extreme.
+
+[**What is the Worst Design?**]{#sec-pmd-32-worst}
+
+What is the worst design in the above case? Of the five designs, the worst design is the one that has maximum variation. In the mathematical expression above, it is the one that minimizes the denominator, and so this is design #4 above, for which almost all of the data are located at the mid-range. Clearly the estimated line in this case is going to chase the solitary point at each end and so the resulting linear fit is intuitively inferior.
+
+[**Designs 1, 2, and 5**]{#sec-pmd-32-designs-125}
+
+What about the other 3 designs? Designs 1, 2, and 5 are useful only for the case when we think the model may be linear, but we are not sure, and so we allow additional points that permit fitting a line if appropriate, but build into the design the "capacity" to fit beyond a line (e.g., quadratic, cubic, etc.) if necessary. In this regard, the ordering of the designs would be
+
+- design 5 (if our worst-case model is quadratic),
+- design 2 (if our worst-case model is quartic)
+- design 1 (if our worst-case model is quintic and beyond)

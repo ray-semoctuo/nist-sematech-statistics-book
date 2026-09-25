@@ -1,0 +1,72 @@
+#### How can I assess whether the random errors are independent from one to the next? {#sec-pmd-444}
+
+[**Lag Plot Shows Dependence Between Residuals**]{#sec-pmd-444-lag-plot}
+
+The lag plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Lag Plot; source handbook/eda/section3/eda33f.htm --> of the residuals, another special type of scatter plot, suggests whether or not the errors are independent. If the errors are not independent, then the estimate of the error standard deviation will be biased, potentially leading to improper inferences about the process. The lag plot works by plotting each residual value versus the value of the successive residual (in chronological order of observation). The first residual is plotted versus the second, the second versus the third, etc. Because of the way the residuals are paired, there will be one less point on this plot than on most other types of residual plots.
+
+[**Interpretation**]{#sec-pmd-444-interpretation}
+
+If the errors are independent, there should be no pattern or structure in the lag plot. In this case the points will appear to be randomly scattered across the plot in a scattershot fashion. If there is significant dependence between errors, however, some sort of deterministic pattern will likely be evident.
+
+[**Examples**]{#sec-pmd-444-examples}
+
+Lag plots for the [Pressure/Temperature example](#sec-pmd-11-example), the [Thermocouple Calibration example](#sec-pmd-133-example), and the [Polymer Relaxation example](#sec-pmd-422-polymer) are shown below. The lag plots for these three examples suggest that the errors from each fit are independent. In each case, the residuals are randomly scattered about the origin with no apparent structure. The last plot, for the Polymer Relaxation data, shows an apparent slight correlation between the residuals and the lagged residuals, but experience suggests that this could easily be due to random error and is not likely to be a real issue. In fact, the lag plot can also emphasize outlying observations and a few of the larger residuals (in absolute terms) may be pulling our eyes unduly. The normal probability plot, which is also good at identifying outliers, will be discussed [next](#sec-pmd-445), and will shed further light on any unusual points in the data set.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-444-lag-plots
+#| fig-cap: "Lag plots of the residuals for the pressure/temperature, thermocouple calibration, and polymer relaxation examples"
+library(tidyverse)
+library(patchwork)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+pressure_temp <- pressure_temp |> mutate(residual = resid(pt_fit))
+
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+clb1_fit <- loess(voltage ~ temperature, data = clb1, degree = 2, span = 0.3, family = "gaussian")
+clb1 <- clb1 |> mutate(residual = resid(clb1_fit))
+
+pr1 <- read_table(
+  here::here("datasets", "PR1.DAT"),
+  skip = 25,
+  col_names = c("time", "temperature", "torque"),
+  col_types = "ddd"
+)
+pr1_fit <- nls(
+  torque ~ b0 + b1 * exp(-(time / (b2 + b4 * temperature + b5 * temperature^2))^b3),
+  data = pr1,
+  start = list(b0 = 5, b1 = 3, b2 = 17.3, b4 = -0.73, b5 = 0.024, b3 = 1)
+)
+pr1 <- pr1 |> mutate(residual = resid(pr1_fit))
+
+lag_plot <- function(residual) {
+  tibble(residual = residual) |>
+    mutate(lagged = lead(residual)) |>
+    ggplot(aes(residual, lagged)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i]", y = "Residual[i+1]") +
+    theme_light()
+}
+
+p_pt <- lag_plot(pressure_temp$residual) + labs(title = "Pressure/Temperature")
+p_tc <- lag_plot(clb1$residual) + labs(title = "Thermocouple Calibration")
+p_pr <- lag_plot(pr1$residual) + labs(title = "Polymer Relaxation")
+
+(p_pt + p_tc) / p_pr
+```
+
+[**Next Steps**]{#sec-pmd-444-next-steps}
+
+Some of the different patterns that might be found in the residuals when the errors are not independent are illustrated in the general discussion<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Lag Plot, examples of non-random patterns; source handbook/eda/section3/eda33f.htm#examples --> of the lag plot. If the residuals are not random, then time series methods might be required to fully model the data. Some time series basics are given in Section 4<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, time series basics, not yet migrated to this book; source handbook/pmc/section4/pmc4.htm --> of the chapter on Process Monitoring.<!-- XREF: PMC Chapter 6, Process or Product Monitoring and Control, not yet migrated to this book; source handbook/pmc/pmc.htm --> Before jumping to conclusions about the need for time series methods, however, be sure that a run order plot does not show any trends, or other structure, in the data. If there is a trend in the run order plot, whether caused by drift or by the use of the wrong functional form, the source of the structure shown in the run order plot will also induce structure in the lag plot. Structure induced in the lag plot in this way does not necessarily indicate dependence in successive random errors. The lag plot can only be interpreted clearly after accounting for any structure in the run order plot.

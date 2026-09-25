@@ -1,0 +1,11 @@
+### If my current model does not fit the data well, how can I improve it? {#sec-pmd-45}
+
+[**What Next?**]{#sec-pmd-45-what-next}
+
+Validating a model using residual plots, formal hypothesis tests and descriptive statistics would be quite frustrating if discovery of a problem meant restarting the modeling process back at square one. Fortunately, however, there are also techniques and tools to remedy many of the problems uncovered using residual analysis. In some cases the model validation methods themselves suggest appropriate changes to a model at the same time problems are uncovered. This is especially true of the graphical tools for model validation, though tests on the parameters in the regression function also offer insight into model refinement. Treatments for the various model deficiencies that were diagnosed in [Section 4.4.4](#sec-pmd-44) are demonstrated and discussed in the subsections listed below.
+
+[**Methods for Model Improvement**]{#sec-pmd-45-methods}
+
+1. [Updating the Function Based on Residual Plots](#sec-pmd-451)
+2. [Accounting for Non-Constant Variation Across the Data](#sec-pmd-452)
+3. [Accounting for Errors with a Non-Normal Distribution](#sec-pmd-453)

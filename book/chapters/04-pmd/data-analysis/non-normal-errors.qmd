@@ -1,0 +1,173 @@
+#### Accounting for Errors with a Non-Normal Distribution {#sec-pmd-453}
+
+[**Basic Approach: Transformation**]{#sec-pmd-453-basic-approach}
+
+Unlike when [correcting for non-constant variation in the random errors](#sec-pmd-452), there is really only one basic approach to handling data with non-normal random errors for most regression methods. This is because most methods rely on the [assumption of normality](#sec-pmd-214) and the use of linear estimation methods (like least squares) to make probabilistic inferences to answer scientific or engineering questions. For methods that rely on normality of the data, direct manipulation of the data to make the random errors approximately normal is usually the best way to try to bring the data in line with this assumption. The main alternative to transformation is to use a fitting criterion that directly takes the distribution of the random errors into account when estimating the unknown parameters. Using these types of fitting criteria, such as maximum likelihood,<!-- XREF: APR Chapter 8, Assessing Product Reliability, maximum likelihood estimation, not yet migrated to this book; source handbook/apr/section4/apr412.htm --> can provide very good results. However, they are often much harder to use than the general fitting criteria used in most process modeling methods.
+
+[**Using Transformations**]{#sec-pmd-453-using-transformations}
+
+The basic steps for using transformations to handle data with non-normally distributed random errors are essentially the same as those used to handle non-constant variation of the random errors.
+
+1. Transform the response variable to make the distribution of the random errors approximately normal.
+2. Transform the predictor variables, if necessary, to attain or restore a simple functional form for the regression function.
+3. Fit and validate the model in the transformed variables.
+4. Transform the predicted values back into the original units using the inverse of the transformation applied to the response variable.
+
+The main difference between using transformations to account for non-constant variation and non-normality of the random errors is that it is harder to directly see the effect of a transformation on the distribution of the random errors. It is very often the case, however, that non-normality and non-constant standard deviation of the random errors go together, and that the same transformation will correct both problems at once. In practice, therefore, if you choose a transformation to fix any non-constant variation in the data, you will often also improve the normality of the random errors. If the data appear to have non-normally distributed random errors, but do have a constant standard deviation, you can always fit models to several sets of transformed data and then check to see which transformation appears to produce the most normally distributed residuals.
+
+[**Typical Transformations for Meeting Distributional Assumptions**]{#sec-pmd-453-typical-transformations}
+
+Not surprisingly, three transformations that are often effective for making the distribution of the random errors approximately normal are:
+
+1. $\sqrt{y}$,
+2. $\ln{(y)}$ (note: the base of the logarithm does not really matter), and
+3. $\frac{1}{y}$.
+
+These are the same transformations often used for stabilizing the variation in the data. Other appropriate transformations to improve the distributional properties of the random errors may be suggested by scientific knowledge or selected using the data. However, these three transformations are good ones to start with since they work well in so many situations.
+
+[**Example**]{#sec-pmd-453-example}
+
+To illustrate how to use transformations to change the distribution of the random errors, we will look at a modified version of the [Pressure/Temperature example](#sec-pmd-11-example) in which the errors are uniformly distributed rather than normally distributed. Comparing the results obtained from fitting the data in their original units and under different transformations will directly illustrate the effects of the transformations on the distribution of the random errors.
+
+::: {.callout-note}
+NIST's original page used an illustrative modified version of the Pressure/Temperature data with uniformly distributed random errors, without a downloadable data set. The data below are generated with `set.seed()`, using the real fitted line from the [Pressure/Temperature example](#sec-pmd-431-quality) plus uniform random errors scaled to match the original residual standard deviation.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-453-uniform-errors
+#| fig-cap: "Modified pressure/temperature data with uniform random errors (illustrative data)"
+library(tidyverse)
+library(patchwork)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+set.seed(452)
+b0 <- 7.749695
+b1 <- 3.930123
+sigma_res <- 4.299098
+half_width <- sigma_res * sqrt(3) # matches the variance of a normal with this sd
+
+pressure_unif <- pressure_temp |>
+  mutate(pressure_unif = b0 + b1 * temperature + runif(n(), -half_width, half_width))
+
+ggplot(pressure_unif, aes(temperature, pressure_unif)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Temperature", y = "Pressure") +
+  theme_light()
+```
+
+[**Fit of Model to the Untransformed Data**]{#sec-pmd-453-untransformed-fit}
+
+A four-plot of the residuals obtained after fitting a straight-line model to the Pressure/Temperature data with uniformly distributed random errors is shown below. The histogram and normal probability plot on the bottom row of the four-plot are the most useful plots for assessing the distribution of the residuals. In this case the histogram suggests that the distribution is more rectangular than bell-shaped, indicating the random errors are not likely to be normally distributed. The curvature in the normal probability plot also suggests that the random errors are not normally distributed. If the random errors were normally distributed the normal probability plot should be a fairly straight line. Of course it wouldn't be perfectly straight, but smooth curvature or several points lying far from the line are fairly strong indicators of non-normality.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-453-untransformed-fourplot
+#| fig-cap: "4-plot of the residuals from the straight-line model fit to the untransformed data with uniform random errors"
+four_plot <- function(residual) {
+  d <- tibble(residual = residual) |>
+    mutate(order = row_number(), lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(order, residual)) +
+    geom_line(color = "grey40") +
+    geom_point(color = "steelblue") +
+    labs(x = "Sequence", y = "Residual", title = "Run Sequence Plot") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 10, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2) / (p3 + p4)
+}
+
+fit_orig <- lm(pressure_unif ~ temperature, data = pressure_unif)
+four_plot(resid(fit_orig))
+```
+
+[**Selection of Appropriate Transformations**]{#sec-pmd-453-selection}
+
+Going through [a set of steps similar to those used to find transformations to stabilize the random variation](#sec-pmd-452-transformations), different pairs of transformations of the response and predictor which have a simple functional form and will potentially have more normally distributed residuals are chosen. In the plots below, all of the possible combinations of basic transformations are applied to the temperature and pressure to find the pairs which have simple functional forms. In this case, which is typical, the data with square root-square root, ln-ln, and inverse-inverse transformations all appear to follow a straight-line model. The next step will be to fit lines to each of these sets of data and then to compare the residual plots to see whether any have random errors which appear to be normally distributed.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-453-transformation-search
+#| fig-cap: "Transformed pressure versus transformed temperature for the square-root, natural-log, and inverse transformations"
+p_sqrt <- ggplot(pressure_unif, aes(sqrt(temperature), sqrt(pressure_unif))) +
+  geom_point(color = "steelblue") +
+  labs(x = "sqrt(Temperature)", y = "sqrt(Pressure)", title = "Square Root") +
+  theme_light()
+
+p_ln <- ggplot(pressure_unif, aes(log(temperature), log(pressure_unif))) +
+  geom_point(color = "steelblue") +
+  labs(x = "ln(Temperature)", y = "ln(Pressure)", title = "Natural Log") +
+  theme_light()
+
+p_inv <- ggplot(pressure_unif, aes(1 / temperature, 1 / pressure_unif)) +
+  geom_point(color = "steelblue") +
+  labs(x = "1 / Temperature", y = "1 / Pressure", title = "Inverse") +
+  theme_light()
+
+p_sqrt + p_ln + p_inv
+```
+
+[**Fit of Model to Transformed Variables**]{#sec-pmd-453-transformed-fit}
+
+The normal probability plots and histograms below show the results of fitting straight-line models to the three sets of transformed data, along with the results from the fit of the model to the data in its original units for comparison.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-453-transformed-comparison
+#| fig-cap: "Normal probability plots (top) and histograms (bottom) of the residuals for the original, square-root, natural-log, and inverse fits"
+fit_sqrt <- lm(sqrt(pressure_unif) ~ sqrt(temperature), data = pressure_unif)
+fit_ln <- lm(log(pressure_unif) ~ log(temperature), data = pressure_unif)
+fit_inv <- lm(I(1 / pressure_unif) ~ I(1 / temperature), data = pressure_unif)
+
+normal_probability_plot <- function(residual, title) {
+  ggplot(tibble(residual = residual), aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(title = title, x = "Theoretical Quantiles", y = "Residual") +
+    theme_light()
+}
+
+residual_histogram <- function(residual, title) {
+  ggplot(tibble(residual = residual), aes(residual)) +
+    geom_histogram(bins = 10, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(title = title, x = "Residual", y = "Count") +
+    theme_light()
+}
+
+q1 <- normal_probability_plot(resid(fit_orig), "Original")
+q2 <- normal_probability_plot(resid(fit_sqrt), "Square Root")
+q3 <- normal_probability_plot(resid(fit_ln), "Natural Log")
+q4 <- normal_probability_plot(resid(fit_inv), "Inverse")
+
+h1 <- residual_histogram(resid(fit_orig), "Original")
+h2 <- residual_histogram(resid(fit_sqrt), "Square Root")
+h3 <- residual_histogram(resid(fit_ln), "Natural Log")
+h4 <- residual_histogram(resid(fit_inv), "Inverse")
+
+(q1 + q2 + q3 + q4) / (h1 + h2 + h3 + h4)
+```
+
+From the four normal probability plots it looks like the model fit using the ln-ln transformation produces the most normally distributed random errors. Because the normal probability plot for the ln-ln data is comparatively straight, it seems reasonable to conclude that taking the ln of the pressure makes the distribution of the random errors approximately normal. The histograms are broadly consistent with this, since the histogram of the ln-ln data looks more bell-shaped than the histograms for the other fits. Therefore, assuming the other residual plots also indicated that a straight line model fit this transformed data, the use of ln-ln transformations appears to be appropriate for analysis of this data.

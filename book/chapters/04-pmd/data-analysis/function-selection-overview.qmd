@@ -1,0 +1,17 @@
+### How do I select a function to describe my process? {#sec-pmd-42}
+
+[**Synthesis of Process Information Necessary**]{#sec-pmd-42-synthesis}
+
+Selecting a model of the right form to fit a set of data usually requires the use of empirical evidence in the data, knowledge of the process and some trial-and-error experimentation. As mentioned on the previous page, model building is always an iterative process. Much of the need to iterate stems from the difficulty in initially selecting a function that describes the data well. Details about the data are often not easily visible in the data as originally observed. The fine structure in the data can usually only be elicited by use of model-building tools such as residual plots and repeated refinement of the model form. As a result, it is important not to overlook any of the sources of information that indicate what the form of the model should be.
+
+[**Answer Not Provided by Statistics Alone**]{#sec-pmd-42-not-statistics-alone}
+
+Sometimes the different sources of information that need to be integrated to find an effective model will be contradictory. An open mind and a willingness to think about what the data are saying is important. Maintaining balance and looking for alternate sources for unusual effects found in the data are also important. For example, in the load cell calibration case study<!-- XREF: PMD section 4.6.1, Case Studies in Process Modeling, Load Cell Calibration, not yet drafted; source handbook/pmd/section6/pmd61.htm --> the statistical analysis pointed out that the model initially thought to be appropriate did not account for all of the structure in the data. A refined model was developed, but the appearance of an unexpected result brings up the question of whether the original understanding of the problem was inaccurate, or whether the need for an alternate model was due to experimental artifacts. In the load cell problem it was easy to accept that the refined model was closer to the truth, but in a more complicated case additional experiments might have been needed to resolve the issue.
+
+[**Knowing Function Types Helps**]{#sec-pmd-42-function-types}
+
+Another helpful ingredient in model selection is a wide knowledge of the shapes that different mathematical functions can assume. Knowing something about the models that have been found to work well in the past for different application types also helps. A menu of different functions on the next page, [Section 4.4.2.1](#sec-pmd-421), provides one way to learn about the function shapes and flexibility. [Section 4.4.2.2](#sec-pmd-422) discusses how general function features and qualitative scientific information can be combined to help with model selection. Finally, [Section 4.4.2.3](#sec-pmd-423) points to methods that don't require specification of a particular function to be fit to the data, and how models of those types can be refined.
+
+1. [Incorporating Scientific Knowledge into Function Selection](#sec-pmd-421)
+2. [Using the Data to Select an Appropriate Function](#sec-pmd-422)
+3. [Using Methods that Do Not Require Function Specification](#sec-pmd-423)

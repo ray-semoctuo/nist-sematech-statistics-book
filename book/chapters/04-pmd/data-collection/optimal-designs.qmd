@@ -1,0 +1,58 @@
+### I've heard some people refer to "optimal" designs, shouldn't I use those? {#sec-pmd-34}
+
+[**Classical Designs Heavily Used in Industry**]{#sec-pmd-34-classical}
+
+The most heavily used designs in industry are the "classical designs" (full factorial designs, fractional factorial designs, Latin square designs, Box-Behnken designs, etc.). They are so heavily used because they are optimal in their own right and have served superbly well in providing efficient insight into the underlying structure of industrial processes.
+
+[**Reasons Classical Designs May Not Work**]{#sec-pmd-34-reasons}
+
+Cases do arise, however, for which the tabulated classical designs do not cover a particular practical situation. That is, user constraints preclude the use of tabulated classical designs because such classical designs do not accommodate user constraints. Such constraints include:
+
+1. Limited maximum number of runs:
+
+   User constraints in budget and time may dictate a maximum allowable number of runs that is too small or too "irregular" (e.g., "13") to be accommodated by classical designs--even fractional factorial designs.
+
+2. Impossible factor combinations:
+
+   The user may have some factor combinations that are impossible to run. Such combinations may at times be specified (to maintain balance and orthogonality) as part of a recommended classical design. If the user simply omits this impossible run from the design, the net effect may be a reduction in the quality and optimality of the classical design.
+
+3. Too many levels:
+
+   The number of factors and/or the number of levels of some factors intended for use may not be included in tabulations of classical designs.
+
+4. Complicated underlying model:
+
+   The user may be assuming an underlying model that is too complicated (or too non-linear), so that classical designs would be inappropriate.
+
+[**What to Do If Classical Designs Do Not Exist?**]{#sec-pmd-34-what-to-do}
+
+If user constraints are such that classical designs do not exist to accommodate such constraints, then what is the user to do?
+
+The [previous section's list of design criteria](#sec-pmd-33) (capability for the primary model, capability for the alternate model, minimum variation of estimated coefficients, etc.) is a good passive target to aim for in terms of desirable design properties, but provides little help in terms of an active formal construction methodology for generating a design.
+
+[**Common Optimality Criteria**]{#sec-pmd-34-criteria}
+
+To satisfy this need, an "optimal design" methodology has been developed to generate a design when user constraints preclude the use of tabulated classical designs. Optimal designs may be optimal in many different ways, and what may be an optimal design according to one criterion may be suboptimal for other criteria. Competing criteria have led to a literal alphabet-soup collection of optimal design methodologies. The four most popular ingredients in that "soup" are:
+
+| Design | Criterion |
+|---|---|
+| D-optimal designs | minimize the generalized variance of the parameter estimators. |
+| A-optimal designs | minimize the average variance of the parameter estimators. |
+| G-optimal designs | minimize the maximum variance of the predicted values. |
+| V-optimal designs | minimize the average variance of the predicted values. |
+
+[**Need 1: a Model**]{#sec-pmd-34-need-model}
+
+The motivation for optimal designs is the practical constraints that the user has. The advantage of optimal designs is that they do provide a reasonable design-generating methodology when no other mechanism exists. The disadvantage of optimal designs is that they require a model from the user. The user may not have this model.
+
+All optimal designs are model-dependent, and so the quality of the final engineering conclusions that result from the ensuing design, data, and analysis is dependent on the correctness of the analyst's assumed model. For example, if the responses from a particular process are actually being drawn from a cubic model and the analyst assumes a linear model and uses the corresponding optimal design to generate data and perform the data analysis, then the final engineering conclusions will be flawed and invalid. Hence one price for obtaining an in-hand generated design is the designation of a model. All optimal designs need a model; without a model, the optimal design-generation methodology cannot be used, and general design principles must be reverted to.
+
+[**Need 2: a Candidate Set of Points**]{#sec-pmd-34-need-candidates}
+
+The other price for using optimal design methodology is a user-specified set of candidate points. Optimal designs will not generate the best design points from some continuous region--that is too much to ask of the mathematics. Optimal designs will generate the best subset of $n$ points from a larger superset of candidate points. The user must specify this candidate set of points. Most commonly, the superset of candidate points is the full factorial design over a fine-enough grid of the factor space with which the analyst is comfortable. If the grid is too fine, and the resulting superset overly large, then the optimal design methodology may prove computationally challenging.
+
+[**Optimal Designs are Computationally Intensive**]{#sec-pmd-34-computational}
+
+The optimal design-generation methodology is computationally intensive. Some of the designs (e.g., D-optimal) are better than other designs (such as A-optimal and G-optimal) in regard to efficiency of the underlying search algorithm. Like most mathematical optimization techniques, there is no iron-clad guarantee that the result from the optimal design methodology is in fact the true optimum. However, the results are usually satisfactory from a practical point of view, and are far superior than any ad hoc designs.
+
+For further details about optimal designs, the analyst is referred to [@Montgomery2001].

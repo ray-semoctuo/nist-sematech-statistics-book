@@ -1,0 +1,143 @@
+#### How can I detect non-constant variation across the data? {#sec-pmd-442}
+
+[**Scatter Plots Allow Comparison of Random Variation Across Data**]{#sec-pmd-442-scatter}
+
+Similar to their use in checking the sufficiency of the functional form of the model, scatter plots<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Scatter Plot; source handbook/eda/section3/scatterp.htm --> of the residuals are also used to check the [assumption of constant standard deviation of random errors](#sec-pmd-213). Scatter plots of the residuals versus the explanatory variables and versus the predicted values from the model allow comparison of the amount of random variation in different parts of the data. For example, the plot below shows residuals from a straight-line fit to the [Pressure/Temperature data](#sec-pmd-11-example). In this plot the range of the residuals looks essentially constant across the levels of the predictor variable, temperature. The scatter in the residuals at temperatures between 20 and 30 degrees is similar to the scatter in the residuals between 40 and 50 degrees and between 55 and 70 degrees. This suggests that the standard deviation of the random errors is the same for the responses observed at each temperature.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-442-pt-residuals
+#| fig-cap: "Residuals from the straight-line fit to the pressure/temperature data"
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+pressure_temp <- pressure_temp |> mutate(residual = resid(pt_fit))
+
+ggplot(pressure_temp, aes(temperature, residual)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+[**Modification of Example**]{#sec-pmd-442-modification}
+
+To illustrate how the residuals from the Pressure/Temperature data would look if the standard deviation was not constant across the different temperature levels, a modified version of the data was simulated. The reader can download the modified Pressure/Temperature data as a [text file](../../datasets/MODEL-4_4_5_2.DAT). In the modified version, the standard deviation increases with increasing values of pressure. Situations like this, in which the standard deviation increases with increasing values of the response, are among the most common ways that non-constant random variation occurs in physical science and engineering applications. A plot of the data is shown below. A comparison of these two versions of the data<!-- XREF: Dataplot detail page not migrated; source handbook/pmd/section4/dep/dep442.htm --> is interesting because in the original units of the data they don't look strikingly different.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-442-modified-data
+#| fig-cap: "Modified pressure/temperature data with non-constant residual standard deviation"
+pressure_mod <- read_table(
+  here::here("datasets", "MODEL-4_4_5_2.DAT"),
+  skip = 25,
+  col_names = c("temperature", "rounded_temperature", "pressure", "pressure_sd"),
+  col_types = "dddd"
+)
+
+ggplot(pressure_mod, aes(temperature, pressure)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Temperature", y = "Pressure") +
+  theme_light()
+```
+
+[**Residuals Indicate Non-Constant Standard Deviation**]{#sec-pmd-442-residuals-indicate}
+
+The residual plot from a straight-line fit to the modified data, however, highlights the non-constant standard deviation in the data. The horn-shaped residual plot, starting with residuals close together around 20 degrees and spreading out more widely as the temperature (and the pressure) increases, is a typical plot indicating that the assumptions of the analysis are not satisfied with this model. Other residual plot shapes besides the horn shape could indicate non-constant standard deviation as well. For example, if the response variable for a data set peaked in the middle of the range of the predictors and was small for extreme values of the predictors, the residuals plotted versus the predictors would look like two horns with the bells facing one another. In a case like this, a plot of the residuals versus the predicted values would exhibit the single horn shape, however.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-442-modified-residuals
+#| fig-cap: "Residuals from a straight-line fit to the modified pressure data"
+pressure_mod_fit <- lm(pressure ~ temperature, data = pressure_mod)
+pressure_mod <- pressure_mod |> mutate(residual = resid(pressure_mod_fit))
+
+ggplot(pressure_mod, aes(temperature, residual)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+[**Residual Plots Comparing Variability Apply to Most Methods**]{#sec-pmd-442-most-methods}
+
+The use of residual plots to check the assumption of constant standard deviation works in the same way for most modeling methods. It is not limited to least squares regression even though that is almost always the context in which it is explained. The plot below shows the residuals from a LOESS fit to the data from the [Thermocouple Calibration example](#sec-pmd-133-example). The even spread of the residuals across the range of the data does not indicate any changes in the standard deviation, leading us to the conclusion that this assumption is not unreasonable for these data.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-442-loess-residuals
+#| fig-cap: "Residuals from the LOESS fit to the thermocouple calibration data"
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+
+clb1_fit <- loess(voltage ~ temperature, data = clb1, degree = 2, span = 0.3, family = "gaussian")
+clb1 <- clb1 |> mutate(residual = resid(clb1_fit))
+
+ggplot(clb1, aes(temperature, residual)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature", y = "Residual") +
+  theme_light()
+```
+
+[**Correct Function Needed to Check for Constant Standard Deviation**]{#sec-pmd-442-correct-function-needed}
+
+One potential pitfall in using residual plots to check for constant standard deviation across the data is that the functional part of the model must adequately describe the systematic variation in the data. If that is not the case, then the typical horn shape observed in the residuals could be due to an artifact of the function fit to the data rather than to non-constant variation. For example, in the [Polymer Relaxation example](#sec-pmd-422-polymer) it was hypothesized that both time and temperature are related to the response variable, torque. However, if a single stretched exponential model in time was the initial model used for the process, the residual plots could be misinterpreted fairly easily, leading to the false conclusion that the standard deviation is not constant across the data. When the functional part of the model does not fit the data well, the residuals do not reflect purely random variations in the process. Instead, they reflect the remaining structure in the data not accounted for by the function. Because the residuals are not random, they cannot be used to answer questions about the random part of the model. This also emphasizes the importance of plotting the data before fitting the initial model, even if a theoretical model for the data is available. [Looking at the data before fitting the initial model](#sec-pmd-422-higher-dimensions), at least in this case, would likely forestall this potential problem.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-442-polymer-single-fit
+#| fig-cap: "Polymer relaxation data modeled with a single stretched exponential in time, ignoring temperature"
+pr1 <- read_table(
+  here::here("datasets", "PR1.DAT"),
+  skip = 25,
+  col_names = c("time", "temperature", "torque"),
+  col_types = "ddd"
+)
+
+pr1_single_fit <- nls(torque ~ b0 + b1 * exp(-(time / b2)^b3),
+  data = pr1,
+  start = list(b0 = 5, b1 = 3, b2 = 30, b3 = 1)
+)
+
+time_grid <- tibble(time = seq(0, 120, length.out = 200))
+time_grid <- time_grid |> mutate(fitted = predict(pr1_single_fit, newdata = time_grid))
+
+ggplot(pr1, aes(time, torque)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_line(data = time_grid, aes(y = fitted), color = "firebrick") +
+  labs(x = "Time, minutes", y = "Torque") +
+  theme_light()
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-442-polymer-single-residuals
+#| fig-cap: "Residuals from the single stretched exponential model, ignoring temperature"
+pr1 <- pr1 |> mutate(residual = resid(pr1_single_fit))
+
+ggplot(pr1, aes(time, residual)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Time, minutes", y = "Residual") +
+  theme_light()
+```
+
+[**Getting Back on Course After a Bad Start**]{#sec-pmd-442-back-on-course}
+
+Fortunately, even if the initial model were incorrect, and the residual plot above was made, there are clues in this plot that indicate that the horn shape (pointing left this time) is not caused by non-constant standard deviation. The cluster of residuals at time zero that have a residual torque near one indicate that the functional part of the model does not fit the data. In addition, even when the residuals occur with equal frequency above and below zero, the spacing of the residuals at each time does not really look random. The spacing is too regular to represent random measurement errors. At measurement times near the low end of the scale, the spacing of the points increases as the residuals decrease and at the upper end of the scale the spacing decreases as the residuals decrease. The patterns in the spacing of the residuals also points to the fact that the functional form of the model is not correct and needs to be corrected before drawing conclusions about the distribution of the residuals.

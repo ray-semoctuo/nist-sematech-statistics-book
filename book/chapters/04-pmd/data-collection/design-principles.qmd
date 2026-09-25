@@ -1,0 +1,63 @@
+### What are some general design principles for process modeling? {#sec-pmd-33}
+
+[**Experimental Design Principles Applied to Process Modeling**]{#sec-pmd-33-principles}
+
+There are six principles of experimental design as applied to process modeling:
+
+1. Capacity for Primary Model
+2. Capacity for Alternative Model
+3. Minimum Variance of Coefficient Estimators
+4. Sample where the Variation Is
+5. Replication
+6. Randomization
+
+We discuss each in detail below.
+
+[**Capacity for Primary Model**]{#sec-pmd-33-primary-model}
+
+For your best-guess model, make sure that the design has the capacity for estimating the coefficients of that model. For a simple example of this, if you are fitting a quadratic model, then make sure you have at least three distinct horizontal axis points.
+
+[**Capacity for Alternative Model**]{#sec-pmd-33-alternative-model}
+
+If your best-guess model happens to be inadequate, make sure that the design has the capacity to estimate the coefficients of your best-guess back-up alternative model (which means implicitly that you should have already identified such a model). For a simple example, if you suspect (but are not positive) that a linear model is appropriate, then it is best to employ a globally robust design (say, four points at each extreme and three points in the middle, for a ten-point design) as opposed to the locally optimal design (such as five points at each extreme). The locally optimal design will provide a best fit to the line, but have no capacity to fit a quadratic. The globally robust design will provide a good (though not optimal) fit to the line and additionally provide a good (though not optimal) fit to the quadratic.
+
+[**Minimum Variance of Coefficient Estimators**]{#sec-pmd-33-minimum-variance}
+
+For a given model, make sure the design has the property of minimizing the variation of the least squares estimated coefficients. This is a general principle that is always in effect but which in practice is hard to implement for many models beyond the simpler 1-factor
+
+$$ y = f(x;\vec{\beta} + \varepsilon) $$
+
+models. For more complicated 1-factor models, and for most multi-factor
+
+$$ y = f(\vec{x};\vec{\beta} + \varepsilon) $$
+
+models, the expressions for the variance of the least squares estimators, although available, are complicated and assume more than the analyst typically knows. The net result is that this principle, though important, is harder to apply beyond the simple cases.
+
+[**Sample Where the Variation Is (Non Constant Variance Case)**]{#sec-pmd-33-sample-variance}
+
+Regardless of the simplicity or complexity of the model, there are situations in which certain regions of the curve are noisier than others. A simple case is when there is a linear relationship between $x$ and $y$ but the recording device is proportional rather than absolute and so larger values of $y$ are intrinsically noisier than smaller values of $y$. In such cases, sampling where the variation is means to have more replicated points in those regions that are noisier. The practical answer to how many such replicated points there should be is
+
+$$ n_{i} = \frac{1} {\sigma_{i}^{2}} $$
+
+with $\sigma_{i}$ denoting the theoretical standard deviation for that given region of the curve. Usually $\sigma_{i}$ is estimated by a-priori guesses for what the local standard deviations are.
+
+[**Sample Where the Variation Is (Steep Curve Case)**]{#sec-pmd-33-sample-steep}
+
+A common occurrence for non-linear models is for some regions of the curve to be steeper than others. For example, in fitting an exponential model (small $x$ corresponding to large $y$, and large $y$ corresponding to small $x$) it is often the case that the $y$ data in the steep region are intrinsically noisier than the $y$ data in the relatively flat regions. The reason for this is that commonly the $x$ values themselves have a bit of noise and this $x$-noise gets translated into larger $y$-noise in the steep sections than in the shallow sections. In such cases, when we know the shape of the response curve well enough to identify steep-versus-shallow regions, it is often a good idea to sample more heavily in the steep regions than in the shallow regions. A practical rule-of-thumb for where to position the $x$ values in such situations is to
+
+1. sketch out your best guess for what the resulting curve will be;
+2. partition the vertical (that is the $y$) axis into $n$ equi-spaced points (with $n$ denoting the total number of data points that you can afford);
+3. draw horizontal lines from each vertical axis point to where it hits the sketched-in curve.
+4. drop a vertical projection line from the curve intersection point to the horizontal axis.
+
+These will be the recommended $x$ values to use in the design.
+
+The above rough procedure for an exponentially decreasing curve would thus yield a logarithmic preponderance of points in the steep region of the curve and relatively few points in the flatter part of the curve.
+
+[**Replication**]{#sec-pmd-33-replication}
+
+If affordable, replication should be part of every design. Replication allows us to compute a model-independent estimate of the process standard deviation. Such an estimate may then be used as a criterion in an objective lack-of-fit test<!-- XREF: PMD section 4.4.4.6, Data Analysis for Process Modeling, lack-of-fit test, not yet drafted; source handbook/pmd/section4/pmd446.htm --> to assess whether a given model is adequate. Such an objective lack-of-fit F-test can be employed only if the design has built-in replication. Some replication is essential; replication at every point is ideal.
+
+[**Randomization**]{#sec-pmd-33-randomization}
+
+Just because the $x$'s have some natural ordering does not mean that the data should be collected in the same order as the $x$'s. Some aspect of randomization should enter into every experiment, and experiments for process modeling are no exception. Thus if you are sampling ten points on a curve, the ten $y$ values should not be collected by sequentially stepping through the $x$ values from the smallest to the largest. If you do so, and if some extraneous drifting or wear occurs in the machine, the operator, the environment, the measuring device, etc., then that drift will unwittingly contaminate the $y$ values and in turn contaminate the final fit. To minimize the effect of such potential drift, it is best to randomize (use random number tables) the sequence of the $x$ values. This will not make the drift go away, but it will spread the drift effect evenly over the entire curve, realistically inflating the variation of the fitted values, and providing some mechanism after the fact (at the residual analysis model validation stage) for uncovering or discovering such a drift. If you do not randomize the run sequence, you give up your ability to detect such a drift if it occurs.

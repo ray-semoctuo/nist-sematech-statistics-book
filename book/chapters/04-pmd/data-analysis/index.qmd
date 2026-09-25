@@ -1,0 +1,66 @@
+## Data Analysis for Process Modeling {#sec-pmd-4}
+
+[**Building a Good Model**]{#sec-pmd-4-building}
+
+This section contains detailed discussions of the necessary steps for developing a good process model after data have been collected. A general model-building framework, applicable to multiple statistical methods, is described with method-specific points included when necessary.
+
+1. [What are the basic steps for developing an effective process model?](#sec-pmd-41)
+2. [How do I select a function to describe my process?](#sec-pmd-42)
+   1. [Incorporating Scientific Knowledge into Function Selection](#sec-pmd-421)
+   2. [Using the Data to Select an Appropriate Function](#sec-pmd-422)
+   3. [Using Methods that Do Not Require Function Specification](#sec-pmd-423)
+3. [How are estimates of the unknown parameters obtained?](#sec-pmd-43)
+   1. [Least Squares](#sec-pmd-431)
+   2. [Weighted Least Squares](#sec-pmd-432)
+4. [How can I tell if a model fits my data?](#sec-pmd-44)
+   1. [How can I assess the sufficiency of the functional part of the model?](#sec-pmd-441)
+   2. [How can I detect non-constant variation across the data?](#sec-pmd-442)
+   3. [How can I tell if there was drift in the process?](#sec-pmd-443)
+   4. [How can I assess whether the random errors are independent from one to the next?](#sec-pmd-444)
+   5. [How can I test whether or not the random errors are distributed normally?](#sec-pmd-445)
+   6. [How can I test whether any significant terms are missing or misspecified in the functional part of the model?](#sec-pmd-446)
+   7. [How can I test whether all of the terms in the functional part of the model are necessary?](#sec-pmd-447)
+5. [If my current model does not fit the data well, how can I improve it?](#sec-pmd-45)
+   1. [Updating the Function Based on Residual Plots](#sec-pmd-451)
+   2. [Accounting for Non-Constant Variation Across the Data](#sec-pmd-452)
+   3. [Accounting for Errors with a Non-Normal Distribution](#sec-pmd-453)
+
+{{< include data-analysis/basic-steps.qmd >}}
+
+{{< include data-analysis/function-selection-overview.qmd >}}
+
+{{< include data-analysis/scientific-knowledge.qmd >}}
+
+{{< include data-analysis/data-driven-selection.qmd >}}
+
+{{< include data-analysis/no-function-specification.qmd >}}
+
+{{< include data-analysis/parameter-estimation-overview.qmd >}}
+
+{{< include data-analysis/least-squares.qmd >}}
+
+{{< include data-analysis/wls-estimation.qmd >}}
+
+{{< include data-analysis/model-validation-overview.qmd >}}
+
+{{< include data-analysis/functional-sufficiency.qmd >}}
+
+{{< include data-analysis/non-constant-variation.qmd >}}
+
+{{< include data-analysis/drift.qmd >}}
+
+{{< include data-analysis/independence.qmd >}}
+
+{{< include data-analysis/normality.qmd >}}
+
+{{< include data-analysis/lack-of-fit.qmd >}}
+
+{{< include data-analysis/parameter-necessity.qmd >}}
+
+{{< include data-analysis/model-improvement-overview.qmd >}}
+
+{{< include data-analysis/updating-function.qmd >}}
+
+{{< include data-analysis/non-constant-variation-remedies.qmd >}}
+
+{{< include data-analysis/non-normal-errors.qmd >}}
