@@ -12,7 +12,7 @@ The reader can download the line-spacing measurement data as a [text file](../..
 #| code-fold: true
 #| message: false
 #| label: fig-pmd-143-line-spacing
-#| fig-cap: "True line spacing versus measured minus true line spacing (micrometers), photomask line-spacing calibration data"
+#| fig-cap: "True line spacing versus measured minus true line spacing (micrometers), with an unweighted and a weighted least squares fit, photomask line-spacing calibration data"
 library(tidyverse)
 
 lnspcg <- read_table(
@@ -20,13 +20,35 @@ lnspcg <- read_table(
   skip = 25,
   col_names = c("nbs_value", "observed_value", "difference", "fitted_value", "deviation"),
   col_types = "ddddd"
-)
+) |>
+  mutate(site = as_factor(rep(letters[1:4], each = 10)))
+
+# the four line-spacing sites show different amounts of scatter, so weight
+# each observation by the inverse variance of its own site
+site_variance <- lnspcg |>
+  group_by(site) |>
+  summarise(site_var = var(difference))
+
+lnspcg <- lnspcg |>
+  left_join(site_variance, by = "site")
 
 ggplot(lnspcg, aes(nbs_value, difference)) +
   geom_point(color = "steelblue") +
-  labs(x = "True Line Spacing (µm)", y = "Measured − True Line Spacing (µm)") +
+  geom_smooth(aes(color = "Unweighted", weight = NULL),
+    method = "lm", formula = y ~ x, se = FALSE, linetype = "dashed"
+  ) +
+  geom_smooth(aes(weight = 1 / site_var, color = "Weighted"),
+    method = "lm", formula = y ~ x, se = FALSE
+  ) +
+  scale_color_manual(values = c(Unweighted = "grey50", Weighted = "firebrick")) +
+  labs(
+    x = "True Line Spacing (µm)", y = "Measured − True Line Spacing (µm)",
+    color = "Fit"
+  ) +
   theme_light()
 ```
+
+The four measurement sites (`a` through `d`) show noticeably different amounts of scatter around the trend, so treating every observation as equally precise, as the dashed unweighted fit does, gives the noisier sites the same influence over the fitted line as the more precise ones. Weighting each observation by the inverse of its site's variance, $1/\hat\sigma^2_{\text{site}}$, lets the more precise sites pull the fit toward themselves, producing the solid weighted line shown above.
 
 [**Model Types and Weighted Least Squares**]{#sec-pmd-143-model-types}
 
