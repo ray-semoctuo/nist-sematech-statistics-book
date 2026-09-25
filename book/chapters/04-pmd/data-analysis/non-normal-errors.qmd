@@ -69,6 +69,7 @@ A four-plot of the residuals obtained after fitting a straight-line model to the
 
 ```{r}
 #| code-fold: true
+#| warning: false
 #| label: fig-pmd-453-untransformed-fourplot
 #| fig-cap: "4-plot of the residuals from the straight-line model fit to the untransformed data with uniform random errors"
 four_plot <- function(residual) {
@@ -110,24 +111,47 @@ Going through [a set of steps similar to those used to find transformations to s
 
 ```{r}
 #| code-fold: true
-#| label: fig-pmd-453-transformation-search
-#| fig-cap: "Transformed pressure versus transformed temperature for the square-root, natural-log, and inverse transformations"
-p_sqrt <- ggplot(pressure_unif, aes(sqrt(temperature), sqrt(pressure_unif))) +
-  geom_point(color = "steelblue") +
-  labs(x = "sqrt(Temperature)", y = "sqrt(Pressure)", title = "Square Root") +
-  theme_light()
+#| label: fig-pmd-453-sqrt-pressure
+#| fig-cap: "sqrt(Pressure) versus temperature in its original units and transformed by square root, natural log, and reciprocal"
+transformation_grid <- function(response, response_label) {
+  p_temp <- ggplot(pressure_unif, aes(temperature, {{ response }})) +
+    geom_point(color = "steelblue") +
+    labs(x = "Temperature", y = response_label) +
+    theme_light()
 
-p_ln <- ggplot(pressure_unif, aes(log(temperature), log(pressure_unif))) +
-  geom_point(color = "steelblue") +
-  labs(x = "ln(Temperature)", y = "ln(Pressure)", title = "Natural Log") +
-  theme_light()
+  p_sqrt_temp <- ggplot(pressure_unif, aes(sqrt(temperature), {{ response }})) +
+    geom_point(color = "steelblue") +
+    labs(x = "sqrt(Temperature)", y = response_label) +
+    theme_light()
 
-p_inv <- ggplot(pressure_unif, aes(1 / temperature, 1 / pressure_unif)) +
-  geom_point(color = "steelblue") +
-  labs(x = "1 / Temperature", y = "1 / Pressure", title = "Inverse") +
-  theme_light()
+  p_ln_temp <- ggplot(pressure_unif, aes(log(temperature), {{ response }})) +
+    geom_point(color = "steelblue") +
+    labs(x = "ln(Temperature)", y = response_label) +
+    theme_light()
 
-p_sqrt + p_ln + p_inv
+  p_inv_temp <- ggplot(pressure_unif, aes(1 / temperature, {{ response }})) +
+    geom_point(color = "steelblue") +
+    labs(x = "1 / Temperature", y = response_label) +
+    theme_light()
+
+  (p_temp + p_sqrt_temp) / (p_ln_temp + p_inv_temp)
+}
+
+transformation_grid(sqrt(pressure_unif), "sqrt(Pressure)")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-453-ln-pressure
+#| fig-cap: "ln(Pressure) versus temperature in its original units and transformed by square root, natural log, and reciprocal"
+transformation_grid(log(pressure_unif), "ln(Pressure)")
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-453-inverse-pressure
+#| fig-cap: "1/Pressure versus temperature in its original units and transformed by square root, natural log, and reciprocal"
+transformation_grid(1 / pressure_unif, "1 / Pressure")
 ```
 
 [**Fit of Model to Transformed Variables**]{#sec-pmd-453-transformed-fit}
@@ -138,6 +162,7 @@ The normal probability plots and histograms below show the results of fitting st
 #| code-fold: true
 #| label: fig-pmd-453-transformed-comparison
 #| fig-cap: "Normal probability plots (top) and histograms (bottom) of the residuals for the original, square-root, natural-log, and inverse fits"
+#| fig-height: 10
 fit_sqrt <- lm(sqrt(pressure_unif) ~ sqrt(temperature), data = pressure_unif)
 fit_ln <- lm(log(pressure_unif) ~ log(temperature), data = pressure_unif)
 fit_inv <- lm(I(1 / pressure_unif) ~ I(1 / temperature), data = pressure_unif)

@@ -30,7 +30,7 @@ Other transformations can be considered, of course, but in a surprisingly wide r
 
 [**Modified Pressure / Temperature Example**]{#sec-pmd-452-example}
 
-To illustrate how to use transformations to stabilize the variation in the data, we will return to the [modified version of the Pressure/Temperature example](#sec-pmd-442-modification). The residuals from a straight-line fit to that data clearly showed that the standard deviation of the measurements was not constant across the range of temperatures.
+To illustrate how to use transformations to stabilize the variation in the data, we will return to the [modified version of the Pressure/Temperature example](#sec-pmd-442-modification). The residuals from a straight-line fit to that data, shown in @fig-pmd-442-modified-residuals, clearly showed that the standard deviation of the measurements was not constant across the range of temperatures.
 
 [**Stabilizing the Variation**]{#sec-pmd-452-stabilizing}
 
@@ -314,7 +314,7 @@ temp_grid <- tibble(temperature = seq(min(pressure_mod$temperature), max(pressur
 
 temp_grid <- temp_grid |>
   mutate(
-    transformed = 1 / predict(transformed_fit, newdata = tibble(temperature = 1 / temperature)),
+    transformed = 1 / predict(transformed_fit, newdata = tibble(temperature = temperature)),
     weighted = predict(wls_fit, newdata = tibble(temperature = temperature))
   ) |>
   pivot_longer(c(transformed, weighted), names_to = "method", values_to = "pressure")
