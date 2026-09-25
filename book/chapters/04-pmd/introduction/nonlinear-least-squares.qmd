@@ -1,0 +1,47 @@
+#### Nonlinear Least Squares Regression {#sec-pmd-142}
+
+[**Extension of Linear Least Squares Regression**]{#sec-pmd-142-extension}
+
+Nonlinear least squares regression extends linear least squares regression for use with a much larger and more general class of functions. Almost any function that can be written in closed form can be incorporated in a nonlinear regression model. Unlike linear regression, there are very few limitations on the way parameters can be used in the functional part of a nonlinear regression model. The way in which the unknown parameters in the function are estimated, however, is conceptually the same as it is in linear least squares regression.
+
+[**Definition of a Nonlinear Regression Model**]{#sec-pmd-142-definition}
+
+As the name suggests, a nonlinear model is any model of the [basic form](#sec-pmd-12-form),
+
+$$y = f(\vec{x};\vec{\beta}) + \varepsilon \, ,$$
+
+in which
+
+1. the functional part of the model is *not* [linear](#sec-pmd-141-definition) with respect to the unknown parameters, $\beta_0, \beta_1, \ldots$, and
+2. the [method of least squares](#sec-pmd-431) is used to estimate the values of the unknown parameters.
+
+Due to the way in which the unknown parameters of the function are usually estimated, however, it is often much easier to work with models that meet two additional criteria:
+
+3. the function is smooth with respect to the unknown parameters, and
+4. the [least squares criterion](#sec-pmd-431) that is used to obtain the parameter estimates has a unique solution.
+
+These last two criteria are not essential parts of the definition of a nonlinear least squares model, but are of practical importance.
+
+[**Examples of Nonlinear Models**]{#sec-pmd-142-examples}
+
+Some examples of nonlinear models include:
+
+$$f(x;\vec{\beta}) = \frac{\beta_0 + \beta_1x}{1+\beta_2x}$$
+
+$$f(x;\vec{\beta}) = \beta_1x^{\beta_2}$$
+
+$$f(x;\vec{\beta}) = \beta_0 + \beta_1\exp(-\beta_2x)$$
+
+$$f(\vec{x};\vec{\beta}) = \beta_1\sin(\beta_2 + \beta_3x_1) + \beta_4\cos(\beta_5 + \beta_6x_2)$$
+
+[**Advantages of Nonlinear Least Squares**]{#sec-pmd-142-advantages}
+
+The biggest advantage of nonlinear least squares regression over many other techniques is the broad range of functions that can be fit. Although many scientific and engineering processes can be described well using linear models, or other relatively simple types of models, there are many other processes that are inherently nonlinear. For example, the strengthening of concrete as it cures is a nonlinear process. Research on concrete strength shows that the strength increases quickly at first and then levels off, or approaches an asymptote in mathematical terms, over time. Linear models do not describe processes that asymptote very well because for all linear functions the function value can't increase or decrease at a declining rate as the explanatory variables go to the extremes. There are many types of nonlinear models, on the other hand, that describe the asymptotic behavior of a process well. Like the asymptotic behavior of some processes, other features of physical processes can often be expressed more easily using nonlinear models than with simpler model types.
+
+Being a "least squares" procedure, nonlinear least squares has some of the same advantages (and disadvantages) that linear least squares regression has over other methods. One common advantage is efficient use of data. Nonlinear regression can produce good estimates of the unknown parameters in the model with relatively small data sets. Another advantage that nonlinear least squares shares with linear least squares is a fairly well-developed theory for computing confidence, prediction and calibration intervals to answer scientific and engineering questions. In most cases the probabilistic interpretation of the intervals produced by nonlinear regression are only approximately correct, but these intervals still work very well in practice.
+
+[**Disadvantages of Nonlinear Least Squares**]{#sec-pmd-142-disadvantages}
+
+The major cost of moving to nonlinear least squares regression from simpler modeling techniques like linear least squares is the need to use iterative optimization procedures to compute the parameter estimates. With functions that are linear in the parameters, the least squares estimates of the parameters can always be obtained analytically, while that is generally not the case with nonlinear models. The use of iterative procedures requires the user to provide starting values for the unknown parameters before the software can begin the optimization. The starting values must be reasonably close to the as yet unknown parameter estimates or the optimization procedure may not converge. Bad starting values can also cause the software to converge to a local minimum rather than the global minimum that defines the least squares estimates.
+
+Disadvantages shared with the linear least squares procedure includes a strong sensitivity to outliers. Just as in a linear least squares analysis, the presence of one or two outliers in the data can seriously affect the results of a nonlinear analysis. In addition there are unfortunately fewer model validation tools for the detection of outliers in nonlinear regression than there are for linear regression.

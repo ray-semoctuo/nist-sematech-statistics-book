@@ -1,0 +1,131 @@
+#### Calibration {#sec-pmd-133}
+
+[**More on Calibration**]{#sec-pmd-133-more}
+
+As mentioned in the [page introducing the different uses of process models](#sec-pmd-13), the goal of calibration is to quantitatively convert measurements made on one of two measurement scales to the other measurement scale. The two scales are generally not of equal importance, so the conversion occurs in only one direction. The primary measurement scale is usually the scientifically relevant scale and measurements made directly on this scale are often more precise (relatively) than measurements made on the secondary scale. A process model describing the relationship between the two measurement scales provides the means for conversion. A process model that is constructed primarily for the purpose of calibration is often referred to as a "calibration curve".
+
+[**Example**]{#sec-pmd-133-example}
+
+Thermocouples are a common type of temperature measurement device that is often more practical than a thermometer for temperature assessment. Thermocouples measure temperature in terms of voltage, however, rather than directly on a temperature scale. In addition, the response of a particular thermocouple depends on the exact formulation of the metals used to construct it, meaning two thermocouples will respond somewhat differently under identical measurement conditions. As a result, thermocouples need to be calibrated to produce interpretable measurement information. The calibration curve for a thermocouple is often constructed by comparing thermocouple output to relatively precise thermometer data. Then, when a new temperature is measured with the thermocouple, the voltage is converted to temperature terms by plugging the observed voltage into the regression equation and solving for temperature. The reader can download the thermocouple data as a [text file](../../datasets/CLB1.DAT).
+
+The plot below shows a calibration curve for a thermocouple fit with a locally quadratic model using a method called [LOESS](#sec-pmd-144). Traditionally, complicated, high-degree polynomial models have been used for thermocouple calibration, but locally linear or quadratic models offer better computational stability and more flexibility. With the locally quadratic model the solution of the regression equation for temperature is done numerically rather than analytically, but the concept of calibration is identical regardless of which type of model is used. It is important to note that the thermocouple measurements, made on the secondary measurement scale, are treated as the response variable and the more precise thermometer results, on the primary scale, are treated as the predictor variable because this best satisfies the [underlying assumptions](#sec-pmd-2) of the analysis.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-133-thermocouple
+#| fig-cap: "LOESS calibration curve for a thermocouple, with a new voltage observation calibrated to a temperature"
+library(tidyverse)
+
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+
+# span = 0.3 reproduces NIST's own PRED column to within numerical noise (< 0.001)
+clb1_fit <- loess(voltage ~ temperature, data = clb1, degree = 2, span = 0.3, family = "gaussian")
+clb1 <- clb1 |> mutate(fitted = predict(clb1_fit))
+
+# invert the loess fit to recover temperature from a new voltage observation
+invert_loess <- function(voltage, fit, interval = c(100, 600)) {
+  uniroot(\(t) predict(fit, newdata = data.frame(temperature = t)) - voltage, interval)$root
+}
+
+target_temperature <- 387.3748
+new_voltage <- predict(clb1_fit, newdata = data.frame(temperature = target_temperature))
+
+ggplot(clb1, aes(temperature, voltage)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_line(aes(y = fitted), color = "firebrick") +
+  annotate("segment",
+    x = target_temperature, xend = 100, y = new_voltage, yend = new_voltage,
+    arrow = arrow(length = unit(0.2, "cm"))
+  ) +
+  annotate("segment",
+    x = target_temperature, xend = target_temperature, y = 0, yend = new_voltage,
+    arrow = arrow(length = unit(0.2, "cm"))
+  ) +
+  annotate("text", x = 250, y = new_voltage + 100, label = paste("Observed Voltage =", round(new_voltage, 4))) +
+  annotate("text", x = target_temperature - 15, y = 250, label = paste("Temp =", round(target_temperature, 4)), angle = 90) +
+  scale_x_continuous(limits = c(100, 600)) +
+  scale_y_continuous(limits = c(0, 2000)) +
+  labs(x = "Temperature", y = "Voltage") +
+  theme_light()
+```
+
+[**Repeated Experiment**]{#sec-pmd-133-repeated}
+
+Just as in estimation or prediction, if the calibration experiment were repeated, the results would vary slightly due to the randomness in the data and the need to sample a limited amount of data from the process. This means that an uncertainty statement that quantifies how much the results of a particular calibration could vary due to randomness is necessary. The plot below shows what would happen if the thermocouple calibration were repeated under conditions identical to the first experiment: calibrating the exact same voltage observation against the repeated experiment's own fitted curve recovers a slightly different temperature. The reader can download the data for the repeated thermocouple experiment as a [text file](../../datasets/CLB2.DAT).
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-133-thermocouple-repeated
+#| fig-cap: "LOESS calibration curve for the repeated thermocouple experiment, calibrating the same voltage observation"
+clb2 <- read_table(
+  here::here("datasets", "CLB2.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+
+clb2_fit <- loess(voltage ~ temperature, data = clb2, degree = 2, span = 0.3, family = "gaussian")
+clb2 <- clb2 |> mutate(fitted = predict(clb2_fit))
+
+target_temperature_repeated <- invert_loess(new_voltage, clb2_fit)
+
+ggplot(clb2, aes(temperature, voltage)) +
+  geom_point(color = "steelblue", size = 1) +
+  geom_line(aes(y = fitted), color = "firebrick") +
+  annotate("segment",
+    x = target_temperature_repeated, xend = 100, y = new_voltage, yend = new_voltage,
+    arrow = arrow(length = unit(0.2, "cm"))
+  ) +
+  annotate("segment",
+    x = target_temperature_repeated, xend = target_temperature_repeated, y = 0, yend = new_voltage,
+    arrow = arrow(length = unit(0.2, "cm"))
+  ) +
+  annotate("text", x = 250, y = new_voltage + 100, label = paste("Observed Voltage =", round(new_voltage, 4))) +
+  annotate("text", x = target_temperature_repeated - 15, y = 250, label = paste("Temp =", round(target_temperature_repeated, 4)), angle = 90) +
+  scale_x_continuous(limits = c(100, 600)) +
+  scale_y_continuous(limits = c(0, 2000)) +
+  labs(x = "Temperature", y = "Voltage") +
+  theme_light()
+```
+
+The same voltage measurement calibrates to `r round(target_temperature, 4)` degrees using the first experiment's curve, but to `r round(target_temperature_repeated, 4)` degrees using the repeated experiment's curve -- a small difference driven entirely by the noise in each experiment's calibration data.
+
+[**Calibration Uncertainty**]{#sec-pmd-133-uncertainty}
+
+Again, as with prediction, the data used to fit the process model can also be used to determine the uncertainty in the calibration. Both the variation in the estimated model parameters and in the new voltage observation need to be accounted for. This is similar to uncertainty for the prediction of a new measurement. In fact, calibration intervals are computed by solving for the predictor variable value in the formulas for a prediction interval end points. NIST's original figure for this calculation (a zoomed-in view of the calibration curve around the target point) shows a 99% calibration interval of 387.3748 ± 0.0307 degrees Celsius for the original calibration data used in the first plot on this page.
+
+```{r}
+#| code-fold: true
+t_hat <- invert_loess(new_voltage, clb1_fit)
+
+eps <- 0.01
+dV_dT <- (predict(clb1_fit, newdata = data.frame(temperature = t_hat + eps)) -
+  predict(clb1_fit, newdata = data.frame(temperature = t_hat - eps))) / (2 * eps)
+
+p <- predict(clb1_fit, newdata = data.frame(temperature = t_hat), se = TRUE)
+sigma_clb1 <- summary(clb1_fit)$s
+se_pred_voltage <- sqrt(p$se.fit^2 + sigma_clb1^2)
+
+alpha <- 0.01
+t_crit <- qt(1 - alpha / 2, df = p$df)
+calibration_halfwidth <- t_crit * se_pred_voltage / abs(dV_dT)
+
+c(estimated_temperature = t_hat, halfwidth = calibration_halfwidth)
+```
+
+::: {.callout-note}
+NIST's own prose on this page states the calibration interval as "387.3748 ± 0.307" degrees Celsius, but the original figure that accompanies that calculation (a zoomed-in plot of the calibration curve around the target point) actually shows "± 0.0307" -- apparently a dropped leading zero in the prose. Our calibration-interval half-width, computed by inverting the LOESS prediction interval through the local derivative of the fitted curve (the delta method), comes out to about 0.031, matching the figure's 0.0307 rather than the prose's 0.307.
+:::
+
+In almost all calibration applications the ultimate quantity of interest is the true value of the primary-scale measurement method associated with a measurement made on the secondary scale. As a result, there are no analogs of the prediction interval or tolerance interval in calibration.
+
+[**More Info**]{#sec-pmd-133-more-info}
+
+More information on the construction and interpretation of calibration intervals can be found in [Section 4.5.2](#sec-pmd-52) of this chapter. There is also more information on calibration, especially "one-point" calibrations and other special cases, in the [calibration section](../02-mpc/index.qmd#sec-mpc) of the Measurement Process Characterization chapter.

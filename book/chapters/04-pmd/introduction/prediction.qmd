@@ -1,0 +1,69 @@
+#### Prediction {#sec-pmd-132}
+
+[**More on Prediction**]{#sec-pmd-132-more}
+
+As mentioned [earlier](#sec-pmd-13), the goal of prediction is to determine future value(s) of the response variable that are associated with a specific combination of predictor variable values. As in [estimation](#sec-pmd-131), the predicted values are computed by plugging the value(s) of the predictor variable(s) into the [regression equation](#sec-pmd-12-alternate), after estimating the unknown [parameters](#sec-pmd-12-function) from the data. The difference between estimation and prediction arises only in the computation of the uncertainties. These differences are illustrated below using the [Pressure/Temperature example](#sec-pmd-11-example) in parallel with the [example illustrating estimation](#sec-pmd-131-example).
+
+[**Example**]{#sec-pmd-132-example}
+
+Suppose in this case the predictor variable value of interest is a temperature of 47 degrees. Computing the predicted value using the equation
+
+$$\hat{P} = 7.749695 + 3.930123T$$
+
+yields a predicted pressure of 192.4655 — the same point estimate as before, since prediction and estimation use the same fitted regression equation.
+
+[**Prediction Uncertainty**]{#sec-pmd-132-uncertainty}
+
+A critical part of prediction is an assessment of how much a predicted value will fluctuate due to the noise in the data. Without that information there is no basis for comparing a predicted value to a target value or to another prediction. As a result, any method used for prediction should include an assessment of the uncertainty in the predicted value(s). Fortunately it is often the case that the data used to fit the model to a process can also be used to compute the uncertainty of predictions from the model. In the pressure/temperature example a prediction interval for the value of the regression function at 47 degrees can be computed from the data used to fit the model. The interval below gives the range of plausible values for a single future pressure measurement observed at a temperature of 47 degrees based on the parameter estimates and the noise in the data.
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+fit <- lm(pressure ~ temperature, data = pressure_temp)
+new_point <- data.frame(temperature = 47)
+predict(fit, new_point, interval = "prediction", level = 0.99)
+```
+
+[**Length of Prediction Intervals**]{#sec-pmd-132-length}
+
+Because the prediction interval is an interval for the value of a single new measurement from the process, the uncertainty includes the noise that is inherent in the estimates of the regression parameters and the uncertainty of the new measurement. This means that the interval for a new measurement will be wider than the confidence interval for the value of the regression function. These intervals are called prediction intervals rather than confidence intervals because the latter are for parameters, and a new measurement is a random variable, not a parameter.
+
+[**Tolerance Intervals**]{#sec-pmd-132-tolerance}
+
+Like a prediction interval, a tolerance interval brackets the plausible values of new measurements from the process being modeled. However, instead of bracketing the value of a single measurement or a fixed number of measurements, a tolerance interval brackets a specified percentage of all future measurements for a given set of predictor variable values. For example, to monitor future pressure measurements at 47 degrees for extreme values, either low or high, a tolerance interval that brackets 98% of all future measurements with high confidence could be used. If a future value then fell outside of the interval, the system would then be checked to ensure that everything was working correctly. NIST's original text states a 99% tolerance interval that captures 98% of all future pressure measurements at a temperature of 47 degrees of 192.4655 ± 14.5810.
+
+```{r}
+#| code-fold: true
+n <- nrow(pressure_temp)
+dof <- fit$df.residual
+s <- sigma(fit)
+pr <- predict(fit, new_point, se.fit = TRUE)
+se_pred <- sqrt(pr$se.fit^2 + s^2)
+
+coverage <- 0.98
+confidence <- 0.99
+z_p <- qnorm(1 - (1 - coverage) / 2)
+k_factor <- qt(confidence, df = dof, ncp = z_p * sqrt(n)) / sqrt(n)
+
+tolerance_halfwidth <- k_factor * se_pred
+tolerance_halfwidth
+```
+
+::: {.callout-note}
+Our tolerance-interval half-width, computed via the noncentral-$t$ approximation to the two-sided normal tolerance factor, comes out close to but not exactly matching NIST's stated 14.5810 — the two-sided tolerance-factor calculation has more than one standard approximation in the literature (e.g., Natrella's approximation versus an exact noncentral-$t$ evaluation), and NIST's original text does not state which one Dataplot used. The point estimate (192.4655) and the qualitative conclusion — that the tolerance interval is wider than the 99% prediction interval above, since it is designed to capture a larger proportion of all future measurements — are unaffected.
+:::
+
+This interval is wider than the prediction interval for a single measurement because it is designed to capture a larger proportion of all future measurements. The explanation of tolerance intervals is potentially confusing because there are two percentages used in the description of the interval. One, in this case 99%, describes how confident we are that the interval will capture the quantity that we want it to capture. The other, 98%, describes what the target quantity is, which in this case is 98% of all future measurements at T=47 degrees.
+
+[**More Info**]{#sec-pmd-132-more-info}
+
+For more information on the interpretation and computation of prediction and tolerance intervals, see [Section 4.5.1](#sec-pmd-51).

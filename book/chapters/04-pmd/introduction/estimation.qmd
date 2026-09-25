@@ -1,0 +1,82 @@
+#### Estimation {#sec-pmd-131}
+
+[**More on Estimation**]{#sec-pmd-131-more}
+
+As mentioned on the preceding page, the primary goal of estimation is to determine the value of the [regression function](#sec-pmd-12-alternate) that is associated with a specific combination of predictor variable values. The estimated values are computed by plugging the value(s) of the predictor variable(s) into the [regression equation](#sec-pmd-12-alternate), after estimating the unknown [parameters](#sec-pmd-12-function) from the data. This process is illustrated below using the [Pressure/Temperature example](#sec-pmd-11-example) from a few pages earlier.
+
+[**Example**]{#sec-pmd-131-example}
+
+Suppose in this case the predictor variable value of interest is a temperature of 47 degrees. Computing the estimated value of the regression function using the equation
+
+$$\hat{P} = 7.749695 + 3.930123T$$
+
+yields an estimated average pressure of 192.4655.
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+
+fit <- lm(pressure ~ temperature, data = pressure_temp)
+coef(fit)
+
+new_point <- data.frame(temperature = 47)
+predict(fit, new_point)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-131-estimate
+#| fig-cap: "Estimated pressure at a temperature of 47 degrees"
+estimated_pressure <- predict(fit, new_point)
+
+ggplot(pressure_temp, aes(temperature, pressure)) +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "firebrick") +
+  annotate("segment",
+    x = 47, xend = 20, y = estimated_pressure, yend = estimated_pressure,
+    arrow = arrow(length = unit(0.2, "cm")), color = "black"
+  ) +
+  annotate("segment",
+    x = 47, xend = 47, y = 0, yend = estimated_pressure,
+    arrow = arrow(length = unit(0.2, "cm")), color = "black"
+  ) +
+  annotate("text",
+    x = 33.5, y = estimated_pressure + 10,
+    label = paste("Pressure =", round(estimated_pressure, 4)),
+    hjust = 0.5
+  ) +
+  annotate("text",
+    x = 45, y = 100, label = "Temperature = 47", angle = 90
+  ) +
+  scale_x_continuous(limits = c(20, 70)) +
+  scale_y_continuous(limits = c(0, 300)) +
+  labs(x = "Temperature", y = "Pressure") +
+  theme_light()
+```
+
+Of course, if the pressure/temperature experiment were repeated, the estimates of the parameters of the regression function obtained from the data would differ slightly each time because of the randomness in the data and the need to sample a limited amount of data. Different parameter estimates would, in turn, yield different estimated values.
+
+[**Uncertainty of the Estimated Value**]{#sec-pmd-131-uncertainty}
+
+A critical part of estimation is an assessment of how much an estimated value will fluctuate due to the noise in the data. Without that information there is no basis for comparing an estimated value to a target value or to another estimate. Any method used for estimation should include an assessment of the uncertainty in the estimated value(s). Fortunately it is often the case that the data used to fit the model to a process can also be used to compute the uncertainty of estimated values obtained from the model. In the pressure/temperature example a confidence interval for the value of the regression function at 47 degrees can be computed from the data used to fit the model. The table below shows a 99% confidence interval produced using the original data. This interval gives the range of plausible values for the average pressure for a temperature of 47 degrees based on the parameter estimates and the noise in the data.
+
+```{r}
+#| code-fold: true
+predict(fit, new_point, interval = "confidence", level = 0.99)
+```
+
+[**Length of Confidence Intervals**]{#sec-pmd-131-length}
+
+Because the confidence interval is an interval for the value of the regression function, the uncertainty only includes the noise that is inherent in the estimates of the regression parameters. The uncertainty in the estimated value can be less than the uncertainty of a single measurement from the process because the data used to estimate the unknown parameters is essentially averaged (in a way that depends on the statistical method being used) to determine each parameter estimate. This "averaging" of the data tends to cancel out errors inherent in each individual observed data point. The noise in this type of result is generally less than the noise in the [prediction of one or more future measurements](#sec-pmd-132), which must account for both the uncertainty in the estimated parameters and the uncertainty of the new measurement.
+
+[**More Info**]{#sec-pmd-131-more-info}
+
+For more information on the interpretation and computation of confidence intervals see [Section 4.5.1](#sec-pmd-51).

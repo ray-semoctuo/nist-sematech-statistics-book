@@ -1,0 +1,65 @@
+#### Linear Least Squares Regression {#sec-pmd-141}
+
+[**Modeling Workhorse**]{#sec-pmd-141-workhorse}
+
+Linear least squares regression is by far the most widely used modeling method. It is what most people mean when they say they have used "regression", "linear regression" or "least squares" to fit a model to their data. Not only is linear least squares regression the most widely used modeling method, but it has been adapted to a broad range of situations that are outside its direct scope. It plays a strong underlying role in many other modeling methods, including the other methods discussed in this section: [nonlinear least squares regression](#sec-pmd-142), [weighted least squares regression](#sec-pmd-143) and [LOESS](#sec-pmd-144).
+
+[**Definition of a Linear Least Squares Model**]{#sec-pmd-141-definition}
+
+Used directly, with an [appropriate data set](#sec-pmd-3), linear least squares regression can be used to fit the data with any function of the form
+
+$$f(\vec{x};\vec{\beta}) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots$$
+
+in which
+
+1. each explanatory variable in the function is multiplied by an unknown parameter,
+2. there is at most one unknown parameter with no corresponding explanatory variable, and
+3. all of the individual terms are summed to produce the final function value.
+
+In statistical terms, any function that meets these criteria would be called a "linear function". The term "linear" is used, even though the function may not be a straight line, because if the unknown parameters are considered to be variables and the explanatory variables are considered to be known coefficients corresponding to those "variables", then the problem becomes a system (usually overdetermined) of linear equations that can be solved for the values of the unknown parameters. To differentiate the various meanings of the word "linear", the linear models being discussed here are often said to be "linear in the parameters" or "statistically linear".
+
+[**Why "Least Squares"?**]{#sec-pmd-141-why-least-squares}
+
+Linear least squares regression also gets its name from the way the estimates of the unknown parameters are computed. The "method of least squares" that is used to obtain parameter estimates was independently developed in the late 1700's and the early 1800's by the mathematicians Karl Friedrich Gauss, Adrien Marie Legendre and (possibly) Robert Adrain [@Stigler1978; @Harter1983; @Stigler1986] working in Germany, France and America, respectively. In the least squares method the unknown parameters are estimated by minimizing the sum of the squared deviations between the data and the model. The minimization process reduces the overdetermined system of equations formed by the data to a sensible system of $p$ (where $p$ is the number of parameters in the functional part of the model) equations in $p$ unknowns. This new system of equations is then solved to obtain the parameter estimates. To learn more about how the method of least squares is used to estimate the parameters, see [Section 4.4.3.1](#sec-pmd-431).
+
+[**Examples of Linear Functions**]{#sec-pmd-141-examples}
+
+As just mentioned above, linear models are not limited to being straight lines or planes, but include a fairly wide range of shapes. For example, a simple quadratic curve,
+
+$$f(x;\vec{\beta}) = \beta_0 + \beta_1x + \beta_{11}x^2 \, ,$$
+
+is linear in the statistical sense. A straight-line model in $\log(x)$,
+
+$$f(x;\vec{\beta}) = \beta_0 + \beta_1\ln(x) \, ,$$
+
+or a polynomial in $\sin(x)$,
+
+$$f(x;\vec{\beta}) = \beta_0 + \beta_1\sin(x) + \beta_2\sin(2x) + \beta_3\sin(3x) \, ,$$
+
+is also linear in the statistical sense because they are linear in the parameters, though not with respect to the observed explanatory variable, $x$.
+
+[**Nonlinear Model Example**]{#sec-pmd-141-nonlinear-example}
+
+Just as models that are linear in the statistical sense do not have to be linear with respect to the explanatory variables, nonlinear models can be linear with respect to the explanatory variables, but not with respect to the parameters. For example,
+
+$$f(x;\vec{\beta}) = \beta_0 + \beta_0\beta_1x$$
+
+is linear in $x$, but it cannot be written in the general form of a linear model presented above. This is because the slope of this line is expressed as the product of two parameters. As a result, nonlinear least squares regression could be used to fit this model, but linear least squares cannot be used. For further examples and discussion of nonlinear models see the next section, [Section 4.1.4.2](#sec-pmd-142).
+
+[**Advantages of Linear Least Squares**]{#sec-pmd-141-advantages}
+
+Linear least squares regression has earned its place as the primary tool for process modeling because of its effectiveness and completeness.
+
+Though there are types of data that are better described by functions that are nonlinear in the parameters, many processes in science and engineering are well-described by linear models. This is because either the processes are inherently linear or because, over short ranges, any process can be well-approximated by a linear model.
+
+The estimates of the unknown parameters obtained from linear least squares regression are the optimal estimates from a broad class of possible parameter estimates under the usual assumptions used for process modeling. Practically speaking, linear least squares regression makes very efficient use of the data. Good results can be obtained with relatively small data sets.
+
+Finally, the theory associated with linear regression is well-understood and allows for construction of different types of easily-interpretable statistical intervals for predictions, calibrations, and optimizations. These statistical intervals can then be used to give clear answers to scientific and engineering questions.
+
+[**Disadvantages of Linear Least Squares**]{#sec-pmd-141-disadvantages}
+
+The main disadvantages of linear least squares are limitations in the shapes that linear models can assume over long ranges, possibly poor extrapolation properties, and sensitivity to outliers.
+
+Linear models with nonlinear terms in the predictor variables curve relatively slowly, so for inherently nonlinear processes it becomes increasingly difficult to find a linear model that fits the data well as the range of the data increases. As the explanatory variables become extreme, the output of the linear model will also always become more extreme. This means that linear models may not be effective for extrapolating the results of a process for which data cannot be collected in the region of interest. Of course extrapolation is potentially dangerous regardless of the model type.
+
+Finally, while the method of least squares often gives optimal estimates of the unknown parameters, it is very sensitive to the presence of unusual data points in the data used to fit a model. One or two outliers can sometimes seriously skew the results of a least squares analysis. This makes [model validation](#sec-pmd-44), especially with respect to outliers, critical to obtaining sound answers to the questions motivating the construction of the model.

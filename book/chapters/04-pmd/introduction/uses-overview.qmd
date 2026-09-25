@@ -1,0 +1,40 @@
+### What are process models used for? {#sec-pmd-13}
+
+[**Four Main Purposes**]{#sec-pmd-13-purposes}
+
+Process models are used for four main purposes:
+
+1. estimation,
+2. prediction,
+3. calibration, and
+4. optimization.
+
+The rest of this page lists brief explanations of the different uses of process models. More detailed explanations of the uses for process models are given in the subsections of this section listed at the bottom of this page.
+
+[**Estimation**]{#sec-pmd-13-estimation}
+
+The goal of estimation is to determine the value of the [regression function](#sec-pmd-12-alternate) (i.e., the average value of the response variable), for a particular combination of the values of the predictor variables. Regression function values can be estimated for any combination of predictor variable values, including values for which no data have been measured or observed. Function values estimated for points within the observed space of predictor variable values are sometimes called interpolations. Estimation of regression function values for points outside the observed space of predictor variable values, called extrapolations, are sometimes necessary, but require caution.
+
+[**Prediction**]{#sec-pmd-13-prediction}
+
+The goal of prediction is to determine either
+
+1. the value of a new observation of the response variable, or
+2. the values of a specified proportion of all future observations of the response variable
+
+for a particular combination of the values of the predictor variables. Predictions can be made for any combination of predictor variable values, including values for which no data have been measured or observed. As in the case of estimation, predictions made outside the observed space of predictor variable values are sometimes necessary, but require caution.
+
+[**Calibration**]{#sec-pmd-13-calibration}
+
+The goal of calibration is to quantitatively relate measurements made using one measurement system to those of another measurement system. This is done so that measurements can be compared in common units or to tie results from a relative measurement method to absolute units.
+
+[**Optimization**]{#sec-pmd-13-optimization}
+
+Optimization is performed to determine the values of process inputs that should be used to obtain the desired process output. Typical optimization goals might be to maximize the yield of a process, to minimize the processing time required to fabricate a product, or to hit a target product specification with minimum variation in order to maintain specified tolerances.
+
+[**Further Details**]{#sec-pmd-13-further}
+
+1. [Estimation](#sec-pmd-131)
+2. [Prediction](#sec-pmd-132)
+3. [Calibration](#sec-pmd-133)
+4. [Optimization](#sec-pmd-134)

@@ -1,0 +1,40 @@
+## Introduction to Process Modeling {#sec-pmd-1}
+
+The goal for this section is to give the big picture of function-based process modeling. This includes a discussion of what process modeling is, the goals of process modeling, and a comparison of the different statistical methods used for model building. Detailed information on how to collect data, construct appropriate models, interpret output, and use process models is covered in the following sections. The final section of the chapter contains case studies that illustrate the general information presented in the first five sections using data from a variety of scientific and engineering applications.
+
+1. [What is process modeling?](#sec-pmd-11)
+2. [What terminology do statisticians use to describe process models?](#sec-pmd-12)
+3. [What are process models used for?](#sec-pmd-13)
+   1. [Estimation](#sec-pmd-131)
+   2. [Prediction](#sec-pmd-132)
+   3. [Calibration](#sec-pmd-133)
+   4. [Optimization](#sec-pmd-134)
+4. [What are some of the different statistical methods for model building?](#sec-pmd-14)
+   1. [Linear Least Squares Regression](#sec-pmd-141)
+   2. [Nonlinear Least Squares Regression](#sec-pmd-142)
+   3. [Weighted Least Squares Regression](#sec-pmd-143)
+   4. [LOESS (aka LOWESS)](#sec-pmd-144)
+
+{{< include introduction/what-is-process-modeling.qmd >}}
+
+{{< include introduction/terminology.qmd >}}
+
+{{< include introduction/uses-overview.qmd >}}
+
+{{< include introduction/estimation.qmd >}}
+
+{{< include introduction/prediction.qmd >}}
+
+{{< include introduction/calibration.qmd >}}
+
+{{< include introduction/optimization.qmd >}}
+
+{{< include introduction/methods-overview.qmd >}}
+
+{{< include introduction/linear-least-squares.qmd >}}
+
+{{< include introduction/nonlinear-least-squares.qmd >}}
+
+{{< include introduction/weighted-least-squares.qmd >}}
+
+{{< include introduction/loess.qmd >}}

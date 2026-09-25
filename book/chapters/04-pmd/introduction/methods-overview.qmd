@@ -1,0 +1,16 @@
+### What are some of the different statistical methods for model building? {#sec-pmd-14}
+
+[**Selecting an Appropriate Stat Method: General Case**]{#sec-pmd-14-general}
+
+For many types of data analysis problems there are no more than a couple of general approaches to be considered on the route to the problem's solution. For example, there is often a dichotomy between highly-efficient methods appropriate for data with noise from a normal distribution and more general methods for data with other types of noise. Within the different approaches for a specific problem type, there are usually at most a few competing statistical tools that can be used to obtain an appropriate solution. The bottom line for most types of data analysis problems is that selection of the best statistical method to solve the problem is largely determined by the goal of the analysis and the nature of the data.
+
+[**Selecting an Appropriate Stat Method: Modeling**]{#sec-pmd-14-modeling}
+
+Model building, however, is different from most other areas of statistics with regard to method selection. There are more general approaches and more competing techniques available for model building than for most other types of problems. There is often more than one statistical tool that can be effectively applied to a given modeling application. The large menu of methods applicable to modeling problems means that there is both more opportunity for effective and efficient solutions and more potential to spend time doing different analyses, comparing different solutions and mastering the use of different tools. The remainder of this section will introduce and briefly discuss some of the most popular and well-established statistical techniques that are useful for different model building situations.
+
+[**Process Modeling Methods**]{#sec-pmd-14-methods}
+
+1. [Linear Least Squares Regression](#sec-pmd-141)
+2. [Nonlinear Least Squares Regression](#sec-pmd-142)
+3. [Weighted Least Squares Regression](#sec-pmd-143)
+4. [LOESS (aka LOWESS)](#sec-pmd-144)

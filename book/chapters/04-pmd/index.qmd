@@ -1,13 +1,29 @@
 # Process Modeling {#sec-pmd}
 
-::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/pmd/`.
-:::
+The goal for this chapter is to present the background and specific analysis techniques needed to construct a statistical model that describes a particular scientific or engineering process. The types of models discussed in this chapter are limited to those based on an explicit mathematical function. These types of models can be used for prediction of process outputs, for calibration, or for process optimization.
 
-<!--
-TODO:
-- Port narrative content from handbook/pmd/pmd.htm and handbook/pmd/section*/*.htm
-- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+{{< include introduction/index.qmd >}}
+
+## Underlying Assumptions for Process Modeling {#sec-pmd-2}
+
+<!-- Source: handbook/pmd/section2/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Data Collection for Process Modeling {#sec-pmd-3}
+
+<!-- Source: handbook/pmd/section3/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Data Analysis for Process Modeling {#sec-pmd-4}
+
+<!-- Source: handbook/pmd/section4/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Use and Interpretation of Process Models {#sec-pmd-5}
+
+<!-- Source: handbook/pmd/section5/. TODO: port narrative content, re-implement worked examples in R. -->
+
+## Case Studies in Process Modeling {#sec-pmd-6}
+
+<!-- Source: handbook/pmd/section6/ (Load Cell Calibration, Alaska Pipeline, Ultrasonic Reference Block, Thermal Expansion of Copper). TODO: port narrative content, re-implement worked examples in R. -->
+
+## Some Useful Functions for Process Modeling {#sec-pmd-8}
+
+<!-- Source: handbook/pmd/section8/ (Appendix: univariate polynomial and rational function reference). TODO: port narrative content, re-implement worked examples in R. -->

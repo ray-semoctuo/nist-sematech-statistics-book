@@ -1,0 +1,63 @@
+#### Optimization {#sec-pmd-134}
+
+[**More on Optimization**]{#sec-pmd-134-more}
+
+As mentioned [earlier](#sec-pmd-13), the goal of optimization is to determine the necessary process input values to obtain a desired output. Like calibration, optimization involves substitution of an output value for the response variable and solving for the associated predictor variable values. The process model is again the link that ties the inputs and output together. Unlike calibration and prediction, however, successful optimization requires a cause-and-effect relationship between the predictors and the response variable. Designed experiments, run in a randomized order, must be used to ensure that the process model represents a cause-and-effect relationship between the variables. Quadratic models are typically used, along with standard calculus techniques for finding minimums and maximums, to carry out an optimization.
+
+[**Example**]{#sec-pmd-134-example}
+
+In a manufacturing process that requires a chemical reaction to take place, the temperature and pressure under which the process is carried out can affect reaction time. To maximize the throughput of this process, an optimization experiment was carried out in the neighborhood of the conditions felt to be best, using a central composite design<!-- XREF: PRI Chapter 5, Process Improvement, central composite designs, not yet migrated to this book; source handbook/pri/section3/pri3361.htm --> with 13 runs. Calculus was used to determine the input values associated with local extremes in the regression function. The plot below shows the quadratic surface that was fit to the data and conceptually how the input values associated with the maximum throughput are found.
+
+::: {.callout-note}
+NIST's original example used a real central composite design without a downloadable dataset. The design and response below are illustrative, generated with `set.seed()`, using a coded 2-factor central composite design (13 runs: 4 factorial points, 4 axial points, 5 center points) and a quadratic response surface tuned to produce a maximum throughput close to NIST's stated ~217 units/hour.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-134-surface
+#| fig-cap: "Quadratic response surface fit to a central composite design (illustrative data)"
+library(tidyverse)
+
+set.seed(88)
+alpha <- 1.414
+design <- tibble(
+  x1 = c(-1, 1, -1, 1, -alpha, alpha, 0, 0, 0, 0, 0, 0, 0),
+  x2 = c(-1, -1, 1, 1, 0, 0, -alpha, alpha, 0, 0, 0, 0, 0)
+) |>
+  mutate(
+    throughput = 216.3 + 3 * x1 - 2 * x2 - 4 * x1^2 - 5 * x2^2 + 1.5 * x1 * x2 +
+      rnorm(n(), 0, 1.5)
+  )
+
+opt_fit <- lm(throughput ~ x1 * x2 + I(x1^2) + I(x2^2), data = design)
+
+x1_seq <- seq(-alpha, alpha, length.out = 40)
+x2_seq <- seq(-alpha, alpha, length.out = 40)
+surface_grid <- expand_grid(x1 = x1_seq, x2 = x2_seq) |>
+  mutate(throughput = predict(opt_fit, newdata = pick(x1, x2)))
+
+optimum <- optim(c(0, 0), \(p) -predict(opt_fit, newdata = data.frame(x1 = p[1], x2 = p[2])))
+optimum_point <- tibble(x1 = optimum$par[1], x2 = optimum$par[2], throughput = -optimum$value)
+
+ggplot(surface_grid, aes(x1, x2, z = throughput)) +
+  geom_contour_filled(alpha = 0.7) +
+  geom_point(data = optimum_point, shape = 3, size = 4, stroke = 1.2, color = "black") +
+  labs(x = "Input 1 (coded)", y = "Input 2 (coded)", fill = "Throughput") +
+  theme_light()
+```
+
+Of course, as with prediction and calibration, randomness in the data and the need to sample data from the process affect the results. If the optimization experiment were carried out again under identical conditions, the optimal input values computed using the model would be slightly different. Thus, it is important to understand how much random variability there is in the results in order to interpret the results correctly.
+
+[**Optimization Uncertainty**]{#sec-pmd-134-uncertainty}
+
+As with prediction and calibration, the uncertainty in the input values estimated to maximize throughput can also be computed from the data used to fit the model. Unlike prediction or calibration, however, optimization almost always involves simultaneous estimation of several quantities, the values of the process inputs. As a result, we compute a joint confidence region for all of the input values, rather than separate uncertainty intervals for each input. This confidence region contains the complete set of true process inputs that will maximize throughput with high probability. NIST's original text estimates a throughput of approximately 217 units/hour within the 95% joint confidence region for the two process inputs.
+
+```{r}
+#| code-fold: true
+optimum_point
+```
+
+[**More Info**]{#sec-pmd-134-more-info}
+
+Computational details for optimization are primarily presented in the Process Improvement chapter<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm --> along with material on appropriate experimental designs for optimization. Section 5.5.3 of that chapter<!-- XREF: PRI Chapter 5, Process Improvement, optimization methods; source handbook/pri/section5/pri53.htm --> specifically focuses on optimization methods and their associated uncertainties.

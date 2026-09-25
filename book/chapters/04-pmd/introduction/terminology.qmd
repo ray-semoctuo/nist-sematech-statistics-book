@@ -1,0 +1,57 @@
+### What terminology do statisticians use to describe process models? {#sec-pmd-12}
+
+[**Model Components**]{#sec-pmd-12-components}
+
+There are three main parts to every process model. These are
+
+1. the response variable, usually denoted by $y$,
+2. the mathematical function, usually denoted as $f(\vec{x};\vec{\beta})$, and
+3. the random errors, usually denoted by $\varepsilon$.
+
+[**Form of Model**]{#sec-pmd-12-form}
+
+The general form of the model is
+
+$$y = f(\vec{x};\vec{\beta}) + \varepsilon$$
+
+All process models discussed in this chapter have this general form. As alluded to [earlier](#sec-pmd-11-example), the random errors that are included in the model make the relationship between the response variable and the predictor variables a "statistical" one, rather than a perfect deterministic one. This is because the functional relationship between the response and predictors holds only on average, not for each data point.
+
+Some of the details about the different parts of the model are discussed below, along with alternate terminology for the different components of the model.
+
+[**Response Variable**]{#sec-pmd-12-response}
+
+The response variable, $y$, is a quantity that varies in a way that we hope to be able to summarize and exploit via the modeling process. Generally it is known that the variation of the response variable is systematically related to the values of one or more other variables before the modeling process is begun, although testing the existence and nature of this dependence is part of the modeling process itself.
+
+[**Mathematical Function**]{#sec-pmd-12-function}
+
+The mathematical function consists of two parts. These parts are the predictor variables, $x_1, x_2, \ldots$, and the parameters, $\beta_0, \beta_1, \ldots$. The predictor variables are observed along with the response variable. They are the quantities described on the previous page as inputs to the mathematical function, $f(\vec{x};\vec{\beta})$. The collection of all of the predictor variables is denoted by $\vec{x}$ for short.
+
+$$\vec{x} \equiv (x_1, x_2, \ldots)$$
+
+The parameters are the quantities that will be estimated during the modeling process. Their true values are unknown and unknowable, except in simulation experiments. As for the predictor variables, the collection of all of the parameters is denoted by $\vec{\beta}$ for short.
+
+$$\vec{\beta} \equiv (\beta_0, \beta_1, \ldots)$$
+
+The parameters and predictor variables are combined in different forms to give the function used to describe the deterministic variation in the response variable. For a straight line with an unknown intercept and slope, for example, there are two parameters and one predictor variable
+
+$$f(x;\vec{\beta}) = \beta_0 + \beta_1 x \, .$$
+
+For a straight line with a known slope of one, but an unknown intercept, there would only be one parameter
+
+$$f(x;\vec{\beta}) = \beta_0 + x \, .$$
+
+For a quadratic surface with two predictor variables, there are six parameters for the full model.
+
+$$f(\vec{x};\vec{\beta}) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_{12}x_1 x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2$$
+
+[**Random Error**]{#sec-pmd-12-error}
+
+Like the parameters in the mathematical function, the random errors are unknown. They are simply the difference between the data and the mathematical function. They are assumed to follow a particular probability distribution, however, which is used to describe their aggregate behavior. The probability distribution that describes the errors has a mean of zero and an unknown standard deviation, denoted by $\sigma$, that is another parameter in the model, like the $\beta$'s.
+
+[**Alternate Terminology**]{#sec-pmd-12-alternate}
+
+Unfortunately, there are no completely standardized names for the parts of the model discussed above. Other publications or software may use different terminology. For example, another common name for the response variable is "dependent variable". The response variable is also simply called "the response" for short. Other names for the predictor variables include "explanatory variables", "independent variables", "predictors" and "regressors". The mathematical function used to describe the deterministic variation in the response variable is sometimes called the "regression function", the "regression equation", the "smoothing function", or the "smooth".
+
+[**Scope of "Model"**]{#sec-pmd-12-scope}
+
+In its correct usage, the term "model" refers to the equation above and also includes the underlying assumptions made about the probability distribution used to describe the variation of the random errors. Often, however, people will also use the term "model" when referring specifically to the mathematical function describing the deterministic variation in the data. Since the function is part of the model, the more limited usage is not wrong, but it is important to remember that the term "model" might refer to more than just the mathematical function.
