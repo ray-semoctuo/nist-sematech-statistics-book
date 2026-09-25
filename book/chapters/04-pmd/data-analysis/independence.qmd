@@ -15,8 +15,13 @@ Lag plots for the [Pressure/Temperature example](#sec-pmd-11-example), the [Ther
 ```{r}
 #| code-fold: true
 #| message: false
+#| warning: false
 #| label: fig-pmd-444-lag-plots
 #| fig-cap: "Lag plots of the residuals for the pressure/temperature, thermocouple calibration, and polymer relaxation examples"
+#| fig-width: 4.5
+#| fig-height: 13.5
+#| out-width: "40%"
+#| out-height: "120%"
 library(tidyverse)
 library(patchwork)
 
@@ -53,18 +58,19 @@ pr1 <- pr1 |> mutate(residual = resid(pr1_fit))
 
 lag_plot <- function(residual) {
   tibble(residual = residual) |>
-    mutate(lagged = lead(residual)) |>
-    ggplot(aes(residual, lagged)) +
+    mutate(previous = lag(residual)) |>
+    ggplot(aes(previous, residual)) +
     geom_point(color = "steelblue") +
-    labs(x = "Residual[i]", y = "Residual[i+1]") +
-    theme_light()
+    labs(x = "Residual[i-1]", y = "Residual[i]") +
+    theme_light() +
+    theme(aspect.ratio = 1)
 }
 
 p_pt <- lag_plot(pressure_temp$residual) + labs(title = "Pressure/Temperature")
 p_tc <- lag_plot(clb1$residual) + labs(title = "Thermocouple Calibration")
 p_pr <- lag_plot(pr1$residual) + labs(title = "Polymer Relaxation")
 
-(p_pt + p_tc) / p_pr
+p_pt / p_tc / p_pr
 ```
 
 [**Next Steps**]{#sec-pmd-444-next-steps}

@@ -17,6 +17,10 @@ Normal probability plots for the [Pressure/Temperature example](#sec-pmd-11-exam
 #| message: false
 #| label: fig-pmd-445-normal-probability-plots
 #| fig-cap: "Normal probability plots of the residuals for the pressure/temperature, thermocouple calibration, and polymer relaxation examples"
+#| fig-width: 4.5
+#| fig-height: 13.5
+#| out-width: "40%"
+#| out-height: "120%"
 library(tidyverse)
 library(patchwork)
 
@@ -56,14 +60,15 @@ normal_probability_plot <- function(residual, title) {
     stat_qq(color = "steelblue") +
     stat_qq_line(color = "firebrick") +
     labs(title = title, x = "Theoretical Quantiles", y = "Residual") +
-    theme_light()
+    theme_light() +
+    theme(aspect.ratio = 1)
 }
 
 p_pt <- normal_probability_plot(pressure_temp$residual, "Pressure/Temperature")
 p_tc <- normal_probability_plot(clb1$residual, "Thermocouple Calibration")
 p_pr <- normal_probability_plot(pr1$residual, "Polymer Relaxation")
 
-(p_pt + p_tc) / p_pr
+p_pt / p_tc / p_pr
 ```
 
 [**Further Discussion and Examples**]{#sec-pmd-445-further}
@@ -82,18 +87,23 @@ Histograms for the three examples used to illustrate the normal probability plot
 #| code-fold: true
 #| label: fig-pmd-445-histograms
 #| fig-cap: "Histograms of the residuals for the pressure/temperature, thermocouple calibration, and polymer relaxation examples"
-residual_histogram <- function(residual, title) {
+#| fig-width: 4.5
+#| fig-height: 13.5
+#| out-width: "40%"
+#| out-height: "120%"
+residual_histogram <- function(residual, title, binwidth) {
   ggplot(tibble(residual = residual), aes(residual)) +
-    geom_histogram(bins = 8, fill = "steelblue", alpha = 0.6, color = "white") +
+    geom_histogram(binwidth = binwidth, fill = "steelblue", alpha = 0.6, color = "white") +
     labs(title = title, x = "Residual", y = "Count") +
-    theme_light()
+    theme_light() +
+    theme(aspect.ratio = 1)
 }
 
-h_pt <- residual_histogram(pressure_temp$residual, "Pressure/Temperature")
-h_tc <- residual_histogram(clb1$residual, "Thermocouple Calibration")
-h_pr <- residual_histogram(pr1$residual, "Polymer Relaxation")
+h_pt <- residual_histogram(pressure_temp$residual, "Pressure/Temperature", binwidth = 1.25)
+h_tc <- residual_histogram(clb1$residual, "Thermocouple Calibration", binwidth = 0.01)
+h_pr <- residual_histogram(pr1$residual, "Polymer Relaxation", binwidth = 0.0125)
 
-(h_pt + h_tc) / h_pr
+h_pt / h_tc / h_pr
 ```
 
 [**Important Note**]{#sec-pmd-445-important-note}
