@@ -1,0 +1,337 @@
+##### Determining m and n for Rational Function Models {#sec-pmd-812b}
+
+[**General Question**]{#sec-pmd-812b-general}
+
+A general question for rational function models is: I have data to which I wish to fit a rational function. What degrees $n$ and $m$ should I use for the numerator and denominator, respectively?
+
+[**Four Questions**]{#sec-pmd-812b-four-questions}
+
+To answer the above broad question, the following four specific questions need to be answered.
+
+1. What value should the function have at $x = \infty$? Specifically, is the value zero, a constant, or plus or minus infinity?
+2. What slope should the function have at $x = \infty$? Specifically, is the derivative of the function zero, a constant, or plus or minus infinity?
+3. How many times should the function equal zero (i.e., $f(x) = 0$) for finite $x$?
+4. How many times should the slope equal zero (i.e., $f'(x) = 0$) for finite $x$?
+
+These questions are answered by the analyst by inspection of the data and by theoretical considerations of the phenomenon under study. Each of these questions is addressed separately below.
+
+[**Question 1: What Value Should the Function Have at $x = \infty$?**]{#sec-pmd-812b-q1}
+
+Given the rational function,
+
+$$R(x) = \frac{P_n(x)}{P_m(x)}$$
+
+or
+
+$$y = \frac{a_n x^n + a_{n-1} x^{n-1} + \ldots + a_2 x^2 + a_1 x + a_0}{b_m x^m + b_{m-1} x^{m-1} + \ldots + b_2 x^2 + b_1 x + b_0} \, ,$$
+
+then asymptotically,
+
+$$R(x) \approx \left(\frac{a_n}{b_m}\right) x^{n-m} \, .$$
+
+From this, it follows that:
+
+- if $n < m$, $R(\infty) = 0$,
+- if $n = m$, $R(\infty) = a_n / b_m$, and
+- if $n > m$, $R(\infty) = \pm\infty$.
+
+Conversely, if the fitted function, $f(x)$, is such that
+
+- $f(\infty) = 0$, this implies $n < m$.
+- $f(\infty) = \text{constant}$, this implies $n = m$.
+- $f(\infty) = \pm\infty$, this implies $n > m$.
+
+[**Question 2: What Slope Should the Function Have at $x = \infty$?**]{#sec-pmd-812b-q2}
+
+The slope is determined by the derivative of a function. The derivative of a rational function is
+
+$$R'(x) = \frac{P_m(x) P'_n(x) - P_n(x) P'_m(x)}{[P_m(x)]^2} \, ,$$
+
+with
+
+$$\begin{eqnarray} P_n(x) &=& a_0 + a_1 x + \ldots + a_n x^n \\ P'_n(x) &=& a_1 + 2a_2 x + \ldots + n a_n x^{n-1} \\ P_m(x) &=& b_0 + b_1 x + \ldots + b_m x^m \\ P'_m(x) &=& b_1 + 2b_2 x + \ldots + m b_m x^{m-1} \, . \end{eqnarray}$$
+
+Asymptotically,
+
+$$R'(x) \approx (n - m) \left(\frac{a_n}{b_m}\right) x^{n-m-1} \, .$$
+
+From this, it follows that
+
+- if $n < m$, $R'(\infty) = 0$,
+- if $n = m$, $R'(\infty) = 0$,
+- if $n = m + 1$, $R'(\infty) = a_n / b_n$, and
+- if $n > m + 1$, $R'(\infty) = \pm\infty$.
+
+Conversely, if the fitted function, $f(x)$, is such that
+
+- $f'(\infty) = 0$, this implies $n \le m$.
+- $f'(\infty) = \text{constant}$, this implies $n = m + 1$.
+- $f'(\infty) = \pm\infty$, this implies $n > m + 1$.
+
+[**Question 3: How Many Times Should the Function Equal Zero for Finite $x$?**]{#sec-pmd-812b-q3}
+
+For finite $x$, $R(x) = 0$ only when the numerator polynomial, $P_n$, equals zero. The numerator polynomial, and thus $R(x)$ as well, can have between zero and $n$ real roots. Thus, for a given $n$, the number of real roots of $R(x)$ is less than or equal to $n$.
+
+Conversely, if the fitted function $f(x)$ is such that, for finite $x$, the number of times $f(x) = 0$ is $k_3$, then $n$ is greater than or equal to $k_3$.
+
+[**Question 4: How Many Times Should the Slope Equal Zero for Finite $x$?**]{#sec-pmd-812b-q4}
+
+The derivative function, $R'(x)$, of the rational function will equal zero when the numerator polynomial equals zero. The number of real roots of a polynomial is between zero and the degree of the polynomial. For $n \neq m$, the numerator polynomial of $R'(x)$ has order $n + m - 1$. For $n = m$, the numerator polynomial of $R'(x)$ has order $n + m - 2$.
+
+From this, it follows that
+
+- if $n \neq m$, the number of real roots of $R'(x)$, $k_4$, is $\le n + m - 1$.
+- if $n = m$, the number of real roots of $R'(x)$, $k_4$, is $\le n + m - 2$.
+
+Conversely, if the fitted function $f(x)$ is such that, for finite $x$ and $n \neq m$, the number of times $f'(x) = 0$ is $k_4$, then $n + m - 1$ is $\ge k_4$. Similarly, if the fitted function $f(x)$ is such that, for finite $x$ and $n = m$, the number of times $f'(x) = 0$ is $k_4$, then $n + m - 2 \ge k_4$.
+
+[**Tables for Determining Admissible Combinations of m and n**]{#sec-pmd-812b-tables}
+
+In summary, we can determine the admissible combinations of $n$ and $m$ by using the following four tables to generate an $n$ versus $m$ graph. Choose the simplest $(n, m)$ combination for the degrees of the initial rational function model.
+
+| 1. Desired value of $f(\infty)$ | Relation of $n$ to $m$ |
+|---|---|
+| $0$ | $n < m$ |
+| constant | $n = m$ |
+| $\infty$ | $n > m$ |
+
+| 2. Desired value of $f'(\infty)$ | Relation of $n$ to $m$ |
+|---|---|
+| $0$ | $n < m + 1$ |
+| constant | $n = m + 1$ |
+| $\infty$ | $n > m + 1$ |
+
+| 3. For finite $x$, desired number, $k_3$, of times $f(x) = 0$ | Relation of $n$ to $k_3$ |
+|---|---|
+| $k_3$ | $n \ge k_3$ |
+
+| 4. For finite $x$, desired number, $k_4$, of times $f'(x) = 0$ | Relation of $n$ to $k_4$ and $m$ |
+|---|---|
+| $k_4 \, (n \neq m)$ | $n \ge (1 + k_4) - m$ |
+| $k_4 \, (n = m)$ | $n \ge (2 + k_4) - m$ |
+
+[**Examples for Determining m and n**]{#sec-pmd-812b-examples}
+
+The goal is to go from a sample data set to a specific rational function. The graphs below summarize some common shapes that rational functions can have and shows the admissible values and the simplest case for $n$ and $m$. We typically start with the simplest case. If the model validation indicates an inadequate model, we then try other rational functions in the admissible region.
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+nm_grid <- function(admissible, hlines = tibble(), ablines = tibble()) {
+  p <- ggplot(admissible, aes(m, n)) +
+    scale_x_continuous(limits = c(0, 5), breaks = 0:5) +
+    scale_y_continuous(limits = c(0, 5), breaks = 0:5) +
+    labs(x = "m", y = "n") +
+    theme_light() +
+    theme(panel.grid.minor = element_blank())
+
+  if (nrow(ablines) > 0) {
+    p <- p + geom_abline(data = ablines, aes(slope = slope, intercept = intercept), linetype = "dashed", color = "grey50")
+  }
+  if (nrow(hlines) > 0) {
+    p <- p + geom_hline(data = hlines, aes(yintercept = yintercept), linetype = "dashed", color = "grey50")
+  }
+
+  p + geom_point(size = 2)
+}
+
+nm_pairs <- function(constraint) {
+  expand_grid(n = 0:5, m = 0:5) |> filter(constraint(n, m))
+}
+```
+
+**Shape 1** -- Question 1: 0, $n \le m$. Question 2: 0, $n \le m$. Question 3: 0, $n \ge 0$. Question 4: 0, $n \ge 1 - m$. Simplest case: $n = 0$, $m = 1$ (constant/linear).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape1
+#| fig-cap: "Shape 1: admissible n and m"
+p_curve <- ggplot(tibble(x = c(0.2, 5)), aes(x)) +
+  stat_function(fun = \(x) 1 / (1 + x)) +
+  labs(x = "x", y = "y") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n <= m & n >= 0 & n >= 1 - m),
+  ablines = tibble(slope = c(1, -1), intercept = c(0, 1))
+)
+
+p_curve + p_grid
+```
+
+**Shape 2** -- Question 1: constant, $n = m$. Question 2: 0, $n \le m$. Question 3: 0, $n \ge 0$. Question 4: 0, $n \ge 1 - m$. Simplest case: $n = 1$, $m = 1$ (linear/linear).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape2
+#| fig-cap: "Shape 2: admissible n and m"
+p_curve <- ggplot(tibble(x = c(0.2, 5)), aes(x)) +
+  stat_function(fun = \(x) 1 / x + 1) +
+  labs(x = "x", y = "C") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n == m & n >= 0 & n >= 1 - m),
+  ablines = tibble(slope = 1, intercept = 0)
+)
+
+p_curve + p_grid
+```
+
+**Shape 3** -- Question 1: 0, $n \le m - 1$. Question 2: 0, $n \le m$. Question 3: 1, $n \ge 1$. Question 4: 1, $n \ge 2 - m$. Simplest case: $n = 1$, $m = 2$ (linear/quadratic).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape3
+#| fig-cap: "Shape 3: admissible n and m"
+p_curve <- ggplot(tibble(x = c(0, 8)), aes(x)) +
+  stat_function(fun = \(x) 5 * x / (1 + x^2)) +
+  labs(x = "x", y = "y") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n <= m - 1 & n >= 1 & n >= 2 - m),
+  ablines = tibble(slope = c(1, -1), intercept = c(-1, 2))
+)
+
+p_curve + p_grid
+```
+
+**Shape 4** -- Question 1: constant, $n = m$. Question 2: 0, $n \le m$. Question 3: 1, $n \ge 1$. Question 4: 0, $n \ge 1 - m$. Simplest case: $n = 1$, $m = 1$ (linear/linear).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape4
+#| fig-cap: "Shape 4: admissible n and m"
+p_curve <- ggplot(tibble(x = c(0, 5)), aes(x)) +
+  stat_function(fun = \(x) 4 * x / (1 + x)) +
+  labs(x = "x", y = "C") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n == m & n >= 1 & n >= 1 - m),
+  ablines = tibble(slope = 1, intercept = 0)
+)
+
+p_curve + p_grid
+```
+
+**Shape 5** -- Question 1: constant, $n = m$. Question 2: 0, $n \le m$. Question 3: 0, $n \ge 0$. Question 4: 1, $n \ge 2 - m$. Simplest case: $n = 1$, $m = 1$ (linear/linear) and (quadratic/quadratic).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape5
+#| fig-cap: "Shape 5: admissible n and m"
+p_curve <- ggplot(tibble(x = c(-6, 6)), aes(x)) +
+  stat_function(fun = \(x) 4 / (1 + exp(-x)) + 0.5) +
+  labs(x = "x", y = "C") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n == m & n >= 0 & n >= 2 - m),
+  ablines = tibble(slope = c(1, -1), intercept = c(0, 2))
+)
+
+p_curve + p_grid
+```
+
+**Shape 6** -- Question 1: constant, $n = m$. Question 2: 0, $n \le m$. Question 3: 1, $n \ge 1$. Question 4: 0, $n \ge 1 - m$. Simplest case: $n = 1$, $m = 1$ (linear/linear) and (quadratic/quadratic).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape6
+#| fig-cap: "Shape 6: admissible n and m"
+p_curve <- ggplot(tibble(x = c(-6, 6)), aes(x)) +
+  stat_function(fun = \(x) 3.5 / (1 + exp(-1.5 * x)) + 1) +
+  labs(x = "x", y = "C") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n == m & n >= 1 & n >= 1 - m),
+  ablines = tibble(slope = 1, intercept = 0),
+  hlines = tibble(yintercept = 1)
+)
+
+p_curve + p_grid
+```
+
+**Shape 7** -- Question 1: constant, $n = m$. Question 2: 0, $n \le m$. Question 3: 1, $n \ge 1$. Question 4: 1, $n \ge 2 - m$. Simplest case: $n = 1$, $m = 1$ (linear/linear) and (quadratic/quadratic).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape7
+#| fig-cap: "Shape 7: admissible n and m"
+p_curve <- ggplot(tibble(x = c(-6, 6)), aes(x)) +
+  stat_function(fun = \(x) 4 / (1 + exp(-x))) +
+  labs(x = "x", y = "C") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n == m & n >= 1 & n >= 2 - m),
+  ablines = tibble(slope = c(1, -1), intercept = c(0, 2))
+)
+
+p_curve + p_grid
+```
+
+**Shape 8** -- Question 1: infinity, $n \ge m + 1$. Question 2: infinity, $n \ge m + 2$. Question 3: 1, $n \ge 1$. Question 4: 0, $n \ge 1 - m$. Simplest case: $n = 2$, $m = 0$ (quadratic/constant).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape8
+#| fig-cap: "Shape 8: admissible n and m"
+p_curve <- ggplot(tibble(x = c(0, 5)), aes(x)) +
+  stat_function(fun = \(x) x^2) +
+  labs(x = "x", y = "y") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n >= m + 1 & n >= m + 2 & n >= 1 & n >= 1 - m),
+  ablines = tibble(slope = c(1, 1), intercept = c(1, 2)),
+  hlines = tibble(yintercept = 1)
+)
+
+p_curve + p_grid
+```
+
+**Shape 9** -- Question 1: infinity, $n \ge m + 1$. Question 2: constant, $n \ge m + 2$. Question 3: 1, $n \ge 1$. Question 4: 0, $n \ge 1 - m$. Simplest case: $n = 1$, $m = 0$ (linear/constant).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape9
+#| fig-cap: "Shape 9: admissible n and m"
+p_curve <- ggplot(tibble(x = c(0, 4.8)), aes(x)) +
+  stat_function(fun = \(x) 1 / (5 - x)) +
+  labs(x = "x", y = "y") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n >= m + 1 & n >= 1 & n >= 1 - m),
+  ablines = tibble(slope = 1, intercept = 1),
+  hlines = tibble(yintercept = 1)
+)
+
+p_curve + p_grid
+```
+
+**Shape 10** -- Question 1: constant, $n \ge m + 1$. Question 2: 0, $n = m + 1$. Question 3: 1, $n \ge 0$. Question 4: 1, $n \ge 2 - m$. Simplest case: $n = 2$, $m = 1$ (quadratic/linear).
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-812b-shape10
+#| fig-cap: "Shape 10: admissible n and m"
+p_curve <- ggplot(tibble(x = c(-3, 6)), aes(x)) +
+  stat_function(fun = \(x) (x - 2)^2 + 1) +
+  labs(x = "x", y = "y") +
+  theme_light()
+
+p_grid <- nm_grid(
+  nm_pairs(\(n, m) n == m + 1 & n >= 0 & n >= 2 - m),
+  ablines = tibble(slope = 1, intercept = 1)
+)
+
+p_curve + p_grid
+```

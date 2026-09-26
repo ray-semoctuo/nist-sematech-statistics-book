@@ -1,0 +1,137 @@
+#### Polynomial Functions {#sec-pmd-811}
+
+[**Polynomial Functions**]{#sec-pmd-811-functions}
+
+A polynomial function is one that has the form,
+
+$$y = a_n x^n + a_{n-1} x^{n-1} + \ldots + a_2 x^2 + a_1 x + a_0 \, ,$$
+
+with $n$ denoting a non-negative integer that defines the degree of the polynomial. A polynomial with a degree of 0 is simply a constant, with a degree of 1 is a line, with a degree of 2 is a quadratic, with a degree of 3 is a cubic, and so on.
+
+[**Polynomial Models: Advantages**]{#sec-pmd-811-advantages}
+
+Historically, polynomial models are among the most frequently used empirical models for fitting functions. These models are popular for the following reasons.
+
+- Polynomial models have a simple form.
+- Polynomial models have well known and understood properties.
+- Polynomial models have moderate flexibility of shapes.
+- Polynomial models are a closed family. Changes of location and scale in the raw data result in a polynomial model being mapped to a polynomial model. That is, polynomial models are not dependent on the underlying metric.
+- Polynomial models are computationally easy to use.
+
+[**Polynomial Model: Limitations**]{#sec-pmd-811-limitations}
+
+However, polynomial models also have the following limitations.
+
+- Polynomial models have poor interpolatory properties. High degree polynomials are notorious for oscillations between exact-fit values.
+- Polynomial models have poor extrapolatory properties. Polynomials may provide good fits within the range of data, but they will frequently deteriorate rapidly outside the range of the data.
+- Polynomial models have poor asymptotic properties. By their nature, polynomials have a finite response for finite $x$ values and have an infinite response if and only if the $x$ value is infinite. Thus polynomials may not model asymptotic phenomena very well.
+- Polynomial models have a shape/degree tradeoff. In order to model data with a complicated structure, the degree of the model must be high, indicating and the associated number of parameters to be estimated will also be high. This can result in highly unstable models.
+
+[**Example**]{#sec-pmd-811-example}
+
+The [load cell calibration](#sec-pmd-61) case study contains an example of fitting a quadratic polynomial model.
+
+[**Specific Polynomial Functions**]{#sec-pmd-811-specific}
+
+1. [Straight Line](#sec-pmd-8111)
+2. [Quadratic Polynomial](#sec-pmd-8112)
+3. [Cubic Polynomial](#sec-pmd-8113)
+
+##### Straight Line {#sec-pmd-8111}
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-8111-examples
+#| fig-cap: "Examples of straight lines"
+library(tidyverse)
+library(patchwork)
+
+p1 <- ggplot(tibble(x = c(0, 20)), aes(x)) +
+  stat_function(fun = \(x) 2 + 5 * x) +
+  labs(title = "y = 2 + 5x", x = "x", y = "y") +
+  theme_light()
+
+p2 <- ggplot(tibble(x = c(-20, 100)), aes(x)) +
+  stat_function(fun = \(x) 300 - 5 * x) +
+  labs(title = "y = 300 - 5x", x = "x", y = "y") +
+  theme_light()
+
+p1 + p2
+```
+
+**Function:** $f(x) = \beta_0 + \beta_1 x$
+
+**Function Family:** Polynomial
+
+**Statistical Type:** Linear
+
+**Domain:** $(-\infty, \infty)$
+
+**Range:** $(-\infty, \infty)$
+
+**Special Features:** None
+
+##### Quadratic Polynomial {#sec-pmd-8112}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-8112-examples
+#| fig-cap: "Examples of quadratic polynomials"
+p1 <- ggplot(tibble(x = c(-4, 9)), aes(x)) +
+  stat_function(fun = \(x) -2 * (x + 2) * (x - 7)) +
+  labs(title = "y = -2(x+2)(x-7)", x = "x", y = "y") +
+  theme_light()
+
+p2 <- ggplot(tibble(x = c(-20, 40)), aes(x)) +
+  stat_function(fun = \(x) x^2 + 132) +
+  labs(title = "y = x^2 + 132", x = "x", y = "y") +
+  theme_light()
+
+p1 + p2
+```
+
+**Function:** $f(x) = \beta_0 + \beta_1 x + \beta_2 x^2, \ \ \beta_2 \neq 0$
+
+**Function Family:** Polynomial
+
+**Statistical Type:** Linear
+
+**Domain:** $(-\infty, \infty)$
+
+**Range:**
+
+$$\left\{ \begin{array}{ll} \left(-\infty, \ \beta_0 - \dfrac{\beta_1^2}{4\beta_2}\right] & \text{for } \beta_2 < 0 \\ & \\ \left[\beta_0 - \dfrac{\beta_1^2}{4\beta_2}, \ \infty\right) & \text{for } \beta_2 > 0 \end{array} \right.$$
+
+**Special Features:** None
+
+##### Cubic Polynomial {#sec-pmd-8113}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-8113-examples
+#| fig-cap: "Examples of cubic polynomials"
+p1 <- ggplot(tibble(x = c(-2.5, 2)), aes(x)) +
+  stat_function(fun = \(x) -6 * (x + 2) * (x - 1) * x) +
+  labs(title = "y = -6(x+2)(x-1)x", x = "x", y = "y") +
+  theme_light()
+
+p2 <- ggplot(tibble(x = c(15, 40)), aes(x)) +
+  stat_function(fun = \(x) (x - 25)^3 + 450) +
+  labs(title = "y = (x-25)^3 + 450", x = "x", y = "y") +
+  theme_light()
+
+p1 + p2
+```
+
+**Function:** $f(x) = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3, \ \ \beta_3 \neq 0$
+
+**Function Family:** Polynomial
+
+**Statistical Type:** Linear
+
+**Domain:** $(-\infty, \infty)$
+
+**Range:** $(-\infty, \infty)$
+
+**Special Features:** None

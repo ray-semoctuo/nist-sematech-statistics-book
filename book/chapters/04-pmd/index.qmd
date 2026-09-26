@@ -14,6 +14,4 @@ The goal for this chapter is to present the background and specific analysis tec
 
 {{< include case-studies/index.qmd >}}
 
-## Some Useful Functions for Process Modeling {#sec-pmd-8}
-
-<!-- Source: handbook/pmd/section8/ (Appendix: univariate polynomial and rational function reference). TODO: port narrative content, re-implement worked examples in R. -->
+{{< include useful-functions/index.qmd >}}

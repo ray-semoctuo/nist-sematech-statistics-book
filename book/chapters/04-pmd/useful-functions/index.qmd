@@ -1,0 +1,24 @@
+## Some Useful Functions for Process Modeling {#sec-pmd-8}
+
+[**Overview of Section 4.7**]{#sec-pmd-8-overview}
+
+This section lists some functions commonly-used for process modeling. Constructing an exhaustive list of useful functions is impossible, of course, but the functions given here will often provide good starting points when an empirical model must be developed to describe a particular process.
+
+Each function listed here is classified into a family of related functions, if possible. Its statistical type, linear or nonlinear in the parameters, is also given. Special features of each function, such as asymptotes, are also listed along with the function's domain (the set of allowable input values) and range (the set of possible output values). Plots of some of the different shapes that each function can assume are also included.
+
+### Univariate Functions {#sec-pmd-81}
+
+[**Overview of Section 4.7.1**]{#sec-pmd-81-overview}
+
+Univariate functions are listed in this section. They are useful for modeling in their own right and they can serve as the basic building blocks for functions of higher dimension. [Section 4.4.2.1](#sec-pmd-421) offers some advice on the development of empirical models for higher-dimension processes from univariate functions.
+
+1. [Polynomial Functions](#sec-pmd-811)
+2. [Rational Functions](#sec-pmd-812)
+
+{{< include useful-functions/polynomial-functions.qmd >}}
+
+{{< include useful-functions/rational-functions.qmd >}}
+
+{{< include useful-functions/rational-function-catalog.qmd >}}
+
+{{< include useful-functions/determining-m-and-n.qmd >}}
