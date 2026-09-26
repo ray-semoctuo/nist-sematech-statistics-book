@@ -1,0 +1,31 @@
+#### Background and Data {#sec-pmd-621}
+
+[**Description of Data Collection**]{#sec-pmd-621-collection}
+
+The Alaska pipeline data consists of in-field ultrasonic measurements of the depths of defects in the Alaska pipeline. The depth of the defects were then re-measured in the laboratory. These measurements were performed in six different batches.
+
+The data were analyzed to calibrate the bias of the field measurements relative to the laboratory measurements. In this analysis, the field measurement is the response variable and the laboratory measurement is the predictor variable.
+
+These data were provided by Harry Berger, who was at the time a scientist for the Office of the Director of the Institute of Materials Research (now the Materials Science and Engineering Laboratory) of NIST. These data were used for a study conducted for the Materials Transportation Bureau of the U.S. Department of Transportation.
+
+[**Software**]{#sec-pmd-621-software}
+
+The analyses used in this case study can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/pmd/section6/pmd621.dp --> The R code reproduced throughout this case study follows NIST's own reference R script for it. The reader can download the data as a [text file](../../datasets/BERGER1.DAT).
+
+[**Resulting Data**]{#sec-pmd-621-data}
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+berger <- read_table(
+  here::here("datasets", "BERGER1.DAT"),
+  skip = 25,
+  col_names = c("field", "lab", "batch"),
+  col_types = "ddi"
+) |>
+  mutate(batch = as.factor(batch))
+
+berger
+```

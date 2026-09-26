@@ -1,0 +1,166 @@
+#### Weighting to Improve Fit {#sec-pmd-625}
+
+[**Weighting**]{#sec-pmd-625-weighting}
+
+Another approach when the assumption of constant standard deviation of the errors (i.e. homogeneous variances) is violated is to perform a [weighted fit](#sec-pmd-143). In a weighted fit, we give less weight to the less precise measurements and more weight to more precise measurements when estimating the unknown parameters in the model.
+
+[**Fit for Estimating Weights**]{#sec-pmd-625-weight-function}
+
+For the pipeline data, we chose [approximate replicate groups](#sec-pmd-452-without-replicates) so that each group has four observations (the last group only has three). This was done by first sorting the data by the predictor variable and then taking four points in succession to form each replicate group.
+
+Using the [power function model](#sec-pmd-452-power-function) with the data for estimating the weights, the following results for the fit of ln(variances) against ln(means) for the replicate groups were generated.
+
+```{r}
+#| code-fold: true
+#| message: false
+berger <- read_table(
+  here::here("datasets", "BERGER1.DAT"),
+  skip = 25,
+  col_names = c("field", "lab", "batch"),
+  col_types = "ddi"
+)
+
+replicate_groups <- berger |>
+  arrange(lab) |>
+  mutate(id = rep(1:27, each = 4)[1:n()]) |>
+  group_by(id) |>
+  summarise(mean_field = mean(field), var_field = var(field))
+
+weight_fit <- lm(log(var_field) ~ log(mean_field), data = replicate_groups)
+summary(weight_fit)
+```
+
+::: {.callout-note}
+NIST's own reference R script for this case study (`pmd621.r`) produces this exact fit ($\hat{\beta}_0 = -3.1573$, $\hat{\beta}_1 = 1.7087$), which is what is reproduced above. The prose on NIST's web page states slightly different coefficients (-3.18451 and 1.69001), likely from a Dataplot run that formed the replicate groups in a slightly different order; the two are close enough that they lead to the same choice of exponent below.
+:::
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-625-weight-function
+#| fig-cap: "ln(Replicate variances) versus ln(replicate means), with the fitted power-function model"
+replicate_groups <- replicate_groups |> mutate(residual_weight = resid(weight_fit))
+
+ggplot(replicate_groups, aes(log(mean_field), log(var_field))) +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "firebrick") +
+  labs(x = "ln(Replicate Means)", y = "ln(Replicate Variances)") +
+  theme_light()
+```
+
+The numerical fitting results and the plot of the replicate variances against the replicate means shows that a linear fit provides a reasonable fit with an estimated slope of 1.69.
+
+We used an estimate of 1.5 for the exponent in the weighting function.
+
+[**Residual Plot for Weight Function**]{#sec-pmd-625-weight-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-625-weight-residuals
+#| fig-cap: "Residuals from the fit for estimating the weight function"
+ggplot(replicate_groups, aes(log(mean_field), residual_weight)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "ln(Replicate Means)", y = "Residuals") +
+  theme_light()
+```
+
+The residual plot from the fit to determine an appropriate weighting function reveals no obvious problems.
+
+[**Numerical Results from Weighted Fit**]{#sec-pmd-625-weighted-fit}
+
+The weighted fit of the model that relates the field measurements to the lab measurements is shown below.
+
+```{r}
+#| code-fold: true
+outw <- lm(field ~ lab, data = berger, weights = 1 / (lab^1.5))
+summary(outw)
+```
+
+The resulting slope and intercept are 0.81 and 2.35, respectively. These are compared to a slope of 0.73 and an intercept of 4.99 in [the original model](#sec-pmd-623-fit).
+
+[**Plot of Predicted Values**]{#sec-pmd-625-predicted}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-625-overlay
+#| fig-cap: "Alaska pipeline data overlaid with the weighted straight-line fit"
+berger <- berger |> mutate(fittedw = fitted(outw), wresid = weighted.residuals(outw))
+
+ggplot(berger, aes(lab, field)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fittedw), color = "firebrick") +
+  labs(x = "Lab Defect Size", y = "Field Defect Size") +
+  theme_light()
+```
+
+The plot of the predicted values with the data indicates a good fit.
+
+[**Diagnostic Plots of Weighted Residuals**]{#sec-pmd-625-6plot}
+
+We need to verify that the weighting did not result in the other regression assumptions being violated. A 6-plot, after weighting the residuals, indicates that the regression assumptions are satisfied.
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-625-6plot
+#| fig-cap: "6-plot for the weighted straight-line fit, using weighted residuals"
+library(patchwork)
+
+six_plot <- function(x, y, residual, fitted, xlab, ylab) {
+  d <- tibble(x = x, y = y, residual = residual, fitted = fitted) |>
+    mutate(lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(x, y)) +
+    geom_point(color = "steelblue") +
+    geom_line(aes(y = fitted), color = "firebrick") +
+    labs(x = xlab, y = ylab, title = "Data with Fit") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = xlab, y = "Weighted Residual", title = "Residuals vs Predictor") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(fitted, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Predicted", y = "Weighted Residual", title = "Residuals vs Predicted") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Weighted Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p6 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Weighted Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+
+six_plot(berger$lab, berger$field, berger$wresid, berger$fittedw, "Lab Defect Size", "Field Defect Size")
+```
+
+[**Plot of Weighted Residuals vs Lab Defect Size**]{#sec-pmd-625-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-625-residuals
+#| fig-cap: "Weighted residuals from the weighted fit versus lab defect size"
+ggplot(berger, aes(lab, wresid)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Lab Defect Size", y = "Weighted Residuals") +
+  theme_light()
+```
+
+In order to check the assumption of homogeneous variances for the errors in more detail, we generate a full sized plot of the weighted residuals versus the predictor variable. This plot suggests that the errors now have homogeneous variances.

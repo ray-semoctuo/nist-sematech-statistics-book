@@ -1,0 +1,49 @@
+#### Compare the Fits {#sec-pmd-626}
+
+[**Three Fits to Compare**]{#sec-pmd-626-three-fits}
+
+It is interesting to compare the results of the three fits:
+
+1. Unweighted fit
+2. Transformed fit
+3. Weighted fit
+
+[**Plot of Fits with Data**]{#sec-pmd-626-compare}
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-626-compare
+#| fig-cap: "Alaska pipeline data with the unweighted, transformed, and weighted fits overlaid"
+berger <- read_table(
+  here::here("datasets", "BERGER1.DAT"),
+  skip = 25,
+  col_names = c("field", "lab", "batch"),
+  col_types = "ddi"
+)
+
+fit_unweighted <- lm(field ~ lab, data = berger)
+fit_transformed <- lm(log(field) ~ log(lab), data = berger)
+fit_weighted <- lm(field ~ lab, data = berger, weights = 1 / (lab^1.5))
+
+lab_grid <- tibble(lab = seq(min(berger$lab), max(berger$lab), length.out = 200)) |>
+  mutate(
+    Unweighted = predict(fit_unweighted, newdata = pick(lab)),
+    Transformed = exp(predict(fit_transformed, newdata = pick(lab))),
+    Weighted = predict(fit_weighted, newdata = pick(lab))
+  ) |>
+  pivot_longer(c(Unweighted, Transformed, Weighted), names_to = "Fit", values_to = "field")
+
+ggplot(berger, aes(lab, field)) +
+  geom_point(color = "grey50") +
+  geom_line(data = lab_grid, aes(color = Fit)) +
+  scale_color_manual(values = c(Unweighted = "firebrick", Transformed = "black", Weighted = "steelblue")) +
+  labs(x = "Lab Defect Size", y = "Field Defect Size") +
+  theme_light()
+```
+
+This plot shows that, compared to the original fit, the transformed and weighted fits generate smaller predicted values for low values of lab defect size and larger predicted values for high values of lab defect size. The three fits match fairly closely for intermediate values of lab defect size. The transformed and weighted fit tend to agree for the low values of lab defect size. However, for large values of lab defect size, the weighted fit tends to generate higher values for the predicted values than does the transformed fit.
+
+[**Conclusion**]{#sec-pmd-626-conclusion}
+
+Although the original fit was not bad, it violated the assumption of homogeneous variances for the error term. Both the fit of the transformed data and the weighted fit successfully address this problem without violating the other regression assumptions.

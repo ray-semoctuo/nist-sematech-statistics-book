@@ -1,0 +1,121 @@
+#### Fit Initial Model {#sec-pmd-623}
+
+[**Linear Fit Results**]{#sec-pmd-623-fit}
+
+Based on the initial plot of the data, we first fit a straight-line model to the data.
+
+```{r}
+#| code-fold: true
+#| message: false
+berger <- read_table(
+  here::here("datasets", "BERGER1.DAT"),
+  skip = 25,
+  col_names = c("field", "lab", "batch"),
+  col_types = "ddi"
+)
+
+fit1 <- lm(field ~ lab, data = berger)
+lof1 <- lm(field ~ factor(lab), data = berger)
+
+summary(fit1)
+anova(fit1, lof1)
+```
+
+The intercept parameter is estimated to be 4.99368 and the slope parameter is estimated to be 0.73111. Both parameters are statistically significant.
+
+[**6-Plot for Model Validation**]{#sec-pmd-623-6plot}
+
+When there is a single independent variable, the 6-plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, 6-Plot; source handbook/eda/section3/6plot.htm --> provides a convenient method for initial model validation.
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-623-6plot
+#| fig-cap: "6-plot for the unweighted straight-line fit"
+library(patchwork)
+
+berger <- berger |> mutate(residual1 = resid(fit1), fitted1 = fitted(fit1))
+
+six_plot <- function(x, y, residual, fitted) {
+  d <- tibble(x = x, y = y, residual = residual, fitted = fitted) |>
+    mutate(lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(x, y)) +
+    geom_point(color = "steelblue") +
+    geom_line(aes(y = fitted), color = "firebrick") +
+    labs(x = "Lab Defect Size", y = "Field Defect Size", title = "Data with Fit") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Lab Defect Size", y = "Residual", title = "Residuals vs Lab") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(fitted, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Predicted", y = "Residual", title = "Residuals vs Predicted") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p6 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+
+six_plot(berger$lab, berger$field, berger$residual1, berger$fitted1)
+```
+
+The basic assumptions for regression models are that the errors are random observations from a normal distribution with mean of zero and constant standard deviation (or variance).
+
+The plots on the first row show that the residuals have increasing variance as the value of the independent variable (lab) increases in value. This indicates that the assumption of constant standard deviation, or homogeneity of variances, is violated.
+
+In order to see this more clearly, we will generate full-size plots of the predicted values with the data and the residuals against the independent variable.
+
+[**Plot of Predicted Values with Original Data**]{#sec-pmd-623-predicted}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-623-overlay
+#| fig-cap: "Alaska pipeline data overlaid with the unweighted straight-line fit"
+ggplot(berger, aes(lab, field)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fitted1), color = "firebrick") +
+  labs(x = "Lab Defect Size", y = "Field Defect Size") +
+  theme_light()
+```
+
+This plot shows more clearly that the assumption of homogeneous variances for the errors may be violated.
+
+[**Plot of Residual Values Against Independent Variable**]{#sec-pmd-623-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-623-residuals
+#| fig-cap: "Residuals from the unweighted straight-line fit versus lab defect size"
+ggplot(berger, aes(lab, residual1)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Lab Defect Size", y = "Residuals") +
+  theme_light()
+```
+
+This plot also shows more clearly that the assumption of homogeneous variances is violated. This assumption, along with the assumption of constant location, are typically easiest to see on this plot.
+
+[**Non-Homogeneous Variances**]{#sec-pmd-623-non-homogeneous}
+
+Because the last plot shows that the variances may differ more than slightly, we will address this issue by transforming the data or using weighted least squares.

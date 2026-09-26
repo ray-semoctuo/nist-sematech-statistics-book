@@ -14,3 +14,5 @@ This book does not use Dataplot. Instead, every step of each case study below is
 4. [Thermal Expansion of Copper Case Study](#sec-pmd-64)
 
 {{< include case-studies/load-cell-calibration/index.qmd >}}
+
+{{< include case-studies/alaska-pipeline/index.qmd >}}

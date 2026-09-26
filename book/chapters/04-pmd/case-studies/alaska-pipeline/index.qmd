@@ -1,0 +1,27 @@
+### Alaska Pipeline Ultrasonic Calibration {#sec-pmd-62}
+
+[**Non-Homogeneous Variances**]{#sec-pmd-62-overview}
+
+This example illustrates the construction of a linear regression model for Alaska pipeline ultrasonic calibration data. This case study demonstrates the use of transformations and weighted fits to deal with the violation of the assumption of [constant standard deviations](#sec-pmd-213) for the random errors. This assumption is also called homogeneous variances for the errors.
+
+1. [Background and Data](#sec-pmd-621)
+2. [Check for a Batch Effect](#sec-pmd-622)
+3. [Fit Initial Model](#sec-pmd-623)
+4. [Transformations to Improve Fit and Equalize Variances](#sec-pmd-624)
+5. [Weighting to Improve Fit](#sec-pmd-625)
+6. [Compare the Fits](#sec-pmd-626)
+7. [Work This Example Yourself](#sec-pmd-627)
+
+{{< include case-studies/alaska-pipeline/background-data.qmd >}}
+
+{{< include case-studies/alaska-pipeline/batch-effect.qmd >}}
+
+{{< include case-studies/alaska-pipeline/initial-fit.qmd >}}
+
+{{< include case-studies/alaska-pipeline/transformations.qmd >}}
+
+{{< include case-studies/alaska-pipeline/weighting.qmd >}}
+
+{{< include case-studies/alaska-pipeline/compare-fits.qmd >}}
+
+{{< include case-studies/alaska-pipeline/work-yourself.qmd >}}

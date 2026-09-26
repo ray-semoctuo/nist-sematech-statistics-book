@@ -1,0 +1,123 @@
+#### Check for a Batch Effect {#sec-pmd-622}
+
+[**Plot of Raw Data**]{#sec-pmd-622-plot}
+
+As with any regression problem, it is always a good idea to plot the raw data first. The following is a scatter plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Scatter Plot; source handbook/eda/section3/scatterp.htm --> of the raw data.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-622-scatter
+#| fig-cap: "Alaska pipeline ultrasonic calibration data"
+berger <- read_table(
+  here::here("datasets", "BERGER1.DAT"),
+  skip = 25,
+  col_names = c("field", "lab", "batch"),
+  col_types = "ddi"
+) |>
+  mutate(batch = as.factor(batch))
+
+ggplot(berger, aes(lab, field)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Lab Defect Size", y = "Field Defect Size") +
+  theme_light()
+```
+
+This scatter plot shows that a straight line fit is a good initial candidate model for these data.
+
+[**Plot by Batch**]{#sec-pmd-622-plot-by-batch}
+
+These data were collected in six distinct batches. The first step in the analysis is to determine if there is a batch effect.
+
+In this case, the scientist was not inherently interested in the batch. That is, batch is a nuisance factor and, if reasonable, we would like to analyze the data as if it came from a single batch. However, we need to know that this is, in fact, a reasonable assumption to make.
+
+[**Conditional Plot**]{#sec-pmd-622-conditional}
+
+We first generate a conditional plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Conditioning Plot; source handbook/eda/section3/condplot.htm --> where we condition on the batch.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-622-conditional
+#| fig-cap: "Field versus lab defect size, conditioned on batch"
+ggplot(berger, aes(lab, field)) +
+  geom_point(shape = 4, color = "steelblue") +
+  facet_wrap(~batch, ncol = 3, labeller = label_both) +
+  labs(x = "Lab Defect Size", y = "Field Defect Size") +
+  theme_light()
+```
+
+This conditional plot shows a scatter plot for each of the six batches on a single page. Each of these plots shows a similar pattern.
+
+[**Linear Correlation and Related Plots**]{#sec-pmd-622-linear-stats}
+
+We can follow up the conditional plot with a linear correlation plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Linear Correlation Plot; source handbook/eda/section3/linecorr.htm -->, a linear intercept plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Linear Intercept Plot; source handbook/eda/section3/lineinte.htm -->, a linear slope plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Linear Slope Plot; source handbook/eda/section3/lineslop.htm -->, and a linear residual standard deviation plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, Linear Residual Standard Deviation Plot; source handbook/eda/section3/linressd.htm -->. These four plots show the correlation, the intercept and slope from a linear fit, and the residual standard deviation for linear fits applied to each batch. These plots show how a linear fit performs across the six batches.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-622-batch-fits
+#| fig-cap: "Correlation, intercept, slope, and residual standard deviation of a linear fit to each batch"
+library(patchwork)
+library(broom)
+
+batch_fits <- berger |>
+  group_by(batch) |>
+  nest() |>
+  ungroup() |>
+  mutate(
+    fit = map(data, ~ lm(field ~ lab, data = .x)),
+    glance = map(fit, glance)
+  ) |>
+  select(batch, glance) |>
+  unnest(glance) |>
+  mutate(correlation = sqrt(r.squared))
+
+p_corr <- ggplot(batch_fits, aes(batch, correlation, group = 1)) +
+  geom_point(color = "steelblue") +
+  geom_hline(aes(yintercept = mean(correlation)), color = "grey40") +
+  labs(x = "Batch Number", y = "Correlation") +
+  theme_light()
+
+batch_coefs <- berger |>
+  group_by(batch) |>
+  nest() |>
+  ungroup() |>
+  mutate(
+    fit = map(data, ~ lm(field ~ lab, data = .x)),
+    coefs = map(fit, tidy)
+  ) |>
+  select(batch, coefs) |>
+  unnest(coefs) |>
+  select(batch, term, estimate) |>
+  pivot_wider(names_from = term, values_from = estimate) |>
+  rename(intercept = `(Intercept)`, slope = lab)
+
+p_intercept <- ggplot(batch_coefs, aes(batch, intercept, group = 1)) +
+  geom_point(color = "steelblue") +
+  geom_hline(aes(yintercept = mean(intercept)), color = "grey40") +
+  labs(x = "Batch Number", y = "Intercept") +
+  theme_light()
+
+p_slope <- ggplot(batch_coefs, aes(batch, slope, group = 1)) +
+  geom_point(color = "steelblue") +
+  geom_hline(aes(yintercept = mean(slope)), color = "grey40") +
+  labs(x = "Batch Number", y = "Slope") +
+  theme_light()
+
+p_ressd <- ggplot(batch_fits, aes(batch, sigma, group = 1)) +
+  geom_point(color = "steelblue") +
+  geom_hline(aes(yintercept = mean(sigma)), color = "grey40") +
+  labs(x = "Batch Number", y = "RESSD") +
+  theme_light()
+
+(p_corr + p_intercept) / (p_slope + p_ressd)
+```
+
+The linear correlation plot (upper left), which shows the correlation between field and lab defect sizes versus the batch, indicates that batch six has a somewhat stronger linear relationship between the measurements than the other batches do. This is also reflected in the significantly lower residual standard deviation for batch six shown in the residual standard deviation plot (lower right), which shows the residual standard deviation versus batch. The slopes all lie within a range of 0.6 to 0.9 in the linear slope plot (lower left) and the intercepts all lie between 2 and 8 in the linear intercept plot (upper right).
+
+[**Treat Batch as Homogeneous**]{#sec-pmd-622-homogeneous}
+
+These summary plots, in conjunction with the conditional plot above, show that treating the data as a single batch is a reasonable assumption to make. None of the batches behaves badly compared to the others and none of the batches requires a significantly different fit from the others.
+
+These two plots provide a good pair. The plot of the fit statistics allows quick and convenient comparisons of the overall fits. However, the conditional plot can reveal details that may be hidden in the summary plots. For example, we can more readily determine the existence of clusters of points and outliers, curvature in the data, and other similar features.
+
+Based on these plots we will ignore the batch variable for the remaining analysis.

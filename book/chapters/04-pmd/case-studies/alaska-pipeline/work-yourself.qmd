@@ -1,0 +1,43 @@
+#### Work This Example Yourself {#sec-pmd-627}
+
+NIST's original page for this section offers a Dataplot-driven, click-through walkthrough of the case study, running each analysis step interactively in Dataplot. Since this book reproduces the entire analysis directly in executable R throughout the preceding sections, working the example yourself is a matter of re-running the R code shown in each subsection with the [downloaded data](../../datasets/BERGER1.DAT), rather than stepping through a separate macro-driven tool:
+
+1. [Plot the data](#sec-pmd-622-plot) and [check for a batch effect](#sec-pmd-622-conditional).
+2. [Fit the unweighted straight-line model](#sec-pmd-623-fit) and validate it with the [6-plot](#sec-pmd-623-6plot) and [residual plot](#sec-pmd-623-residuals).
+3. Explore [response](#sec-pmd-624-ytransform) and [predictor](#sec-pmd-624-xtransform) transformations, confirm the choice with the [Box-Cox linearity plot](#sec-pmd-624-boxcox), and [fit and validate the ln-ln model](#sec-pmd-624-loglog-fit).
+4. [Estimate a weight function](#sec-pmd-625-weight-function) from replicate groups and [fit and validate the weighted model](#sec-pmd-625-weighted-fit).
+5. [Compare the three fits](#sec-pmd-626-compare).
+
+Each step's code chunk in this book is self-contained and can be copied into an R session (with the `tidyverse`, `patchwork`, and `broom` packages loaded) to reproduce that step's output directly.
+
+[**Summary of the Analysis**]{#sec-pmd-627-summary}
+
+NIST's original page for this section presents the case study as a table of clickable Dataplot macros. The table below reproduces the same step-by-step structure and its results and conclusions, without the Dataplot links, as a summary of the full analysis.
+
+| Data Analysis Steps | Results and Conclusions |
+|---|---|
+| **1. Get set up and started.** | |
+| Read in the data. | Three columns of numbers, `field`, `lab`, and `batch`. |
+| **2. Plot data and check for batch effect.** | |
+| Plot field versus lab. | Initial plot indicates that a simple linear model is a good initial model. |
+| Condition plot on batch. | Condition plot on batch indicates no significant batch effect. |
+| Check batch effect with linear fit plots by batch. | Plots of fit by batch indicate no significant batch effect. |
+| **3. Fit and validate initial model.** | |
+| Linear fit of field versus lab. Plot predicted values with the data. | The linear fit was carried out. Although the initial fit looks good, the plot indicates that the residuals do not have homogeneous variances. |
+| Generate a 6-plot for model validation. | The 6-plot does not indicate any other problems with the model, beyond the evidence of non-constant error variance. |
+| Plot the residuals against the predictor variable. | The detailed residual plot shows the inhomogeneity of the error variation more clearly. |
+| **4. Improve the fit with transformations.** | |
+| Plot several common transformations of the response variable (field) versus the predictor variable (lab). | The plots indicate that a ln transformation of the dependent variable (field) stabilizes the variation. |
+| Plot ln(field) versus several common transformations of the predictor variable (lab). | The plots indicate that a ln transformation of the predictor variable (lab) linearizes the model. |
+| Box-Cox linearity plot. | The Box-Cox linearity plot indicates an optimum transform value of -0.1, although a ln transformation should work well. |
+| Linear fit of ln(field) versus ln(lab). Plot predicted values with the data. | The plot of the predicted values with the data indicates that the errors should now have homogeneous variances. |
+| Generate a 6-plot for model validation. | The 6-plot shows that the model assumptions are satisfied. |
+| Plot the residuals against the predictor variable. | The detailed residual plot shows more clearly that the assumption of homogeneous variances is now satisfied. |
+| **5. Improve the fit using weighting.** | |
+| Fit function to determine appropriate weight function. Determine value for the exponent in the power model. | The fit to determine an appropriate weight function indicates that an exponent between 1.5 and 2.0 should be reasonable. |
+| Examine residuals from weight fit to check adequacy of weight function. | The residuals from this fit indicate no major problems. |
+| Weighted linear fit of field versus lab. Plot predicted values with the data. | The weighted fit was carried out. The plot of the predicted values with the data indicates that the fit of the model is improved. |
+| Generate a 6-plot after weighting the residuals for model validation. | The 6-plot shows that the model assumptions are satisfied. |
+| Plot the weighted residuals against the predictor variable. | The detailed residual plot shows the constant variability of the weighted residuals. |
+| **6. Compare the fits.** | |
+| Plot predicted values from each of the three models with the data. | The transformed and weighted fits generate lower predicted values for low values of defect size and larger predicted values for high values of defect size. |
