@@ -1,0 +1,242 @@
+#### Single-Use Calibration Intervals {#sec-pmd-521}
+
+[**Calibration**]{#sec-pmd-521-calibration}
+
+As mentioned in [Section 4.1.3](#sec-pmd-13), the goal of calibration (also called inverse prediction by some authors) is to quantitatively convert measurements made on one of two measurement scales to the other measurement scale. Typically the two scales are not of equal importance, so the conversion occurs in only one direction. The model fit to the data that relates the two measurement scales and a new measurement made on the secondary scale provide the means for the conversion. The results from the fit of the model also allow for computation of the associated uncertainty in the estimate of the true value on the primary measurement scale. Just as for prediction, estimates of both the value on the primary scale and its uncertainty are needed in order to make sound engineering or scientific decisions or conclusions. Approximate confidence intervals for the true value on the primary measurement scale are typically used to summarize the results probabilistically. An example, which will help make the calibration process more concrete, is given in [Section 4.1.3.3](#sec-pmd-133) using [thermocouple calibration data](#sec-pmd-133-example).
+
+[**Calibration Estimates**]{#sec-pmd-521-estimates}
+
+Like prediction estimates, calibration estimates can be computed relatively easily using the regression equation. They are computed by setting a newly observed value of the response variable, $y^*$, which does not have an accompanying value of the predictor variable, equal to the estimated regression function and solving for the unknown value of the predictor variable. Depending on the complexity of the regression function, this may be done analytically, but sometimes numerical methods are required. Fortunately, the numerical methods needed are not complicated, and once implemented are often easier to use than analytical methods, even for simple regression functions.
+
+[**Pressure / Temperature Example**]{#sec-pmd-521-pt-example}
+
+In the [Pressure/Temperature example](#sec-pmd-11-example), pressure measurements could be used to measure the temperature of the system by observing a new pressure value, setting it equal to the estimated regression function,
+
+$$ f(x;\hat{\vec{\beta}}) = 7.74899 + 3.93014 \cdot x $$
+
+and solving for the temperature. If a pressure of 178 were measured, the associated temperature would be estimated to be about 43.
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+
+(178 - coef(pt_fit)[1]) / coef(pt_fit)[2]
+```
+
+Although this is a simple process for the straight-line model, note that even for this simple regression function the estimate of the temperature is not linear in the parameters of the model.
+
+[**Numerical Approach**]{#sec-pmd-521-numerical}
+
+To set this up to be solved numerically, the equation simply has to be set up in the form
+
+$$ 178 - (7.74899 + 3.93014 \cdot x) = 0 $$
+
+and then the function of temperature ($x$) defined by the left-hand side of the equation can be used as the argument in an arbitrary root-finding function.
+
+```{r}
+#| code-fold: true
+uniroot(\(x) 178 - predict(pt_fit, data.frame(temperature = x)), c(-5, 100))$root
+```
+
+It is typically necessary to provide the root-finding software with endpoints on opposite sides of the root. These can be obtained from a plot of the calibration data and usually do not need to be very precise. In fact, it is often adequate to simply set the endpoints equal to the range of the calibration data, since calibration functions tend to be increasing or decreasing functions without local minima or maxima in the range of the data. For the pressure/temperature data, the endpoints used in the root-finding software could even be set to values like -5 and 100, broader than the range of the data. This choice of end points would even allow for extrapolation if new pressure values outside the range of the original calibration data were observed.
+
+[**Thermocouple Calibration Example**]{#sec-pmd-521-tc-example}
+
+For the more realistic [thermocouple calibration example](#sec-pmd-133-example), which is well fit by a [LOESS](#sec-pmd-144) model that does not require an explicit functional form, the numerical approach must be used to obtain calibration estimates. The LOESS model is set up identically to the straight-line model for the numerical solution, using the estimated regression function from the software used to fit the model.
+
+$$ y^* - f(x;\hat{\vec{\beta}}) = 0 $$
+
+Again the function of temperature ($x$) on the left-hand side of the equation would be used as the main argument in an arbitrary root-finding function.
+
+```{r}
+#| code-fold: true
+clb1 <- read_table(
+  here::here("datasets", "CLB1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "voltage", "pred_nist"),
+  col_types = "ddd"
+)
+clb1_fit <- loess(voltage ~ temperature, data = clb1, degree = 2, span = 0.3, family = "gaussian")
+
+invert_loess <- function(voltage, fit, interval = c(100, 600)) {
+  uniroot(\(t) predict(fit, newdata = data.frame(temperature = t)) - voltage, interval)$root
+}
+
+invert_loess(1522, clb1_fit)
+```
+
+If for some reason $f(x;\hat{\vec{\beta}})$ were not available in the software used to fit the model, it could always be created manually since LOESS can ultimately be reduced to a series of weighted least squares fits. Based on the plot of the thermocouple data, endpoints of 100 and 600 would probably work well for all calibration estimates. Wider values for the endpoints are not useful here since extrapolations do not make much sense for this type of local model.
+
+[**Software**]{#sec-pmd-521-software}
+
+Since the verbal descriptions of these numerical techniques can be hard to follow, these ideas may become clearer by looking at the actual computer code for a quadratic calibration, which can be found in the Load Cell Calibration case study.<!-- XREF: PMD section 4.6.1, Case Studies in Process Modeling, Load Cell Calibration, not yet drafted; source handbook/pmd/section6/pmd6.htm -->
+
+[**Calibration Uncertainties**]{#sec-pmd-521-uncertainties}
+
+As in prediction, the data used to fit the process model can also be used to determine the uncertainty of the calibration. Both the variation in the average response and in the new observation of the response value need to be accounted for. This is similar to the uncertainty for the prediction of a new measurement. In fact, approximate calibration confidence intervals are actually computed by solving for the predictor variable value in the formulas for prediction interval end points [@Graybill1976]. Because $\hat{\sigma}_p$, the standard deviation of the prediction of a measured response, is a function of the predictor variable, like the regression function itself, the inversion of the prediction interval endpoints is usually messy. However, like the inversion of the regression function to obtain estimates of the predictor variable, it can be easily solved numerically.
+
+The equations to be solved to obtain approximate lower and upper calibration confidence limits, are, respectively,
+
+$$ y^* - f(x;\hat{\vec{\beta}}) + t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_p(x) = 0 $$
+
+and
+
+$$ y^* - f(x;\hat{\vec{\beta}}) - t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_p(x) = 0 $$
+
+with $\hat{\sigma}_p$ denoting the estimated standard deviation of the prediction of a new measurement. $f(x;\hat{\vec{\beta}})$ and $\hat{\sigma}_p$ are both denoted as functions of the predictor variable, $x$, here to make it clear that those terms must be written as functions of the unknown value of the predictor variable. The left-hand sides of the two equations above are used as arguments in the root-finding software, just as the expression $y^* - f(x;\hat{\vec{\beta}})$ is used when computing the estimate of the predictor variable.
+
+[**Confidence Intervals for the Example Applications**]{#sec-pmd-521-example-tables}
+
+Confidence intervals for the true predictor variable values associated with the observed values of pressure (178) and voltage (1522) are given in the table below for the Pressure/Temperature example and the Thermocouple Calibration example, respectively. The approximate confidence limits and estimated values of the predictor variables were obtained numerically in both cases.
+
+```{r}
+#| code-fold: true
+pt_sigma_hat <- summary(pt_fit)$sigma
+
+pt_sigma_p_at <- function(x) {
+  se_f <- predict(pt_fit, data.frame(temperature = x), se.fit = TRUE)$se.fit
+  sqrt(pt_sigma_hat^2 + se_f^2)
+}
+
+pt_calibration_bound <- function(y_star, sign) {
+  uniroot(
+    \(x) y_star - predict(pt_fit, data.frame(temperature = x)) +
+      sign * qt(0.975, df.residual(pt_fit)) * pt_sigma_p_at(x),
+    c(-5, 100)
+  )$root
+}
+
+pt_estimate <- uniroot(\(x) 178 - predict(pt_fit, data.frame(temperature = x)), c(-5, 100))$root
+pt_upper <- pt_calibration_bound(178, sign = 1)
+pt_lower <- pt_calibration_bound(178, sign = -1)
+
+tc_target_voltage <- 1522
+tc_estimate <- invert_loess(tc_target_voltage, clb1_fit)
+
+tc_halfwidth_at <- function(t_hat, eps = 0.01) {
+  dV_dT <- (predict(clb1_fit, newdata = data.frame(temperature = t_hat + eps)) -
+    predict(clb1_fit, newdata = data.frame(temperature = t_hat - eps))) / (2 * eps)
+  p <- predict(clb1_fit, newdata = data.frame(temperature = t_hat), se = TRUE)
+  se_pred_voltage <- sqrt(p$se.fit^2 + summary(clb1_fit)$s^2)
+  qt(0.975, df = p$df) * se_pred_voltage / abs(dV_dT)
+}
+tc_halfwidth <- tc_halfwidth_at(tc_estimate)
+
+tibble(
+  example = c("Pressure/Temperature", "Thermocouple Calibration"),
+  y_star = c(178, tc_target_voltage),
+  lower_95 = c(pt_lower, tc_estimate - tc_halfwidth),
+  estimate = c(pt_estimate, tc_estimate),
+  upper_95 = c(pt_upper, tc_estimate + tc_halfwidth)
+)
+```
+
+[**Interpretation of Calibration Intervals**]{#sec-pmd-521-interpretation}
+
+Although calibration confidence intervals have some unique features, viewed as confidence intervals, their interpretation is essentially analogous to that of confidence intervals for the true average response. Namely, in repeated calibration experiments, when one calibration is made for each set of data used to fit a calibration function and each single new observation of the response, then approximately $100(1-\alpha)\%$ of the intervals computed as described above will capture the true value of the predictor variable, which is a measurement on the primary measurement scale.
+
+::: {.callout-note}
+NIST's original page simulated 50, 5000, and 10000 data sets that follow the thermocouple calibration model using a specific, undocumented random number stream, so the exact percentages reported there cannot be reproduced exactly. The simulation below instead treats our own fitted LOESS curve as the "true" calibration curve, simulates new data sets by adding normal noise (with the fitted model's own residual standard deviation) at the same temperatures used in the original experiment, refits a LOESS model to each simulated data set, and checks whether each data set's calibration interval for a voltage of 1522 covers the temperature that the true curve associates with that voltage.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-521-ci-simulation
+#| fig-cap: "95% calibration confidence intervals for the true temperature associated with a voltage of 1522, computed from 50 independently simulated data sets"
+sigma_true <- summary(clb1_fit)$s
+true_temperature <- tc_estimate
+true_target_voltage_mean <- predict(clb1_fit, newdata = data.frame(temperature = true_temperature))
+
+simulate_calibration <- function(seed) {
+  set.seed(seed)
+  voltage_sim <- fitted(clb1_fit) + rnorm(length(clb1$temperature), 0, sigma_true)
+  d <- tibble(temperature = clb1$temperature, voltage = voltage_sim)
+  fit <- loess(voltage ~ temperature, data = d, degree = 2, span = 0.3, family = "gaussian")
+
+  # a fresh, independently noisy voltage observation of the true temperature,
+  # since the actual calibration experiment involves a genuinely new measurement
+  new_voltage <- true_target_voltage_mean + rnorm(1, 0, sigma_true)
+
+  t_hat <- tryCatch(invert_loess(new_voltage, fit), error = function(e) NA)
+  if (is.na(t_hat)) {
+    return(tibble(estimate = NA, lower = NA, upper = NA))
+  }
+
+  eps <- 0.01
+  dV_dT <- (predict(fit, newdata = data.frame(temperature = t_hat + eps)) -
+    predict(fit, newdata = data.frame(temperature = t_hat - eps))) / (2 * eps)
+  p <- predict(fit, newdata = data.frame(temperature = t_hat), se = TRUE)
+  se_pred_voltage <- sqrt(p$se.fit^2 + summary(fit)$s^2)
+  halfwidth <- qt(0.975, df = p$df) * se_pred_voltage / abs(dV_dT)
+
+  tibble(estimate = t_hat, lower = t_hat - halfwidth, upper = t_hat + halfwidth)
+}
+
+sim_50_cal <- map(1:50, simulate_calibration) |>
+  list_rbind(names_to = "data_set") |>
+  mutate(
+    data_set = as.integer(data_set),
+    covers = lower <= true_temperature & true_temperature <= upper
+  )
+
+ggplot(sim_50_cal, aes(data_set, estimate)) +
+  geom_hline(yintercept = true_temperature, linetype = "dashed", color = "grey40") +
+  geom_errorbar(aes(ymin = lower, ymax = upper, color = covers), width = 0) +
+  geom_point(aes(color = covers)) +
+  scale_color_manual(
+    values = c(`TRUE` = "steelblue", `FALSE` = "firebrick"),
+    labels = c(`TRUE` = "Covers true value", `FALSE` = "Does not cover true value")
+  ) +
+  labs(x = "Data Set", y = "Estimated Temperature", color = NULL) +
+  theme_light() +
+  theme(legend.position = "top")
+```
+
+```{r}
+#| code-fold: true
+sum(sim_50_cal$covers, na.rm = TRUE)
+```
+
+It is easy to see that most of the intervals do contain the true value. Repeating the simulation with many more data sets shows how close the long-run coverage rate comes to the nominal 95% level.
+
+```{r}
+#| code-fold: true
+coverage_rate_cal <- function(n_datasets) {
+  results <- map_lgl(1:n_datasets, function(seed) {
+    set.seed(seed + 300000)
+    voltage_sim <- fitted(clb1_fit) + rnorm(length(clb1$temperature), 0, sigma_true)
+    d <- tibble(temperature = clb1$temperature, voltage = voltage_sim)
+    fit <- tryCatch(loess(voltage ~ temperature, data = d, degree = 2, span = 0.3, family = "gaussian"), error = function(e) NULL)
+    if (is.null(fit)) {
+      return(NA)
+    }
+    new_voltage <- true_target_voltage_mean + rnorm(1, 0, sigma_true)
+    t_hat <- tryCatch(invert_loess(new_voltage, fit), error = function(e) NA)
+    if (is.na(t_hat)) {
+      return(NA)
+    }
+    eps <- 0.01
+    dV_dT <- (predict(fit, newdata = data.frame(temperature = t_hat + eps)) -
+      predict(fit, newdata = data.frame(temperature = t_hat - eps))) / (2 * eps)
+    p <- predict(fit, newdata = data.frame(temperature = t_hat), se = TRUE)
+    se_pred_voltage <- sqrt(p$se.fit^2 + summary(fit)$s^2)
+    halfwidth <- qt(0.975, df = p$df) * se_pred_voltage / abs(dV_dT)
+    (t_hat - halfwidth) <= true_temperature & true_temperature <= (t_hat + halfwidth)
+  })
+  mean(results, na.rm = TRUE)
+}
+
+c(n_5000 = coverage_rate_cal(5000), n_10000 = coverage_rate_cal(10000))
+```
+
+While these intervals do not necessarily attain their stated coverage exactly, as the confidence intervals for the average response do, the coverage should be reasonably close to the specified level and probably adequate from a practical point of view.

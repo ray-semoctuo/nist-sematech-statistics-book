@@ -10,9 +10,7 @@ The goal for this chapter is to present the background and specific analysis tec
 
 {{< include data-analysis/index.qmd >}}
 
-## Use and Interpretation of Process Models {#sec-pmd-5}
-
-<!-- Source: handbook/pmd/section5/. TODO: port narrative content, re-implement worked examples in R. -->
+{{< include interpretation/index.qmd >}}
 
 ## Case Studies in Process Modeling {#sec-pmd-6}
 

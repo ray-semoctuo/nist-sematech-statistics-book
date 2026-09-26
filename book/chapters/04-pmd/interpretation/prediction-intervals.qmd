@@ -1,0 +1,220 @@
+#### How can I predict the value and estimate the uncertainty of a single response? {#sec-pmd-512}
+
+[**A Different Type of Prediction**]{#sec-pmd-512-different-type}
+
+In addition to estimating the average value of the response variable for a given combination of predictor values, as discussed in the [previous section](#sec-pmd-511), it is also possible to make predictions of the values of new measurements or observations from a process. Unlike the true average response, a new measurement is often actually observable in the future. However, there are a variety of different situations in which a prediction of a measurement value may be more desirable than actually making an observation from the process.
+
+[**Example**]{#sec-pmd-512-example}
+
+For example, suppose that a concrete supplier needs to supply concrete of a specified measured strength for a particular contract, but knows that strength varies systematically with the ambient temperature when the concrete is poured. In order to be sure that the concrete will meet the specification, prior to pouring, samples from the batch of raw materials can be mixed, poured, and measured in advance, and the relationship between temperature and strength can be modeled. Then predictions of the strength across the range of possible field temperatures can be used to ensure the product is likely to meet the specification. Later, after the concrete is poured (and the temperature is recorded), the accuracy of the prediction can be verified.
+
+[**$\hat{y}=f(\vec{x},\hat{\vec{\beta}})$**]{#sec-pmd-512-formula}
+
+The mechanics of predicting a new measurement value associated with a combination of predictor variable values are similar to the steps used in the estimation of the average response value. In fact, the actual estimate of the new measured value is obtained by evaluating the estimated regression function at the relevant predictor variable values, exactly as is done for the average response. The estimates are the same for these two quantities because, assuming the model fits the data, the only difference between the average response and a particular measured response is a random error. Because the error is random, and has a mean of zero, there is no additional information in the model that can be used to predict the particular response beyond the information that is available when predicting the average response.
+
+[**Uncertainties Do Differ**]{#sec-pmd-512-uncertainties-differ}
+
+As when estimating the average response, a probabilistic interval is used when predicting a new measurement to provide the information needed to make engineering or scientific conclusions. However, even though the estimates of the average response and particular response values are the same, the uncertainties of the two estimates do differ. This is because the uncertainty of the measured response must include both the uncertainty of the estimated average response and the uncertainty of the new measurement that could conceptually be observed. This uncertainty must be included if the interval that will be used to summarize the prediction result is to contain the new measurement with the specified confidence. To help distinguish the two types of predictions, the probabilistic intervals for estimation of a new measurement value are called prediction intervals rather than confidence intervals.
+
+[**Standard Deviation of Prediction**]{#sec-pmd-512-sd-prediction}
+
+The estimate of the standard deviation of the predicted value, $\hat{\sigma}_f$, is obtained as described [earlier](#sec-pmd-511-computing). Because the residual standard deviation describes the random variation in each individual measurement or observation from the process, $\hat{\sigma}$, the estimate of the residual standard deviation obtained when fitting the model to the data, is used to account for the extra uncertainty needed to predict a measurement value. Since the new observation is independent of the data used to fit the model, the estimates of the two standard deviations are then combined by "root-sum-of-squares" or "in quadrature", according to standard formulas for computing variances, to obtain the standard deviation of the prediction of the new measurement, $\hat{\sigma}_p$. The formula for $\hat{\sigma}_p$ is
+
+$$ \hat{\sigma}_p = \sqrt{\hat{\sigma}^2 + \hat{\sigma}^2_f} \, . $$
+
+[**Coverage Factor and Prediction Interval Formula**]{#sec-pmd-512-coverage-factor}
+
+Because both $\hat{\sigma}_f$ and $\hat{\sigma}_p$ are mathematically nothing more than different scalings of $\hat{\sigma}$, and coverage factors from the $t$ distribution only depend on the amount of data available for estimating $\hat{\sigma}$, the coverage factors are the same for confidence and prediction intervals. Combining the coverage factor and the standard deviation of the prediction, the formula for constructing prediction intervals is given by
+
+$$ \hat{y} \pm t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_p $$
+
+As with the [computation of confidence intervals](#sec-pmd-511-computing), some software may provide the total uncertainty for the prediction interval given the equation above, or may provide the lower and upper prediction bounds. As suggested before, however, it is a good idea to test the software on an example for which prediction limits are already available to make sure that the software is computing the expected type of intervals.
+
+[**Prediction Intervals for the Example Applications**]{#sec-pmd-512-example-tables}
+
+Computing prediction intervals for the measured pressure in the Pressure/Temperature example, at temperatures of 25, 45, and 65, and for the measured torque on specimens from the polymer relaxation example at different times and temperatures, gives the results listed in the tables below.
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pressure_temp <- read_table(
+  here::here("datasets", "MODEL-4_4_4.DAT"),
+  skip = 2,
+  col_names = c("run_order", "day", "ambient_temp", "temperature", "pressure", "fitted_nist", "residual_nist"),
+  col_types = "iiddddd"
+)
+pt_fit <- lm(pressure ~ temperature, data = pressure_temp)
+
+pt_pi <- predict(pt_fit, data.frame(temperature = c(25, 45, 65)), interval = "prediction", level = 0.95, se.fit = TRUE)
+sigma_hat <- pt_pi$residual.scale
+sigma_f <- pt_pi$se.fit
+sigma_p <- sqrt(sigma_hat^2 + sigma_f^2)
+
+tibble(
+  temperature = c(25, 45, 65),
+  y_hat = pt_pi$fit[, "fit"],
+  sigma_hat = sigma_hat,
+  sigma_f = sigma_f,
+  sigma_p = sigma_p,
+  t_crit = qt(0.975, pt_pi$df),
+  half_width = t_crit * sigma_p,
+  lower_95 = pt_pi$fit[, "lwr"],
+  upper_95 = pt_pi$fit[, "upr"]
+)
+```
+
+```{r}
+#| code-fold: true
+pr1 <- read_table(
+  here::here("datasets", "PR1.DAT"),
+  skip = 25,
+  col_names = c("time", "temperature", "torque"),
+  col_types = "ddd"
+)
+pr1_fit <- nls(
+  torque ~ b0 + b1 * exp(-(time / (b2 + b4 * temperature + b5 * temperature^2))^b3),
+  data = pr1,
+  start = list(b0 = 5, b1 = 3, b2 = 17.3, b4 = -0.73, b5 = 0.024, b3 = 1)
+)
+
+delta_se <- function(fit, newdata, eps = 1e-6) {
+  p <- coef(fit)
+  rhs <- formula(fit)[[3]]
+  eval_at <- function(par) eval(rhs, envir = as.list(c(par, newdata)))
+  base <- eval_at(p)
+  g <- numeric(length(p))
+  for (i in seq_along(p)) {
+    p_up <- p
+    p_up[i] <- p_up[i] + eps
+    p_dn <- p
+    p_dn[i] <- p_dn[i] - eps
+    g[i] <- (eval_at(p_up) - eval_at(p_dn)) / (2 * eps)
+  }
+  se_fit <- sqrt(as.numeric(t(g) %*% vcov(fit) %*% g))
+  c(fit = unname(base), se_fit = se_fit)
+}
+
+pr1_points <- tribble(
+  ~time, ~temperature,
+  20, 25,
+  80, 25,
+  20, 50,
+  80, 50,
+  20, 75,
+  80, 75
+)
+
+pr1_sigma_hat <- summary(pr1_fit)$sigma
+pr1_tcrit <- qt(0.975, summary(pr1_fit)$df[2])
+
+pr1_points |>
+  rowwise() |>
+  mutate(
+    result = list(delta_se(pr1_fit, list(time = time, temperature = temperature))),
+    y_hat = result["fit"],
+    sigma_hat = pr1_sigma_hat,
+    sigma_f = result["se_fit"],
+    sigma_p = sqrt(sigma_hat^2 + sigma_f^2),
+    t_crit = pr1_tcrit,
+    half_width = t_crit * sigma_p,
+    lower_95 = y_hat - half_width,
+    upper_95 = y_hat + half_width
+  ) |>
+  select(-result) |>
+  ungroup()
+```
+
+[**Interpretation of Prediction Intervals**]{#sec-pmd-512-interpretation}
+
+Simulation of many sets of data from a process model provides a good way to obtain a detailed understanding of the probabilistic nature of the prediction intervals. The main advantage of using simulation is that it allows direct comparison of how prediction intervals constructed from a limited amount of data relate to the measured values that are being estimated.
+
+::: {.callout-note}
+As on the [previous page](#sec-pmd-511-interpretation), the exact random number stream NIST used for this simulation is not available, so the specific data sets and count of intervals that fail to cover the new observation cannot be reproduced exactly. The simulation below uses the same [true generating line](#sec-pmd-431-quality), $y = 5 + 4x + \varepsilon$ with $\varepsilon \sim N(0, 5^2)$, with `set.seed()` for reproducibility.
+:::
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-512-pi-simulation
+#| fig-cap: "95% prediction intervals for a newly observed pressure at a temperature of 65, computed from 50 independently simulated data sets, with the newly observed value marked by an X"
+true_beta0 <- 5
+true_beta1 <- 4
+true_sigma <- 5
+target_temperature <- 65
+true_value <- true_beta0 + true_beta1 * target_temperature
+
+simulate_pi <- function(seed, n = 40) {
+  set.seed(seed)
+  x <- 20 + 50 * runif(n)
+  y <- true_beta0 + true_beta1 * x + rnorm(n, 0, true_sigma)
+  fit <- lm(y ~ x)
+  pi <- predict(fit, data.frame(x = target_temperature), interval = "prediction", level = 0.95)
+  new_observation <- true_beta0 + true_beta1 * target_temperature + rnorm(1, 0, true_sigma)
+  tibble(estimate = pi[, "fit"], lower = pi[, "lwr"], upper = pi[, "upr"], new_observation = new_observation)
+}
+
+sim_50_pi <- map(1:50, simulate_pi) |>
+  list_rbind(names_to = "data_set") |>
+  mutate(
+    data_set = as.integer(data_set),
+    covers = lower <= new_observation & new_observation <= upper
+  )
+
+max_deviation <- max(abs(c(sim_50_pi$lower, sim_50_pi$upper, sim_50_pi$new_observation) - true_value))
+y_step <- 3
+y_steps_out <- ceiling(max_deviation / y_step)
+y_breaks <- true_value + seq(-y_steps_out, y_steps_out) * y_step
+
+ggplot(sim_50_pi, aes(data_set, estimate)) +
+  geom_hline(yintercept = true_value, linetype = "dashed", color = "grey40") +
+  geom_errorbar(aes(ymin = lower, ymax = upper, color = covers), width = 0) +
+  geom_point(aes(color = covers)) +
+  geom_point(aes(y = new_observation, shape = "New observation"), color = "black") +
+  scale_color_manual(
+    values = c(`TRUE` = "steelblue", `FALSE` = "firebrick"),
+    labels = c(`TRUE` = "Covers new observation", `FALSE` = "Does not cover new observation")
+  ) +
+  scale_shape_manual(values = c(`New observation` = 4)) +
+  scale_y_continuous(breaks = y_breaks, minor_breaks = seq(min(y_breaks), max(y_breaks), by = 1), limits = range(y_breaks)) +
+  labs(x = "Data Set", y = "Estimated Average Pressure", color = NULL, shape = NULL) +
+  theme_light() +
+  theme(legend.position = "top")
+```
+
+```{r}
+#| code-fold: true
+sum(sim_50_pi$covers)
+```
+
+[**Confidence Level Specifies Long-Run Interval Coverage**]{#sec-pmd-512-long-run}
+
+From the plot it is easy to see that not all of the intervals contain the pressure values observed after the prediction was made. However, close to 95% of the simulated data sets produce prediction intervals that do capture the newly observed measurement. Repeating the simulation with many more data sets shows this coverage rate holding up in the long run.
+
+```{r}
+#| code-fold: true
+coverage_rate_pi <- function(n_datasets) {
+  mean(map_lgl(1:n_datasets, function(seed) {
+    set.seed(seed + 200000)
+    x <- 20 + 50 * runif(40)
+    y <- true_beta0 + true_beta1 * x + rnorm(40, 0, true_sigma)
+    fit <- lm(y ~ x)
+    pi <- predict(fit, data.frame(x = target_temperature), interval = "prediction", level = 0.95)
+    new_observation <- true_beta0 + true_beta1 * target_temperature + rnorm(1, 0, true_sigma)
+    pi[, "lwr"] <= new_observation & new_observation <= pi[, "upr"]
+  }))
+}
+
+c(n_5000 = coverage_rate_pi(5000), n_10000 = coverage_rate_pi(10000))
+```
+
+Thus, the simulation shows that although any particular prediction interval might not cover its associated new measurement, in repeated experiments this method produces intervals that contain the new measurements at close to the rate specified by the user as the confidence level.
+
+[**Comparison with Confidence Intervals**]{#sec-pmd-512-comparison}
+
+It is also interesting to compare these results to the [analogous results for confidence intervals](#sec-pmd-511-interpretation). Clearly the most striking difference between the two plots is in the sizes of the uncertainties. The uncertainties for the prediction intervals are much larger because they must include the standard deviation of a single new measurement, as well as the standard deviation of the estimated average response value. The standard deviation of the estimated average response value is lower because a lot of the random error that is in each measurement cancels out when the data are used to estimate the unknown parameters in the model. In fact, if as the sample size increases, the limit on the width of a confidence interval approaches zero while the limit on the width of the prediction interval as the sample size increases approaches $z_{1-\alpha/2} \, \hat{\sigma}$. Understanding the different types of intervals and the bounds on interval width can be important when planning an experiment that requires a result to have no more than a specified level of uncertainty to have engineering value.
+
+[**Interpretation Summary**]{#sec-pmd-512-summary}
+
+To summarize the interpretation of the probabilistic nature of confidence intervals in words: in independent, repeated experiments, $100(1-\alpha)\%$ of the intervals will be expected to cover their true values, given that the assumptions needed for the construction of the intervals hold.

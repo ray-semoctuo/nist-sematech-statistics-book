@@ -1,0 +1,9 @@
+### How can I use my process model for calibration? {#sec-pmd-52}
+
+[**Detailed Calibration Information**]{#sec-pmd-52-detailed}
+
+This section details some of the different types of calibrations that can be made using the various process models whose development was discussed in previous sections. Computational formulas or algorithms are given for each different type of calibration, along with simulation examples showing its probabilistic interpretation. An introduction to calibration can be found in [Section 4.1.3.2](#sec-pmd-132). A brief comparison of calibration versus the other uses of process models is given in [Section 4.1.3](#sec-pmd-13). Additional information on calibration is available in Section 3 of Chapter 2: Measurement Process Characterization.<!-- XREF: MPC Chapter 2, Measurement Process Characterization, calibration, section 3; source handbook/mpc/section3/mpc3.htm -->
+
+[**Calibration Procedures**]{#sec-pmd-52-procedures}
+
+1. [Single-Use Calibration Intervals](#sec-pmd-521)

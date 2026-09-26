@@ -1,0 +1,20 @@
+### How can I optimize my process using the process model? {#sec-pmd-53}
+
+[**Detailed Information on Process Optimization**]{#sec-pmd-53-detailed}
+
+Process optimization using models fit to data collected using response surface designs<!-- XREF: PRI Chapter 5, Process Improvement, response surface designs, not yet migrated to this book; source handbook/pri/section3/pri336.htm --> is primarily covered in Section 5.5.3<!-- XREF: PRI Chapter 5, Process Improvement, optimizing a process, not yet migrated to this book; source handbook/pri/section5/pri53.htm --> of Chapter 5: Process Improvement.<!-- XREF: PRI Chapter 5, Process Improvement, not yet migrated to this book; source handbook/pri/pri.htm --> In that section detailed information is given on how to determine the correct process inputs to hit a target output value or to maximize or minimize process output. Some background on the use of process models for optimization can be found in [Section 4.1.3.4](#sec-pmd-134) of this chapter, however, and information on the basic analysis of data from optimization experiments is covered along with that of other types of models in [Section 4.1](#sec-pmd-1) through [Section 4.4](#sec-pmd-4) of this chapter.
+
+[**Contents of Chapter 5 Section 5.5.3**]{#sec-pmd-53-contents}
+
+1. Optimizing a Process<!-- XREF: PRI section 5.5.3, Process Improvement, Optimizing a Process, not yet migrated to this book; source handbook/pri/section5/pri53.htm -->
+   1. Single response case<!-- XREF: PRI section 5.5.3.1, not yet migrated to this book; source handbook/pri/section5/pri531.htm -->
+      1. Path of steepest ascent<!-- XREF: PRI section 5.5.3.1.1, not yet migrated to this book; source handbook/pri/section5/pri5311.htm -->
+      2. Confidence region for search path<!-- XREF: PRI section 5.5.3.1.2, not yet migrated to this book; source handbook/pri/section5/pri5312.htm -->
+      3. Choosing the step length<!-- XREF: PRI section 5.5.3.1.3, not yet migrated to this book; source handbook/pri/section5/pri5313.htm -->
+      4. Optimization when there is adequate quadratic fit<!-- XREF: PRI section 5.5.3.1.4, not yet migrated to this book; source handbook/pri/section5/pri5314.htm -->
+      5. Effect of sampling error on optimal solution<!-- XREF: PRI section 5.5.3.1.5, not yet migrated to this book; source handbook/pri/section5/pri5315.htm -->
+      6. Optimization subject to experimental region constraints<!-- XREF: PRI section 5.5.3.1.6, not yet migrated to this book; source handbook/pri/section5/pri5316.htm -->
+   2. Multiple response case<!-- XREF: PRI section 5.5.3.2, not yet migrated to this book; source handbook/pri/section5/pri532.htm -->
+      1. Path of steepest ascent<!-- XREF: PRI section 5.5.3.2.1, not yet migrated to this book; source handbook/pri/section5/pri5321.htm -->
+      2. Desirability function approach<!-- XREF: PRI section 5.5.3.2.2, not yet migrated to this book; source handbook/pri/section5/pri5322.htm -->
+      3. Mathematical programming approach<!-- XREF: PRI section 5.5.3.2.3, not yet migrated to this book; source handbook/pri/section5/pri5323.htm -->

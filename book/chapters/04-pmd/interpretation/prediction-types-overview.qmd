@@ -1,0 +1,10 @@
+### What types of predictions can I make using the model? {#sec-pmd-51}
+
+[**Detailed Information on Prediction**]{#sec-pmd-51-detailed}
+
+This section details some of the different types of predictions that can be made using the various process models whose development is discussed in [Section 4.1](#sec-pmd-1) through [Section 4.4](#sec-pmd-4). Computational formulas or algorithms are given for each different type of estimation or prediction, along with simulation examples showing its probabilistic interpretation. An introduction to the different types of estimation and prediction can be found in [Section 4.1.3.1](#sec-pmd-131). A brief description of estimation and prediction versus the other uses of process models is given in [Section 4.1.3](#sec-pmd-13).
+
+[**Different Types of Predictions**]{#sec-pmd-51-types}
+
+1. [How do I estimate the average response for a particular set of predictor variable values?](#sec-pmd-511)
+2. [How can I predict the value and estimate the uncertainty of a single response?](#sec-pmd-512)
