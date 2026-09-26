@@ -1,0 +1,39 @@
+#### Work This Example Yourself {#sec-pmd-6111}
+
+NIST's original page for this section offers a Dataplot-driven, click-through walkthrough of the case study, running each analysis step interactively in Dataplot. Since this book reproduces the entire analysis directly in executable R throughout the preceding sections, working the example yourself is a matter of re-running the R code shown in each subsection with the [downloaded data](../../datasets/PONTIUS.DAT), rather than stepping through a separate macro-driven tool:
+
+1. [Plot the data](#sec-pmd-612-plot) to select an initial model.
+2. [Fit the straight-line model](#sec-pmd-613-results) and check it with the [overlay plot](#sec-pmd-614-misleading), the [residuals versus load and predicted values](#sec-pmd-614-hidden-structure), and the [4-plot](#sec-pmd-614-4plot).
+3. [Fit the quadratic model](#sec-pmd-617-quadratic-fit) suggested by the residual structure, and confirm the improved fit with the [residual plots](#sec-pmd-618-fits-well) and [4-plot](#sec-pmd-618-no-problems).
+4. Use the fitted quadratic model for [calibration](#sec-pmd-6110-numerical), including the [calibration confidence interval](#sec-pmd-6110-uncertainty).
+
+Each step's code chunk in this book is self-contained and can be copied into an R session (with the `tidyverse` and `patchwork` packages loaded) to reproduce that step's output directly.
+
+[**Summary of the Analysis**]{#sec-pmd-6111-summary}
+
+NIST's original page for this section presents the case study as a table of clickable Dataplot macros. The table below reproduces the same step-by-step structure and its results and conclusions, without the Dataplot links, as a summary of the full analysis.
+
+| Data Analysis Steps | Results and Conclusions |
+|---|---|
+| **1. Get set up and started.** | |
+| Read in the data. | Two columns of numbers, `deflection` and `load`. |
+| **2. Fit and validate initial model.** | |
+| Plot deflection vs. load. | Based on the plot, a straight-line model should describe the data well. |
+| Fit a straight-line model to the data. | The straight-line fit was carried out. Before trying to interpret the numerical output, do a graphical residual analysis. |
+| Plot the predicted values from the model and the data on the same plot. | The superposition of the predicted and observed values suggests the model is ok. |
+| Plot the residuals vs. load. | The residuals are not random, indicating that a straight line is not adequate. |
+| Plot the residuals vs. the predicted values. | This plot echoes the information in the previous plot. |
+| Make a 4-plot of the residuals. | All four plots indicate problems with the model. |
+| Refer to the numerical output from the fit. | The large lack-of-fit F statistic (>214) confirms that the straight-line model is inadequate. |
+| **3. Fit and validate refined model.** | |
+| Refer to the plot of the residuals vs. load. | The structure in the plot indicates a quadratic model would better describe the data. |
+| Fit a quadratic model to the data. | The quadratic fit was carried out. Remember to do the graphical residual analysis before trying to interpret the numerical output. |
+| Plot the predicted values from the model and the data on the same plot. | The superposition of the predicted and observed values again suggests the model is ok. |
+| Plot the residuals vs. load. | The residuals appear random, suggesting the quadratic model is ok. |
+| Plot the residuals vs. the predicted values. | The plot of the residuals vs. the predicted values also suggests the quadratic model is ok. |
+| Do a 4-plot of the residuals. | None of these plots indicates a problem with the model. |
+| Refer to the numerical output from the fit. | The small lack-of-fit F statistic (<1) confirms that the quadratic model fits the data. |
+| **4. Use the model to make a calibrated measurement.** | |
+| Observe a new deflection value. | The new deflection is associated with an unobserved and unknown load. |
+| Determine the associated load. | Solving the calibration equation yields the load value without having to observe it. |
+| Compute the uncertainty of the load estimate. | Computing a confidence interval for the load value lets us judge the range of plausible load values, since we know measurement noise affects the process. |

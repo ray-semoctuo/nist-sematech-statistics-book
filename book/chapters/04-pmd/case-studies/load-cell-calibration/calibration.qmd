@@ -1,0 +1,115 @@
+#### Use of the Model for Calibration {#sec-pmd-6110}
+
+[**Using the Model**]{#sec-pmd-6110-using-model}
+
+Now that a good model has been found for these data, it can be used to estimate load values for new measurements of deflection. For example, suppose a new deflection value of 1.239722 is observed. The regression function can be solved for load to determine an estimated load value without having to observe it directly. The plot below illustrates the calibration process graphically.
+
+[**Calibration**]{#sec-pmd-6110-calibration}
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-6110-calibration-illustration
+#| fig-cap: "Illustration of the calibration process: a new deflection of 1.239722 is converted to an estimated load"
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+) |>
+  mutate(load2 = load^2)
+
+fit2 <- lm(deflection ~ load + load2, data = pontius)
+
+new_deflection <- 1.239722
+estimated_load <- uniroot(
+  \(load) predict(fit2, newdata = data.frame(load = load, load2 = load^2)) - new_deflection,
+  c(min(pontius$load), max(pontius$load))
+)$root
+
+load_grid <- tibble(load = seq(min(pontius$load), max(pontius$load), length.out = 200)) |>
+  mutate(deflection = predict(fit2, newdata = data.frame(load = load, load2 = load^2)))
+
+ggplot(load_grid, aes(load, deflection)) +
+  geom_line(color = "black") +
+  annotate("segment",
+    x = estimated_load, xend = 0, y = new_deflection, yend = new_deflection,
+    arrow = arrow(length = unit(0.2, "cm"))
+  ) +
+  annotate("segment",
+    x = estimated_load, xend = estimated_load, y = 0, yend = new_deflection,
+    arrow = arrow(length = unit(0.2, "cm"))
+  ) +
+  annotate("text", x = 750000, y = new_deflection + 0.15, label = paste("Deflection =", new_deflection)) +
+  annotate("text", x = estimated_load - 90000, y = 0.7, label = "Load = ???", angle = 90) +
+  labs(x = "Load", y = "Deflection") +
+  theme_light()
+```
+
+[**Finding Bounds on the Load**]{#sec-pmd-6110-bounds}
+
+From the plot, it is clear that the load that produced the deflection of 1.239722 should be about 1,750,000, and would certainly lie between 1,500,000 and 2,000,000. This rough estimate of the possible load range will be used to compute the load estimate numerically.
+
+[**Obtaining a Numerical Calibration Value**]{#sec-pmd-6110-numerical}
+
+To solve for the numerical estimate of the load associated with the observed deflection, the observed value substituting in the regression function and the equation is solved for load. Typically this will be done using a root finding procedure in a statistical or mathematical package. That is one reason why rough bounds on the value of the load to be estimated are needed.
+
+$$ \begin{eqnarray}
+   1.239722 & = & 0.673618\times10^{-3}  \\
+         & + & (0.732059\times10^{-6})L  \\
+         & - & (0.316081\times10^{-14})L^2  \\
+         &  \Downarrow & \\
+      L  & = &  1705106
+\end{eqnarray} $$
+
+```{r}
+#| code-fold: true
+estimated_load
+```
+
+[**Which Solution?**]{#sec-pmd-6110-which-solution}
+
+Even though the rough estimate of the load associated with an observed deflection is not necessary to solve the equation, the other reason is to determine which solution to the equation is correct, if there are multiple solutions. The quadratic calibration equation, in fact, has two solutions. As we saw from the plot above, however, there is really no confusion over which root of the quadratic function is the correct load. Essentially, the load value must be between 150,000 and 3,000,000 for this problem. The other root of the regression equation and the new deflection value correspond to a load of over 229,899,600. Looking at the data at hand, it is safe to assume that a load of 229,899,600 would yield a deflection much greater than 1.24.
+
+[**+/- What?**]{#sec-pmd-6110-uncertainty}
+
+The final step in the calibration process, after determining the estimated load associated with the observed deflection, is to compute an uncertainty or confidence interval for the load. A [single-use 95% confidence interval](#sec-pmd-51) for the load, is obtained by inverting the formulas for the upper and lower bounds of a [95% prediction interval](#sec-pmd-512) for a new deflection value. These inequalities, shown below, are usually solved numerically, just as the calibration equation was, to find the end points of the confidence interval. For some models, including this one, the solution could actually be obtained algebraically, but it is easier to let the computer do the work using a generic algorithm.
+
+$$ \begin{eqnarray}
+1.239722 & > & f(L;\hat{\vec{\beta}}) + t_{0.975,37} \cdot \hat{\sigma}_p \\
+         &   \Downarrow & \\
+      L  & > & 1704513
+\end{eqnarray} $$
+
+$$ \begin{eqnarray}
+1.239722 & < & f(L;\hat{\vec{\beta}}) - t_{0.975,37} \cdot \hat{\sigma}_p \\
+         &   \Downarrow & \\
+      L  & < & 1705697
+\end{eqnarray} $$
+
+```{r}
+#| code-fold: true
+sigma_p_at <- function(load) {
+  p <- predict(fit2, newdata = data.frame(load = load, load2 = load^2), se.fit = TRUE)
+  sqrt(summary(fit2)$sigma^2 + p$se.fit^2)
+}
+tval <- qt(0.975, df.residual(fit2))
+
+lower_load <- uniroot(
+  \(load) new_deflection - (predict(fit2, newdata = data.frame(load = load, load2 = load^2)) + tval * sigma_p_at(load)),
+  c(min(pontius$load), max(pontius$load))
+)$root
+
+upper_load <- uniroot(
+  \(load) new_deflection - (predict(fit2, newdata = data.frame(load = load, load2 = load^2)) - tval * sigma_p_at(load)),
+  c(min(pontius$load), max(pontius$load))
+)$root
+
+c(lower = lower_load, estimate = estimated_load, upper = upper_load)
+```
+
+The three terms on the right-hand side of each inequality are the regression function ($f$), a $t$-distribution multiplier, and the standard deviation of a new measurement from the process ($\hat{\sigma}_p$). Regression software often provides convenient methods for computing these quantities for arbitrary values of the predictor variables, which can make computation of the confidence interval end points easier. Although this interval is not symmetric mathematically, the asymmetry is very small, so for all practical purposes, the interval can be written as
+
+$$ 1705106 \pm 593 $$
+
+if desired.

@@ -1,0 +1,16 @@
+## Case Studies in Process Modeling {#sec-pmd-6}
+
+[**Detailed, Realistic Examples**]{#sec-pmd-6-overview}
+
+The general points of the first five sections are illustrated in this section using data from physical science and engineering applications. Each example is presented step-by-step in the text and is often cross-linked with the relevant sections of the chapter describing the analysis in general. Each analysis can also be repeated using a worksheet linked to the appropriate Dataplot macros. The worksheet is also linked to the step-by-step analysis presented in the text for easy reference.
+
+::: {.callout-note}
+This book does not use Dataplot. Instead, every step of each case study below is reproduced with executable R code shown inline in the text, so working through a case study is a matter of reading and re-running the code in place rather than following a separate worksheet.
+:::
+
+1. [Load Cell Calibration](#sec-pmd-61)
+2. [Alaska Pipeline Ultrasonic Calibration](#sec-pmd-62)
+3. [Ultrasonic Reference Block Study](#sec-pmd-63)
+4. [Thermal Expansion of Copper Case Study](#sec-pmd-64)
+
+{{< include case-studies/load-cell-calibration/index.qmd >}}

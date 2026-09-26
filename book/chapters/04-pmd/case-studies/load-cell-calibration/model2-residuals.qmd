@@ -1,0 +1,103 @@
+#### Graphical Residual Analysis - Model #2 {#sec-pmd-618}
+
+The data with a quadratic estimated regression function and the residual plots are shown below.
+
+[**Compare to Initial Model**]{#sec-pmd-618-compare}
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-618-overlay
+#| fig-cap: "Load cell data overlaid with the fitted quadratic model"
+library(patchwork)
+
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+) |>
+  mutate(load2 = load^2)
+
+fit2 <- lm(deflection ~ load + load2, data = pontius)
+pontius <- pontius |> mutate(residual2 = resid(fit2), fitted2 = fitted(fit2))
+
+ggplot(pontius, aes(load, deflection)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fitted2), color = "firebrick") +
+  labs(x = "Load", y = "Deflection") +
+  theme_light()
+```
+
+This plot is almost identical to the analogous plot for the straight-line model, again illustrating the lack of detail in the plot due to the scale. In this case, however, the residual plots will show that the model does fit well.
+
+[**Plot Indicates Model Fits Well**]{#sec-pmd-618-fits-well}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-618-residuals-vs-load
+#| fig-cap: "Residuals versus load for the quadratic model"
+ggplot(pontius, aes(load, residual2)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Load", y = "Residuals") +
+  theme_light()
+```
+
+The residuals randomly scattered around zero, indicate that the quadratic is a good function to describe these data. There is also no indication of non-constant variability over the range of loads.
+
+[**Plot Also Indicates Model OK**]{#sec-pmd-618-model-ok}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-618-residuals-vs-predicted
+#| fig-cap: "Residuals versus predicted deflection for the quadratic model"
+ggplot(pontius, aes(fitted2, residual2)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Predicted Values from Quadratic Model", y = "Residuals") +
+  theme_light()
+```
+
+This plot also looks good. There is no evidence of changes in variability across the range of deflection.
+
+[**No Problems Indicated**]{#sec-pmd-618-no-problems}
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-618-fourplot
+#| fig-cap: "4-plot of the residuals from the quadratic model"
+four_plot <- function(residual) {
+  d <- tibble(residual = residual) |>
+    mutate(order = row_number(), lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(order, residual)) +
+    geom_line(color = "grey40") +
+    geom_point(color = "steelblue") +
+    labs(x = "Sequence", y = "Residual", title = "Run Sequence Plot") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 10, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2) / (p3 + p4)
+}
+
+four_plot(pontius$residual2)
+```
+
+All of these residual plots have become satisfactory by simply by changing the functional form of the model. There is no evidence in the run order plot of any time dependence in the measurement process, and the lag plot suggests that the errors are independent. The histogram and normal probability plot suggest that the random errors affecting the measurement process are normally distributed.

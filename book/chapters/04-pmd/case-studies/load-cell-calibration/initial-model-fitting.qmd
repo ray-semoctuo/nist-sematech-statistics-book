@@ -1,0 +1,31 @@
+#### Model Fitting - Initial Model {#sec-pmd-613}
+
+[**Least Squares Estimation**]{#sec-pmd-613-least-squares}
+
+Using software for computing [least squares](#sec-pmd-431) parameter estimates, the straight-line model,
+
+$$ D = \beta_0 + \beta_1L + \varepsilon \, ,$$
+
+is easily fit to the data. The regression results are shown below. Before trying to interpret all of the numerical output, however, it is critical to check that the assumptions underlying the parameter estimation are met reasonably well. The next two sections show how the underlying assumptions about the data and model are checked using graphical and numerical methods.
+
+[**Regression Results**]{#sec-pmd-613-results}
+
+```{r}
+#| code-fold: true
+#| message: false
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+)
+
+fit1 <- lm(deflection ~ load, data = pontius)
+summary(fit1)
+```
+
+```{r}
+#| code-fold: true
+lof <- lm(deflection ~ factor(load), data = pontius)
+anova(fit1, lof)
+```

@@ -1,0 +1,47 @@
+#### Interpretation of Numerical Output - Model #2 {#sec-pmd-619}
+
+[**Quadratic Confirmed**]{#sec-pmd-619-confirmed}
+
+The numerical results from the fit are shown below. For the quadratic model, the lack-of-fit test statistic is 0.8107. The fact that the test statistic is approximately one indicates there is no evidence to support a claim that the functional part of the model does not fit the data. The test statistic would have had to have been greater than 2.17 to reject the hypothesis that the quadratic model is correct at the 0.05 significance level.
+
+[**Regression Results**]{#sec-pmd-619-results}
+
+```{r}
+#| code-fold: true
+#| message: false
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+) |>
+  mutate(load2 = load^2)
+
+fit2 <- lm(deflection ~ load + load2, data = pontius)
+lof <- lm(deflection ~ factor(load), data = pontius)
+
+summary(fit2)
+anova(fit2, lof)
+```
+
+```{r}
+#| code-fold: true
+qf(0.95, 17, 20)
+```
+
+[**Regression Function**]{#sec-pmd-619-regression-function}
+
+From the numerical output, we can also find the regression function that will be used for the calibration. The function, with its estimated parameters, is
+
+$$ \begin{eqnarray}
+\hat{D} = f(L;\hat{\vec{\beta}}) & = & 0.673618\times10^{-3}  \\
+                          & + & (0.732059\times10^{-6})L  \\
+                          & - & (0.316081\times10^{-14})L^2
+\end{eqnarray} $$
+
+All of the parameters are significantly different from zero, as indicated by the associated $t$ statistics. The critical value for the $t$ distribution with 37 degrees of freedom and $1-\alpha/2 = 0.975$ is 2.026. Since all of the $t$ values are well above this critical value, we can safely conclude that none of the estimated parameters is equal to zero.
+
+```{r}
+#| code-fold: true
+qt(0.975, 37)
+```

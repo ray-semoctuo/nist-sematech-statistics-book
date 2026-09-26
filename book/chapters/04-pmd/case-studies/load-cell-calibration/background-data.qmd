@@ -1,0 +1,26 @@
+#### Background & Data {#sec-pmd-611}
+
+[**Description of Data Collection**]{#sec-pmd-611-collection}
+
+The data collected in the calibration experiment consisted of a known load, applied to the load cell, and the corresponding deflection of the cell from its nominal position. Forty measurements were made over a range of loads from 150,000 to 3,000,000 units. The data were collected in two sets in order of increasing load. The systematic run order makes it difficult to determine whether or not there was any drift in the load cell or measuring equipment over time. Assuming there is no drift, however, the experiment should provide a good description of the relationship between the load applied to the cell and its response.
+
+[**Software**]{#sec-pmd-611-software}
+
+The analyses used in this case study can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/pmd/section6/pmd611.dp --> The R code reproduced throughout this case study follows NIST's own reference R script for it. The reader can download the data as a [text file](../../datasets/PONTIUS.DAT).
+
+[**Resulting Data**]{#sec-pmd-611-data}
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+)
+
+pontius
+```

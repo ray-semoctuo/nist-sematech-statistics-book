@@ -1,0 +1,27 @@
+#### Selection of Initial Model {#sec-pmd-612}
+
+[**Start Simple**]{#sec-pmd-612-start-simple}
+
+The first step in analyzing the data is to select a candidate model. In the case of a measurement system like this one, a fairly simple function should describe the relationship between the load and the response of the load cell. One of the hallmarks of an effective measurement system is a straightforward link between the instrumental response and the property being quantified.
+
+[**Plot the Data**]{#sec-pmd-612-plot}
+
+Plotting the data indicates that the hypothesized, simple relationship between load and deflection is reasonable. The plot below shows the data. It indicates that a straight-line model is likely to fit the data. It does not indicate any other problems, such as presence of outliers or nonconstant standard deviation of the response.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-612-initial-model
+#| fig-cap: "Load cell data: a straight-line model looks appropriate"
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+)
+
+ggplot(pontius, aes(load, deflection)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Load", y = "Deflection") +
+  theme_light()
+```

@@ -1,0 +1,32 @@
+#### Model Fitting - Model #2 {#sec-pmd-617}
+
+[**New Function**]{#sec-pmd-617-new-function}
+
+Based on the residual plots, the function used to describe the data should be the quadratic polynomial,
+
+$$ D = \beta_0 + \beta_1L + \beta_2L^2 + \varepsilon \, . $$
+
+The regression results are shown below. As for the straight-line model, however, it is important to check that the assumptions underlying the parameter estimation are met before trying to interpret the numerical output. The steps used to complete the graphical residual analysis are essentially identical to those used for the previous model.
+
+[**Quadratic Fit**]{#sec-pmd-617-quadratic-fit}
+
+```{r}
+#| code-fold: true
+#| message: false
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+) |>
+  mutate(load2 = load^2)
+
+fit2 <- lm(deflection ~ load + load2, data = pontius)
+summary(fit2)
+```
+
+```{r}
+#| code-fold: true
+lof <- lm(deflection ~ factor(load), data = pontius)
+anova(fit2, lof)
+```

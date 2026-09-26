@@ -1,0 +1,39 @@
+### Load Cell Calibration {#sec-pmd-61}
+
+[**Quadratic Calibration**]{#sec-pmd-61-overview}
+
+This example illustrates the construction of a linear regression model for load cell data that relates a known load applied to a load cell to the deflection of the cell. The model is then used to calibrate future cell readings associated with loads of unknown magnitude.
+
+1. [Background & Data](#sec-pmd-611)
+2. [Selection of Initial Model](#sec-pmd-612)
+3. [Model Fitting - Initial Model](#sec-pmd-613)
+4. [Graphical Residual Analysis - Initial Model](#sec-pmd-614)
+5. [Interpretation of Numerical Output - Initial Model](#sec-pmd-615)
+6. [Model Refinement](#sec-pmd-616)
+7. [Model Fitting - Model #2](#sec-pmd-617)
+8. [Graphical Residual Analysis - Model #2](#sec-pmd-618)
+9. [Interpretation of Numerical Output - Model #2](#sec-pmd-619)
+10. [Use of the Model for Calibration](#sec-pmd-6110)
+11. [Work This Example Yourself](#sec-pmd-6111)
+
+{{< include case-studies/load-cell-calibration/background-data.qmd >}}
+
+{{< include case-studies/load-cell-calibration/initial-model-selection.qmd >}}
+
+{{< include case-studies/load-cell-calibration/initial-model-fitting.qmd >}}
+
+{{< include case-studies/load-cell-calibration/initial-model-residuals.qmd >}}
+
+{{< include case-studies/load-cell-calibration/initial-model-interpretation.qmd >}}
+
+{{< include case-studies/load-cell-calibration/model-refinement.qmd >}}
+
+{{< include case-studies/load-cell-calibration/model2-fitting.qmd >}}
+
+{{< include case-studies/load-cell-calibration/model2-residuals.qmd >}}
+
+{{< include case-studies/load-cell-calibration/model2-interpretation.qmd >}}
+
+{{< include case-studies/load-cell-calibration/calibration.qmd >}}
+
+{{< include case-studies/load-cell-calibration/work-yourself.qmd >}}

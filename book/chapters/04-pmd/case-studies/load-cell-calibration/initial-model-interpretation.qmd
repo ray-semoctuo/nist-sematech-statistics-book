@@ -1,0 +1,32 @@
+#### Interpretation of Numerical Output - Initial Model {#sec-pmd-615}
+
+[**Lack-of-Fit Statistic Interpretable**]{#sec-pmd-615-lof}
+
+The fact that the residual plots clearly indicate a problem with the specification of the function describing the systematic variation in the data means that there is little point in looking at most of the numerical results from the fit. However, since there are replicate measurements in the data, the [lack-of-fit test](#sec-pmd-446) can also be used as part of the model validation. The numerical results of the fit are shown below.
+
+[**Regression Results**]{#sec-pmd-615-results}
+
+```{r}
+#| code-fold: true
+#| message: false
+pontius <- read_table(
+  here::here("datasets", "PONTIUS.DAT"),
+  skip = 25,
+  col_names = c("deflection", "load"),
+  col_types = "dd"
+)
+fit1 <- lm(deflection ~ load, data = pontius)
+lof <- lm(deflection ~ factor(load), data = pontius)
+
+summary(fit1)
+anova(fit1, lof)
+```
+
+[**Function Incorrect**]{#sec-pmd-615-function-incorrect}
+
+The lack-of-fit test statistic, 214.7464, clearly indicates that the functional part of the model is not right. The critical value for a test having a significance level of 0.05 is 2.15. Any value greater than the critical value indicates that the hypothesis of a straight-line model for this data should be rejected.
+
+```{r}
+#| code-fold: true
+qf(0.95, 18, 20)
+```

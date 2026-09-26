@@ -1,0 +1,9 @@
+#### Model Refinement {#sec-pmd-616}
+
+After ruling out the straight line model for these data, the next task is to decide what function would better describe the systematic variation in the data.
+
+Reviewing the plots of the residuals versus all potential predictor variables can offer insight into selection of a new model, just as a plot of the data can aid in selection of an initial model. Iterating through a series of models selected in this way will often lead to a function that describes the data well.
+
+[**Residual Structure Indicates Quadratic**]{#sec-pmd-616-indicates-quadratic}
+
+The horseshoe-shaped structure in the plot of the residuals versus load, shown again in @fig-pmd-614-residuals-vs-load, suggests that a quadratic polynomial might fit the data well. Since that is also the simplest polynomial model, after a straight line, it is the next function to consider.
