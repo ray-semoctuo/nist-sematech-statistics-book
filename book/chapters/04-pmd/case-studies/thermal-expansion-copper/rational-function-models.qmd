@@ -1,0 +1,84 @@
+#### Rational Function Models {#sec-pmd-642}
+
+Before proceeding with the case study, some explanation of rational function models is required.
+
+[**Polynomial Functions**]{#sec-pmd-642-polynomial-functions}
+
+A polynomial function is one that has the form,
+
+$$f(x) = a_n x^n + a_{n-1} x^{n-1} + \ldots + a_2 x^2 + a_1 x + a_0 \, ,$$
+
+with $n$ denoting a non-negative integer that defines the degree of the polynomial. A polynomial with a degree of 0 is simply a constant, with a degree of 1 is a line, with a degree of 2 is a quadratic, with a degree of 3 is a cubic, and so on.
+
+[**Rational Functions**]{#sec-pmd-642-rational-functions}
+
+A rational function is simply the ratio of two polynomial functions,
+
+$$f(x) = \frac{a_n x^n + a_{n-1} x^{n-1} + \ldots + a_2 x^2 + a_1 x + a_0}{b_m x^m + b_{m-1} x^{m-1} + \ldots + b_2 x^2 + b_1 x + b_0} \, ,$$
+
+with $n$ denoting a non-negative integer that defines the degree of the numerator and $m$ is a non-negative integer that defines the degree of the denominator. For fitting rational function models, the constant term in the denominator is usually set to 1.
+
+Rational functions are typically identified by the degrees of the numerator and denominator. For example, a quadratic for the numerator and a cubic for the denominator is identified as a quadratic/cubic rational function. The [graphs of some common rational functions](#sec-pmd-8)<!-- XREF: PMD section 4.8.1.4, Some Useful Functions for Process Modeling, rational function graphs, not yet drafted; source handbook/pmd/section8/pmd814.htm --> are shown in an appendix.
+
+[**Polynomial Models**]{#sec-pmd-642-polynomial-models}
+
+Historically, polynomial models are among the most frequently used empirical models for fitting functions. These models are popular for the following reasons.
+
+- Polynomial models have a simple form.
+- Polynomial models have well known and understood properties.
+- Polynomial models have moderate flexibility of shapes.
+- Polynomial models are a closed family. Changes of location and scale in the raw data result in a polynomial model being mapped to a polynomial model. That is, polynomial models are not dependent on the underlying metric.
+- Polynomial models are computationally easy to use.
+
+However, polynomial models also have the following limitations.
+
+- Polynomial models have poor interpolatory properties. High-degree polynomials are notorious for oscillations between exact-fit values.
+- Polynomial models have poor extrapolatory properties. Polynomials may provide good fits within the range of data, but they will frequently deteriorate rapidly outside the range of the data.
+- Polynomial models have poor asymptotic properties. By their nature, polynomials have a finite response for finite $x$ values and have an infinite response if and only if the $x$ value is infinite. Thus polynomials may not model asymptotic phenomena very well.
+- Polynomial models have a shape/degree tradeoff. In order to model data with a complicated structure, the degree of the model must be high, indicating and the associated number of parameters to be estimated will also be high. This can result in highly unstable models.
+
+[**Rational Function Models**]{#sec-pmd-642-rational-function-models}
+
+A rational function model is a generalization of the polynomial model. Rational function models contain polynomial models as a subset (i.e., the case when the denominator is a constant).
+
+If modeling via polynomial models is inadequate due to any of the limitations above, you should consider a rational function model.
+
+[**Advantages**]{#sec-pmd-642-advantages}
+
+Rational function models have the following advantages.
+
+- Rational function models have a moderately simple form.
+- Rational function models are a closed family. As with polynomial models, this means that rational function models are not dependent on the underlying metric.
+- Rational function models can take on an extremely wide range of shapes, accommodating a much wider range of shapes than does the polynomial family.
+- Rational function models have better interpolatory properties than polynomial models. Rational functions are typically smoother and less oscillatory than polynomial models.
+- Rational functions have excellent extrapolatory powers. Rational functions can typically be tailored to model the function not only within the domain of the data, but also so as to be in agreement with theoretical/asymptotic behavior outside the domain of interest.
+- Rational function models have excellent asymptotic properties. Rational functions can be either finite or infinite for finite values, or finite or infinite for infinite $x$ values. Thus, rational functions can easily be incorporated into a rational function model.
+- Rational function models can often be used to model complicated structure with a fairly low degree in both the numerator and denominator. This in turn means that fewer coefficients will be required compared to the polynomial model.
+- Rational function models are moderately easy to handle computationally. Although they are nonlinear models, rational function models are a particularly easy nonlinear models to fit.
+
+[**Disadvantages**]{#sec-pmd-642-disadvantages}
+
+Rational function models have the following disadvantages.
+
+- The properties of the rational function family are not as well known to engineers and scientists as are those of the polynomial family. The literature on the rational function family is also more limited. Because the properties of the family are often not well understood, it can be difficult to answer the following modeling question: given that data has a certain shape, what values should be chosen for the degree of the numerator and the degree on the denominator?
+- Unconstrained rational function fitting can, at times, result in undesired nuisance asymptotes (vertically) due to roots in the denominator polynomial. The range of $x$ values affected by the function "blowing up" may be quite narrow, but such asymptotes, when they occur, are a nuisance for local interpolation in the neighborhood of the asymptote point. These asymptotes are easy to detect by a simple plot of the fitted function over the range of the data. Such asymptotes should not discourage you from considering rational function models as a choice for empirical modeling. These nuisance asymptotes occur occasionally and unpredictably, but the gain in flexibility of shapes is well worth the chance that they may occur.
+
+[**Starting Values for Rational Function Models**]{#sec-pmd-642-starting}
+
+One common difficulty in fitting nonlinear models is finding adequate starting values. A major advantage of rational function models is the ability to compute starting values using a linear least squares fit.
+
+To do this, choose $p$ points from the data set, with $p$ denoting the number of parameters in the rational model. For example, given the linear/quadratic model,
+
+$$\frac{A_0 + A_1 x}{1 + B_1 x + B_2 x^2} \, ,$$
+
+we need to select four representative points. We then perform a linear fit on the model
+
+$$y = A_0 + A_1 x + \ldots + A_{p_n} x^{p_n} - B_1 xy - \ldots - B_{p_d} x^{p_d} y + \varepsilon \, .$$
+
+Here, $p_n$ and $p_d$ are the degrees of the numerator and denominator, respectively, and the $x$ and $y$ contain the subset of points, not the full data set. The estimated coefficients from this linear fit are used as the starting values for fitting the nonlinear model to the full data set.
+
+::: {.callout-note}
+This type of fit, with the response variable appearing on both sides of the function, should only be used to obtain starting values for the nonlinear fit. The statistical properties of fits like this are not well understood.
+:::
+
+The subset of points should be selected over the range of the data. It is not critical which points are selected, although you should avoid points that are obvious outliers.

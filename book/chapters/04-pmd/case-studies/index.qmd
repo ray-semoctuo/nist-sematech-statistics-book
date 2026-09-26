@@ -18,3 +18,5 @@ This book does not use Dataplot. Instead, every step of each case study below is
 {{< include case-studies/alaska-pipeline/index.qmd >}}
 
 {{< include case-studies/ultrasonic-reference-block/index.qmd >}}
+
+{{< include case-studies/thermal-expansion-copper/index.qmd >}}

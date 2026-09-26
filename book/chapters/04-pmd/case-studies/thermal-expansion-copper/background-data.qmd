@@ -1,0 +1,27 @@
+#### Background and Data {#sec-pmd-641}
+
+[**Description of the Data**]{#sec-pmd-641-collection}
+
+The response variable for this data set is the coefficient of thermal expansion for copper. The predictor variable is temperature in degrees kelvin. There were 236 data points collected.
+
+These data were provided by the NIST scientist Thomas Hahn.
+
+[**Software**]{#sec-pmd-641-software}
+
+The analyses used in this case study can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/pmd/section6/pmd641.dp --> The R code reproduced throughout this case study follows NIST's own reference R script for it. The reader can download the data as a [text file](../../datasets/HAHN1.DAT).
+
+[**Resulting Data**]{#sec-pmd-641-data}
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+hahn <- read_table(
+  here::here("datasets", "HAHN1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "thermal_expansion")
+)
+
+hahn
+```

@@ -1,0 +1,170 @@
+#### Cubic/Cubic Rational Function Model {#sec-pmd-645}
+
+[**C/C Rational Function Model**]{#sec-pmd-645-overview}
+
+Since the Q/Q model did not describe the data well, we next fit a cubic/cubic (C/C) rational function model.
+
+Based on the procedure described in [4.6.4.2](#sec-pmd-642-starting), we fit the model:
+
+$$y = A_0 + A_1 x + A_2 x^2 + A_3 x^3 - B_1 x - B_2 x^2 - B_3 x^3 + \varepsilon \, ,$$
+
+using the following seven representative points to generate the starting values for the C/C rational function.
+
+| Temp | THERMEXP |
+|---:|---:|
+| 10 | 0 |
+| 30 | 2 |
+| 40 | 3 |
+| 50 | 5 |
+| 120 | 12 |
+| 200 | 15 |
+| 800 | 20 |
+
+The coefficients from the preliminary linear fit of the seven points are:
+
+```{r}
+#| code-fold: true
+x <- c(10, 30, 40, 50, 120, 200, 800)
+y <- c(0, 2, 3, 5, 12, 15, 20)
+x2 <- x * x
+x3 <- x * x * x
+xy <- -x * y
+x2y <- -(x * x * y)
+x3y <- -(x * x * x * y)
+
+start_fit_cc <- lm(y ~ x + x2 + x3 + xy + x2y + x3y)
+coef(start_fit_cc)
+```
+
+[**Nonlinear Fit Output**]{#sec-pmd-645-fit}
+
+The results of fitting the C/C model are shown below.
+
+```{r}
+#| code-fold: true
+#| message: false
+hahn <- read_table(
+  here::here("datasets", "HAHN1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "thermal_expansion")
+)
+
+stc <- coef(start_fit_cc)
+
+fit_cc <- nls(
+  thermal_expansion ~ (a0 + a1 * temperature + a2 * temperature^2 + a3 * temperature^3) /
+    (1 + b1 * temperature + b2 * temperature^2 + b3 * temperature^3),
+  data = hahn,
+  start = list(
+    a0 = stc[1], a1 = stc[2], a2 = stc[3], a3 = stc[4],
+    b1 = stc[5], b2 = stc[6], b3 = stc[7]
+  )
+)
+
+summary(fit_cc)
+```
+
+::: {.callout-note}
+NIST's own page for this section reports slightly different standard errors and t-values for `a3` and `b3` than NIST's own reference R script produces when run (reproduced above): the page states `a3 = -1.42848e-06` (SE `2.610e-07`, t = -5.5) and `b3 = -1.23254e-07` (SE `1.217e-08`, t = -10.1), while the script's output gives `a3 = -1.426e-06` (SE `2.758e-07`, t = -5.172) and `b3 = -1.231e-07` (SE `1.303e-08`, t = -9.453). The point estimates agree; only the standard errors and t-values for these two coefficients differ, likely due to a different fitting routine (Dataplot vs. R) reaching the same optimum with slightly different numerical Jacobians. The overall conclusion -- that this model fits well -- is unaffected.
+:::
+
+The regression analysis yields the following estimated model.
+
+$$\hat y = \frac{1.079 - 0.122x + 0.004097x^2 - 0.00000143x^3}{1 - 0.00576x + 0.000241x^2 - 0.000000123x^3}$$
+
+[**Plot of C/C Rational Function Fit**]{#sec-pmd-645-predicted}
+
+We generate a plot of the fitted rational function model with the raw data.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-645-overlay
+#| fig-cap: "Thermal expansion of copper data overlaid with the C/C rational function fit"
+hahn <- hahn |> mutate(residual_cc = resid(fit_cc), fitted_cc = fitted(fit_cc))
+
+ggplot(hahn, aes(temperature, thermal_expansion)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fitted_cc), color = "firebrick") +
+  labs(x = "Temperature (K)", y = "Coefficient of Thermal Expansion") +
+  theme_light()
+```
+
+The fitted function with the raw data appears to show a reasonable fit.
+
+[**6-Plot for Model Validation**]{#sec-pmd-645-6plot}
+
+Although the plot of the fitted function with the raw data appears to show a reasonable fit, we need to validate the [model assumptions](#sec-pmd-21). The 6-plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, 6-Plot; source handbook/eda/section3/6plot.htm --> is an effective tool for this purpose.
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-645-6plot
+#| fig-cap: "6-plot for the C/C rational function fit"
+library(patchwork)
+
+six_plot <- function(x, y, residual, fitted) {
+  d <- tibble(x = x, y = y, residual = residual, fitted = fitted) |>
+    mutate(lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(x, y)) +
+    geom_point(color = "steelblue") +
+    geom_line(aes(y = fitted), color = "firebrick") +
+    labs(x = "Temperature (K)", y = "Coefficient of Thermal Expansion", title = "Data with Fit") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Temperature (K)", y = "Residual", title = "Residuals vs Temperature") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(fitted, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Predicted", y = "Residual", title = "Residuals vs Predicted") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p6 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+
+six_plot(hahn$temperature, hahn$thermal_expansion, hahn$residual_cc, hahn$fitted_cc)
+```
+
+The 6-plot indicates no significant violation of the model assumptions. That is, the errors appear to have constant location and scale (from the residual plot in row 1, column 2), seem to be random (from the lag plot in row 2, column 1), and approximated well by a normal distribution (from the histogram and normal probability plots in row 2, columns 2 and 3).
+
+[**Residual Plot**]{#sec-pmd-645-residuals}
+
+We generate a full-sized residual plot in order to show more detail.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-645-residuals
+#| fig-cap: "Residuals from the C/C rational function fit versus temperature"
+ggplot(hahn, aes(temperature, residual_cc)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Temperature (K)", y = "Residuals") +
+  theme_light()
+```
+
+The full-sized residual plot suggests that the assumptions of constant location and scale for the errors are valid. No distinguishing pattern is evident in the residuals.
+
+[**Conclusion**]{#sec-pmd-645-conclusion}
+
+We conclude that the cubic/cubic rational function model does in fact provide a satisfactory model for this data set.

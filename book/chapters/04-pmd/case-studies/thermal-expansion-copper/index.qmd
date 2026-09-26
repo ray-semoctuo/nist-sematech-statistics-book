@@ -1,0 +1,24 @@
+### Thermal Expansion of Copper Case Study {#sec-pmd-64}
+
+[**Rational Function Models**]{#sec-pmd-64-overview}
+
+This case study illustrates the use of a class of nonlinear models called rational function models. The data set used is the thermal expansion of copper related to temperature. This data set was provided by the NIST scientist Thomas Hahn.
+
+1. [Background and Data](#sec-pmd-641)
+2. [Rational Function Models](#sec-pmd-642)
+3. [Initial Plot of Data](#sec-pmd-643)
+4. [Fit Quadratic/Quadratic Model](#sec-pmd-644)
+5. [Fit Cubic/Cubic Model](#sec-pmd-645)
+6. [Work This Example Yourself](#sec-pmd-646)
+
+{{< include case-studies/thermal-expansion-copper/background-data.qmd >}}
+
+{{< include case-studies/thermal-expansion-copper/rational-function-models.qmd >}}
+
+{{< include case-studies/thermal-expansion-copper/initial-plot.qmd >}}
+
+{{< include case-studies/thermal-expansion-copper/quadratic-quadratic-model.qmd >}}
+
+{{< include case-studies/thermal-expansion-copper/cubic-cubic-model.qmd >}}
+
+{{< include case-studies/thermal-expansion-copper/work-yourself.qmd >}}

@@ -1,0 +1,24 @@
+#### Initial Plot of Data {#sec-pmd-643}
+
+[**Plot of Data**]{#sec-pmd-643-plot}
+
+The first step in fitting a nonlinear function is to simply plot the data.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-643-data
+#| fig-cap: "Coefficient of thermal expansion versus temperature"
+hahn <- read_table(
+  here::here("datasets", "HAHN1.DAT"),
+  skip = 25,
+  col_names = c("temperature", "thermal_expansion")
+)
+
+ggplot(hahn, aes(temperature, thermal_expansion)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Temperature (K)", y = "Coefficient of Thermal Expansion") +
+  theme_light()
+```
+
+This plot initially shows a fairly steep slope that levels off to a more gradual slope. This type of curve can often be modeled with a rational function model. The plot also indicates that there do not appear to be any outliers in this data.
