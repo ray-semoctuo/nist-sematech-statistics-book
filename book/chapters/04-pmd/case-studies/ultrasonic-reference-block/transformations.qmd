@@ -1,0 +1,188 @@
+#### Transformations to Improve Fit {#sec-pmd-633}
+
+[**Transformations**]{#sec-pmd-633-transformations}
+
+One approach to the problem of non-homogeneous variances is to apply transformations to the data.
+
+[**Plot of Common Transformations to Obtain Homogeneous Variances**]{#sec-pmd-633-ytransform}
+
+The first step is to try transformations of the response variable that will result in homogeneous variances. In practice, the square root, ln, and reciprocal transformations often work well for this purpose. We will try these first.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-633-response-transformations
+#| fig-cap: "Ultrasonic response versus metal distance in its original units and transformed by square root, natural log, and reciprocal"
+library(patchwork)
+
+chwirut <- read_table(
+  here::here("datasets", "CHWIRUT1.DAT"),
+  skip = 25,
+  col_names = c("response", "metal_distance")
+)
+
+p_orig <- ggplot(chwirut, aes(metal_distance, response)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Metal Distance", y = "Ultrasonic Response") +
+  theme_light()
+
+p_sqrt <- ggplot(chwirut, aes(metal_distance, sqrt(response))) +
+  geom_point(color = "steelblue") +
+  labs(x = "Metal Distance", y = "sqrt(Ultrasonic Response)") +
+  theme_light()
+
+p_ln <- ggplot(chwirut, aes(metal_distance, log(response))) +
+  geom_point(color = "steelblue") +
+  labs(x = "Metal Distance", y = "ln(Ultrasonic Response)") +
+  theme_light()
+
+p_inv <- ggplot(chwirut, aes(metal_distance, 1 / response)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Metal Distance", y = "1 / Ultrasonic Response") +
+  theme_light()
+
+(p_orig + p_sqrt) / (p_ln + p_inv)
+```
+
+In examining these four plots, we are looking for the plot that shows the most constant variability of the ultrasonic response across values of metal distance. Although the scales of these plots differ widely, which would seem to make comparisons difficult, we are not comparing the absolute levels of variability between plots here. Instead we are comparing only how constant the variation within each plot is for these four plots. The plot with the most constant variation will indicate which transformation is best. Based on constancy of the variation in the residuals, the square root transformation is probably the best transformation to use for this data.
+
+[**Plot of Common Transformations to Predictor Variable**]{#sec-pmd-633-xtransform}
+
+After transforming the response variable, it is often helpful to transform the predictor variable as well. In practice, the square root, ln, and reciprocal transformations often work well for this purpose. We will try these first.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-633-predictor-transformations
+#| fig-cap: "sqrt(Ultrasonic response) versus metal distance in its original units and transformed by square root, natural log, and reciprocal"
+p_sr_orig <- ggplot(chwirut, aes(metal_distance, sqrt(response))) +
+  geom_point(color = "steelblue") +
+  labs(x = "Metal Distance", y = "sqrt(Ultrasonic Response)") +
+  theme_light()
+
+p_sr_sqrt <- ggplot(chwirut, aes(sqrt(metal_distance), sqrt(response))) +
+  geom_point(color = "steelblue") +
+  labs(x = "sqrt(Metal Distance)", y = "sqrt(Ultrasonic Response)") +
+  theme_light()
+
+p_sr_ln <- ggplot(chwirut, aes(log(metal_distance), sqrt(response))) +
+  geom_point(color = "steelblue") +
+  labs(x = "ln(Metal Distance)", y = "sqrt(Ultrasonic Response)") +
+  theme_light()
+
+p_sr_inv <- ggplot(chwirut, aes(1 / metal_distance, sqrt(response))) +
+  geom_point(color = "steelblue") +
+  labs(x = "1 / Metal Distance", y = "sqrt(Ultrasonic Response)") +
+  theme_light()
+
+(p_sr_orig + p_sr_sqrt) / (p_sr_ln + p_sr_inv)
+```
+
+This plot shows that none of the proposed transformations offers an improvement over using the raw predictor variable.
+
+[**Square Root Fit**]{#sec-pmd-633-fit}
+
+Based on the above plots, we choose to fit a model with a square root transformation for the response variable and no transformation for the predictor variable.
+
+```{r}
+#| code-fold: true
+chwirut <- chwirut |> mutate(sqrt_response = sqrt(response))
+
+outs <- nls(
+  sqrt_response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1)
+)
+
+summary(outs)
+```
+
+Although the residual standard deviation is lower than it was for the original fit, we cannot compare them directly since the fits were performed on different scales.
+
+[**Plot of Predicted Values**]{#sec-pmd-633-predicted}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-633-overlay
+#| fig-cap: "Square-root transformed ultrasonic reference block data overlaid with the fitted model"
+chwirut <- chwirut |> mutate(residuals_t = resid(outs), fitted_t = fitted(outs))
+
+ggplot(chwirut, aes(metal_distance, sqrt_response)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fitted_t), color = "firebrick") +
+  labs(x = "Metal Distance", y = "sqrt(Ultrasonic Response)") +
+  theme_light()
+```
+
+The plot of the predicted values with the transformed data indicates a good fit. The fitted model is
+
+$$\widehat{\sqrt{y}} = \frac{e^{-0.015 x}}{0.0807 + 0.0639 x}$$
+
+[**6-Plot of Fit**]{#sec-pmd-633-6plot}
+
+Since we transformed the data, we need to check that all of the regression assumptions are now valid.
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-633-6plot
+#| fig-cap: "6-plot for the square-root transformed fit"
+six_plot <- function(x, y, residual, fitted, ylab) {
+  d <- tibble(x = x, y = y, residual = residual, fitted = fitted) |>
+    mutate(lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(x, y)) +
+    geom_point(color = "steelblue") +
+    geom_line(aes(y = fitted), color = "firebrick") +
+    labs(x = "Metal Distance", y = ylab, title = "Data with Fit") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Metal Distance", y = "Residual", title = "Residuals vs Metal Distance") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(fitted, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Predicted", y = "Residual", title = "Residuals vs Predicted") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p6 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+
+six_plot(chwirut$metal_distance, chwirut$sqrt_response, chwirut$residuals_t, chwirut$fitted_t, "sqrt(Ultrasonic Response)")
+```
+
+The 6-plot of the data using this model indicates no obvious violations of the assumptions.
+
+[**Plot of Residuals**]{#sec-pmd-633-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-633-residuals
+#| fig-cap: "Residuals from the square-root transformed fit versus metal distance"
+ggplot(chwirut, aes(metal_distance, residuals_t)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Metal Distance", y = "Residuals") +
+  theme_light()
+```
+
+In order to see more detail, we generate a full size version of the residuals versus predictor variable plot. This plot suggests that the errors now satisfy the assumption of homogeneous variances.

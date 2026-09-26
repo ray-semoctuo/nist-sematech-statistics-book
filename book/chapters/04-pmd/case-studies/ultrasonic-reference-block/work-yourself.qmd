@@ -1,0 +1,39 @@
+#### Work This Example Yourself {#sec-pmd-636}
+
+NIST's original page for this section offers a Dataplot-driven, click-through walkthrough of the case study, running each analysis step interactively in Dataplot. Since this book reproduces the entire analysis directly in executable R throughout the preceding sections, working the example yourself is a matter of re-running the R code shown in each subsection with the [downloaded data](../../datasets/CHWIRUT1.DAT), rather than stepping through a separate macro-driven tool:
+
+1. [Plot the data](#sec-pmd-632-plot), choose starting values based on theory, and [fit the nonlinear model](#sec-pmd-632-fit); validate it with the [6-plot](#sec-pmd-632-6plot) and [residual plot](#sec-pmd-632-residuals).
+2. Explore [response transformations](#sec-pmd-633-ytransform) and [predictor transformations](#sec-pmd-633-xtransform), then [fit and validate the square-root-transformed model](#sec-pmd-633-fit).
+3. [Estimate a weight function](#sec-pmd-634-weight-function) from the replicate groups and [fit and validate the weighted model](#sec-pmd-634-weighted-fit).
+4. [Compare the three fits](#sec-pmd-635-compare).
+
+Each step's code chunk in this book is self-contained and can be copied into an R session (with the `tidyverse` and `patchwork` packages loaded) to reproduce that step's output directly.
+
+[**Summary of the Analysis**]{#sec-pmd-636-summary}
+
+NIST's original page for this section presents the case study as a table of clickable Dataplot macros. The table below reproduces the same step-by-step structure and its results and conclusions, without the Dataplot links, as a summary of the full analysis.
+
+| Data Analysis Steps | Results and Conclusions |
+|---|---|
+| **1. Get set up and started.** | |
+| Read in the data. | You have read 2 columns of numbers, the ultrasonic response and metal distance. |
+| **2. Plot data, pre-fit for starting values, and fit nonlinear model.** | |
+| Plot the ultrasonic response versus metal distance. | Initial plot indicates that a nonlinear model is required. Theory dictates an exponential over linear for the initial model. |
+| Run PREFIT to generate good starting values. | Pre-fit indicated starting values of 0.1 for all 3 parameters. |
+| Nonlinear fit of the ultrasonic response versus metal distance. Plot predicted values and overlay the data. | The nonlinear fit was carried out. Initial fit looks pretty good. |
+| Generate a 6-plot for model validation. | The 6-plot shows that the model assumptions are satisfied except for the non-homogeneous variances. |
+| Plot the residuals against the predictor variable. | The detailed residual plot shows the non-homogeneous variances more clearly. |
+| **3. Improve the fit with transformations.** | |
+| Plot several common transformations of the dependent variable (ultrasonic response). | The plots indicate that a square root transformation on the dependent variable (ultrasonic response) is a good candidate model. |
+| Plot several common transformations of the predictor variable (metal distance). | The plots indicate that no transformation on the predictor variable (metal distance) is a good candidate model. |
+| Nonlinear fit of transformed data. Plot predicted values with the data. | Carry out the fit on the transformed data. The plot of the predicted values overlaid with the data indicates a good fit. |
+| Generate a 6-plot for model validation. | The 6-plot suggests that the model assumptions, specifically homogeneous variances for the errors, are satisfied. |
+| Plot the residuals against the predictor variable. | The detailed residual plot shows more clearly that the homogeneous variances assumption is now satisfied. |
+| **4. Improve the fit using weighting.** | |
+| Fit function to determine appropriate weight function. Determine value for the exponent in the power model. | The fit to determine an appropriate weight function indicates that a value for the exponent in the range -1.0 to -1.1 should be reasonable. |
+| Plot residuals from fit to determine appropriate weight function. | The residuals from this fit indicate no major problems. |
+| Weighted nonlinear fit of the ultrasonic response versus metal distance. Plot predicted values with the data. | The weighted fit was carried out. The plot of the predicted values overlaid with the data suggests that the variances are homogeneous. |
+| Generate a 6-plot for model validation. | The 6-plot shows that the model assumptions are satisfied. |
+| Plot the residuals against the predictor variable. | The detailed residual plot suggests the homogeneous variances for the errors more clearly. |
+| **5. Compare the fits.** | |
+| Plot predicted values from each of the three models with the data. | The transformed and weighted fits generate only slightly different predicted values, but the model assumptions are not violated. |

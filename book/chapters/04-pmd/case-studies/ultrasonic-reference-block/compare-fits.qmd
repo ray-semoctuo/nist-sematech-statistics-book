@@ -1,0 +1,109 @@
+#### Compare the Fits {#sec-pmd-635}
+
+[**Three Fits to Compare**]{#sec-pmd-635-three-fits}
+
+It is interesting to compare the results of the three fits:
+
+1. Unweighted fit
+2. Transformed fit (square root of the response)
+3. Weighted fit
+
+[**Plot of Fits with Data**]{#sec-pmd-635-compare}
+
+The first step in comparing the fits is to plot all three sets of predicted values (in the original units) on the same plot with the raw data.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pmd-635-compare
+#| fig-cap: "Ultrasonic reference block data with the unweighted, transformed, and weighted fits overlaid"
+chwirut <- read_table(
+  here::here("datasets", "CHWIRUT1.DAT"),
+  skip = 25,
+  col_names = c("response", "metal_distance")
+)
+
+out <- nls(
+  response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1)
+)
+
+outs <- nls(
+  sqrt(response) ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1)
+)
+
+outw <- nls(
+  response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1),
+  weights = metal_distance
+)
+
+dist_grid <- tibble(metal_distance = seq(min(chwirut$metal_distance), max(chwirut$metal_distance), length.out = 200)) |>
+  mutate(
+    Unweighted = predict(out, newdata = pick(metal_distance)),
+    Transformed = predict(outs, newdata = pick(metal_distance))^2,
+    Weighted = predict(outw, newdata = pick(metal_distance))
+  ) |>
+  pivot_longer(c(Unweighted, Transformed, Weighted), names_to = "Fit", values_to = "response")
+
+ggplot(chwirut, aes(metal_distance, response)) +
+  geom_point(color = "grey50") +
+  geom_line(data = dist_grid, aes(color = Fit)) +
+  scale_color_manual(values = c(Unweighted = "firebrick", Transformed = "black", Weighted = "steelblue")) +
+  labs(x = "Metal Distance", y = "Ultrasonic Response") +
+  theme_light()
+```
+
+This plot shows that all three fits generate comparable predicted values. We can also compare the residual standard deviations (RESSD) from the fits. The RESSD for the transformed data is calculated after translating the predicted values back to the original scale.
+
+```{r}
+#| code-fold: true
+#| message: false
+chwirut <- read_table(
+  here::here("datasets", "CHWIRUT1.DAT"),
+  skip = 25,
+  col_names = c("response", "metal_distance")
+)
+
+out <- nls(
+  response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1)
+)
+
+outs <- nls(
+  sqrt(response) ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1)
+)
+
+outw <- nls(
+  response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1),
+  weights = metal_distance
+)
+
+uressd <- sqrt(sum(resid(out)^2) / 211)
+tressd <- sqrt(sum((chwirut$response - fitted(outs)^2)^2) / 211)
+wressd <- sqrt(sum((chwirut$response - fitted(outw))^2) / 211)
+
+tibble(
+  Fit = c("Unweighted", "Transformed", "Weighted"),
+  RESSD = c(uressd, tressd, wressd)
+)
+```
+
+::: {.callout-note}
+NIST's own page for this section states RESSD values of 3.361673, 3.306732, and 3.392797 for the unweighted, transformed, and weighted fits, respectively. NIST's own reference R script for this case study, when run, instead computes 3.361672, 3.323509, and 3.40894 (reproduced above), which agree with the unweighted RESSD but differ slightly from the prose for the transformed and weighted RESSD values. Either set of values leads to the same conclusion: the RESSD is quite close for all three fits.
+:::
+
+In this case, the RESSD is quite close for all three fits, which is to be expected based on the plot above.
+
+[**Conclusion**]{#sec-pmd-635-conclusion}
+
+Given that the transformed and weighted fits generate predicted values that are quite close to the original fit, why would we want to make the extra effort to generate a transformed or weighted fit? We do so to develop a model that satisfies the [model assumptions](#sec-pmd-21) for fitting a nonlinear model. This gives us more confidence that conclusions and analyses based on the model are justified and appropriate.

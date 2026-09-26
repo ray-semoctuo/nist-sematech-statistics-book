@@ -1,0 +1,185 @@
+#### Weighting to Improve Fit {#sec-pmd-634}
+
+[**Weighting**]{#sec-pmd-634-weighting}
+
+Another approach when the assumption of constant variance of the errors is violated is to perform a [weighted fit](#sec-pmd-143). In a weighted fit, we give less weight to the less precise measurements and more weight to more precise measurements when estimating the unknown parameters in the model.
+
+[**Finding an Appropriate Weight Function**]{#sec-pmd-634-weight-function}
+
+Techniques for determining an appropriate weight function were discussed in detail in [Section 4.4.5.2](#sec-pmd-452). In this case, we have replication in the data, so we can fit the power model
+
+$$\ln(\hat\sigma_i^2) = \ln(\gamma_1 x_i^{\gamma_2}) = \ln(\gamma_1) + \gamma_2 \ln(x_i)$$
+
+to the variances from each set of replicates in the data and use
+
+$$w_i = \frac{1}{x_i^{\hat\gamma_2}}$$
+
+for the weights.
+
+[**Fit for Estimating Weights**]{#sec-pmd-634-weight-fit}
+
+The following results were obtained for the fit of ln(variances) against ln(means) for the replicate groups.
+
+```{r}
+#| code-fold: true
+#| message: false
+chwirut <- read_table(
+  here::here("datasets", "CHWIRUT1.DAT"),
+  skip = 25,
+  col_names = c("response", "metal_distance")
+)
+
+replicate_groups <- chwirut |>
+  group_by(metal_distance) |>
+  summarise(var_response = var(response))
+
+weight_fit <- lm(log(var_response) ~ log(metal_distance), data = replicate_groups)
+summary(weight_fit)
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-634-weight-function
+#| fig-cap: "ln(Replicate variances) versus ln(metal distance), with the fitted power-function model"
+replicate_groups <- replicate_groups |> mutate(residual_weight = resid(weight_fit))
+
+ggplot(replicate_groups, aes(log(metal_distance), log(var_response))) +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "firebrick") +
+  labs(x = "ln(Metal Distance)", y = "ln(Replicate Variances)") +
+  theme_light()
+```
+
+The fit output and plot from the replicate variances against the replicate means shows that the linear fit provides a reasonable fit, with an estimated slope of -1.1128.
+
+Based on this fit, we used an estimate of -1.0 for the exponent in the weighting function, so the weight for each observation is
+
+$$w_i = \frac{1}{x_i^{-1}} = x_i$$
+
+[**Residual Plot for Weight Function**]{#sec-pmd-634-weight-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-634-weight-residuals
+#| fig-cap: "Residuals from the fit for estimating the weight function"
+ggplot(replicate_groups, aes(log(metal_distance), residual_weight)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "ln(Metal Distance)", y = "Residuals") +
+  theme_light()
+```
+
+The residual plot from the fit to determine an appropriate weighting function reveals no obvious problems.
+
+[**Numerical Results from Weighted Fit**]{#sec-pmd-634-weighted-fit}
+
+The results of the weighted fit are shown below.
+
+```{r}
+#| code-fold: true
+chwirut <- chwirut |> mutate(w = metal_distance)
+
+outw <- nls(
+  response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1),
+  weights = w
+)
+
+summary(outw)
+```
+
+::: {.callout-note}
+NIST's own reference R script for this case study fits the weighted model using a manually constructed zero-formula weighted least squares call, `nls(~ sqrt(w) * (resp - exp(-b1*dist)/(b2 + b3*dist)), start = list(...))`, rather than R's `weights =` argument to `nls()`. The two approaches produce identical parameter estimates and standard errors, so this book uses the simpler `weights =` form shown above.
+:::
+
+[**Plot of Predicted Values**]{#sec-pmd-634-predicted}
+
+To assess the quality of the weighted fit, we first generate a plot of the predicted line with the original data.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-634-overlay
+#| fig-cap: "Ultrasonic reference block data overlaid with the weighted fit"
+chwirut <- chwirut |> mutate(fitted_w = fitted(outw), residuals_w = response - fitted_w)
+
+ggplot(chwirut, aes(metal_distance, response)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fitted_w), color = "firebrick") +
+  labs(x = "Metal Distance", y = "Ultrasonic Response") +
+  theme_light()
+```
+
+The plot of the predicted values with the data indicates a good fit. The model for the weighted fit is
+
+$$\hat y = \frac{e^{-0.147 x}}{0.00528 + 0.0124 x}$$
+
+[**6-Plot of Fit**]{#sec-pmd-634-6plot}
+
+We need to verify that the weighted fit does not violate the regression assumptions. The 6-plot indicates that the regression assumptions are satisfied.
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-634-6plot
+#| fig-cap: "6-plot for the weighted fit, using weighted residuals"
+chwirut <- chwirut |> mutate(weighted_residuals = sqrt(w) * residuals_w)
+
+six_plot <- function(x, y, residual, fitted) {
+  d <- tibble(x = x, y = y, residual = residual, fitted = fitted) |>
+    mutate(lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(x, y)) +
+    geom_point(color = "steelblue") +
+    geom_line(aes(y = fitted), color = "firebrick") +
+    labs(x = "Metal Distance", y = "Ultrasonic Response", title = "Data with Fit") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Metal Distance", y = "Weighted Residual", title = "Residuals vs Metal Distance") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(fitted, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Predicted", y = "Weighted Residual", title = "Residuals vs Predicted") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Weighted Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p6 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Weighted Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+
+six_plot(chwirut$metal_distance, chwirut$response, chwirut$weighted_residuals, chwirut$fitted_w)
+```
+
+[**Plot of Residuals**]{#sec-pmd-634-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-634-residuals
+#| fig-cap: "Weighted residuals from the weighted fit versus metal distance"
+ggplot(chwirut, aes(metal_distance, weighted_residuals)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Metal Distance", y = "Weighted Residuals") +
+  theme_light()
+```
+
+In order to check the assumption of equal error variances in more detail, we generate a full-sized version of the residuals versus the predictor variable. This plot suggests that the residuals now have approximately equal variability.

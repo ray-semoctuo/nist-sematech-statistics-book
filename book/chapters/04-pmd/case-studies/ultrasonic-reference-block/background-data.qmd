@@ -1,0 +1,31 @@
+#### Background and Data {#sec-pmd-631}
+
+[**Description of Data Collection**]{#sec-pmd-631-collection}
+
+The ultrasonic reference block data consist of a response variable and a predictor variable. The response variable is ultrasonic response and the predictor variable is metal distance.
+
+These data were provided by the NIST scientist Dan Chwirut.
+
+[**Software**]{#sec-pmd-631-software}
+
+The analyses used in this case study can be generated using both Dataplot code and R code.<!-- XREF: Dataplot macro not migrated; source handbook/pmd/section6/pmd631.dp --> The R code reproduced throughout this case study follows NIST's own reference R script for it.
+
+::: {.callout-note}
+NIST's original page links the downloadable data file for this case study to `CHWIRUT2.DAT`, a NIST Statistical Reference Dataset of only 54 observations that is explicitly documented (in its own header) as "a subset of CHWIRUT1.DAT." However, the 214-observation data table displayed on NIST's page, and the `resp`/`dist` vectors hard-coded into NIST's own reference R script for this case study, both match the full `CHWIRUT1.DAT` dataset instead, not the linked `CHWIRUT2.DAT` file. `CHWIRUT1.DAT` is not included among the data files distributed with the handbook. For this book, the 214-observation dataset has been reconstructed directly from the vectors embedded in NIST's reference R script (confirmed to exactly reproduce every fitting result reported throughout this case study) and is provided as `CHWIRUT1.DAT` alongside the rest of the book's [downloaded data](../../datasets/CHWIRUT1.DAT).
+:::
+
+[**Resulting Data**]{#sec-pmd-631-data}
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+chwirut <- read_table(
+  here::here("datasets", "CHWIRUT1.DAT"),
+  skip = 25,
+  col_names = c("response", "metal_distance")
+)
+
+chwirut
+```

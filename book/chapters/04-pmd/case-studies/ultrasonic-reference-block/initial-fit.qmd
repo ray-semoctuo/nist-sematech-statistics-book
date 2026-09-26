@@ -1,0 +1,164 @@
+#### Initial Non-Linear Fit {#sec-pmd-632}
+
+[**Plot of Data**]{#sec-pmd-632-plot}
+
+The first step in fitting a nonlinear function is to simply plot the data.
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-632-data
+#| fig-cap: "Ultrasonic response versus metal distance"
+chwirut <- read_table(
+  here::here("datasets", "CHWIRUT1.DAT"),
+  skip = 25,
+  col_names = c("response", "metal_distance")
+)
+
+ggplot(chwirut, aes(metal_distance, response)) +
+  geom_point(color = "steelblue") +
+  labs(x = "Metal Distance", y = "Ultrasonic Response") +
+  theme_light()
+```
+
+This plot shows an exponentially decaying pattern in the data. This suggests that some type of exponential function might be an appropriate model for the data.
+
+[**Initial Model Selection**]{#sec-pmd-632-issues}
+
+There are two issues that need to be addressed in the initial model selection when fitting a nonlinear model.
+
+1. We need to determine an appropriate functional form for the model.
+2. We need to determine appropriate starting values for the estimation of the model parameters.
+
+[**Determining an Appropriate Functional Form for the Model**]{#sec-pmd-632-functional-form}
+
+Due to the large number of potential functions that can be used for a nonlinear model, the determination of an appropriate model is not always obvious. Some guidelines for [selecting an appropriate model](#sec-pmd-42) were given in the analysis chapter.
+
+The plot of the data will often suggest a well-known function. In addition, we often use scientific and engineering knowledge in determining an appropriate model. In scientific studies, we are frequently interested in fitting a theoretical model to the data. We also often have historical knowledge from previous studies (either our own data or from published studies) of functions that have fit similar data well in the past. In the absence of a theoretical model or experience with prior data sets, selecting an appropriate function will often require a certain amount of trial and error.
+
+Regardless of whether or not we are using scientific knowledge in selecting the model, [model validation](#sec-pmd-44) is still critical in determining if our selected model is adequate.
+
+[**Determining Appropriate Starting Values**]{#sec-pmd-632-starting-values}
+
+Nonlinear models are fit with iterative methods that require starting values. In some cases, inappropriate starting values can result in parameter estimates for the fit that converge to a local minimum or maximum rather than the global minimum or maximum. Some models are relatively insensitive to the choice of starting values while others are extremely sensitive.
+
+If you have prior data sets that fit similar models, these can often be used as a guide for determining good starting values. We can also sometimes make educated guesses from the functional form of the model. For some models, there may be specific methods for determining starting values. For example, sinusoidal models that are commonly used in time series are quite sensitive to good starting values. The [beam deflection](#sec-eda-425) case study shows an example of obtaining starting values for a sinusoidal model.
+
+In the case where you do not know what good starting values would be, one approach is to create a grid of values for each of the parameters of the model and compute some measure of goodness of fit, such as the residual standard deviation, at each point on the grid. The idea is to create a broad grid that encloses reasonable values for the parameter. However, we typically want to keep the number of grid points for each parameter relatively small to keep the computational burden down (particularly as the number of parameters in the model increases). The idea is to get in the right neighborhood, not to find the optimal fit. We would pick the grid point that corresponds to the smallest residual standard deviation as the starting values.
+
+[**Fitting Data to a Theoretical Model**]{#sec-pmd-632-model}
+
+For this particular data set, the scientist was trying to fit the following theoretical model.
+
+$$y = \frac{e^{-b_1 x}}{b_2 + b_3 x} + \varepsilon$$
+
+Since we have a theoretical model, we use this as the initial model. We set the starting values for all three parameters to 0.1.
+
+[**Nonlinear Fit Results**]{#sec-pmd-632-fit}
+
+The following results were generated for the nonlinear fit.
+
+```{r}
+#| code-fold: true
+out <- nls(
+  response ~ exp(-b1 * metal_distance) / (b2 + b3 * metal_distance),
+  data = chwirut,
+  start = list(b1 = 0.1, b2 = 0.1, b3 = 0.1)
+)
+
+summary(out)
+```
+
+[**Plot of Predicted Values with Original Data**]{#sec-pmd-632-predicted}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-632-overlay
+#| fig-cap: "Ultrasonic reference block data overlaid with the initial nonlinear fit"
+chwirut <- chwirut |> mutate(residual1 = resid(out), fitted1 = fitted(out))
+
+ggplot(chwirut, aes(metal_distance, response)) +
+  geom_point(color = "steelblue") +
+  geom_line(aes(y = fitted1), color = "firebrick") +
+  labs(x = "Metal Distance", y = "Ultrasonic Response") +
+  theme_light()
+```
+
+This plot shows a reasonably good fit. It is difficult to detect any violations of the fit assumptions from this plot. The estimated model is
+
+$$\hat y = \frac{e^{-0.190 x}}{0.00613 + 0.0105 x}$$
+
+[**6-Plot for Model Validation**]{#sec-pmd-632-6plot}
+
+When there is a single predictor variable, the 6-plot<!-- XREF: EDA section 3.3, Graphical Techniques: Alphabetic, 6-Plot; source handbook/eda/section3/6plot.htm --> is a convenient method for initial model validation.
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| label: fig-pmd-632-6plot
+#| fig-cap: "6-plot for the initial nonlinear fit"
+library(patchwork)
+
+six_plot <- function(x, y, residual, fitted) {
+  d <- tibble(x = x, y = y, residual = residual, fitted = fitted) |>
+    mutate(lag_residual = lag(residual))
+
+  p1 <- ggplot(d, aes(x, y)) +
+    geom_point(color = "steelblue") +
+    geom_line(aes(y = fitted), color = "firebrick") +
+    labs(x = "Metal Distance", y = "Ultrasonic Response", title = "Data with Fit") +
+    theme_light()
+
+  p2 <- ggplot(d, aes(x, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Metal Distance", y = "Residual", title = "Residuals vs Metal Distance") +
+    theme_light()
+
+  p3 <- ggplot(d, aes(fitted, residual)) +
+    geom_point(color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    labs(x = "Predicted", y = "Residual", title = "Residuals vs Predicted") +
+    theme_light()
+
+  p4 <- ggplot(d, aes(lag_residual, residual)) +
+    geom_point(color = "steelblue") +
+    labs(x = "Residual[i-1]", y = "Residual[i]", title = "Lag Plot") +
+    theme_light()
+
+  p5 <- ggplot(d, aes(residual)) +
+    geom_histogram(bins = 15, fill = "steelblue", alpha = 0.6, color = "white") +
+    labs(x = "Residual", y = "Count", title = "Histogram") +
+    theme_light()
+
+  p6 <- ggplot(d, aes(sample = residual)) +
+    stat_qq(color = "steelblue") +
+    stat_qq_line(color = "firebrick") +
+    labs(x = "Theoretical Quantiles", y = "Residual", title = "Normal Probability Plot") +
+    theme_light()
+
+  (p1 + p2 + p3) / (p4 + p5 + p6)
+}
+
+six_plot(chwirut$metal_distance, chwirut$response, chwirut$residual1, chwirut$fitted1)
+```
+
+The basic assumptions for regression models are that the errors are random observations from a normal distribution with zero mean and constant standard deviation (or variance). These plots suggest that the variance of the errors is not constant. In order to see this more clearly, we generate full-sized plots of the predicted values from the model overlaid with the data, and of the residuals against the independent variable, metal distance.
+
+[**Plot of Residual Values Against Independent Variable**]{#sec-pmd-632-residuals}
+
+```{r}
+#| code-fold: true
+#| label: fig-pmd-632-residuals
+#| fig-cap: "Residuals from the initial nonlinear fit versus metal distance"
+ggplot(chwirut, aes(metal_distance, residual1)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  labs(x = "Metal Distance", y = "Residuals") +
+  theme_light()
+```
+
+This plot suggests that the errors have greater variance for the values of metal distance less than one than elsewhere. That is, the assumption of homogeneous variances seems to be violated.
+
+[**Non-Homogeneous Variances**]{#sec-pmd-632-non-homogeneous}
+
+Except when the metal distance is less than or equal to one, there is not strong evidence that the error variances differ. Nevertheless, we will use transformations or weighted fits to see if we can eliminate this problem.

@@ -1,0 +1,24 @@
+### Ultrasonic Reference Block Study {#sec-pmd-63}
+
+[**Non-Linear Fit with Non-Homogeneous Variances**]{#sec-pmd-63-overview}
+
+This example illustrates the construction of a non-linear regression model for ultrasonic calibration data. This case study demonstrates fitting a non-linear model and the use of transformations and weighted fits to deal with the violation of the assumption of [constant standard deviations](#sec-pmd-213) for the errors. This assumption is also called homogeneous variances for the errors.
+
+1. [Background and Data](#sec-pmd-631)
+2. [Initial Non-Linear Fit](#sec-pmd-632)
+3. [Transformations to Improve Fit](#sec-pmd-633)
+4. [Weighting to Improve Fit](#sec-pmd-634)
+5. [Compare the Fits](#sec-pmd-635)
+6. [Work This Example Yourself](#sec-pmd-636)
+
+{{< include case-studies/ultrasonic-reference-block/background-data.qmd >}}
+
+{{< include case-studies/ultrasonic-reference-block/initial-fit.qmd >}}
+
+{{< include case-studies/ultrasonic-reference-block/transformations.qmd >}}
+
+{{< include case-studies/ultrasonic-reference-block/weighting.qmd >}}
+
+{{< include case-studies/ultrasonic-reference-block/compare-fits.qmd >}}
+
+{{< include case-studies/ultrasonic-reference-block/work-yourself.qmd >}}
