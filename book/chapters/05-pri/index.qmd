@@ -2,7 +2,7 @@
 
 1. [Introduction](#sec-pri-1)
 2. [Assumptions](#sec-pri-2)
-3. Choosing an Experimental Design
+3. [Choosing an Experimental Design](#sec-pri-3)
 4. Analysis of DOE Data
 5. Advanced Topics
 6. Case Studies
@@ -11,3 +11,5 @@
 {{< include introduction/index.qmd >}}
 
 {{< include assumptions/index.qmd >}}
+
+{{< include choosing-design/index.qmd >}}

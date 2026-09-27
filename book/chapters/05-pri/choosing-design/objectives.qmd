@@ -1,0 +1,38 @@
+### What are the objectives? {#sec-pri-31}
+
+[**Planning an experiment begins with carefully considering what the objectives (or goals) are**]{#sec-pri-31-planning}
+
+The objectives for an experiment are best determined by a team discussion. All of the objectives should be written down, even the "unspoken" ones.
+
+The group should discuss which objectives are the key ones, and which ones are "nice but not really necessary". Prioritization of the objectives helps you decide which direction to go with regard to the selection of the factors, responses and the particular design. Sometimes prioritization will force you to start over from scratch when you realize that the experiment you decided to run does not meet one or more critical objectives.
+
+[**Types of designs**]{#sec-pri-31-types}
+
+Examples of goals were given earlier in [Section 5.1.2](#sec-pri-12), in which we described four broad categories of experimental designs, with various objectives for each. These were:
+
+1. Comparative designs to:
+   - choose between alternatives, with narrow scope, suitable for an initial comparison (see Section 5.3.3.1)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri331.htm -->
+   - choose between alternatives, with broad scope, suitable for a confirmatory comparison (see Section 5.3.3.2)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri332.htm -->
+2. Screening designs to identify which factors/effects are important
+   - when you have 2 - 4 factors and can perform a full factorial (Section 5.3.3.3)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri333.htm -->
+   - when you have more than 3 factors and want to begin with as small a design as possible (Section 5.3.3.4 and 5.3.3.5)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri334.htm, pri335.htm -->
+   - when you have some qualitative factors, or you have some quantitative factors that are known to have a non-monotonic effect (Section 5.3.3.10)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri33a.htm -->
+
+   Note that some authors prefer to restrict the term screening design to the case where you are trying to extract the most important factors from a large (say > 5) list of initial factors (usually a fractional factorial design). We include the case with a smaller number of factors, usually a full factorial design, since the basic purpose and analysis is similar.
+3. Response Surface modeling to achieve one or more of the following objectives:
+   - hit a target
+   - maximize or minimize a response
+   - reduce variation by locating a region where the process is easier to manage
+   - make a process robust (note: this objective may often be accomplished with screening designs rather than with response surface designs -- see Section 5.5.6)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section5/pri56.htm -->
+4. Regression modeling
+   - to estimate a precise model, quantifying the dependence of response variable(s) on process inputs.
+
+[**Based on objective, where to go next**]{#sec-pri-31-next}
+
+After identifying the objective listed above that corresponds most closely to your specific goal, you can
+
+1. proceed to the next section in which we discuss [selecting experimental factors](#sec-pri-32)
+
+and then
+
+2. select the appropriate design named in section 5.3.3 that suits your objective (and follow the related links).<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri33.htm -->

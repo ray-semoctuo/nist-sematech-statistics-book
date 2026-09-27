@@ -231,7 +231,7 @@ p_before + p_after
 
 The left-hand plot shows that the size of the residuals changed as a function of a predictor's settings. A graph like this suggests that the model needs a higher-order term in that predictor or that one should transform the predictor using a logarithm or square root, for example. The right-hand plot shows the residuals for the same response after adding a quadratic term. Notice the single point widely separated from the other residuals. This point is an "outlier." That is, its position is well within the range of values used for this predictor in the investigation, but its result was somewhat lower than the model predicted. A signal that curvature is present is a trace resembling a "frown" or a "smile" in these graphs.
 
-The example given above obviously involves five levels of the predictor. The experiment utilized a response surface design. For the simple factorial design that includes center points, if the response model being considered lacked one or more higher-order terms, the plot of residuals versus factor settings might appear as below.
+For the simple factorial design that includes center points, if the response model being considered lacked one or more higher-order terms, the plot of residuals versus factor settings might appear as below.
 
 ```{r}
 #| code-fold: true
@@ -253,8 +253,14 @@ ggplot(centerpoint_data, aes(level, residual)) +
 
 **Interpretation of plot**
 
+The example given above obviously involves five levels of the predictor. The experiment utilized a response surface design.
+
+**Graph indicates presence of curvature**
+
 While the graph gives a definite signal that curvature is present, identifying the source of that curvature is not possible due to the structure of the design. Graphs generated using the other predictors in that situation would have very similar appearances.
 
+[**Additional discussion of residual analysis**]{#sec-pri-24-additional}
+
 ::: {.callout-note}
-Residuals are an important subject discussed repeatedly in this Handbook. For example, graphical residual plots are discussed in the [6-plot](../01-eda/index.qmd#sec-eda-6-plot) technique in Chapter 1, and the general examination of residuals as a part of model building is discussed in [Chapter 4](../04-pmd/index.qmd#sec-pmd-44).
+**Note**: Residuals are an important subject discussed repeatedly in this Handbook. For example, graphical residual plots are discussed in the [6-plot](../01-eda/index.qmd#sec-eda-6-plot) technique in Chapter 1, and the general examination of residuals as a part of model building is discussed in [Chapter 4](../04-pmd/index.qmd#sec-pmd-44).
 :::

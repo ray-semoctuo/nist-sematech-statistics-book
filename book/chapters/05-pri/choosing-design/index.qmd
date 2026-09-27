@@ -1,0 +1,95 @@
+## Choosing an Experimental Design {#sec-pri-3}
+
+[**Contents of Section 3**]{#sec-pri-3-contents}
+
+This section describes in detail the process of choosing an experimental design to obtain the results you need. The basic designs an engineer needs to know about are described in detail.
+
+[**Note that this section describes the basic designs used for most engineering and scientific applications**]{#sec-pri-3-note}
+
+1. [Set objectives](#sec-pri-31)
+2. [Select process variables and levels](#sec-pri-32)
+3. [Select experimental design](#sec-pri-33)
+   1. [Completely randomized designs](#sec-pri-331)
+   2. [Randomized block designs](#sec-pri-332)
+      - [Latin squares](#sec-pri-3321)
+      - [Graeco-Latin squares](#sec-pri-3322)
+      - [Hyper-Graeco-Latin squares](#sec-pri-3323)
+   3. Full factorial designs
+      - Two-level full factorial designs
+      - Full factorial example
+      - Blocking of full factorial designs
+   4. Fractional factorial designs
+      - A $2^{3-1}$ half-fraction design
+      - How to construct a $2^{3-1}$ design
+      - Confounding
+      - Design resolution
+      - Use of fractional factorial designs
+      - Screening designs
+      - Fractional factorial designs summary tables
+   5. Plackett-Burman designs
+   6. Response surface (second-order) designs
+      - Central composite designs
+      - Box-Behnken designs
+      - Response surface design comparisons
+      - Blocking a response surface design
+   7. Adding center points
+   8. Improving fractional design resolution
+      - Mirror-image foldover designs
+      - Alternative foldover designs
+   9. Three-level full factorial designs
+   10. Three-level, mixed level and fractional factorial designs
+
+{{< include choosing-design/objectives.qmd >}}
+
+{{< include choosing-design/process-variables.qmd >}}
+
+### How do you select an experimental design? {#sec-pri-33}
+
+[**A design is selected based on the experimental objective and the number of factors**]{#sec-pri-33-overview}
+
+The choice of an experimental design depends on the objectives of the experiment and the number of factors to be investigated.
+
+[**Experimental Design Objectives**]{#sec-pri-33-objectives}
+
+Types of designs are listed here according to the experimental objective they meet.
+
+- **Comparative objective**: If you have one or several factors under investigation, but the primary goal of your experiment is to make a conclusion about one a-priori important factor, (in the presence of, and/or in spite of the existence of the other factors), and the question of interest is whether or not that factor is "significant", (i.e., whether or not there is a significant change in the response for different levels of that factor), then you have a comparative problem and you need a comparative design solution.
+- **Screening objective**: The primary purpose of the experiment is to select or screen out the few important main effects from the many less important ones. These screening designs are also termed main effects designs.
+- **Response Surface (method) objective**: The experiment is designed to allow us to estimate interaction and even quadratic effects, and therefore give us an idea of the (local) shape of the response surface we are investigating. For this reason, they are termed response surface method (RSM) designs. RSM designs are used to:
+  - Find improved or optimal process settings
+  - Troubleshoot process problems and weak points
+  - Make a product or process more robust against external and non-controllable influences. "Robust" means relatively insensitive to these influences.
+- **Optimizing responses when factors are proportions of a mixture objective**: If you have factors that are proportions of a mixture and you want to know what the "best" proportions of the factors are so as to maximize (or minimize) a response, then you need a mixture design.
+- **Optimal fitting of a regression model objective**: If you want to model a response as a mathematical function (either known or empirical) of a few continuous factors and you desire "good" model parameter estimates (i.e., unbiased and minimum variance), then you need a regression design.
+
+[**Mixture and regression designs**]{#sec-pri-33-mixture-regression}
+
+Mixture designs are discussed briefly in section 5 (Advanced Topics)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section5/pri54.htm --> and regression designs for a single factor are discussed in [chapter 4](../04-pmd/index.qmd#sec-pmd-33). Selection of designs for the remaining 3 objectives is summarized in the following table.
+
+[**Summary table for choosing an experimental design for comparative, screening, and response surface designs**]{#sec-pri-33-table}
+
+| Number of Factors | Comparative Objective | Screening Objective | Response Surface Objective |
+|---|---|---|---|
+| 1 | 1-factor completely randomized design | -- | -- |
+| 2 - 4 | Randomized block design | Full or fractional factorial | Central composite or Box-Behnken |
+| 5 or more | Randomized block design | Fractional factorial or Plackett-Burman | Screen first to reduce number of factors |
+
+: Design Selection Guideline {#tbl-pri-33-design-selection}
+
+[**Resources and degree of control over wrong decisions**]{#sec-pri-33-resources}
+
+Choice of a design from within these various types depends on the amount of resources available and the degree of control over making wrong decisions ([Type I and Type II errors](../01-eda/index.qmd#sec-eda-35) for testing hypotheses) that the experimenter desires.
+
+[**Save some runs for center points and "redos" that might be needed**]{#sec-pri-33-save-runs}
+
+It is a good idea to choose a design that requires somewhat fewer runs than the budget permits, so that center point<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri337.htm --> runs can be added to check for curvature in a 2-level screening design and backup resources are available to redo runs that have processing mishaps.
+
+{{< include choosing-design/selecting-design/completely-randomized.qmd >}}
+
+{{< include choosing-design/selecting-design/randomized-block.qmd >}}
+
+{{< include choosing-design/selecting-design/latin-square.qmd >}}
+
+{{< include choosing-design/selecting-design/graeco-latin-square.qmd >}}
+
+{{< include choosing-design/selecting-design/hyper-graeco-latin-square.qmd >}}
