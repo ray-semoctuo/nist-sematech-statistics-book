@@ -14,7 +14,7 @@ Screening designs are typically of [resolution](#sec-pri-3344-resolution-def) II
 
 [**Plackett-Burman designs**]{#sec-pri-3346-plackett-burman}
 
-Another common family of screening designs is the Plackett-Burman set of designs, so named after its inventors. These designs are of resolution III and will be described later.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri335.htm -->
+Another common family of screening designs is the Plackett-Burman set of designs, so named after its inventors. These designs are of resolution III and will be described [later](#sec-pri-335).
 
 [**Economical plans for determining significant main effects**]{#sec-pri-3346-economical}
 

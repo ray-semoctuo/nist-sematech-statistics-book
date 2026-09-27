@@ -26,7 +26,7 @@ This section describes in detail the process of choosing an experimental design 
       - [Use of fractional factorial designs](#sec-pri-3345)
       - [Screening designs](#sec-pri-3346)
       - [Fractional factorial designs summary tables](#sec-pri-3347)
-   5. Plackett-Burman designs
+   5. [Plackett-Burman designs](#sec-pri-335)
    6. Response surface (second-order) designs
       - Central composite designs
       - Box-Behnken designs
@@ -117,3 +117,5 @@ It is a good idea to choose a design that requires somewhat fewer runs than the 
 {{< include choosing-design/selecting-design/screening-designs.qmd >}}
 
 {{< include choosing-design/selecting-design/summary-tables.qmd >}}
+
+{{< include choosing-design/selecting-design/plackett-burman.qmd >}}
