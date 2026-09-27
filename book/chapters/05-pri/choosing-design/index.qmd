@@ -32,10 +32,10 @@ This section describes in detail the process of choosing an experimental design 
       - [Box-Behnken designs](#sec-pri-3362)
       - [Response surface design comparisons](#sec-pri-3363)
       - [Blocking a response surface design](#sec-pri-3364)
-   7. Adding center points
-   8. Improving fractional design resolution
-      - Mirror-image foldover designs
-      - Alternative foldover designs
+   7. [Adding center points](#sec-pri-337)
+   8. [Improving fractional design resolution](#sec-pri-338)
+      - [Mirror-image foldover designs](#sec-pri-3381)
+      - [Alternative foldover designs](#sec-pri-3382)
    9. Three-level full factorial designs
    10. Three-level, mixed level and fractional factorial designs
 
@@ -129,3 +129,11 @@ It is a good idea to choose a design that requires somewhat fewer runs than the 
 {{< include choosing-design/selecting-design/response-surface-comparisons.qmd >}}
 
 {{< include choosing-design/selecting-design/blocking-response-surface.qmd >}}
+
+{{< include choosing-design/selecting-design/adding-centerpoints.qmd >}}
+
+{{< include choosing-design/selecting-design/improving-resolution.qmd >}}
+
+{{< include choosing-design/selecting-design/mirror-image-foldover.qmd >}}
+
+{{< include choosing-design/selecting-design/alternative-foldover.qmd >}}

@@ -1,0 +1,12 @@
+#### Improving fractional factorial design resolution {#sec-pri-338}
+
+[**Foldover designs increase resolution**]{#sec-pri-338-overview}
+
+Earlier we saw how [fractional factorial designs](#sec-pri-3344) resulted in an alias structure that confounded main effects with certain interactions. Often it is useful to know how to run a few additional treatment combinations to remove alias structures that might be masking significant effects or interactions.
+
+[**Partial foldover designs break up specific alias patterns**]{#sec-pri-338-partial}
+
+Two methods will be described for selecting these additional treatment combinations:
+
+- [Mirror-image foldover designs](#sec-pri-3381) (to build a resolution IV design from a resolution III design)
+- [Alternative foldover designs](#sec-pri-3382) (to break up specific alias patterns).
