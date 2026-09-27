@@ -1,0 +1,85 @@
+#### Three-level full factorial designs {#sec-pri-339}
+
+[**Three-level designs are useful for investigating quadratic effects**]{#sec-pri-339-overview}
+
+The three-level design is written as a $3^k$ factorial design. It means that $k$ factors are considered, each at 3 levels. These are (usually) referred to as low, intermediate and high levels. These levels are numerically expressed as 0, 1, and 2. One could have considered the digits -1, 0, and +1, but this may be confusing with respect to the 2-level designs since 0 is reserved for center points. Therefore, we will use the 0, 1, 2 scheme. The reason that the three-level designs were proposed is to model possible curvature in the response function and to handle the case of nominal factors at 3 levels. A third level for a continuous factor facilitates investigation of a quadratic relationship between the response and each of the factors.
+
+[**Three-level design may require prohibitive number of runs**]{#sec-pri-339-prohibitive}
+
+Unfortunately, the three-level design is prohibitive in terms of the number of runs, and thus in terms of cost and effort. For example a two-level design with center points is much less expensive while it still is a very good (and simple) way to establish the presence or absence of curvature.
+
+[**The $3^2$ design**]{#sec-pri-339-32design}
+
+**The simplest 3-level design - with only 2 factors**
+
+This is the simplest three-level design. It has two factors, each at three levels. The 9 treatment combinations for this type of design can be shown pictorially as follows:
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pri-339-32design
+#| fig-cap: "A $3^2$ Design Schematic"
+library(tidyverse)
+
+design_32 <- expand_grid(A = 0:2, B = 0:2) |>
+  mutate(label = paste0(A, B))
+
+ggplot(design_32, aes(A, B)) +
+  geom_point(color = "steelblue", size = 4) +
+  geom_text(aes(label = label), vjust = -1.2, size = 3.5) +
+  scale_x_continuous(breaks = 0:2) +
+  scale_y_continuous(breaks = 0:2) +
+  labs(x = "Factor A", y = "Factor B") +
+  coord_cartesian(xlim = c(-0.3, 2.3), ylim = c(-0.3, 2.6)) +
+  theme_light()
+```
+
+A notation such as "20" means that factor A is at its high level (2) and factor B is at its low level (0).
+
+[**The $3^3$ design**]{#sec-pri-339-33design}
+
+**The model and treatment runs for a 3 factor, 3-level design**
+
+This is a design that consists of three factors, each at three levels. It can be expressed as a 3 x 3 x 3 = $3^3$ design. The model for such an experiment is
+
+$$
+\begin{aligned}
+Y_{ijk} = {} & \mu + A_i + B_j + AB_{ij} + C_k + AC_{ik} \: + \\
+             & BC_{jk} + ABC_{ijk} + \epsilon_{ijk}
+\end{aligned}
+$$
+
+where each factor is included as a nominal factor rather than as a continuous variable. In such cases, main effects have 2 degrees of freedom, two-factor interactions have $2^2$ = 4 degrees of freedom and $k$-factor interactions have $2^k$ degrees of freedom. The model contains 2 + 2 + 2 + 4 + 4 + 4 + 8 = 26 degrees of freedom. Note that if there is no replication, the fit is exact and there is no error term (the epsilon term) in the model. In this no replication case, if one assumes that there are no three-factor interactions, then one can use these 8 degrees of freedom for error estimation.
+
+In this model we see that $i$ = 1, 2, 3, and similarly for $j$ and $k$, making 27 treatments.
+
+[**Table of treatments for the $3^3$ design**]{#sec-pri-339-33table}
+
+These treatments may be displayed as follows:
+
+| | Factor A: 0 | Factor A: 1 | Factor A: 2 |
+|:---:|:---:|:---:|:---:|
+| **Factor B: 0, Factor C: 0** | 000 | 100 | 200 |
+| **Factor B: 0, Factor C: 1** | 001 | 101 | 201 |
+| **Factor B: 0, Factor C: 2** | 002 | 102 | 202 |
+| **Factor B: 1, Factor C: 0** | 010 | 110 | 210 |
+| **Factor B: 1, Factor C: 1** | 011 | 111 | 211 |
+| **Factor B: 1, Factor C: 2** | 012 | 112 | 212 |
+| **Factor B: 2, Factor C: 0** | 020 | 120 | 220 |
+| **Factor B: 2, Factor C: 1** | 021 | 121 | 221 |
+| **Factor B: 2, Factor C: 2** | 022 | 122 | 222 |
+
+: The $3^3$ Design {#tbl-pri-339-33design}
+
+[**Pictorial representation of the $3^3$ design**]{#sec-pri-339-33pictorial}
+
+The design can be represented pictorially by
+
+![A $3^3$ Design Schematic](choosing-design/selecting-design/images/three-level-cube.svg){#fig-pri-339-33cube}
+
+[**Two types of $3^k$ designs**]{#sec-pri-339-types}
+
+Two types of fractions of $3^k$ designs are employed:
+
+- [Box-Behnken designs](#sec-pri-3362) whose purpose is to estimate a second-order model for quantitative factors (discussed earlier in section 5.3.3.6.2)
+- $3^{k-p}$ orthogonal arrays.

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .edge { stroke: #999; stroke-width: 1; fill: none; }
+    .point { fill: #00105A; stroke: #00105A; }
+    .lbl { font-size: 11px; fill: #1B1B1B; text-anchor: middle; }
+    .axis-lbl { font-size: 15px; font-weight: bold; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <!-- three layers for C = 0 (front), 1 (middle), 2 (back), each offset up-right -->
+  <!-- layer C=0: origin (90,340); layer C=1: +(45,-30); layer C=2: +(90,-60) -->
+
+  <g id="layerC2" transform="translate(180,50)">
+    <line class="edge" x1="0" y1="0" x2="180" y2="0" />
+    <line class="edge" x1="0" y1="90" x2="180" y2="90" />
+    <line class="edge" x1="0" y1="180" x2="180" y2="180" />
+    <line class="edge" x1="0" y1="0" x2="0" y2="180" />
+    <line class="edge" x1="90" y1="0" x2="90" y2="180" />
+    <line class="edge" x1="180" y1="0" x2="180" y2="180" />
+    <circle class="point" cx="0" cy="180" r="6" /><text class="lbl" x="0" y="198">002</text>
+    <circle class="point" cx="90" cy="180" r="6" /><text class="lbl" x="90" y="198">102</text>
+    <circle class="point" cx="180" cy="180" r="6" /><text class="lbl" x="180" y="198">202</text>
+    <circle class="point" cx="0" cy="90" r="6" /><text class="lbl" x="0" y="108">012</text>
+    <circle class="point" cx="90" cy="90" r="6" /><text class="lbl" x="90" y="108">112</text>
+    <circle class="point" cx="180" cy="90" r="6" /><text class="lbl" x="180" y="108">212</text>
+    <circle class="point" cx="0" cy="0" r="6" /><text class="lbl" x="0" y="-8">022</text>
+    <circle class="point" cx="90" cy="0" r="6" /><text class="lbl" x="90" y="-8">122</text>
+    <circle class="point" cx="180" cy="0" r="6" /><text class="lbl" x="180" y="-8">222</text>
+  </g>
+
+  <g id="layerC1" transform="translate(135,120)">
+    <line class="edge" x1="0" y1="0" x2="180" y2="0" />
+    <line class="edge" x1="0" y1="90" x2="180" y2="90" />
+    <line class="edge" x1="0" y1="180" x2="180" y2="180" />
+    <line class="edge" x1="0" y1="0" x2="0" y2="180" />
+    <line class="edge" x1="90" y1="0" x2="90" y2="180" />
+    <line class="edge" x1="180" y1="0" x2="180" y2="180" />
+    <circle class="point" cx="0" cy="180" r="6" /><text class="lbl" x="-12" y="185">001</text>
+    <circle class="point" cx="90" cy="180" r="6" /><text class="lbl" x="90" y="198">101</text>
+    <circle class="point" cx="180" cy="180" r="6" /><text class="lbl" x="198" y="185">201</text>
+    <circle class="point" cx="0" cy="90" r="6" /><text class="lbl" x="-12" y="95">011</text>
+    <circle class="point" cx="90" cy="90" r="6" /><text class="lbl" x="90" y="80">111</text>
+    <circle class="point" cx="180" cy="90" r="6" /><text class="lbl" x="198" y="95">211</text>
+    <circle class="point" cx="0" cy="0" r="6" /><text class="lbl" x="-12" y="5">021</text>
+    <circle class="point" cx="90" cy="0" r="6" /><text class="lbl" x="90" y="-8">121</text>
+    <circle class="point" cx="180" cy="0" r="6" /><text class="lbl" x="198" y="5">221</text>
+  </g>
+
+  <g id="layerC0" transform="translate(90,190)">
+    <line class="edge" x1="0" y1="0" x2="180" y2="0" />
+    <line class="edge" x1="0" y1="90" x2="180" y2="90" />
+    <line class="edge" x1="0" y1="180" x2="180" y2="180" />
+    <line class="edge" x1="0" y1="0" x2="0" y2="180" />
+    <line class="edge" x1="90" y1="0" x2="90" y2="180" />
+    <line class="edge" x1="180" y1="0" x2="180" y2="180" />
+    <circle class="point" cx="0" cy="180" r="6" /><text class="lbl" x="0" y="198">000</text>
+    <circle class="point" cx="90" cy="180" r="6" /><text class="lbl" x="90" y="198">100</text>
+    <circle class="point" cx="180" cy="180" r="6" /><text class="lbl" x="180" y="198">200</text>
+    <circle class="point" cx="0" cy="90" r="6" /><text class="lbl" x="0" y="108">010</text>
+    <circle class="point" cx="90" cy="90" r="6" /><text class="lbl" x="90" y="108">110</text>
+    <circle class="point" cx="180" cy="90" r="6" /><text class="lbl" x="180" y="108">210</text>
+    <circle class="point" cx="0" cy="0" r="6" /><text class="lbl" x="0" y="-8">020</text>
+    <circle class="point" cx="90" cy="0" r="6" /><text class="lbl" x="90" y="-8">120</text>
+    <circle class="point" cx="180" cy="0" r="6" /><text class="lbl" x="180" y="-8">220</text>
+  </g>
+
+  <!-- connecting diagonals between corresponding corners of the three layers -->
+  <line class="edge" x1="90" y1="370" x2="180" y2="230" />
+  <line class="edge" x1="270" y1="370" x2="360" y2="230" />
+  <line class="edge" x1="90" y1="190" x2="180" y2="50" />
+  <line class="edge" x1="270" y1="190" x2="360" y2="50" />
+
+  <text class="axis-lbl" x="270" y="405">Factor A</text>
+  <text class="axis-lbl" x="30" y="300" transform="rotate(-90 30 300)">Factor B</text>
+  <text class="axis-lbl" x="410" y="90" transform="rotate(-30 410 90)">Factor C</text>
+
+</svg>

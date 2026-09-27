@@ -36,8 +36,8 @@ This section describes in detail the process of choosing an experimental design 
    8. [Improving fractional design resolution](#sec-pri-338)
       - [Mirror-image foldover designs](#sec-pri-3381)
       - [Alternative foldover designs](#sec-pri-3382)
-   9. Three-level full factorial designs
-   10. Three-level, mixed level and fractional factorial designs
+   9. [Three-level full factorial designs](#sec-pri-339)
+   10. [Three-level, mixed level and fractional factorial designs](#sec-pri-33a)
 
 {{< include choosing-design/objectives.qmd >}}
 
@@ -137,3 +137,7 @@ It is a good idea to choose a design that requires somewhat fewer runs than the 
 {{< include choosing-design/selecting-design/mirror-image-foldover.qmd >}}
 
 {{< include choosing-design/selecting-design/alternative-foldover.qmd >}}
+
+{{< include choosing-design/selecting-design/three-level-full-factorial.qmd >}}
+
+{{< include choosing-design/selecting-design/mixed-level-designs.qmd >}}
