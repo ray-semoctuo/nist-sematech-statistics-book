@@ -14,10 +14,10 @@ This section describes in detail the process of choosing an experimental design 
       - [Latin squares](#sec-pri-3321)
       - [Graeco-Latin squares](#sec-pri-3322)
       - [Hyper-Graeco-Latin squares](#sec-pri-3323)
-   3. Full factorial designs
-      - Two-level full factorial designs
-      - Full factorial example
-      - Blocking of full factorial designs
+   3. [Full factorial designs](#sec-pri-333)
+      - [Two-level full factorial designs](#sec-pri-3331)
+      - [Full factorial example](#sec-pri-3332)
+      - [Blocking of full factorial designs](#sec-pri-3333)
    4. Fractional factorial designs
       - A $2^{3-1}$ half-fraction design
       - How to construct a $2^{3-1}$ design
@@ -93,3 +93,11 @@ It is a good idea to choose a design that requires somewhat fewer runs than the 
 {{< include choosing-design/selecting-design/graeco-latin-square.qmd >}}
 
 {{< include choosing-design/selecting-design/hyper-graeco-latin-square.qmd >}}
+
+{{< include choosing-design/selecting-design/full-factorial.qmd >}}
+
+{{< include choosing-design/selecting-design/two-level-full-factorial.qmd >}}
+
+{{< include choosing-design/selecting-design/full-factorial-example.qmd >}}
+
+{{< include choosing-design/selecting-design/blocking-full-factorial.qmd >}}
