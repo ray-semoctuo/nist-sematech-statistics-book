@@ -1,13 +1,11 @@
 # Process Improvement {#sec-pri}
 
-::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/pri/`.
-:::
+1. [Introduction](#sec-pri-1)
+2. Assumptions
+3. Choosing an Experimental Design
+4. Analysis of DOE Data
+5. Advanced Topics
+6. Case Studies
+7. A Glossary of DOE Terminology
 
-<!--
-TODO:
-- Port narrative content from handbook/pri/pri.htm and handbook/pri/section*/*.htm
-- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+{{< include introduction/index.qmd >}}

@@ -1,0 +1,17 @@
+## Introduction {#sec-pri-1}
+
+This section describes the basic concepts of the Design of Experiments (DOE).
+
+This section introduces the basic concepts, terminology, goals and procedures underlying the proper statistical design of experiments. Design of experiments is abbreviated as DOE throughout this chapter.
+
+Topics covered are:
+
+1. [What is experimental design or DOE?](#sec-pri-11)
+2. [What are the goals or uses of DOE?](#sec-pri-12)
+3. [What are the steps in DOE?](#sec-pri-13)
+
+{{< include introduction/what-is-experimental-design.qmd >}}
+
+{{< include introduction/uses-overview.qmd >}}
+
+{{< include introduction/steps.qmd >}}
