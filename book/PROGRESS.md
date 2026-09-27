@@ -33,11 +33,11 @@ own docstring) after rerunning it for an already-corrected chapter.
 | 2. Measurement Process Characterization | 183 | 4 | 7 | 194 | 94%* |
 | 3. Production Process Characterization | 59 | 1 | 1 | 61 | 97%* |
 | 4. Process Modeling | 108 (108 verified) | 0 | 0 | 108 | 100% |
-| 5. Process Improvement | 30 (30 verified) | 1 | 110 | 141 | 21% |
+| 5. Process Improvement | 36 (36 verified) | 1 | 104 | 141 | 26% |
 | 6. Process or Product Monitoring and Control | 0 | 1 | 93 | 94 | 0% |
 | 7. Product and Process Comparisons | 0 | 1 | 57 | 58 | 0% |
 | 8. Assessing Product Reliability | 0 | 1 | 84 | 85 | 0% |
-| **Total** | **591** | **10** | **352** | **953** | **62%** |
+| **Total** | **597** | **10** | **346** | **953** | **63%** |
 
 Chapter 5's total grew from 139 to 141 pages: two pages (5.3.3.4.1 and 5.3.3.4.2) were missing
 from the original auto-generated `PROGRESS.csv` -- `build_progress.py`'s dtoc.htm regex silently
@@ -56,11 +56,12 @@ approximate until someone verifies them directly.
   chapter hasn't been hand-verified.
 - **Chapter 3**: 1 page (`3.4.1. First Steps`) shows as not started, but this is unverified and may
   be a title-wording false negative -- check before acting on it.
-- **Chapter 5**: in progress. Section 5.1 (Introduction), 5.2 (Assumptions), and the first four of
+- **Chapter 5**: in progress. Section 5.1 (Introduction), 5.2 (Assumptions), and the first six of
   Section 5.3.3's ten design-type subsections (5.3.3.1 Completely randomized, 5.3.3.2 Randomized
   block plus Latin/Graeco-Latin/Hyper-Graeco-Latin square subpages, 5.3.3.3 Full factorial plus
-  subpages, 5.3.3.4 Fractional factorial plus its 7 subpages) are done and verified. Remaining:
-  5.3.3.5 through 5.3.3.10, then Sections 5.4-5.7.
+  subpages, 5.3.3.4 Fractional factorial plus its 7 subpages, 5.3.3.5 Plackett-Burman, 5.3.3.6
+  Response surface designs plus its 4 subpages) are done and verified. Remaining: 5.3.3.7 through
+  5.3.3.10, then Sections 5.4-5.7.
 - **Chapters 6-8**: entirely unstarted.
 
 To regenerate the automated pass (loses any un-preserved hand corrections for chapters you rerun):
