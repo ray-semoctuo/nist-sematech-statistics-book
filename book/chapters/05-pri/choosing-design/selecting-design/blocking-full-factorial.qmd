@@ -16,7 +16,7 @@ Example: An eight-run $2^3$ full factorial has to be blocked into two groups of 
 
 **Graphical representation of blocking scheme**
 
-![Blocking Scheme for a $2^3$ Using Alternate Corners](images/blocking-cube.svg){#fig-pri-3333-blocking}
+![Blocking Scheme for a $2^3$ Using Alternate Corners](choosing-design/selecting-design/images/blocking-cube.svg){#fig-pri-3333-blocking}
 
 [**Three-factor interaction confounded with the block effect**]{#sec-pri-3333-confounded}
 

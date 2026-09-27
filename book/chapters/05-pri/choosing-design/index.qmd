@@ -18,14 +18,14 @@ This section describes in detail the process of choosing an experimental design 
       - [Two-level full factorial designs](#sec-pri-3331)
       - [Full factorial example](#sec-pri-3332)
       - [Blocking of full factorial designs](#sec-pri-3333)
-   4. Fractional factorial designs
-      - A $2^{3-1}$ half-fraction design
-      - How to construct a $2^{3-1}$ design
-      - Confounding
-      - Design resolution
-      - Use of fractional factorial designs
-      - Screening designs
-      - Fractional factorial designs summary tables
+   4. [Fractional factorial designs](#sec-pri-334)
+      - [A $2^{3-1}$ half-fraction design](#sec-pri-3341)
+      - [How to construct a $2^{3-1}$ design](#sec-pri-3342)
+      - [Confounding](#sec-pri-3343)
+      - [Design resolution](#sec-pri-3344)
+      - [Use of fractional factorial designs](#sec-pri-3345)
+      - [Screening designs](#sec-pri-3346)
+      - [Fractional factorial designs summary tables](#sec-pri-3347)
    5. Plackett-Burman designs
    6. Response surface (second-order) designs
       - Central composite designs
@@ -101,3 +101,19 @@ It is a good idea to choose a design that requires somewhat fewer runs than the 
 {{< include choosing-design/selecting-design/full-factorial-example.qmd >}}
 
 {{< include choosing-design/selecting-design/blocking-full-factorial.qmd >}}
+
+{{< include choosing-design/selecting-design/fractional-factorial.qmd >}}
+
+{{< include choosing-design/selecting-design/half-fraction.qmd >}}
+
+{{< include choosing-design/selecting-design/constructing-half-fraction.qmd >}}
+
+{{< include choosing-design/selecting-design/confounding.qmd >}}
+
+{{< include choosing-design/selecting-design/design-resolution.qmd >}}
+
+{{< include choosing-design/selecting-design/use-of-fractional-factorial.qmd >}}
+
+{{< include choosing-design/selecting-design/screening-designs.qmd >}}
+
+{{< include choosing-design/selecting-design/summary-tables.qmd >}}

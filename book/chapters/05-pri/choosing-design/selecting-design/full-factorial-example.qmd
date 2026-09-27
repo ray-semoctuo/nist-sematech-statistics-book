@@ -26,7 +26,7 @@ Speed, Feed and Depth can all be varied continuously along their respective scal
 
 We want to try various combinations of these settings so as to establish the best way to run the polisher. There are eight different ways of combining high and low settings of Speed, Feed, and Depth. These eight are shown at the corners of @fig-pri-3332-cube.
 
-![A $2^3$ Two-level, Full Factorial Design; Factors $X_1$, $X_2$, $X_3$. (The arrows show the direction of increase of the factors.)](images/two-level-cube.svg){#fig-pri-3332-cube}
+![A $2^3$ Two-level, Full Factorial Design; Factors $X_1$, $X_2$, $X_3$. (The arrows show the direction of increase of the factors.)](choosing-design/selecting-design/images/two-level-cube.svg){#fig-pri-3332-cube}
 
 [**$2^3$ implies 8 runs**]{#sec-pri-3332-implies-8}
 

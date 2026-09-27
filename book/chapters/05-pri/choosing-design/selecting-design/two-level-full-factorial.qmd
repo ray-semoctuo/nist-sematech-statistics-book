@@ -6,7 +6,7 @@
 
 Consider the two-level, full factorial design for three factors, namely the $2^3$ design. This implies eight runs (not counting replications or center point runs). Graphically, we can represent the $2^3$ design by the cube shown in @fig-pri-3331-cube. The arrows show the direction of increase of the factors. The numbers '1' through '8' at the corners of the design box reference the 'Standard Order' of runs (see @fig-pri-3331-cube).
 
-![A $2^3$ two-level, full factorial design; factors $X_1$, $X_2$, $X_3$](images/two-level-cube.svg){#fig-pri-3331-cube}
+![A $2^3$ two-level, full factorial design; factors $X_1$, $X_2$, $X_3$](choosing-design/selecting-design/images/two-level-cube.svg){#fig-pri-3331-cube}
 
 [**The design matrix**]{#sec-pri-3331-matrix}
 
