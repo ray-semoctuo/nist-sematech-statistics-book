@@ -1,0 +1,18 @@
+## Assumptions {#sec-pri-2}
+
+[**We should check the engineering and model-building assumptions that are made in most DOE's**]{#sec-pri-2-overview}
+
+In all model building we make assumptions, and we also require certain conditions to be approximately met for purposes of estimation. This section looks at some of the engineering and mathematical assumptions we typically make. These are:
+
+1. [Are the measurement systems capable for all of your responses?](#sec-pri-21)
+2. [Is your process stable?](#sec-pri-22)
+3. [Are your responses likely to be approximated well by simple polynomial models?](#sec-pri-23)
+4. [Are the residuals (the difference between the model predictions and the actual observations) well behaved?](#sec-pri-24)
+
+{{< include assumptions/measurement-system.qmd >}}
+
+{{< include assumptions/process-stability.qmd >}}
+
+{{< include assumptions/simple-model.qmd >}}
+
+{{< include assumptions/residuals.qmd >}}

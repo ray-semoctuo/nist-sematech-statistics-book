@@ -1,0 +1,260 @@
+### Are the model residuals well-behaved? {#sec-pri-24}
+
+[**Residuals are the differences between the observed and predicted responses**]{#sec-pri-24-differences}
+
+Residuals are estimates of experimental error obtained by subtracting the observed responses from the predicted responses.
+
+The predicted response is calculated from the chosen model, after all the unknown model parameters have been estimated from the experimental data.
+
+Examining residuals is a key part of all statistical modeling, including DOE's. Carefully looking at residuals can tell us whether our assumptions are reasonable and our choice of model is appropriate.
+
+[**Residuals are elements of variation unexplained by fitted model**]{#sec-pri-24-unexplained}
+
+Residuals can be thought of as elements of variation unexplained by the fitted model. Since this is a form of error, the same general assumptions apply to the group of residuals that we typically use for errors in general: one expects them to be (roughly) normal and (approximately) independently distributed with a mean of 0 and some constant variance.
+
+[**Assumptions for residuals**]{#sec-pri-24-assumptions}
+
+These are the assumptions behind ANOVA and classical regression analysis. This means that an analyst should expect a regression model to err in predicting a response in a random fashion; the model should predict values higher than actual and lower than actual with equal probability. In addition, the level of the error should be independent of when the observation occurred in the study, or the size of the observation being predicted, or even the factor settings involved in making the prediction. The overall pattern of the residuals should be similar to the bell-shaped pattern observed when plotting a histogram of normally distributed data.
+
+We emphasize the use of graphical methods to examine residuals.
+
+[**Departures indicate inadequate model**]{#sec-pri-24-departures}
+
+Departures from these assumptions usually mean that the residuals contain structure that is not accounted for in the model. Identifying that structure and adding term(s) representing it to the original model leads to a better model.
+
+[**Tests for Residual Normality**]{#sec-pri-24-normality}
+
+**Plots for examining residuals**
+
+Any graph suitable for displaying the distribution of a set of data is suitable for judging the normality of the distribution of a group of residuals. The three most common types are:
+
+- histograms,
+- normal probability plots, and
+- dot plots.
+
+**Histogram**
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+set.seed(1)
+sample_residuals <- tibble(residual = rnorm(54, 0, 7))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-24-histogram
+#| fig-cap: "Sample histogram of residuals from a semiconductor process"
+ggplot(sample_residuals, aes(residual)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 2.5, fill = "steelblue", alpha = 0.6, color = "white") +
+  stat_function(fun = dnorm, args = list(mean = mean(sample_residuals$residual), sd = sd(sample_residuals$residual)), color = "firebrick", xlim = c(-25, 25)) +
+  coord_cartesian(xlim = c(-25, 25)) +
+  labs(x = "Residuals", y = "Relative Frequency") +
+  theme_light()
+```
+
+The histogram is a frequency plot obtained by placing the data in regularly spaced cells and plotting each cell frequency versus the center of the cell. The figure above illustrates an approximately normal distribution of residuals produced by a model for a calibration process. We have superimposed a normal density function on the histogram.
+
+**Small sample sizes**
+
+Sample sizes of residuals are generally small (<50) because experiments have limited treatment combinations, so a histogram is not be the best choice for judging the distribution of residuals. A more sensitive graph is the normal probability plot.
+
+**Normal probability plot**
+
+The steps in forming a normal probability plot are:
+
+1. Sort the residuals into ascending order.
+2. Calculate the cumulative probability of each residual using the formula:
+
+   $$P(\text{i-th residual}) = \frac{i}{N+1}$$
+
+   with $P$ denoting the cumulative probability of a point, $i$ is the order of the value in the list and $N$ is the number of entries in the list.
+3. Plot the calculated p-values versus the residual value on normal probability paper.
+
+The normal probability plot should produce an approximately straight line if the points come from a normal distribution.
+
+**Sample normal probability plot with overlaid dot plot**
+
+The plot below illustrates the normal probability graph created from the same group of residuals used for the histogram above.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-24-normal-probability
+#| fig-cap: "Sample normal probability plot, with an overlaid dot plot along the left edge"
+ggplot(sample_residuals, aes(sample = residual)) +
+  stat_qq(color = "steelblue") +
+  stat_qq_line(color = "firebrick") +
+  geom_rug(aes(y = residual), sides = "l", color = "steelblue", inherit.aes = FALSE) +
+  labs(x = "Theoretical Quantiles", y = "Residuals") +
+  theme_light()
+```
+
+This graph includes the addition of a dot plot. The dot plot is the collection of points along the left y-axis. These are the values of the residuals. The purpose of the dot plot is to provide an indication the distribution of the residuals.
+
+**"S" shaped curves indicate bimodal distribution**
+
+Small departures from the straight line in the normal probability plot are common, but a clearly "S" shaped curve on this graph suggests a bimodal distribution of residuals. Breaks near the middle of this graph are also indications of abnormalities in the residual distribution.
+
+::: {.callout-note}
+Studentized residuals are residuals converted to a scale approximately representing the standard deviation of an individual residual from the center of the residual distribution. The technique used to convert residuals to this form produces a Student's t distribution of values.
+:::
+
+[**Independence of Residuals Over Time**]{#sec-pri-24-time}
+
+**Run sequence plot**
+
+If the order of the observations in a data table represents the order of execution of each treatment combination, then a plot of the residuals of those observations versus the case order or time order of the observations will test for any time dependency. These are referred to as run sequence plots.
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pri-24-run-sequence
+#| fig-cap: "Sample run sequence plots: with a time trend (left) and without a time trend (right)"
+library(tidyverse)
+library(patchwork)
+
+set.seed(524)
+trend_data <- tibble(
+  sequence = 1:32,
+  residual = 0.75 - 0.045 * sequence + rnorm(32, 0, 0.9)
+)
+
+p_trend <- ggplot(trend_data, aes(sequence, residual)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE, color = "firebrick") +
+  labs(x = "Sequence Number", y = "Residuals") +
+  theme_light()
+
+no_trend_data <- tibble(
+  sequence = 1:30,
+  residual = resid(lm(rnorm(30, 0, 1.2) ~ sequence))
+)
+
+p_no_trend <- ggplot(no_trend_data, aes(sequence, residual)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE, color = "firebrick") +
+  labs(x = "Sequence Number", y = "Residuals") +
+  theme_light()
+
+p_trend + p_no_trend
+```
+
+**Interpretation of the sample run sequence plots**
+
+The residuals in the left-hand plot suggest a time trend, while those in the right-hand plot do not. The left-hand plot suggests that the system was drifting slowly to lower values as the investigation continued. In extreme cases a drift of the equipment will produce models with very poor ability to account for the variability in the data (low $R^2$).
+
+If the investigation includes centerpoints, then plotting them in time order may produce a more clear indication of a time trend if one exists. Plotting the raw responses in time sequence can also sometimes detect trend changes in a process that residual plots might not detect.
+
+[**Plot of Residuals Versus Corresponding Predicted Values**]{#sec-pri-24-vs-predicted}
+
+**Check for increasing residuals as size of fitted value increases**
+
+Plotting residuals versus the value of a fitted response should produce a distribution of points scattered randomly about 0, regardless of the size of the fitted value. Quite commonly, however, residual values may increase as the size of the fitted value increases. When this happens, the residual cloud becomes "funnel shaped" with the larger end toward larger fitted values; that is, the residuals have larger and larger scatter as the value of the response increases. Plotting the absolute values of the residuals instead of the signed values will produce a "wedge-shaped" distribution; a smoothing function is added to each graph which helps to show the trend.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-24-vs-predicted
+#| fig-cap: "Sample |residuals| versus predicted values: showing increasing residuals (left) and not showing increasing residuals, after a transformation of the response (right)"
+set.seed(627)
+funnel_data <- tibble(
+  predicted = runif(60, 8, 65),
+  abs_residual = abs(rnorm(60, 0, 0.15 * predicted))
+)
+
+p_funnel <- ggplot(funnel_data, aes(predicted, abs_residual)) +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE, color = "firebrick") +
+  labs(x = "Predicted Values", y = "|Residuals|") +
+  theme_light()
+
+no_funnel_data <- tibble(
+  predicted = runif(60, 1.5, 4.2),
+  abs_residual = pmax(0.17 + resid(lm(rnorm(60, 0, 0.08) ~ predicted)), 0)
+)
+
+p_no_funnel <- ggplot(no_funnel_data, aes(predicted, abs_residual)) +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE, color = "firebrick") +
+  labs(x = "Predicted Values", y = "|Residuals|") +
+  theme_light()
+
+p_funnel + p_no_funnel
+```
+
+**Interpretation of the residuals versus fitted values plots**
+
+A residual distribution such as that in the left-hand plot showing a trend to higher absolute residuals as the value of the response increases suggests that one should transform the response, perhaps by modeling its logarithm or square root, etc., (contractive transformations). Transforming a response in this fashion often simplifies its relationship with a predictor variable and leads to simpler models. Later sections discuss transformation in more detail. The right-hand plot shows the residuals after a transformation on the response variable was used to reduce the scatter. Notice the difference in scales on the vertical axes.
+
+[**Independence of Residuals from Factor Settings**]{#sec-pri-24-factor-settings}
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-24-vs-factor
+#| fig-cap: "Sample residuals versus factor setting: before (left) and after (right) adding a quadratic term"
+set.seed(728)
+level_means_before <- c(1, 0.2, -0.3, -0.05, 1.9)
+before_data <- map2(1:5, level_means_before, \(lvl, m) {
+  n <- c(1, 5, 16, 6, 1)[lvl]
+  tibble(level = lvl, residual = m + rnorm(n, 0, 0.55))
+}) |>
+  list_rbind()
+means_before <- before_data |> summarise(residual = mean(residual), .by = level)
+
+p_before <- ggplot(before_data, aes(level, residual)) +
+  geom_point(color = "steelblue") +
+  geom_line(data = means_before, color = "firebrick") +
+  scale_x_continuous(breaks = 1:5) +
+  labs(x = "Factor Level", y = "Residuals") +
+  theme_light()
+
+after_data <- before_data |>
+  mutate(residual = residual - level_means_before[level] + rnorm(n(), 0, 0.3))
+after_data$residual[after_data$level == 4][1] <- -6.3
+means_after <- after_data |> summarise(residual = mean(residual), .by = level)
+
+p_after <- ggplot(after_data, aes(level, residual)) +
+  geom_point(color = "steelblue") +
+  geom_line(data = means_after, color = "firebrick") +
+  scale_x_continuous(breaks = 1:5) +
+  labs(x = "Factor Level", y = "Residuals") +
+  theme_light()
+
+p_before + p_after
+```
+
+**Interpretation of residuals versus factor setting plots**
+
+The left-hand plot shows that the size of the residuals changed as a function of a predictor's settings. A graph like this suggests that the model needs a higher-order term in that predictor or that one should transform the predictor using a logarithm or square root, for example. The right-hand plot shows the residuals for the same response after adding a quadratic term. Notice the single point widely separated from the other residuals. This point is an "outlier." That is, its position is well within the range of values used for this predictor in the investigation, but its result was somewhat lower than the model predicted. A signal that curvature is present is a trace resembling a "frown" or a "smile" in these graphs.
+
+The example given above obviously involves five levels of the predictor. The experiment utilized a response surface design. For the simple factorial design that includes center points, if the response model being considered lacked one or more higher-order terms, the plot of residuals versus factor settings might appear as below.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-24-vs-factor-centerpoint
+#| fig-cap: "Sample residuals versus factor setting for a simple factorial design with centerpoints, lacking a higher-order term"
+centerpoint_data <- tibble(
+  level = c(-1, -1, 0, 0, 0, 0, 1, 1),
+  residual = c(0.6, 1.6, -0.4, -0.6, -0.9, -1.55, 0.6, 1.6)
+)
+means_centerpoint <- centerpoint_data |> summarise(residual = mean(residual), .by = level)
+
+ggplot(centerpoint_data, aes(level, residual)) +
+  geom_point(color = "steelblue") +
+  geom_line(data = means_centerpoint, color = "firebrick") +
+  scale_x_continuous(breaks = c(-1, 0, 1)) +
+  labs(x = "Factor Level", y = "Residuals") +
+  theme_light()
+```
+
+**Interpretation of plot**
+
+While the graph gives a definite signal that curvature is present, identifying the source of that curvature is not possible due to the structure of the design. Graphs generated using the other predictors in that situation would have very similar appearances.
+
+::: {.callout-note}
+Residuals are an important subject discussed repeatedly in this Handbook. For example, graphical residual plots are discussed in the [6-plot](../01-eda/index.qmd#sec-eda-6-plot) technique in Chapter 1, and the general examination of residuals as a part of model building is discussed in [Chapter 4](../04-pmd/index.qmd#sec-pmd-44).
+:::

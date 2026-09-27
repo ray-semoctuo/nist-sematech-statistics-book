@@ -1,7 +1,7 @@
 # Process Improvement {#sec-pri}
 
 1. [Introduction](#sec-pri-1)
-2. Assumptions
+2. [Assumptions](#sec-pri-2)
 3. Choosing an Experimental Design
 4. Analysis of DOE Data
 5. Advanced Topics
@@ -9,3 +9,5 @@
 7. A Glossary of DOE Terminology
 
 {{< include introduction/index.qmd >}}
+
+{{< include assumptions/index.qmd >}}

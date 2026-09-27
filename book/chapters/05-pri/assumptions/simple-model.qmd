@@ -1,0 +1,41 @@
+### Is there a simple model? {#sec-pri-23}
+
+[**Polynomial approximation models only work for smoothly varying outputs**]{#sec-pri-23-smooth}
+
+In this chapter we restrict ourselves to the case for which the response variable(s) are continuous outputs denoted as $Y$. Over the experimental range, the outputs must not only be continuous, but also reasonably smooth. A sharp falloff in $Y$ values is likely to be missed by the approximating polynomials that we use because these polynomials assume a smoothly curving underlying response surface.
+
+[**Piecewise smoothness requires separate experiments**]{#sec-pri-23-piecewise}
+
+If the surface under investigation is known to be only piecewise smooth, then the experiments will have to be broken up into separate experiments, each investigating the shape of the separate sections. A surface that is known to be very jagged (i.e., non-smooth) will not be successfully approximated by a smooth polynomial.
+
+[**Examples of piecewise smooth and jagged responses**]{#sec-pri-23-examples}
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: fig-pri-23-smooth-jagged
+#| fig-cap: "Examples of piecewise smooth and jagged responses"
+library(tidyverse)
+library(patchwork)
+
+piecewise_smooth <- tibble(x = seq(0, 10, length.out = 400)) |>
+  mutate(y = if_else(x < 5, sqrt(x), sqrt(pmax(x - 5, 0)) + 1.5))
+
+p_smooth <- ggplot(piecewise_smooth, aes(x, y)) +
+  geom_line(color = "steelblue") +
+  labs(x = "X", y = "Y", title = "Piecewise Smooth") +
+  theme_light() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank())
+
+set.seed(523)
+jagged <- tibble(x = seq(0, 10, length.out = 60)) |>
+  mutate(y = cumsum(rnorm(60)))
+
+p_jagged <- ggplot(jagged, aes(x, y)) +
+  geom_line(color = "steelblue") +
+  labs(x = "X", y = "Y", title = "Jagged") +
+  theme_light() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank())
+
+p_smooth + p_jagged
+```
