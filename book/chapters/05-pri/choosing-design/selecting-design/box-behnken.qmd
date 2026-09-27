@@ -1,0 +1,17 @@
+##### Box-Behnken designs {#sec-pri-3362}
+
+[**An alternate choice for fitting quadratic models that requires 3 levels of each factor and is rotatable (or "nearly" rotatable)**]{#sec-pri-3362-overview}
+
+The Box-Behnken design is an independent quadratic design in that it does not contain an embedded factorial or fractional factorial design. In this design the treatment combinations are at the midpoints of edges of the process space and at the center. These designs are rotatable (or near rotatable) and require 3 levels of each factor. The designs have limited capability for orthogonal blocking compared to the central composite designs.
+
+@fig-pri-3362-cube illustrates a Box-Behnken design for three factors.
+
+[**Box-Behnken design for 3 factors**]{#sec-pri-3362-3factors}
+
+![A Box-Behnken Design for Three Factors](choosing-design/selecting-design/images/box-behnken-cube.svg){#fig-pri-3362-cube}
+
+[**Geometry of the design**]{#sec-pri-3362-geometry}
+
+The geometry of this design suggests a sphere within the process space such that the surface of the sphere protrudes through each face with the surface of the sphere tangential to the midpoint of each edge of the space.
+
+Examples of Box-Behnken designs are given on the [next page](#sec-pri-3363).

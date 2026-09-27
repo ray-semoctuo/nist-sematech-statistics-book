@@ -27,11 +27,11 @@ This section describes in detail the process of choosing an experimental design 
       - [Screening designs](#sec-pri-3346)
       - [Fractional factorial designs summary tables](#sec-pri-3347)
    5. [Plackett-Burman designs](#sec-pri-335)
-   6. Response surface (second-order) designs
-      - Central composite designs
-      - Box-Behnken designs
-      - Response surface design comparisons
-      - Blocking a response surface design
+   6. [Response surface (second-order) designs](#sec-pri-336)
+      - [Central composite designs](#sec-pri-3361)
+      - [Box-Behnken designs](#sec-pri-3362)
+      - [Response surface design comparisons](#sec-pri-3363)
+      - [Blocking a response surface design](#sec-pri-3364)
    7. Adding center points
    8. Improving fractional design resolution
       - Mirror-image foldover designs
@@ -119,3 +119,13 @@ It is a good idea to choose a design that requires somewhat fewer runs than the 
 {{< include choosing-design/selecting-design/summary-tables.qmd >}}
 
 {{< include choosing-design/selecting-design/plackett-burman.qmd >}}
+
+{{< include choosing-design/selecting-design/response-surface-designs.qmd >}}
+
+{{< include choosing-design/selecting-design/central-composite.qmd >}}
+
+{{< include choosing-design/selecting-design/box-behnken.qmd >}}
+
+{{< include choosing-design/selecting-design/response-surface-comparisons.qmd >}}
+
+{{< include choosing-design/selecting-design/blocking-response-surface.qmd >}}
