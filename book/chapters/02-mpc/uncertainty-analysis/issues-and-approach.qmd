@@ -45,7 +45,7 @@ The procedures in this chapter are intended for test laboratories, calibration l
 The following pages (sections) outline methods for estimating the individual uncertainty components, which are consistent with materials presented in other sections of this Handbook, and rules and equations for combining them into a final expanded uncertainty. The general framework is:
 
 1. [ISO Approach](#sec-mpc-52-iso)
-2. [Outline of steps to uncertainty analysis](#sec-mpc-521-steps)
+2. [Outline of steps to uncertainty analysis](#sec-mpc-521)
 3. [Methods for type A evaluations](#sec-mpc-53)
 4. [Methods for type B evaluations](#sec-mpc-54)
 5. [Propagation of error considerations](#sec-mpc-55)
