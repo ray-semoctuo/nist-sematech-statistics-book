@@ -574,10 +574,10 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 4. Process Modeling,4.8.1.2.9,Quadratic / Cubic Rational Function,pmd/section8/pmd8129.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
 4. Process Modeling,4.8.1.2.10,Cubic / Cubic Rational Function,pmd/section8/pmd812a.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
 4. Process Modeling,4.8.1.2.11,Determining m and n for Rational Function Models,pmd/section8/pmd812b.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-5. Process Improvement,5.1,Introduction,pri/section1/pri1.htm,not_started,no,,
-5. Process Improvement,5.1.1,What is experimental design?,pri/section1/pri11.htm,not_started,no,,
-5. Process Improvement,5.1.2,What are the uses of DOE?,pri/section1/pri12.htm,not_started,no,,
-5. Process Improvement,5.1.3,What are the steps of DOE?,pri/section1/pri13.htm,not_started,no,,
+5. Process Improvement,5.1,Introduction,pri/section1/pri1.htm,done,yes,chapters/05-pri/introduction/index.qmd,Drafted and reviewed 2026-09-26
+5. Process Improvement,5.1.1,What is experimental design?,pri/section1/pri11.htm,done,yes,chapters/05-pri/introduction/what-is-experimental-design.qmd,Drafted and reviewed 2026-09-26
+5. Process Improvement,5.1.2,What are the uses of DOE?,pri/section1/pri12.htm,done,yes,chapters/05-pri/introduction/uses-overview.qmd,Drafted and reviewed 2026-09-26
+5. Process Improvement,5.1.3,What are the steps of DOE?,pri/section1/pri13.htm,done,yes,chapters/05-pri/introduction/steps.qmd,Drafted and reviewed 2026-09-26
 5. Process Improvement,5.2,Assumptions,pri/section2/pri2.htm,not_started,no,,
 5. Process Improvement,5.2.1,Is the measurement system capable?,pri/section2/pri21.htm,not_started,no,,
 5. Process Improvement,5.2.2,Is the process stable?,pri/section2/pri22.htm,not_started,no,,
