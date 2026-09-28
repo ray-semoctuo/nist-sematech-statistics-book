@@ -10,27 +10,60 @@ For three factors, the Box-Behnken design offers some advantage in requiring a f
 
 [**Structural comparisons of CCC (CCI), CCF, and Box-Behnken designs for three factors**]{#sec-pri-3363-structural}
 
-| Rep | $X_1$ | $X_2$ | $X_3$ | Rep | $X_1$ | $X_2$ | $X_3$ | Rep | $X_1$ | $X_2$ | $X_3$ |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| **CCC (CCI)** | | | | **CCF** | | | | **Box-Behnken** | | | |
-| 1 | -1 | -1 | -1 | 1 | -1 | -1 | -1 | 1 | -1 | -1 | 0 |
-| 1 | +1 | -1 | -1 | 1 | +1 | -1 | -1 | 1 | +1 | -1 | 0 |
-| 1 | -1 | +1 | -1 | 1 | -1 | +1 | -1 | 1 | -1 | +1 | 0 |
-| 1 | +1 | +1 | -1 | 1 | +1 | +1 | -1 | 1 | +1 | +1 | 0 |
-| 1 | -1 | -1 | +1 | 1 | -1 | -1 | +1 | 1 | -1 | 0 | -1 |
-| 1 | +1 | -1 | +1 | 1 | +1 | -1 | +1 | 1 | +1 | 0 | -1 |
-| 1 | -1 | +1 | +1 | 1 | -1 | +1 | +1 | 1 | -1 | 0 | +1 |
-| 1 | +1 | +1 | +1 | 1 | +1 | +1 | +1 | 1 | +1 | 0 | +1 |
-| 1 | -1.682 | 0 | 0 | 1 | -1 | 0 | 0 | 1 | 0 | -1 | -1 |
-| 1 | 1.682 | 0 | 0 | 1 | +1 | 0 | 0 | 1 | 0 | +1 | -1 |
-| 1 | 0 | -1.682 | 0 | 1 | 0 | -1 | 0 | 1 | 0 | -1 | +1 |
-| 1 | 0 | 1.682 | 0 | 1 | 0 | +1 | 0 | 1 | 0 | +1 | +1 |
-| 1 | 0 | 0 | -1.682 | 1 | 0 | 0 | -1 | 3 | 0 | 0 | 0 |
-| 1 | 0 | 0 | 1.682 | 1 | 0 | 0 | +1 | | | | |
-| 6 | 0 | 0 | 0 | 6 | 0 | 0 | 0 | | | | |
-| **Total Runs = 20** | | | | **Total Runs = 20** | | | | **Total Runs = 15** | | | |
+```{r}
+#| code-fold: true
+#| label: tbl-pri-3363-structural
+#| tbl-cap: "Structural Comparisons of CCC (CCI), CCF, and Box-Behnken Designs for Three Factors"
+library(gt)
 
-: Structural Comparisons of CCC (CCI), CCF, and Box-Behnken Designs for Three Factors {#tbl-pri-3363-structural}
+structural_df <- tribble(
+  ~rep_ccc, ~x1_ccc,   ~x2_ccc,   ~x3_ccc,   ~rep_ccf, ~x1_ccf, ~x2_ccf, ~x3_ccf, ~rep_bb, ~x1_bb, ~x2_bb, ~x3_bb,
+  "1",      "-1",      "-1",      "-1",      "1",      "-1",    "-1",    "-1",    "1",     "-1",   "-1",   "0",
+  "1",      "+1",      "-1",      "-1",      "1",      "+1",    "-1",    "-1",    "1",     "+1",   "-1",   "0",
+  "1",      "-1",      "+1",      "-1",      "1",      "-1",    "+1",    "-1",    "1",     "-1",   "+1",   "0",
+  "1",      "+1",      "+1",      "-1",      "1",      "+1",    "+1",    "-1",    "1",     "+1",   "+1",   "0",
+  "1",      "-1",      "-1",      "+1",      "1",      "-1",    "-1",    "+1",    "1",     "-1",   "0",    "-1",
+  "1",      "+1",      "-1",      "+1",      "1",      "+1",    "-1",    "+1",    "1",     "+1",   "0",    "-1",
+  "1",      "-1",      "+1",      "+1",      "1",      "-1",    "+1",    "+1",    "1",     "-1",   "0",    "+1",
+  "1",      "+1",      "+1",      "+1",      "1",      "+1",    "+1",    "+1",    "1",     "+1",   "0",    "+1",
+  "1",      "-1.682",  "0",       "0",       "1",      "-1",    "0",     "0",     "1",     "0",    "-1",   "-1",
+  "1",      "1.682",   "0",       "0",       "1",      "+1",    "0",     "0",     "1",     "0",    "+1",   "-1",
+  "1",      "0",       "-1.682",  "0",       "1",      "0",     "-1",    "0",     "1",     "0",    "-1",   "+1",
+  "1",      "0",       "1.682",   "0",       "1",      "0",     "+1",    "0",     "1",     "0",    "+1",   "+1",
+  "1",      "0",       "0",       "-1.682",  "1",      "0",     "0",     "-1",    "3",     "0",    "0",    "0",
+  "1",      "0",       "0",       "1.682",   "1",      "0",     "0",     "+1",    NA,      NA,     NA,     NA,
+  "6",      "0",       "0",       "0",       "6",      "0",     "0",     "0",     NA,      NA,     NA,     NA
+)
+
+structural_df |>
+  gt() |>
+  tab_spanner(label = "CCC (CCI)", columns = c(rep_ccc, x1_ccc, x2_ccc, x3_ccc)) |>
+  tab_spanner(label = "CCF", columns = c(rep_ccf, x1_ccf, x2_ccf, x3_ccf)) |>
+  tab_spanner(label = "Box-Behnken", columns = c(rep_bb, x1_bb, x2_bb, x3_bb)) |>
+  cols_label(
+    rep_ccc = "Rep", x1_ccc = md("X~1~"), x2_ccc = md("X~2~"), x3_ccc = md("X~3~"),
+    rep_ccf = "Rep", x1_ccf = md("X~1~"), x2_ccf = md("X~2~"), x3_ccf = md("X~3~"),
+    rep_bb  = "Rep", x1_bb  = md("X~1~"), x2_bb  = md("X~2~"), x3_bb  = md("X~3~")
+  ) |>
+  cols_align(align = "right", columns = everything()) |>
+  sub_missing(missing_text = "") |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_body(columns = c(rep_ccf, rep_bb))
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_labels(columns = c(rep_ccf, rep_bb))
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_spanners(spanners = c("CCF", "Box-Behnken"))
+  ) |>
+  tab_source_note(
+    source_note = "Total Runs: CCC (CCI) = 20 · CCF = 20 · Box-Behnken = 15"
+  ) |>
+  opt_table_font(font = "Helvetica")
+```
 
 [**Factor settings for CCC and CCI three factor designs**]{#sec-pri-3363-ccc-cci-settings}
 
@@ -38,74 +71,127 @@ For three factors, the Box-Behnken design offers some advantage in requiring a f
 
 In @tbl-pri-3363-ccc-cci, treatments 1 to 8 in each case are the factorial points in the design; treatments 9 to 14 are the star points; and 15 to 20 are the system-recommended center points. Notice in the CCC design how the low and high values of each factor have been extended to create the star points. In the CCI design, the specified low and high values become the star points, and the system computes appropriate settings for the factorial part of the design inside those boundaries.
 
-| Sequence Number | $X_1$ | $X_2$ | $X_3$ | | Sequence Number | $X_1$ | $X_2$ | $X_3$ |
-|---:|---:|---:|:---:|---|---:|---:|---:|---:|
-| **Central Composite Circumscribed CCC** | | | | | **Central Composite Inscribed CCI** | | | |
-| 1 | 10 | 10 | 10 | | 1 | 12 | 12 | 12 |
-| 2 | 20 | 10 | 10 | | 2 | 18 | 12 | 12 |
-| 3 | 10 | 20 | 10 | | 3 | 12 | 18 | 12 |
-| 4 | 20 | 20 | 10 | | 4 | 18 | 18 | 12 |
-| 5 | 10 | 10 | 20 | | 5 | 12 | 12 | 18 |
-| 6 | 20 | 10 | 20 | | 6 | 18 | 12 | 18 |
-| 7 | 10 | 20 | 20 | | 7 | 12 | 12 | 18 |
-| 8 | 20 | 20 | 20 | | 8 | 18 | 18 | 18 |
-| 9 | 6.6 | 15 | 15 * | | 9 | 10 | 15 | 15 |
-| 10 | 23.4 | 15 | 15 * | | 10 | 20 | 15 | 15 |
-| 11 | 15 | 6.6 | 15 * | | 11 | 15 | 10 | 15 |
-| 12 | 15 | 23.4 | 15 * | | 12 | 15 | 20 | 15 |
-| 13 | 15 | 15 | 6.6 * | | 13 | 15 | 15 | 10 |
-| 14 | 15 | 15 | 23.4 * | | 14 | 15 | 15 | 20 |
-| 15 | 15 | 15 | 15 | | 15 | 15 | 15 | 15 |
-| 16 | 15 | 15 | 15 | | 16 | 15 | 15 | 15 |
-| 17 | 15 | 15 | 15 | | 17 | 15 | 15 | 15 |
-| 18 | 15 | 15 | 15 | | 18 | 15 | 15 | 15 |
-| 19 | 15 | 15 | 15 | | 19 | 15 | 15 | 15 |
-| 20 | 15 | 15 | 15 | | 20 | 15 | 15 | 15 |
+```{r}
+#| code-fold: true
+#| label: tbl-pri-3363-ccc-cci
+#| tbl-cap: "Factor Settings for CCC and CCI Designs for Three Factors (\\* are star points)"
+ccc_cci_df <- tribble(
+  ~seq_ccc, ~x1_ccc,  ~x2_ccc,  ~x3_ccc,   ~seq_cci, ~x1_cci, ~x2_cci, ~x3_cci,
+  1,        "10",     "10",     "10",      1,        "12",    "12",    "12",
+  2,        "20",     "10",     "10",      2,        "18",    "12",    "12",
+  3,        "10",     "20",     "10",      3,        "12",    "18",    "12",
+  4,        "20",     "20",     "10",      4,        "18",    "18",    "12",
+  5,        "10",     "10",     "20",      5,        "12",    "12",    "18",
+  6,        "20",     "10",     "20",      6,        "18",    "12",    "18",
+  7,        "10",     "20",     "20",      7,        "12",    "12",    "18",
+  8,        "20",     "20",     "20",      8,        "18",    "18",    "18",
+  9,        "6.6",    "15",     "15 *",    9,        "10",    "15",    "15",
+  10,       "23.4",   "15",     "15 *",    10,       "20",    "15",    "15",
+  11,       "15",     "6.6",    "15 *",    11,       "15",    "10",    "15",
+  12,       "15",     "23.4",   "15 *",    12,       "15",    "20",    "15",
+  13,       "15",     "15",     "6.6 *",   13,       "15",    "15",    "10",
+  14,       "15",     "15",     "23.4 *",  14,       "15",    "15",    "20",
+  15,       "15",     "15",     "15",      15,       "15",    "15",    "15",
+  16,       "15",     "15",     "15",      16,       "15",    "15",    "15",
+  17,       "15",     "15",     "15",      17,       "15",    "15",    "15",
+  18,       "15",     "15",     "15",      18,       "15",    "15",    "15",
+  19,       "15",     "15",     "15",      19,       "15",    "15",    "15",
+  20,       "15",     "15",     "15",      20,       "15",    "15",    "15"
+)
 
-: Factor Settings for CCC and CCI Designs for Three Factors ( \* are star points) {#tbl-pri-3363-ccc-cci}
+ccc_cci_df |>
+  gt() |>
+  tab_spanner(label = "Central Composite Circumscribed CCC", columns = c(seq_ccc, x1_ccc, x2_ccc, x3_ccc)) |>
+  tab_spanner(label = "Central Composite Inscribed CCI", columns = c(seq_cci, x1_cci, x2_cci, x3_cci)) |>
+  cols_label(
+    seq_ccc = "Sequence Number", x1_ccc = md("X~1~"), x2_ccc = md("X~2~"), x3_ccc = md("X~3~"),
+    seq_cci = "Sequence Number", x1_cci = md("X~1~"), x2_cci = md("X~2~"), x3_cci = md("X~3~")
+  ) |>
+  cols_align(align = "right", columns = everything()) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_body(columns = seq_cci)
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_labels(columns = seq_cci)
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_spanners(spanners = "Central Composite Inscribed CCI")
+  ) |>
+  opt_table_font(font = "Helvetica")
+```
 
 [**Factor settings for CCF and Box-Behnken three factor designs**]{#sec-pri-3363-ccf-bb-settings}
 
 @tbl-pri-3363-ccf-bb illustrates the factor settings for the corresponding central composite face-centered (CCF) and Box-Behnken designs. Note that each of these designs provides three levels for each factor and that the Box-Behnken design requires fewer runs in the three-factor case.
 
-| Sequence Number | $X_1$ | $X_2$ | $X_3$ | | Sequence Number | $X_1$ | $X_2$ | $X_3$ |
-|---:|---:|---:|:---:|---|---:|---:|---:|---:|
-| **Central Composite Face-Centered CCC** | | | | | **Box-Behnken** | | | |
-| 1 | 10 | 10 | 10 | | 1 | 10 | 10 | 15 |
-| 2 | 20 | 10 | 10 | | 2 | 20 | 10 | 15 |
-| 3 | 10 | 20 | 10 | | 3 | 10 | 20 | 15 |
-| 4 | 20 | 20 | 10 | | 4 | 20 | 20 | 15 |
-| 5 | 10 | 10 | 20 | | 5 | 10 | 15 | 10 |
-| 6 | 20 | 10 | 20 | | 6 | 20 | 15 | 10 |
-| 7 | 10 | 20 | 20 | | 7 | 10 | 15 | 20 |
-| 8 | 20 | 20 | 20 | | 8 | 20 | 15 | 20 |
-| 9 | 10 | 15 | 15 * | | 9 | 15 | 10 | 10 |
-| 10 | 20 | 15 | 15 * | | 10 | 15 | 20 | 10 |
-| 11 | 15 | 10 | 15 * | | 11 | 15 | 10 | 20 |
-| 12 | 15 | 20 | 15 * | | 12 | 15 | 20 | 20 |
-| 13 | 15 | 15 | 10 * | | 13 | 15 | 15 | 15 |
-| 14 | 15 | 15 | 20 * | | 14 | 15 | 15 | 15 |
-| 15 | 15 | 15 | 15 | | 15 | 15 | 15 | 15 |
-| 16 | 15 | 15 | 15 | | -- | -- | -- | -- |
-| 17 | 15 | 15 | 15 | | -- | -- | -- | -- |
-| 18 | 15 | 15 | 15 | | -- | -- | -- | -- |
-| 19 | 15 | 15 | 15 | | -- | -- | -- | -- |
-| 20 | 15 | 15 | 15 | | -- | -- | -- | -- |
+```{r}
+#| code-fold: true
+#| label: tbl-pri-3363-ccf-bb
+#| tbl-cap: "Factor Settings for CCF and Box-Behnken Designs for Three Factors (\\* are star points for the CCC)"
+ccf_bb_df <- tribble(
+  ~seq_ccf, ~x1_ccf,  ~x2_ccf,  ~x3_ccf,   ~seq_bb, ~x1_bb, ~x2_bb, ~x3_bb,
+  1,        "10",     "10",     "10",      1,       "10",   "10",   "15",
+  2,        "20",     "10",     "10",      2,       "20",   "10",   "15",
+  3,        "10",     "20",     "10",      3,       "10",   "20",   "15",
+  4,        "20",     "20",     "10",      4,       "20",   "20",   "15",
+  5,        "10",     "10",     "20",      5,       "10",   "15",   "10",
+  6,        "20",     "10",     "20",      6,       "20",   "15",   "10",
+  7,        "10",     "20",     "20",      7,       "10",   "15",   "20",
+  8,        "20",     "20",     "20",      8,       "20",   "15",   "20",
+  9,        "10",     "15",     "15 *",    9,       "15",   "10",   "10",
+  10,       "20",     "15",     "15 *",    10,      "15",   "20",   "10",
+  11,       "15",     "10",     "15 *",    11,      "15",   "10",   "20",
+  12,       "15",     "20",     "15 *",    12,      "15",   "20",   "20",
+  13,       "15",     "15",     "10 *",    13,      "15",   "15",   "15",
+  14,       "15",     "15",     "20 *",    14,      "15",   "15",   "15",
+  15,       "15",     "15",     "15",      15,      "15",   "15",   "15",
+  16,       "15",     "15",     "15",      NA,      NA,     NA,     NA,
+  17,       "15",     "15",     "15",      NA,      NA,     NA,     NA,
+  18,       "15",     "15",     "15",      NA,      NA,     NA,     NA,
+  19,       "15",     "15",     "15",      NA,      NA,     NA,     NA,
+  20,       "15",     "15",     "15",      NA,      NA,     NA,     NA
+)
 
-: Factor Settings for CCF and Box-Behnken Designs for Three Factors ( \* are star points for the CCC) {#tbl-pri-3363-ccf-bb}
+ccf_bb_df |>
+  gt() |>
+  tab_spanner(label = "Central Composite Face-Centered CCC", columns = c(seq_ccf, x1_ccf, x2_ccf, x3_ccf)) |>
+  tab_spanner(label = "Box-Behnken", columns = c(seq_bb, x1_bb, x2_bb, x3_bb)) |>
+  cols_label(
+    seq_ccf = "Sequence Number", x1_ccf = md("X~1~"), x2_ccf = md("X~2~"), x3_ccf = md("X~3~"),
+    seq_bb = "Sequence Number", x1_bb = md("X~1~"), x2_bb = md("X~2~"), x3_bb = md("X~3~")
+  ) |>
+  cols_align(align = "right", columns = everything()) |>
+  sub_missing(missing_text = "") |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_body(columns = seq_bb)
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_labels(columns = seq_bb)
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_spanners(spanners = "Box-Behnken")
+  ) |>
+  opt_table_font(font = "Helvetica")
+```
 
 [**Properties of classical response surface designs**]{#sec-pri-3363-properties}
 
 @tbl-pri-3363-properties summarizes properties of the classical quadratic designs. Use this table for broad guidelines when attempting to choose from among available designs.
 
 | Design Type | Comment |
-|:---:|---|
+|:---:|:---|
 | CCC | CCC designs provide high quality predictions over the entire design space, but require factor settings outside the range of the factors in the factorial part. Note: When the possibility of running a CCC design is recognized before starting a factorial experiment, factor spacings can be reduced to ensure that $\pm \alpha$ for each coded factor corresponds to feasible (reasonable) levels. Requires 5 levels for each factor. |
 | CCI | CCI designs use only points within the factor ranges originally specified, but do not provide the same high quality prediction over the entire space compared to the CCC. Requires 5 levels of each factor. |
 | CCF | CCF designs provide relatively high quality predictions over the entire design space and do not require using points outside the original factor range. However, they give poor precision for estimating pure quadratic coefficients. Requires 3 levels for each factor. |
 | Box-Behnken | These designs require fewer treatment combinations than a central composite design in cases involving 3 or 4 factors. The Box-Behnken design is rotatable (or nearly so) but it contains regions of poor prediction quality like the CCI. Its "missing corners" may be useful when the experimenter should avoid combined factor extremes. This property prevents a potential loss of data in those cases. Requires 3 levels for each factor. |
 
-: Summary of Properties of Classical Response Surface Designs {#tbl-pri-3363-properties}
+: Summary of Properties of Classical Response Surface Designs {#tbl-pri-3363-properties tbl-colwidths="[15,85]"}
 
 [**Number of runs required by central composite and Box-Behnken designs**]{#sec-pri-3363-runs-required}
 
