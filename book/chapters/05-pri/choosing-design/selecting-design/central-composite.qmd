@@ -24,7 +24,7 @@ A central composite design always contains twice as many star points as there ar
 | Inscribed | CCI | For those situations in which the limits specified for factor settings are truly limits, the CCI design uses the factor settings as the star points and creates a factorial or fractional factorial design within those limits (in other words, a CCI design is a scaled down CCC design with each factor level of the CCC design divided by $\alpha$ to generate the CCI design). This design also requires 5 levels of each factor. |
 | Face Centered | CCF | In this design the star points are at the center of each face of the factorial space, so $\alpha = \pm 1$. This variety requires 3 levels of each factor. Augmenting an existing factorial or resolution V design with appropriate star points can also produce this design. |
 
-: Central Composite Designs {#tbl-pri-3361-types}
+: Central Composite Designs {#tbl-pri-3361-types tbl-colwidths="[20,20,60]"}
 
 **Pictorial representation of where the star points are placed for the 3 types of CCD designs**
 
