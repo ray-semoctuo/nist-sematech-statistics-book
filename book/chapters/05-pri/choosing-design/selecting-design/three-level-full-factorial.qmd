@@ -57,19 +57,47 @@ In this model we see that $i$ = 1, 2, 3, and similarly for $j$ and $k$, making 2
 
 These treatments may be displayed as follows:
 
-| | Factor A: 0 | Factor A: 1 | Factor A: 2 |
-|:---:|:---:|:---:|:---:|
-| **Factor B: 0, Factor C: 0** | 000 | 100 | 200 |
-| **Factor B: 0, Factor C: 1** | 001 | 101 | 201 |
-| **Factor B: 0, Factor C: 2** | 002 | 102 | 202 |
-| **Factor B: 1, Factor C: 0** | 010 | 110 | 210 |
-| **Factor B: 1, Factor C: 1** | 011 | 111 | 211 |
-| **Factor B: 1, Factor C: 2** | 012 | 112 | 212 |
-| **Factor B: 2, Factor C: 0** | 020 | 120 | 220 |
-| **Factor B: 2, Factor C: 1** | 021 | 121 | 221 |
-| **Factor B: 2, Factor C: 2** | 022 | 122 | 222 |
+```{r}
+#| code-fold: true
+#| label: tbl-pri-339-33design
+#| tbl-cap: "The $3^3$ Design"
+library(gt)
 
-: The $3^3$ Design {#tbl-pri-339-33design}
+design_33_df <- tribble(
+  ~B, ~C, ~a0,  ~a1,  ~a2,
+  "0", "0", "000", "100", "200",
+  "0", "1", "001", "101", "201",
+  "0", "2", "002", "102", "202",
+  "1", "0", "010", "110", "210",
+  "1", "1", "011", "111", "211",
+  "1", "2", "012", "112", "212",
+  "2", "0", "020", "120", "220",
+  "2", "1", "021", "121", "221",
+  "2", "2", "022", "122", "222"
+)
+
+design_33_df |>
+  gt() |>
+  tab_spanner(label = "Factor A", columns = c(a0, a1, a2)) |>
+  cols_label(
+    B = "Factor B", C = "Factor C",
+    a0 = "0", a1 = "1", a2 = "2"
+  ) |>
+  cols_align(align = "center", columns = everything()) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_body(columns = a0)
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_labels(columns = a0)
+  ) |>
+  tab_style(
+    style = cell_borders(sides = "left", color = "#1B1B1B", weight = px(2)),
+    locations = cells_column_spanners(spanners = "Factor A")
+  ) |>
+  opt_table_font(font = "Helvetica")
+```
 
 [**Pictorial representation of the $3^3$ design**]{#sec-pri-339-33pictorial}
 
