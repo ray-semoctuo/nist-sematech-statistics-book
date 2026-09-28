@@ -1,0 +1,50 @@
+### How to "look" at DOE data {#sec-pri-42}
+
+[**The importance of looking at the data with a wide array of plots or visual displays cannot be over-stressed**]{#sec-pri-42-importance}
+
+The right graphs, plots or visual displays of a dataset can uncover anomalies or provide insights that go beyond what most quantitative techniques are capable of discovering. Indeed, in many cases quantitative techniques and models are tools used to confirm and extend the conclusions an analyst has already formulated after carefully "looking" at the data.
+
+Most software packages have a selection of different kinds of plots for displaying DOE data. Some of these useful ways of looking at data are mentioned below, with links to detailed explanations in Chapter 1 (Exploratory Data Analysis or EDA) or to other places where they are illustrated and explained. In addition, examples and detailed explanations of visual (EDA) DOE techniques can be found in section 5.5.9.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section5/pri59.htm -->
+
+[**Plots for viewing the response data**]{#sec-pri-42-response-plots}
+
+**First "Look" at the Data**
+
+- [Histogram of responses](../01-eda/index.qmd#sec-eda-histogram)
+- [Run-sequence plot](../01-eda/index.qmd#sec-eda-run-sequence-plot) (pay special attention to results at center points)
+- [Scatter plot](../01-eda/index.qmd#sec-eda-scatter-plot) (for pairs of response variables)
+- [Lag plot](../01-eda/index.qmd#sec-eda-lag-plot)
+- [Normal probability plot](../01-eda/index.qmd#sec-eda-normal-probability-plot)
+- [Autocorrelation plot](../01-eda/index.qmd#sec-eda-autocorrelation-plot)
+
+[**Plots for viewing main effects and 2-factor interactions, explanation of normal or half-normal plots to detect possible important effects**]{#sec-pri-42-effects-plots}
+
+**Subsequent Plots: Main Effects, Comparisons and 2-Way Interactions**
+
+- [Quantile-quantile (q-q) plot](../01-eda/index.qmd#sec-eda-quantile-quantile-plot)
+- [Block plot](../01-eda/index.qmd#sec-eda-block-plot)
+- [Box plot](../01-eda/index.qmd#sec-eda-box-plot)
+- [Bi-histogram](../01-eda/index.qmd#sec-eda-bihistogram)
+- [DOE scatter plot](../01-eda/index.qmd#sec-eda-doe-scatter-plot)
+- [DOE mean plot](../01-eda/index.qmd#sec-eda-doe-mean-plot)
+- [DOE standard deviation plot](../01-eda/index.qmd#sec-eda-doe-standard-deviation-plot)
+- [DOE interaction plots](../01-eda/index.qmd#sec-eda-doe-mean-plot)
+- [Normal](../01-eda/index.qmd#sec-eda-normal-probability-plot) or half-normal [probability plots](../01-eda/index.qmd#sec-eda-probability-plot) for effects. **Note**: these links show how to generate plots to test for normal (or half-normal) data with points lining up along a straight line, approximately, if the plotted points were from the assumed normal (or half-normal) distribution. For two-level full factorial and fractional factorial experiments, the points plotted are the estimates of all the model effects, including possible interactions. Those effects that are really negligible should have estimates that resemble normally distributed noise, with mean zero and a constant variance. Significant effects can be picked out as the ones that do not line up along the straight line. Normal effect plots use the effect estimates directly, while half-normal plots use the absolute values of the effect estimates.
+- [Youden plots](../01-eda/index.qmd#sec-eda-youden-plot)
+
+[**Plots for testing and validating models**]{#sec-pri-42-validation-plots}
+
+**Model testing and Validation**
+
+- [Response vs predictions](../01-eda/index.qmd#sec-eda-scatter-plot)
+- [Residuals vs predictions](../01-eda/index.qmd#sec-eda-scatter-plot)
+- [Residuals vs independent variables](../01-eda/index.qmd#sec-eda-scatter-plot)
+- [Residuals lag plot](../01-eda/index.qmd#sec-eda-lag-plot)
+- [Residuals histogram](../01-eda/index.qmd#sec-eda-histogram)
+- [Normal probability plot of residuals](../01-eda/index.qmd#sec-eda-normal-probability-plot)
+
+[**Plots for model prediction**]{#sec-pri-42-prediction-plots}
+
+**Model Predictions**
+
+- [Contour plots](../01-eda/index.qmd#sec-eda-contour-plot)

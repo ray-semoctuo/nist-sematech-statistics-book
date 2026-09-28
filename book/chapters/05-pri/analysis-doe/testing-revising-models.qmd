@@ -1,0 +1,30 @@
+### How to test and revise DOE models {#sec-pri-44}
+
+[**Tools for testing, revising, and selecting models**]{#sec-pri-44-tools}
+
+All the tools and procedures for testing, revising and selecting final DOE models are covered in various sections of the Handbook. The outline below gives many of the most common and useful techniques and has links to detailed explanations.
+
+**Outline of Model Testing and Revising: Tools and Procedures**
+
+- Graphical Indicators for testing models (using residuals)
+  - [Response vs predictions](../01-eda/index.qmd#sec-eda-scatter-plot)
+  - [Residuals vs predictions](../01-eda/index.qmd#sec-eda-scatter-plot)
+  - [Residuals vs independent variables](../01-eda/index.qmd#sec-eda-scatter-plot)
+  - [Residuals lag plot](../01-eda/index.qmd#sec-eda-lag-plot)
+  - [Residuals histogram](../01-eda/index.qmd#sec-eda-histogram)
+  - [Normal probability plot of residuals](../01-eda/index.qmd#sec-eda-normal-probability-plot)
+- Overall numerical indicators for testing models and model terms
+  - R Squared and R Squared adjusted
+  - [Model Lack of Fit tests](../04-pmd/index.qmd#sec-pmd-446)
+  - ANOVA tables (see [Chapter 3](../03-ppc/index.qmd#sec-ppc-231) or Chapter 7)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/prc/section4/prc42.htm -->
+  - p-values<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/prc/section1/prc131.htm -->
+- Model selection tools or procedures
+  - ANOVA tables (see [Chapter 3](../03-ppc/index.qmd#sec-ppc-231) or Chapter 7)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/prc/section4/prc42.htm -->
+  - p-values<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/prc/section1/prc131.htm -->
+  - [Residual analysis](../04-pmd/index.qmd#sec-pmd-44-residuals)
+  - [Model Lack of Fit tests](../04-pmd/index.qmd#sec-pmd-446)
+  - Data transformations for [normality](../01-eda/index.qmd#sec-eda-box-cox-normality-plot) and [linearity](../01-eda/index.qmd#sec-eda-box-cox-linearity-plot)
+  - Stepwise regression procedures
+  - [Normal](../01-eda/index.qmd#sec-eda-normal-probability-plot) or half-normal plots of effects (primarily for two-level full and fractional factorial experiments)
+  - [Youden plots](../01-eda/index.qmd#sec-eda-youden-plot)
+  - Other methods<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section6/pri615.htm -->

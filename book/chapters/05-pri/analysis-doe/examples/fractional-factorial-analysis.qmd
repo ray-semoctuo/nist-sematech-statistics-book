@@ -1,0 +1,6 @@
+#### Fractional factorial example {#sec-pri-472}
+
+::: {.callout-note}
+## Status
+Not yet migrated. Source content: `handbook/pri/section4/pri472.htm`.
+:::

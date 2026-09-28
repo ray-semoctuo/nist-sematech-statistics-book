@@ -1,0 +1,46 @@
+## Analysis of DOE data {#sec-pri-4}
+
+[**Contents of this section**]{#sec-pri-4-contents}
+
+Assuming you have a starting model that you want to fit to your experimental data and the experiment was designed correctly for your objective, most DOE software packages will analyze your DOE data. This section will illustrate how to analyze DOE's by first going over the generic basic steps and then showing software examples. The contents of the section are:
+
+1. [DOE analysis steps](#sec-pri-41)
+2. [Plotting DOE data](#sec-pri-42)
+3. [Modeling DOE data](#sec-pri-43)
+4. [Testing and revising DOE models](#sec-pri-44)
+5. [Interpreting DOE results](#sec-pri-45)
+6. [Confirming DOE results](#sec-pri-46)
+7. [DOE examples](#sec-pri-47)
+   - [Full factorial example](#sec-pri-471)
+   - [Fractional factorial example](#sec-pri-472)
+   - [Response surface example](#sec-pri-473)
+
+[**Prerequisite statistical tools and concepts needed for DOE analyses**]{#sec-pri-4-prerequisites}
+
+The examples in this section assume the reader is familiar with the concepts of
+
+- ANOVA tables (see [Chapter 3](../03-ppc/index.qmd#sec-ppc-231) or Chapter 7)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/prc/section4/prc42.htm -->
+- p-values<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/prc/section1/prc131.htm -->
+- [Residual analysis](../04-pmd/index.qmd#sec-pmd-44-residuals)
+- [Model Lack of Fit tests](../04-pmd/index.qmd#sec-pmd-446)
+- Data transformations for [normality](../01-eda/index.qmd#sec-eda-box-cox-normality-plot) and [linearity](../01-eda/index.qmd#sec-eda-box-cox-linearity-plot)
+
+{{< include analysis-doe/analysis-steps.qmd >}}
+
+{{< include analysis-doe/plotting-doe-data.qmd >}}
+
+{{< include analysis-doe/modeling-doe-data.qmd >}}
+
+{{< include analysis-doe/testing-revising-models.qmd >}}
+
+{{< include analysis-doe/interpreting-results.qmd >}}
+
+{{< include analysis-doe/confirming-results.qmd >}}
+
+{{< include analysis-doe/examples-overview.qmd >}}
+
+{{< include analysis-doe/examples/full-factorial-analysis.qmd >}}
+
+{{< include analysis-doe/examples/fractional-factorial-analysis.qmd >}}
+
+{{< include analysis-doe/examples/response-surface-analysis.qmd >}}

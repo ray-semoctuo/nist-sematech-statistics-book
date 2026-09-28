@@ -1,0 +1,6 @@
+#### Response surface example {#sec-pri-473}
+
+::: {.callout-note}
+## Status
+Not yet migrated. Source content: `handbook/pri/section4/pri473.htm`.
+:::
