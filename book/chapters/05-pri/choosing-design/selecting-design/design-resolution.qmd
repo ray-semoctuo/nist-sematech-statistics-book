@@ -2,7 +2,7 @@
 
 [**Generating relation and diagram for the $2^{8-3}$ fractional factorial design**]{#sec-pri-3344-overview}
 
-We considered the $2^{3-1}$ design in the previous section and saw that its [generator](#sec-pri-3343-definitions) written in "I = ... " form is {I = +123}. Next we look at a one-eighth fraction of a $2^8$ design, namely the $2^{8-3}$ fractional factorial design. Using a diagram similar to [Figure 3.5](#fig-pri-3343-summary), we have the following:
+We considered the $2^{3-1}$ design in the previous section and saw that its [generator](#sec-pri-3343-definitions) written in "I = ... " form is {I = +123}. Next we look at a one-eighth fraction of a $2^8$ design, namely the $2^{8-3}$ fractional factorial design. Using a diagram similar to @fig-pri-3343-summary, we have the following:
 
 ![Specifications for a $2^{8-3}$ Design](choosing-design/selecting-design/images/design-spec-283.svg){#fig-pri-3344-spec}
 

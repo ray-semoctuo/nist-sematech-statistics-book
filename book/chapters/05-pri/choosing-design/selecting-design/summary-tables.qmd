@@ -16,7 +16,7 @@ Notice the absence of the letter I. This is usually reserved for the intercept c
 
 [**Details of the design generators, the defining relation, the confounding structure, and the design matrix**]{#sec-pri-3347-details}
 
-@tbl-pri-3347-designs catalogs these useful fractional factorial designs using the [generator](#sec-pri-3343-definitions) notation previously described in [Figure 3.7](#fig-pri-3344-spec-resolution). Clicking on the $2_R^{k-p}$ specification for a given design provides details (courtesy of Dataplot files) of the design generators, the defining relation, the confounding structure (as far as main effects and two-level interactions are concerned), and the design matrix. The notation used follows our previous labeling of factors with numbers, not letters.
+@tbl-pri-3347-designs catalogs these useful fractional factorial designs using the [generator](#sec-pri-3343-definitions) notation previously described in @fig-pri-3344-spec-resolution. Clicking on the $2_R^{k-p}$ specification for a given design provides details (courtesy of Dataplot files) of the design generators, the defining relation, the confounding structure (as far as main effects and two-level interactions are concerned), and the design matrix. The notation used follows our previous labeling of factors with numbers, not letters.
 
 **Click on the design specification in the table below and a text file with details about the design can be viewed or saved**
 

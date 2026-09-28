@@ -2,7 +2,7 @@
 
 [**Confounding means we have lost the ability to estimate some effects and/or interactions**]{#sec-pri-3343-overview}
 
-One price we pay for using the design table column $X_1{\cdot}X_2$ to obtain column $X_3$ in [Table 3.14](#tbl-pri-3342-x3-plus) is, clearly, our inability to obtain an estimate of the interaction effect for $X_1{\cdot}X_2$ (i.e., $c_{12}$) that is separate from an estimate of the main effect for $X_3$. In other words, we have confounded the main effect estimate for factor $X_3$ (i.e., $c_3$) with the estimate of the interaction effect for $X_1$ and $X_2$ (i.e., with $c_{12}$). The whole issue of confounding is fundamental to the construction of fractional factorial designs, and we will spend time discussing it below.
+One price we pay for using the design table column $X_1{\cdot}X_2$ to obtain column $X_3$ in @tbl-pri-3342-x3-plus is, clearly, our inability to obtain an estimate of the interaction effect for $X_1{\cdot}X_2$ (i.e., $c_{12}$) that is separate from an estimate of the main effect for $X_3$. In other words, we have confounded the main effect estimate for factor $X_3$ (i.e., $c_3$) with the estimate of the interaction effect for $X_1$ and $X_2$ (i.e., with $c_{12}$). The whole issue of confounding is fundamental to the construction of fractional factorial designs, and we will spend time discussing it below.
 
 [**Sparsity of effects assumption**]{#sec-pri-3343-sparsity}
 

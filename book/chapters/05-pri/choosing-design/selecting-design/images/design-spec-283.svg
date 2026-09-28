@@ -3,6 +3,7 @@
     .box { fill: none; stroke: #1B1B1B; stroke-width: 2; }
     .value { font-size: 16px; font-weight: bold; fill: #00105A; text-anchor: middle; }
     .expr { font-size: 26px; fill: #1B1B1B; }
+    .exp { font-size: 16px; fill: #1B1B1B; }
     .gen { font-size: 15px; fill: #1B1B1B; }
   </style>
 
@@ -11,7 +12,8 @@
   <text class="value" x="180" y="25">8</text>
   <text class="value" x="35" y="120">32</text>
 
-  <text class="expr" x="85" y="95">2<tspan baseline-shift="30%" font-size="16">8-3</tspan></text>
+  <text class="expr" x="85" y="95">2</text>
+  <text class="exp" x="100" y="80">8-3</text>
 
   <text class="gen" x="170" y="130">&#177; 6=345</text>
   <text class="gen" x="170" y="150">&#177; 7=1245</text>
