@@ -1,0 +1,124 @@
+##### Single response: Confidence region for search path {#sec-pri-5312}
+
+[**"Randomness" means that the steepest ascent direction is just an estimate and it is possible to construct a confidence "cone" around this direction estimate**]{#sec-pri-5312-overview}
+
+The direction given by the gradient $g' = (b_1, b_2, \ldots, b_k)$ constitutes only a single (point) estimate based on a sample of $N$ runs. If a different set of $N$ runs were conducted, these would provide different parameter estimates, which in turn would give a different gradient. To account for this sampling variability, Box and Draper [-@BoxDraper1987] gave a formula for constructing a "cone" around the direction of steepest ascent that with certain probability contains the true (unknown) system gradient given by $(\beta_1, \beta_2, \ldots, \beta_k)$. The width of the confidence cone is useful to assess how reliable an estimated search direction is.
+
+@fig-pri-5312-cone shows such a cone for the steepest ascent direction of the chemical process example. If the cone is so wide that almost every possible direction is inside the cone, an experimenter should be very careful in moving too far from the current operating conditions along the path of steepest ascent or descent. Usually this will happen when the linear fit is quite poor (i.e., when the $R^2$ value is low). Thus, plotting the confidence cone is not so important as computing its width.
+
+If you are interested in the details on how to compute such a cone (and its width), see [Technical Appendix 5B](#sec-pri-5312-appendix).
+
+[**Graph of a confidence cone for the steepest ascent direction**]{#sec-pri-5312-graph}
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-5312-cone
+#| fig-cap: "A Confidence Cone for the Steepest Ascent Direction in the Chemical Process Example"
+theta_dir <- atan2(b2, b1) * 180 / pi
+half_angle <- 52.18
+
+mk_ray <- function(angle_deg, length = 1.6) {
+  a <- angle_deg * pi / 180
+  tibble(x = 0, y = 0, xend = length * cos(a), yend = length * sin(a))
+}
+
+dir_ray <- mk_ray(theta_dir)
+cone_upper <- mk_ray(theta_dir + half_angle)
+cone_lower <- mk_ray(theta_dir - half_angle)
+region <- tibble(xmin = -1, xmax = 1, ymin = -1, ymax = 1)
+
+ggplot() +
+  geom_rect(data = region, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "gray85") +
+  geom_segment(data = cone_upper, aes(x = x, y = y, xend = xend, yend = yend), color = "gray40", linetype = "dashed") +
+  geom_segment(data = cone_lower, aes(x = x, y = y, xend = xend, yend = yend), color = "gray40", linetype = "dashed") +
+  geom_segment(data = dir_ray, aes(x = x, y = y, xend = xend, yend = yend),
+               arrow = arrow(length = unit(0.2, "cm")), color = "#D60021", linewidth = 0.8) +
+  coord_equal(xlim = c(-1.6, 1.6), ylim = c(-1.6, 1.7)) +
+  annotate("text", x = dir_ray$xend, y = dir_ray$yend + 0.1, label = "Steepest ascent direction", hjust = 0.3, size = 3.2) +
+  labs(x = expression(x[1]), y = expression(x[2]))
+```
+
+------------------------------------------------------------------------
+
+**Technical Appendix 5B: Computing a Confidence Cone on the Direction of Steepest Ascent** {#sec-pri-5312-appendix}
+
+[**Details of how to construct a confidence cone for the direction of steepest ascent**]{#sec-pri-5312-appendix-details}
+
+Suppose the response of interest is adequately described by a first-order polynomial model. Consider the inequality
+
+$$\sum_{i=1}^{k} b_i^2 - \frac{\left(\sum_{i=1}^{k} b_i x_i\right)^2}{\sum_{i=1}^{k} x_i^2} \le (k-1) s_b^2 F_{\alpha, k-1, n-p}$$
+
+with
+
+$$s_b^2 = SS_{\text{error}} \frac{C_{jj}}{n-p}$$
+
+$C_{jj}$ is the $j$-th diagonal element of the matrix $(X'X)^{-1}$ (for $j = 1, \ldots, k$ these values are all equal if the experimental design is a $2^{k-p}$ factorial of at least Resolution III), and $X$ is the model matrix of the experiment (including columns for the intercept and second-order terms, if any). Any operating condition with coordinates $x' = (x_1, x_2, \ldots, x_k)$ that satisfies this inequality generates a direction that lies within the $100(1-\alpha)\%$ confidence cone of steepest *ascent* if
+
+$$\sum_{i=1}^{k} b_i x_i > 0$$
+
+or inside the $100(1-\alpha)\%$ confidence cone of steepest *descent* if
+
+$$\sum_{i=1}^{k} b_i x_i < 0$$
+
+[**Inequality defines a cone**]{#sec-pri-5312-cone-definition}
+
+The inequality defines a cone with the apex at the origin and center line located along the gradient of $\hat{Y}$.
+
+[**A measure of goodness of fit: $\theta_\alpha$**]{#sec-pri-5312-theta}
+
+A measure of "goodness" of a search direction is given by the fraction of directions *excluded* by the $100(1-\alpha)\%$ confidence cone around the steepest ascent/descent direction (see Box and Draper [-@BoxDraper1987]) which is given by:
+
+$$\theta_\alpha = 1 - \phi_\alpha = 1 - T_{k-1} \left( \frac{\sum_{i=1}^{k} b_i^2}{s_b^2 F_{\alpha,k-1,n-p}} - (k-1) \right)^{1/2}$$
+
+with $T_{k-1}()$ denoting the complement of the Student's $t$ distribution function with $k-1$ degrees of freedom (that is, $T_{k-1}(x) = P(t_{k-1} \ge x)$) and $F_{\alpha,k-1,n-p}$ denotes an $\alpha$ percentage point of the $F$ distribution with $k-1$ and $n-p$ degrees of freedom, with $n-p$ denoting the error degrees of freedom. The value of $\phi_\alpha$ represents the fraction of directions included by the confidence cone. The smaller $\phi_\alpha$ is, the wider the cone is, with $0 \le \phi_\alpha \le 1$. Note that the inequality equation and the "goodness measure" equation are valid when operating conditions are given in coded units.
+
+**Example: Computing $\theta_\alpha$**
+
+[**Compute $s_b^2$ from ANOVA table and $C_{jj}$**]{#sec-pri-5312-example-sb2}
+
+From the ANOVA table in the chemical experiment discussed earlier,
+
+```{r}
+#| code-fold: true
+#| label: pri-5312-sb2
+resid_ms <- anova(fit_curvature)["Residuals", "Mean Sq"]
+Cjj <- 1 / 4
+sb2 <- resid_ms * Cjj
+sb2
+```
+
+$$s_b^2 = \frac{1}{4}(52.4579) = 13.1145$$
+
+since $C_{jj} = 1/4$ ($j = 2, 3$) for a $2^2$ factorial. The fraction of directions excluded by a 95% confidence cone in the direction of steepest ascent is:
+
+[**Compute $\theta_\alpha$**]{#sec-pri-5312-compute-theta}
+
+```{r}
+#| code-fold: true
+#| label: pri-5312-theta
+k <- 2
+F_alpha <- qf(0.95, k - 1, 6)
+T_arg <- (b1^2 + b2^2) / (sb2 * F_alpha) - (k - 1)
+phi_alpha <- pt(sqrt(T_arg), df = k - 1, lower.tail = FALSE)
+theta_alpha <- 1 - phi_alpha
+
+c(F_alpha = unname(F_alpha), phi_alpha = unname(phi_alpha), theta_alpha = unname(theta_alpha))
+```
+
+$$\theta_{0.05} = 1 - T_1 \left[ \frac{(-1.2925)^2 + (11.14)^2}{(13.1145)(5.99)} - 1 \right]^{0.5} = 1 - 0.29 = 0.71$$
+
+This reproduces NIST's reported values exactly: $s_b^2 = 13.1145$, $\phi_{0.05} = 0.29$, and $\theta_{0.05} = 0.71$.
+
+[**Conclusions for this example**]{#sec-pri-5312-conclusions}
+
+since $F_{0.05,1,6} = 5.99$. Thus 71% of the possible directions from the current operating point are excluded with 95% confidence. This is useful information that can be used to select a step length. The smaller $\phi_\alpha$ is, the shorter the step should be, as the steepest ascent direction is less reliable.
+
+```{r}
+#| code-fold: true
+#| label: pri-5312-cone-width
+cone_width_deg <- phi_alpha * 360
+half_angle_deg <- cone_width_deg / 2
+c(cone_width_deg = unname(cone_width_deg), half_angle_deg = unname(half_angle_deg))
+```
+
+In this example, with high confidence, the true steepest ascent direction is within this cone of 29% of possible directions. For $k=2$, 29% of $360^\circ = 104.4^\circ$, so we are 95% confident that our estimated steepest ascent path is within plus or minus $52.2^\circ$ of the true steepest path -- reproducing NIST's reported values exactly. In this case, we should not use a large step along the estimated steepest ascent path.

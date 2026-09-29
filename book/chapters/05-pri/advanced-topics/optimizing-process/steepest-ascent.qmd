@@ -1,0 +1,222 @@
+##### Single response: Path of steepest ascent {#sec-pri-5311}
+
+[**Starting at the current operating conditions, fit a linear model**]{#sec-pri-5311-starting}
+
+If experimentation is initially performed in a new, poorly understood production process, chances are that the initial operating conditions $X_1, X_2, \ldots, X_k$ are located far from the region where the factors achieve a maximum or minimum for the response of interest, $Y$. A first-order model will serve as a good local approximation in a small region close to the initial operating conditions and far from where the process exhibits curvature. Therefore, it makes sense to fit a simple first-order (or linear polynomial) model of the form:
+
+$$\hat{Y} = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k$$
+
+Experimental strategies for fitting this type of model were discussed earlier. Usually, a $2^{k-p}$ fractional factorial experiment is conducted with repeated runs at the current operating conditions (which serve as the origin of coordinates in orthogonally coded factors).
+
+[**Determine the directions of steepest ascent and continue experimenting until no further improvement occurs -- then iterate the process**]{#sec-pri-5311-iterate}
+
+The idea behind "Phase I" is to keep experimenting along the direction of steepest ascent (or descent, as required) until there is no further improvement in the response. At that point, a new fractional factorial experiment with center runs is conducted to determine a new search direction. This process is repeated until at some point significant curvature in $\hat{Y}$ is detected. This implies that the operating conditions $X_1, X_2, \ldots, X_k$ are close to where the maximum (or minimum, as required) of $Y$ occurs. When significant curvature, or lack of fit, is detected, the experimenter should proceed with "Phase II". @fig-pri-5311-path illustrates a sequence of line searches when seeking a region where curvature exists in a problem with 2 factors (i.e., $k=2$).
+
+![A Sequence of Line Searches for a 2-Factor Optimization Problem](images/steepest-ascent-path.svg){#fig-pri-5311-path}
+
+[**Two main decisions: search direction and length of step**]{#sec-pri-5311-decisions}
+
+There are two main decisions an engineer must make in Phase I:
+
+1. determine the search direction;
+2. determine the length of the step to move from the current operating conditions.
+
+@fig-pri-5311-flowchart shows a flow diagram of the different iterative tasks required in Phase I. This diagram is intended as a guideline and should not be automated in such a way that the experimenter has no input in the optimization process.
+
+[**Flow chart of iterative search process**]{#sec-pri-5311-flowchart-intro}
+
+```{mermaid}
+%%| label: fig-pri-5311-flowchart
+%%| fig-cap: "Flow Chart for the First Phase of the Experimental Optimization Procedure"
+flowchart TD
+    A["Perform a fractional factorial experiment around current operating conditions. Use center runs to test for lack of fit."] --> B["Estimate a first order polynomial model."]
+    B --> C{"Main effects dominant?"}
+    C -- No --> D(["Phase II"])
+    C -- Yes --> E["Define search direction and step size. Move one step along steepest ascent (descent) direction."]
+    E --> F["Perform experiment at new operating conditions."]
+    F --> G{"Improvement observed?"}
+    G -- Yes --> F
+    G -- No --> A
+```
+
+**Procedure for Finding the Direction of Maximum Improvement**
+
+[**The direction of steepest ascent is determined by the gradient of the fitted model**]{#sec-pri-5311-gradient}
+
+Suppose a first-order model (like above) has been fit and provides a useful approximation. As long as lack of fit (due to pure quadratic curvature and interactions) is very small compared to the main effects, steepest ascent can be attempted. To determine the direction of maximum improvement we use
+
+1. the estimated direction of steepest ascent, given by the gradient of $\hat{Y}$, if the objective is to *maximize* $Y$;
+2. the estimated direction of steepest descent, given by the negative of the gradient of $\hat{Y}$, if the objective is to *minimize* $Y$.
+
+[**The direction of steepest ascent depends on the scaling convention -- equal variance scaling is recommended**]{#sec-pri-5311-scaling}
+
+The direction of the gradient, $g$, is given by the values of the parameter estimates, that is, $g' = (b_1, b_2, \ldots, b_k)$. Since the parameter estimates $b_1, b_2, \ldots, b_k$ depend on the scaling convention for the factors, the steepest ascent (descent) direction is also scale dependent. That is, two experimenters using different scaling conventions will follow different paths for process improvement. This does not diminish the general validity of the method since the region of the search, as given by the signs of the parameter estimates, does not change with scale. An equal variance scaling convention, however, is recommended. The coded factors $x_i$, in terms of the factors in the original units of measurement, $X_i$, are obtained from the relation
+
+$$x_i = \frac{X_i - (X_{\text{low}} + X_{\text{high}})/2}{(X_{\text{high}} - X_{\text{low}})/2} \qquad i = 1, 2, \ldots, k$$
+
+This coding convention is recommended since it provides parameter estimates that are scale independent, generally leading to a more reliable search direction. The coordinates of the factor settings in the direction of steepest ascent, positioned a distance $\rho$ from the origin, are given by:
+
+$$\text{maximize} \quad \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_k x_k$$
+$$\text{subject to:} \quad \sum_{i=1}^{k} x_i^2 \le \rho^2$$
+
+[**Solution is a simple equation**]{#sec-pri-5311-solution}
+
+This problem can be solved with the aid of an optimization solver (e.g., like the solver option of a spreadsheet). However, in this case this is not really needed, as the solution is a simple equation that yields the coordinates
+
+$$x_i^* = \rho \frac{\beta_i}{\sqrt{\sum_{j=1}^{k} \beta_j^2}} \qquad i = 1, 2, \ldots, k$$
+
+[**Equation can be computed for increasing values of $\rho$**]{#sec-pri-5311-rho}
+
+An engineer can compute this equation for different increasing values of $\rho$ and obtain different factor settings, all on the steepest ascent direction.
+
+To see the details that explain this equation, see [Technical Appendix 5A](#sec-pri-5311-appendix).
+
+**Example: Optimization of a Chemical Process**
+
+[**Optimization by search example**]{#sec-pri-5311-example}
+
+It has been concluded (perhaps after a factor screening experiment) that the yield ($Y$, in %) of a chemical process is mainly affected by the temperature ($X_1$, in degrees C) and by the reaction time ($X_2$, in minutes). Due to safety reasons, the region of operation is limited to
+
+$$50 \le X_1 \le 250 \qquad 150 \le X_2 \le 500$$
+
+[**Factor levels**]{#sec-pri-5311-levels}
+
+The process is currently run at a temperature of 200 degrees C and a reaction time of 200 minutes. A process engineer decides to run a $2^2$ full factorial experiment with factor levels at
+
+| factor | low | center | high |
+|---|---:|---:|---:|
+| $X_1$ | 170 | 200 | 230 |
+| $X_2$ | 150 | 200 | 250 |
+
+: Factor Levels for the Chemical Process Experiment {#tbl-pri-5311-levels}
+
+[**Orthogonally coded factors**]{#sec-pri-5311-coding}
+
+Five repeated runs at the center levels are conducted to assess lack of fit. The orthogonally coded factors are
+
+$$x_1 = \frac{X_1 - 200}{30} \qquad \text{and} \qquad x_2 = \frac{X_2 - 200}{50}$$
+
+[**Experimental results**]{#sec-pri-5311-results}
+
+The experimental results were (the reader can download the data as a [text file](../../../datasets/IMPROVE-5_5_3_1_1.DAT)):
+
+```{r}
+#| code-fold: true
+#| label: setup-pri-5311
+#| message: false
+library(tidyverse)
+theme_set(theme_light())
+
+chemical_process <- read_table(
+  here::here("datasets", "IMPROVE-5_5_3_1_1.DAT"),
+  skip = 25,
+  col_names = c("x1", "x2", "temperature", "time", "yield"),
+  col_types = "iiiid"
+)
+
+chemical_process
+```
+
+[**ANOVA table**]{#sec-pri-5311-anova}
+
+The corresponding ANOVA table for a first-order polynomial model, with the residual sum of squares further decomposed into curvature (the deviation of the center-point runs from the factorial-point fit), lack of fit (the $x_1 x_2$ interaction), and pure error (the variation among the five center-point replicates) is:
+
+```{r}
+#| code-fold: true
+#| label: pri-5311-anova
+chemical_process <- chemical_process |>
+  mutate(is_center = as.numeric(x1 == 0 & x2 == 0))
+
+fit_curvature <- lm(yield ~ x1 + x2 + is_center, data = chemical_process)
+fit_lof <- lm(yield ~ x1 + x2 + is_center + x1:x2, data = chemical_process)
+
+anova(fit_lof)
+```
+
+This reproduces NIST's reported ANOVA table exactly: curvature sum of squares $8.2733$ ($F = 0.1577$, $p = 0.7077$), lack of fit $37.6382$ ($F = 0.6702$, $p = 0.4590$), and pure error $224.6511$ (mean square $56.1628$).
+
+[**Resulting model**]{#sec-pri-5311-model}
+
+It can be seen from the ANOVA table that there is no significant lack of linear fit due to an interaction term and there is no evidence of curvature. Furthermore, there is evidence that the first-order model is significant.
+
+```{r}
+#| code-fold: true
+#| label: pri-5311-model
+fit <- lm(yield ~ x1 + x2, data = chemical_process)
+summary(fit)
+```
+
+The resulting model (in the coded variables) is
+
+$$\hat{Y} = 40.644 - 1.2925 x_1 + 11.14 x_2$$
+
+reproducing NIST's reported coefficients and $R^2 = 0.6504$ exactly.
+
+[**Diagnostic checks**]{#sec-pri-5311-diagnostics}
+
+The usual diagnostic checks show conformance to the regression assumptions, although the $R^2$ value is not very high: $R^2 = 0.6504$.
+
+[**Determine level of factors for next run using direction of steepest ascent**]{#sec-pri-5311-next-run}
+
+To *maximize* $\hat{Y}$, we use the direction of steepest ascent. The engineer selects $\rho = 1$ since a point on the steepest ascent direction one unit (in the coded units) from the origin is desired. Then from the equation above for the predicted $Y$ response, the coordinates of the factor levels for the next run are given by:
+
+```{r}
+#| code-fold: true
+#| label: pri-5311-steepest-ascent
+b1 <- coef(fit)["x1"]
+b2 <- coef(fit)["x2"]
+rho <- 1
+
+x1_star <- rho * b1 / sqrt(b1^2 + b2^2)
+x2_star <- rho * b2 / sqrt(b1^2 + b2^2)
+
+c(x1_star = unname(x1_star), x2_star = unname(x2_star))
+```
+
+$$x_1^* = \frac{(1)(-1.2925)}{\sqrt{(-1.2925)^2 + (11.14)^2}} = -0.1152$$
+
+$$x_2^* = \frac{(1)(11.14)}{\sqrt{(-1.2925)^2 + (11.14)^2}} = 0.9933$$
+
+This means that to improve the process, for every $(-0.1152)(30) = -3.456$ degrees C that temperature is varied (decreased), the reaction time should be varied by $(0.9933)(50) = 49.66$ minutes.
+
+```{r}
+#| code-fold: true
+#| label: pri-5311-delta
+c(delta_temperature = unname(x1_star * 30), delta_time = unname(x2_star * 50))
+```
+
+------------------------------------------------------------------------
+
+**Technical Appendix 5A: finding the factor settings on the steepest ascent direction a specified distance from the origin** {#sec-pri-5311-appendix}
+
+[**Details of how to determine the path of steepest ascent**]{#sec-pri-5311-appendix-details}
+
+The problem of finding the factor settings on the steepest ascent/descent direction that are located a distance $\rho$ from the origin is given by the optimization problem,
+
+$$\text{maximize} \quad \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_k x_k$$
+$$\text{subject to:} \quad \sum_{i=1}^{k} x_i^2 \le \rho^2$$
+
+[**Solve using a Lagrange multiplier approach**]{#sec-pri-5311-lagrange}
+
+To solve it, use a Lagrange multiplier approach. First, add a penalty $\lambda$ for solutions not satisfying the constraint (since we want a direction of steepest ascent, we maximize, and therefore the penalty is negative). For steepest descent we minimize and the penalty term is added instead.
+
+$$\text{maximize} \quad L = b'x - \lambda(x'x - \rho^2)$$
+
+Compute the partials and equate them to zero
+
+$$\frac{\partial L}{\partial x} = b - 2 \lambda x = 0$$
+$$\frac{\partial L}{\partial \lambda} = -(x'x - \rho^2) = 0$$
+
+[**Solve two equations in two unknowns**]{#sec-pri-5311-solve}
+
+These two equations have two unknowns (the vector $x$ and the scalar $\lambda$) and thus can be solved yielding the desired solution:
+
+$$x^* = \rho \frac{b}{\lVert b \rVert}$$
+
+or, in non-vector notation:
+
+$$x^* = \rho \frac{b_i}{\sqrt{\sum_{j=1}^{k} b_j^2}} \qquad i = 1, 2, \ldots, k$$
+
+[**Multiples of the direction of the gradient**]{#sec-pri-5311-multiples}
+
+From this equation we can see that any multiple $\rho$ of the direction of the gradient (given by $b / \lVert b \rVert$) will lead to points on the steepest ascent direction. For steepest descent, use instead $-b_i$ in the numerator of the equation above.

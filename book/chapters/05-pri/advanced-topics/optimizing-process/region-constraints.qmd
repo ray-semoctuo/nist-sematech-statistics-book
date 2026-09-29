@@ -1,0 +1,18 @@
+##### Single response: Optimization subject to experimental region constraints {#sec-pri-5316}
+
+[**Optimal operating conditions may fall outside region where experiment conducted**]{#sec-pri-5316-overview}
+
+Sometimes the optimal operating conditions $x^*$ simply fall outside the region where the experiment was conducted. In these cases, constrained optimization techniques can be used to find the solution $x^*$ that optimizes $\hat{Y}(x)$ without leaving the region in the factor space where the experiment took place.
+
+[**Ridge analysis is a method for finding optimal factor settings that satisfy certain constraints**]{#sec-pri-5316-ridge}
+
+"Ridge Analysis", as developed by Hoerl [-@Hoerl1959], Hoerl [-@Hoerl1964], and Draper [-@Draper1963], is an optimization technique that finds factor settings $x^*$ such that they
+
+$$\text{optimize} \quad \hat{Y}(x) = b_0 + b'x + x'Bx$$
+$$\text{subject to} \quad x'x = \rho^2$$
+
+The solution $x^*$ to this problem provides operating conditions that yield an estimated absolute maximum or minimum response on a sphere of radius $\rho$. Different solutions can be obtained by trying different values of $\rho$.
+
+[**Solve with non-linear programming software**]{#sec-pri-5316-software}
+
+The original formulation of Ridge Analysis was based on the eigenvalues of a stationarity system. With the wide availability of non-linear programming codes, Ridge Analysis problems can be solved without recourse to eigenvalue analysis.

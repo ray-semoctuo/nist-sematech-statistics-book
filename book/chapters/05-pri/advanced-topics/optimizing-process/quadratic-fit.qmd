@@ -1,0 +1,290 @@
+##### Single response: Optimization when there is adequate quadratic fit {#sec-pri-5314}
+
+[**Regions where quadratic models or even cubic models are needed occur in many instances in industry**]{#sec-pri-5314-overview}
+
+After a few steepest ascent (or descent) searches, a first-order model will eventually lead to no further improvement or it will exhibit lack of fit. The latter case typically occurs when operating conditions have been changed to a region where there are quadratic (second-order) effects present in the response. A second-order polynomial can be used as a local approximation of the response in a small region where, hopefully, optimal operating conditions exist. However, while a quadratic fit is appropriate in most of the cases in industry, there will be a few times when a quadratic fit will not be sufficiently flexible to explain a given response. In such cases, the analyst generally does one of the following:
+
+1. Uses a transformation of $Y$ or the $X_i$'s to improve the fit.
+2. Limits use of the model to a smaller region in which the model does fit.
+3. Adds other terms to the model.
+
+**Procedure: obtaining the estimated optimal operating conditions**
+
+[**Second-order polynomial model**]{#sec-pri-5314-model}
+
+Once a linear model exhibits lack of fit or when significant curvature is detected, the experimental design used in Phase I (recall that a $2^{k-p}$ factorial experiment might be used) should be augmented with axial runs on each factor to form what is called a *central composite design*. This experimental design allows estimation of a second-order polynomial of the form
+
+$$\hat{Y} = b_0 + \sum_{i=1}^{k} b_i x_i + \sum_{i=1}^{k} b_{ii} x_i^2 + \sum_{i<j}^{k} \sum_{j=1}^{k} b_{ij} x_i x_j$$
+
+[**Steps to find optimal operating conditions**]{#sec-pri-5314-steps}
+
+If the corresponding analysis of variance table indicates no lack of fit for this model, the engineer can proceed to determine the estimated optimal operating conditions.
+
+1. Using some graphics software, obtain a contour plot of the fitted response. If the number of factors ($k$) is greater than 2, then plot contours in all planes corresponding to all the possible pairs of factors. For $k$ greater than, say, 5, this could be too cumbersome (unless the graphic software plots all pairs automatically). In such a case, a "canonical analysis" of the surface is recommended (see [Technical Appendix 5D](#sec-pri-5314-appendix-d)).
+2. Use an optimization solver to maximize or minimize (as desired) the estimated response $\hat{Y}$.
+3. Perform a confirmation experiment at the estimated optimal operating conditions given by the solver in step 2.
+
+[**Chemical experiment example**]{#sec-pri-5314-example-intro}
+
+We illustrate these steps using the [chemical experiment](#sec-pri-5311-example) discussed previously. For a technical description of a formula that provides the coordinates of the stationary point of the surface, see [Technical Appendix 5C](#sec-pri-5314-appendix-c).
+
+**Example: Second Phase Optimization of Chemical Process**
+
+[**Experimental results for axial runs**]{#sec-pri-5314-axial}
+
+Recall that in the chemical experiment, the ANOVA table, obtained from using an experiment run around the coordinates $X_1 = 189.5, X_2 = 350$, indicated significant curvature effects. Augmenting the $2^2$ factorial experiment with axial runs at $\pm\alpha = \pm\sqrt{2}$ to achieve a rotatable central composite experimental design, the following experimental results were obtained (the reader can download the data as a [text file](../../../datasets/IMPROVE-5_5_3_1_4.DAT)):
+
+```{r}
+#| code-fold: true
+#| label: setup-pri-5314
+#| message: false
+#| warning: false
+axial_runs <- read_table(
+  here::here("datasets", "IMPROVE-5_5_3_1_4.DAT"),
+  skip = 25,
+  col_names = c("x1", "x2", "temperature", "time", "yield"),
+  col_types = "ddddd"
+)
+
+axial_runs
+```
+
+```{r}
+#| code-fold: true
+#| label: pri-5314-combined-data
+central_composite <- bind_rows(new_origin, axial_runs)
+central_composite
+```
+
+[**ANOVA table**]{#sec-pri-5314-anova}
+
+Combining these 4 axial runs with the 9 runs (the $2^2$ factorial plus 5 centerpoints) from the previous experiment gives a 13-run central composite design. The ANOVA table corresponding to a cubic model with an interaction term (contained in the quadratic sum-of-squares partition) is
+
+```{r}
+#| code-fold: true
+#| label: pri-5314-fit-quadratic
+fit_quadratic <- lm(yield ~ x1 + x2 + I(x1^2) + I(x2^2) + x1:x2, data = central_composite)
+summary(fit_quadratic)
+```
+
+This reproduces NIST's reported model exactly: $R^2 = 0.8898$, adjusted $R^2 = 0.8111$, residual standard error $= 5.77$ on 7 degrees of freedom.
+
+[**Lack-of-fit tests and auxiliary diagnostic statistics**]{#sec-pri-5314-lof}
+
+From the ANOVA table, the linear and quadratic effects are significant. The quadratic model has a larger $p$-value for the lack of fit test, higher adjusted $R^2$, and a lower PRESS statistic than competing linear or cubic models; thus it should provide a reliable model. The fitted quadratic equation, in coded units, is
+
+$$\hat{Y} = 72.0 - 11.78 x_1 + 0.74 x_2 - 7.25 x_1^2 - 7.55 x_2^2 - 4.85 x_1 x_2$$
+
+reproducing NIST's reported coefficients exactly.
+
+**Step 1:**
+
+[**Contour plot of the fitted response function**]{#sec-pri-5314-contour}
+
+A contour plot of this function (@fig-pri-5314-contour) shows that it appears to have a single optimum point in the region of the experiment.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-5314-contour
+#| fig-cap: "Contour Plot of the Fitted Response in the Example"
+quad_grid <- expand_grid(x1 = seq(-1.6, 1.6, length.out = 80), x2 = seq(-1.6, 1.6, length.out = 80))
+quad_grid$pred <- predict(fit_quadratic, newdata = quad_grid)
+
+ggplot(quad_grid, aes(x1, x2, z = pred)) +
+  geom_contour_filled(alpha = 0.85) +
+  geom_contour(color = "white", linewidth = 0.2) +
+  geom_point(aes(x1, x2), data = central_composite, inherit.aes = FALSE, color = "black", size = 1.5) +
+  annotate("point", x = -0.9278, y = 0.3468, shape = 4, size = 3, stroke = 1.2, color = "#D60021") +
+  scale_fill_viridis_d(name = "Yield") +
+  labs(x = expression(x[1]), y = expression(x[2]))
+```
+
+[**3D plot of the fitted response function**]{#sec-pri-5314-3d}
+
+Since there are only two factors in this example, we can also obtain a 3D plot of the fitted response against the two factors (@fig-pri-5314-persp).
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-5314-persp
+#| fig-cap: "3D Plot of the Fitted Response in the Example"
+x1_grid <- seq(-1.6, 1.6, length.out = 40)
+x2_grid <- seq(-1.6, 1.6, length.out = 40)
+persp_grid <- expand.grid(x1 = x1_grid, x2 = x2_grid)
+z_yield <- matrix(predict(fit_quadratic, newdata = persp_grid), nrow = length(x1_grid))
+
+persp(x1_grid, x2_grid, z_yield, theta = -35, phi = 25, expand = 0.7, col = "lightblue",
+      xlab = "x1", ylab = "x2", zlab = "Yield", ticktype = "detailed")
+```
+
+**Step 2:**
+
+[**Optimization point**]{#sec-pri-5314-optimization}
+
+An optimization routine was used to maximize $\hat{Y}$.
+
+```{r}
+#| code-fold: true
+#| label: pri-5314-stationary-point
+b_vec <- coef(fit_quadratic)[c("x1", "x2")]
+B_mat <- matrix(
+  c(coef(fit_quadratic)["I(x1^2)"], coef(fit_quadratic)["x1:x2"] / 2,
+    coef(fit_quadratic)["x1:x2"] / 2, coef(fit_quadratic)["I(x2^2)"]),
+  nrow = 2
+)
+x_star <- -0.5 * solve(B_mat) %*% b_vec
+X1_star <- x_star[1] * 30 + 189.5
+X2_star <- x_star[2] * 50 + 350
+Y_star <- predict(fit_quadratic, newdata = tibble(x1 = x_star[1], x2 = x_star[2]))
+
+list(x_star = x_star, X1_star = unname(X1_star), X2_star = unname(X2_star), Y_star = unname(Y_star))
+```
+
+The results are $X_1^* = 161.64^\circ C$, $X_2^* = 367.32$ minutes. The estimated yield at the optimal point is $\hat{Y}(X^*) = 77.59\%$ -- reproducing NIST's reported optimum exactly.
+
+**Step 3:**
+
+[**Confirmation experiment**]{#sec-pri-5314-confirmation}
+
+A confirmation experiment was conducted by the process engineer at settings $X_1 = 161.64$, $X_2 = 367.32$. The observed response was $\hat{Y}(X^*) = 76.5\%$, which is satisfactorily close to the estimated optimum.
+
+------------------------------------------------------------------------
+
+**Technical Appendix 5C: Finding the Factor Settings for the Stationary Point of a Quadratic Response** {#sec-pri-5314-appendix-c}
+
+[**How to find the maximum or minimum point for a quadratic response**]{#sec-pri-5314-appendix-c-how}
+
+1. Rewrite the fitted equation using matrix notation as
+
+   $$\hat{Y}(x) = b_0 + b'x + x'Bx$$
+
+   where $b' = (b_1, b_2, \ldots, b_k)$ denotes a vector of first-order parameter estimates,
+
+   $$
+   B = \begin{pmatrix}
+   b_{11} & b_{12}/2 & \cdots & b_{1k}/2 \\
+   & b_{22} & & \\
+   & & \ddots & \vdots \\
+   \text{symmetric} & & & b_{kk}
+   \end{pmatrix}
+   $$
+
+   is a matrix of second-order parameter estimates and $x' = (x_1, x_2, \ldots, x_k)$ is the vector of controllable factors. Notice that the off-diagonal elements of $B$ are equal to half the two-factor interaction coefficients.
+
+2. Equating the partial derivatives of $\hat{Y}$ with respect to $x$ to zeroes and solving the resulting system of equations, the coordinates of the stationary point of the response are given by
+
+   $$x^* = -\frac{1}{2} B^{-1} b$$
+
+[**Nature of the stationary point is determined by $B$**]{#sec-pri-5314-appendix-c-nature}
+
+The nature of the stationary point (whether it is a point of maximum response, minimum response, or a saddle point) is determined by the matrix $B$. The two-factor interactions do not, in general, let us "see" what type of point $x^*$ is. One thing that can be said is that if the diagonal elements of $B$ ($b_{ii}$) have mixed signs, $x^*$ is a saddle point. Otherwise, it is necessary to look at the characteristic roots or eigenvalues of $B$ to see whether $B$ is "positive definite" (so $x^*$ is a point of minimum response) or "negative definite" (the case in which $x^*$ is a point of maximum response). This task is easier if the two-factor interactions are "eliminated" from the fitted equation as is described in [Technical Appendix 5D](#sec-pri-5314-appendix-d).
+
+**Example: computing the stationary point, Chemical Process experiment**
+
+[**Example of computing the stationary point**]{#sec-pri-5314-appendix-c-example}
+
+The fitted quadratic equation in the chemical experiment discussed in Section [5.5.3.1.1](#sec-pri-5311) is, in coded units,
+
+$$\hat{Y} = 72.0 - 11.78 x_1 + 0.74 x_2 - 7.25 x_1^2 - 7.55 x_2^2 - 4.85 x_1 x_2$$
+
+from which we obtain $b' = (-11.78, 0.74)$,
+
+```{r}
+#| code-fold: true
+#| label: pri-5314-B-matrix
+B_mat
+solve(B_mat)
+x_star
+```
+
+$$
+B = \begin{pmatrix} -7.25 & -2.4225 \\ -2.4225 & -7.55 \end{pmatrix}
+\qquad
+B^{-1} = \begin{pmatrix} -0.1545 & 0.0496 \\ 0.0496 & -0.1483 \end{pmatrix}
+$$
+
+and
+
+$$x^* = -\frac{1}{2} \begin{pmatrix} -0.1545 & 0.0496 \\ 0.0496 & -0.1483 \end{pmatrix} \begin{pmatrix} -11.78 \\ 0.74 \end{pmatrix} = \begin{pmatrix} -0.9285 \\ 0.3472 \end{pmatrix}$$
+
+Transforming back to the original units of measurement, the coordinates of the stationary point are
+
+$$X^* = \begin{pmatrix} 161.64^\circ C \\ 367.36 \text{ minutes} \end{pmatrix}$$
+
+The predicted response at the stationary point is $\hat{Y}(X^*) = 77.59\%$.
+
+------------------------------------------------------------------------
+
+**Technical Appendix 5D: "Canonical Analysis" of Quadratic Responses** {#sec-pri-5314-appendix-d}
+
+[**Case for a single controllable response**]{#sec-pri-5314-appendix-d-single}
+
+Whether the stationary point $X^*$ represents a point of maximum or minimum response, or is just a saddle point, is determined by the matrix of second-order coefficients, $B$. In the simpler case of just a single controllable factor ($k=1$), $B$ is a scalar proportional to the second derivative of $\hat{Y}(x)$ with respect to $x$. If $d^2\hat{Y}/dx^2$ is positive, recall from calculus that the function $\hat{Y}(x)$ is convex ("bowl shaped") and $x^*$ is a point of minimum response.
+
+[**Case for multiple controllable responses not so easy**]{#sec-pri-5314-appendix-d-multiple}
+
+Unfortunately, the multiple factor case ($k>1$) is not so easy since the two-factor interactions (the off-diagonal elements of $B$) obscure the picture of what is going on. A recommended procedure for analyzing whether $B$ is "positive definite" (we have a minimum) or "negative definite" (we have a maximum) is to rotate the axes $x_1, x_2, \ldots, x_k$ so that the two-factor interactions disappear. It is also customary (Box and Draper [-@BoxDraper1987]; Khuri and Cornell [-@KhuriCornell1987]; Myers and Montgomery [-@MyersMontgomery1995]) to translate the origin of coordinates to the stationary point so that the intercept term is eliminated from the equation of $\hat{Y}(x)$. This procedure is called the canonical analysis of $\hat{Y}(x)$.
+
+**Procedure: Canonical Analysis**
+
+[**Steps for performing the canonical analysis**]{#sec-pri-5314-appendix-d-steps}
+
+1. Define a new axis $z = x - x^*$ (translation step). The fitted equation becomes
+
+   $$\hat{Y}(z) = \hat{Y}(x^*) + z'Bz$$
+
+2. Define a new axis $w = E'z$, with $E'BE = D$ and $D$ a diagonal matrix to be defined (rotation step). The fitted equation becomes
+
+   $$\hat{Y}(w) = \hat{Y}(x^*) + w'Dw$$
+
+   This is the so-called canonical form of the model. The elements on the diagonal of $D$, $\lambda_i$ ($i = 1, 2, \ldots, k$) are the eigenvalues of $B$. The columns of $E'$, $e_i$, are the *orthonormal eigenvectors* of $B$, which means that the $e_i$ satisfy $(B - \lambda_i)e_i = 0$, $e_i'e_j = 0$ for $i \ne j$, and $e_i'e_i = 1.0$.
+
+3. If all the $\lambda_i$ are negative, $x^*$ is a point of maximum response. If all the $\lambda_i$ are positive, $x^*$ is a point of minimum response. Finally, if the $\lambda_i$ are of mixed signs, the response is a saddle function and $x^*$ is the saddle point.
+
+[**Eigenvalues that are approximately zero**]{#sec-pri-5314-appendix-d-zero-eigenvalues}
+
+If some $\lambda_i \approx 0$, the fitted ellipsoid
+
+$$\hat{Y}(w) = \hat{Y}(x^*) + \sum_{i=1}^{k} \lambda_i w_i^2$$
+
+is elongated (i.e., it is flat) along the direction of the $w_i$ axis. Points along the $w_i$ axis will have an estimated response close to optimal; thus the process engineer has flexibility in choosing "good" operating conditions. If two eigenvalues (say $\lambda_i$ and $\lambda_j$) are close to zero, a plane in the $(w_i, w_j)$ coordinates will have close to optimal operating conditions, etc.
+
+[**Canonical analysis typically performed by software**]{#sec-pri-5314-appendix-d-software}
+
+Software is available to compute the eigenvalues $\lambda_i$ and the orthonormal eigenvectors $e_i$; thus there is no need to do a canonical analysis by hand.
+
+**Example: Canonical Analysis of Yield Response in Chemical Experiment**
+
+[**$B$ matrix for this example**]{#sec-pri-5314-appendix-d-B}
+
+Let us return to the chemical experiment example to illustrate the method. Keep in mind that when the number of factors is small (e.g., $k=2$ as in this example) canonical analysis is not recommended in practice since simple contour plotting will provide sufficient information. The fitted equation of the model yields
+
+$$B = \begin{pmatrix} -7.25 & -2.4225 \\ -2.4225 & -7.55 \end{pmatrix}$$
+
+[**Compute the eigenvalues and find the orthonormal eigenvectors**]{#sec-pri-5314-appendix-d-eigen}
+
+To compute the eigenvalues $\lambda_i$, we have to find all roots of the expression that results from equating the determinant of $B - \lambda_i I$ to zero. Since $B$ is symmetric and has real coefficients, there will be $k$ real roots $\lambda_i, i = 1, 2, \ldots, k$. To find the orthonormal eigenvectors, solve the simultaneous equations $(B - \lambda_i I)e_i = 0$ and $e_i'e_i = 1$.
+
+[**Canonical analysis results**]{#sec-pri-5314-appendix-d-results}
+
+```{r}
+#| code-fold: true
+#| label: pri-5314-eigen
+eigen_B <- eigen(B_mat)
+eigen_B
+```
+
+This reproduces NIST's reported canonical analysis exactly: eigenvalues $-4.973187$ and $-9.827317$.
+
+Notice that the eigenvalues are the two roots of
+
+$$\text{det}(B - \lambda I) = (-7.25 - \lambda)(-7.55 - \lambda) - (-2.4225)(-2.4225) = 0$$
+
+As mentioned previously, the stationary point is $(x^*)' = (-0.9278, 0.3468)$, which corresponds to $X^{*'} = (161.64, 367.36)$. Since both eigenvalues are negative, $x^*$ is a point of maximum response. To obtain the directions of the axis of the fitted ellipsoid, compute
+
+$$w_1 = 0.7285(x_1 + 0.9278) - 0.6851(x_2 - 0.3468) = 0.9143 + 0.7285 x_1 - 0.6851 x_2$$
+
+and
+
+$$w_2 = 0.6851(x_1 + 0.9278) - 0.7285(x_2 - 0.3468) = 0.8830 + 0.6851 x_1 + 0.7285 x_2$$
+
+Since $|\lambda_1| < |\lambda_2|$, there is somewhat more elongation in the $w_1$ direction. However, since both eigenvalues are quite far from zero, there is not much flexibility in choosing operating conditions. It can be seen from @fig-pri-5314-contour that the fitted ellipses do not have a great elongation in the $w_1$ direction, the direction of the major axis. It is important to emphasize that confirmation experiments at $x^*$ should be performed to check the validity of the estimated optimal solution.

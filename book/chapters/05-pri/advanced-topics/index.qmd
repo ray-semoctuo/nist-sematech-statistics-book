@@ -8,6 +8,14 @@ This section builds on the basics of DOE described in the preceding sections by 
 2. [Computer-aided designs](#sec-pri-52)
    1. [D-Optimal designs](#sec-pri-521)
    2. [Repairing a design](#sec-pri-522)
+3. [How do you optimize a process?](#sec-pri-53)
+   1. [Single response case](#sec-pri-531)
+      - [Path of steepest ascent](#sec-pri-5311)
+      - [Confidence region for search path](#sec-pri-5312)
+      - [Choosing the step length](#sec-pri-5313)
+      - [Optimization when there is adequate quadratic fit](#sec-pri-5314)
+      - [Effect of sampling error on optimal solution](#sec-pri-5315)
+      - [Optimization subject to experimental region constraints](#sec-pri-5316)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -16,3 +24,19 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/computer-aided/d-optimal.qmd >}}
 
 {{< include advanced-topics/computer-aided/repairing-design.qmd >}}
+
+{{< include advanced-topics/optimizing-process.qmd >}}
+
+{{< include advanced-topics/optimizing-process/single-response.qmd >}}
+
+{{< include advanced-topics/optimizing-process/steepest-ascent.qmd >}}
+
+{{< include advanced-topics/optimizing-process/steepest-ascent-confidence.qmd >}}
+
+{{< include advanced-topics/optimizing-process/step-length.qmd >}}
+
+{{< include advanced-topics/optimizing-process/quadratic-fit.qmd >}}
+
+{{< include advanced-topics/optimizing-process/sampling-error.qmd >}}
+
+{{< include advanced-topics/optimizing-process/region-constraints.qmd >}}
