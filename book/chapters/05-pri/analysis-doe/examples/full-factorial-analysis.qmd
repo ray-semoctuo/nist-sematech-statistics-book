@@ -44,7 +44,7 @@ theme_set(theme_light())
 ceramic <- read_table(
   here::here("datasets", "CERAMIC.DAT"),
   skip = 25,
-  col_names = c("x1", "x2", "x3", "x4", "x5", "y", "order"),
+  col_names = c("speed", "rate", "grit", "direction", "batch", "strength", "order"),
   col_types = "iiiiidi"
 )
 
@@ -69,20 +69,20 @@ First, we look at the distribution of the response variable regardless of factor
 #| code-fold: true
 #| label: fig-pri-471-4plot
 #| fig-cap: "4-plot of the ceramic strength response"
-p1 <- ggplot(ceramic, aes(sample = y)) +
+p1 <- ggplot(ceramic, aes(sample = strength)) +
   stat_qq(distribution = qnorm) +
   stat_qq_line(distribution = qnorm, color = "#D60021") +
   labs(title = "Normal Probability Plot", x = "Normal Quantile", y = "Strength")
 
-p2 <- ggplot(ceramic, aes(x = "", y = y)) +
+p2 <- ggplot(ceramic, aes(x = "", y = strength)) +
   geom_boxplot(fill = "#DCE6F1") +
   labs(title = "Box Plot", x = NULL, y = "Strength")
 
-p3 <- ggplot(ceramic, aes(x = y)) +
+p3 <- ggplot(ceramic, aes(x = strength)) +
   geom_histogram(bins = 9, fill = "#DCE6F1", color = "#1B1B1B") +
   labs(title = "Histogram", x = "Strength", y = "Frequency")
 
-p4 <- ggplot(ceramic, aes(x = order, y = y)) +
+p4 <- ggplot(ceramic, aes(x = order, y = strength)) +
   geom_point(color = "steelblue") +
   geom_line(color = "steelblue", alpha = 0.4) +
   labs(title = "Run-Order Plot", x = "Run Order", y = "Strength")
@@ -100,15 +100,15 @@ Next, we look at box plots of the response for each factor.
 #| code-fold: true
 #| label: fig-pri-471-boxfactors
 #| fig-cap: "Response by factor level"
-factor_labels <- c(x1 = "Table Speed", x2 = "Feed Rate", x3 = "Wheel Grit",
-                    x4 = "Direction", x5 = "Batch")
+factor_labels <- c(speed = "Table Speed", rate = "Feed Rate", grit = "Wheel Grit",
+                    direction = "Direction", batch = "Batch")
 
 ceramic_long <- ceramic |>
-  pivot_longer(x1:x5, names_to = "factor", values_to = "level") |>
+  pivot_longer(speed:batch, names_to = "factor", values_to = "level") |>
   mutate(factor = factor(factor_labels[factor], levels = factor_labels),
          level = factor(level, levels = c(-1, 1), labels = c("-1", "+1")))
 
-ggplot(ceramic_long, aes(level, y)) +
+ggplot(ceramic_long, aes(level, strength)) +
   geom_boxplot(fill = "#DCE6F1") +
   facet_wrap(~factor, nrow = 1) +
   labs(x = NULL, y = "Strength")
@@ -132,10 +132,12 @@ The ANOVA table for the 26-parameter model (intercept not shown) follows. The te
 #| code-fold: true
 #| label: pri-471-full-model
 full_fit <- lm(
-  y ~ x1 + x2 + x1:x2 + x3 + x1:x3 + x2:x3 + x1:x2:x3 +
-    x4 + x1:x4 + x2:x4 + x1:x2:x4 + x3:x4 + x1:x3:x4 + x2:x3:x4 +
-    x5 + x1:x5 + x2:x5 + x1:x2:x5 + x3:x5 + x1:x3:x5 + x2:x3:x5 +
-    x4:x5 + x1:x4:x5 + x2:x4:x5 + x3:x4:x5,
+  strength ~ speed + rate + speed:rate + grit + speed:grit + rate:grit + speed:rate:grit +
+    direction + speed:direction + rate:direction + speed:rate:direction +
+    grit:direction + speed:grit:direction + rate:grit:direction +
+    batch + speed:batch + rate:batch + speed:rate:batch + grit:batch +
+    speed:grit:batch + rate:grit:batch +
+    direction:batch + speed:direction:batch + rate:direction:batch + grit:direction:batch,
   data = ceramic
 )
 summary(full_fit)
@@ -152,8 +154,9 @@ Starting with the 26 terms, we use stepwise regression to eliminate unnecessary 
 #| code-fold: true
 #| label: pri-471-12term-model
 fit12 <- lm(
-  y ~ x1 + x2 + x1:x2 + x3 + x1:x3 +
-    x4 + x1:x4 + x2:x4 + x1:x2:x4 + x3:x4 + x5 + x4:x5,
+  strength ~ speed + rate + speed:rate + grit + speed:grit +
+    direction + speed:direction + rate:direction + speed:rate:direction +
+    grit:direction + batch + direction:batch,
   data = ceramic
 )
 summary(fit12)
@@ -172,18 +175,18 @@ A normal probability plot of the effects is shown below. (To reduce the scale of
 #| code-fold: true
 #| label: fig-pri-471-normaleffects
 #| fig-cap: "Normal probability plot of the effects"
-sat_fit <- lm(y ~ (x1 + x2 + x3 + x4 + x5)^5, data = ceramic)
+sat_fit <- lm(strength ~ (speed + rate + grit + direction + batch)^5, data = ceramic)
 
 effects_df <- broom::tidy(sat_fit) |>
   filter(term != "(Intercept)") |>
   mutate(effect = 2 * estimate,
          term_label = str_replace_all(term, ":", "*"))
 
-sig_terms <- c("x1", "x2", "x1*x2", "x3", "x1*x3", "x4", "x1*x4",
-               "x2*x4", "x1*x2*x4", "x3*x4", "x5", "x4*x5")
+sig_terms <- c("speed", "rate", "speed*rate", "grit", "speed*grit", "direction", "speed*direction",
+               "rate*direction", "speed*rate*direction", "grit*direction", "batch", "direction*batch")
 
 plot_df <- effects_df |>
-  filter(!term %in% c("x4", "x5")) |>
+  filter(!term %in% c("direction", "batch")) |>
   arrange(effect) |>
   mutate(rank = row_number(),
          qnorm_score = qnorm((rank - 0.5) / n()),
@@ -305,13 +308,14 @@ When the 12-effect model is fit to the transformed data, the "X4: Direction * X5
 #| code-fold: true
 #| label: pri-471-11term-model
 lambda <- 0.2
-gm <- exp(mean(log(ceramic$y)))
+gm <- exp(mean(log(ceramic$strength)))
 ceramic <- ceramic |>
-  mutate(y_new = (y^lambda - 1) / (lambda * gm^(lambda - 1)))
+  mutate(new_strength = (strength^lambda - 1) / (lambda * gm^(lambda - 1)))
 
 fit11 <- lm(
-  y_new ~ x1 + x2 + x1:x2 + x3 + x1:x3 +
-    x4 + x1:x4 + x2:x4 + x1:x2:x4 + x3:x4 + x5,
+  new_strength ~ speed + rate + speed:rate + grit + speed:grit +
+    direction + speed:direction + rate:direction + speed:rate:direction +
+    grit:direction + batch,
   data = ceramic
 )
 summary(fit11)
@@ -366,43 +370,53 @@ Plots of the main effects and the significant 2-way interactions are shown below
 #| label: fig-pri-471-maineffects
 #| fig-cap: "Main effects plot"
 main_eff <- ceramic |>
-  pivot_longer(x1:x5, names_to = "factor", values_to = "level") |>
+  pivot_longer(speed:batch, names_to = "factor", values_to = "level") |>
   group_by(factor, level) |>
-  summarise(mean_y = mean(y_new), .groups = "drop") |>
+  summarise(mean_strength = mean(new_strength), .groups = "drop") |>
   mutate(factor = factor(factor_labels[factor], levels = factor_labels))
 
-ggplot(main_eff, aes(factor(level), mean_y, group = 1)) +
+ggplot(main_eff, aes(factor(level), mean_strength, group = 1)) +
   geom_line(color = "steelblue") +
   geom_point(color = "steelblue", size = 2) +
   facet_wrap(~factor, nrow = 1) +
   labs(x = NULL, y = "Mean NewStrength")
 ```
 
-Next, we plot the significant two-way interactions, showing means for all combinations of levels for each pair of factors.
+Next, we plot all ten two-way interactions at once, in the same triangular arrangement NIST used: each panel plots the mean transformed strength at the low ($-1$) and high ($+1$) level of that pair's product term (e.g., panel "s\*r" plots the mean at Speed$\times$Rate $= -1$ against the mean at Speed$\times$Rate $= +1$). The dashed red line marks the overall mean, so a panel with a steep slope crossing the line indicates a strong interaction between that pair of factors.
 
 ```{r}
 #| code-fold: true
 #| label: fig-pri-471-interactions
-#| fig-cap: "Significant two-way interactions"
-int_pairs <- list(c("x1", "x2"), c("x1", "x3"), c("x1", "x4"), c("x2", "x4"), c("x3", "x4"))
+#| fig-cap: "All two-way interactions"
+vars5 <- c("speed", "rate", "grit", "direction", "batch")
+short_labels <- c(speed = "s", rate = "r", grit = "g", direction = "d", batch = "b")
 
-int_data <- map_dfr(int_pairs, function(p) {
-  ceramic |>
-    group_by(across(all_of(p))) |>
-    summarise(mean_y = mean(y_new), .groups = "drop") |>
-    rename(a = 1, b = 2) |>
-    mutate(pair = paste0(factor_labels[p[1]], " * ", factor_labels[p[2]]))
+pair_list <- combn(vars5, 2, simplify = FALSE)
+
+int_data <- map_dfr(pair_list, function(p) {
+  product_level <- ceramic[[p[1]]] * ceramic[[p[2]]]
+  tibble(row = p[1], col = p[2], level = product_level, new_strength = ceramic$new_strength) |>
+    group_by(row, col, level) |>
+    summarise(mean_strength = mean(new_strength), .groups = "drop")
 })
 
-ggplot(int_data, aes(factor(a), mean_y, color = factor(b), group = factor(b))) +
-  geom_line() +
-  geom_point(size = 2) +
-  facet_wrap(~pair, nrow = 2) +
-  scale_color_manual(values = c(`-1` = "steelblue", `1` = "#D60021"), name = "2nd factor level") +
-  labs(x = "1st factor level", y = "Mean NewStrength")
+int_data <- int_data |>
+  mutate(
+    row = factor(factor_labels[row], levels = factor_labels[vars5[1:4]]),
+    col = factor(factor_labels[col], levels = factor_labels[vars5[2:5]])
+  )
+
+grand_mean <- mean(ceramic$new_strength)
+
+ggplot(int_data, aes(factor(level), mean_strength, group = 1)) +
+  geom_hline(yintercept = grand_mean, color = "#D60021", linetype = "dashed") +
+  geom_line(color = "steelblue") +
+  geom_point(color = "steelblue", size = 2) +
+  facet_grid(rows = vars(row), cols = vars(col), drop = FALSE) +
+  labs(x = "Factor Level", y = "Transformed Strength")
 ```
 
-For example, the "Table Speed * Feed Rate" panel shows averages for low and high levels of the feed rate variable (x-axis) for both levels of table speed. The blue line represents the low level of table speed and the red line represents the high level of table speed. The two lines cross, indicating that there is interaction between feed rate and table speed. Parallel lines (as in the other four panels) indicate weaker or more one-sided interaction.
+The steepest panels -- Grit\*Direction, Speed\*Rate, and Rate\*Direction -- are exactly the two-way interactions already identified as significant in the 11-effect model. The blank cells complete the triangular layout: each pair of factors appears exactly once, ordered Speed, Rate, Grit, Direction, Batch along both the rows and the columns.
 
 *Optimal Settings*
 
@@ -419,9 +433,9 @@ Unfortunately, "Batch" is also a very significant factor, with the first batch g
    ```{r}
    #| code-fold: true
    #| label: pri-471-comment1
-   long_df <- filter(ceramic, x4 == -1)
-   simple_fit <- lm(y ~ x3 + x5, data = long_df)
-   full2_fit <- lm(y ~ (x1 + x2 + x3 + x5)^2, data = long_df)
+   long_df <- filter(ceramic, direction == -1)
+   simple_fit <- lm(strength ~ grit + batch, data = long_df)
+   full2_fit <- lm(strength ~ (speed + rate + grit + batch)^2, data = long_df)
    summary(simple_fit)
    anova(simple_fit, full2_fit)
    ```
@@ -433,8 +447,8 @@ Unfortunately, "Batch" is also a very significant factor, with the first batch g
    ```{r}
    #| code-fold: true
    #| label: pri-471-comment1-transverse
-   trans_df <- filter(ceramic, x4 == 1)
-   trans_fit <- lm(y ~ x1 + x2 + x1:x2 + x3 + x1:x3 + x5, data = trans_df)
+   trans_df <- filter(ceramic, direction == 1)
+   trans_fit <- lm(strength ~ speed + rate + speed:rate + grit + speed:grit + batch, data = trans_df)
    summary(trans_fit)
    ```
 
