@@ -4,7 +4,7 @@
 2. [Assumptions](#sec-pri-2)
 3. [Choosing an Experimental Design](#sec-pri-3)
 4. [Analysis of DOE Data](#sec-pri-4)
-5. Advanced Topics
+5. [Advanced Topics](#sec-pri-5)
 6. Case Studies
 7. A Glossary of DOE Terminology
 
@@ -15,3 +15,5 @@
 {{< include choosing-design/index.qmd >}}
 
 {{< include analysis-doe/index.qmd >}}
+
+{{< include advanced-topics/index.qmd >}}

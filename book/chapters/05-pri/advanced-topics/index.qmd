@@ -1,0 +1,18 @@
+## Advanced topics {#sec-pri-5}
+
+[**Contents of "Advanced Topics" section**]{#sec-pri-5-contents}
+
+This section builds on the basics of DOE described in the preceding sections by adding brief or survey descriptions of a selection of useful techniques. Subjects covered are:
+
+1. [When classical designs don't work](#sec-pri-51)
+2. [Computer-aided designs](#sec-pri-52)
+   1. [D-Optimal designs](#sec-pri-521)
+   2. [Repairing a design](#sec-pri-522)
+
+{{< include advanced-topics/classical-designs.qmd >}}
+
+{{< include advanced-topics/computer-aided-designs.qmd >}}
+
+{{< include advanced-topics/computer-aided/d-optimal.qmd >}}
+
+{{< include advanced-topics/computer-aided/repairing-design.qmd >}}
