@@ -4,7 +4,7 @@
 
 **A CCD with two responses**
 
-This example uses experimental data published in Czitrom and Spagon (1997), *Statistical Case Studies for Industrial Process Improvement*. The material is copyrighted by the American Statistical Association and the Society for Industrial and Applied Mathematics, and is used with their permission. Specifically, Chapter 15, titled "Elimination of TiN Peeling During Exposure to CVD Tungsten Deposition Process Using Designed Experiments", describes a semiconductor wafer processing experiment (labeled *Experiment 2*).
+This example uses experimental data published in Czitrom and Spagon [-@CzitromSpagon1997], *Statistical Case Studies for Industrial Process Improvement*. The material is copyrighted by the American Statistical Association and the Society for Industrial and Applied Mathematics, and is used with their permission. Specifically, Chapter 15, titled "Elimination of TiN Peeling During Exposure to CVD Tungsten Deposition Process Using Designed Experiments", describes a semiconductor wafer processing experiment (labeled *Experiment 2*).
 
 *Goal, response variables, and factor variables*
 
@@ -16,7 +16,7 @@ To summarize, the goal is to obtain a response surface model for two responses, 
 
 *The design is a 13-run CCI design with 3 centerpoints*
 
-The minimum and maximum values chosen for Pressure were 4 torr and 80 torr (0.5333 kPa and 10.6658 kPa). Although the international system of units indicates that the standard unit for pressure is Pascal, or 1 N/m$^2$, we use torr to be consistent with the analysis appearing in the paper by Czitrom and Spagon.
+The minimum and maximum values chosen for Pressure were 4 torr and 80 torr (0.5333 kPa and 10.6658 kPa). Although the international system of units indicates that the standard unit for pressure is Pascal, or 1 N/m$^2$, we use torr to be consistent with the analysis appearing in the paper by Czitrom and Spagon [-@CzitromSpagon1997].
 
 The minimum and maximum H$_2$/WF$_6$ ratios were chosen to be 2 and 10. Since response curvature, especially for Uniformity, was a distinct possibility, an experimental design that allowed estimating a second order (quadratic) model was needed. The experimenters decided to use a [central composite inscribed (CCI)](#sec-pri-3361) design. For two factors, this design is typically recommended to have [13 runs with 5 centerpoint runs](#sec-pri-3363). However, the experimenters, perhaps to conserve a limited supply of wafer resources, chose to include only 3 centerpoint runs. The design is still rotatable, but the [uniform precision](#sec-pri-337-response-surface) property has been sacrificed.
 

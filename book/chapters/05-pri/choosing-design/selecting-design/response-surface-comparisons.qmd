@@ -211,7 +211,7 @@ ccf_bb_df |>
 
 **A summary of desirable properties for response surface designs**
 
-G. E. P. Box and N. R. Draper in "Empirical Model Building and Response Surfaces," John Wiley and Sons, New York, 1987, page 477, identify desirable properties for a response surface design [@BoxDraper1987]:
+G. E. P. Box and N. R. Draper in "Empirical Model Building and Response Surfaces," John Wiley and Sons, New York, 1987, page 477, identify desirable properties for a response surface design [-@BoxDraper1987]:
 
 - Satisfactory distribution of information across the experimental region.
   - rotatability<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Rotatability -->
