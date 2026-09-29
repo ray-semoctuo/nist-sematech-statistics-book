@@ -1,6 +1,393 @@
 #### Response surface example {#sec-pri-473}
 
+[**Data Source**]{#sec-pri-473-data-source}
+
+**A CCD with two responses**
+
+This example uses experimental data published in Czitrom and Spagon (1997), *Statistical Case Studies for Industrial Process Improvement*. The material is copyrighted by the American Statistical Association and the Society for Industrial and Applied Mathematics, and is used with their permission. Specifically, Chapter 15, titled "Elimination of TiN Peeling During Exposure to CVD Tungsten Deposition Process Using Designed Experiments", describes a semiconductor wafer processing experiment (labeled *Experiment 2*).
+
+*Goal, response variables, and factor variables*
+
+The goal of this experiment was to fit response surface models to the two responses, deposition layer Uniformity and deposition layer Stress, as a function of two particular controllable factors of the chemical vapor deposition (CVD) reactor process. These factors were Pressure (measured in torr) and the ratio of the gaseous reactants H$_2$ and WF$_6$ (called H$_2$/WF$_6$). The experiment also included an important third (categorical) response -- the presence or absence of titanium nitride (TiN) peeling. The third response has been omitted in this example in order to focus on the response surface aspects of the experiment.
+
+To summarize, the goal is to obtain a response surface model for two responses, Uniformity and Stress. The factors are: Pressure and H$_2$/WF$_6$.
+
+[**Experiment Description**]{#sec-pri-473-description}
+
+*The design is a 13-run CCI design with 3 centerpoints*
+
+The minimum and maximum values chosen for Pressure were 4 torr and 80 torr (0.5333 kPa and 10.6658 kPa). Although the international system of units indicates that the standard unit for pressure is Pascal, or 1 N/m$^2$, we use torr to be consistent with the analysis appearing in the paper by Czitrom and Spagon.
+
+The minimum and maximum H$_2$/WF$_6$ ratios were chosen to be 2 and 10. Since response curvature, especially for Uniformity, was a distinct possibility, an experimental design that allowed estimating a second order (quadratic) model was needed. The experimenters decided to use a [central composite inscribed (CCI)](#sec-pri-3361) design. For two factors, this design is typically recommended to have [13 runs with 5 centerpoint runs](#sec-pri-3363). However, the experimenters, perhaps to conserve a limited supply of wafer resources, chose to include only 3 centerpoint runs. The design is still rotatable, but the [uniform precision](#sec-pri-337-response-surface) property has been sacrificed.
+
+*Table containing the CCI design points and experimental responses*
+
+The table below shows the CCI design and experimental responses, in the order in which they were run (presumably randomized). The last two columns show coded values of the factors. The reader can download the data as a [text file](../../datasets/IMPROVE-5_4_7_3.DAT).
+
+```{r}
+#| code-fold: true
+#| label: setup-pri-473
+#| message: false
+#| warning: false
+library(tidyverse)
+library(patchwork)
+theme_set(theme_light())
+
+response_surface <- read_table(
+  here::here("datasets", "IMPROVE-5_4_7_3.DAT"),
+  skip = 25,
+  col_names = c("run", "pressure", "h2wf6", "uniformity", "stress",
+                "coded_press", "coded_h2wf6"),
+  col_types = "idddddd"
+)
+
+response_surface
+```
+
+*Low values of both responses are better than high*
+
+Uniformity is calculated from four-point probe sheet resistance measurements made at 49 different locations across a wafer. The value in the table is the standard deviation of the 49 measurements divided by their mean, expressed as a percentage. So a smaller value of Uniformity indicates a more uniform layer -- hence, lower values are desirable. The Stress calculation is based on an optical measurement of wafer bow, and again lower values are more desirable.
+
+[**Analysis of DOE Data**]{#sec-pri-473-analysis}
+
+*Steps for fitting a response surface model*
+
+The steps for fitting a response surface (second-order or quadratic) model are as follows:
+
+1. Fit the full model to the first response.
+2. Use stepwise regression, forward selection, or backward elimination to identify important variables.
+3. When selecting variables for inclusion in the model, follow the hierarchy principle and keep all main effects that are part of significant higher-order terms or interactions, even if the main effect $p$-value is larger than you would like (note that not all analysts agree with this principle).
+4. Generate diagnostic residual plots (histograms, box plots, normal plots, etc.) for the model selected.
+5. Examine the fitted model plot, interaction plots, and ANOVA statistics ($R^2$, adjusted $R^2$, lack-of-fit test, etc.). Use all these plots and statistics to determine whether the model fit is satisfactory.
+6. Use contour plots of the response surface to explore the effect of changing factor levels on the response.
+7. Repeat all the above steps for the second response variable.
+8. After satisfactory models have been fit to both responses, you can overlay the surface contours for both responses.
+9. Find optimal factor settings.
+
+**Fitting a Model to the Uniformity Response, Simplifying the Model and Checking Residuals**
+
+*Fit full quadratic model to Uniformity response*
+
+```{r}
+#| code-fold: true
+#| label: pri-473-unif-full-model
+full_unif <- lm(
+  uniformity ~ coded_press + coded_h2wf6 + coded_press:coded_h2wf6 +
+    I(coded_press^2) + I(coded_h2wf6^2),
+  data = response_surface
+)
+summary(full_unif)
+```
+
+This reproduces NIST's reported full quadratic model exactly: $R^2 = 0.8716$, adjusted $R^2 = 0.7431$, residual standard error $= 0.7235$ on 5 degrees of freedom.
+
+*Stepwise regression for Uniformity*
+
+```{r}
+#| code-fold: true
+#| label: pri-473-unif-step
+step_unif <- step(full_unif, direction = "backward", trace = 1)
+```
+
+The stepwise routine selects a model containing the intercept, Pressure, and the interaction term. However, many statisticians do not think an interaction term should be included in a model unless both main effects are also included. Thus, we will use the model that included Pressure, H$_2$/WF$_6$, and the interaction term. Interaction plots confirm the need for an interaction term in the model.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-interactions-unif
+#| fig-cap: "Interaction plots for the Uniformity response"
+corner_runs <- response_surface |> filter(abs(coded_press) > 0.5, abs(coded_h2wf6) > 0.5)
+
+p1 <- ggplot(corner_runs, aes(factor(h2wf6), uniformity, color = factor(pressure), group = factor(pressure))) +
+  geom_line() + geom_point(size = 2) +
+  labs(x = expression(H[2]/WF[6]), y = "Uniformity", color = "Pressure")
+p2 <- ggplot(corner_runs, aes(factor(pressure), uniformity, color = factor(h2wf6), group = factor(h2wf6))) +
+  geom_line() + geom_point(size = 2) +
+  labs(x = "Pressure", y = "Uniformity", color = expression(H[2]/WF[6]))
+
+p1 / p2
+```
+
+*Analysis of model selected by stepwise regression for Uniformity*
+
+```{r}
+#| code-fold: true
+#| label: pri-473-unif-reduced-model
+fit_unif <- lm(uniformity ~ coded_press + coded_h2wf6 + coded_press:coded_h2wf6, data = response_surface)
+anova(fit_unif)
+summary(fit_unif)
+```
+
+```{r}
+#| code-fold: true
+#| label: pri-473-unif-lof
+resid_unif <- residuals(fit_unif)
+center_rows <- which(response_surface$coded_press == 0 & response_surface$coded_h2wf6 == 0)
+
+pe_ss <- sum((resid_unif[center_rows] - mean(resid_unif[center_rows]))^2)
+pe_df <- length(center_rows) - 1
+resid_ss <- sum(resid_unif^2)
+resid_df <- fit_unif$df.residual
+lof_ss <- resid_ss - pe_ss
+lof_df <- resid_df - pe_df
+
+tibble(
+  source = c("Lack-of-fit", "Pure error"),
+  df = c(lof_df, pe_df),
+  sum_sq = c(lof_ss, pe_ss),
+  mean_sq = c(lof_ss / lof_df, pe_ss / pe_df),
+  F_value = c((lof_ss / lof_df) / (pe_ss / pe_df), NA),
+  p_value = c(pf((lof_ss / lof_df) / (pe_ss / pe_df), lof_df, pe_df, lower.tail = FALSE), NA)
+)
+```
+
+This reproduces NIST's reported model exactly: $R^2 = 0.8703$, adjusted $R^2 = 0.8148$, residual standard error $= 0.6145$ on 7 degrees of freedom, and a lack-of-fit test of $F = 0.52$, $p = 0.7588$ (built from the three replicated centerpoints, runs 2, 6, and 11).
+
+A contour plot and perspective plot of Uniformity provide a visual display of the response surface.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-contour-unif
+#| fig-cap: "Contour plot of Uniformity"
+pressure_seq <- seq(4, 80, length.out = 80)
+h2wf6_seq <- seq(2, 10, length.out = 80)
+rs_grid <- expand_grid(pressure = pressure_seq, h2wf6 = h2wf6_seq) |>
+  mutate(coded_press = (pressure - 42) / 38, coded_h2wf6 = (h2wf6 - 6) / 4)
+rs_grid$pred_unif <- predict(fit_unif, newdata = rs_grid)
+rs_grid$pred_stress <- predict(lm(stress ~ coded_press + coded_h2wf6 + I(coded_press^2), data = response_surface), newdata = rs_grid)
+
+ggplot(rs_grid, aes(pressure, h2wf6, z = pred_unif)) +
+  geom_contour_filled(alpha = 0.85) +
+  geom_contour(color = "white", linewidth = 0.2) +
+  scale_fill_viridis_d(name = "Uniformity") +
+  labs(x = "Pressure", y = expression(H[2]/WF[6]))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-persp-unif
+#| fig-cap: "Perspective plot of Uniformity"
+press_grid <- seq(4, 80, length.out = 40)
+h2wf6_grid <- seq(2, 10, length.out = 40)
+persp_data <- expand.grid(pressure = press_grid, h2wf6 = h2wf6_grid) |>
+  mutate(coded_press = (pressure - 42) / 38, coded_h2wf6 = (h2wf6 - 6) / 4)
+z_unif <- matrix(predict(fit_unif, newdata = persp_data), nrow = length(press_grid))
+
+persp(press_grid, h2wf6_grid, z_unif, theta = -35, phi = 20, expand = 0.7, col = "lightblue",
+      xlab = "Pressure", ylab = "H2/WF6", zlab = "Uniformity", ticktype = "detailed")
+```
+
+*Residual plots*
+
+We perform a residuals analysis to validate the model assumptions. We generate a normal plot, a box plot, a histogram and a run-order plot of the residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-resid-unif
+#| fig-cap: "Normal plot, box plot, histogram, and run-order plot of the Uniformity residuals"
+resid_4plot <- function(df, resid_col, order_col = "run") {
+  p1 <- ggplot(df, aes(sample = .data[[resid_col]])) +
+    stat_qq(distribution = qnorm) +
+    stat_qq_line(distribution = qnorm, color = "#D60021") +
+    labs(title = "Normal Probability Plot", x = "Normal Quantile", y = "Residual")
+  p2 <- ggplot(df, aes(x = "", y = .data[[resid_col]])) +
+    geom_boxplot(fill = "#DCE6F1") +
+    labs(title = "Box Plot", x = NULL, y = "Residual")
+  p3 <- ggplot(df, aes(x = .data[[resid_col]])) +
+    geom_histogram(bins = 7, fill = "#DCE6F1", color = "#1B1B1B") +
+    labs(title = "Histogram", x = "Residual", y = "Frequency")
+  p4 <- ggplot(df, aes(x = .data[[order_col]], y = .data[[resid_col]])) +
+    geom_line(color = "steelblue", alpha = 0.4) +
+    geom_point(color = "steelblue", size = 2) +
+    labs(title = "Run-Order Plot", x = "Run Order", y = "Residual")
+  (p1 + p2) / (p3 + p4)
+}
+
+response_surface <- response_surface |> mutate(resid_unif = resid_unif)
+resid_4plot(response_surface, "resid_unif")
+```
+
+The residual plots do not indicate problems with the underlying assumptions.
+
+*Conclusions from the analysis*
+
+From the above output, we make the following conclusions.
+
+- The $R^2$ is reasonable for fitting Uniformity (well known to be a difficult response to model).
+- The lack-of-fit test is not significant (very small "Prob > F" would indicate a lack of fit).
+- The residual plots do not reveal any major violations of the underlying assumptions.
+- The interaction plot shows why an interaction term is needed (parallel lines would suggest no interaction).
+
+**Fitting a Model to the Stress Response, Simplifying the Model and Checking Residuals**
+
+*Fit full quadratic model to Stress response*
+
+```{r}
+#| code-fold: true
+#| label: pri-473-stress-full-model
+full_stress <- lm(
+  stress ~ coded_press + coded_h2wf6 + coded_press:coded_h2wf6 +
+    I(coded_press^2) + I(coded_h2wf6^2),
+  data = response_surface
+)
+summary(full_stress)
+```
+
+Our reproduction matches NIST's reported Pressure, Pressure$^2$, and interaction coefficients exactly (0.73593, $-0.52873$, and 0.06943), and the same overall fit statistics ($R^2 = 0.9918$, adjusted $R^2 = 0.9835$).
+
 ::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/pri/section4/pri473.htm`.
+NIST's page reports a different Intercept, H$_2$/WF$_6$, and H$_2$/WF$_6^2$ coefficient for this full quadratic Stress model (8.056791, 0.852099, and $-0.007414$, with H$_2$/WF$_6$'s standard error roughly five times Pressure's). Our independently fit model, using the same coded design columns NIST's own page links to, gives an Intercept of 7.79004, an H$_2$/WF$_6$ coefficient of 0.49686, and an H$_2$/WF$_6^2$ coefficient of $-0.11873$, with H$_2$/WF$_6$'s standard error equal to Pressure's -- as it should be for a design where both factors share the same coded $\pm 1$ / $\pm 0.71$ scale. We are confident in our own numbers here: the reduced model below (and every other model in this example) reproduces NIST's published values exactly, which would not happen if our coding were off. We show our own (verified) coefficients rather than silently matching NIST's page.
 :::
+
+*Stepwise regression for Stress*
+
+```{r}
+#| code-fold: true
+#| label: pri-473-stress-step
+step_stress <- step(full_stress, direction = "backward", trace = 1)
+```
+
+The stepwise routine identifies a model containing the intercept, the main effects, and both squared terms. However, the fit of the full quadratic model indicates that neither the H$_2$/WF$_6$ squared term nor the interaction term are significant. A comparison of the full model and the model containing just the main effects and squared pressure term indicates that there is no significant difference between the two models.
+
+```{r}
+#| code-fold: true
+#| label: pri-473-stress-compare
+model1 <- lm(stress ~ coded_press + coded_h2wf6 + I(coded_press^2), data = response_surface)
+anova(model1, full_stress)
+```
+
+In addition, interaction plots do not indicate any significant interaction.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-interactions-stress
+#| fig-cap: "Interaction plots for the Stress response"
+p1 <- ggplot(corner_runs, aes(factor(h2wf6), stress, color = factor(pressure), group = factor(pressure))) +
+  geom_line() + geom_point(size = 2) +
+  labs(x = expression(H[2]/WF[6]), y = "Stress", color = "Pressure")
+p2 <- ggplot(corner_runs, aes(factor(pressure), stress, color = factor(h2wf6), group = factor(h2wf6))) +
+  geom_line() + geom_point(size = 2) +
+  labs(x = "Pressure", y = "Stress", color = expression(H[2]/WF[6]))
+
+p1 / p2
+```
+
+Thus, we will proceed with the model containing main effects and the squared pressure term.
+
+The fact that the stepwise procedure selected a model for Stress containing a term that was not significant indicates that all output generated by statistical software should be carefully examined. In this case, the stepwise procedure identified the model with the lowest AIC (Akaike information criterion), but did not take into account contributions by individual terms. Other software using a different criteria may identify a different model, so it is important to understand the algorithms being used.
+
+*Analysis of reduced model for Stress*
+
+```{r}
+#| code-fold: true
+#| label: pri-473-stress-reduced
+anova(model1)
+summary(model1)
+```
+
+```{r}
+#| code-fold: true
+#| label: pri-473-stress-lof
+resid_stress <- residuals(model1)
+pe_ss_s <- sum((resid_stress[center_rows] - mean(resid_stress[center_rows]))^2)
+pe_df_s <- length(center_rows) - 1
+resid_ss_s <- sum(resid_stress^2)
+resid_df_s <- model1$df.residual
+lof_ss_s <- resid_ss_s - pe_ss_s
+lof_df_s <- resid_df_s - pe_df_s
+
+tibble(
+  source = c("Lack-of-fit", "Pure error"),
+  df = c(lof_df_s, pe_df_s),
+  sum_sq = c(lof_ss_s, pe_ss_s),
+  mean_sq = c(lof_ss_s / lof_df_s, pe_ss_s / pe_df_s),
+  F_value = c((lof_ss_s / lof_df_s) / (pe_ss_s / pe_df_s), NA),
+  p_value = c(pf((lof_ss_s / lof_df_s) / (pe_ss_s / pe_df_s), lof_df_s, pe_df_s, lower.tail = FALSE), NA)
+)
+```
+
+This reproduces NIST's reported reduced model exactly: $R^2 = 0.9848$, adjusted $R^2 = 0.9783$, residual standard error $= 0.0883$ on 7 degrees of freedom, and a lack-of-fit test of $F = 0.58$, $p = 0.73$.
+
+A contour plot and perspective plot of Stress provide a visual representation of the response surface.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-contour-stress
+#| fig-cap: "Contour plot of Stress"
+ggplot(rs_grid, aes(pressure, h2wf6, z = pred_stress)) +
+  geom_contour_filled(alpha = 0.85) +
+  geom_contour(color = "white", linewidth = 0.2) +
+  scale_fill_viridis_d(name = "Stress") +
+  labs(x = "Pressure", y = expression(H[2]/WF[6]))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-persp-stress
+#| fig-cap: "Perspective plot of Stress"
+z_stress <- matrix(predict(model1, newdata = persp_data), nrow = length(press_grid))
+
+persp(press_grid, h2wf6_grid, z_stress, theta = -35, phi = 20, expand = 0.7, col = "lightpink",
+      xlab = "Pressure", ylab = "H2/WF6", zlab = "Stress", ticktype = "detailed")
+```
+
+*Residual plots*
+
+We perform a residuals analysis to validate the model by generating a run-order plot, box plot, histogram, and normal probability plot of the residuals.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-resid-stress
+#| fig-cap: "Normal plot, box plot, histogram, and run-order plot of the Stress residuals"
+response_surface <- response_surface |> mutate(resid_stress = resid_stress)
+resid_4plot(response_surface, "resid_stress")
+```
+
+The residual plots do not indicate any major violations of the underlying assumptions.
+
+*Conclusions*
+
+From the above output, we make the following conclusions.
+
+- The $R^2$ is very good for fitting Stress.
+- The lack-of-fit test is not significant (very small "Prob > F" would indicate a lack of fit).
+- The residual plots do not reveal any major violations of the underlying assumptions.
+- The nearly parallel lines in the interaction plots show why an interaction term is not needed.
+
+**Response Surface Contours for Both Responses**
+
+*Overlay contour plots*
+
+We overlay the contour plots for the two responses to visually compare the surfaces over the region of interest.
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-473-overlay
+#| fig-cap: "Contour plot showing both response variables"
+ggplot(rs_grid) +
+  geom_contour(aes(pressure, h2wf6, z = pred_unif, color = "Uniformity")) +
+  geom_contour(aes(pressure, h2wf6, z = pred_stress, color = "Stress")) +
+  scale_color_manual(values = c(Uniformity = "steelblue", Stress = "#D60021"), name = NULL) +
+  labs(x = "Pressure", y = expression(H[2]/WF[6]))
+```
+
+[**Summary**]{#sec-pri-473-summary}
+
+*Final response surface models*
+
+The response surface models fit to (coded) Uniformity and Stress were:
+
+$$\text{Uniformity} = 5.93 - 1.91 \cdot \text{Pressure} - 0.22 \cdot \text{H}_2/\text{WF}_6 + 1.70 \cdot \text{Pressure} \cdot \text{H}_2/\text{WF}_6$$
+
+$$\text{Stress} = 7.73 + 0.74 \cdot \text{Pressure} + 0.50 \cdot \text{H}_2/\text{WF}_6 - 0.49 \cdot \text{Pressure}^2$$
+
+*Trade-offs are often needed for multiple responses*
+
+The models and the corresponding contour plots show that trade-offs have to be made when trying to achieve low values for both Uniformity and Stress since a high value of Pressure is good for Uniformity while a low value of Pressure is good for Stress. While low values of H$_2$/WF$_6$ are good for both responses, the situation is further complicated by the fact that the Peeling response (not considered in this analysis) was unacceptable for values of H$_2$/WF$_6$ below approximately 5.
+
+*Uniformity was chosen as more important*
+
+In this case, the experimenters chose to focus on optimizing Uniformity while keeping H$_2$/WF$_6$ at 5. That meant setting Pressure at 80 torr.
+
+*Confirmation runs validated the model projections*
+
+A set of 16 verification runs at the chosen conditions confirmed that all goals, except those for the Stress response, were met by this set of process settings.
