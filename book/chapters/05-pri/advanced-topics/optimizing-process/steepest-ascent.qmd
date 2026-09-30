@@ -12,7 +12,7 @@ Experimental strategies for fitting this type of model were discussed earlier. U
 
 The idea behind "Phase I" is to keep experimenting along the direction of steepest ascent (or descent, as required) until there is no further improvement in the response. At that point, a new fractional factorial experiment with center runs is conducted to determine a new search direction. This process is repeated until at some point significant curvature in $\hat{Y}$ is detected. This implies that the operating conditions $X_1, X_2, \ldots, X_k$ are close to where the maximum (or minimum, as required) of $Y$ occurs. When significant curvature, or lack of fit, is detected, the experimenter should proceed with "Phase II". @fig-pri-5311-path illustrates a sequence of line searches when seeking a region where curvature exists in a problem with 2 factors (i.e., $k=2$).
 
-![A Sequence of Line Searches for a 2-Factor Optimization Problem](images/steepest-ascent-path.svg){#fig-pri-5311-path}
+![A Sequence of Line Searches for a 2-Factor Optimization Problem](advanced-topics/images/steepest-ascent-path.svg){#fig-pri-5311-path}
 
 [**Two main decisions: search direction and length of step**]{#sec-pri-5311-decisions}
 
