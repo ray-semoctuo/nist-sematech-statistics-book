@@ -149,7 +149,7 @@ A confirmation experiment was conducted by the process engineer at settings $X_1
 
 ------------------------------------------------------------------------
 
-**Technical Appendix 5C: Finding the Factor Settings for the Stationary Point of a Quadratic Response** {#sec-pri-5314-appendix-c}
+[**Technical Appendix 5C: Finding the Factor Settings for the Stationary Point of a Quadratic Response**]{#sec-pri-5314-appendix-c}
 
 [**How to find the maximum or minimum point for a quadratic response**]{#sec-pri-5314-appendix-c-how}
 
@@ -214,7 +214,7 @@ The predicted response at the stationary point is $\hat{Y}(X^*) = 77.59\%$.
 
 ------------------------------------------------------------------------
 
-**Technical Appendix 5D: "Canonical Analysis" of Quadratic Responses** {#sec-pri-5314-appendix-d}
+[**Technical Appendix 5D: "Canonical Analysis" of Quadratic Responses**]{#sec-pri-5314-appendix-d}
 
 [**Case for a single controllable response**]{#sec-pri-5314-appendix-d-single}
 

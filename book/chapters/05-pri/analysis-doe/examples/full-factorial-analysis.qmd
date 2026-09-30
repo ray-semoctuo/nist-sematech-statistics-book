@@ -116,7 +116,7 @@ ggplot(ceramic_long, aes(level, strength)) +
 
 Several factors, most notably "Direction" followed by "Batch" and possibly "Wheel Grit", appear to change the average response level.
 
-**Step 2: Create the theoretical model** {#sec-pri-471-step2}
+[**Step 2: Create the theoretical model**]{#sec-pri-471-step2}
 
 *Theoretical model: assume all four-factor and higher interaction terms are not significant*
 

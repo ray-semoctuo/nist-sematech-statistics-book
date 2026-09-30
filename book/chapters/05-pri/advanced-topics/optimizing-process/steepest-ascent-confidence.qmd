@@ -14,7 +14,7 @@ If you are interested in the details on how to compute such a cone (and its widt
 
 ------------------------------------------------------------------------
 
-**Technical Appendix 5B: Computing a Confidence Cone on the Direction of Steepest Ascent** {#sec-pri-5312-appendix}
+[**Technical Appendix 5B: Computing a Confidence Cone on the Direction of Steepest Ascent**]{#sec-pri-5312-appendix}
 
 [**Details of how to construct a confidence cone for the direction of steepest ascent**]{#sec-pri-5312-appendix-details}
 

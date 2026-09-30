@@ -187,7 +187,7 @@ c(delta_temperature = unname(x1_star * 30), delta_time = unname(x2_star * 50))
 
 ------------------------------------------------------------------------
 
-**Technical Appendix 5A: finding the factor settings on the steepest ascent direction a specified distance from the origin** {#sec-pri-5311-appendix}
+[**Technical Appendix 5A: finding the factor settings on the steepest ascent direction a specified distance from the origin**]{#sec-pri-5311-appendix}
 
 [**Details of how to determine the path of steepest ascent**]{#sec-pri-5311-appendix-details}
 
