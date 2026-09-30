@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 420" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .region { fill: #C0C0C0; stroke: #1B1B1B; stroke-width: 1; }
+    .ray { stroke: #1B1B1B; stroke-width: 1; fill: none; }
+    .ray-arrow { stroke: #1B1B1B; stroke-width: 1; fill: none; marker-end: url(#arrowhead); }
+    .arc { stroke: #1B1B1B; stroke-width: 1; fill: none; marker-end: url(#arrowhead); }
+    .arrowhead-poly { fill: #1B1B1B; }
+    .lbl { font-size: 12px; fill: #1B1B1B; }
+    .axislbl { font-size: 12px; fill: #1B1B1B; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1B1B1B" />
+    </marker>
+  </defs>
+
+  <rect class="region" x="111" y="129" width="187" height="188" />
+  <line class="ray" x1="204.5" y1="223.0" x2="331.6" y2="24.2" />
+  <line class="ray-arrow" x1="204.5" y1="223.0" x2="414.1" y2="96.1" />
+  <line class="ray" x1="204.5" y1="223.0" x2="449.7" y2="203.3" />
+  <path class="arc" d="M 271.8,117.7 A 125,125 0 0 1 329.1,213.0" />
+  <polygon class="arrowhead-poly" points="271.8,117.7 262.6,115.4 265.8,110.3" />
+  <circle cx="204.5" cy="223.0" r="2" fill="#1B1B1B" />
+  <text class="lbl" x="208.5" y="239.0">(0,0)</text>
+  <text class="lbl" x="140" y="270">experimental</text>
+  <text class="lbl" x="140" y="284">region</text>
+  <text class="axislbl" x="80" y="134" text-anchor="end">+1</text>
+  <text class="axislbl" x="80" y="322" text-anchor="end">-1</text>
+  <text class="axislbl" x="68" y="228" text-anchor="end">X2</text>
+  <text class="axislbl" x="107" y="340" text-anchor="middle">-1</text>
+  <text class="axislbl" x="289" y="340" text-anchor="middle">+1</text>
+  <text class="axislbl" x="198" y="360" text-anchor="middle">X1</text>
+  <text class="lbl" x="426.1" y="98.1">Steepest ascent</text>
+  <text class="lbl" x="426.1" y="112.1">direction</text>
+  <text class="lbl" x="335.6" y="164.2">100(1-α)%</text>
+  <text class="lbl" x="426.1" y="146.1">confidence cone on</text>
+  <text class="lbl" x="426.1" y="160.1">steepest ascent</text>
+  <text class="lbl" x="426.1" y="174.1">direction</text>
+</svg>

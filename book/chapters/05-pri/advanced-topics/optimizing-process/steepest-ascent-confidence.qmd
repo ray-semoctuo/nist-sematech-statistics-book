@@ -4,39 +4,13 @@
 
 The direction given by the gradient $g' = (b_1, b_2, \ldots, b_k)$ constitutes only a single (point) estimate based on a sample of $N$ runs. If a different set of $N$ runs were conducted, these would provide different parameter estimates, which in turn would give a different gradient. To account for this sampling variability, Box and Draper [-@BoxDraper1987] gave a formula for constructing a "cone" around the direction of steepest ascent that with certain probability contains the true (unknown) system gradient given by $(\beta_1, \beta_2, \ldots, \beta_k)$. The width of the confidence cone is useful to assess how reliable an estimated search direction is.
 
-@fig-pri-5312-cone shows such a cone for the steepest ascent direction of the chemical process example. If the cone is so wide that almost every possible direction is inside the cone, an experimenter should be very careful in moving too far from the current operating conditions along the path of steepest ascent or descent. Usually this will happen when the linear fit is quite poor (i.e., when the $R^2$ value is low). Thus, plotting the confidence cone is not so important as computing its width.
+@fig-pri-5312-cone shows such a cone for the steepest ascent direction in an experiment with 2 factors. If the cone is so wide that almost every possible direction is inside the cone, an experimenter should be very careful in moving too far from the current operating conditions along the path of steepest ascent or descent. Usually this will happen when the linear fit is quite poor (i.e., when the $R^2$ value is low). Thus, plotting the confidence cone is not so important as computing its width.
 
 If you are interested in the details on how to compute such a cone (and its width), see [Technical Appendix 5B](#sec-pri-5312-appendix).
 
 [**Graph of a confidence cone for the steepest ascent direction**]{#sec-pri-5312-graph}
 
-```{r}
-#| code-fold: true
-#| label: fig-pri-5312-cone
-#| fig-cap: "A Confidence Cone for the Steepest Ascent Direction in the Chemical Process Example"
-theta_dir <- atan2(b2, b1) * 180 / pi
-half_angle <- 52.18
-
-mk_ray <- function(angle_deg, length = 1.6) {
-  a <- angle_deg * pi / 180
-  tibble(x = 0, y = 0, xend = length * cos(a), yend = length * sin(a))
-}
-
-dir_ray <- mk_ray(theta_dir)
-cone_upper <- mk_ray(theta_dir + half_angle)
-cone_lower <- mk_ray(theta_dir - half_angle)
-region <- tibble(xmin = -1, xmax = 1, ymin = -1, ymax = 1)
-
-ggplot() +
-  geom_rect(data = region, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "gray85") +
-  geom_segment(data = cone_upper, aes(x = x, y = y, xend = xend, yend = yend), color = "gray40", linetype = "dashed") +
-  geom_segment(data = cone_lower, aes(x = x, y = y, xend = xend, yend = yend), color = "gray40", linetype = "dashed") +
-  geom_segment(data = dir_ray, aes(x = x, y = y, xend = xend, yend = yend),
-               arrow = arrow(length = unit(0.2, "cm")), color = "#D60021", linewidth = 0.8) +
-  coord_equal(xlim = c(-1.6, 1.6), ylim = c(-1.6, 1.7)) +
-  annotate("text", x = dir_ray$xend, y = dir_ray$yend + 0.1, label = "Steepest ascent direction", hjust = 0.3, size = 3.2) +
-  labs(x = expression(x[1]), y = expression(x[2]))
-```
+![A Confidence Cone for the Steepest Ascent Direction in an Experiment with 2 Factors](advanced-topics/images/steepest-ascent-cone.svg){#fig-pri-5312-cone}
 
 ------------------------------------------------------------------------
 
