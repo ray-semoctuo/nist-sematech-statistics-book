@@ -1,0 +1,248 @@
+##### Multiple responses: The desirability approach {#sec-pri-5322}
+
+[**The desirability approach is a popular method that assigns a "score" to a set of responses and chooses factor settings that maximize that score**]{#sec-pri-5322-overview}
+
+The desirability function approach is one of the most widely used methods in industry for the optimization of multiple response processes. It is based on the idea that the "quality" of a product or process that has multiple quality characteristics, with one of them outside of some "desired" limits, is completely unacceptable. The method finds operating conditions $x$ that provide the "most desirable" response values.
+
+For each response $Y_i(x)$, a desirability function $d_i(Y_i)$ assigns numbers between 0 and 1 to the possible values of $Y_i$, with $d_i(Y_i) = 0$ representing a completely undesirable value of $Y_i$ and $d_i(Y_i) = 1$ representing a completely desirable or ideal response value. The individual desirabilities are then combined using the geometric mean, which gives the *overall desirability* $D$:
+
+$$D = \left( d_1(Y_1) d_2(Y_2) \cdots d_k(Y_k) \right)^{1/k}$$
+
+with $k$ denoting the number of responses. Notice that if any response $Y_i$ is completely undesirable ($d_i(Y_i) = 0$), then the overall desirability is zero. In practice, fitted response values $\hat{Y}_i$ are used in place of the $Y_i$.
+
+[**Desirability functions of Derringer and Suich**]{#sec-pri-5322-derringer-suich}
+
+Depending on whether a particular response $Y_i$ is to be maximized, minimized, or assigned a target value, different desirability functions $d_i(Y_i)$ can be used. A useful class of desirability functions was proposed by Derringer and Suich [-@DerringerSuich1980]. Let $L_i$, $U_i$, and $T_i$ be the lower, upper, and target values, respectively, that are desired for response $Y_i$, with $L_i \le T_i \le U_i$.
+
+[**Desirability function for "target is best"**]{#sec-pri-5322-target}
+
+If a response is of the "target is best" kind, then its individual desirability function is
+
+$$
+d_i(\hat{Y}_i) =
+\begin{cases}
+0 & \text{if } \hat{Y}_i(x) < L_i \\[4pt]
+\left( \dfrac{\hat{Y}_i(x) - L_i}{T_i - L_i} \right)^{s} & \text{if } L_i \le \hat{Y}_i(x) \le T_i \\[8pt]
+\left( \dfrac{\hat{Y}_i(x) - U_i}{T_i - U_i} \right)^{t} & \text{if } T_i \le \hat{Y}_i(x) \le U_i \\[8pt]
+0 & \text{if } \hat{Y}_i(x) > U_i
+\end{cases}
+$$
+
+with the exponents $s$ and $t$ determining how important it is to hit the target value. For $s = t = 1$, the desirability function increases linearly towards $T_i$; for $s < 1, t < 1$, the function is convex, and for $s > 1, t > 1$, the function is concave (see the [example](#sec-pri-5322-example) below for an illustration).
+
+[**Desirability function for maximizing a response**]{#sec-pri-5322-maximize}
+
+If a response is to be maximized instead, the individual desirability is defined as
+
+$$
+d_i(\hat{Y}_i) =
+\begin{cases}
+0 & \text{if } \hat{Y}_i(x) < L_i \\[4pt]
+\left( \dfrac{\hat{Y}_i(x) - L_i}{T_i - L_i} \right)^{s} & \text{if } L_i \le \hat{Y}_i(x) \le T_i \\[8pt]
+1.0 & \text{if } \hat{Y}_i(x) > T_i
+\end{cases}
+$$
+
+with $T_i$ in this case interpreted as a large enough value for the response.
+
+[**Desirability function for minimizing a response**]{#sec-pri-5322-minimize}
+
+Finally, if we want to minimize a response, we could use
+
+$$
+d_i(\hat{Y}_i) =
+\begin{cases}
+1.0 & \text{if } \hat{Y}_i(x) < T_i \\[4pt]
+\left( \dfrac{\hat{Y}_i(x) - U_i}{T_i - U_i} \right)^{s} & \text{if } T_i \le \hat{Y}_i(x) \le U_i \\[8pt]
+0 & \text{if } \hat{Y}_i(x) > U_i
+\end{cases}
+$$
+
+with $T_i$ denoting a small enough value for the response.
+
+[**Desirability approach steps**]{#sec-pri-5322-steps}
+
+The desirability approach consists of the following steps:
+
+1. Conduct experiments and fit response models for all $k$ responses;
+2. Define individual desirability functions for each response;
+3. *Maximize* the overall desirability $D$ with respect to the controllable factors.
+
+[**Example**]{#sec-pri-5322-example}
+
+Derringer and Suich [-@DerringerSuich1980] present the following multiple response experiment arising in the development of a tire tread compound. The controllable factors are: $x_1$, hydrated silica level, $x_2$, silane coupling agent level, and $x_3$, sulfur level. The four responses to be optimized and their desired ranges are:
+
+[**Factor and response variables**]{#sec-pri-5322-variables}
+
+| Source | Desired range |
+|---|---|
+| PICO Abrasion index, $Y_1$ | $120 < Y_1$ |
+| 200% modulus, $Y_2$ | $1000 < Y_2$ |
+| Elongation at break, $Y_3$ | $400 < Y_3 < 600$ |
+| Hardness, $Y_4$ | $60 < Y_4 < 75$ |
+
+: Responses and Desired Ranges for the Tire Tread Compound Example {#tbl-pri-5322-ranges}
+
+The first two responses are to be maximized, and the value $s=1$ was chosen for their desirability functions. The last two responses are "target is best" with $T_3 = 500$ and $T_4 = 67.5$. The values $s=t=1$ were chosen in both cases.
+
+::: {.callout-note}
+NIST's page gives only the lower bound ($L_1 = 120$, $L_2 = 1000$) for the two "maximize" responses, without stating the upper reference value $T_i$ at which each desirability function reaches 1.0. We use the values from the original Derringer and Suich [-@DerringerSuich1980] paper, $T_1 = 170$ and $T_2 = 1300$, which we verified reproduce NIST's reported optimum and overall desirability almost exactly (see below).
+:::
+
+[**Experimental runs from a central composite design**]{#sec-pri-5322-data}
+
+The following experiments were conducted using a central composite design. The reader can download the data as a [text file](../../../datasets/IMPROVE-5_5_3_2_2.DAT).
+
+```{r}
+#| code-fold: true
+#| label: setup-pri-5322
+#| message: false
+#| warning: false
+library(tidyverse)
+library(desirability)
+theme_set(theme_light())
+
+tire_tread <- read_table(
+  here::here("datasets", "IMPROVE-5_5_3_2_2.DAT"),
+  skip = 25,
+  col_names = c("run", "x1", "x2", "x3", "y1", "y2", "y3", "y4"),
+  col_types = "iddddddd"
+)
+
+tire_tread
+```
+
+[**Fitted response**]{#sec-pri-5322-fitted}
+
+Using ordinary least squares and standard diagnostics, the fitted responses are:
+
+```{r}
+#| code-fold: true
+#| label: pri-5322-fit
+fit_y1 <- lm(y1 ~ x1 + x2 + x3 + I(x1^2) + I(x2^2) + I(x3^2) + x1:x2 + x1:x3 + x2:x3, data = tire_tread)
+fit_y2 <- lm(y2 ~ x1 + x2 + x3 + I(x1^2) + I(x2^2) + I(x3^2) + x1:x2 + x1:x3 + x2:x3, data = tire_tread)
+fit_y3 <- lm(y3 ~ x1 + x2 + x3, data = tire_tread)
+fit_y4 <- lm(y4 ~ x1 + x2 + x3 + I(x1^2) + I(x2^2) + I(x3^2) + x1:x2 + x1:x3 + x2:x3, data = tire_tread)
+
+for (f in list(y1 = fit_y1, y2 = fit_y2, y3 = fit_y3, y4 = fit_y4)) {
+  print(coef(f))
+  cat("R-squared:", summary(f)$r.squared, " Adjusted R-squared:", summary(f)$adj.r.squared, "\n\n")
+}
+```
+
+$$
+\begin{aligned}
+\hat{Y}_1 = {} & 139.12 + 16.49 x_1 + 17.88 x_2 + 2.21 x_3 \: - \\
+               & 4.01 x_1^2 - 3.45 x_2^2 - 1.57 x_3^2 \: + \\
+               & 5.12 x_1 x_2 - 7.88 x_1 x_3 - 7.13 x_2 x_3
+\end{aligned}
+$$
+
+($R^2 = 0.8369$ and adjusted $R^2 = 0.6903$);
+
+$$
+\begin{aligned}
+\hat{Y}_2 = {} & 1261.13 + 268.15 x_1 + 246.5 x_2 - 102.6 x_3 \: - \\
+               & 83.57 x_1^2 - 124.92 x_2^2 + 199.2 x_3^2 \: + \\
+               & 69.37 x_1 x_2 - 104.38 x_1 x_3 - 94.13 x_2 x_3
+\end{aligned}
+$$
+
+($R^2 = 0.7137$ and adjusted $R^2 = 0.4562$);
+
+$$\hat{Y}_3 = 417.5 - 99.67 x_1 - 31.4 x_2 - 27.42 x_3$$
+
+($R^2 = 0.682$ and adjusted $R^2 = 0.6224$);
+
+$$
+\begin{aligned}
+\hat{Y}_4 = {} & 68.91 - 1.41 x_1 + 4.32 x_2 + 0.21 x_3 \: + \\
+               & 1.56 x_1^2 + 0.058 x_2^2 - 0.32 x_3^2 \: - \\
+               & 1.62 x_1 x_2 + 0.25 x_1 x_3 - 0.12 x_2 x_3
+\end{aligned}
+$$
+
+($R^2 = 0.8667$ and adjusted $R^2 = 0.7466$).
+
+This reproduces NIST's reported coefficients and $R^2$ values almost exactly. Note that no interactions were significant for response 3 and that the fit for response 2 is quite poor.
+
+[**Best Solution**]{#sec-pri-5322-solution}
+
+We use the `desirability` package to define the four individual desirability functions and find the operating conditions that maximize the overall desirability $D$.
+
+```{r}
+#| code-fold: true
+#| label: pri-5322-optimize
+d1 <- dMax(120, 170)
+d2 <- dMax(1000, 1300)
+d3 <- dTarget(400, 500, 600)
+d4 <- dTarget(60, 67.5, 75)
+d_all <- dOverall(d1, d2, d3, d4)
+
+overall_D <- function(x) {
+  new_data <- tibble(x1 = x[1], x2 = x[2], x3 = x[3])
+  preds <- data.frame(
+    predict(fit_y1, new_data), predict(fit_y2, new_data),
+    predict(fit_y3, new_data), predict(fit_y4, new_data)
+  )
+  -predict(d_all, preds)
+}
+
+set.seed(1)
+best <- NULL
+for (i in 1:30) {
+  start <- runif(3, -1, 1)
+  result <- optim(start, overall_D, method = "L-BFGS-B", lower = c(-1, -1, -1), upper = c(1, 1, 1))
+  if (is.null(best) || result$value < best$value) best <- result
+}
+
+x_star <- best$par
+new_data <- tibble(x1 = x_star[1], x2 = x_star[2], x3 = x_star[3])
+y1_star <- predict(fit_y1, new_data)
+y2_star <- predict(fit_y2, new_data)
+y3_star <- predict(fit_y3, new_data)
+y4_star <- predict(fit_y4, new_data)
+
+list(
+  x_star = x_star,
+  Y1 = unname(y1_star), Y2 = unname(y2_star), Y3 = unname(y3_star), Y4 = unname(y4_star),
+  d1 = predict(d1, y1_star), d2 = predict(d2, y2_star),
+  d3 = predict(d3, y3_star), d4 = predict(d4, y4_star),
+  D = -best$value
+)
+```
+
+This reproduces NIST's reported solution almost exactly: $(x^*)' = (-0.10, 0.15, -1.0)$ and results in:
+
+| | |
+|---|---|
+| $d_1(\hat{Y}_1) = 0.34$ | $(\hat{Y}_1(x^*) = 136.4)$ |
+| $d_2(\hat{Y}_2) = 1.0$ | $(\hat{Y}_2(x^*) = 1571.05)$ |
+| $d_3(\hat{Y}_3) = 0.49$ | $(\hat{Y}_3(x^*) = 450.56)$ |
+| $d_4(\hat{Y}_4) = 0.76$ | $(\hat{Y}_4(x^*) = 69.26)$ |
+
+The overall desirability for this solution is 0.596. All responses are predicted to be within the desired limits.
+
+[**3D plot of the overall desirability function**]{#sec-pri-5322-plot}
+
+@fig-pri-5322-persp shows a 3D plot of the overall desirability function $D(x)$ for the $(x_2, x_3)$ plane when $x_1$ is fixed at -0.10. The function $D(x)$ is quite "flat" in the vicinity of the optimal solution, indicating that small variations around $x^*$ are predicted to not change the overall desirability drastically. However, the importance of performing confirmatory runs at the estimated optimal operating conditions should be emphasized. This is particularly true in this example given the poor fit of the response models (e.g., $\hat{Y}_2$).
+
+```{r}
+#| code-fold: true
+#| label: fig-pri-5322-persp
+#| fig-cap: "Overall Desirability Function for Example Problem"
+x2_grid <- seq(-1.63, 1.63, length.out = 40)
+x3_grid <- seq(-1.63, 1.63, length.out = 40)
+persp_grid <- expand.grid(x2 = x2_grid, x3 = x3_grid)
+persp_grid$x1 <- -0.10
+
+preds_grid <- data.frame(
+  predict(fit_y1, persp_grid), predict(fit_y2, persp_grid),
+  predict(fit_y3, persp_grid), predict(fit_y4, persp_grid)
+)
+persp_grid$D <- predict(d_all, preds_grid)
+z_D <- matrix(persp_grid$D, nrow = length(x2_grid))
+
+persp(x2_grid, x3_grid, z_D, theta = -35, phi = 25, expand = 0.7, col = "lightblue",
+      xlab = "x2", ylab = "x3", zlab = "D", ticktype = "detailed")
+```

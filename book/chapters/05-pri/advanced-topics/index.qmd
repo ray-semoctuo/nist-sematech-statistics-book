@@ -16,6 +16,10 @@ This section builds on the basics of DOE described in the preceding sections by 
       - [Optimization when there is adequate quadratic fit](#sec-pri-5314)
       - [Effect of sampling error on optimal solution](#sec-pri-5315)
       - [Optimization subject to experimental region constraints](#sec-pri-5316)
+   2. [Multiple response case](#sec-pri-532)
+      - [Path of steepest ascent](#sec-pri-5321)
+      - [The desirability function approach](#sec-pri-5322)
+      - [The mathematical programming approach](#sec-pri-5323)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -40,3 +44,11 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/optimizing-process/sampling-error.qmd >}}
 
 {{< include advanced-topics/optimizing-process/region-constraints.qmd >}}
+
+{{< include advanced-topics/optimizing-process/multiple-response.qmd >}}
+
+{{< include advanced-topics/optimizing-process/multiple-steepest-ascent.qmd >}}
+
+{{< include advanced-topics/optimizing-process/desirability.qmd >}}
+
+{{< include advanced-topics/optimizing-process/mathematical-programming.qmd >}}
