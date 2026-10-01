@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 460 230" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1B7A1B" />
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1B1BB0" />
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#CC0000" />
+    </marker>
+  </defs>
+  <style>
+    .wafer-line { stroke: #1B7A1B; stroke-width: 1.3; fill: none; }
+    .wafer-arrow { stroke: #1B7A1B; stroke-width: 1.3; fill: none; }
+    .site-arrow { stroke: #1B1BB0; stroke-width: 1; fill: none; }
+    .run-arrow { stroke: #CC0000; stroke-width: 1.5; fill: none; }
+    .wafer-lbl { font-size: 15px; fill: #1B7A1B; }
+    .site-lbl { font-size: 13px; fill: #1B1BB0; text-anchor: middle; }
+    .side-lbl-green { font-size: 15px; fill: #1B7A1B; }
+    .side-lbl-blue { font-size: 15px; fill: #1B1BB0; }
+    .top-lbl { font-size: 17px; fill: #CC0000; }
+    .i-lbl { font-size: 14px; fill: #CC0000; font-style: italic; }
+  </style>
+
+  <!-- Treatment (Run) label and arrow -->
+  <text class="top-lbl" x="10" y="10">Treatment (Run)</text>
+  <line class="run-arrow" x1="250" y1="0" x2="250" y2="48" marker-end="url(#arrow-red)" />
+  <text class="i-lbl" x="258" y="18">i</text>
+
+  <!-- Monitor Wafer label -->
+  <text class="side-lbl-green" x="-5" y="55">Monitor</text>
+  <text class="side-lbl-green" x="-5" y="73">Wafer</text>
+
+  <!-- horizontal bracket connecting the 7 monitor-wafer branches -->
+  <line class="wafer-line" x1="100" y1="50" x2="400" y2="50" />
+
+  <!-- 7 monitor-wafer arrows and labels -->
+  <line class="wafer-arrow" x1="100" y1="50" x2="100" y2="90" marker-end="url(#arrow-green)" />
+  <line class="wafer-arrow" x1="150" y1="50" x2="150" y2="90" marker-end="url(#arrow-green)" />
+  <line class="wafer-arrow" x1="200" y1="50" x2="200" y2="90" marker-end="url(#arrow-green)" />
+  <line class="wafer-arrow" x1="250" y1="50" x2="250" y2="90" marker-end="url(#arrow-green)" />
+  <line class="wafer-arrow" x1="300" y1="50" x2="300" y2="90" marker-end="url(#arrow-green)" />
+  <line class="wafer-arrow" x1="350" y1="50" x2="350" y2="90" marker-end="url(#arrow-green)" />
+  <line class="wafer-arrow" x1="400" y1="50" x2="400" y2="90" marker-end="url(#arrow-green)" />
+  <text class="wafer-lbl" x="104" y="80">1</text>
+  <text class="wafer-lbl" x="154" y="80">2</text>
+  <text class="wafer-lbl" x="204" y="80">3</text>
+  <text class="wafer-lbl" x="254" y="80">4</text>
+  <text class="wafer-lbl" x="304" y="80">5</text>
+  <text class="wafer-lbl" x="354" y="80">6</text>
+  <text class="wafer-lbl" x="404" y="80">7</text>
+
+  <!-- Sites label -->
+  <text class="side-lbl-blue" x="-5" y="170">Sites</text>
+
+  <!-- 9 site-fan arrows from monitor wafer 1, with every other one labeled -->
+  <line class="site-arrow" x1="100" y1="93" x2="15.0" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="31.2" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="47.5" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="63.8" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="80.0" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="96.2" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="112.5" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="128.8" y2="178" marker-end="url(#arrow-blue)" />
+  <line class="site-arrow" x1="100" y1="93" x2="145.0" y2="178" marker-end="url(#arrow-blue)" />
+
+  <text class="site-lbl" x="15.0" y="194">1</text>
+  <text class="site-lbl" x="47.5" y="194">3</text>
+  <text class="site-lbl" x="80.0" y="194">5</text>
+  <text class="site-lbl" x="112.5" y="194">7</text>
+  <text class="site-lbl" x="145.0" y="194">9</text>
+</svg>

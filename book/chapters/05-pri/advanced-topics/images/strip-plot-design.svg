@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 534 550" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow-black" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1B1B1B" />
+    </marker>
+  </defs>
+  <style>
+    .tbl-cell { fill: none; stroke: #1B1B1B; stroke-width: 1.2; }
+    .tbl-val { font-size: 11px; fill: #1B1B1B; text-anchor: middle; }
+    .row-lbl { font-size: 13px; fill: #1B1B1B; text-anchor: middle; }
+    .idx-lbl { font-size: 11px; fill: #1B1B1B; text-anchor: middle; }
+    .title-lbl { font-size: 14px; fill: #1B1B1B; text-anchor: middle; }
+    .implant-arrow, .anneal-arrow { stroke: #1B1B1B; stroke-width: 0.9; fill: none; }
+    .grid-outer { fill: none; stroke: #1B1B1B; stroke-width: 1.6; }
+    .grid-line { stroke: #1B1B1B; stroke-width: 1.1; }
+    .red-dash { stroke: #CC0000; stroke-width: 1; stroke-dasharray: 4 3; }
+    .blue-dash { stroke: #1B1BB0; stroke-width: 1; stroke-dasharray: 4 3; }
+  </style>
+
+  <text class="title-lbl" x="302" y="-6">Implant Variables</text>
+
+  <!-- Implant Variables table (3 rows A,B,C x 8 columns, 2^3 factorial in standard order) -->
+  <rect class="tbl-cell" x="152.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="169.0" y="25.0">-1</text>
+  <rect class="tbl-cell" x="152.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="169.0" y="47.0">-1</text>
+  <rect class="tbl-cell" x="152.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="169.0" y="69.0">-1</text>
+  <rect class="tbl-cell" x="190.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="207.0" y="25.0">+1</text>
+  <rect class="tbl-cell" x="190.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="207.0" y="47.0">-1</text>
+  <rect class="tbl-cell" x="190.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="207.0" y="69.0">-1</text>
+  <rect class="tbl-cell" x="228.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="245.0" y="25.0">-1</text>
+  <rect class="tbl-cell" x="228.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="245.0" y="47.0">+1</text>
+  <rect class="tbl-cell" x="228.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="245.0" y="69.0">-1</text>
+  <rect class="tbl-cell" x="266.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="283.0" y="25.0">+1</text>
+  <rect class="tbl-cell" x="266.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="283.0" y="47.0">+1</text>
+  <rect class="tbl-cell" x="266.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="283.0" y="69.0">-1</text>
+  <rect class="tbl-cell" x="304.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="321.0" y="25.0">-1</text>
+  <rect class="tbl-cell" x="304.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="321.0" y="47.0">-1</text>
+  <rect class="tbl-cell" x="304.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="321.0" y="69.0">+1</text>
+  <rect class="tbl-cell" x="342.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="359.0" y="25.0">+1</text>
+  <rect class="tbl-cell" x="342.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="359.0" y="47.0">-1</text>
+  <rect class="tbl-cell" x="342.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="359.0" y="69.0">+1</text>
+  <rect class="tbl-cell" x="380.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="397.0" y="25.0">-1</text>
+  <rect class="tbl-cell" x="380.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="397.0" y="47.0">+1</text>
+  <rect class="tbl-cell" x="380.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="397.0" y="69.0">+1</text>
+  <rect class="tbl-cell" x="418.0" y="10.0" width="34" height="20" /><text class="tbl-val" x="435.0" y="25.0">+1</text>
+  <rect class="tbl-cell" x="418.0" y="32.0" width="34" height="20" /><text class="tbl-val" x="435.0" y="47.0">+1</text>
+  <rect class="tbl-cell" x="418.0" y="54.0" width="34" height="20" /><text class="tbl-val" x="435.0" y="69.0">+1</text>
+
+  <text class="row-lbl" x="140" y="25.0">A</text>
+  <text class="row-lbl" x="140" y="47.0">B</text>
+  <text class="row-lbl" x="140" y="69.0">C</text>
+
+  <!-- implant run-order labels and (randomized) arrows into the grid columns -->
+  <text class="idx-lbl" x="169.0" y="90.0">1</text>
+  <line class="implant-arrow" x1="169.0" y1="96.0" x2="321.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="207.0" y="90.0">2</text>
+  <line class="implant-arrow" x1="207.0" y1="96.0" x2="435.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="245.0" y="90.0">3</text>
+  <line class="implant-arrow" x1="245.0" y1="96.0" x2="207.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="283.0" y="90.0">4</text>
+  <line class="implant-arrow" x1="283.0" y1="96.0" x2="359.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="321.0" y="90.0">5</text>
+  <line class="implant-arrow" x1="321.0" y1="96.0" x2="169.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="359.0" y="90.0">6</text>
+  <line class="implant-arrow" x1="359.0" y1="96.0" x2="397.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="397.0" y="90.0">7</text>
+  <line class="implant-arrow" x1="397.0" y1="96.0" x2="245.0" y2="166" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="435.0" y="90.0">8</text>
+  <line class="implant-arrow" x1="435.0" y1="96.0" x2="283.0" y2="166" marker-end="url(#arrow-black)" />
+
+  <!-- Anneal Variables table (8 rows x 3 cols D,E,F, 2^3 factorial in standard order) -->
+  <text class="title-lbl" x="-10" y="323" transform="rotate(-90 -10 323)">Anneal Variables</text>
+
+  <rect class="tbl-cell" x="12.0" y="172.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="193.0">-1</text>
+  <rect class="tbl-cell" x="42.0" y="172.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="193.0">-1</text>
+  <rect class="tbl-cell" x="72.0" y="172.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="193.0">-1</text>
+  <rect class="tbl-cell" x="12.0" y="210.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="231.0">+1</text>
+  <rect class="tbl-cell" x="42.0" y="210.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="231.0">-1</text>
+  <rect class="tbl-cell" x="72.0" y="210.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="231.0">-1</text>
+  <rect class="tbl-cell" x="12.0" y="248.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="269.0">-1</text>
+  <rect class="tbl-cell" x="42.0" y="248.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="269.0">+1</text>
+  <rect class="tbl-cell" x="72.0" y="248.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="269.0">-1</text>
+  <rect class="tbl-cell" x="12.0" y="286.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="307.0">+1</text>
+  <rect class="tbl-cell" x="42.0" y="286.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="307.0">+1</text>
+  <rect class="tbl-cell" x="72.0" y="286.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="307.0">-1</text>
+  <rect class="tbl-cell" x="12.0" y="324.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="345.0">-1</text>
+  <rect class="tbl-cell" x="42.0" y="324.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="345.0">-1</text>
+  <rect class="tbl-cell" x="72.0" y="324.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="345.0">+1</text>
+  <rect class="tbl-cell" x="12.0" y="362.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="383.0">+1</text>
+  <rect class="tbl-cell" x="42.0" y="362.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="383.0">-1</text>
+  <rect class="tbl-cell" x="72.0" y="362.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="383.0">+1</text>
+  <rect class="tbl-cell" x="12.0" y="400.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="421.0">-1</text>
+  <rect class="tbl-cell" x="42.0" y="400.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="421.0">+1</text>
+  <rect class="tbl-cell" x="72.0" y="400.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="421.0">+1</text>
+  <rect class="tbl-cell" x="12.0" y="438.0" width="26" height="34" /><text class="tbl-val" x="25.0" y="459.0">+1</text>
+  <rect class="tbl-cell" x="42.0" y="438.0" width="26" height="34" /><text class="tbl-val" x="55.0" y="459.0">+1</text>
+  <rect class="tbl-cell" x="72.0" y="438.0" width="26" height="34" /><text class="tbl-val" x="85.0" y="459.0">+1</text>
+
+  <text class="row-lbl" x="25.0" y="488">D</text>
+  <text class="row-lbl" x="55.0" y="488">E</text>
+  <text class="row-lbl" x="85.0" y="488">F</text>
+
+  <!-- anneal run-order labels and (randomized) arrows into the grid rows -->
+  <text class="idx-lbl" x="114.0" y="193.0">1</text>
+  <line class="anneal-arrow" x1="122.0" y1="189.0" x2="146" y2="379.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="231.0">2</text>
+  <line class="anneal-arrow" x1="122.0" y1="227.0" x2="146" y2="227.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="269.0">3</text>
+  <line class="anneal-arrow" x1="122.0" y1="265.0" x2="146" y2="455.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="307.0">4</text>
+  <line class="anneal-arrow" x1="122.0" y1="303.0" x2="146" y2="303.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="345.0">5</text>
+  <line class="anneal-arrow" x1="122.0" y1="341.0" x2="146" y2="189.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="383.0">6</text>
+  <line class="anneal-arrow" x1="122.0" y1="379.0" x2="146" y2="341.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="421.0">7</text>
+  <line class="anneal-arrow" x1="122.0" y1="417.0" x2="146" y2="265.0" marker-end="url(#arrow-black)" />
+  <text class="idx-lbl" x="114.0" y="459.0">8</text>
+  <line class="anneal-arrow" x1="122.0" y1="455.0" x2="146" y2="417.0" marker-end="url(#arrow-black)" />
+
+  <!-- 8x8 wafer grid, with dashed red row-bands (anneal strips) and blue column-bands (implant strips) -->
+  <line class="red-dash" x1="144" y1="170" x2="460" y2="170" />
+  <line class="red-dash" x1="144" y1="208" x2="460" y2="208" />
+  <line class="red-dash" x1="144" y1="246" x2="460" y2="246" />
+  <line class="red-dash" x1="144" y1="284" x2="460" y2="284" />
+  <line class="red-dash" x1="144" y1="322" x2="460" y2="322" />
+  <line class="red-dash" x1="144" y1="360" x2="460" y2="360" />
+  <line class="red-dash" x1="144" y1="398" x2="460" y2="398" />
+  <line class="red-dash" x1="144" y1="436" x2="460" y2="436" />
+  <line class="red-dash" x1="144" y1="474" x2="460" y2="474" />
+  <line class="blue-dash" x1="150" y1="164" x2="150" y2="480" />
+  <line class="blue-dash" x1="188" y1="164" x2="188" y2="480" />
+  <line class="blue-dash" x1="226" y1="164" x2="226" y2="480" />
+  <line class="blue-dash" x1="264" y1="164" x2="264" y2="480" />
+  <line class="blue-dash" x1="302" y1="164" x2="302" y2="480" />
+  <line class="blue-dash" x1="340" y1="164" x2="340" y2="480" />
+  <line class="blue-dash" x1="378" y1="164" x2="378" y2="480" />
+  <line class="blue-dash" x1="416" y1="164" x2="416" y2="480" />
+  <line class="blue-dash" x1="454" y1="164" x2="454" y2="480" />
+
+  <rect class="grid-outer" x="150" y="170" width="304" height="304" />
+  <line class="grid-line" x1="188" y1="170" x2="188" y2="474" />
+  <line class="grid-line" x1="150" y1="208" x2="454" y2="208" />
+  <line class="grid-line" x1="226" y1="170" x2="226" y2="474" />
+  <line class="grid-line" x1="150" y1="246" x2="454" y2="246" />
+  <line class="grid-line" x1="264" y1="170" x2="264" y2="474" />
+  <line class="grid-line" x1="150" y1="284" x2="454" y2="284" />
+  <line class="grid-line" x1="302" y1="170" x2="302" y2="474" />
+  <line class="grid-line" x1="150" y1="322" x2="454" y2="322" />
+  <line class="grid-line" x1="340" y1="170" x2="340" y2="474" />
+  <line class="grid-line" x1="150" y1="360" x2="454" y2="360" />
+  <line class="grid-line" x1="378" y1="170" x2="378" y2="474" />
+  <line class="grid-line" x1="150" y1="398" x2="454" y2="398" />
+  <line class="grid-line" x1="416" y1="170" x2="416" y2="474" />
+  <line class="grid-line" x1="150" y1="436" x2="454" y2="436" />
+</svg>
