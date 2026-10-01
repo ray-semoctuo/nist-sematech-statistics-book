@@ -27,6 +27,7 @@ This section builds on the basics of DOE described in the preceding sections by 
    4. [Constrained mixture designs](#sec-pri-544)
    5. [Treating mixture and process variables together](#sec-pri-545)
 5. [How can I account for nested variation (restricted randomization)?](#sec-pri-55)
+6. [What are Taguchi designs?](#sec-pri-56)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -73,3 +74,5 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/mixture-designs/process-variables.qmd >}}
 
 {{< include advanced-topics/nested-variation.qmd >}}
+
+{{< include advanced-topics/taguchi-designs.qmd >}}

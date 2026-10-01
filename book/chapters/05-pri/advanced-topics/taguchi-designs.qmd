@@ -1,0 +1,195 @@
+### What are Taguchi designs? {#sec-pri-56}
+
+[**Taguchi designs are related to fractional factorial designs - many of which are large screening designs**]{#sec-pri-56-overview}
+
+Genichi Taguchi, a Japanese engineer, proposed several approaches to experimental designs that are sometimes called "Taguchi Methods." These methods utilize two-, three-, and mixed-level fractional factorial designs. Large screening designs seem to be particularly favored by Taguchi adherents.
+
+Taguchi refers to experimental design as "off-line quality control" because it is a method of ensuring good performance in the design stage of products or processes. Some experimental designs, however, such as when used in evolutionary operation, can be used on-line while the process is running. He has also published a booklet of design nomograms ("Orthogonal Arrays and Linear Graphs," Taguchi and Konishi [-@Taguchi1987], American Supplier Institute) which may be used as a design guide, similar to the table of fractional factorial designs given [previously in Section 5.3](#tbl-pri-3347-designs). Some of the well-known Taguchi orthogonal arrays (L9, L18, L27 and L36) were given earlier when [three-level, mixed-level and fractional factorial designs](#sec-pri-33a-l-arrays) were discussed.
+
+If these were the only aspects of "Taguchi Designs," there would be little additional reason to consider them over and above our previous discussion on factorials. "Taguchi" designs are similar to our familiar fractional factorial designs. However, Taguchi has introduced several noteworthy new ways of conceptualizing an experiment that are very valuable, especially in product development and industrial engineering, and we will look at two of his main ideas, namely Parameter Design and Tolerance Design.
+
+[**Parameter Design**]{#sec-pri-56-parameter-design}
+
+[**Taguchi advocated using inner and outer array designs to take into account noise factors (outer) and design factors (inner)**]{#sec-pri-56-inner-outer}
+
+The aim here is to make a product or process less variable (more robust) in the face of variation over which we have little or no control. A simple fictitious example might be that of the starter motor of an automobile that has to perform reliably in the face of variation in ambient temperature and varying states of battery weakness. The engineer has control over, say, number of armature turns, gauge of armature wire, and ferric content of magnet alloy.
+
+Conventionally, one can view this as an experiment in five factors. Taguchi has pointed out the usefulness of viewing it as a set-up of three inner array factors (turns, gauge, ferric %) over which we have design control, plus an outer array of factors over which we have control only in the laboratory (temperature, battery voltage).
+
+[**Pictorial representation of Taguchi designs**]{#sec-pri-56-pictorial}
+
+Pictorially, we can view this design as being a conventional design in the inner array factors (compare @fig-pri-3331-cube) with the addition of a "small" outer array factorial design at each corner of the "inner array" box.
+
+Let I1 = "turns," I2 = "gauge," I3 = "ferric %," E1 = "temperature," and E2 = "voltage." Then we construct a 2^3^ design "box" for the I's, and at each of the eight corners so constructed, we place a 2^2^ design "box" for the E's, as is shown in @fig-pri-56-inner-outer.
+
+![Inner 2^3^ and outer 2^2^ arrays for robust design, with 'I' the inner array, 'E' the outer array](advanced-topics/images/taguchi-inner-outer-arrays.svg){#fig-pri-56-inner-outer width=75%}
+
+[**An example of an inner and outer array designed experiment**]{#sec-pri-56-example}
+
+We now have a total of 8x4 = 32 experimental settings, or runs. These are set out in @tbl-pri-56-design, in which the 2^3^ design in the I's is given in standard order on the left of the table and the 2^2^ design in the E's is written out sideways along the top. Note that the experiment would not be run in the standard order but should, as always, have its runs randomized. The output measured is the percent of (theoretical) maximum torque.
+
+[**Table showing the Taguchi design and the responses from the experiment**]{#sec-pri-56-table}
+
+The reader can download the data as a [text file](../../../datasets/IMPROVE-5_5_6.DAT).
+
+```{r}
+#| label: tbl-pri-56-design
+#| tbl-cap: "Design table, in standard order(s) for the parameter design of Figure 5.17"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+taguchi <- read_table(
+  here::here("datasets", "IMPROVE-5_5_6.DAT"),
+  skip = 25,
+  col_names = c("run", "i1", "i2", "i3", "e1", "e2", "y"),
+  col_types = "iiiiiid"
+)
+
+design_table <- taguchi |>
+  mutate(outer = case_when(
+    e1 == -1 & e2 == -1 ~ "run1",
+    e1 == 1 & e2 == -1 ~ "run2",
+    e1 == -1 & e2 == 1 ~ "run3",
+    e1 == 1 & e2 == 1 ~ "run4"
+  )) |>
+  select(run, i1, i2, i3, outer, y) |>
+  pivot_wider(names_from = outer, values_from = y) |>
+  rowwise() |>
+  mutate(
+    mean = mean(c(run1, run2, run3, run4)),
+    sd = sd(c(run1, run2, run3, run4))
+  ) |>
+  ungroup()
+
+design_table |>
+  gt() |>
+  tab_spanner(label = "E1 / E2", columns = c(run1, run2, run3, run4)) |>
+  cols_label(
+    run = "Run Number", i1 = "I1", i2 = "I2", i3 = "I3",
+    run1 = "-1 / -1", run2 = "+1 / -1", run3 = "-1 / +1", run4 = "+1 / +1",
+    mean = "Output Mean", sd = "Output Std. Dev"
+  ) |>
+  fmt_number(columns = c(mean, sd), decimals = 1)
+```
+
+This reproduces NIST's published table exactly (the row-5 mean of 77.25 rounds to NIST's reported 77.3 under conventional round-half-up, versus 77.2 shown above under R's round-half-to-even; both are consistent with the same underlying value).
+
+[**Interpretation of the table**]{#sec-pri-56-interpretation}
+
+Note that there are four outputs measured on each row. These correspond to the four 'outer array' design points at each corner of the 'outer array' box. As there are eight corners of the outer array box, there are eight rows in all.
+
+Each row yields a mean and standard deviation % of maximum torque. Ideally there would be one row that had both the highest average torque and the lowest standard deviation (variability). Row 4 has the highest torque and row 7 has the lowest variability, so we are forced to compromise. We can't simply 'pick the winner.'
+
+[**Use contour plots to see inside the box**]{#sec-pri-56-contour-plots}
+
+One might also observe that all the outcomes occur at the corners of the design 'box', which means that we cannot see 'inside' the box. An optimum point might occur within the box, and we can search for such a point using contour plots. Contour plots were illustrated in the [example](#sec-pri-473) of response surface design analysis given in Section 4.
+
+[**Fractional factorials**]{#sec-pri-56-fractional}
+
+Note that we could have used fractional factorials for either the inner or outer array designs, or for both.
+
+**Tolerance Design**
+
+[**Taguchi also advocated tolerance studies to determine, based on a loss or cost function, which variables have critical tolerances that need to be tightened**]{#sec-pri-56-tolerance-design}
+
+This section deals with the problem of how, and when, to specify tightened tolerances for a product or a process so that quality and performance/productivity are enhanced. Every product or process has a number, perhaps a large number, of components. We explain here how to identify the critical components to target when tolerances have to be tightened.
+
+It is a natural impulse to believe that the quality and performance of any item can easily be improved by merely tightening up on some or all of its tolerance requirements. By this we mean that if the old version of the item specified, say, machining to ± 1 micron, we naturally believe that we can obtain better performance by specifying machining to ± ½ micron.
+
+This can become expensive, however, and is often not a guarantee of much better performance. One has merely to witness the high initial and maintenance costs of such tight-tolerance-level items as space vehicles, expensive automobiles, etc. to realize that tolerance design, the selection of critical tolerances and the re-specification of those critical tolerances, is not a task to be undertaken without careful thought. In fact, it is recommended that *only after extensive parameter design studies have been completed* should tolerance design be performed *as a last resort* to improve quality and productivity.
+
+**Example**
+
+[**Example: measurement of electronic component made up of two components**]{#sec-pri-56-tolerance-example}
+
+Customers for an electronic component complained to their supplier that the measurement reported by the supplier on the as-delivered items appeared to be imprecise. The supplier undertook to investigate the matter.
+
+The supplier's engineers reported that the measurement in question was made up of two components, which we label $x$ and $y$, and the final measurement $M$ was reported according to the standard formula
+
+$$M = K x / y$$
+
+with $K$ a known physical constant. Components $x$ and $y$ were measured separately in the laboratory using two different techniques, and the results combined by software to produce $M$. Buying new measurement devices for both components would be prohibitively expensive, and it was not even known by how much the $x$ or $y$ component tolerances should be improved to produce the desired improvement in the precision of $M$.
+
+[**Taylor series expansion**]{#sec-pri-56-taylor-series}
+
+Assume that in a measurement of a standard item the 'true' value of $x$ is $x_o$ and for $y$ it is $y_o$. Let $f(x, y) = M$; then the Taylor Series expansion for $f(x,y)$ is
+
+$$
+\begin{aligned}
+f(x,y) = & f(x_o,y_o) + (x - x_o)\frac{df}{dx} + \\
+         & (y - y_o)\frac{df}{dy} + (x - x_o)^2 \frac{d^2f}{dx^2} \\
+         & + (y - y_o)^2 \frac{d^2f}{dy^2} + (x - x_o)(y - y_o)\frac{d^2f}{dxdy} + \\
+         & \text{(higher-order terms)}
+\end{aligned}
+$$
+
+with all the partial derivatives, $df/dx$, etc., evaluated at $(x_o, y_o)$.
+
+[**Apply formula to M**]{#sec-pri-56-apply-formula}
+
+Applying this formula to $M(x,y) = Kx/y$, we obtain
+
+$$
+\begin{aligned}
+M(x,y) = & K\frac{x_o}{y_o} + (x - x_o)\frac{K}{y_o} - (y - y_o)\frac{Kx_o}{y_o^2} + \\
+         & (y - y_o)^2 \frac{K x_o}{y_o^3} - (x - x_o)(y - y_o)\frac{K}{y_o^2} \\
+         & + \text{(higher-order terms)}
+\end{aligned}
+$$
+
+::: {.callout-note}
+NIST's page states the coefficient of the $(y-y_o)^2$ term as $-2 K / y_o^3$ (negative, missing the factor $x_o$). Differentiating $f(x,y) = Kx/y$ directly gives $\partial^2 f/\partial y^2 = 2Kx/y^3$, which evaluated at $(x_o, y_o)$ is $+2Kx_o/y_o^3$; the standard second-order Taylor term is then $\tfrac{1}{2}(y-y_o)^2 \cdot 2Kx_o/y_o^3 = (y-y_o)^2 Kx_o/y_o^3$, as shown above. This sign/coefficient correction has no effect on the final result below, since this quadratic term (along with the $(x-x_o)(y-y_o)$ term) is dropped in the next step as negligible.
+:::
+
+[**Assume distribution of x is normal**]{#sec-pri-56-x-normal}
+
+It is assumed known from experience that the measurements of $x$ show a distribution with an average value $x_o$, and with a standard deviation $\sigma_x = 0.003$ $x$-units. In addition, we assume that the distribution of $x$ is normal. Since 99.74% of a normal distribution's range is covered by $6\sigma$, we take $3\sigma_x = 0.009$ $x$-units to be the existing tolerance $T_x$ for measurements on $x$. That is, $T_x = \pm 0.009$ $x$-units is the 'play' around $x_o$ that we expect from the existing measurement system.
+
+[**Assume distribution of y is normal**]{#sec-pri-56-y-normal}
+
+It is also assumed known that the $y$ measurements show a normal distribution around $y_o$, with standard deviation $\sigma_y = 0.004$ $y$-units. Thus $T_y = \pm 3\sigma_y = \pm 0.012$.
+
+[**Worst case values**]{#sec-pri-56-worst-case}
+
+Now $\pm T_x$ and $\pm T_y$ may be thought of as 'worst case' values for $(x-x_o)$ and $(y-y_o)$. Substituting $T_x$ for $(x-x_o)$ and $T_y$ for $(y-y_o)$ in the expanded formula for $M(x,y)$, we have
+
+$$
+\begin{aligned}
+M_T = & K\frac{x_o}{y_o} + T_x \frac{K}{y_o} - T_y \frac{Kx_o}{y_o^2} + \\
+      & T_y^2 \frac{Kx_o}{y_o^3} - T_x T_y \frac{K}{y_o^2} \\
+      & + \text{(higher-order terms)}
+\end{aligned}
+$$
+
+[**Drop some terms**]{#sec-pri-56-drop-terms}
+
+The $T_y^2$ and $T_x T_y$ terms, and all terms of higher order, are going to be at least an order of magnitude smaller than terms in $T_x$ and in $T_y$, and for this reason we drop them, so that
+
+$$M_T = K\frac{x_o}{y_o} + T_x \frac{K}{y_o} - T_y \frac{Kx_o}{y_o^2}$$
+
+[**Worst case Euclidean distance**]{#sec-pri-56-euclidean-distance}
+
+Thus, a 'worst case' Euclidean distance $\Delta$ of $M(x,y)$ from its ideal value $K x_o / y_o$ is (approximately)
+
+$$
+\begin{aligned}
+\Delta & = \sqrt{\left( T_x \frac{K}{y_o} \right)^2 + \left( T_y \frac{Kx_o}{y_o^2} \right)^2} \\
+       & = \sqrt{\left( 0.009 \frac{K}{y_o} \right)^2 + \left( 0.012 \frac{Kx_o}{y_o^2} \right)^2}
+\end{aligned}
+$$
+
+This shows the relative contributions of the components to the variation in the measurement.
+
+[**Economic decision**]{#sec-pri-56-economic-decision}
+
+As $y_o$ is a known quantity and reduction in $T_x$ and in $T_y$ each carries its own price tag, it becomes an economic decision whether one should spend resources to reduce $T_x$ or $T_y$, or both.
+
+[**Simulation an alternative to Taylor series approximation**]{#sec-pri-56-simulation}
+
+In this example, we have used a Taylor series approximation to obtain a simple expression that highlights the benefit of $T_x$ and $T_y$. Alternatively, one might simulate values of $M = K \cdot x/y$, given a specified $(T_x, T_y)$ and $(x_0, y_0)$, and then summarize the results with a model for the variability of $M$ as a function of $(T_x, T_y)$.
+
+[**Functional form may not be available**]{#sec-pri-56-no-functional-form}
+
+In other applications, no functional form is available and one must use experimentation to empirically determine the optimal tolerance design. See Bisgaard and Steinberg [-@BisgaardSteinberg1997].
