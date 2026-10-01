@@ -30,6 +30,13 @@ This section builds on the basics of DOE described in the preceding sections by 
 6. [What are Taguchi designs?](#sec-pri-56)
 7. [What are John's 3/4 fractional factorial designs?](#sec-pri-57)
 8. [What are small composite designs?](#sec-pri-58)
+9. [An EDA approach to experimental design](#sec-pri-59)
+   1. [Ordered data plot](#sec-pri-591)
+   2. [DOE scatter plot](#sec-pri-592)
+   3. [DOE mean plot](#sec-pri-593)
+   4. [Interaction effects matrix plot](#sec-pri-594)
+   5. [Block plot](#sec-pri-595)
+   6. [DOE Youden plot](#sec-pri-596)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -82,3 +89,17 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/johns-3-4-designs.qmd >}}
 
 {{< include advanced-topics/small-composite-designs.qmd >}}
+
+{{< include advanced-topics/eda-doe.qmd >}}
+
+{{< include advanced-topics/eda-doe/ordered-data-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/doe-scatter-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/doe-mean-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/interaction-effects-matrix.qmd >}}
+
+{{< include advanced-topics/eda-doe/block-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/doe-youden-plot.qmd >}}
