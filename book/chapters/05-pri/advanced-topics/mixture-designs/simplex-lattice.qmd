@@ -1,0 +1,229 @@
+#### Simplex-lattice designs {#sec-pri-542}
+
+[**Definition of simplex-lattice points**]{#sec-pri-542-definition}
+
+A $\{q, m\}$ simplex-lattice design for $q$ components consists of points defined by the following coordinate settings: the proportions assumed by each component take the $m+1$ equally spaced values from 0 to 1,
+
+$$x_i = 0, 1/m, 2/m, \ldots, 1 \qquad \text{for } i = 1, 2, \ldots, q$$
+
+and all possible combinations (mixtures) of the proportions from this equation are used.
+
+[**Except for the center, all design points are on the simplex boundaries**]{#sec-pri-542-boundary}
+
+Note that the standard Simplex-Lattice and the Simplex-Centroid designs (described later) are boundary-point designs; that is, with the exception of the overall centroid, all the design points are on the boundaries of the simplex. When one is interested in prediction in the interior, it is highly desirable to augment the simplex-type designs with interior design points.
+
+[**Example of a three-component simplex lattice design**]{#sec-pri-542-example}
+
+Consider a three-component mixture for which the number of equally spaced levels for each component is four (i.e., $x_i$ = 0, 0.333, 0.667, 1). In this example $q = 3$ and $m = 3$. If one uses all possible blends of the three components with these proportions, the $\{3, 3\}$ simplex-lattice then contains the 10 blending coordinates listed in @tbl-pri-542-lattice. The experimental region and the distribution of design runs over the simplex region are shown in @fig-pri-542-lattice-design. There are 10 design runs for the $\{3, 3\}$ simplex-lattice design.
+
+[**Design table**]{#sec-pri-542-design-table}
+
+| $X_1$ | $X_2$ | $X_3$ |
+|:-----:|:-----:|:-----:|
+| 0     | 0     | 1     |
+| 0     | 0.333 | 0.667 |
+| 0     | 0.667 | 0.333 |
+| 0     | 1     | 0     |
+| 0.333 | 0     | 0.667 |
+| 0.333 | 0.333 | 0.333 |
+| 0.333 | 0.667 | 0     |
+| 0.667 | 0     | 0.333 |
+| 0.667 | 0.333 | 0     |
+| 1     | 0     | 0     |
+
+: Simplex Lattice Design {#tbl-pri-542-lattice}
+
+![Configuration of Design Runs for a {3,3} Simplex-Lattice Design](advanced-topics/images/simplex-lattice-design.svg){#fig-pri-542-lattice-design}
+
+[**Diagram showing configuration of design runs**]{#sec-pri-542-diagram}
+
+The number of design points in the simplex-lattice is $(q+m-1)!/(m!(q-1)!)$.
+
+[**Definition of canonical polynomial model used in mixture experiments**]{#sec-pri-542-canonical}
+
+Now consider the form of the polynomial model that one might fit to the data from a mixture experiment. Due to the restriction $x_1 + x_2 + \cdots + x_q = 1$, the form of the regression function that is fit to the data from a mixture experiment is somewhat different from the traditional polynomial fit and is often referred to as the canonical polynomial. Its form is derived using the general form of the regression function that can be fit to data collected at the points of a $\{q, m\}$ simplex-lattice design and substituting into this function the dependence relationship among the $x_i$ terms. The number of terms in the $\{q, m\}$ polynomial is $(q+m-1)!/(m!(q-1)!)$, as stated previously. This is equal to the number of points that make up the associated $\{q, m\}$ simplex-lattice design.
+
+[**Example for a {q, m=1} simplex-lattice design**]{#sec-pri-542-first-order-example}
+
+For example, the equation that can be fit to the points from a $\{q, m=1\}$ simplex-lattice design is
+
+$$E(Y) = \beta_0 + \beta_1 x_1 + \cdots + \beta_q x_q$$
+
+Multiplying $\beta_0$ by $(x_1 + x_2 + \cdots + x_q = 1)$, the resulting equation is
+
+$$E(Y) = \beta_1^{\star} x_1 + \cdots + \beta_q^{\star} x_q$$
+
+with $\beta_i^{\star} = \beta_0 + \beta_i$ for all $i = 1, \ldots, q$.
+
+[**First-order canonical form**]{#sec-pri-542-first-order-form}
+
+This is called the canonical form of the first-order mixture model. In general, the canonical forms of the mixture models (with the asterisks removed from the parameters) are as follows:
+
+[**Summary of canonical mixture models**]{#sec-pri-542-canonical-summary}
+
+Linear:
+$$E(Y) = \sum_{i=1}^{q} \beta_i x_i$$
+
+Quadratic:
+$$E(Y) = \sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q} \sum_{i<j}^{q} \beta_{ij} x_i x_j$$
+
+Cubic:
+$$
+\begin{aligned}
+E(Y) = & \sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q} \sum_{i<j}^{q} \beta_{ij} x_i x_j + \\
+       & \sum_{i=1}^{q} \sum_{i<j}^{q} \delta_{ij} x_i x_j (x_i - x_j) + \\
+       & \sum_{k=1}^{q} \sum_{j<k}^{q} \sum_{i<j}^{q} \beta_{ijk} x_i x_j x_k
+\end{aligned}
+$$
+
+Special Cubic:
+$$
+\begin{aligned}
+E(Y) = & \sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q} \sum_{i<j}^{q} \beta_{ij} x_i x_j + \\
+       & \sum_{k=1}^{q} \sum_{j<k}^{q} \sum_{i<j}^{q} \beta_{ijk} x_i x_j x_k
+\end{aligned}
+$$
+
+[**Linear blending portion**]{#sec-pri-542-linear-portion}
+
+The terms in the canonical mixture polynomials have simple interpretations. Geometrically, the parameter $\beta_i$ in the above equations represents the expected response to the pure mixture $x_i = 1$, $x_j = 0$, $i \ne j$, and is the height of the mixture surface at the vertex $x_i = 1$. The portion of each of the above polynomials given by
+
+$$\sum_{i=1}^{q} \beta_i x_i$$
+
+is called the linear blending portion. When blending is strictly additive, then the linear model form above is an appropriate model.
+
+**Example: Simplex-Lattice Design for a Yarn Elongation Problem**
+
+[**Three-component mixture example**]{#sec-pri-542-yarn-example}
+
+The following example is from Cornell [-@Cornell1990] and consists of a three-component mixture problem. The three components are Polyethylene ($X_1$), polystyrene ($X_2$), and polypropylene ($X_3$), which are blended together to form fiber that will be spun into yarn. The product developers are only interested in the pure and binary blends of these three materials. The response variable of interest is yarn elongation in kilograms of force applied. A $\{3,2\}$ simplex-lattice design is used to study the blending process. The simplex region and the six design runs are shown in @fig-pri-542-yarn-design. The design and the observed responses are listed in @tbl-pri-542-yarn. There were two replicate observations run at each of the pure blends. There were three replicate observations run at the binary blends. There are 15 observations with six unique design runs.
+
+[**Diagram showing the designs runs for this example**]{#sec-pri-542-yarn-diagram}
+
+![Design Runs for the {3,2} Simplex-Lattice Yarn Elongation Problem](advanced-topics/images/simplex-lattice-32-yarn.svg){#fig-pri-542-yarn-design}
+
+[**Table showing the simplex-lattice design and observed responses**]{#sec-pri-542-yarn-table}
+
+| $X_1$ | $X_2$ | $X_3$ | Observed Elongation Values |
+|:-----:|:-----:|:-----:|:----------------------------|
+| 0.0 | 0.0 | 1.0 | 16.8, 16.0 |
+| 0.0 | 0.5 | 0.5 | 10.0, 9.7, 11.8 |
+| 0.0 | 1.0 | 0.0 | 8.8, 10.0 |
+| 0.5 | 0.0 | 0.5 | 17.7, 16.4, 16.6 |
+| 0.5 | 0.5 | 0.0 | 15.0, 14.8, 16.1 |
+| 1.0 | 0.0 | 0.0 | 11.0, 12.4 |
+
+: Simplex-Lattice Design for Yarn Elongation Problem {#tbl-pri-542-yarn}
+
+[**Fit a quadratic mixture model**]{#sec-pri-542-fit}
+
+The design runs listed in @tbl-pri-542-yarn are in standard order. The actual order of the 15 treatment runs was completely randomized. Since there are three levels of each of the three mixture components, a quadratic mixture model can be fit to the data. Note that there is no intercept in the model.
+
+```{r}
+#| label: pri-542-model
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+bary_to_xy <- function(x1, x2, x3) {
+  tibble(x = x2 + x3 / 2, y = x3 * sqrt(3) / 2)
+}
+
+tri_vertices <- bary_to_xy(c(1, 0, 0), c(0, 1, 0), c(0, 0, 1))
+
+yarn <- tribble(
+  ~x1, ~x2, ~x3, ~y,
+  0.0, 0.0, 1.0, 16.8,
+  0.0, 0.0, 1.0, 16.0,
+  0.0, 0.5, 0.5, 10.0,
+  0.0, 0.5, 0.5, 9.7,
+  0.0, 0.5, 0.5, 11.8,
+  0.0, 1.0, 0.0, 8.8,
+  0.0, 1.0, 0.0, 10.0,
+  0.5, 0.0, 0.5, 17.7,
+  0.5, 0.0, 0.5, 16.4,
+  0.5, 0.0, 0.5, 16.6,
+  0.5, 0.5, 0.0, 15.0,
+  0.5, 0.5, 0.0, 14.8,
+  0.5, 0.5, 0.0, 16.1,
+  1.0, 0.0, 0.0, 11.0,
+  1.0, 0.0, 0.0, 12.4
+)
+
+fit_yarn <- lm(y ~ -1 + x1 + x2 + x3 + x1 * x2 + x1 * x3 + x2 * x3, data = yarn)
+summary(fit_yarn)
+```
+
+::: {.callout-note}
+NIST's page reports `RSquare 0.951356` with a `Model` line of `DF = 5` in the accompanying ANOVA table, while `summary()` of the no-intercept `lm()` fit above reports `Multiple R-squared: 0.9977` with 6 model parameters (`x1, x2, x3, x1:x2, x1:x3, x2:x3`). NIST's page does not state which software produced its output, but the labeling (`RSquare`, `Prob > F`, `Observations (or Sum Wgts)`, `t Ratio`) matches the standard output of JMP's regression platform, so the discussion below refers to it as such for concreteness; the underlying reasoning holds regardless of which package was actually used. Both figures are correct — they reflect different conventions for reporting $R^2$ for a *no-intercept* model: one that reports $R^2$ and the "Model" row of the ANOVA table relative to the **mean-corrected** total sum of squares, subtracting the sum of squares attributable to the mean (and one degree of freedom for it) out of the model sum of squares:
+
+```{r}
+#| code-fold: true
+q <- anova(fit_yarn)
+mss <- sum(q[1:6, "Sum Sq"])
+ss_mean <- length(yarn$y) * mean(yarn$y)^2
+ss_corrected_total <- sum((yarn$y - mean(yarn$y))^2)
+
+list(
+  jmp_model_df = 6 - 1,
+  jmp_r_squared = (mss - ss_mean) / ss_corrected_total
+)
+```
+
+which reproduces NIST's reported `DF = 5` and `RSquare 0.951356` exactly. R's `summary.lm()`, by contrast, reports the *uncorrected* $R^2$ (relative to $\sum y_i^2$) for a no-intercept model, which is the appropriate quantity here since the mixture constraint makes the fitted model inherently one without a free intercept. Both the sums of squares and F-statistic in the ANOVA table (`2878.27`, `479.71`, `658.14`) agree exactly with NIST's reported values; only the $R^2$/DF convention for the no-intercept case differs.
+:::
+
+[**Interpretation of results**]{#sec-pri-542-interpretation}
+
+Under the parameter estimates section of the output are the individual t-tests for each of the parameters in the model. The three cross product terms are significant ($X_1 * X_2$, $X_3 * X_1$, $X_3 * X_2$), indicating a significant quadratic fit.
+
+[**The fitted quadratic model**]{#sec-pri-542-fitted-equation}
+
+$$\hat{y} = 11.7 x_1 + 9.4 x_2 + 16.4 x_3 + 19.0 x_1 x_2 + 11.4 x_1 x_3 - 9.6 x_2 x_3$$
+
+[**Conclusions from the fitted quadratic model**]{#sec-pri-542-conclusions}
+
+Since $b_3 > b_1 > b_2$, one can conclude that component 3 (polypropylene) produces yarn with the highest elongation. Additionally, since $b_{12}$ and $b_{13}$ are positive, blending components 1 and 2 or components 1 and 3 produces higher elongation values than would be expected just by averaging the elongations of the pure blends. This is an example of "synergistic" blending effects. Components 2 and 3 have antagonistic blending effects because $b_{23}$ is negative.
+
+[**Contour plot of the predicted elongation values**]{#sec-pri-542-contour}
+
+@fig-pri-542-contour is the contour plot of the elongation values, reproduced using the same ternary contouring approach as NIST's own published R code (`pri542.r`), adapted here with `ggplot2`. From the plot it can be seen that if maximum elongation is desired, a blend of components 1 and 3 should be chosen consisting of about 75%-80% component 3 and 20%-25% component 1.
+
+```{r}
+#| label: fig-pri-542-contour
+#| fig-cap: "Contour Plot of Predicted Elongation Values from {3,2} Simplex-Lattice Design"
+#| code-fold: true
+#| message: false
+n_grid <- 200
+x2_seq <- seq(0, 1, length.out = n_grid)
+x3_seq <- seq(0, 1, length.out = n_grid)
+grid_xy <- expand.grid(x2 = x2_seq, x3 = x3_seq)
+grid_xy$x1 <- 1 - grid_xy$x2 - grid_xy$x3
+grid_xy$yhat <- predict(fit_yarn, newdata = grid_xy)
+grid_xy$yhat[grid_xy$x1 < 0] <- NA
+z_mat <- matrix(grid_xy$yhat, nrow = n_grid, ncol = n_grid)
+
+contour_lines <- grDevices::contourLines(x2_seq, x3_seq, z_mat, nlevels = 12) |>
+  map_dfr(function(cl) {
+    tibble(x1 = 1 - cl$x - cl$y, x2 = cl$x, x3 = cl$y, level = cl$level, piece = 1) |>
+      mutate(bary_to_xy(x1, x2, x3))
+  }, .id = "line_id")
+
+fill_grid <- grid_xy |>
+  filter(x1 >= 0) |>
+  mutate(bary_to_xy(x1, x2, x3))
+
+ggplot() +
+  geom_raster(data = fill_grid, aes(x, y, fill = yhat), interpolate = TRUE) +
+  geom_path(data = contour_lines, aes(x, y, group = line_id), color = "grey20", linewidth = 0.3) +
+  geom_polygon(data = tri_vertices, aes(x, y), fill = NA, color = "black") +
+  scale_fill_distiller(palette = "RdPu", direction = 1) +
+  annotate("text", x = tri_vertices$x[1] - 0.06, y = tri_vertices$y[1], label = "X1", hjust = 1) +
+  annotate("text", x = tri_vertices$x[2], y = tri_vertices$y[2] - 0.04, label = "X2", vjust = 1) +
+  annotate("text", x = tri_vertices$x[3] + 0.06, y = tri_vertices$y[3], label = "X3", hjust = 0) +
+  coord_equal() +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+The analyses in this page can be obtained using the [R code (`pri542.r`)](https://www.itl.nist.gov/div898/handbook/pri/section5/pri542.r) published by NIST.

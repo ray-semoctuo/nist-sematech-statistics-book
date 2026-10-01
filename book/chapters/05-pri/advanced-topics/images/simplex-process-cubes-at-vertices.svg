@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 340" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .tri { stroke: #1B1B1B; stroke-width: 0.8; fill: none; }
+    .cube { stroke: #1B1B1B; stroke-width: 1.1; fill: none; }
+    .dot { fill: #1B1B1B; }
+  </style>
+
+  <!-- simplex (triangle) connecting the three cube centers -->
+  <line class="tri" x1="219.7" y1="64.6" x2="61.6" y2="273.2" />
+  <line class="tri" x1="219.7" y1="64.6" x2="366.2" y2="273.1" />
+  <line class="tri" x1="61.6" y1="273.2" x2="366.2" y2="273.1" />
+
+  <!-- top cube (2^3 factorial at the X1 vertex) -->
+  <line class="cube" x1="183.4" y1="24.8" x2="239.4" y2="24.8" />
+  <line class="cube" x1="239.4" y1="24.8" x2="239.4" y2="81.4" />
+  <line class="cube" x1="239.4" y1="81.4" x2="183.4" y2="81.4" />
+  <line class="cube" x1="183.4" y1="81.4" x2="183.4" y2="24.8" />
+  <line class="cube" x1="199.9" y1="47.9" x2="255.9" y2="47.9" />
+  <line class="cube" x1="255.9" y1="47.9" x2="255.9" y2="104.5" />
+  <line class="cube" x1="255.9" y1="104.5" x2="199.9" y2="104.5" />
+  <line class="cube" x1="199.9" y1="104.5" x2="199.9" y2="47.9" />
+  <line class="cube" x1="183.4" y1="24.8" x2="199.9" y2="47.9" />
+  <line class="cube" x1="239.4" y1="24.8" x2="255.9" y2="47.9" />
+  <line class="cube" x1="239.4" y1="81.4" x2="255.9" y2="104.5" />
+  <line class="cube" x1="183.4" y1="81.4" x2="199.9" y2="104.5" />
+  <circle class="dot" cx="183.4" cy="24.8" r="7" />
+  <circle class="dot" cx="239.4" cy="24.8" r="7" />
+  <circle class="dot" cx="183.4" cy="81.4" r="7" />
+  <circle class="dot" cx="239.4" cy="81.4" r="7" />
+  <circle class="dot" cx="199.9" cy="47.9" r="7" />
+  <circle class="dot" cx="255.9" cy="47.9" r="7" />
+  <circle class="dot" cx="199.9" cy="104.5" r="7" />
+  <circle class="dot" cx="255.9" cy="104.5" r="7" />
+
+  <!-- bottom-left cube (X2 vertex) -->
+  <line class="cube" x1="25.0" y1="233.3" x2="81.1" y2="233.3" />
+  <line class="cube" x1="81.1" y1="233.3" x2="81.1" y2="289.8" />
+  <line class="cube" x1="81.1" y1="289.8" x2="25.0" y2="289.8" />
+  <line class="cube" x1="25.0" y1="289.8" x2="25.0" y2="233.3" />
+  <line class="cube" x1="42.2" y1="256.6" x2="98.3" y2="256.6" />
+  <line class="cube" x1="98.3" y1="256.6" x2="98.3" y2="313.1" />
+  <line class="cube" x1="98.3" y1="313.1" x2="42.2" y2="313.1" />
+  <line class="cube" x1="42.2" y1="313.1" x2="42.2" y2="256.6" />
+  <line class="cube" x1="25.0" y1="233.3" x2="42.2" y2="256.6" />
+  <line class="cube" x1="81.1" y1="233.3" x2="98.3" y2="256.6" />
+  <line class="cube" x1="81.1" y1="289.8" x2="98.3" y2="313.1" />
+  <line class="cube" x1="25.0" y1="289.8" x2="42.2" y2="313.1" />
+  <circle class="dot" cx="25.0" cy="233.3" r="7" />
+  <circle class="dot" cx="81.1" cy="233.3" r="7" />
+  <circle class="dot" cx="25.0" cy="289.8" r="7" />
+  <circle class="dot" cx="81.1" cy="289.8" r="7" />
+  <circle class="dot" cx="42.2" cy="256.6" r="7" />
+  <circle class="dot" cx="98.3" cy="256.6" r="7" />
+  <circle class="dot" cx="42.2" cy="313.1" r="7" />
+  <circle class="dot" cx="98.3" cy="313.1" r="7" />
+
+  <!-- bottom-right cube (X3 vertex) -->
+  <line class="cube" x1="329.0" y1="233.2" x2="386.1" y2="233.2" />
+  <line class="cube" x1="386.1" y1="233.2" x2="386.1" y2="289.7" />
+  <line class="cube" x1="386.1" y1="289.7" x2="329.0" y2="289.7" />
+  <line class="cube" x1="329.0" y1="289.7" x2="329.0" y2="233.2" />
+  <line class="cube" x1="346.3" y1="256.6" x2="403.4" y2="256.6" />
+  <line class="cube" x1="403.4" y1="256.6" x2="403.4" y2="313.1" />
+  <line class="cube" x1="403.4" y1="313.1" x2="346.3" y2="313.1" />
+  <line class="cube" x1="346.3" y1="313.1" x2="346.3" y2="256.6" />
+  <line class="cube" x1="329.0" y1="233.2" x2="346.3" y2="256.6" />
+  <line class="cube" x1="386.1" y1="233.2" x2="403.4" y2="256.6" />
+  <line class="cube" x1="386.1" y1="289.7" x2="403.4" y2="313.1" />
+  <line class="cube" x1="329.0" y1="289.7" x2="346.3" y2="313.1" />
+  <circle class="dot" cx="329.0" cy="233.2" r="7" />
+  <circle class="dot" cx="386.1" cy="233.2" r="7" />
+  <circle class="dot" cx="329.0" cy="289.7" r="7" />
+  <circle class="dot" cx="386.1" cy="289.7" r="7" />
+  <circle class="dot" cx="346.3" cy="256.6" r="7" />
+  <circle class="dot" cx="403.4" cy="256.6" r="7" />
+  <circle class="dot" cx="346.3" cy="313.1" r="7" />
+  <circle class="dot" cx="403.4" cy="313.1" r="7" />
+</svg>

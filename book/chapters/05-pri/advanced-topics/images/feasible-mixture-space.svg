@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .edge { stroke: #1B1B1B; stroke-width: 1.4; fill: none; }
+    .region { fill: #2CA25F; stroke: #1B1B1B; stroke-width: 1.2; }
+    .tick { stroke: #1B1B1B; stroke-width: 1; fill: none; }
+    .dot { fill: #1B1B1B; }
+    .lbl { font-size: 10px; fill: #1B1B1B; }
+    .axislbl { font-size: 13px; fill: #1B1B1B; }
+  </style>
+
+  <!-- outer triangle edges -->
+  <line class="edge" x1="200.0" y1="60.0" x2="55.0" y2="330.0" />
+  <line class="edge" x1="200.0" y1="60.0" x2="345.0" y2="330.0" />
+  <line class="edge" x1="55.0" y1="330.0" x2="345.0" y2="330.0" />
+
+  <!-- feasible (shaded) mixture region -->
+  <polygon class="region" points="156.5,195.0 127.5,249.0 185.5,249.0" />
+  <circle class="dot" cx="156.5" cy="195.0" r="2.5" />
+  <circle class="dot" cx="127.5" cy="249.0" r="2.5" />
+  <circle class="dot" cx="185.5" cy="249.0" r="2.5" />
+
+  <!-- tick dashes: X1 (left edge) -->
+  <line class="tick" x1="203.5" y1="61.9" x2="196.5" y2="58.1" />
+  <line class="tick" x1="174.5" y1="115.9" x2="167.5" y2="112.1" />
+  <line class="tick" x1="145.5" y1="169.9" x2="138.5" y2="166.1" />
+  <line class="tick" x1="116.5" y1="223.9" x2="109.5" y2="220.1" />
+  <line class="tick" x1="87.5" y1="277.9" x2="80.5" y2="274.1" />
+  <line class="tick" x1="58.5" y1="331.9" x2="51.5" y2="328.1" />
+
+  <!-- tick dashes: X3 (right edge) -->
+  <line class="tick" x1="196.5" y1="61.9" x2="203.5" y2="58.1" />
+  <line class="tick" x1="225.5" y1="115.9" x2="232.5" y2="112.1" />
+  <line class="tick" x1="254.5" y1="169.9" x2="261.5" y2="166.1" />
+  <line class="tick" x1="283.5" y1="223.9" x2="290.5" y2="220.1" />
+  <line class="tick" x1="312.5" y1="277.9" x2="319.5" y2="274.1" />
+  <line class="tick" x1="341.5" y1="331.9" x2="348.5" y2="328.1" />
+
+  <!-- tick dashes: X2 (bottom edge) -->
+  <line class="tick" x1="55.0" y1="326.0" x2="55.0" y2="334.0" />
+  <line class="tick" x1="113.0" y1="326.0" x2="113.0" y2="334.0" />
+  <line class="tick" x1="171.0" y1="326.0" x2="171.0" y2="334.0" />
+  <line class="tick" x1="229.0" y1="326.0" x2="229.0" y2="334.0" />
+  <line class="tick" x1="287.0" y1="326.0" x2="287.0" y2="334.0" />
+  <line class="tick" x1="345.0" y1="326.0" x2="345.0" y2="334.0" />
+
+  <!-- X1 axis tick labels (left edge) -->
+  <text class="lbl" x="185.9" y="52.4" text-anchor="end">1</text>
+  <text class="lbl" x="156.9" y="106.4" text-anchor="end">0.8</text>
+  <text class="lbl" x="127.9" y="160.4" text-anchor="end">0.6</text>
+  <text class="lbl" x="98.9" y="214.4" text-anchor="end">0.4</text>
+  <text class="lbl" x="69.9" y="268.4" text-anchor="end">0.2</text>
+  <text class="lbl" x="40.9" y="322.4" text-anchor="end">0</text>
+
+  <!-- X3 axis tick labels (right edge) -->
+  <text class="lbl" x="214.1" y="52.4" text-anchor="start">0</text>
+  <text class="lbl" x="243.1" y="106.4" text-anchor="start">0.2</text>
+  <text class="lbl" x="272.1" y="160.4" text-anchor="start">0.4</text>
+  <text class="lbl" x="301.1" y="214.4" text-anchor="start">0.6</text>
+  <text class="lbl" x="330.1" y="268.4" text-anchor="start">0.8</text>
+  <text class="lbl" x="359.1" y="322.4" text-anchor="start">1</text>
+
+  <!-- X2 axis tick labels (bottom edge) -->
+  <text class="lbl" x="55.0" y="350.0" text-anchor="middle">1</text>
+  <text class="lbl" x="113.0" y="350.0" text-anchor="middle">0.8</text>
+  <text class="lbl" x="171.0" y="350.0" text-anchor="middle">0.6</text>
+  <text class="lbl" x="229.0" y="350.0" text-anchor="middle">0.4</text>
+  <text class="lbl" x="287.0" y="350.0" text-anchor="middle">0.2</text>
+  <text class="lbl" x="345.0" y="350.0" text-anchor="middle">0</text>
+
+  <!-- axis labels -->
+  <text class="axislbl" x="90.5" y="175.1" text-anchor="middle" transform="rotate(-60 90.5 175.1)">X1</text>
+  <text class="axislbl" x="309.5" y="175.1" text-anchor="middle" transform="rotate(60 309.5 175.1)">X3</text>
+  <text class="axislbl" x="200.0" y="378.0" text-anchor="middle">X2</text>
+</svg>

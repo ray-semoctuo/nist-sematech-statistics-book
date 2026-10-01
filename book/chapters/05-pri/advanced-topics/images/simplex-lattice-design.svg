@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .edge { stroke: #1B1B1B; stroke-width: 1.4; fill: none; }
+    .grid { stroke: #999999; stroke-width: 0.8; fill: none; }
+    .tick { stroke: #1B1B1B; stroke-width: 1; fill: none; }
+    .dot { fill: #1B1B1B; }
+    .lbl { font-size: 11px; fill: #1B1B1B; }
+    .axislbl { font-size: 13px; fill: #1B1B1B; }
+  </style>
+
+  <!-- internal grid lines (parallel to each edge, at 1/3 and 2/3) -->
+  <line class="grid" x1="103.3" y1="240.0" x2="296.7" y2="240.0" />
+  <line class="grid" x1="151.7" y1="150.0" x2="248.3" y2="150.0" />
+  <line class="grid" x1="151.7" y1="150.0" x2="248.3" y2="330.0" />
+  <line class="grid" x1="103.3" y1="240.0" x2="151.7" y2="330.0" />
+  <line class="grid" x1="248.3" y1="150.0" x2="151.7" y2="330.0" />
+  <line class="grid" x1="296.7" y1="240.0" x2="248.3" y2="330.0" />
+
+  <!-- outer triangle edges -->
+  <line class="edge" x1="200.0" y1="60.0" x2="55.0" y2="330.0" />
+  <line class="edge" x1="200.0" y1="60.0" x2="345.0" y2="330.0" />
+  <line class="edge" x1="55.0" y1="330.0" x2="345.0" y2="330.0" />
+
+  <!-- tick dashes -->
+  <line class="tick" x1="204.4" y1="62.4" x2="195.6" y2="57.6" />
+  <line class="tick" x1="156.1" y1="152.4" x2="147.3" y2="147.6" />
+  <line class="tick" x1="107.7" y1="242.4" x2="98.9" y2="237.6" />
+  <line class="tick" x1="59.4" y1="332.4" x2="50.6" y2="327.6" />
+  <line class="tick" x1="195.6" y1="62.4" x2="204.4" y2="57.6" />
+  <line class="tick" x1="243.9" y1="152.4" x2="252.7" y2="147.6" />
+  <line class="tick" x1="292.3" y1="242.4" x2="301.1" y2="237.6" />
+  <line class="tick" x1="340.6" y1="332.4" x2="349.4" y2="327.6" />
+  <line class="tick" x1="55.0" y1="325.0" x2="55.0" y2="335.0" />
+  <line class="tick" x1="151.7" y1="325.0" x2="151.7" y2="335.0" />
+  <line class="tick" x1="248.3" y1="325.0" x2="248.3" y2="335.0" />
+  <line class="tick" x1="345.0" y1="325.0" x2="345.0" y2="335.0" />
+
+  <!-- 10 lattice-point dots -->
+  <circle class="dot" cx="345.0" cy="330.0" r="3" />
+  <circle class="dot" cx="248.3" cy="330.0" r="3" />
+  <circle class="dot" cx="151.7" cy="330.0" r="3" />
+  <circle class="dot" cx="55.0" cy="330.0" r="3" />
+  <circle class="dot" cx="296.7" cy="240.0" r="3" />
+  <circle class="dot" cx="200.0" cy="240.0" r="3" />
+  <circle class="dot" cx="103.3" cy="240.0" r="3" />
+  <circle class="dot" cx="248.3" cy="150.0" r="3" />
+  <circle class="dot" cx="151.7" cy="150.0" r="3" />
+  <circle class="dot" cx="200.0" cy="60.0" r="3" />
+
+  <!-- X1 axis tick labels (left edge) -->
+  <text class="lbl" x="184.1" y="51.5" text-anchor="end">1.0</text>
+  <text class="lbl" x="135.8" y="141.5" text-anchor="end">0.667</text>
+  <text class="lbl" x="87.5" y="231.5" text-anchor="end">0.333</text>
+  <text class="lbl" x="39.1" y="321.5" text-anchor="end">0</text>
+
+  <!-- X3 axis tick labels (right edge) -->
+  <text class="lbl" x="215.9" y="51.5" text-anchor="start">0</text>
+  <text class="lbl" x="264.2" y="141.5" text-anchor="start">0.333</text>
+  <text class="lbl" x="312.5" y="231.5" text-anchor="start">0.667</text>
+  <text class="lbl" x="360.9" y="321.5" text-anchor="start">1.0</text>
+
+  <!-- X2 axis tick labels (bottom edge) -->
+  <text class="lbl" x="55.0" y="352.0" text-anchor="middle">1.0</text>
+  <text class="lbl" x="151.7" y="352.0" text-anchor="middle">0.667</text>
+  <text class="lbl" x="248.3" y="352.0" text-anchor="middle">0.333</text>
+  <text class="lbl" x="345.0" y="352.0" text-anchor="middle">0</text>
+
+  <!-- axis labels -->
+  <text class="axislbl" x="87.9" y="173.7" text-anchor="middle" transform="rotate(-60 87.9 173.7)">X1</text>
+  <text class="axislbl" x="312.1" y="173.7" text-anchor="middle" transform="rotate(60 312.1 173.7)">X3</text>
+  <text class="axislbl" x="200.0" y="380.0" text-anchor="middle">X2</text>
+</svg>

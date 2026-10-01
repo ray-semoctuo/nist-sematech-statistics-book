@@ -1,0 +1,33 @@
+#### Simplex-centroid designs {#sec-pri-543}
+
+[**Definition of simplex-centroid designs**]{#sec-pri-543-definition}
+
+A second type of mixture design is the simplex-centroid design. In the $q$-component simplex-centroid design, the number of distinct points is $2^q - 1$. These points correspond to $q$ permutations of $(1, 0, 0, \ldots, 0)$ or $q$ single component blends, the $\binom{q}{2}$ permutations of $(.5, .5, 0, \ldots, 0)$ or all binary mixtures, the $\binom{q}{3}$ permutations of $(1/3, 1/3, 1/3, 0, \ldots, 0)$, ..., and so on, with finally the overall centroid point $(1/q, 1/q, \ldots, 1/q)$ or $q$-nary mixture.
+
+[**Model supported by simplex-centroid designs**]{#sec-pri-543-model}
+
+The design points in the Simplex-Centroid design will support the polynomial
+
+$$
+\begin{aligned}
+E(Y) = & \sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q} \sum_{i<j}^{q} \beta_{ij} x_i x_j + \\
+       & \sum_{k=1}^{q} \sum_{j<k}^{q} \sum_{i<j}^{q} \beta_{ijk} x_i x_j x_k + \cdots + \\
+       & \beta_{12 \dots q} x_i x_j \dots x_q
+\end{aligned}
+$$
+
+which is the $q$th-order mixture polynomial. For $q = 2$, this is the quadratic model. For $q = 3$, this is the special cubic model.
+
+[**Example of runs for three and four components**]{#sec-pri-543-example}
+
+For example, the fifteen runs for a four component ($q = 4$) simplex-centroid design are:
+
+- $(1,0,0,0)$, $(0,1,0,0)$, $(0,0,1,0)$, $(0,0,0,1)$, $(.5,.5,0,0)$,
+- $(.5,0,.5,0) \ldots$, $(0,0,.5,.5)$, $(1/3,1/3,1/3,0)$, ..., $(0,1/3,1/3,1/3)$,
+- $(1/4,1/4,1/4,1/4)$.
+
+The runs for a three component simplex-centroid design of degree 2 are
+
+- $(1,0,0)$, $(0,1,0)$, $(0,0,1)$, $(.5,.5,0)$, $(.5,0,.5)$, $(0,.5,.5)$, $(1/3, 1/3, 1/3)$.
+
+However, in order to fit a first-order model with $q = 4$, only the five runs with a "1" and all "1/4's" would be needed. To fit a second-order model, add the six runs with a ".5" (this also fits a saturated third-order model, with no degrees of freedom left for error).

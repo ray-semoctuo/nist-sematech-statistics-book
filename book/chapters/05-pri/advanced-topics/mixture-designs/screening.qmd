@@ -1,0 +1,17 @@
+#### Mixture screening designs {#sec-pri-541}
+
+[**Screening experiments can be used to identify the important mixture factors**]{#sec-pri-541-screening}
+
+In some areas of mixture experiments, for example, certain chemical industries, there is often a large number, $q$, of potentially important components that can be considered candidates in an experiment. The objective of these types of experiments is to screen the components to identify the ones that are most important. In this type of situation, the experimenter should consider a [screening experiment](#sec-pri-3346) to reduce the number of possible components.
+
+[**A first order mixture model**]{#sec-pri-541-first-order}
+
+The construction of screening designs and their corresponding models often begins with the first-order or first-degree mixture model
+
+$$E(Y) = \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_q x_q$$
+
+for which the beta coefficients are non-negative and sum to one.
+
+[**Choices of types of screening designs depend on constraints**]{#sec-pri-541-choices}
+
+If the experimental region is a [simplex](#sec-pri-542), it is generally a good idea to make the ranges of the components as similar as possible. Then the relative effects of the components can be assessed by ranking the ratios of the parameter estimates (i.e., the estimates of the $\beta_i$), relative to their standard errors. Simplex screening designs are recommended when it is possible to experiment over the total simplex region. [Constrained mixture designs](#sec-pri-544) are suggested when the proportions of some or all of the components are restricted by upper and lower bounds. If these designs are not feasible in this situation, then [D-optimal](#sec-pri-521) designs for a linear model are always an option.

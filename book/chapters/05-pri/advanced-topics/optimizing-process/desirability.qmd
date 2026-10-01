@@ -68,7 +68,9 @@ The desirability approach consists of the following steps:
 2. Define individual desirability functions for each response;
 3. *Maximize* the overall desirability $D$ with respect to the controllable factors.
 
-[**Example**]{#sec-pri-5322-example}
+**Example:**
+
+[**An example using the desirability approach**]{#sec-pri-5322-example}
 
 Derringer and Suich [-@DerringerSuich1980] present the following multiple response experiment arising in the development of a tire tread compound. The controllable factors are: $x_1$, hydrated silica level, $x_2$, silane coupling agent level, and $x_3$, sulfur level. The four responses to be optimized and their desired ranges are:
 

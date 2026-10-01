@@ -19,7 +19,7 @@
   <line class="ray-arrow" x1="204.5" y1="223.0" x2="414.1" y2="96.1" />
   <line class="ray" x1="204.5" y1="223.0" x2="449.7" y2="203.3" />
   <path class="arc" d="M 271.8,117.7 A 125,125 0 0 1 329.1,213.0" />
-  <polygon class="arrowhead-poly" points="271.8,117.7 262.6,115.4 265.8,110.3" />
+  <polygon class="arrowhead-poly" points="271.8,117.7 277.8,125.1 281.0,120.0" />
   <circle cx="204.5" cy="223.0" r="2" fill="#1B1B1B" />
   <text class="lbl" x="208.5" y="239.0">(0,0)</text>
   <text class="lbl" x="140" y="270">experimental</text>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 350" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .cube { stroke: #1B1B1B; stroke-width: 1.1; fill: none; }
+    .tri { stroke: #1B1B1B; stroke-width: 0.9; fill: none; }
+    .dot { fill: #1B1B1B; }
+  </style>
+
+  <!-- 2^3 factorial wireframe (connecting the 8 simplex-region centers) -->
+  <line class="cube" x1="59.7" y1="63.1" x2="275.7" y2="63.1" />
+  <line class="cube" x1="275.7" y1="63.1" x2="275.7" y2="232.5" />
+  <line class="cube" x1="275.7" y1="232.5" x2="59.7" y2="234.7" />
+  <line class="cube" x1="59.7" y1="234.7" x2="59.7" y2="63.1" />
+  <line class="cube" x1="130.0" y1="134.3" x2="349.7" y2="130.8" />
+  <line class="cube" x1="349.7" y1="130.8" x2="349.8" y2="301.0" />
+  <line class="cube" x1="349.8" y1="301.0" x2="134.1" y2="301.1" />
+  <line class="cube" x1="134.1" y1="301.1" x2="130.0" y2="134.3" />
+  <line class="cube" x1="59.7" y1="63.1" x2="130.0" y2="134.3" />
+  <line class="cube" x1="275.7" y1="63.1" x2="349.7" y2="130.8" />
+  <line class="cube" x1="59.7" y1="234.7" x2="134.1" y2="301.1" />
+  <line class="cube" x1="275.7" y1="232.5" x2="349.8" y2="301.0" />
+
+  <!-- three-component simplex region (small triangle) at each of the 8 factorial points -->
+  <polygon class="tri" points="59.7,25.1 25.7,95.1 93.7,95.1" />
+  <polygon class="tri" points="275.7,25.1 241.7,95.1 309.7,95.1" />
+  <polygon class="tri" points="59.7,196.7 25.7,266.7 93.7,266.7" />
+  <polygon class="tri" points="275.7,194.5 241.7,264.5 309.7,264.5" />
+  <polygon class="tri" points="130.0,96.3 96.0,166.3 164.0,166.3" />
+  <polygon class="tri" points="349.7,92.8 315.7,162.8 383.7,162.8" />
+  <polygon class="tri" points="134.1,263.1 100.1,333.1 168.1,333.1" />
+  <polygon class="tri" points="349.8,263.0 315.8,333.0 383.8,333.0" />
+
+  <circle class="dot" cx="59.7" cy="63.1" r="7" />
+  <circle class="dot" cx="275.7" cy="63.1" r="7" />
+  <circle class="dot" cx="59.7" cy="234.7" r="7" />
+  <circle class="dot" cx="275.7" cy="232.5" r="7" />
+  <circle class="dot" cx="130.0" cy="134.3" r="7" />
+  <circle class="dot" cx="349.7" cy="130.8" r="7" />
+  <circle class="dot" cx="134.1" cy="301.1" r="7" />
+  <circle class="dot" cx="349.8" cy="301.0" r="7" />
+</svg>

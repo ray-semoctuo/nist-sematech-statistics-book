@@ -1,0 +1,118 @@
+#### Constrained mixture designs {#sec-pri-544}
+
+[**Upper and/or lower bound constraints may be present**]{#sec-pri-544-bounds}
+
+In mixture designs when there are constraints on the component proportions, these are often upper and/or lower bound constraints of the form $L_i \le x_i \le U_i$, $i = 1, 2, \ldots, q$, where $L_i$ is the lower bound for the $i$-th component and $U_i$ the upper bound for the $i$-th component. The general form of the constrained mixture problem is
+
+[**Typical additional constraints**]{#sec-pri-544-typical}
+
+$$x_1 + x_2 + \cdots + x_q = 1$$
+$$L_i \le x_i \le U_i, \qquad \text{for } i = 1, 2, \ldots, q$$
+
+with $L_i \ge 0$ and $U_i \le 1$.
+
+[**Example using only lower bounds**]{#sec-pri-544-example}
+
+Consider the following case in which only the lower bounds in the above equation are imposed, so that the constrained mixture problem becomes
+
+$$x_1 + x_2 + \cdots + x_q = 1$$
+$$L_i \le x_i \le 1, \qquad \text{for } i = 1, 2, \ldots, q$$
+
+Assume we have a three-component mixture problem with constraints
+
+$$0.3 \le x_1 \qquad 0.4 \le x_2 \qquad 0.1 \le x_3$$
+
+[**Feasible mixture region**]{#sec-pri-544-feasible}
+
+The feasible mixture space is shown in @fig-pri-544-feasible. Note that the existence of lower bounds does not affect the shape of the mixture region, it is still a simplex region. In general, this will always be the case if only lower bounds are imposed on any of the component proportions.
+
+[**Diagram showing the feasible mixture space**]{#sec-pri-544-diagram}
+
+![The Feasible Mixture Space (Shaded Region) for Three Components with Lower Bounds](advanced-topics/images/feasible-mixture-space.svg){#fig-pri-544-feasible}
+
+[**A simple transformation helps in design construction and analysis**]{#sec-pri-544-transform}
+
+Since the new region of the experiment is still a simplex, it is possible to define a new set of components that take on the values from 0 to 1 over the feasible region. This will make the design construction and the model fitting easier over the constrained region of interest. These new components ($x_i^{\star}$) are called pseudo components and are defined using the following formula
+
+[**Formula for pseudo components**]{#sec-pri-544-formula}
+
+$$x_i^{\star} = \frac{x_i - L_i}{1 - L}$$
+
+with
+
+$$L = \sum_{i=1}^{q} L_i < 1$$
+
+denoting the sum of all the lower bounds.
+
+[**Computation of the pseudo components for the example**]{#sec-pri-544-computation}
+
+In the three component example above, the pseudo components are
+
+$$x_1^{\star} = \frac{x_1 - 0.3}{0.2} \qquad x_2^{\star} = \frac{x_2 - 0.4}{0.2} \qquad x_3^{\star} = \frac{x_3 - 0.1}{0.2}$$
+
+[**Constructing the design in the pseudo components**]{#sec-pri-544-construct}
+
+Constructing a design in the pseudo components is accomplished by specifying the design points in terms of the $x_i^{\star}$ and then converting them to the original component settings using
+
+$$x_i = L_i + (1 - L) x_i^{\star}$$
+
+[**Select appropriate design**]{#sec-pri-544-select}
+
+In terms of the pseudo components, the experimenter has the choice of selecting a Simplex-Lattice or a Simplex-Centroid design, depending on the objectives of the experiment.
+
+[**Simplex-centroid design example (after transformation)**]{#sec-pri-544-centroid-example}
+
+Suppose, we decided to use a Simplex-centroid design for the three-component experiment. @tbl-pri-544-pseudo shows the design points in the pseudo components, along with the corresponding setting for the original components.
+
+[**Table showing the design points in both the pseudo components and the original components**]{#sec-pri-544-table}
+
+NIST labels the design points $(X_1, X_2, X_3)$ as the "Pseudo Components" and the resulting proportions $(x_1^{\star}, x_2^{\star}, x_3^{\star})$ as the "Original Components" (this table-heading convention is the reverse of the $x_i^{\star}$ notation introduced above for the pseudo-component formula itself, but is reproduced here as published).
+
+```{r}
+#| label: tbl-pri-544-pseudo
+#| tbl-cap: "Pseudo Component Settings and Original Component Settings, Three-Component Simplex-Centroid Design"
+#| code-fold: true
+#| message: false
+library(gt)
+
+L <- c(0.3, 0.4, 0.1)
+pseudo <- tribble(
+  ~X1, ~X2, ~X3,
+  1, 0, 0,
+  0, 1, 0,
+  0, 0, 1,
+  0.5, 0.5, 0,
+  0.5, 0, 0.5,
+  0, 0.5, 0.5,
+  1 / 3, 1 / 3, 1 / 3
+) |>
+  mutate(
+    x1 = L[1] + (1 - sum(L)) * X1,
+    x2 = L[2] + (1 - sum(L)) * X2,
+    x3 = L[3] + (1 - sum(L)) * X3
+  )
+
+pseudo |>
+  gt() |>
+  tab_spanner(label = "Pseudo Components", columns = c(X1, X2, X3)) |>
+  tab_spanner(label = "Original Components", columns = c(x1, x2, x3)) |>
+  cols_label(
+    X1 = html("X<sub>1</sub>"), X2 = html("X<sub>2</sub>"), X3 = html("X<sub>3</sub>"),
+    x1 = html("x<sub>1</sub>*"), x2 = html("x<sub>2</sub>*"), x3 = html("x<sub>3</sub>*")
+  ) |>
+  fmt_number(columns = everything(), decimals = 4, drop_trailing_zeros = TRUE)
+```
+
+The computed values confirm NIST's published table exactly.
+
+[**Use of pseudo components (after transformation) is recommended**]{#sec-pri-544-recommended}
+
+It is recommended that the pseudo components be used to fit the mixture model. This is due to the fact that the constrained design space will usually have relatively high levels of multicollinearity among the predictors. Once the final predictive model for the pseudo components has been determined, the equation in terms of the original components can be determined by substituting the relationship between $x_i$ and $x_i^{\star}$.
+
+[**D-optimal designs can also be used**]{#sec-pri-544-d-optimal}
+
+Computer-aided designs ([D-optimal](#sec-pri-521), for example) can be used to select points for a mixture design in a constrained region. See Myers and Montgomery [-@MyersMontgomery1995] for more details on using D-optimal designs in mixture experiments.
+
+[**Extreme vertice designs are another option**]{#sec-pri-544-extreme-vertices}
+
+**Note**: There are other mixture designs that cover only a sub-portion or smaller space within the simplex. These types of mixture designs (not covered here) are referred to as *extreme vertices designs*. (See chapter 11 of Myers and Montgomery [-@MyersMontgomery1995] or Cornell [-@Cornell1990].)
