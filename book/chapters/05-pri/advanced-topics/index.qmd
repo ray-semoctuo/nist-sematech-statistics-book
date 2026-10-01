@@ -28,6 +28,7 @@ This section builds on the basics of DOE described in the preceding sections by 
    5. [Treating mixture and process variables together](#sec-pri-545)
 5. [How can I account for nested variation (restricted randomization)?](#sec-pri-55)
 6. [What are Taguchi designs?](#sec-pri-56)
+7. [What are John's 3/4 fractional factorial designs?](#sec-pri-57)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -76,3 +77,5 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/nested-variation.qmd >}}
 
 {{< include advanced-topics/taguchi-designs.qmd >}}
+
+{{< include advanced-topics/johns-3-4-designs.qmd >}}

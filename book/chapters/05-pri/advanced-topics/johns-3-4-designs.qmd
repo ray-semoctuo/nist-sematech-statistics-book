@@ -1,0 +1,217 @@
+### What are John's 3/4 fractional factorial designs? {#sec-pri-57}
+
+[**John's designs require only 3/4 of the number of runs a full 2^n^ factorial would require**]{#sec-pri-57-overview}
+
+Three-quarter (¾) designs are two-level factorial designs that require only three-quarters of the number of runs of the 'original' design. For example, instead of making all of the sixteen runs required for a 2^4^ fractional factorial design, we need only run 12 of them. Such designs were invented by Professor Peter John of the University of Texas, and are sometimes called 'John's ¾ designs.'
+
+Three-quarter fractional factorial designs can be used to save on resources in two different contexts. In one scenario, we may wish to perform additional runs after having completed a fractional factorial, so as to de-alias certain specific interaction patterns. Second, we may wish to use a ¾ design to begin with and thus save on 25% of the run requirement of a regular design.
+
+**Semifolding Example**
+
+[**Four experimental factors**]{#sec-pri-57-four-factors}
+
+We have four experimental factors to investigate, namely $X_1$, $X_2$, $X_3$, and $X_4$, and we have designed and run a $2^{4-1}$ fractional factorial design. Such a design has eight runs, or rows, if we don't count center point runs (or replications).
+
+[**Resolution IV design**]{#sec-pri-57-resolution-iv}
+
+The $2^{4-1}$ design is of resolution IV, which means that main effects are confounded with, at worst, three-factor interactions, and two-factor interactions are confounded with other two-factor interactions.
+
+[**Design matrix**]{#sec-pri-57-design-matrix}
+
+The design matrix, in standard order, is shown in @tbl-pri-57-design-8 along with all the two-factor interaction columns. Note that the column for $X_4$ is constructed by multiplying columns for $X_1$, $X_2$, and $X_3$ together (i.e., 4=123).
+
+```{r}
+#| label: tbl-pri-57-design-8
+#| tbl-cap: "The 2^4-1^ design plus 2-factor interaction columns shown in standard order. Note that 4=123."
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+design_8 <- tribble(
+  ~run, ~X1, ~X2, ~X3, ~X4,
+  1, -1, -1, -1, -1,
+  2, 1, -1, -1, 1,
+  3, -1, 1, -1, 1,
+  4, 1, 1, -1, -1,
+  5, -1, -1, 1, 1,
+  6, 1, -1, 1, -1,
+  7, -1, 1, 1, -1,
+  8, 1, 1, 1, 1
+) |>
+  mutate(
+    `X1*X2` = X1 * X2, `X1*X3` = X1 * X3, `X1*X4` = X1 * X4,
+    `X2*X3` = X2 * X3, `X2*X4` = X2 * X4, `X3*X4` = X3 * X4
+  )
+
+design_8 |>
+  gt() |>
+  tab_spanner(label = "Two-Factor Interaction Columns", columns = `X1*X2`:`X3*X4`) |>
+  cols_label(run = "Run Number")
+```
+
+[**Confounding of two-factor interactions**]{#sec-pri-57-confounding}
+
+Note also that 12=34, 13=24, and 14=23. These follow from the generating relationship 4=123 and tells us that we cannot estimate any two-factor interaction that is free of some other two-factor alias.
+
+[**Estimating two-factor interactions free of confounding**]{#sec-pri-57-estimating-free}
+
+Suppose that we became interested in estimating some or all of the two-factor interactions that involved factor $X_1$; that is, we want to estimate one or more of the interactions 12, 13, and 14 free of two-factor confounding.
+
+One way of doing this is to run the 'other half' of the design: an additional eight rows formed from the relationship 4 = -123. Putting these two 'halves' together, the original one and the new one, we'd obtain a $2^4$ design in sixteen runs. Eight of these runs would already have been run, so all we'd need to do is run the remaining half.
+
+[**Alternative method requiring fewer runs**]{#sec-pri-57-alternative-method}
+
+There is a way, however, to obtain what we want while adding only four more runs. These runs are selected in the following manner: take the four rows of @tbl-pri-57-design-8 that have '-1' in the '$X_1$' column and switch the '-' sign under $X_1$ to '+' to obtain the four-row table of @tbl-pri-57-foldover. This is called a foldover on $X_1$, choosing the subset of runs with $X_1 = -1$. Note that this choice of 4 runs is not unique, and that if the initial design suggested that $X_1 = -1$ were a desirable level, we would have chosen to experiment at the other four treatment combinations that were omitted from the initial design.
+
+[**Table of the additional design points**]{#sec-pri-57-additional-points}
+
+```{r}
+#| label: tbl-pri-57-foldover
+#| tbl-cap: "Foldover on 'X1' of the 2^4-1^ design of Table 5.8"
+#| code-fold: true
+foldover <- design_8 |>
+  select(run, X1, X2, X3, X4) |>
+  filter(X1 == -1) |>
+  mutate(X1 = 1, run = run + 8)
+
+foldover |>
+  gt() |>
+  cols_label(run = "Run Number")
+```
+
+[**Table with new design points added to the original design points**]{#sec-pri-57-combined-table}
+
+Add this new block of rows to the bottom of @tbl-pri-57-design-8 to obtain a design in twelve rows. We show this in @tbl-pri-57-design-12 and also add in the two-factor interactions as well for illustration (not needed when we do the runs).
+
+```{r}
+#| label: tbl-pri-57-design-12
+#| tbl-cap: "A twelve-run design based on the 2^4-1^, also showing all two-factor interaction columns"
+#| code-fold: true
+design_12 <- bind_rows(design_8 |> select(run, X1:X4), foldover) |>
+  mutate(
+    `X1*X2` = X1 * X2, `X1*X3` = X1 * X3, `X1*X4` = X1 * X4,
+    `X2*X3` = X2 * X3, `X2*X4` = X2 * X4, `X3*X4` = X3 * X4
+  )
+
+design_12 |>
+  gt() |>
+  tab_spanner(label = "Two-Factor Interaction Columns", columns = `X1*X2`:`X3*X4`) |>
+  cols_label(run = "Run Number")
+```
+
+::: {.callout-note}
+NIST's published table shows the run number for the first foldover row as "1" rather than "9"; this is an evident transcription typo in NIST's own HTML (the `X1,X2,X3,X4` values of that row, `(1,-1,-1,-1)`, match run 9 of Table 5.9 exactly, and the run numbers for the remaining three foldover rows are correctly shown as 10, 11, and 12). The table above shows the correct run number.
+:::
+
+[**Design is resolution V**]{#sec-pri-57-resolution-v}
+
+Examine the two-factor interaction columns and convince yourself that no two are alike. This means that no two-factor interaction involving $X_1$ is aliased with any other two-factor interaction. Thus, the design is resolution V, which is not always the case when constructing these types of ¾ foldover designs.
+
+```{r}
+#| code-fold: true
+m <- design_12 |>
+  select(`X1*X2`:`X3*X4`) |>
+  as.matrix()
+pairs_identical <- combn(colnames(m), 2, function(p) {
+  all(m[, p[1]] == m[, p[2]]) || all(m[, p[1]] == -m[, p[2]])
+})
+list(any_two_factor_interactions_aliased = any(pairs_identical))
+```
+
+[**Estimating X1 two-factor interactions**]{#sec-pri-57-estimating-x1}
+
+What we now have is a design with 12 runs, with which we can estimate all the two-factor interactions involving $X_1$ free of aliasing with any other two-factor interaction. It is called a ¾ design because it has ¾ the number of rows of the next regular factorial design (a $2^4$).
+
+[**Standard errors of effect estimates**]{#sec-pri-57-standard-errors}
+
+If one fits a model with an intercept, a block effect, the four main effects and the six two-factor interactions, then each coefficient has a standard error of $\sigma/8^{1/2}$, instead of $\sigma/12^{1/2}$, because the design is not orthogonal and each estimate is correlated with two other estimates. Note that no degrees of freedom exists for estimating $\sigma$. Instead, one should plot the 10 effect estimates using a normal (or half-normal) effects plot to judge which effects to declare significant.
+
+```{r}
+#| code-fold: true
+design_12_block <- design_12 |> mutate(block = if_else(run <= 8, -1, 1))
+
+X <- model.matrix(
+  ~ block + X1 + X2 + X3 + X4 +
+    `X1*X2` + `X1*X3` + `X1*X4` + `X2*X3` + `X2*X4` + `X3*X4`,
+  data = design_12_block
+)
+XtXinv <- solve(t(X) %*% X)
+list(se_factor = sqrt(unique(round(diag(XtXinv), 6))), n_params = ncol(X), n_runs = nrow(X))
+```
+
+This confirms that every one of the 12 fitted coefficients (intercept, block effect, 4 main effects, 6 two-factor interactions) has variance factor exactly $1/8$, i.e., standard error $\sigma/\sqrt{8}$, and that with 12 runs and 12 parameters the model is saturated (0 degrees of freedom for error), exactly as stated.
+
+[**Further information**]{#sec-pri-57-further-info-1}
+
+For more details on ¾ fractions obtained by adding a follow-up design that is half the size of the original design, see Mee and Peralta [-@MeePeralta2000].
+
+Next we consider an example in which a ¾ fraction arises when the (¾) $2^{k-p}$ design is planned from the start because it is an efficient design that allows estimation of a sufficient number of effects.
+
+**A 48-Run 3/4 Design Example**
+
+[**Estimate all main effects and two-factor interactions for 8 factors**]{#sec-pri-57-8-factors}
+
+Suppose we wish to run an experiment for $k$=8 factors, with which we want to estimate all main effects and two-factor interactions. We could use the $2_V^{8-2}$ design described in the [summary table of fractional factorial designs](#tbl-pri-3347-designs), but this would require a 64-run experiment to estimate the 1 + 8 + 28 = 37 desired coefficients. In this context, and especially for larger resolution V designs, ¾ of the design points will generally suffice.
+
+[**Construction of the 48-run design**]{#sec-pri-57-construction}
+
+The 48 run-design is constructed as follows: start by creating the full $2_V^{8-2}$ design using the generators 7 = 1234 and 8 = 1256. The defining relation is I = 12347 = 12568 = 345678 (see the summary table details for this design).
+
+Next, arrange these 64 treatment combinations into four blocks of size 16, blocking on the interactions 135 and 246 (i.e., block 1 has 135 = 246 = -1 runs, block 2 has 135 = -1, 246 = +1, block 3 has 135 = +1, 246 = -1 and block 4 has 135 = 246 = +1). If we exclude the first block in which 135 = 246 = -1, we have the desired ¾ design reproduced below (the reader can verify that these are the runs described in the summary table, excluding the runs numbered 1, 6, 11, 16, 18, 21, 28, 31, 35, 40, 41, 46, 52, 55, 58 and 61).
+
+[**Table containing the design matrix**]{#sec-pri-57-design-matrix-48}
+
+```{r}
+#| label: tbl-pri-57-design-48
+#| tbl-cap: "The 48-run 3/4 fraction of the 2(V)^8-2^ design, constructed by excluding the (135=246=-1) block"
+#| code-fold: true
+base64 <- expand.grid(X1 = c(-1, 1), X2 = c(-1, 1), X3 = c(-1, 1), X4 = c(-1, 1), X5 = c(-1, 1), X6 = c(-1, 1)) |>
+  mutate(
+    run = row_number(),
+    X7 = X1 * X2 * X3 * X4,
+    X8 = X1 * X2 * X5 * X6,
+    block_135 = X1 * X3 * X5,
+    block_246 = X2 * X4 * X6
+  )
+
+excluded_runs <- base64 |>
+  filter(block_135 == -1, block_246 == -1) |>
+  pull(run)
+
+design_48 <- base64 |>
+  filter(!(block_135 == -1 & block_246 == -1)) |>
+  select(X1:X8)
+
+list(n_excluded = length(excluded_runs), excluded_runs = excluded_runs, n_kept = nrow(design_48))
+
+design_48 |> gt()
+```
+
+This reproduces NIST's published 48-run table exactly, and the 16 excluded standard-order run numbers (1, 6, 11, 16, 18, 21, 28, 31, 35, 40, 41, 46, 52, 55, 58, 61) match NIST's stated list exactly.
+
+[**Good precision for coefficient estimates**]{#sec-pri-57-good-precision}
+
+This design provides 11 degrees of freedom for error and also provides good precision for coefficient estimates (some of the coefficients have a standard error of $\sigma/\sqrt{32}$ and some have a standard error of $\sigma/\sqrt{42.55}$).
+
+```{r}
+#| code-fold: true
+Xnames <- paste0("X", 1:8)
+form <- as.formula(paste("~ (", paste(Xnames, collapse = "+"), ")^2"))
+Xmat <- model.matrix(form, data = design_48)
+XtXinv <- solve(t(Xmat) %*% Xmat)
+v <- diag(XtXinv)
+
+list(
+  n_params = ncol(Xmat), n_runs = nrow(Xmat), error_df = nrow(Xmat) - ncol(Xmat),
+  distinct_variance_factors = sort(unique(round(1 / v, 4)))
+)
+```
+
+::: {.callout-note}
+The 11 error degrees of freedom and the $\sigma/\sqrt{32}$ standard error are confirmed exactly (18 of the 36 non-intercept coefficients have variance factor exactly $1/32$). For the remaining 18 coefficients, however, our independently computed variance factor is exactly $128/3 \approx 42.67$, not NIST's stated $42.55$. We are confident in this value: it is a clean rational number ($128/3$) shared identically by all 18 affected coefficients, strongly suggesting NIST's "42.55" is itself a numeric transcription error rather than a different (and also exact) computation.
+:::
+
+[**Further information**]{#sec-pri-57-further-info-2}
+
+More about John's ¾ designs can be found in John [-@John1971] or Diamond [-@Diamond1989].
