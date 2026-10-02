@@ -42,6 +42,7 @@ This section builds on the basics of DOE described in the preceding sections by 
       - [Engineering significance](#sec-pri-5972)
       - [Numerical significance](#sec-pri-5973)
       - [Pattern significance](#sec-pri-5974)
+   8. [Half-normal probability plot](#sec-pri-598)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -118,3 +119,5 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/eda-doe/numerical-significance.qmd >}}
 
 {{< include advanced-topics/eda-doe/pattern-significance.qmd >}}
+
+{{< include advanced-topics/eda-doe/half-normal-probability-plot.qmd >}}

@@ -1,0 +1,169 @@
+#### Half-normal probability plot {#sec-pri-598}
+
+[**Purpose**]{#sec-pri-598-purpose}
+
+The half-normal probability plot answers the question:
+
+> What are the important factors (including interactions)?
+
+Quantitatively, the estimated effect of a given main effect or interaction and its rank relative to other main effects and interactions is given via [least squares estimation](#sec-eda-yates-analysis) (that is, forming effect estimates that minimize the sum of the squared differences between raw data and the fitted values from such estimates). Having such estimates in hand, one could then construct a list of the main effects and interactions ordered by the effect magnitude.
+
+The half-normal probability plot is a graphical tool that uses these ordered estimated effects to help assess which factors are important and which are unimportant.
+
+A half-normal distribution is the distribution of the |$X$| with $X$ having a [normal](#sec-eda-normal-distribution) distribution.
+
+[**Output**]{#sec-pri-598-output}
+
+The outputs from the half-normal probability plot are
+
+1. Primary: Grouping of factors and interactions into two categories: important and unimportant. For full factorial designs, interactions include the full complement of interactions of all orders; for fractional factorial designs, interactions include only some, and occasionally none, of the actual interactions (when they aren't estimable).
+2. Secondary: Ranked list of factors and interactions from most important down to least important.
+
+[**Definition**]{#sec-pri-598-definition}
+
+A half-normal probability plot is formed by
+
+- Vertical Axis: Ordered (largest to smallest) absolute value of the estimated effects for the main factors and available interactions. If $n$ data points (no replication) have been collected, then typically ($n$-1) effects will be estimated and the ($n$-1) |effects| will be plotted.
+- Horizontal Axis: ($n$-1) theoretical order statistic medians from a half-normal distribution. These ($n$-1) values are not data-dependent. They depend only on the half-normal distribution and the number of items plotted (= $n$-1). The theoretical medians represent an "ideal" typical ordered data set that would have been obtained from a random drawing of ($n$-1) samples from a half-normal distribution.
+- Point identification: Factor/interaction identification:
+
+  - 1 indicates factor $X_1$;
+  - 2 indicates factor $X_2$;
+  - ...
+  - 12 indicates the 2-factor $X_1 X_2$ interaction
+  - 123 indicates the 3-factor $X_1 X_2 X_3$ interaction,
+  - etc.
+
+If the design is a fractional factorial, the confounding structure is also of interest for main effects and 2-factor interactions.
+
+[**Motivation**]{#sec-pri-598-motivation}
+
+To provide a rationale for the half-normal probability plot, we first discuss the motivation for the normal probability plot (which also finds frequent use in these 2-level designs).
+
+The basis for the [normal probability plot](#sec-eda-normal-probability-plot) is the mathematical form for each (and all) of the estimated effects. As discussed for the [|effects| plot](#sec-pri-597), the estimated effects are the optimal least squares estimates. Because of the orthogonality of the $2^k$ full factorial and the $2^{k-p}$ fractional factorial designs, all least squares estimators for main effects and interactions simplify to the form:
+
+$$\text{estimated effect} = \bar{Y}(+) - \bar{Y}(-)$$
+
+with $\bar{Y}(+)$ the average of all response values for which the factor or interaction takes on a "+" value, and where $\bar{Y}(-)$ is the average of all response values for which the factor or interaction takes on a "-" value.
+
+Under rather general conditions, the Central Limit Theorem allows that the difference-of-sums form for the estimated effects tends to follow a normal distribution (for a large enough sample size $n$).
+
+The question arises as to what normal distribution; that is, a normal distribution with what mean and what standard deviation? Since all estimators have an identical form (a difference of averages), the standard deviations, though unknown, will in fact be the same under the assumption of constant $\sigma$. This is good in that it simplifies the normality analysis.
+
+As for the means, however, there will be differences from one effect to the next, and these differences depend on whether a factor is unimportant or important. **Unimportant** factors are those that have near-zero effects and **important** factors are those whose effects are considerably removed from zero. Thus, **unimportant** effects tend to have a normal distribution centered near zero while **important** effects tend to have a normal distribution centered at their respective true large (but unknown) effect values.
+
+In the simplest experimental case, if the experiment were such that no factors were important (that is, all effects were near zero), the ($n$-1) estimated effects would behave like random drawings from a normal distribution centered at zero. We can test for such normality (and hence test for a null-effect experiment) by using the [normal probability plot](#sec-eda-normal-probability-plot). Normal probability plots are easy to interpret. In simplest terms:
+
+> if linear, then normal
+
+If the normal probability plot of the ($n$-1) estimated effects is linear, this implies that all of the true (unknown) effects are zero or near-zero. That is, no factor is important.
+
+On the other hand, if the truth behind the experiment is that there is exactly one factor that was important (that is, significantly non-zero), and all remaining factors are unimportant (that is, near-zero), then the normal probability plot of all ($n$-1) effects is near-linear for the ($n$-2) unimportant factors and the remaining single important factor would stand well off the line.
+
+Similarly, if the experiment were such that some subset of factors were important and all remaining factors were unimportant, then the normal probability plot of all ($n$-1) effects would be near-linear for all unimportant factors with the remaining important factors all well off the line.
+
+In real life, with the number of important factors unknown, this suggests that one could form a normal probability plot of the ($n$-1) estimated effects and draw a line through those (unimportant) effects in the vicinity of zero. This identifies and extracts all remaining effects off the line and declares them as important.
+
+The above rationale and methodology works well in practice, with the net effect that the normal probability plot of the effects is an important, commonly used and successfully employed tool for identifying important factors in 2-level full and factorial experiments. Following the lead of Cuthbert Daniel [-@Daniel1976], we augment the methodology and arrive at a further improvement. Specifically, the sign of each estimate is completely arbitrary and will reverse depending on how the initial assignments were made (e.g., we could assign "-" to treatment A and "+" to treatment B or just as easily assign "+" to treatment A and "-" to treatment B).
+
+This arbitrariness is addressed by dealing with the effect magnitudes rather than the signed effects. If the signed effects follow a normal distribution, the absolute values of the effects follow a half-normal distribution.
+
+In this new context, one tests for important versus unimportant factors by generating a half-normal probability plot of the absolute value of the effects. As before, linearity implies half-normality, which in turn implies all factors are unimportant. More typically, however, the half-normal probability plot will be only partially linear. Unimportant (that is, near-zero) effects manifest themselves as being near zero and on a line while important (that is, large) effects manifest themselves by being off the line and well-displaced from zero.
+
+[**Plot for defective springs data**]{#sec-pri-598-plot}
+
+The half-normal probability plot of the effects for the defective springs data set is as follows.
+
+```{r}
+#| label: fig-pri-598-halfnormal
+#| fig-cap: "Half-normal probability plot for the defective springs data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(ggrepel)
+
+boxsprin <- read_table(
+  here::here("datasets", "BOXSPRIN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3"),
+  col_types = "idii"
+)
+boxsprin <- boxsprin |> mutate(`12` = x1 * x2, `13` = x1 * x3, `23` = x2 * x3, `123` = x1 * x2 * x3)
+names(boxsprin)[2:4] <- c("1", "2", "3")
+
+terms <- c("1", "2", "3", "12", "13", "23", "123")
+effects <- map_dfr(terms, function(t) {
+  tibble(
+    term = t,
+    effect = mean(boxsprin$y[boxsprin[[t]] == 1]) - mean(boxsprin$y[boxsprin[[t]] == -1])
+  )
+}) |>
+  mutate(abs_effect = abs(effect)) |>
+  arrange(abs_effect) |>
+  mutate(
+    rank = row_number(), n = n(),
+    theoretical = qnorm(0.5 + 0.5 * (rank - 0.5) / n)
+  )
+
+ggplot(effects, aes(theoretical, abs_effect, label = term)) +
+  geom_point(size = 2) +
+  geom_text_repel(
+    size = 4, seed = 1,
+    box.padding = 0.6, point.padding = 0.3,
+    force = 10, max.overlaps = Inf, min.segment.length = 0
+  ) +
+  labs(
+    title = "Metal Springs: % Acceptable (BB)", subtitle = "Half-Normal Probability Plot of Effects",
+    x = "Half-Normal Distribution Order Statistic Medians", y = "Ordered |Effects|"
+  ) +
+  theme_light()
+```
+
+[**How to interpret**]{#sec-pri-598-interpret}
+
+From the half-normal probability plot, we look for the following:
+
+1. Identifying Important Factors:
+
+   Determining the subset of important factors is the most important task of the half-normal probability plot of |effects|. As discussed above, the estimated |effect| of an **un**important factor will typically be on or close to a near-zero line, while the estimated |effect| of an important factor will typically be displaced well off the line.
+
+   The separation of factors into important/unimportant categories is thus done by answering the question:
+
+   > Which points on the half-normal probability plot of |effects| are large and well-off the linear collection of points drawn in the vicinity of the origin?
+
+   This line of unimportant factors typically encompasses the majority of the points on the plot. The procedure consists, therefore, of the following:
+
+   1. identifying this line of near-zero (unimportant) factors; then
+   2. declaring the remaining off-line factors as important.
+
+   Note that the half-normal probability plot of |effects| and the [|effects| plot](#sec-pri-597) have the same vertical axis; namely, the ordered |effects|, so the following discussion about right-margin factor identifiers is relevant to both plots. As a consequence of the natural on-line/off-line segregation of the |effects| in half-normal probability plots, factors off-line tend to have far-right labels that are distinct and isolated while factors near the line tend to have far-right labels that are overstruck and hard to read. The rough rule-of-thumb would then be to declare as important those factors/interactions whose far-right labels are easy to distinguish and to declare as unimportant those factors/interactions whose far-right labels are overwritten and hard to distinguish.
+
+2. Ranked List of Factors (including interactions):
+
+   This is a minor objective of the half-normal probability plot (it is better done via the [|effects| plot](#sec-pri-597)). To determine the ranked list of factors from a half-normal probability plot, simply scan the vertical axis |effects|
+
+   1. Which |effect| is largest? Note the factor identifier associated with this largest |effect| (this is the "most important factor").
+   2. Which |effect| is next in size? Note the factor identifier associated with this next largest |effect| (this is the "second most important factor").
+   3. Continue for the remaining factors. In practice, the bottom end of the ranked list (the unimportant factors) will be hard to extract because of overstriking, but the top end of the ranked list (the important factors) will be easy to determine.
+
+::: {.callout-note}
+NIST's original half-normal probability plot leaves the plotted points themselves unlabeled and instead repeats the factor/interaction tags a second time along the far-right margin, directly across from each point's height -- which is what the "overstriking" discussed above refers to. @fig-pri-598-halfnormal instead labels each point directly (via `ggrepel`), which is easier to read but does not reproduce that specific far-right-margin overstriking effect; the underlying on-line/off-line clustering it is meant to reveal is still fully visible in the figure.
+:::
+
+In summary, it should be noted that since the signs of the estimated effects are arbitrary, we recommend the use of the half-normal probability plot of |effects| technique over the normal probability plot of the |effects|. These probability plots are among the most commonly-employed EDA procedure for identification of important factors in 2-level full and factorial designs. The half-normal probability plot enjoys widespread usage across both "classical" and Taguchi camps. It deservedly plays an important role in our recommended 10-step graphical procedure for the analysis of 2-level designed experiments.
+
+[**Conclusions for the defective springs data**]{#sec-pri-598-conclusions}
+
+The application of the half-normal probability plot to the defective springs data set results in the following conclusions:
+
+1. Ranked list of factors (including interactions):
+
+   1. $X_1$ (most important)
+   2. $X_1 X_3$ (next most important)
+   3. $X_2$
+   4. other factors are of lesser importance
+
+2. Separation of factors into important/unimportant categories:
+
+   - Important: $X_1$, $X_1 X_3$, and $X_2$
+   - Unimportant: the remainder
