@@ -43,6 +43,18 @@ This section builds on the basics of DOE described in the preceding sections by 
       - [Numerical significance](#sec-pri-5973)
       - [Pattern significance](#sec-pri-5974)
    8. [Half-normal probability plot](#sec-pri-598)
+   9. [Cumulative residual standard deviation plot](#sec-pri-599)
+      - [What is a model?](#sec-pri-5991)
+      - [How do we select a goodness-of-fit metric for a model?](#sec-pri-5992)
+      - [How do we construct a good model?](#sec-pri-5993)
+      - [How do we know when to stop adding terms?](#sec-pri-5994)
+      - [What is the final form for the model?](#sec-pri-5995)
+      - [What are the advantages of the linear model?](#sec-pri-5996)
+      - [How do we use the model to generate predicted values?](#sec-pri-5997)
+      - [How do we use the model beyond the data domain?](#sec-pri-5998)
+      - [What is the best confirmation point for interpolation?](#sec-pri-5999)
+      - [How do we use the model for interpolation?](#sec-pri-599a)
+      - [How do we use the model for extrapolation?](#sec-pri-599b)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -121,3 +133,27 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/eda-doe/pattern-significance.qmd >}}
 
 {{< include advanced-topics/eda-doe/half-normal-probability-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/cumulative-residual-sd-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-what-is-a-model.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-goodness-of-fit-metric.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-constructing-a-good-model.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-when-to-stop-adding-terms.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-final-form.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-advantages-of-linear-model.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-generating-predicted-values.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-beyond-the-data-domain.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-confirmation-point.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-interpolation.qmd >}}
+
+{{< include advanced-topics/eda-doe/model-extrapolation.qmd >}}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" font-family="Helvetica, Arial, sans-serif">
+<rect x="80" y="40" width="200" height="200" fill="none" stroke="black" stroke-width="1.5"/>
+<text x="84.0" y="236.0" font-size="15" font-weight="bold" text-anchor="start" dominant-baseline="auto">2</text>
+<text x="276.0" y="236.0" font-size="15" font-weight="bold" text-anchor="end" dominant-baseline="auto">4</text>
+<text x="84.0" y="36.0" font-size="15" font-weight="bold" text-anchor="start" dominant-baseline="auto">6</text>
+<text x="276.0" y="36.0" font-size="15" font-weight="bold" text-anchor="end" dominant-baseline="auto">8</text>
+<text x="80" y="258" font-size="13" text-anchor="middle">-1</text>
+<text x="280" y="258" font-size="13" text-anchor="middle">+1</text>
+<text x="180.0" y="274" font-size="14" text-anchor="middle">X1</text>
+<text x="68" y="240" font-size="13" text-anchor="end">-1</text>
+<text x="68" y="40" font-size="13" text-anchor="end">+1</text>
+<text x="30" y="140.0" font-size="14" text-anchor="middle">X2</text>
+</svg>
