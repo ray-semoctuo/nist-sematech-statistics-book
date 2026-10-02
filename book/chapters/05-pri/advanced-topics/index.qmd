@@ -55,6 +55,14 @@ This section builds on the basics of DOE described in the preceding sections by 
       - [What is the best confirmation point for interpolation?](#sec-pri-5999)
       - [How do we use the model for interpolation?](#sec-pri-599a)
       - [How do we use the model for extrapolation?](#sec-pri-599b)
+   10. [DOE contour plot](#sec-pri-59a)
+      - [How to interpret: axes](#sec-pri-59a1)
+      - [How to interpret: contour curves](#sec-pri-59a2)
+      - [How to interpret: optimal response value](#sec-pri-59a3)
+      - [How to interpret: best corner](#sec-pri-59a4)
+      - [How to interpret: steepest ascent/descent](#sec-pri-59a5)
+      - [How to interpret: optimal curve](#sec-pri-59a6)
+      - [How to interpret: optimal setting](#sec-pri-59a7)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -157,3 +165,19 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/eda-doe/model-interpolation.qmd >}}
 
 {{< include advanced-topics/eda-doe/model-extrapolation.qmd >}}
+
+{{< include advanced-topics/eda-doe/doe-contour-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-axes.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-curves.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-optimal-response-value.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-best-corner.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-steepest-ascent-descent.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-optimal-curve.qmd >}}
+
+{{< include advanced-topics/eda-doe/contour-optimal-setting.qmd >}}

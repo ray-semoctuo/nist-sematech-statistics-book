@@ -1,0 +1,20 @@
+##### How to interpret: steepest ascent/descent {#sec-pri-59a5}
+
+[**Start at optimum corner point**]{#sec-pri-59a5-start}
+
+From the [optimum corner point](#sec-pri-59a4), based on the nature of the contour surface at that corner, step out in the direction of steepest ascent (if maximizing) or steepest descent (if minimizing).
+
+[**Defective springs example**]{#sec-pri-59a5-example}
+
+Since our goal for the defective springs problem is to maximize the response, we seek the path of steepest ascent. Our starting point is the best corner (the upper right corner (+, +)), which has an average response value of 88.5. The [contour lines](#sec-pri-59a-plot) for this plot have increments of 5 units. As we move from left to right across the contour plot, the contour lines go from low to high response values. In the plot, we have drawn the maximum contour level, 100, as a thick line. For easier identification, we have also drawn the contour level of 90 as a thick line. This contour level of 90 is immediately to the right of the best corner.
+
+::: {.callout-note}
+NIST's original text here states the maximum contour level drawn as a thick line is "105" -- but [the preceding Contour Curves page](#sec-pri-59a2-values-y) states that contour curves were generated for $Y$ from 0 to 100 in increments of 5 ("21 contour curves" in total, i.e. $0, 5, \ldots, 100$), and [the Optimal Curve page](#sec-pri-59a6) explicitly identifies $Y = 100$ -- not 105 -- as the outermost, optimal response curve. We treat "105" as a likely typo for "100" and use 100 as the outer thick contour level in @fig-pri-59a-contour, consistent with the rest of the section.
+:::
+
+[**Conclusions on steepest ascent for defective springs example**]{#sec-pri-59a5-conclusions}
+
+The nature of the contour curves in the vicinity of (+, +) suggests a path of steepest ascent
+
+1. in the "northeast" direction
+2. about 30 degrees above the horizontal.

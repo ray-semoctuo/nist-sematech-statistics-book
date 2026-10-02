@@ -1,0 +1,49 @@
+##### How to interpret: best corner {#sec-pri-59a4}
+
+[**Four corners representing 2 levels for 2 factors**]{#sec-pri-59a4-four-corners}
+
+The contour plot will have four "corners" (two factors times two settings per factor) for the two most important factors $X_i$ and $X_j$: ($X_i$, $X_j$) = (-, -), (-, +), (+, -), or (+, +). Which of these four corners yields the highest average response $\bar{Y}$? That is, what is the "best corner"?
+
+[**Use the raw data**]{#sec-pri-59a4-use-raw-data}
+
+This is done by using the raw data, extracting out the two "axes factors", computing the average response at each of the four corners, then choosing the corner with the best average.
+
+For the defective springs data, the raw data were
+
+```{r}
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+boxsprin <- read_table(
+  here::here("datasets", "BOXSPRIN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3"),
+  col_types = "idii"
+)
+boxsprin
+```
+
+The two plot axes are $X_1$ and $X_3$ and so the relevant raw data collapses to the $X_1$, $X_3$, $Y$ columns.
+
+[**Averages**]{#sec-pri-59a4-averages}
+
+which yields averages
+
+```{r}
+#| label: tbl-pri-59a4-averages
+#| tbl-cap: "Average response at each of the four X1, X3 corners"
+#| code-fold: true
+#| message: false
+library(gt)
+
+boxsprin |>
+  summarize(avg = mean(y), n = n(), .by = c(x1, x3)) |>
+  arrange(x1, x3) |>
+  mutate(across(c(x1, x3), ~ if_else(.x == 1, "+", "-"))) |>
+  gt() |>
+  cols_label(x1 = html("X<sub>1</sub>"), x3 = html("X<sub>3</sub>"), avg = html("Ȳ")) |>
+  fmt_number(columns = avg, decimals = 1)
+```
+
+These four average values for the corners are annotated [on the plot](#sec-pri-59a-plot) (@fig-pri-59a-contour). The best (highest) of these values is 88.5. This comes from the (+, +) upper right corner. We conclude that for the defective springs data the best corner is (+, +).

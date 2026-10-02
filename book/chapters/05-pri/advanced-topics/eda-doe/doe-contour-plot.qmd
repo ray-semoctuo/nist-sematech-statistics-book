@@ -1,0 +1,148 @@
+#### DOE contour plot {#sec-pri-59a}
+
+[**Purpose**]{#sec-pri-59a-purpose}
+
+The DOE contour plot answers the question:
+
+> Where else could we have run the experiment to optimize the response?
+
+Prior steps in this analysis have suggested the best setting for each of the $k$ factors. These best settings may have been derived from
+
+1. Data: which of the $n$ design points yielded the best response, and what were the settings of that design point, or from
+2. Averages: what setting of each factor yielded the best response "on the average".
+
+This 10th (and last) step in the analysis sequence goes beyond the limitations of the $n$ data points already chosen in the design and replaces the data-limited question
+
+> "From among the $n$ data points, what was the best setting?"
+
+to a region-related question:
+
+> "In general, what should the settings have been to optimize the response?"
+
+[**Output**]{#sec-pri-59a-output}
+
+The outputs from the DOE contour plot are
+
+1. Primary: Best setting ($X_{10}$, $X_{20}$, ..., $X_{k0}$) for each of the $k$ factors. This derived setting should yield an optimal response.
+2. Secondary: Insight into the nature of the response surface and the importance/unimportance of interactions.
+
+[**Definition**]{#sec-pri-59a-definition}
+
+A DOE contour plot is formed by
+
+- Vertical Axis: The second most important factor in the experiment.
+- Horizontal Axis: The most important factor in the experiment.
+
+More specifically, the DOE contour plot is constructed and utilized via the following 7 steps:
+
+1. Axes
+2. Contour Curves
+3. Optimal Response Value
+4. Best Corner
+5. Steepest Ascent/Descent
+6. Optimal Curve
+7. Optimal Setting
+
+with
+
+1. Axes: Choose the two most important factors in the experiment as the two axes on the plot.
+2. Contour Curves: Based on the [fitted model](#sec-pri-599) and the best data settings for all of the remaining factors, draw contour curves involving the two dominant factors. This yields a graphical representation of the response surface. The details for constructing linear contour curves are given in [a later section](#sec-pri-59a2-construction).
+3. Optimal Value: Identify the theoretical value of the response that constitutes "best." In particular, what value would we like to have seen for the response?
+4. Best "Corner": The contour plot will have four "corners" for the two most important factors $X_i$ and $X_j$: ($X_i$, $X_j$) = (-, -), (-, +), (+, -), and (+, +). From the data, identify which of these four corners yields the highest average response $\bar{Y}$.
+5. Steepest Ascent/Descent: From this optimum corner point, and based on the nature of the contour lines near that corner, step out in the direction of steepest ascent (if maximizing) or steepest descent (if minimizing).
+6. Optimal Curve: Identify the curve on the contour plot that corresponds to the ideal optimal value.
+7. Optimal Setting: Determine where the steepest ascent/descent line intersects the optimum contour curve. This point represents our "best guess" as to where we could have run our experiment so as to obtain the desired optimal response.
+
+[**Motivation**]{#sec-pri-59a-motivation}
+
+In addition to increasing insight, most experiments have a goal of optimizing the response. That is, of determining a setting ($X_{10}$, $X_{20}$, ..., $X_{k0}$) for which the response is optimized.
+
+The tool of choice to address this goal is the DOE contour plot. For a pair of factors $X_i$ and $X_j$, the DOE contour plot is a 2-dimensional representation of the 3-dimensional $Y = f(X_i, X_j)$ response surface. The position and spacing of the isocurves on the DOE contour plot are an easily interpreted reflection of the nature of the surface.
+
+In terms of the construction of the DOE contour plot, there are three aspects of note:
+
+1. Pairs of Factors: A DOE contour plot necessarily has two axes (only); hence only two out of the $k$ factors can be represented on this plot. All other factors must be set at a fixed value (their optimum settings as determined by the [ordered data plot](#sec-pri-591), the [DOE mean plot](#sec-pri-593), and the [interaction effects matrix plot](#sec-pri-594)).
+2. Most Important Factor Pair: Many DOE contour plots are possible. For an experiment with $k$ factors, there are
+
+   $$\left( \begin{array}{c} k \\ 2 \end{array} \right) = \frac{k!} {2!(k-2)!} = \frac{k(k-1)}{2}$$
+
+   possible contour plots. For example, for $k$ = 4 factors there are 6 possible contour plots: $X_1$ and $X_2$, $X_1$ and $X_3$, $X_1$ and $X_4$, $X_2$ and $X_3$, $X_2$ and $X_4$, and $X_3$ and $X_4$. In practice, we usually generate only one contour plot involving the two most important factors.
+3. Main Effects Only: The contour plot axes involve main effects only, not interactions. The rationale for this is that the "deliverable" for this step is $k$ settings, a best setting for each of the $k$ factors. These $k$ factors are real and can be controlled, and so optimal settings can be used in production. Interactions are of a different nature as there is no "knob on the machine" by which an interaction may be set to -, or to +. Hence the candidates for the axes on contour plots are main effects only -- no interactions.
+
+In summary, the motivation for the DOE contour plot is that it is an easy-to-use graphic that provides insight as to the nature of the response surface, and provides a specific answer to the question "Where (else) should we have collected the data so to have optimized the response?".
+
+[**Plot for defective springs data**]{#sec-pri-59a-plot}
+
+Applying the DOE contour plot for the defective springs data set yields the following plot.
+
+```{r}
+#| label: fig-pri-59a-contour
+#| fig-cap: "DOE contour plot for the defective springs data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+contour_grid <- expand_grid(x1 = seq(-2, 2, 0.02), x3 = seq(-2, 2, 0.02)) |>
+  mutate(y = 73.75 + 11.5 * x1 + 5 * x1 * x3)
+
+corners <- tibble(x1 = c(-1, 1, -1, 1), x3 = c(-1, -1, 1, 1), avg = c(64, 77, 55.5, 88.5))
+
+ggplot(contour_grid, aes(x1, x3, z = y)) +
+  geom_contour(breaks = seq(0, 100, 5), color = "black", linewidth = 0.3) +
+  geom_contour(breaks = c(90, 100), color = "black", linewidth = 1) +
+  geom_segment(
+    data = corners, aes(x = x1, xend = x1, y = x3, yend = -2, z = NULL),
+    linetype = "dotted", color = "grey40", linewidth = 0.3
+  ) +
+  geom_segment(
+    data = corners, aes(x = x1, xend = -2, y = x3, yend = x3, z = NULL),
+    linetype = "dotted", color = "grey40", linewidth = 0.3
+  ) +
+  geom_point(data = corners, aes(x1, x3, z = NULL), size = 2) +
+  geom_text(data = corners, aes(x1, x3, label = avg, z = NULL), vjust = -1, size = 3.5) +
+  annotate("segment",
+    x = 1, y = 1, xend = 1.55, yend = 1.45,
+    arrow = arrow(length = unit(0.2, "cm")), linewidth = 0.8
+  ) +
+  coord_equal(xlim = c(-2, 2), ylim = c(-2, 2)) +
+  labs(
+    title = "Metal Springs: % Acceptable (BB)",
+    subtitle = "Contour Plot of the 2 Dominant Factors: X1 and X3",
+    x = expression(X[1]), y = expression(X[3])
+  ) +
+  theme_light()
+```
+
+::: {.callout-note}
+NIST's original contour plot image prints its axis titles as "X3" on the horizontal axis and "X1" on the vertical axis -- but the placement of the four corner averages in that same image (55.5, 64, 77, 88.5), and every description of these axes in the text that follows (starting with [the Axes page](#sec-pri-59a1)), is consistently written in terms of horizontal = $X_1$, vertical = $X_3$. @fig-pri-59a-contour above follows that textual convention (horizontal = $X_1$, vertical = $X_3$), under which the corner averages line up correctly with [the best-corner averages table](#sec-pri-59a4-averages): we treat NIST's printed axis titles on the original image as the likely swap, not the surrounding text.
+:::
+
+[**How to interpret**]{#sec-pri-59a-interpret}
+
+From the DOE contour plot for the defective springs data, we note the following regarding the 7 framework issues:
+
+- [Axes](#sec-pri-59a1)
+- [Contour curves](#sec-pri-59a2)
+- [Optimal response value](#sec-pri-59a3)
+- [Best corner](#sec-pri-59a4)
+- [Steepest Ascent/Descent](#sec-pri-59a5)
+- [Optimal curve](#sec-pri-59a6)
+- [Optimal setting](#sec-pri-59a7)
+
+[**Conclusions for the defective springs data**]{#sec-pri-59a-conclusions}
+
+The application of the DOE contour plot to the defective springs data set results in the following conclusions:
+
+1. Optimal settings for the "next" run:
+
+   Coded : ($X_1$, $X_2$, $X_3$) = (+1.5, -1.0, +1.3)
+
+   Uncoded: (OT, CC, QT) = (1637.5, 0.5, 127.5)
+
+   ::: {.callout-note}
+   NIST's original text states these as $X_2$ = +1.0 coded / CC = 0.7% uncoded. As discussed in detail on [the Optimal Setting page](#sec-pri-59a7-summary), $X_2 = -1$ (CC = 0.5%) is the setting established throughout this section as the better-performing one for carbon concentration -- it is the value substituted into the fitted model on [the Contour Curves page](#sec-pri-59a2-construction) -- so we corrected both figures here.
+   :::
+
+2. Nature of the response surface:
+
+   The $X_1 X_3$ interaction is important, hence the effect of factor $X_1$ will change depending on the setting of factor $X_3$.

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 360" font-family="Helvetica, Arial, sans-serif">
+<rect x="90" y="70" width="200" height="200" fill="none" stroke="black" stroke-width="1.5"/>
+<text x="94.0" y="266.0" font-size="14" font-weight="bold" text-anchor="start" dominant-baseline="auto">64</text>
+<text x="286.0" y="266.0" font-size="14" font-weight="bold" text-anchor="end" dominant-baseline="auto">77</text>
+<text x="94.0" y="66.0" font-size="14" font-weight="bold" text-anchor="start" dominant-baseline="auto">55.5</text>
+<text x="286.0" y="66.0" font-size="14" font-weight="bold" text-anchor="end" dominant-baseline="auto">88.5</text>
+<text x="90" y="288" font-size="12" text-anchor="middle">-1</text>
+<text x="90" y="302" font-size="12" text-anchor="middle">1450</text>
+<text x="290" y="288" font-size="12" text-anchor="middle">+1</text>
+<text x="290" y="302" font-size="12" text-anchor="middle">1600</text>
+<text x="190.0" y="320" font-size="13" text-anchor="middle">X1</text>
+<text x="190.0" y="336" font-size="13" text-anchor="middle">Oven Temp</text>
+<text x="76" y="270" font-size="12" text-anchor="end">-1</text>
+<text x="76" y="284" font-size="12" text-anchor="end">70</text>
+<text x="76" y="70" font-size="12" text-anchor="end">+1</text>
+<text x="76" y="84" font-size="12" text-anchor="end">120</text>
+<text x="34" y="162.0" font-size="13" text-anchor="middle">X3</text>
+<text x="34" y="178.0" font-size="13" text-anchor="middle">Quench</text>
+<text x="34" y="192.0" font-size="13" text-anchor="middle">Temp</text>
+<defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><polygon points="0 0, 7 3, 0 6" /></marker></defs>
+<line x1="302.0" y1="58.0" x2="372.3" y2="22.5" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+<text x="382.3" y="22.5" font-size="14" font-weight="bold" text-anchor="start" dominant-baseline="middle">X</text>
+</svg>
