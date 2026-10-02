@@ -37,6 +37,11 @@ This section builds on the basics of DOE described in the preceding sections by 
    4. [Interaction effects matrix plot](#sec-pri-594)
    5. [Block plot](#sec-pri-595)
    6. [DOE Youden plot](#sec-pri-596)
+   7. [|Effects| plot](#sec-pri-597)
+      - [Statistical significance](#sec-pri-5971)
+      - [Engineering significance](#sec-pri-5972)
+      - [Numerical significance](#sec-pri-5973)
+      - [Pattern significance](#sec-pri-5974)
 
 {{< include advanced-topics/classical-designs.qmd >}}
 
@@ -103,3 +108,13 @@ This section builds on the basics of DOE described in the preceding sections by 
 {{< include advanced-topics/eda-doe/block-plot.qmd >}}
 
 {{< include advanced-topics/eda-doe/doe-youden-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/effects-plot.qmd >}}
+
+{{< include advanced-topics/eda-doe/statistical-significance.qmd >}}
+
+{{< include advanced-topics/eda-doe/engineering-significance.qmd >}}
+
+{{< include advanced-topics/eda-doe/numerical-significance.qmd >}}
+
+{{< include advanced-topics/eda-doe/pattern-significance.qmd >}}
