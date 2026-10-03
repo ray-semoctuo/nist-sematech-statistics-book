@@ -32,7 +32,7 @@ A central composite design always contains twice as many star points as there ar
 
 [**Comparison of the 3 central composite designs**]{#sec-pri-3361-comparison}
 
-The diagrams in @fig-pri-3361-comparison illustrate the three types of central composite designs for two factors. Note that the CCC explores the largest process space and the CCI explores the smallest process space. Both the CCC and CCI are rotatable<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Rotatability --> designs, but the CCF is not. In the CCC design, the design points describe a circle circumscribed about the factorial square. For three factors, the CCC design points describe a sphere around the factorial cube.
+The diagrams in @fig-pri-3361-comparison illustrate the three types of central composite designs for two factors. Note that the CCC explores the largest process space and the CCI explores the smallest process space. Both the CCC and CCI are [rotatable](#sec-pri-7-rotatability) designs, but the CCF is not. In the CCC design, the design points describe a circle circumscribed about the factorial square. For three factors, the CCC design points describe a sphere around the factorial cube.
 
 [**Determining $\alpha$ in Central Composite Designs**]{#sec-pri-3361-alpha}
 

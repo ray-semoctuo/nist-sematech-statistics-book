@@ -43,7 +43,7 @@ describes an experiment in which 4 trials (or runs) were conducted with each fac
 
 **Coding the data**
 
-The use of +1 and -1 for the factor settings is called coding the data. This aids in the interpretation of the coefficients fit to any experimental model. After factor settings are coded, center points have the value "0". Coding is described in more detail in the DOE glossary.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm -->
+The use of +1 and -1 for the factor settings is called coding the data. This aids in the interpretation of the coefficients fit to any experimental model. After factor settings are coded, center points have the value "0". Coding is described in more detail in the [DOE glossary](#sec-pri-7-coding-factor-levels).
 
 [**The Model or Analysis Matrix**]{#sec-pri-32-model-matrix}
 
@@ -78,6 +78,6 @@ for which $X$ is the 4 by 4 design matrix of 1's and -1's shown above, $\beta$ i
 
 **Coding produces orthogonal columns**
 
-Coding is sometime called "orthogonal coding" since all the columns of a coded 2-factor<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri3331.htm#Orthogonality Properties --> design matrix (except the "I" column) are typically orthogonal.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Orthogonality --> That is, the dot product for any pair of columns is zero. For example, for $X_1$ and $X_2$:
+Coding is sometime called "orthogonal coding" since all the columns of a coded 2-factor<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section3/pri3331.htm#Orthogonality Properties --> design matrix (except the "I" column) are typically [orthogonal](#sec-pri-7-orthogonality). That is, the dot product for any pair of columns is zero. For example, for $X_1$ and $X_2$:
 
 $$(-1)(-1) + (+1)(-1) + (-1)(+1) + (+1)(+1) = 0.$$

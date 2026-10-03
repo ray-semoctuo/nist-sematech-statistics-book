@@ -6,7 +6,7 @@
 4. [Analysis of DOE Data](#sec-pri-4)
 5. [Advanced Topics](#sec-pri-5)
 6. [Case Studies](#sec-pri-6)
-7. A Glossary of DOE Terminology
+7. [A Glossary of DOE Terminology](#sec-pri-7)
 
 {{< include introduction/index.qmd >}}
 
@@ -69,3 +69,5 @@
 {{< include case-studies/sonoluminescent-light/summary-of-conclusions.qmd >}}
 
 {{< include case-studies/sonoluminescent-light/work-this-example-yourself.qmd >}}
+
+{{< include glossary.qmd >}}

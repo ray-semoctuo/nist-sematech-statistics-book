@@ -1,0 +1,169 @@
+## A glossary of DOE terminology {#sec-pri-7}
+
+[**Definitions for key DOE terms**]{#sec-pri-7-intro}
+
+This page gives definitions and information for many of the basic terms used in DOE.
+
+[**Alias**]{#sec-pri-7-alias}
+
+: When the estimate of an [effect](#sec-pri-7-effect) also includes the influence of one or more other effects (usually high order [interactions](#sec-pri-7-interactions)) the effects are said to be aliased (see [confounding](#sec-pri-7-confounding)). For example, if the estimate of effect D in a four factor experiment actually estimates (D + ABC), then the main effect D is aliased with the 3-way interaction ABC. **Note**: This causes no difficulty when the higher order interaction is either non-existent or insignificant.
+
+[**Analysis of Variance (ANOVA)**]{#sec-pri-7-anova}
+
+: A mathematical process for separating the variability of a group of observations into assignable causes and setting up various significance tests.
+
+[**Balanced Design**]{#sec-pri-7-balanced}
+
+: An experimental design where all cells (i.e. treatment combinations) have the same number of observations.
+
+[**Blocking**]{#sec-pri-7-blocking}
+
+: A schedule for conducting [treatment combinations](#sec-pri-7-treatment-combination) in an experimental study such that any effects on the experimental results due to a known change in raw materials, operators, machines, etc., become concentrated in the levels of the blocking variable. **Note**: the reason for blocking is to isolate a systematic effect and prevent it from obscuring the main effects. Blocking is achieved by restricting [randomization](#sec-pri-7-randomization).
+
+[**Center Points**]{#sec-pri-7-center-points}
+
+: Points at the center value of all factor ranges.
+
+[**Coding Factor Levels**]{#sec-pri-7-coding-factor-levels}
+
+: Transforming the scale of measurement for a factor so that the high value becomes +1 and the low value becomes -1 (see [Scaling Factor Levels](#sec-pri-7-scaling-factor-levels)). After coding all factors in a 2-level full factorial experiment, the design matrix has all [orthogonal](#sec-pri-7-orthogonality) columns.
+
+Coding is a simple linear transformation of the original measurement scale. If the "high" value is $X_h$ and the "low" value is $X_L$ (in the original scale), then the scaling transformation takes any original $X$ value and converts it to $(X - a)/b$, where
+
+$a = (X_h + X_L)/2$ and $b = (X_h - X_L)/2$.
+
+To go back to the original measurement scale, just take the coded value and multiply it by "b" and add "a" or, $X = b(\text{coded value}) + a$.
+
+As an example, if the factor is temperature and the high setting is 65$^\circ$C and the low setting is 55$^\circ$C, then $a = (65 + 55)/2 = 60$ and $b = (65 - 55)/2 = 5$. The center point (where the coded value is 0) has a temperature of $5(0) + 60 = 60^\circ$C.
+
+[**Comparative Designs**]{#sec-pri-7-comparative-designs}
+
+: A design aimed at making conclusions about one a priori important factor, possibly in the presence of one or more other "nuisance" factors.
+
+[**Confounding**]{#sec-pri-7-confounding}
+
+: A confounding design is one where some [treatment effects](#sec-pri-7-treatment) (main or interactions) are estimated by the same linear combination of the experimental observations as some [blocking effects](#sec-pri-7-blocking). In this case, the treatment effect and the blocking effect are said to be confounded. Confounding is also used as a general term to indicate that the value of a [main effect](#sec-pri-7-effect) estimate comes from both the main effect itself and also contamination or bias from higher order [interactions](#sec-pri-7-interactions). **Note**: Confounding designs naturally arise when [full factorial designs](#sec-pri-333) have to be run in blocks and the block size is smaller than the number of different treatment combinations. They also occur whenever a [fractional factorial design](#sec-pri-334) is chosen instead of a full factorial design.
+
+::: {.callout-note}
+NIST's original glossary links "full factorial designs" to `pri331.htm` and "fractional factorial design" to `pri332.htm`. Those pages are actually titled "Completely randomized designs" and "Randomized block designs" respectively -- the correct pages, titled "Full factorial designs" and "Fractional factorial designs," are `pri333.htm` and `pri334.htm`. We link to the correct pages above.
+:::
+
+[**Crossed Factors**]{#sec-pri-7-crossed-factors-stub}
+
+: See [factors below](#sec-pri-7-factors).
+
+[**Design**]{#sec-pri-7-design}
+
+: A set of experimental runs which allows you to fit a particular model and estimate your desired effects.
+
+[**Design Matrix**]{#sec-pri-7-design-matrix}
+
+: A [matrix description](#sec-pri-32-model-matrix) of an experiment that is useful for constructing and analyzing experiments.
+
+[**Effect**]{#sec-pri-7-effect}
+
+: How changing the settings of a factor changes the response. The effect of a single factor is also called a main effect. **Note**: For a factor A with two levels, [scaled](#sec-pri-7-scaling-factor-levels) so that low = -1 and high = +1, the effect of A is estimated by subtracting the average response when A is -1 from the average response when A = +1 and dividing the result by 2 (division by 2 is needed because the -1 level is 2 scaled units away from the +1 level).
+
+[**Error**]{#sec-pri-7-error}
+
+: Unexplained variation in a collection of observations. **Note**: DOE's typically require understanding of both random error and lack of fit error.
+
+[**Experimental Unit**]{#sec-pri-7-experimental-unit}
+
+: The entity to which a specific treatment combination is applied. **Note**: an experimental unit can be a
+
+- PC board
+- silicon wafer
+- tray of components simultaneously treated
+- individual agricultural plants
+- plot of land
+- automotive transmissions
+- etc.
+
+[**Factors**]{#sec-pri-7-factors}
+
+: Process inputs an investigator manipulates to cause a change in the output. Some factors cannot be controlled by the experimenter but may effect the responses. If their effect is significant, these uncontrolled factors should be measured and used in the data analysis. **Note**: The inputs can be discrete or continuous.
+
+[**Crossed Factors**]{#sec-pri-7-crossed-factors}
+
+: Two factors are crossed if every level of one occurs with every level of the other in the experiment.
+
+[**Nested Factors**]{#sec-pri-7-nested-factors}
+
+: A factor "A" is nested within another factor "B" if the levels or values of "A" are different for every level or value of "B". **Note**: Nested factors or effects have a hierarchical relationship.
+
+[**Fixed Effect**]{#sec-pri-7-fixed-effect}
+
+: An effect associated with an input variable that has a limited number of levels or in which only a limited number of levels are of interest to the experimenter.
+
+[**Interactions**]{#sec-pri-7-interactions}
+
+: Occurs when the effect of one factor on a response depends on the level of another factor(s).
+
+[**Lack of Fit Error**]{#sec-pri-7-lack-of-fit-error}
+
+: Error that occurs when the analysis omits one or more important terms or factors from the process model. **Note**: Including replication in a DOE allows separation of experimental error into its components: lack of fit and random (pure) error.
+
+[**Model**]{#sec-pri-7-model}
+
+: Mathematical relationship which relates changes in a given response to changes in one or more factors.
+
+[**Nested Factors**]{#sec-pri-7-nested-factors-stub}
+
+: See [factors](#sec-pri-7-nested-factors) above.
+
+[**Orthogonality**]{#sec-pri-7-orthogonality}
+
+: Two vectors of the same length are orthogonal if the sum of the products of their corresponding elements is 0. **Note**: An experimental design is orthogonal if the effects of any factor balance out (sum to zero) across the effects of the other factors.
+
+[**Random Effect**]{#sec-pri-7-random-effect}
+
+: An effect associated with input variables chosen at random from a population having a large or infinite number of possible values.
+
+[**Random error**]{#sec-pri-7-random-error}
+
+: Error that occurs due to natural variation in the process. **Note**: Random error is typically [assumed](#sec-pri-24) to be normally distributed with zero mean and a constant variance. **Note**: Random error is also called experimental error.
+
+[**Randomization**]{#sec-pri-7-randomization}
+
+: A schedule for allocating treatment material and for conducting treatment combinations in a DOE such that the conditions in one run neither depend on the conditions of the previous run nor predict the conditions in the subsequent runs. **Note**: The importance of randomization cannot be over stressed. Randomization is necessary for conclusions drawn from the experiment to be correct, unambiguous and defensible.
+
+[**Replication**]{#sec-pri-7-replication}
+
+: Performing the same treatment combination more than once. **Note**: Including replication allows an estimate of the random error independent of any lack of fit error.
+
+[**Resolution**]{#sec-pri-7-resolution}
+
+: A term which describes the degree to which estimated main effects are [aliased](#sec-pri-7-alias) (or [confounded](#sec-pri-7-confounding)) with estimated 2-level [interactions](#sec-pri-7-interactions), 3-level interactions, etc. In general, the resolution of a design is one more than the smallest order interaction that some main effect is confounded (aliased) with. If some main effects are confounded with some 2-level interactions, the resolution is 3. **Note**: [Full factorial](#sec-pri-333) designs have no confounding and are said to have resolution "infinity". For most practical purposes, a resolution 5 design is excellent and a resolution 4 design may be adequate. Resolution 3 designs are useful as economical [screening designs](#sec-pri-7-screening-designs).
+
+[**Responses**]{#sec-pri-7-responses}
+
+: The output(s) of a process. Sometimes called dependent variable(s).
+
+[**Response Surface Designs**]{#sec-pri-7-response-surface-designs}
+
+: A DOE that fully explores the process window and models the responses. **Note**: These designs are most effective when there are less than 5 factors. Quadratic models are used for response surface designs and at least three levels of every factor are needed in the design.
+
+[**Rotatability**]{#sec-pri-7-rotatability}
+
+: A design is rotatable if the variance of the predicted response at any point **x** depends only on the distance of **x** from the design [center point](#sec-pri-7-center-points). A design with this property can be rotated around its center point without changing the prediction variance at **x**. **Note**: Rotatability is a desirable property for response surface designs (i.e. quadratic model designs).
+
+[**Scaling Factor Levels**]{#sec-pri-7-scaling-factor-levels}
+
+: [Transforming](#sec-pri-32) factor levels so that the high value becomes +1 and the low value becomes -1.
+
+[**Screening Designs**]{#sec-pri-7-screening-designs}
+
+: A DOE that identifies which of many factors have a significant effect on the response. **Note**: Typically screening designs have more than 5 factors.
+
+[**Treatment**]{#sec-pri-7-treatment}
+
+: A treatment is a specific combination of factor levels whose effect is to be compared with other treatments.
+
+[**Treatment Combination**]{#sec-pri-7-treatment-combination}
+
+: The combination of the settings of several factors in a given experimental trial. Also known as a run.
+
+[**Variance Components**]{#sec-pri-7-variance-components}
+
+: Partitioning of the overall variation into assignable components.

@@ -4,7 +4,7 @@
 
 **An example of a full factorial design with 3 factors**
 
-The following is an example of a full factorial design with 3 factors that also illustrates replication,<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Replication --> randomization,<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Randomization --> and added center points.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Center -->
+The following is an example of a full factorial design with 3 factors that also illustrates [replication](#sec-pri-7-replication), [randomization](#sec-pri-7-randomization), and added [center points](#sec-pri-7-center-points).
 
 Suppose that we wish to improve the yield of a polishing operation. The three inputs (factors) that are considered important to the operation are Speed ($X_1$), Feed ($X_2$), and Depth ($X_3$). We want to ascertain the relative importance of each of these factors on Yield ($Y$).
 
@@ -52,7 +52,7 @@ A full factorial design allows us to estimate all eight 'beta' coefficients $\{\
 
 The numbering of the corners of the box in @fig-pri-3332-cube refers to a standard way of writing down the settings of an experiment called 'standard order'. We see standard order displayed in the following tabular representation of the eight-cornered box.
 
-Note that the factor settings have been coded,<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Coding Factor --> replacing the low setting by -1 and the high setting by 1.
+Note that the factor settings have been [coded](#sec-pri-7-coding-factor-levels), replacing the low setting by -1 and the high setting by 1.
 
 **Factor settings in tabular form**
 
@@ -146,7 +146,7 @@ Here's the design matrix again with the rows randomized. The old standard order 
 
 **Table showing design matrix with randomization and center points**
 
-This design would be improved by adding at least 3 centerpoint<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Center --> runs placed at the beginning, middle and end of the experiment. The final design matrix is shown below:
+This design would be improved by adding at least 3 [centerpoint](#sec-pri-7-center-points) runs placed at the beginning, middle and end of the experiment. The final design matrix is shown below:
 
 | Random Order | Standard Order | $X_1$ | $X_2$ | $X_3$ |
 |---:|---:|---:|---:|---:|

@@ -2,7 +2,7 @@
 
 [**Eliminate the influence of extraneous factors by "blocking"**]{#sec-pri-3333-overview}
 
-We often need to eliminate the influence of extraneous factors when running an experiment. We do this by "blocking."<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Blocking --> Previously, blocking was introduced when [randomized block designs](#sec-pri-332) were discussed. There we were concerned with one factor in the presence of one of more nuisance factors. In this section we look at a general approach that enables us to divide 2-level factorial experiments into blocks.
+We often need to eliminate the influence of extraneous factors when running an experiment. We do this by "[blocking](#sec-pri-7-blocking)." Previously, blocking was introduced when [randomized block designs](#sec-pri-332) were discussed. There we were concerned with one factor in the presence of one of more nuisance factors. In this section we look at a general approach that enables us to divide 2-level factorial experiments into blocks.
 
 For example, assume we anticipate predictable shifts will occur while an experiment is being run. This might happen when one has to change to a new batch of raw materials halfway through the experiment. The effect of the change in raw materials is well known, and we want to eliminate its influence on the subsequent data analysis.
 
@@ -20,9 +20,9 @@ Example: An eight-run $2^3$ full factorial has to be blocked into two groups of 
 
 [**Three-factor interaction confounded with the block effect**]{#sec-pri-3333-confounded}
 
-This works because we are in fact assigning the 'estimation' of the (unwanted) blocking effect to the three-factor interaction, and because of the special property of two-level designs called orthogonality.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Orthogonality -->
+This works because we are in fact assigning the 'estimation' of the (unwanted) blocking effect to the three-factor interaction, and because of the special property of two-level designs called [orthogonality](#sec-pri-7-orthogonality).
 
-That is, the three-factor interaction is "confounded"<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Confounding --> with the block effect as will be seen shortly.
+That is, the three-factor interaction is "[confounded](#sec-pri-7-confounding)" with the block effect as will be seen shortly.
 
 [**Orthogonality**]{#sec-pri-3333-orthogonality}
 
@@ -55,10 +55,10 @@ The general rule for blocking is: use one or a combination of high-order interac
 
 [**Block effects are confounded with higher-order interactions**]{#sec-pri-3333-higher-order}
 
-The price you pay for blocking by using high-order interaction columns is that you can no longer distinguish the high-order interaction(s) from the blocking effect -- they have been 'confounded,' or 'aliased.'<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Alias: --> In fact, the blocking effect is now the sum of the blocking effect and the high-order interaction effect. This is fine as long as our assumption about negligible high-order interactions holds true, which it usually does.
+The price you pay for blocking by using high-order interaction columns is that you can no longer distinguish the high-order interaction(s) from the blocking effect -- they have been 'confounded,' or '[aliased](#sec-pri-7-alias).' In fact, the blocking effect is now the sum of the blocking effect and the high-order interaction effect. This is fine as long as our assumption about negligible high-order interactions holds true, which it usually does.
 
 [**Center points within a block**]{#sec-pri-3333-centerpoints}
 
 Within a block, center point runs are assigned as if the block were a separate experiment -- which in a sense it is.
 
-Randomization<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Randomization --> takes place within a block as it would for any non-blocked DOE.
+[Randomization](#sec-pri-7-randomization) takes place within a block as it would for any non-blocked DOE.

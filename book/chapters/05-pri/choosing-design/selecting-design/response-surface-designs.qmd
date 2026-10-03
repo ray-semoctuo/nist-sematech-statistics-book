@@ -205,7 +205,7 @@ Additionally, the three-level factorial designs suffer a major flaw in their lac
 
 **"Rotatability" is a desirable property not present in 3-level factorial designs**
 
-In a rotatable design, the variance of the predicted values of $y$ is a function of the distance of a point from the center of the design and is not a function of the direction the point lies from the center.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pri/section7/pri7.htm#Rotatability --> Before a study begins, little or no knowledge may exist about the region that contains the optimum response. Therefore, the experimental design matrix should not bias an investigation in any direction.
+In a rotatable design, the variance of the predicted values of $y$ is a function of the distance of a point from the center of the design and is not a function of the direction the point lies from the center ([rotatability](#sec-pri-7-rotatability)). Before a study begins, little or no knowledge may exist about the region that contains the optimum response. Therefore, the experimental design matrix should not bias an investigation in any direction.
 
 [**Contours of variance of predicted values are concentric circles**]{#sec-pri-336-concentric-circles}
 
