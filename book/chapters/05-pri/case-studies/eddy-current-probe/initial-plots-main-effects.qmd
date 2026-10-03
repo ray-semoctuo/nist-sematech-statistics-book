@@ -1,0 +1,157 @@
+#### Initial plots/main effects {#sec-pri-612}
+
+[**Plot the Data: Ordered Data Plot**]{#sec-pri-612-order}
+
+The first step in the analysis is to generate an [ordered data plot](#sec-pri-591).
+
+```{r}
+#| label: fig-pri-612-ordered
+#| fig-cap: "Ordered data plot for the eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run_sequence"),
+  col_types = "diiii"
+)
+
+ordered_data <- eddy |>
+  arrange(y) |>
+  mutate(idx = row_number())
+
+sign_labels <- ordered_data |>
+  select(idx, y, x1, x2, x3) |>
+  pivot_longer(c(x1, x2, x3), names_to = "factor", values_to = "level") |>
+  mutate(
+    sign = if_else(level == 1, "+", "-"),
+    factor_label = factor(factor, levels = c("x1", "x2", "x3"), labels = c("X1:", "X2:", "X3:")),
+    label_y = -0.4 - as.integer(factor_label) * 0.35
+  )
+
+ggplot(ordered_data, aes(idx, y)) +
+  geom_point(shape = 4, size = 3) +
+  geom_text(
+    data = sign_labels, aes(x = idx, y = label_y, label = sign),
+    inherit.aes = FALSE, size = 3.5
+  ) +
+  geom_text(
+    data = distinct(sign_labels, factor_label, label_y),
+    aes(x = 0.3, y = label_y, label = factor_label),
+    inherit.aes = FALSE, hjust = 1, size = 3.5
+  ) +
+  scale_x_continuous(limits = c(-0.3, 8.5), breaks = NULL) +
+  coord_cartesian(clip = "off") +
+  labs(
+    title = "Eddy Current Probe Sensitivity",
+    subtitle = "Ordered Data Plot",
+    x = "Settings", y = "Response Y"
+  ) +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 5.5, 5.5, 30))
+```
+
+[**Conclusions from the Ordered Data Plot**]{#sec-pri-612-order-conclusions}
+
+We can make the following conclusions based on the ordered data plot.
+
+1. Important Factors: The four highest response values have $X_1$ = + while the four lowest response values have $X_1$ = -. This implies $X_1$ is the most important factor. When $X_1$ = -, the - values of $X_2$ are higher than the + values of $X_2$. Similarly, when $X_1$ = +, the - values of $X_2$ are higher than the + values of $X_2$. This implies $X_2$ is important, but less so than $X_1$. There is no clear pattern for $X_3$.
+2. Best Settings: In this experiment, we are using the device as a detector, and so high sensitivities are desirable. Given this, our first pass at best settings yields ($X_1$ = +1, $X_2$ = -1, $X_3$ = either).
+
+[**Plot the Data: DOE Scatter Plot**]{#sec-pri-612-dexscatter}
+
+The next step in the analysis is to generate a [DOE scatter plot](#sec-pri-592).
+
+```{r}
+#| label: fig-pri-612-scatter
+#| fig-cap: "DOE scatter plot for the eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+factor_labels <- c("X1: Number of Turns", "X2: Winding Distance", "X3: Wire Gauge")
+
+scatter_data <- eddy |>
+  pivot_longer(c(x1, x2, x3), names_to = "factor", values_to = "level") |>
+  mutate(
+    factor = factor(factor, labels = factor_labels),
+    sign = factor(level, levels = c(-1, 1), labels = c("-", "+"))
+  )
+
+segment_data <- scatter_data |>
+  summarize(ymin = min(y), ymax = max(y), .by = c(factor, sign))
+
+ggplot(scatter_data, aes(sign, y)) +
+  geom_segment(data = segment_data, aes(x = sign, xend = sign, y = ymin, yend = ymax), inherit.aes = FALSE) +
+  geom_hline(yintercept = mean(eddy$y), linetype = "dashed", color = "grey40") +
+  geom_point(shape = 4, size = 3) +
+  facet_wrap(~factor, nrow = 1, strip.position = "bottom") +
+  labs(title = "Eddy Current Probe Sensitivity", subtitle = "Scatter Plot", x = "Factors", y = "Response Y") +
+  theme_light() +
+  theme(strip.placement = "outside", strip.background = element_blank(), strip.text = element_text(color = "black"))
+```
+
+[**Conclusions from the DOE Scatter Plot**]{#sec-pri-612-scatter-conclusions}
+
+We can make the following conclusions based on the DOE scatter plot.
+
+1. Important Factors: $X_1$ (Number of Turns) is clearly important. When $X_1$ = -1, all four sensitivities are low, and when $X_1$ = +1, all four sensitivities are high. $X_2$ (Winding Distance) is less important. The four sensitivities for $X_2$ = -1 are slightly higher, as a group, than the four sensitivities for $X_2$ = +1. $X_3$ (Wire Gauge) does not appear to be important at all. The sensitivity is about the same (on the average) regardless of the settings for $X_3$.
+2. Best Settings: In this experiment, we are using the device as a detector, so high sensitivities are desirable. Given this, our first pass at best settings yields ($X_1$ = +1, $X_2$ = -1, $X_3$ = either).
+3. There does not appear to be any significant outliers.
+
+[**Check for Main Effects: DOE Mean Plot**]{#sec-pri-612-dexmean}
+
+One of the primary questions is: what are the most important factors? The ordered data plot and the DOE scatter plot provide useful summary plots of the data. Both of these plots indicated that $X_1$ is clearly important, $X_2$ is somewhat important, and $X_3$ is probably not important.
+
+The [DOE mean plot](#sec-pri-593) shows the main effects. This provides probably the easiest to interpret indication of the important factors.
+
+```{r}
+#| label: fig-pri-612-mean
+#| fig-cap: "DOE mean plot for the eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+mean_data <- eddy |>
+  pivot_longer(c(x1, x2, x3), names_to = "factor", values_to = "level") |>
+  mutate(
+    factor = factor(factor, labels = factor_labels),
+    sign = factor(level, levels = c(-1, 1), labels = c("-", "+"))
+  ) |>
+  summarize(mean_y = mean(y), .by = c(factor, sign))
+
+ggplot(mean_data, aes(sign, mean_y, group = factor)) +
+  geom_hline(yintercept = mean(eddy$y), linetype = "dashed", color = "grey40") +
+  geom_line() +
+  geom_point(size = 2.5) +
+  facet_wrap(~factor, nrow = 1, strip.position = "bottom") +
+  labs(title = "Eddy Current Probe Sensitivity", subtitle = "Main Effects Plot", x = "Factors", y = "Average Response") +
+  theme_light() +
+  theme(strip.placement = "outside", strip.background = element_blank(), strip.text = element_text(color = "black"))
+```
+
+[**Conclusions from the DOE Mean Plot**]{#sec-pri-612-mean-conclusions}
+
+The DOE mean plot (or main effects plot) reaffirms the ordering of the DOE scatter plot, but additional information is gleaned because the eyeball distance between the mean values gives an approximation to the least-squares estimate of the factor effects.
+
+We can make the following conclusions from the DOE mean plot.
+
+1. Important Factors:
+
+   - $X_1$ (effect = large: about 3 ohms)
+   - $X_2$ (effect = moderate: about -1 ohm)
+   - $X_3$ (effect = small: about 1/4 ohm)
+
+2. Best Settings: As before, choose the factor settings that (on the average) maximize the sensitivity:
+
+   $(X_1,X_2,X_3) = (+,-,+)$
+
+```{r}
+#| code-fold: true
+mean_data |>
+  pivot_wider(names_from = sign, values_from = mean_y, names_prefix = "mean_") |>
+  mutate(effect = `mean_+` - `mean_-`) |>
+  arrange(desc(abs(effect)))
+```
+
+[**Comparison of Plots**]{#sec-pri-612-comparison}
+
+All of these plots are used primarily to detect the most important factors. Because it plots a summary statistic rather than the raw data, the DOE mean plot shows the main effects most clearly. However, it is still recommended to generate either the ordered data plot or the DOE scatter plot (or both). Since these plot the raw data, they can sometimes reveal features of the data that might be masked by the DOE mean plot.

@@ -1,0 +1,24 @@
+### Eddy current probe sensitivity case study {#sec-pri-61}
+
+[**Analysis of a 2^3^ Full Factorial Design**]{#sec-pri-61-analysis}
+
+This case study demonstrates the analysis of a $2^3$ full factorial design.
+
+The analysis for this case study is based on the [EDA approach](#sec-pri-59) discussed in an earlier section.
+
+[**Contents**]{#sec-pri-61-contents}
+
+The case study is divided into the following sections:
+
+1. [Background and data](#sec-pri-611)
+2. [Initial plots/main effects](#sec-pri-612)
+3. [Interaction effects](#sec-pri-613)
+4. [Main and interaction effects: block plots](#sec-pri-614)
+5. [Estimate main and interaction effects](#sec-pri-615)
+6. [Modeling and prediction equations](#sec-pri-616)
+7. [Intermediate conclusions](#sec-pri-617)
+8. [Important factors and parsimonious prediction](#sec-pri-618)
+9. [Validate the fitted model](#sec-pri-619)
+10. [Using the model](#sec-pri-61a)
+11. [Conclusions and next step](#sec-pri-61b)
+12. [Work this example yourself](#sec-pri-61c)

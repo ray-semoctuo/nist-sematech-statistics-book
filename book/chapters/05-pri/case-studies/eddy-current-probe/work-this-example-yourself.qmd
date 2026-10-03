@@ -1,0 +1,12 @@
+#### Work this example yourself {#sec-pri-61c}
+
+NIST's original handbook provides a Dataplot macro that lets the reader step through this case study interactively, one Dataplot command at a time. This book takes a different approach: every plot, table, and computed value in [the preceding sections](#sec-pri-61) is produced by a live, visible R code chunk reading directly from [`SPLETT3.DAT`](../../datasets/SPLETT3.DAT). To work through this example yourself, expand the code blocks in those sections (via the "Code" toggles) and run them in your own R session -- the sequence of steps is the same one NIST's macro walks through:
+
+1. [Read in the data](#sec-pri-611-data).
+2. [Plot the main effects](#sec-pri-612) (ordered data plot, DOE scatter plot, DOE mean plot).
+3. [Plot the interaction effects](#sec-pri-613) (interaction effects matrix).
+4. [Generate block plots](#sec-pri-614) for main and interaction effects.
+5. [Estimate main and interaction effects](#sec-pri-615) via least-squares regression.
+6. [Select a parsimonious model](#sec-pri-618) using the normal probability plot and Youden plot of the effects.
+7. [Validate the model](#sec-pri-619) via residual diagnostic plots.
+8. [Generate a DOE contour plot](#sec-pri-61a-dexcontour) to determine the best settings for the two most important factors.

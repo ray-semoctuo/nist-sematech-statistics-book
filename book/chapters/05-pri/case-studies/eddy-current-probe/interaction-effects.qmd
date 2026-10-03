@@ -1,0 +1,92 @@
+#### Interaction effects {#sec-pri-613}
+
+[**Check for Interaction Effects: DOE Interaction Plot**]{#sec-pri-613-dexinte}
+
+In addition to the main effects, it is also important to check for interaction effects, especially two-factor interaction effects. The [DOE interaction effects plot](#sec-pri-594) is an effective tool for this. The effects on the plot represent the change in sensitivity from low to high levels of the factors.
+
+```{r}
+#| label: fig-pri-613-interaction-matrix
+#| fig-cap: "Interaction effects matrix plot for the eddy current probe sensitivity data"
+#| fig-width: 8
+#| fig-height: 7
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run_sequence"),
+  col_types = "diiii"
+)
+eddy <- eddy |> mutate(`12` = x1 * x2, `13` = x1 * x3, `23` = x2 * x3)
+names(eddy)[2:4] <- c("1", "2", "3")
+
+grand_mean <- mean(eddy$y)
+
+mini_plot <- function(var, tag, show_x_label = NULL) {
+  d <- eddy |>
+    summarize(mean_y = mean(y), .by = all_of(var)) |>
+    rename(level = all_of(var)) |>
+    arrange(level)
+  effect <- diff(d$mean_y)
+  p <- ggplot(d, aes(factor(level, labels = c("-", "+")), mean_y, group = 1)) +
+    geom_hline(yintercept = grand_mean, linetype = "dashed", color = "grey50", linewidth = 0.3) +
+    geom_line() +
+    geom_point(size = 2) +
+    annotate("text", x = 0.6, y = 4.6, label = paste0(tag, " : ", round(effect, 3)), hjust = 0, size = 3.2) +
+    coord_cartesian(ylim = c(0, 5), xlim = c(0.5, 2.5), clip = "off") +
+    theme_light() +
+    theme(axis.title = element_blank(), panel.grid.minor = element_blank())
+  if (!is.null(show_x_label)) {
+    p <- p + labs(caption = show_x_label) +
+      theme(plot.caption = element_text(hjust = 0.5, size = 11, face = "plain"))
+  }
+  p
+}
+
+p1 <- mini_plot("1", "1", show_x_label = "X1")
+p12 <- mini_plot("12", "12")
+p13 <- mini_plot("13", "13")
+p2 <- mini_plot("2", "2", show_x_label = "X2")
+p23 <- mini_plot("23", "23")
+p3 <- mini_plot("3", "3", show_x_label = "X3")
+
+(p1 | p12 | p13) /
+  (plot_spacer() | p2 | p23) /
+  (plot_spacer() | plot_spacer() | p3) +
+  plot_annotation(title = "Eddy Current Probe Sensitivity", subtitle = "Interaction Effects Matrix")
+```
+
+[**Conclusions from the DOE Interaction Effects Plot**]{#sec-pri-613-conclusions}
+
+We can make the following conclusions from the DOE interaction effects plot.
+
+1. Important Factors: Looking for the plots that have the steepest lines (that is, largest effects), we note that:
+
+   - $X_1$ (number of turns) is the most important effect: estimated effect = 3.1025;
+   - $X_2$ (winding distance) is next most important: estimated effect = -0.8675;
+   - $X_3$ (wire gauge) is relatively unimportant;
+   - All three two-factor interactions are relatively unimportant.
+
+   ::: {.callout-note}
+   NIST's original text (and the legend in the corresponding Dataplot-generated figure) state the $X_1$ effect as -3.1025, with a negative sign. This contradicts the regression coefficient for $X_1$ established on [the Estimate Main and Interaction Effects page](#sec-pri-615) (+1.55125, so effect = 2 $\times$ 1.55125 = +3.1025), the upward-sloping $X_1$ line in the interaction plot itself (both in @fig-pri-613-interaction-matrix above and in NIST's own source figure), and the best-settings conclusion reached consistently throughout this case study ($X_1$ = +1 gives higher sensitivity). We give the effect with its correct, positive sign above.
+   :::
+
+2. Best Settings: As with the main effects plot, the best settings to maximize the sensitivity are
+
+   $(X_1,X_2,X_3) = (+1,-1,+1)$
+
+   but with the $X_3$ setting of +1 mattering little.
+
+```{r}
+#| code-fold: true
+eddy |>
+  select(y, `1`, `2`, `3`, `12`, `13`, `23`) |>
+  pivot_longer(-y, names_to = "term", values_to = "level") |>
+  summarize(mean_y = mean(y), .by = c(term, level)) |>
+  pivot_wider(names_from = level, values_from = mean_y, names_prefix = "mean_") |>
+  mutate(effect = mean_1 - `mean_-1`) |>
+  arrange(desc(abs(effect)))
+```

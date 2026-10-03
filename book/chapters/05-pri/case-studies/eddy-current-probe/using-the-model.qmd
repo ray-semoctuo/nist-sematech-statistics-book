@@ -1,0 +1,93 @@
+#### Using the fitted model {#sec-pri-61a}
+
+[**Model Provides Additional Insight**]{#sec-pri-61a-insight}
+
+Although deriving the fitted model was not the primary purpose of the study, it does have two benefits in terms of additional insight:
+
+1. Global prediction
+2. Global determination of best settings
+
+[**Global Prediction**]{#sec-pri-61a-prediction}
+
+How does one predict the response at points other than those used in the experiment? The prediction equation yields good results at the eight combinations of coded -1 and +1 values for the three factors:
+
+1. $X_1$ = Number of turns = 90 and 180
+2. $X_2$ = Winding distance = 0.38 and 1.14
+3. $X_3$ = Wire gauge = 40 and 48
+
+What, however, would one expect the detector to yield at target settings of, say,
+
+1. Number of turns = 150
+2. Winding distance = 0.50
+3. Wire gauge = 46
+
+Based on the fitted equation, we first translate the target values into coded target values as follows:
+
+$$\text{coded target} = -1 + 2 \times (\text{target}-\text{low})/(\text{high}-\text{low})$$
+
+Hence the coded target values are
+
+1. $X_1$ = -1 + 2(150-90)/(180-90) = 0.333333
+2. $X_2$ = -1 + 2(0.50-0.38)/(1.14-0.38) = -0.684211
+3. $X_3$ = -1 + 2(46-40)/(48-40) = 0.5000
+
+Thus the raw data
+
+$$(\text{Number of turns}, \text{Winding distance}, \text{Wire gauge}) = (150, 0.50, 46)$$
+
+translates into the coded
+
+$$(X_1, X_2, X_3) = (0.333333, -0.684211, 0.50000)$$
+
+on the -1 to +1 scale.
+
+Inserting these coded values into the fitted equation yields, as desired, a predicted value of
+
+$$\hat{Y} = 2.65875 + 1.55125(0.333333) - 0.43375(-0.684211) = 3.47261$$
+
+```{r}
+#| code-fold: true
+x1t <- -1 + 2 * (150 - 90) / (180 - 90)
+x2t <- -1 + 2 * (0.50 - 0.38) / (1.14 - 0.38)
+c(x1 = x1t, x2 = x2t, y_hat = 2.65875 + 1.55125 * x1t - 0.43375 * x2t)
+```
+
+The above procedure can be carried out for any values of turns, distance, and gauge. This is subject to the usual cautions that equations that are good near the data point vertices may not necessarily be good everywhere in the factor space. Interpolation is a bit safer than extrapolation, but it is not guaranteed to provide good results, of course. One would feel more comfortable about interpolation (as in our example) if additional data had been collected at the center point and the center point data turned out to be in good agreement with predicted values at the center point based on the fitted model. In our case, we had no such data and so the sobering truth is that the user of the equation is assuming something in which the data set as given is not capable of suggesting one way or the other. Given that assumption, we have demonstrated how one may cautiously but insightfully generate predicted values that go well beyond our limited original data set of eight points.
+
+[**Global Determination of Best Settings**]{#sec-pri-61a-best-settings}
+
+In order to determine the best settings for the factors, we can use a [DOE contour plot](#sec-pri-59a). The DOE contour plot is generated for the two most significant factors and shows the value of the response variable at the vertices (i.e, the -1 and +1 settings for the factor variables) and indicates the direction that maximizes (or minimizes) the response variable. If you have more than two significant factors, you can generate a series of DOE contour plots with each one using two of the important factors.
+
+[**DOE Contour Plot**]{#sec-pri-61a-dexcontour}
+
+The following is the DOE contour plot of the number of turns and the winding distance.
+
+```{r}
+#| label: fig-pri-61a-contour
+#| fig-cap: "DOE contour plot of number of turns (X1) and winding distance (X2) for the eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+contour_grid <- expand_grid(x1 = seq(-2, 2, 0.02), x2 = seq(-2, 2, 0.02)) |>
+  mutate(y = 2.65875 + 1.55125 * x1 - 0.43375 * x2)
+
+corners <- tibble(x1 = c(-1, 1, -1, 1), x2 = c(-1, -1, 1, 1), avg = c(1.605, 4.58, 0.61, 3.84))
+
+ggplot(contour_grid, aes(x1, x2, z = y)) +
+  geom_contour(color = "black", linewidth = 0.3) +
+  geom_point(data = corners, aes(x1, x2, z = NULL), size = 2) +
+  geom_text(data = corners, aes(x1, x2, label = avg, z = NULL), vjust = -1, size = 3.5) +
+  coord_equal(xlim = c(-2, 2), ylim = c(-2, 2)) +
+  labs(
+    title = "Eddy Current Probe Sensitivity", subtitle = "Contour Plot of X1 (Number of Turns) and X2 (Winding Distance)",
+    x = expression(X[1] ~ "(Number of Turns)"), y = expression(X[2] ~ "(Winding Distance)")
+  ) +
+  theme_light()
+```
+
+The maximum value of the response variable (eddy current) corresponds to $X_1$ (number of turns) equal to +1 and $X_2$ (winding distance) equal to -1. The lower right corner of the contour plot corresponds to the direction that maximizes the response variable. This information can be used in planning the next phase of the experiment.
+
+::: {.callout-note}
+NIST's original text and source figure for this page state the maximizing settings as $X_1 = -1$ and $X_2 = +1$, located at the *upper left* corner of the contour plot. This contradicts the regression coefficients established on [the Estimate main and interaction effects page](#sec-pri-615-yatestable) ($X_1$ has a positive coefficient of 1.55125, so larger $X_1$ increases sensitivity; $X_2$ has a negative coefficient of -0.43375, so smaller $X_2$ increases sensitivity), the four corner averages computed directly from the raw data (the largest, 4.58, occurs at $X_1=+1, X_2=-1$), and the best-settings conclusion reached consistently everywhere else in this case study ($(X_1,X_2,X_3) = (+,-,+)$). We traced this to an axis-labeling error in NIST's original Dataplot-generated contour figure: that figure's horizontal axis is titled "Winding Distance" ($X_2$) and vertical axis "Number of Turns" ($X_1$), but the four corner values it plots are actually arranged as if the axes were the other way around -- so the point NIST's source figure calls $(X_1=-1, X_2=+1)$ is, under its own plotted corner values, really $(X_1=+1, X_2=-1)$. We give the corrected settings and corner orientation above, consistent with the rest of the case study.
+:::

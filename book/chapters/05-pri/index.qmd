@@ -5,7 +5,7 @@
 3. [Choosing an Experimental Design](#sec-pri-3)
 4. [Analysis of DOE Data](#sec-pri-4)
 5. [Advanced Topics](#sec-pri-5)
-6. Case Studies
+6. [Case Studies](#sec-pri-6)
 7. A Glossary of DOE Terminology
 
 {{< include introduction/index.qmd >}}
@@ -17,3 +17,31 @@
 {{< include analysis-doe/index.qmd >}}
 
 {{< include advanced-topics/index.qmd >}}
+
+{{< include case-studies/index.qmd >}}
+
+{{< include case-studies/eddy-current-probe.qmd >}}
+
+{{< include case-studies/eddy-current-probe/background-and-data.qmd >}}
+
+{{< include case-studies/eddy-current-probe/initial-plots-main-effects.qmd >}}
+
+{{< include case-studies/eddy-current-probe/interaction-effects.qmd >}}
+
+{{< include case-studies/eddy-current-probe/block-plots.qmd >}}
+
+{{< include case-studies/eddy-current-probe/estimate-effects.qmd >}}
+
+{{< include case-studies/eddy-current-probe/modeling-and-prediction.qmd >}}
+
+{{< include case-studies/eddy-current-probe/intermediate-conclusions.qmd >}}
+
+{{< include case-studies/eddy-current-probe/important-factors.qmd >}}
+
+{{< include case-studies/eddy-current-probe/validate-model.qmd >}}
+
+{{< include case-studies/eddy-current-probe/using-the-model.qmd >}}
+
+{{< include case-studies/eddy-current-probe/conclusions-and-next-step.qmd >}}
+
+{{< include case-studies/eddy-current-probe/work-this-example-yourself.qmd >}}

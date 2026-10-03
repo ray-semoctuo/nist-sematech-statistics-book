@@ -1,0 +1,146 @@
+#### Validate the fitted model {#sec-pri-619}
+
+[**Model Validation**]{#sec-pri-619-partmodel}
+
+In the [Important Factors and Parsimonious Prediction](#sec-pri-618-conclusions) section, we selected the following model
+
+$$\hat{Y} = 2.65875 + 1.55125 X_{1} - 0.43375 X_{2}$$
+
+The residual standard deviation for this model is 0.30429.
+
+The next step is to [validate the model](#sec-pmd-44). The primary method of model validation is graphical residual analysis; that is, through an assortment of plots of the differences between the observed data $Y$ and the predicted value $\hat{Y}$ from the model. For example, the design point (-1, -1, -1) has an observed data point (from [the Background and data](#sec-pri-611-data) section) of $Y$ = 1.70, while the predicted value from the above fitted model for this design point is
+
+$$\hat{Y} = 2.65875 + 1.55125(-1) - 0.43375(-1)$$
+
+which leads to the residual 0.15875.
+
+[**Table of Residuals**]{#sec-pri-619-tableofresiduals}
+
+If the model fits well, $\hat{Y}$ should be near $Y$ for all eight design points. Hence the eight residuals should all be near zero. The eight predicted values and residuals for the model with these data are:
+
+```{r}
+#| label: tbl-pri-619-residuals
+#| tbl-cap: "Predicted values and residuals for the eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run_sequence"),
+  col_types = "diiii"
+)
+model_parsimonious <- lm(y ~ x1 + x2, data = eddy)
+
+eddy |>
+  mutate(
+    fitted = round(fitted(model_parsimonious), 5),
+    residual = round(resid(model_parsimonious), 5),
+    across(c(x1, x2, x3), ~ if_else(.x == 1, "+1", "-1"))
+  ) |>
+  select(x1, x2, x3, y, fitted, residual) |>
+  gt() |>
+  cols_label(x1 = html("X<sub>1</sub>"), x2 = html("X<sub>2</sub>"), x3 = html("X<sub>3</sub>"), y = "Observed", fitted = "Predicted", residual = "Residual")
+```
+
+[**Residual Standard Deviation**]{#sec-pri-619-rsd}
+
+What is the magnitude of the typical residual? There are several ways to compute this, but the statistically optimal measure is the residual standard deviation:
+
+$$s_{res} = \sqrt{ \frac{\sum_{i=1}^{N}{r_{i}^{2}}} {N-P}}$$
+
+with $r_i$ denoting the $i$th residual, $N$ = 8 is the number of observations, and $P$ = 3 is the number of fitted parameters. From [the table of prediction equations](#sec-pri-616-predeq), the residual standard deviation is 0.30429.
+
+```{r}
+#| code-fold: true
+round(summary(model_parsimonious)$sigma, 5)
+```
+
+[**How Should Residuals Behave?**]{#sec-pri-619-behave}
+
+If the prediction equation is adequate, the residuals from that equation should behave like random drawings (typically from an approximately normal distribution), and should, since presumably random, have no structural relationship with any factor. This includes any and all potential terms ($X_1$, $X_2$, $X_3$, $X_1 X_2$, $X_1 X_3$, $X_2 X_3$, $X_1 X_2 X_3$).
+
+Further, if the model is adequate and complete, the residuals should have no structural relationship with **any** other variables that may have been recorded. In particular, this includes the run sequence (time), which is really serving as a surrogate for any physical or environmental variable correlated with time. Ideally, all such residual scatter plots should appear structureless. Any scatter plot that exhibits structure suggests that the factor should have been formally included as part of the prediction equation.
+
+Validating the prediction equation thus means that we do a final check as to whether any other variables may have been inadvertently left out of the prediction equation, including variables drifting with time.
+
+The graphical residual analysis thus consists of scatter plots of the residuals versus all three factors and four interactions (all such plots should be structureless), a scatter plot of the residuals versus run sequence (which also should be structureless), and a normal probability plot of the residuals (which should be near linear). We present such plots below.
+
+[**Residual Plots**]{#sec-pri-619-resplots}
+
+```{r}
+#| label: fig-pri-619-residual-plots
+#| fig-cap: "Residual diagnostic plots for the eddy current probe sensitivity data"
+#| fig-width: 8
+#| fig-height: 8
+#| code-fold: true
+#| message: false
+library(patchwork)
+
+eddy2 <- eddy |>
+  mutate(
+    resid = resid(model_parsimonious),
+    x1x2 = x1 * x2, x1x3 = x1 * x3, x2x3 = x2 * x3, x1x2x3 = x1 * x2 * x3
+  )
+
+n <- nrow(eddy2)
+qq_data <- eddy2 |>
+  arrange(resid) |>
+  mutate(theoretical = qnorm(ppoints(n)))
+
+p_qq <- ggplot(qq_data, aes(theoretical, resid)) +
+  geom_point() +
+  labs(title = "Normal Q-Q Plot", x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_light()
+
+p_runseq <- ggplot(eddy2, aes(run_sequence, resid)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Run Sequence", x = "Index", y = "Residual") +
+  theme_light()
+
+scatter_plot <- function(var, label) {
+  ggplot(eddy2, aes(.data[[var]], resid)) +
+    geom_point() +
+    scale_x_continuous(limits = c(-2, 2), breaks = c(-2, -1, 0, 1, 2)) +
+    labs(x = label, y = "Residual") +
+    theme_light()
+}
+
+p_x1 <- scatter_plot("x1", "X1")
+p_x2 <- scatter_plot("x2", "X2")
+p_x3 <- scatter_plot("x3", "X3")
+p_x1x2 <- scatter_plot("x1x2", "X1 * X2")
+p_x1x3 <- scatter_plot("x1x3", "X1 * X3")
+p_x2x3 <- scatter_plot("x2x3", "X2 * X3")
+p_x1x2x3 <- scatter_plot("x1x2x3", "X1 * X2 * X3")
+
+(p_qq | p_runseq | p_x1) /
+  (p_x2 | p_x3 | p_x1x2) /
+  (p_x1x3 | p_x2x3 | p_x1x2x3)
+```
+
+The first plot is a [normal probability plot](#sec-eda-normal-probability-plot) of the residuals. The second plot is a [run sequence plot](#sec-eda-run-sequence-plot) of the residuals. The remaining plots show the residuals plotted against each of the factors and each of the interaction terms.
+
+[**Conclusions**]{#sec-pri-619-conclusions}
+
+We make the following conclusions based on the above plots.
+
+1. Main Effects and Interactions: The $X_1$ and $X_2$ scatter plots are "flat" (as they must be since $X_1$ and $X_2$ were explicitly included in the model). The $X_3$ plot shows some structure as does the $X_1 X_3$, the $X_2 X_3$, and the $X_1 X_2 X_3$ plots. The $X_1 X_2$ plot shows little structure. The net effect is that the relative ordering of these scatter plots is very much in agreement (again, as it must be) with the relative ordering of the "unimportant" factors. From [the table of effects](#sec-pri-615-yatestable) and the $X_2 X_3$ residual plot, the third most influential term to be added to the model would be $X_2 X_3$. In effect, these plots offer a higher-resolution confirmation of the ordering of effects. On the other hand, none of these other factors "passed" the criteria given in the previous section, and so these factors, suggestively influential as they might be, are still not influential enough to be added to the model.
+2. Time Drift: The run sequence scatter plot is random. Hence there does not appear to be a drift either from time, or from any factor (e.g., temperature, humidity, pressure, etc.) possibly correlated with time.
+3. Normality: The normal probability plot of the eight residuals has some trend, which suggests that additional terms might be added. On the other hand, the correlation coefficient of the 8 ordered residuals and the eight theoretical normal N(0,1) order statistic medians (which define the two axes of the plot) has the value
+
+   ```{r}
+   #| code-fold: true
+   round(cor(qq_data$resid, qq_data$theoretical), 3)
+   ```
+
+   which is well within acceptable (5%) limits of the [normal probability plot correlation coefficient](#sec-eda-probability-plot-correlation-coefficient-plot) test for normality. Thus, the plot is not so non-linear as to reject normality.
+
+In summary, therefore, we accept the fitted model
+
+$$\hat{Y} = 2.65875 + 1.55125 X_{1} - 0.43375 X_{2}$$
+
+as a parsimonious, but good, representation of the sensitivity phenomenon under study.

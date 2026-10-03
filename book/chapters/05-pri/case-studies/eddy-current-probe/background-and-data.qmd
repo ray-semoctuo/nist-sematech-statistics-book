@@ -1,0 +1,58 @@
+#### Background and data {#sec-pri-611}
+
+[**Background**]{#sec-pri-611-background}
+
+The data for this case study is a subset of a study performed by Capobianco, Splett, and Iyer [@CapobiancoSplettIyer1990]. Capobianco was a member of the NIST Electromagnetics Division and Splett and Iyer were members of the NIST Statistical Engineering Division at the time of this study.
+
+The goal of this project is to develop a nondestructive portable device for detecting cracks and fractures in metals. A primary application would be the detection of defects in airplane wings. The internal mechanism of the detector would be for sensing crack-induced changes in the detector's electromagnetic field, which would in turn result in changes in the impedance level of the detector. This change of impedance is termed "sensitivity" and it is a sub-goal of this experiment to maximize such sensitivity as the detector is moved from an unflawed region to a flawed region on the metal.
+
+[**Statistical Goals**]{#sec-pri-611-statistical-goals}
+
+The case study illustrates the analysis of a $2^3$ full factorial experimental design. The specific statistical goals of the experiment are:
+
+1. Determine the important factors that affect sensitivity.
+2. Determine the settings that maximize sensitivity.
+3. Determine a prediction equation that functionally relates sensitivity to various factors.
+
+[**Data Used in the Analysis**]{#sec-pri-611-data}
+
+There were three detector wiring component factors under consideration:
+
+1. $X_1$ = Number of wire turns
+2. $X_2$ = Wire winding distance
+3. $X_3$ = Wire gauge
+
+Since the maximum number of runs that could be afforded timewise and costwise in this experiment was $n$ = 10, a $2^3$ full factorial experiment (involving $n$ = 8 runs) was chosen. With an eye to the usual monotonicity assumption for two-level factorial designs, the selected settings for the three factors were as follows:
+
+1. $X_1$ = Number of wire turns: -1 = 90, +1 = 180
+2. $X_2$ = Wire winding distance: -1 = 0.38, +1 = 1.14
+3. $X_3$ = Wire gauge: -1 = 40, +1 = 48
+
+The experiment was run with the eight settings executed in random order. The following data resulted.
+
+```{r}
+#| label: tbl-pri-611-data
+#| tbl-cap: "Eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run_sequence"),
+  col_types = "diiii"
+)
+
+eddy |>
+  mutate(across(c(x1, x2, x3), ~ if_else(.x == 1, "+1", "-1"))) |>
+  gt() |>
+  cols_label(
+    y = html("Y<br>Probe Impedance"), x1 = html("X<sub>1</sub><br>Number of Turns"),
+    x2 = html("X<sub>2</sub><br>Winding Distance"), x3 = html("X<sub>3</sub><br>Wire Gauge"),
+    run_sequence = "Run Sequence"
+  )
+```
+
+Note that the independent variables are coded as +1 and -1. These represent the low and high settings for the levels of each variable. Factorial designs often have two levels for each factor (independent variable) with the levels being coded as -1 and +1. This is a scaling of the data that can simplify the analysis. If desired, these scaled values can be converted back to the original units of the data for presentation.

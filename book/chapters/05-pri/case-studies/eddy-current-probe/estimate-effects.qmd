@@ -1,0 +1,50 @@
+#### Estimate main and interaction effects {#sec-pri-615}
+
+[**Effects Estimation**]{#sec-pri-615-yates}
+
+Although the effect estimates were given on the [DOE interaction plot](#sec-pri-613) on a previous page, we also display them in tabular form.
+
+The full model for the $2^3$ factorial design is
+
+$$\begin{aligned}
+Y &= \mu + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_{12} X_1 X_2 \\
+  &+ \beta_{13} X_1 X_3 + \beta_{23} X_2 X_3 + \beta_{123} X_1 X_2 X_3 + \epsilon
+\end{aligned}$$
+
+Data from factorial designs with two levels can be analyzed using least-squares regression. The regression coefficients represent the change per one unit of the factor variable, the effects shown on the interaction plot represent changes between high and low factor levels so they are twice as large as the regression coefficients.
+
+[**Effect Estimates**]{#sec-pri-615-yatestable}
+
+The parameter estimates from a least-squares regression analysis for the full model are shown below.
+
+```{r}
+#| label: tbl-pri-615-effects
+#| tbl-cap: "Effect estimates for the eddy current probe sensitivity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+eddy <- read_table(
+  here::here("datasets", "SPLETT3.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "run_sequence"),
+  col_types = "diiii"
+)
+
+model_full <- lm(y ~ x1 * x2 * x3, data = eddy)
+
+tibble(effect = c("Mean", "X1", "X2", "X3", "X1*X2", "X1*X3", "X2*X3", "X1*X2*X3"), estimate = round(coef(model_full), 5)) |>
+  gt() |>
+  fmt_number(columns = estimate, decimals = 5)
+```
+
+Because we fit the full model to the data, there are no degrees of freedom for error and no significance tests are available.
+
+If we sort the effects from largest to smallest (excluding the mean), the four most important factors are: X1 (number of turns), X2 (winding distance), X2\*X3 (winding distance by wire gauge interaction), and X1\*X3 (number of turns by wire gauge interaction).
+
+```{r}
+#| code-fold: true
+tibble(effect = c("X1", "X2", "X3", "X1*X2", "X1*X3", "X2*X3", "X1*X2*X3"), estimate = coef(model_full)[-1]) |>
+  arrange(desc(abs(estimate)))
+```

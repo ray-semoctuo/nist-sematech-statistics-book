@@ -1,0 +1,8 @@
+## Case studies {#sec-pri-6}
+
+[**Contents**]{#sec-pri-6-contents}
+
+The purpose of this section is to illustrate the analysis of designed experiments with data collected from experiments run at the National Institute of Standards and Technology and SEMATECH.
+
+1. [Eddy current probe sensitivity study](#sec-pri-61)
+2. [Sonoluminescent light intensity study](#sec-pri-62)
