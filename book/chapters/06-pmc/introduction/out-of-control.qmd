@@ -1,0 +1,7 @@
+### What to do if the process is "Out of Control"? {#sec-pmc-14}
+
+[**Reactions to out-of-control conditions**]{#sec-pmc-14-reactions}
+
+If the process is out-of-control, the process engineer looks for an assignable cause by following the out-of-control action plan (OCAP) associated with the control chart. Out-of-control refers to rejecting the assumption that the current data are from the same population as the data used to create the initial control chart limits.
+
+For classical Shewhart charts, a set of rules called the Western Electric Rules (WECO Rules)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc32.htm#WECO rules --> and a set of trend rules<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc32.htm#Trend --> often are used to determine out-of-control.

@@ -1,0 +1,19 @@
+### What to do if "In Control" but Unacceptable? {#sec-pmc-15}
+
+[**In control means process is predictable**]{#sec-pmc-15-predictable}
+
+"In Control" only means that the process is predictable in a statistical sense. What do you do if the process is "in control" but the average level is too high or too low or the variability is unacceptable?
+
+[**Process improvement techniques**]{#sec-pmc-15-improvement}
+
+Process improvement techniques such as
+
+- [experiments](#sec-pri)
+- [calibration](#sec-mpc-3)
+- re-analysis of historical database
+
+can be initiated to put the process on target or reduce the variability.
+
+[**Process must be stable**]{#sec-pmc-15-stable}
+
+Note that the process must be stable before it can be centered at a target value or its overall variation can be reduced.

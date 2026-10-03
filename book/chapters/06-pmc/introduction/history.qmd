@@ -1,0 +1,23 @@
+### How did Statistical Quality Control Begin? {#sec-pmc-11}
+
+[**Historical perspective**]{#sec-pmc-11-perspective}
+
+Quality Control has been with us for a long time. How long? It is safe to say that when manufacturing began and competition accompanied manufacturing, consumers would compare and choose the most attractive product (barring a monopoly of course). If manufacturer A discovered that manufacturer B's profits soared, the former tried to improve his/her offerings, probably by improving the quality of the output, and/or lowering the price. Improvement of quality did not necessarily stop with the product - but also included the *process* used for making the product.
+
+The process was held in high esteem, as manifested by the medieval guilds of the Middle Ages. These guilds mandated long periods of training for apprentices, and those who were aiming to become master craftsmen had to demonstrate evidence of their ability. Such procedures were, in general, aimed at the maintenance and improvement of the quality of the process.
+
+In modern times we have professional societies, governmental regulatory bodies such as the Food and Drug Administration, factory inspection, etc., aimed at assuring the quality of products sold to consumers. *Quality Control* has thus had a long history.
+
+[**Science of statistics is fairly recent**]{#sec-pmc-11-recent}
+
+On the other hand, *statistical* quality control is comparatively new. The science of statistics itself goes back only two to three centuries. And its greatest developments have taken place during the 20th century. The earlier applications were made in astronomy and physics and in the biological and social sciences. It was not until the 1920s that statistical theory began to be applied effectively to quality control as a result of the development of sampling theory.
+
+[**The concept of quality control in manufacturing was first advanced by Walter Shewhart**]{#sec-pmc-11-shewhart}
+
+The first to apply the newly discovered statistical methods to the problem of quality control was Walter A. Shewhart of the Bell Telephone Laboratories. He issued a memorandum on May 16, 1924 that featured a sketch of a modern control chart.
+
+Shewhart kept improving and working on this scheme, and in 1931 he published a book on statistical quality control, *"Economic Control of Quality of Manufactured Product"*, published by Van Nostrand in New York. This book set the tone for subsequent applications of statistical methods to process control.
+
+[**Contributions of Dodge and Romig to sampling inspection**]{#sec-pmc-11-dodge-romig}
+
+Two other Bell Labs statisticians, H.F. Dodge and H.G. Romig spearheaded efforts in applying statistical theory to sampling inspection. The work of these three pioneers constitutes much of what nowadays comprises the theory of statistical quality and control. There is much more to say about the history of statistical quality control and the interested reader is invited to peruse one or more of the references. A very good summary of the historical background of SQC is found in chapter 1 of "*Quality Control and Industrial Statistics*" [@Duncan1986]. See also [@Juran1997].

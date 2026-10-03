@@ -1,0 +1,359 @@
+### What is Process Capability? {#sec-pmc-16}
+
+Process capability compares the output of an *in-control* process to the specification limits by using *capability indices*. The comparison is made by forming the ratio of the spread between the process specifications (the specification "width") to the spread of the process values, as measured by 6 process standard deviation units (the process "width").
+
+**Process Capability Indices**
+
+[**A process capability index uses both the process variability and the process specifications to determine whether the process is "capable"**]{#sec-pmc-16-capable}
+
+We are often required to compare the output of a stable process with the process specifications and make a statement about how well the process meets specification. To do this we compare the natural variability of a stable process with the process specification limits.
+
+A process where almost all the measurements fall inside the specification limits is a <u>capable</u> process. This can be represented pictorially by the plot below:
+
+```{r}
+#| label: fig-pmc-16-capable
+#| fig-cap: "Diagram demonstrating a capable process"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+LSL <- -6
+USL <- 6
+sigma1 <- 1.5
+
+curve_df <- tibble(x = seq(LSL - 1, USL + 1, length.out = 400)) |>
+  mutate(y = dnorm(x, mean = 0, sd = sigma1))
+ymax <- max(curve_df$y)
+
+ggplot(curve_df, aes(x, y)) +
+  geom_line() +
+  geom_vline(xintercept = c(LSL, USL)) +
+  annotate("text", x = LSL, y = -0.02 * ymax, label = "LSL", vjust = 1) +
+  annotate("text", x = USL, y = -0.02 * ymax, label = "USL", vjust = 1) +
+  annotate("segment",
+    x = -3 * sigma1, xend = 3 * sigma1, y = -0.1 * ymax, yend = -0.1 * ymax,
+    arrow = arrow(ends = "both", length = unit(0.15, "cm"))
+  ) +
+  annotate("text", x = 0, y = -0.17 * ymax, label = "actual process spread") +
+  annotate("segment",
+    x = LSL, xend = USL, y = -0.3 * ymax, yend = -0.3 * ymax,
+    arrow = arrow(ends = "both", length = unit(0.15, "cm"))
+  ) +
+  annotate("text", x = 0, y = -0.37 * ymax, label = "allowable process spread") +
+  coord_cartesian(ylim = c(-0.45 * ymax, ymax * 1.1), xlim = c(LSL - 1.5, USL + 1.5), clip = "off") +
+  theme_void() +
+  theme(plot.margin = margin(10, 10, 30, 10))
+```
+
+There are several statistics that can be used to measure the capability of a process: $C_p$, $C_{pk}$, and $C_{pm}$.
+
+Most capability indices estimates are valid only if the sample size used is "large enough". Large enough is generally thought to be about 50 independent data values.
+
+The $C_p$, $C_{pk}$, and $C_{pm}$ statistics assume that the population of data values is normally distributed. Assuming a two-sided specification, if $\mu$ and $\sigma$ are the mean and standard deviation, respectively, of the normal data and $\text{USL}$, $\text{LSL}$, and $T$ are the upper and lower specification limits and the target value, respectively, then the population capability indices are defined as follows.
+
+[**Definitions of various process capability indices**]{#sec-pmc-16-definitions}
+
+$$C_{p} = \frac{\text{USL} - \text{LSL}} {6\sigma}$$
+
+$$C_{pk} = \min{\left[ \frac{\text{USL} - \mu} {3\sigma}, \frac{\mu - \text{LSL}} {3\sigma}\right]}$$
+
+$$C_{pm} = \frac{\text{USL} - \text{LSL}} {6\sqrt{\sigma^2 + (\mu - T)^2}}$$
+
+[**Sample estimates of capability indices**]{#sec-pmc-16-estimates}
+
+*Sample estimators* for these indices are given below. (Estimators are indicated with a "hat" over them).
+
+$$\hat{C}_{p} = \frac{\text{USL} - \text{LSL}} {6s}$$
+
+$$\hat{C}_{pk} = \min{\left[ \frac{\text{USL} - \bar{x}} {3s}, \frac{\bar{x} - \text{LSL}} {3s}\right]}$$
+
+$$\hat{C}_{pm} = \frac{\text{USL} - \text{LSL}} {6\sqrt{s^2 + (\bar{x} - T)^2}}$$
+
+The estimator for $C_{pk}$ can also be expressed as $C_{pk} = C_p(1-k)$, where $k$ is a scaled distance between the midpoint of the specification range, $m$, and the process mean, $\mu$.
+
+Denote the midpoint of the specification range by $m = (\text{USL} + \text{LSL})/2$. The distance between the process mean, $\mu$, and the optimum, which is $m$, is $\mu - m$, where $m \le \mu \le \text{LSL}$. The scaled distance is
+
+$$k = \frac{|m - \mu|} {(\text{USL} - \text{LSL})/2}, \;\;\;\;\;\;  0 \le k \le 1 \, .$$
+
+(The absolute sign takes care of the case when $\text{LSL} \le \mu \le m$). To determine the estimated value, $\hat{k}$, we estimate $\mu$ by $\bar{x}$. Note that $\bar{x} \le \text{USL}$.
+
+The estimator for the $C_p$ index, adjusted by the $k$ factor, is
+
+$$\hat{C}_{pk} = \hat{C}_{p}(1 - \hat{k}) \, .$$
+
+Since $0 \le k \le 1$, it follows that $\hat{C}_{pk} \le \hat{C}_{p}$.
+
+[**Plot showing $C_p$ for varying process widths**]{#sec-pmc-16-varying-widths}
+
+To get an idea of the value of the $C_p$ statistic for varying process widths, consider the following plot.
+
+```{r}
+#| label: fig-pmc-16-varying-cp
+#| fig-cap: "Four plots showing the value of Cp for varying process widths"
+#| code-fold: true
+#| message: false
+cps <- c(1.00, 1.33, 1.66, 2.00)
+panel_data <- map_dfr(cps, function(cp) {
+  sigma <- (USL - LSL) / (6 * cp)
+  tibble(cp = cp, x = seq(LSL - 1, USL + 1, length.out = 400)) |>
+    mutate(y = dnorm(x, mean = 0, sd = sigma))
+}) |>
+  mutate(cp_label = sprintf("Cp = %.2f", cp))
+
+label_data <- panel_data |>
+  distinct(cp, cp_label) |>
+  mutate(x = 0, y = 0.02)
+
+ggplot(panel_data, aes(x, y)) +
+  geom_line() +
+  geom_vline(xintercept = c(LSL, USL)) +
+  facet_wrap(~ fct_inorder(cp_label)) +
+  annotate("text", x = LSL, y = 0, label = "LSL", hjust = 1.1, vjust = -0.3) +
+  annotate("text", x = USL, y = 0, label = "USL", hjust = -0.1, vjust = -0.3) +
+  geom_text(data = label_data, aes(x = x, y = y, label = cp_label), inherit.aes = FALSE) +
+  coord_cartesian(xlim = c(LSL - 1, USL + 1)) +
+  theme_light() +
+  theme(
+    axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(),
+    panel.grid = element_blank(), strip.background = element_blank(), strip.text = element_blank()
+  )
+```
+
+[**Translating capability into "rejects"**]{#sec-pmc-16-rejects}
+
+This can be expressed numerically by the table below:
+
+```{r}
+#| label: tbl-pmc-16-rejects
+#| tbl-cap: "Translating Cp into rejects and percent of specification used"
+#| code-fold: true
+#| message: false
+library(gt)
+
+tibble(
+  metric = c("Cp", "Rejects", "% of spec used"),
+  `6 sigma` = c("1.00", "0.27 %", "100"),
+  `8 sigma` = c("1.33", "64 ppm", "75"),
+  `10 sigma` = c("1.66", "0.6 ppm", "60"),
+  `12 sigma` = c("2.00", "2 ppb", "50")
+) |>
+  gt() |>
+  cols_label(metric = "") |>
+  tab_footnote("USL - LSL spread, in multiples of sigma")
+```
+
+where ppm = parts per million and ppb = parts per billion. Note that the reject figures are based on the assumption that the distribution is centered at $\mu$.
+
+We have discussed the situation with two spec. limits, the $\text{USL}$ and $\text{LSL}$. This is known as the *bilateral* or two-sided case. There are many cases where only the lower or upper specifications are used. Using one spec limit is called *unilateral* or one-sided. The corresponding capability indices are
+
+[**One-sided specifications and the corresponding capability indices**]{#sec-pmc-16-one-sided}
+
+$$C_{pu} = \frac{\text{allowable upper spread}} {\text{actual upper spread}} = \frac{\text{USL} - \mu} {3\sigma}$$
+
+and
+
+$$C_{pl} = \frac{\text{allowable lower spread}} {\text{actual lower spread}} = \frac{\mu - \text{LSL}} {3\sigma} \, ,$$
+
+where $\mu$ and $\sigma$ are the process mean and standard deviation, respectively.
+
+Estimators of $C_{pu}$ and $C_{pl}$ are obtained by replacing $\mu$ and $\sigma$ by $\bar{x}$ and $s$, respectively. The following relationship holds
+
+$$C_p = \frac{C_{pu} + C_{pl}}{2} \, .$$
+
+This can be represented pictorially by
+
+```{r}
+#| label: fig-pmc-16-one-sided
+#| fig-cap: "Graph demonstrating upper actual and allowable upper spread"
+#| code-fold: true
+#| message: false
+USL3 <- 6
+mu3 <- 2
+sigma3 <- 0.7
+actual_end <- mu3 + 3 * sigma3
+half_width <- USL3 - mu3
+
+curve3 <- tibble(x = seq(mu3 - half_width, mu3 + half_width, length.out = 400)) |>
+  mutate(y = dnorm(x, mean = mu3, sd = sigma3))
+ymax3 <- max(curve3$y)
+
+ggplot(curve3, aes(x, y)) +
+  geom_line() +
+  geom_vline(xintercept = USL3) +
+  annotate("text", x = USL3, y = -0.04 * ymax3, label = "USL", vjust = 1) +
+  annotate("text", x = mu3, y = -0.04 * ymax3, label = "μ", vjust = 1) +
+  annotate("segment",
+    x = mu3, xend = actual_end, y = -0.16 * ymax3, yend = -0.16 * ymax3,
+    arrow = arrow(ends = "both", length = unit(0.15, "cm"))
+  ) +
+  annotate("text", x = (mu3 + actual_end) / 2, y = -0.23 * ymax3, label = "actual upper spread") +
+  annotate("segment",
+    x = mu3, xend = USL3, y = -0.34 * ymax3, yend = -0.34 * ymax3,
+    arrow = arrow(ends = "both", length = unit(0.15, "cm"))
+  ) +
+  annotate("text", x = (mu3 + USL3) / 2, y = -0.41 * ymax3, label = "allowable upper spread") +
+  coord_cartesian(ylim = c(-0.5 * ymax3, ymax3 * 1.1), xlim = c(mu3 - half_width - 0.5, mu3 + half_width + 0.5), clip = "off") +
+  theme_void() +
+  theme(plot.margin = margin(10, 10, 30, 10))
+```
+
+Note that we also can write:
+
+$$C_{pk} = \text{min}(C_{pl}, \, C_{pu}) \, .$$
+
+**Confidence Limits For Capability Indices**
+
+[**Confidence intervals for indices**]{#sec-pmc-16-ci}
+
+Assuming normally distributed process data, the distribution of the sample $\hat{C}_p$ follows from a Chi-square distribution and $\hat{C}_{pu}$ and $\hat{C}_{pl}$ have distributions related to the non-central $t$ distribution. Fortunately, approximate confidence limits related to the normal distribution have been derived. Various approximations to the distribution of $\hat{C}_{pk}$ have been proposed, including those given by Bissell [-@Bissell1990], and we will use a normal approximation.
+
+The resulting formulas for $100(1-\alpha) \%$ confidence limits are given below.
+
+Confidence Limits for $C_p$ are
+
+$$Pr\{\hat{C}_{p}(L_1) \le C_p \le \hat{C}_{p}(L_2)\} = 1 - \alpha \, ,$$
+
+where
+
+$$\begin{aligned}
+L_1 & = \sqrt{\frac{\chi^2_{\alpha/2, \,   \nu}}{\nu}} \, , \\
+L_2 & = \sqrt{\frac{\chi^2_{1-\alpha/2, \, \nu}}{\nu}} \, ,
+\end{aligned}$$
+
+and $\nu$ = degrees of freedom.
+
+[**Confidence Intervals for $C_{pu}$ and $C_{pl}$**]{#sec-pmc-16-ci-cpu-cpl}
+
+Approximate $100(1-\alpha)$ % confidence limits for $C_{pu}$ with sample size $n$ are:
+
+$$C_{pu}(lower) = \hat{C}_{pu} - z_{1-\beta}\sqrt{\frac{1}{9n} + \frac{\hat{C}_{pu}^{2}}{2(n-1)}}$$
+
+and
+
+$$C_{pu}(upper) = \hat{C}_{pu} + z_{1-\alpha}\sqrt{\frac{1}{9n} + \frac{\hat{C}_{pu}^{2}}{2(n-1)}} \, ,$$
+
+with $z$ denoting the percent point function of the standard normal distribution. If $\beta$ is not known, set it to $\alpha$.
+
+Limits for $C_{pl}$ are obtained by replacing $\hat{C}_{pu}$ by $\hat{C}_{pl}$.
+
+[**Confidence Interval for $C_{pk}$**]{#sec-pmc-16-ci-cpk}
+
+Zhang et al. [-@Zhang1990] derived the exact variance for the estimator of $C_{pk}$ as well as an approximation for large $n$. The reference paper is Zhang, Stenback and Wardrop (1990), "Interval Estimation of the process capability index," *Communications in Statistics: Theory and Methods*, 19(21), 4455-4470.
+
+The variance is obtained as follows.
+
+Let
+
+$$c = \sqrt{n}\left[\mu - (\text{USL} + \text{LSL})/2\right]\sigma$$
+
+$$d = (\text{USL} - \text{LSL})/\sigma$$
+
+$$\Phi(-c) = \int_{-\infty}^{-c}{\frac{1}{\sqrt{2\pi}}\exp{-5z^2}dz} \, .$$
+
+Then
+
+$$\begin{aligned}
+Var(\hat{C}_{pk}) & = (d^2/36)(n-1)(n-3) \\
+& -(d/9\sqrt{n})(n-1)(n-3)\{\sqrt{2\pi}\exp{(-c^2/2)} + c[1 - 2\Phi(-c)]\} \\
+& +[(1/9)(n-1)/(n(n-3))](1+c^2) \\
+& -[(n-1)/(72n)]\{\frac{\Gamma((n-2)/2)}{\Gamma((n-1)/2)}\}^2 \\
+& *\{d\sqrt{n} - 2\sqrt{2\pi}\exp{(-c^2/2)} - 2c[1 - 2\Phi(-c)]\}^2  \, .
+\end{aligned}$$
+
+Their approximation is given by:
+
+$$Var(\hat{C}_{pk}) = \frac{n-1}{n-3} - 0.5\{\frac{\Gamma((n-2)/2)}{\Gamma((n-1)/2)}\}^2 \, ,$$
+
+where
+
+$$n \ge 25, \,\,\,\,\,\, 0.75 \le C_{pk} \le 4, \,\,\,\,\,\, |c| \le 100, \,\,\,\,\,\, \text{ and } \,\,\,\,\,\, d \le 24  \, .$$
+
+The following approximation is commonly used in practice
+
+$$C_{pk} = \hat{C}_{pk} \pm z_{1-\alpha/2}\sqrt{\frac{1}{9n} + \frac{\hat{C}_{pk}^{2}}{2(n-1)}} \, .$$
+
+It is important to note that the sample size should be at least 25 before these approximations are valid. In general, however, we need $n \ge 100$ for capability studies. Another point to observe is that variations are not negligible due to the randomness of capability indices.
+
+**Capability Index Example**
+
+[**An example**]{#sec-pmc-16-example}
+
+For a certain process the $\text{USL} = 20$ and the $\text{LSL} = 8$. The observed process average, $\bar{x} = 16$, and the standard deviation, $s = 2$. From this we obtain
+
+$$\hat{C}_{p} = \frac{\text{USL} - \text{LSL}} {6s} = \frac{20 - 8} {6(2)} = 1.0 \, .$$
+
+```{r}
+#| code-fold: true
+USL_ex <- 20
+LSL_ex <- 8
+xbar_ex <- 16
+s_ex <- 2
+
+Cp_hat <- (USL_ex - LSL_ex) / (6 * s_ex)
+Cp_hat
+```
+
+This means that the process is capable as long as it is located at the midpoint, $m = (\text{USL} + \text{LSL})/2 = 14$.
+
+But it doesn't, since $\bar{x} = 16$. The $\hat{k}$ factor is found by
+
+$$\hat{k} = \frac{|m - \bar{x}|} {(\text{USL} - \text{LSL})/2} = \frac{2} {6} = 0.3333$$
+
+```{r}
+#| code-fold: true
+m_ex <- (USL_ex + LSL_ex) / 2
+k_hat <- abs(m_ex - xbar_ex) / ((USL_ex - LSL_ex) / 2)
+k_hat
+```
+
+and
+
+$$\hat{C}_{pk} = \hat{C}_{p}(1-\hat{k}) = 0.6667 \, .$$
+
+```{r}
+#| code-fold: true
+Cpk_hat <- Cp_hat * (1 - k_hat)
+Cpk_hat
+```
+
+We would like to have $\hat{C}_{pk}$ at least 1.0, so this is not a good process. If possible, reduce the variability or/and center the process. We can compute the $\hat{C}_{pu}$ and $\hat{C}_{pl}$ using
+
+$$\hat{C}_{pu} = \frac{\text{USL} - \bar{x}} {3s} = \frac{20 - 16} {3(2)} = 0.6667$$
+
+and
+
+$$\hat{C}_{pl} = \frac{\bar{x} - \text{LSL}} {3s} = \frac{16 - 8} {3(2)} = 1.3333 \, .$$
+
+```{r}
+#| code-fold: true
+Cpu_hat <- (USL_ex - xbar_ex) / (3 * s_ex)
+Cpl_hat <- (xbar_ex - LSL_ex) / (3 * s_ex)
+c(Cpu = Cpu_hat, Cpl = Cpl_hat, min = min(Cpu_hat, Cpl_hat))
+```
+
+From this we see that the $\hat{C}_{pu}$, which is the smallest of the above indices, is 0.6667. Note that the formula $\hat{C}_{pk} = \hat{C}_{p}(1 - \hat{k})$ is the algebraic equivalent of the $\text{min}(\hat{C}_{pu}, \, \hat{C}_{pl})$ definition.
+
+**What happens if the process is not approximately normally distributed?**
+
+[**What you can do with non-normal data**]{#sec-pmc-16-non-normal}
+
+The indices that we considered thus far are based on normality of the process distribution. This poses a problem when the process distribution is not normal. Without going into the specifics, we can list some remedies.
+
+1. Transform the data so that they become approximately normal. A popular transformation is the Box-Cox transformation.<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc52.htm#Box-Cox -->
+2. Use or develop another set of indices, that apply to nonnormal distributions. Non-parametric versions (Pearn, Tai, Hsiao, and Ao [-@Pearn2014] and Chen and Ding [-@ChenDing2001]) of the $C_{p}$, $C_{pk}$, and $C_{pm}$ capability indices are denoted by $C_{np}$, $C_{npk}$, and $C_{npm}$. Estimators for these non-parametric capability indices are calculated by
+
+   $$\hat{C}_{np} = \frac{\text{USL} - \text{LSL}} {p(0.99865) - p(0.00135)}$$
+
+   $$\hat{C}_{npk} = \frac{\text{min}\left[ \text{USL} - median, median - \text{LSL} \right] } {(p(0.99865) - p(0.00135))/2 }$$
+
+   $$\hat{C}_{npm} = \frac{\text{USL} - \text{LSL}} {6 \sqrt{\left( \frac{p(0.99865) - p(0.00135)}{6} \right) ^2 + (median - \text{T})^2}}$$
+
+   where $p(0.99855)$ is the 99.865th percentile of the data and $p(0.00135)$ is the 0.135th percentile of the data. The use of these percentiles is justified to mimic the coverage of $\pm 3$ standard deviations for the normal distribution. Note that some sources may use 99% coverage. For example, the $C_{npk}$ statistic may be given as
+
+   $$\hat{C}_{npk} = \text{min}\left[\frac{\text{USL} - median} {p(0.995) - median}, \frac{median - \text{LSL}}{median - p(0.005)} \right]$$
+
+   where $p(0.995)$ is the 99.5th percentile of the data and $p(0.005)$ is the 0.5th percentile of the data.
+
+   For additional information on nonnormal distributions, see Kotz and Johnson [-@KotzJohnson1992].
+
+There is, of course, much more that can be said about the case of nonnormal data. However, if a Box-Cox transformation can be successfully performed, one is encouraged to use it.

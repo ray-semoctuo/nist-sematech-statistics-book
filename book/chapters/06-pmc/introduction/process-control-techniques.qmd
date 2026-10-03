@@ -1,0 +1,40 @@
+### What are Process Control Techniques? {#sec-pmc-12}
+
+[**Statistical Process Control (SPC)**]{#sec-pmc-12-spc}
+
+[**Typical process control techniques**]{#sec-pmc-12-typical}
+
+There are many ways to implement process control. Key monitoring and investigating tools include:
+
+- [Histograms](#sec-eda-histogram)
+- Check Sheets
+- Pareto Charts
+- Cause and Effect Diagrams
+- Defect Concentration Diagrams
+- [Scatter Diagrams](#sec-eda-scatter-plot)
+- Control Charts<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc3.htm -->
+
+All these are described in Montgomery [-@Montgomery2000]. This chapter will focus (Section 3)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc3.htm --> on control chart methods, specifically:
+
+- Classical Shewhart Control charts,<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc321.htm -->
+- Cumulative Sum (CUSUM) charts<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc323.htm -->
+- Exponentially Weighted Moving Average (EWMA) charts<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc324.htm -->
+- Multivariate control charts<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section3/pmc34.htm -->
+
+[**Underlying concepts**]{#sec-pmc-12-concepts}
+
+The underlying concept of statistical process control is based on a comparison of what is happening today with what happened previously. We take a snapshot of how the process typically performs or build a model of how we think the process will perform and calculate control limits for the expected measurements of the output of the process. Then we collect data from the process and compare the data to the control limits. The majority of measurements should fall within the control limits. Measurements that fall outside the control limits are examined to see if they belong to the same population as our initial snapshot or model. Stated differently, we use historical data to compute the initial control limits. Then the data are compared against these initial limits. Points that fall outside of the limits are investigated and, perhaps, some will later be discarded. If so, the limits would be recomputed and the process repeated. This is referred to as Phase I. Real-time process monitoring, using the limits from the end of Phase I, is Phase II.
+
+[**Statistical Quality Control (SQC)**]{#sec-pmc-12-sqc}
+
+[**Tools of statistical quality control**]{#sec-pmc-12-tools}
+
+Several techniques can be used to investigate the product for defects or defective pieces after all processing is complete. Typical tools of SQC (described in section 2)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section2/pmc2.htm --> are:
+
+- Lot Acceptance sampling plans
+- Skip lot sampling plans
+- Military (MIL) Standard sampling plans
+
+[**Underlying concepts of statistical quality control**]{#sec-pmc-12-sqc-concepts}
+
+The purpose of statistical quality control is to ensure, in a cost efficient manner, that the product shipped to customers meets their specifications. Inspecting every product is costly and inefficient, but the consequences of shipping non conforming product can be significant in terms of customer dissatisfaction. Statistical Quality Control is the process of inspecting enough product from given lots to probabilistically ensure a specified quality level.

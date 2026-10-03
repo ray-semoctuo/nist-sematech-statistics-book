@@ -1,0 +1,24 @@
+## Introduction {#sec-pmc-1}
+
+[**Contents of Section**]{#sec-pmc-1-contents}
+
+This section discusses the basic concepts of statistical process control, quality control and process capability.
+
+1. [How did Statistical Quality Control Begin?](#sec-pmc-11)
+2. [What are Process Control Techniques?](#sec-pmc-12)
+3. [What is Process Control?](#sec-pmc-13)
+4. [What to do if the process is "Out of Control"?](#sec-pmc-14)
+5. [What to do if "In Control" but Unacceptable?](#sec-pmc-15)
+6. [What is Process Capability?](#sec-pmc-16)
+
+{{< include introduction/history.qmd >}}
+
+{{< include introduction/process-control-techniques.qmd >}}
+
+{{< include introduction/process-control.qmd >}}
+
+{{< include introduction/out-of-control.qmd >}}
+
+{{< include introduction/in-control-but-unacceptable.qmd >}}
+
+{{< include introduction/process-capability.qmd >}}
