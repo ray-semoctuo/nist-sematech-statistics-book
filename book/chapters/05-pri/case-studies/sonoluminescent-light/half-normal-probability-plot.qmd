@@ -1,0 +1,64 @@
+#### Important factors: half-normal probability plot {#sec-pri-627}
+
+[**Purpose**]{#sec-pri-627-halfnormal}
+
+The [half-normal probability plot](#sec-pri-598) is used to distinguish between important and unimportant effects.
+
+[**Sample Half-Normal Probability Plot**]{#sec-pri-627-halfnormalplot}
+
+```{r}
+#| label: fig-pri-627-halfnormal
+#| fig-cap: "Half-normal probability plot for the sonoluminescent light intensity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(ggrepel)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+) |>
+  mutate(
+    x1x3 = x1 * x3, x2x3 = x2 * x3, x1x2 = x1 * x2, x3x4 = x3 * x4,
+    x1x4 = x1 * x4, x2x4 = x2 * x4, x1x5 = x1 * x5, x1x2x4 = x1 * x2 * x4
+  )
+
+term_labels <- c(
+  x1 = "1", x2 = "2", x3 = "3", x4 = "4", x5 = "5", x6 = "6", x7 = "7",
+  x1x3 = "13", x2x3 = "23", x1x2 = "12", x3x4 = "34",
+  x1x4 = "14", x2x4 = "24", x1x5 = "15", x1x2x4 = "124"
+)
+
+model <- lm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x1x3 + x2x3 + x1x2 + x3x4 + x1x4 + x2x4 + x1x5 + x1x2x4, data = sono)
+
+effects <- tibble(term = term_labels[names(coef(model))[-1]], effect = 2 * coef(model)[-1]) |>
+  mutate(abs_effect = abs(effect)) |>
+  arrange(abs_effect) |>
+  mutate(rank = row_number(), n = n(), theoretical = qnorm(0.5 + 0.5 * (rank - 0.5) / n))
+
+ggplot(effects, aes(theoretical, abs_effect, label = term)) +
+  geom_point(size = 2) +
+  geom_text_repel(
+    size = 4, seed = 1,
+    box.padding = 0.6, point.padding = 0.3,
+    force = 10, max.overlaps = Inf, min.segment.length = 0
+  ) +
+  labs(
+    title = "Sonoluminescent Light Intensity", subtitle = "Half-Normal Probability Plot of Effects",
+    x = "Half-Normal Distribution Order Statistic Medians", y = "Ordered |Effects|"
+  ) +
+  theme_light()
+```
+
+[**Conclusions from the Half-Normal Probability Plot**]{#sec-pri-627-conclusions}
+
+We can make the following conclusions from the half-normal probability plot.
+
+1. The points in the plot divide into two clear clusters:
+   - An upper cluster (|effect| > 60).
+   - A lower cluster (|effect| < 20).
+2. The upper cluster contains the effects: $X_2$, $X_7$, $X_1 X_3$ (and confounding), $X_1$, $X_3$, $X_2 X_3$ (and confounding), $X_1 X_2$ (and confounding). These effects should definitely be considered important.
+3. The remaining effects lie on a line and form a lower cluster. These effects are declared relatively unimportant.
+4. The full confounding structure for each labeled interaction is given in @tbl-pri-625-confounding on [the Youden plot page](#sec-pri-625).

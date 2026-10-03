@@ -45,3 +45,27 @@
 {{< include case-studies/eddy-current-probe/conclusions-and-next-step.qmd >}}
 
 {{< include case-studies/eddy-current-probe/work-this-example-yourself.qmd >}}
+
+{{< include case-studies/sonoluminescent-light.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/background-and-data.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/initial-plots-main-effects.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/interaction-effects.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/block-plots.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/youden-plot.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/effects-plot.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/half-normal-probability-plot.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/cumulative-residual-sd-plot.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/contour-plot.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/summary-of-conclusions.qmd >}}
+
+{{< include case-studies/sonoluminescent-light/work-this-example-yourself.qmd >}}

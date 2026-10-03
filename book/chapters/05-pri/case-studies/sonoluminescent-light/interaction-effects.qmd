@@ -1,0 +1,99 @@
+#### Interaction effects {#sec-pri-623}
+
+[**Check for Interaction Effects: DOE Interaction Plot**]{#sec-pri-623-dexinte}
+
+In addition to the main effects, it is also important to check for interaction effects, especially 2-factor interaction effects. The [DOE interaction effects plot](#sec-pri-594) is an effective tool for this.
+
+```{r}
+#| label: fig-pri-623-interaction-matrix
+#| fig-cap: "Interaction effects matrix plot for the sonoluminescent light intensity data"
+#| fig-width: 12
+#| fig-height: 11
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+grand_mean <- mean(sono$y)
+k <- 7
+
+mini_plot <- function(i, j, show_x_label = NULL) {
+  if (i == j) {
+    var <- sono[[paste0("x", i)]]
+    tag <- as.character(i)
+  } else {
+    var <- sono[[paste0("x", i)]] * sono[[paste0("x", j)]]
+    tag <- paste0(i, j)
+  }
+  d <- tibble(level = var, y = sono$y) |>
+    summarize(mean_y = mean(y), .by = level) |>
+    arrange(level)
+  effect <- diff(d$mean_y)
+  p <- ggplot(d, aes(factor(level, labels = c("-", "+")), mean_y, group = 1)) +
+    geom_hline(yintercept = grand_mean, linetype = "dashed", color = "grey50", linewidth = 0.3) +
+    geom_line() +
+    geom_point(size = 1.5) +
+    annotate("text", x = 0.55, y = 157, label = paste0(tag, ": ", round(effect, 1)), hjust = 0, size = 2.6) +
+    coord_cartesian(ylim = c(65, 160), xlim = c(0.5, 2.5), clip = "off") +
+    theme_light(base_size = 8) +
+    theme(
+      axis.title = element_blank(), panel.grid.minor = element_blank(),
+      axis.text = element_text(size = 6)
+    )
+  if (!is.null(show_x_label)) {
+    p <- p + labs(caption = show_x_label) +
+      theme(plot.caption = element_text(hjust = 0.5, size = 8, face = "plain"))
+  }
+  p
+}
+
+plots <- list()
+for (i in 1:k) {
+  for (j in 1:k) {
+    if (j < i) {
+      plots[[length(plots) + 1]] <- plot_spacer()
+    } else {
+      label <- if (j == k) paste0("X", i) else NULL
+      plots[[length(plots) + 1]] <- mini_plot(i, j, show_x_label = label)
+    }
+  }
+}
+
+wrap_plots(plots, nrow = k, ncol = k) +
+  plot_annotation(title = "Sonoluminescent Light Intensity", subtitle = "Interaction Effects Matrix")
+```
+
+[**Conclusions from the DOE Interaction Effects Plot**]{#sec-pri-623-conclusions}
+
+We make the following conclusions from the DOE interaction effects plot.
+
+1. Important Factors: Looking for the plots that have the steepest lines (that is, the largest effects), and noting that the legends on each subplot give the estimated effect, we have that
+
+   - The diagonal plots are the main effects. The important factors are: $X_2$, $X_7$, $X_1$, and $X_3$. These four factors have |effect| > 60. The remaining three factors have |effect| < 10.
+   - The off-diagonal plots are the 2-factor interaction effects. Of the 21 2-factor interactions, 9 are nominally important, but they fall into three groups of three:
+
+     - $X_1 X_3$, $X_4 X_6$, $X_2 X_7$ (effect = 70)
+     - $X_2 X_3$, $X_4 X_5$, $X_1 X_7$ (effect approximately 63.5)
+     - $X_1 X_2$, $X_5 X_6$, $X_3 X_7$ (effect = -59.6)
+
+     All remaining 2-factor interactions are small having an |effect| < 20. A virtue of the interaction effects matrix plot is that the confounding structure of this Resolution IV design can be read off the plot. In this case, the fact that $X_1 X_3$, $X_4 X_6$, and $X_2 X_7$ all have effect estimates identical to 70 is not a mathematical coincidence. It is a reflection of the fact that for this design, the three 2-factor interactions are confounded. This is also true for the other two sets of three ($X_2 X_3$, $X_4 X_5$, $X_1 X_7$, and $X_1 X_2$, $X_5 X_6$, $X_3 X_7$).
+
+2. Best Settings: Reading down the diagonal plots, we select, as before, the best settings "on the average":
+
+   $(X_1,X_2,X_3,X_4,X_5,X_6,X_7) = (+,-,+,+,+,-,-)$
+
+   For the more important factors ($X_1$, $X_2$, $X_3$, $X_7$), we note that the best settings (+, -, +, -) are consistent with the best settings for the 2-factor interactions (cross-products):
+
+   - $X_1$: +, $X_2$: - with $X_1 X_2$: -
+   - $X_1$: +, $X_3$: + with $X_1 X_3$: +
+   - $X_1$: +, $X_7$: - with $X_1 X_7$: -
+   - $X_2$: -, $X_3$: + with $X_2 X_3$: -
+   - $X_2$: -, $X_7$: - with $X_2 X_7$: +
+   - $X_3$: +, $X_7$: - with $X_3 X_7$: -

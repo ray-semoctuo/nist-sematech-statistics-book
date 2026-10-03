@@ -1,0 +1,23 @@
+### Sonoluminescent light intensity case study {#sec-pri-62}
+
+[**Analysis of a 2^7-3^ Fractional Factorial Design**]{#sec-pri-62-analysis}
+
+This case study demonstrates the analysis of a $2^{7-3}$ fractional factorial design. The purpose of the study is to optimize sonoluminescent light intensity.
+
+The case study is based on the [EDA approach to experimental design](#sec-pri-59) discussed in an earlier section.
+
+[**Contents**]{#sec-pri-62-contents}
+
+The case study is divided into the following sections:
+
+1. [Background and data](#sec-pri-621)
+2. [Initial plots/main effects](#sec-pri-622)
+3. [Interaction effects](#sec-pri-623)
+4. [Main and interaction effects: block plots](#sec-pri-624)
+5. [Important Factors: Youden plot](#sec-pri-625)
+6. [Important Factors: |effects| plot](#sec-pri-626)
+7. [Important Factors: half-normal probability plot](#sec-pri-627)
+8. [Cumulative Residual SD plot](#sec-pri-628)
+9. [Next step: DOE contour plot](#sec-pri-629)
+10. [Summary of conclusions](#sec-pri-62a)
+11. [Work this example yourself](#sec-pri-62b)

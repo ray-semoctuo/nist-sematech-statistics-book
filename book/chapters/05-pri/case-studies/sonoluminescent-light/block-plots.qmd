@@ -1,0 +1,67 @@
+#### Main and interaction effects: block plots {#sec-pri-624}
+
+[**Block Plots**]{#sec-pri-624-blockplot}
+
+[Block plots](#sec-pri-595) are a useful adjunct to the DOE mean plot and the DOE interaction effects plot to confirm the importance of factors, to establish the robustness of main effect conclusions, and to determine the existence of interactions.
+
+For block plots, it is the height of the bars that is important, not the relative positioning of each bar. Hence we focus on the size and internal signs of the blocks, not "where" the blocks are relative to each other.
+
+We note in passing that for a fractional factorial design, we cannot display all combinations of the six remaining factors. We have arbitrarily chosen two robustness factors, which yields four blocks for comparison. For $X_1$, $X_2$, and $X_3$ we rotate through the other two of these three factors as the robustness pair; for $X_4$ through $X_7$ we use the two most important factors, $X_1$ and $X_2$, as the (arbitrarily chosen) robustness pair.
+
+```{r}
+#| label: fig-pri-624-block-plots
+#| fig-cap: "Block plots for the sonoluminescent light intensity data"
+#| fig-width: 9
+#| fig-height: 10
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+block_plot <- function(target, r1, r2) {
+  d <- sono |>
+    select(y, all_of(target), all_of(r1), all_of(r2)) |>
+    rename(t = all_of(target), r1 = all_of(r1), r2 = all_of(r2)) |>
+    summarize(y = mean(y), .by = c(t, r1, r2)) |>
+    arrange(r1, r2) |>
+    mutate(block = rep(1:4, each = 2), sign = if_else(t == 1, "+", "-"))
+
+  blocks <- d |>
+    summarize(ymin = min(y), ymax = max(y), .by = c(block, r1, r2)) |>
+    mutate(combo = paste0(if_else(r1 == 1, "+", "-"), if_else(r2 == 1, "+", "-")))
+
+  ggplot(d, aes(block, y)) +
+    geom_rect(
+      data = blocks, aes(xmin = block - 0.3, xmax = block + 0.3, ymin = ymin, ymax = ymax),
+      inherit.aes = FALSE, fill = NA, color = "black"
+    ) +
+    geom_text(aes(label = sign), size = 4, fontface = "bold") +
+    annotate("text", x = 0.75, y = 390, label = toupper(target), hjust = 0, fontface = "bold", size = 3) +
+    scale_y_continuous(limits = c(0, 400)) +
+    scale_x_continuous(breaks = blocks$block, labels = blocks$combo, limits = c(0.5, 4.5)) +
+    labs(x = paste("Factor Levels of", toupper(r1), toupper(r2)), y = "Average Response") +
+    theme_light(base_size = 9)
+}
+
+p1 <- block_plot("x1", "x2", "x3")
+p2 <- block_plot("x2", "x1", "x3")
+p3 <- block_plot("x3", "x1", "x2")
+p4 <- block_plot("x4", "x1", "x2")
+p5 <- block_plot("x5", "x1", "x2")
+p6 <- block_plot("x6", "x1", "x2")
+p7 <- block_plot("x7", "x1", "x2")
+
+(p1 | p2) / (p3 | p4) / (p5 | p6) / (p7 | plot_spacer()) +
+  plot_annotation(title = "Sonoluminescent Light Intensity", subtitle = "Block Plots")
+```
+
+[**Conclusions from the Block Plots**]{#sec-pri-624-conclusions}
+
+Relative Importance of Factors: Because of the expanded vertical axis, due to the two "outliers", the block plot is not particularly revealing. Block plots based on alternatively scaled data (e.g., LOG(Y)) would be more informative.

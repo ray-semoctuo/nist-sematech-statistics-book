@@ -1,0 +1,52 @@
+#### Next step: DOE contour plot {#sec-pri-629}
+
+[**Purpose**]{#sec-pri-629-contour}
+
+The [DOE contour plot](#sec-pri-59a) is used to determine the best factor settings for the two most important factors in the next iteration of the experiment.
+
+From the previous plots, we identified $X_2$ (solute) and $X_7$ (clamping) as the two most important factors.
+
+[**Sample DOE Contour Plot**]{#sec-pri-629-contourplot}
+
+```{r}
+#| label: fig-pri-629-contour
+#| fig-cap: "DOE contour plot of solute (X2) and flask clamping (X7) for the sonoluminescent light intensity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+corners <- sono |>
+  summarize(avg = mean(y), .by = c(x2, x7))
+
+contour_grid <- expand_grid(x2 = seq(-2, 2, 0.02), x7 = seq(-2, 2, 0.02)) |>
+  mutate(y = 110.60625 - 39.30625 * x2 - 39.05625 * x7 + 35.00625 * x2 * x7)
+
+ggplot(contour_grid, aes(x2, x7, z = y)) +
+  geom_contour(breaks = seq(0, 400, 50), color = "black", linewidth = 0.3) +
+  geom_point(data = corners, aes(x2, x7, z = NULL), size = 2) +
+  geom_text(data = corners, aes(x2, x7, label = round(avg, 1), z = NULL), vjust = -1, size = 3.5) +
+  coord_equal(xlim = c(-2, 2), ylim = c(-2, 2)) +
+  labs(
+    title = "Sonoluminescent Light Intensity", subtitle = "Contour Plot of X2 (Solute) and X7 (Flask Clamping)",
+    x = expression(X[2] ~ "(Solute)"), y = expression(X[7] ~ "(Flask Clamping)")
+  ) +
+  theme_light()
+```
+
+[**Conclusions from the DOE Contour Plot**]{#sec-pri-629-conclusions}
+
+We can make the following conclusions from the DOE contour plot.
+
+1. The best (high light intensity) setting for $X_2$ is "-" and the best setting for $X_7$ is "-". This combination yields an average response of approximately 224. The next highest average response from any other combination of these factors is only 76.
+2. The non-linear nature of the contour lines implies that the $X_2 X_7$ interaction is important.
+3. On the left side of the plot from top to bottom, the contour lines start at 0, increment by 50 and stop at 400. On the bottom of the plot from right to left, the contour lines start at 0, increment by 50 and stop at 400.
+
+   To achieve a light intensity of, say 400, this suggests an extrapolated best setting of ($X_2$, $X_7$) = (-2,-2).
+4. Such extrapolation only makes sense if $X_2$ and $X_7$ are continuous factors. Such is not the case here. In this example, $X_2$ is solute (-1 = sugar and +1 = glycerol) and $X_7$ is flask clamping (-1 is unclamped and +1 is clamped). Both factors are discrete, and so extrapolated settings are not possible.

@@ -1,0 +1,186 @@
+#### Initial plots/main effects {#sec-pri-622}
+
+[**Plot the Data: Ordered Data Plot**]{#sec-pri-622-order}
+
+The first step in the analysis is to generate an [ordered data plot](#sec-pri-591).
+
+```{r}
+#| label: fig-pri-622-ordered
+#| fig-cap: "Ordered data plot for the sonoluminescent light intensity data"
+#| fig-width: 8
+#| fig-height: 7
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+ordered_data <- sono |>
+  arrange(y) |>
+  mutate(idx = row_number())
+
+sign_labels <- ordered_data |>
+  select(idx, y, x1:x7) |>
+  pivot_longer(x1:x7, names_to = "factor", values_to = "level") |>
+  mutate(
+    sign = if_else(level == 1, "+", "-"),
+    factor_label = factor(factor, levels = paste0("x", 1:7), labels = paste0("X", 1:7, ":")),
+    label_y = -40 - as.integer(factor_label) * 28
+  )
+
+ggplot(ordered_data, aes(idx, y)) +
+  geom_point(shape = 4, size = 3) +
+  geom_text(
+    data = sign_labels, aes(x = idx, y = label_y, label = sign),
+    inherit.aes = FALSE, size = 3.5
+  ) +
+  geom_text(
+    data = distinct(sign_labels, factor_label, label_y),
+    aes(x = 0.1, y = label_y, label = factor_label),
+    inherit.aes = FALSE, hjust = 1, size = 3.5
+  ) +
+  scale_x_continuous(limits = c(-0.3, 16.5), breaks = NULL) +
+  coord_cartesian(clip = "off") +
+  labs(
+    title = "Sonoluminescent Light Intensity",
+    subtitle = "Ordered Data Plot",
+    x = "Settings", y = "Response Y"
+  ) +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 5.5, 5.5, 30))
+```
+
+[**Conclusions from the Ordered Data Plot**]{#sec-pri-622-order-conclusions}
+
+We can make the following conclusions based on the ordered data plot.
+
+1. Two points clearly stand out. The first 13 points lie in the 50 to 100 range, the next point is greater than 100, and the last two points are greater than 300.
+2. Important Factors: For these two highest points, factors $X_1$, $X_2$, $X_3$, and $X_7$ have the same value (namely, +, -, +, -, respectively) while $X_4$, $X_5$, and $X_6$ have differing values. We conclude that $X_1$, $X_2$, $X_3$, and $X_7$ are potentially important factors, while $X_4$, $X_5$, and $X_6$ are not.
+3. Best Settings: Our first pass makes use of the settings at the observed maximum ($Y$ = 373.8). The settings for this maximum are (+, -, +, -, +, -, -).
+
+[**Plot the Data: DOE Scatter Plot**]{#sec-pri-622-dexscatter}
+
+The next step in the analysis is to generate a [DOE scatter plot](#sec-pri-592).
+
+```{r}
+#| label: fig-pri-622-scatter
+#| fig-cap: "DOE scatter plot for the sonoluminescent light intensity data"
+#| fig-width: 9
+#| fig-height: 5
+#| code-fold: true
+#| message: false
+factor_labels <- c(
+  "X1: Molarity", "X2: Solute Type", "X3: pH", "X4: Gas Type",
+  "X5: Water Depth", "X6: Horn Depth", "X7: Flask Clamping"
+)
+
+scatter_data <- sono |>
+  pivot_longer(x1:x7, names_to = "factor", values_to = "level") |>
+  mutate(
+    factor = factor(factor, levels = paste0("x", 1:7), labels = factor_labels),
+    sign = factor(level, levels = c(-1, 1), labels = c("-", "+"))
+  )
+
+segment_data <- scatter_data |>
+  summarize(ymin = min(y), ymax = max(y), .by = c(factor, sign))
+
+ggplot(scatter_data, aes(sign, y)) +
+  geom_segment(data = segment_data, aes(x = sign, xend = sign, y = ymin, yend = ymax), inherit.aes = FALSE) +
+  geom_hline(yintercept = mean(sono$y), linetype = "dashed", color = "grey40") +
+  geom_point(shape = 4, size = 3) +
+  facet_wrap(~factor, nrow = 1, strip.position = "bottom") +
+  labs(title = "Sonoluminescent Light Intensity", subtitle = "Scatter Plot", x = "Factors", y = "Response Y") +
+  theme_light() +
+  theme(
+    strip.placement = "outside", strip.background = element_blank(), strip.text = element_text(color = "black", size = 7),
+    axis.text.x = element_text(size = 7)
+  )
+```
+
+[**Conclusions from the DOE Scatter Plot**]{#sec-pri-622-scatter-conclusions}
+
+We can make the following conclusions based on the DOE scatter plot.
+
+1. Important Factors: Again, two points dominate the plot. For $X_1$, $X_2$, $X_3$, and $X_7$, these two points emanate from the same setting, (+, -, +, -), while for $X_4$, $X_5$, and $X_6$ they emanate from different settings. We conclude that $X_1$, $X_2$, $X_3$, and $X_7$ are potentially important, while $X_4$, $X_5$, and $X_6$ are probably not important.
+2. Best Settings: Our first pass at best settings yields ($X_1$ = +, $X_2$ = -, $X_3$ = +, $X_4$ = either, $X_5$ = either, $X_6$ = either, $X_7$ = -).
+
+[**Check for Main Effects: DOE Mean Plot**]{#sec-pri-622-dexmean}
+
+The [DOE mean plot](#sec-pri-593) is generated to more clearly show the main effects:
+
+```{r}
+#| label: fig-pri-622-mean
+#| fig-cap: "DOE mean plot for the sonoluminescent light intensity data"
+#| fig-width: 9
+#| fig-height: 5
+#| code-fold: true
+#| message: false
+mean_data <- sono |>
+  pivot_longer(x1:x7, names_to = "factor", values_to = "level") |>
+  mutate(
+    factor = factor(factor, levels = paste0("x", 1:7), labels = factor_labels),
+    sign = factor(level, levels = c(-1, 1), labels = c("-", "+"))
+  ) |>
+  summarize(mean_y = mean(y), .by = c(factor, sign))
+
+ggplot(mean_data, aes(sign, mean_y, group = factor)) +
+  geom_hline(yintercept = mean(sono$y), linetype = "dashed", color = "grey40") +
+  geom_line() +
+  geom_point(size = 2.5) +
+  facet_wrap(~factor, nrow = 1, strip.position = "bottom") +
+  labs(title = "Sonoluminescent Light Intensity", subtitle = "Main Effects Plot", x = "Factors", y = "Average Response") +
+  theme_light() +
+  theme(
+    strip.placement = "outside", strip.background = element_blank(), strip.text = element_text(color = "black", size = 7),
+    axis.text.x = element_text(size = 7)
+  )
+```
+
+[**Conclusions from the DOE Mean Plot**]{#sec-pri-622-mean-conclusions}
+
+We can make the following conclusions from the DOE mean plot.
+
+1. Important Factors:
+
+   - $X_2$ (effect = large: about -80)
+   - $X_7$ (effect = large: about -80)
+   - $X_1$ (effect = large: about 70)
+   - $X_3$ (effect = large: about 65)
+   - $X_6$ (effect = small: about -10)
+   - $X_5$ (effect = small: between 5 and 10)
+   - $X_4$ (effect = small: less than 5)
+
+2. Best Settings: Here we step through each factor, one by one, and choose the setting that yields the highest average for the sonoluminescent light intensity:
+
+   $(X_1,X_2,X_3,X_4,X_5,X_6,X_7) = (+,-,+,+,+,-,-)$
+
+```{r}
+#| code-fold: true
+mean_data |>
+  pivot_wider(names_from = sign, values_from = mean_y, names_prefix = "mean_") |>
+  mutate(effect = `mean_+` - `mean_-`) |>
+  arrange(desc(abs(effect)))
+```
+
+[**Comparison of Plots**]{#sec-pri-622-comparison}
+
+All of the above three plots are used primarily to determine the most important factors. Because it plots a summary statistic rather than the raw data, the DOE mean plot shows the ordering of the main effects most clearly. However, it is still recommended to generate either the ordered data plot or the DOE scatter plot (or both). Since these plot the raw data, they can sometimes reveal features of the data that might be masked by the DOE mean plot.
+
+In this case, the ordered data plot and the DOE scatter plot clearly show two dominant points. This feature would not be obvious if we had generated only the DOE mean plot.
+
+Interpretation-wise, the most important factor $X_2$ (solute) will, on the average, change the light intensity by about 80 units regardless of the settings of the other factors. The other factors are interpreted similarly.
+
+In terms of the best settings, note that the ordered data plot, based on the maximum response value, yielded
+
+$$+, -, +, -, +, -, -$$
+
+Note that a consensus best value, with "." indicating a setting for which the three plots disagree, would be
+
+$$+, -, +, ., +, -, -$$
+
+Note that the factor for which the settings disagree, $X_4$, invariably defines itself as an "unimportant" factor.

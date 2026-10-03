@@ -1,0 +1,90 @@
+#### Important factors: |effects| plot {#sec-pri-626}
+
+[**Purpose**]{#sec-pri-626-effects}
+
+The [|effects| plot](#sec-pri-597) displays the results of a [Yates analysis](#sec-eda-yates-analysis) in both a tabular and a graphical format. It is used to distinguish between important and unimportant effects.
+
+[**Sample |Effects| Plot**]{#sec-pri-626-effectsplot}
+
+```{r}
+#| label: fig-pri-626-effects
+#| fig-cap: "|Effects| plot for the sonoluminescent light intensity data"
+#| fig-width: 9
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+terms <- tribble(
+  ~term, ~label,
+  "x1", "1",
+  "x2", "2",
+  "x3", "3",
+  "x4", "4",
+  "x5", "5",
+  "x6", "6",
+  "x7", "7",
+  "x1x3", "13 (confounded: 27, 46)",
+  "x2x3", "23 (confounded: 45, 17)",
+  "x1x2", "12 (confounded: 56, 37)",
+  "x3x4", "34 (confounded: 16, 25)",
+  "x1x4", "14 (confounded: 36, 57)",
+  "x1x2x4", "124 (confounded with other 3-factor interactions)",
+  "x2x4", "24 (confounded: 35, 67)",
+  "x1x5", "15 (confounded: 26, 47)"
+)
+
+sono2 <- sono |>
+  mutate(
+    x1x3 = x1 * x3, x2x3 = x2 * x3, x1x2 = x1 * x2, x3x4 = x3 * x4,
+    x1x4 = x1 * x4, x2x4 = x2 * x4, x1x5 = x1 * x5, x1x2x4 = x1 * x2 * x4
+  )
+model <- lm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x1x3 + x2x3 + x1x2 + x3x4 + x1x4 + x2x4 + x1x5 + x1x2x4, data = sono2)
+
+effects_tbl <- tibble(term = names(coef(model))[-1], effect = 2 * coef(model)[-1]) |>
+  left_join(terms, by = "term") |>
+  mutate(abs_effect = abs(effect)) |>
+  arrange(desc(abs_effect)) |>
+  mutate(label = factor(label, levels = rev(label)))
+
+ggplot(effects_tbl, aes(label, abs_effect)) +
+  geom_segment(aes(x = label, xend = label, y = 0, yend = abs_effect)) +
+  geom_point(size = 3) +
+  coord_flip() +
+  labs(
+    title = "Sonoluminescent Light Intensity", subtitle = "|Effects| Plot",
+    x = "Term", y = "|Effect|"
+  ) +
+  theme_light()
+```
+
+[**Conclusions from the |effects| plot**]{#sec-pri-626-conclusions}
+
+We can make the following conclusions from the |effects| plot.
+
+1. A ranked list of main effects and interaction terms is:
+
+   - $X_2$
+   - $X_7$
+   - $X_1 X_3$ (confounded with $X_2 X_7$ and $X_4 X_6$)
+   - $X_1$
+   - $X_3$
+   - $X_2 X_3$ (confounded with $X_4 X_5$ and $X_1 X_7$)
+   - $X_1 X_2$ (confounded with $X_3 X_7$ and $X_5 X_6$)
+   - $X_3 X_4$ (confounded with $X_1 X_6$ and $X_2 X_5$)
+   - $X_1 X_4$ (confounded with $X_3 X_6$ and $X_5 X_7$)
+   - $X_6$
+   - $X_5$
+   - $X_1 X_2 X_4$ (confounded with other 3-factor interactions)
+   - $X_4$
+   - $X_2 X_4$ (confounded with $X_3 X_5$ and $X_6 X_7$)
+   - $X_1 X_5$ (confounded with $X_2 X_6$ and $X_4 X_7$)
+
+2. From the graph, there is a clear dividing line between the first seven effects (all |effect| > 50) and the last eight effects (all |effect| < 20). This suggests we retain the first seven terms as "important" and discard the remaining as "unimportant".
+3. Again, the confounding structure reminds us that, for example, the nominal effect size of 70.0125 for $X_1 X_3$ (molarity\*pH) can come from an $X_1 X_3$ interaction, an $X_2 X_7$ (solute\*clamping) interaction, an $X_4 X_6$ (gas\*horn depth) interaction, or any mixture of the three interactions.

@@ -1,0 +1,78 @@
+#### Background and data {#sec-pri-621}
+
+[**Background and Motivation**]{#sec-pri-621-background}
+
+Sonoluminescence is the process of turning sound energy into light. An ultrasonic horn is used to resonate a bubble of air in a medium, usually water. The bubble is ultrasonically compressed and then collapses to light-emitting plasma.
+
+In the general physics community, sonoluminescence studies are being carried out to characterize it, to understand it, and to uncover its practical uses. An unanswered question in the community is whether sonoluminescence may be used for cold fusion.
+
+NIST's motive for sonoluminescent investigations is to assess its suitability for the dissolution of physical samples, which is needed in the production of homogeneous Standard Reference Materials (SRMs). It is believed that maximal dissolution coincides with maximal energy and maximal light intensity. The ultimate motivation for striving for maximal dissolution is that this allows improved determination of alpha- and beta-emitting radionuclides in such samples.
+
+The objectives of the NIST experiment were to determine the important factors that affect sonoluminescent light intensity and to ascertain optimal settings of such factors that will predictably achieve high intensities. An original list of 49 factors was reduced, based on physics reasons, to the following seven factors: molarity (amount of solute), solute type, pH, gas type in the water, water depth, horn depth, and flask clamping.
+
+Time restrictions caused the experiment to be about one month, which in turn translated into an upper limit of roughly 20 runs. A 7-factor, 2-level fractional factorial design (Resolution IV) was constructed and run. The factor level settings are given below.
+
+Eva Wilcox and Ken Inn of the NIST Physics Laboratory conducted this experiment during 1999. Jim Filliben of the NIST Statistical Engineering Division performed the analysis of the experimental data.
+
+[**Response Variable, Factor Variables, and Factor-Level Settings**]{#sec-pri-621-variables}
+
+This experiment utilizes the following response and factor variables.
+
+1. Response Variable ($Y$) = The sonoluminescent light intensity.
+2. Factor 1 ($X_1$) = Molarity (amount of Solute). The coding is -1 for 0.10 mol and +1 for 0.33 mol.
+3. Factor 2 ($X_2$) = Solute type. The coding is -1 for sugar and +1 for glycerol.
+4. Factor 3 ($X_3$) = pH. The coding is -1 for 3 and +1 for 11.
+5. Factor 4 ($X_4$) = Gas type in water. The coding is -1 for helium and +1 for air.
+6. Factor 5 ($X_5$) = Water depth. The coding is -1 for half and +1 for full.
+7. Factor 6 ($X_6$) = Horn depth. The coding is -1 for 5 mm and +1 for 10 mm.
+8. Factor 7 ($X_7$) = Flask clamping. The coding is -1 for unclamped and +1 for clamped.
+
+This data set has 16 observations. It is a $2^{7-3}$ design with no center points.
+
+[**Goal of the Experiment**]{#sec-pri-621-goal}
+
+This case study demonstrates the analysis of a $2^{7-3}$ fractional factorial experimental design. The goals of this case study are:
+
+1. Determine the important factors that affect the sonoluminescent light intensity. Specifically, we are trying to maximize this intensity.
+2. Determine the best settings of the seven factors so as to maximize the sonoluminescent light intensity.
+
+[**Data Used in the Analysis**]{#sec-pri-621-data}
+
+The following are the data used for this analysis. This data set is given in Yates order.
+
+```{r}
+#| label: tbl-pri-621-data
+#| tbl-cap: "Sonoluminescent light intensity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+sono |>
+  mutate(across(x1:x7, ~ if_else(.x == 1, "+1", "-1"))) |>
+  gt() |>
+  cols_label(
+    y = html("Y<br>Light Intensity"), x1 = html("X<sub>1</sub><br>Molarity"),
+    x2 = html("X<sub>2</sub><br>Solute Type"), x3 = html("X<sub>3</sub><br>pH"),
+    x4 = html("X<sub>4</sub><br>Gas Type"), x5 = html("X<sub>5</sub><br>Water Depth"),
+    x6 = html("X<sub>6</sub><br>Horn Depth"), x7 = html("X<sub>7</sub><br>Flask Clamping")
+  )
+```
+
+::: {.callout-note}
+NIST's page text does not state the design generators for this fractional factorial. They are given, however, in the header comments of the underlying [`INN.DAT`](../../datasets/INN.DAT) file: $X_5 = X_2 X_3 X_4$, $X_6 = X_1 X_3 X_4$, and $X_7 = X_1 X_2 X_3$. We verify them directly against the data below; this supplementary information (not shown on the original page) is used throughout the remaining sections of this case study -- for example, in identifying which 2-factor interactions are confounded with one another.
+
+```{r}
+#| code-fold: true
+all(sono$x5 == sono$x2 * sono$x3 * sono$x4)
+all(sono$x6 == sono$x1 * sono$x3 * sono$x4)
+all(sono$x7 == sono$x1 * sono$x2 * sono$x3)
+```
+:::

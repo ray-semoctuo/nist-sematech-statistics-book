@@ -1,0 +1,82 @@
+#### Important factors: Youden plot {#sec-pri-625}
+
+[**Purpose**]{#sec-pri-625-youden}
+
+The [DOE Youden plot](#sec-pri-596) is used to distinguish between important and unimportant factors.
+
+[**Sample Youden Plot**]{#sec-pri-625-youdenplot}
+
+For this fractional factorial design, each of the 7 main effects and each of the 7 confounded 2-factor-interaction groups (one representative label per group) is plotted; the full confounding membership of each labeled interaction is given in the table beneath the plot.
+
+```{r}
+#| label: fig-pri-625-youden
+#| fig-cap: "Youden plot for the sonoluminescent light intensity data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(ggrepel)
+
+sono <- read_table(
+  here::here("datasets", "INN.DAT"),
+  skip = 25,
+  col_names = c("y", "x1", "x2", "x3", "x4", "x5", "x6", "x7"),
+  col_types = "dddddddd"
+)
+
+terms <- list(
+  "1" = sono$x1, "2" = sono$x2, "3" = sono$x3, "4" = sono$x4, "5" = sono$x5, "6" = sono$x6, "7" = sono$x7,
+  "13" = sono$x1 * sono$x3, "23" = sono$x2 * sono$x3, "12" = sono$x1 * sono$x2, "34" = sono$x3 * sono$x4,
+  "14" = sono$x1 * sono$x4, "24" = sono$x2 * sono$x4, "15" = sono$x1 * sono$x5
+)
+grand_mean <- mean(sono$y)
+youden <- map_dfr(names(terms), function(nm) {
+  v <- terms[[nm]]
+  tibble(term = nm, minus = mean(sono$y[v == -1]), plus = mean(sono$y[v == 1]))
+})
+
+ggplot(youden, aes(minus, plus, label = term)) +
+  geom_vline(xintercept = grand_mean, linetype = "dashed", color = "grey50") +
+  geom_hline(yintercept = grand_mean, linetype = "dashed", color = "grey50") +
+  geom_abline(slope = -1, intercept = 2 * grand_mean, color = "grey70") +
+  geom_point(size = 2) +
+  geom_text_repel(
+    size = 4, seed = 3,
+    box.padding = 0.6, point.padding = 0.3,
+    force = 15, force_pull = 0.05,
+    max.overlaps = Inf, min.segment.length = 0,
+    max.time = 3, max.iter = 1e5, segment.color = "grey40"
+  ) +
+  coord_equal(xlim = c(65, 160), ylim = c(65, 160)) +
+  labs(
+    title = "Sonoluminescent Light Intensity", subtitle = "Youden Plot",
+    x = "Average Response for - Setting", y = "Average Response for + Setting"
+  ) +
+  theme_light()
+```
+
+```{r}
+#| label: tbl-pri-625-confounding
+#| tbl-cap: "Confounding structure for the labeled 2-factor interactions"
+#| code-fold: true
+#| message: false
+library(gt)
+
+tibble(
+  term = c("13", "23", "12", "34", "14", "24", "15"),
+  confounded_with = c(
+    "13 + 27 + 46", "23 + 45 + 17", "12 + 56 + 37", "34 + 16 + 25",
+    "14 + 36 + 57", "24 + 35 + 67", "15 + 26 + 47"
+  )
+) |>
+  gt() |>
+  cols_label(term = "Plotted term", confounded_with = "Confounded with")
+```
+
+[**Conclusions from the Youden plot**]{#sec-pri-625-conclusions}
+
+We can make the following conclusions from the Youden plot.
+
+1. In the upper left corner are the interaction term $X_1 X_3$ and the main effects $X_1$ and $X_3$.
+2. In the lower right corner are the main effects $X_2$ and $X_7$ and the interaction terms $X_2 X_3$ and $X_1 X_2$.
+3. The remaining terms are clustered in the center, which indicates that such effects have averages that are similar (and hence the effects are near zero), and so such effects are relatively unimportant.
+4. From the confounding table above, the information on $X_1 X_3$ must be tempered with the fact that $X_1 X_3$ is confounded with $X_2 X_7$ and $X_4 X_6$.
