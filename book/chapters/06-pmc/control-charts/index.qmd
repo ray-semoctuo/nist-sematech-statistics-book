@@ -1,0 +1,22 @@
+## Univariate and Multivariate Control Charts {#sec-pmc-3}
+
+[**Contents of section 3**]{#sec-pmc-3-contents}
+
+Control charts in this section are classified and described according to three general types: variables, attributes and multivariate.
+
+1. [What are Control Charts?](#sec-pmc-31)
+2. [What are Variables Control Charts?](#sec-pmc-32)
+   1. [Shewhart X bar and R and S Control Charts](#sec-pmc-321)
+   2. [Individuals Control Charts](#sec-pmc-322)
+   3. [Cusum Control Charts](#sec-pmc-323)
+      1. [Cusum Average Run Length](#sec-pmc-3231)
+   4. [EWMA Control Charts](#sec-pmc-324)
+3. [What are Attributes Control Charts?](#sec-pmc-33)
+   1. [Counts Control Charts](#sec-pmc-331)
+   2. [Proportions Control Charts](#sec-pmc-332)
+4. [What are Multivariate Control Charts?](#sec-pmc-34)
+   1. [Hotelling Control Charts](#sec-pmc-341)
+   2. [Principal Components Control Charts](#sec-pmc-342)
+   3. [Multivariate EWMA Charts](#sec-pmc-343)
+
+{{< include control-charts/what-are-control-charts.qmd >}}
