@@ -1,0 +1,12 @@
+### How do you Choose a Single Sampling Plan? {#sec-pmc-23}
+
+[**Two methods for choosing a single sample acceptance plan**]{#sec-pmc-23-two-methods}
+
+A single sampling plan, as [previously defined](#sec-pmc-22-single), is specified by the pair of numbers ($n,c$). The sample size is $n$, and the lot is rejected if there are more than $c$ defectives in the sample; otherwise the lot is accepted.
+
+There are two widely used ways of picking ($n,c$):
+
+1. Use tables (such as [MIL STD 105D](#sec-pmc-231)) that focus on either the [AQL](#sec-pmc-22-aql) or the [LTPD](#sec-pmc-22-ltpd) desired.
+2. [Specify 2 desired points](#sec-pmc-232) on the [OC curve](#sec-pmc-22-oc) and solve for the ($n,c$) that uniquely determines an OC curve going through these points.
+
+The next two pages describe these methods in detail.

@@ -1,0 +1,35 @@
+## Test Product for Acceptability: Lot Acceptance Sampling {#sec-pmc-2}
+
+[**Contents of section 2**]{#sec-pmc-2-contents}
+
+This section describes how to make decisions on a lot-by-lot basis whether to accept a lot as likely to meet requirements or reject the lot as likely to have too many defective units.
+
+This section consists of the following topics.
+
+1. [What is Acceptance Sampling?](#sec-pmc-21)
+2. [What kinds of Lot Acceptance Sampling Plans (LASPs) are there?](#sec-pmc-22)
+3. [How do you Choose a Single Sampling Plan?](#sec-pmc-23)
+   1. [Choosing a Sampling Plan: MIL Standard 105D](#sec-pmc-231)
+   2. [Choosing a Sampling Plan with a given OC Curve](#sec-pmc-232)
+4. [What is Double Sampling?](#sec-pmc-24)
+5. [What is Multiple Sampling?](#sec-pmc-25)
+6. [What is a Sequential Sampling Plan?](#sec-pmc-26)
+7. [What is Skip Lot Sampling?](#sec-pmc-27)
+
+{{< include test-acceptability/acceptance-sampling.qmd >}}
+
+{{< include test-acceptability/kinds-of-plans.qmd >}}
+
+{{< include test-acceptability/choosing-single-plan/index.qmd >}}
+
+{{< include test-acceptability/choosing-single-plan/mil-std-105d.qmd >}}
+
+{{< include test-acceptability/choosing-single-plan/oc-curve.qmd >}}
+
+{{< include test-acceptability/double-sampling.qmd >}}
+
+{{< include test-acceptability/multiple-sampling.qmd >}}
+
+{{< include test-acceptability/sequential-sampling.qmd >}}
+
+{{< include test-acceptability/skip-lot-sampling.qmd >}}

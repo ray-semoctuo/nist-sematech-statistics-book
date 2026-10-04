@@ -3,7 +3,7 @@
 This chapter presents techniques for monitoring and controlling processes and signaling when corrective actions are necessary.
 
 1. [Introduction](#sec-pmc-1)
-2. Test Product for Acceptability
+2. [Test Product for Acceptability](#sec-pmc-2)
 3. Univariate and Multivariate Control Charts
 4. Time Series Models
 5. Tutorials
@@ -11,3 +11,5 @@ This chapter presents techniques for monitoring and controlling processes and si
 7. References
 
 {{< include introduction/index.qmd >}}
+
+{{< include test-acceptability/index.qmd >}}

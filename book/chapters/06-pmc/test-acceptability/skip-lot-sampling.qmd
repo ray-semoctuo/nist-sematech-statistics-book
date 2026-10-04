@@ -1,0 +1,74 @@
+### What is Skip Lot Sampling? {#sec-pmc-27}
+
+[**Skip Lot Sampling**]{#sec-pmc-27-overview}
+
+Skip Lot sampling means that only a fraction of the submitted lots are inspected. This mode of sampling is of the cost-saving variety in terms of time and effort. However skip-lot sampling should only be used when it has been demonstrated that the quality of the submitted product is very good.
+
+[**Implementation of skip-lot sampling plan**]{#sec-pmc-27-implementation}
+
+A skip-lot sampling plan is implemented as follows:
+
+1. [Design a single sampling plan](#sec-pmc-23) by specifying the alpha and beta risks and the consumer/producer's risks. This plan is called "the reference sampling plan".
+2. Start with normal lot-by-lot inspection, using the reference plan.
+3. When a pre-specified number, $i$ of consecutive lots are accepted, switch to inspecting only a fraction $f$ of the lots. The selection of the members of that fraction is done at random.
+4. When a lot is rejected return to normal inspection.
+
+[**The $f$ and $i$ parameters**]{#sec-pmc-27-parameters}
+
+The parameters $f$ and $i$ are essential to calculating the probability of acceptance for a skip-lot sampling plan. In this scheme, $i$, called the *clearance number,* is a positive integer and the sampling fraction $f$ is such that $0 < f < 1$. Hence, when $f=1$ there is no longer skip-lot sampling. The calculation of the acceptance probability for the skip-lot sampling plan is performed via the following formula
+
+$$ P_a(f,i) = \frac{fP + (1-f)P^i}{f + (1-f)P^i} \, ,$$
+
+where $P$ is the probability of accepting a lot with a given proportion of incoming defectives $p$, from the [OC curve](#sec-pmc-22-oc) of the single sampling plan.
+
+The following relationships hold:
+
+- for a given $i$, the smaller is $f$, the greater is $P_a$,
+- for a given $f$, the smaller is $i$, the greater is $P_a$.
+
+[**Illustration of a skip lot sampling plan**]{#sec-pmc-27-illustration}
+
+An illustration of a skip-lot sampling plan is given below.
+
+```{r}
+#| label: fig-pmc-27-skip-lot
+#| fig-cap: "Plot illustrating a skip-lot sampling plan for f=0.25 and i=5"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+n <- 20
+c <- 1
+f <- 0.25
+i <- 5
+
+skip_data <- tibble(p = seq(0.01, 0.20, 0.01)) |>
+  mutate(
+    P = pbinom(c, n, p),
+    reference = P,
+    skip_lot = (f * P + (1 - f) * P^i) / (f + (1 - f) * P^i)
+  ) |>
+  pivot_longer(c(reference, skip_lot), names_to = "plan", values_to = "Pa")
+
+ggplot(skip_data, aes(p, Pa, color = plan)) +
+  geom_line(show.legend = FALSE) +
+  geom_point(show.legend = FALSE) +
+  scale_color_manual(values = c(reference = "grey40", skip_lot = "steelblue")) +
+  annotate("text", x = 0.11, y = 0.75, label = "Bottom curve is (20,1) ref. plan\nf = 0.25:  i = 5", hjust = 0) +
+  labs(x = "Fraction Defective", y = expression(P[a])) +
+  theme_light()
+```
+
+[**ASN of skip-lot sampling plan**]{#sec-pmc-27-asn}
+
+An important property of skip-lot sampling plans is the average sample number ([ASN](#sec-pmc-22-asn)). The ASN of a skip-lot sampling plan is
+
+$$ \text{ASN}_{skip-lot} = (F)(\text{ASN}_{reference}) \, , $$
+
+where $F$ is defined by
+
+$$ F = \frac{f}{(1-f)P_i + f} \, .$$
+
+Therefore, since $0 < F < 1$, it follows that the ASN of skip-lot sampling is smaller than the ASN of the reference sampling plan.
+
+In summary, skip-lot sampling is preferred when the quality of the submitted lots is excellent and the supplier can demonstrate a proven track record.

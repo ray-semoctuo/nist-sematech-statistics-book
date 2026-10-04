@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 450" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .title { font-size: 20px; font-weight: bold; fill: #1B1B1B; text-anchor: middle; }
+    .axis { stroke: #1B1B1B; stroke-width: 1.5; fill: none; }
+    .line { stroke: #1B1B1B; stroke-width: 1.5; fill: none; }
+    .dashed { stroke: #1B1B1B; stroke-width: 1.5; fill: none; stroke-dasharray: 6 5; }
+    .region { font-size: 15px; fill: #1B1B1B; text-anchor: middle; }
+    .formula { font-size: 14px; fill: #1B1B1B; }
+    .bracket-label { font-size: 14px; fill: #1B1B1B; text-anchor: middle; }
+    .axis-label { font-size: 13px; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <text class="title" x="313" y="24">Sequential Sampling</text>
+
+  <!-- Axes -->
+  <line class="axis" x1="45" y1="15" x2="45" y2="442" />
+  <line class="axis" x1="45" y1="388.5" x2="507" y2="388.5" />
+
+  <!-- Vertical axis label: "number defectives" -->
+  <text class="axis-label" x="18" y="228.5" transform="rotate(-90 18 228.5)">number defectives</text>
+
+  <!-- x-axis caption -->
+  <text class="axis-label" x="230" y="411">n, number of items</text>
+
+  <!-- Reject line: x_r = h2 + sn -->
+  <line class="line" x1="45" y1="274.5" x2="474" y2="139.5" />
+  <text class="formula" x="483" y="144">x<tspan baseline-shift="sub" font-size="10">r</tspan> = h<tspan baseline-shift="sub" font-size="10">2</tspan> + sn</text>
+
+  <!-- Accept line: dashed below the axis (h1 region), solid above -->
+  <line class="dashed" x1="49.5" y1="427.5" x2="160.5" y2="388.5" />
+  <line class="line" x1="160.5" y1="388.5" x2="502.5" y2="286.5" />
+  <text class="formula" x="498" y="298">x<tspan baseline-shift="sub" font-size="10">a</tspan> = -h<tspan baseline-shift="sub" font-size="10">1</tspan> + sn</text>
+
+  <!-- h2 bracket: vertical riser + staircase tread, marking the h2 distance at n = 0 -->
+  <polyline class="line" points="118.5,388.5 118.5,360 133.5,360 133.5,315 451.5,315" />
+  <text class="bracket-label" x="52" y="312">h<tspan baseline-shift="sub" font-size="10">2</tspan></text>
+
+  <!-- h1 label, below the axis, beside the dashed segment -->
+  <text class="bracket-label" x="60" y="416">h<tspan baseline-shift="sub" font-size="10">1</tspan></text>
+
+  <!-- Region labels -->
+  <text class="region" x="220" y="195">reject</text>
+  <text class="region" x="347" y="272">continue sampling</text>
+  <text class="region" x="467" y="359">accept</text>
+</svg>

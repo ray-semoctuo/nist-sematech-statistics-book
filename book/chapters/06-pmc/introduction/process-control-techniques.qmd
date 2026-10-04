@@ -29,7 +29,7 @@ The underlying concept of statistical process control is based on a comparison o
 
 [**Tools of statistical quality control**]{#sec-pmc-12-tools}
 
-Several techniques can be used to investigate the product for defects or defective pieces after all processing is complete. Typical tools of SQC (described in section 2)<!-- XREF: within-chapter forward reference, not yet drafted; source handbook/pmc/section2/pmc2.htm --> are:
+Several techniques can be used to investigate the product for defects or defective pieces after all processing is complete. Typical tools of SQC (described in [Section 2](#sec-pmc-2)) are:
 
 - Lot Acceptance sampling plans
 - Skip lot sampling plans

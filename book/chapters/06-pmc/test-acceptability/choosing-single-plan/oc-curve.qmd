@@ -1,0 +1,187 @@
+#### Choosing a Sampling Plan with a given OC Curve {#sec-pmc-232}
+
+[**Sample OC curve**]{#sec-pmc-232-sample-oc-curve}
+
+We start by looking at a typical [OC curve](#sec-pmc-22-oc). The OC curve for a (52, 3) sampling plan is shown below.
+
+```{r}
+#| label: fig-pmc-232-oc-curve
+#| fig-cap: "Sample OC curve for (52,3) sampling plan"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+n <- 52
+c <- 3
+oc_data <- tibble(p = seq(0.01, 0.19, 0.01)) |>
+  mutate(Pa = pbinom(c, n, p))
+
+ggplot(oc_data, aes(p, Pa)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
+  annotate("text", x = 0.09, y = 0.6, label = "n = 52\nc = 3", hjust = 0) +
+  labs(x = "p, fraction defective per lot", y = expression(P[a])) +
+  theme_light()
+```
+
+[**Number of defectives is approximately binomial**]{#sec-pmc-232-approx-binomial}
+
+It is instructive to show how the points on this curve are obtained, once we have a sampling plan ($n,c$) - later we will demonstrate how a sampling plan ($n,c$) is obtained.
+
+We assume that the lot size $N$ is very large, as compared to the sample size $n$, so that removing the sample doesn't significantly change the remainder of the lot, no matter how many defects are in the sample. Then the distribution of the number of defectives, $d$, in a random sample of $n$ items is approximately binomial with parameters $n$ and $p$, where $p$ is the fraction of defectives per lot.
+
+The probability of observing exactly $d$ defectives is given by
+
+[**The [binomial distribution](#sec-eda-366)**]{#sec-pmc-232-binomial-dist}
+
+$$ P_d = f(d) = \frac{n!}{d! (n-d)!} p^d (1-p)^{n-d} \, .$$
+
+The probability of acceptance is the probability that $d$, the number of defectives, is less than or equal to $c$, the accept number. This means that
+
+$$ P_a = P(d \le c) = \sum_{d=0}^c \frac{n!}{d!(n-d)!} p^d(1-p)^{n-d} \, .$$
+
+[**Sample table for $P_a$, $P_d$ using the binomial distribution**]{#sec-pmc-232-sample-table}
+
+Using this formula with $n=52$, $c=3$, and $p = 0.01, \, 0.02, \, \ldots, \, 0.12$, we find:
+
+```{r}
+#| label: tbl-pmc-232-oc-table
+#| tbl-cap: "Probability of acceptance and probability of d defectives for a (52,3) sampling plan"
+#| code-fold: true
+oc_data |>
+  filter(p <= 0.12) |>
+  transmute(`$P_a$` = round(Pa, 3), `$p$` = p) |>
+  knitr::kable(align = "cc")
+```
+
+**Solving for ($n,c$)**
+
+[**Equations for calculating a sampling plan with a given OC curve**]{#sec-pmc-232-equations}
+
+In order to design a sampling plan with a specified OC curve one needs two designated points. Let us design a sampling plan such that the probability of acceptance is $1-\alpha$ for lots with fraction defective $p_1$ and the probability of acceptance is $\beta$ for lots with fraction defective $p_2$. Typical choices for these points are: $p_1$ is the [AQL](#sec-pmc-22-aql), $p_2$ is the [LTPD](#sec-pmc-22-ltpd) and $\alpha, \, \beta$ are the [Producer's Risk (Type I error)](#sec-pmc-22-alpha) and [Consumer's Risk (Type II error)](#sec-pmc-22-beta), respectively.
+
+If we are willing to assume that binomial sampling is valid, then the sample size $n$, and the acceptance number $c$ are the solution to
+
+$$ \begin{aligned}
+1 - \alpha & = \sum_{d=0}^c \frac{n!}{d!(n-d)!} p_1^d (1-p_1)^{n-d} \\
+\beta  & = \sum_{d=0}^c \frac{n!}{d!(n-d)!} p_2^d (1-p_2)^{n-d} \, .
+\end{aligned} $$
+
+These two simultaneous equations are nonlinear so there is no simple, direct solution. There are however a number of iterative techniques available that give approximate solutions so that composition of a computer program poses few problems.
+
+**Average Outgoing Quality (AOQ)**
+
+[**Calculating AOQs**]{#sec-pmc-232-calculating-aoq}
+
+We can also calculate the [AOQ](#sec-pmc-22-aoq) for a ($n,c$) sampling plan, provided rejected lots are 100% inspected and defectives are replaced with good parts.
+
+Assume all lots come in with exactly a $p_0$ proportion of defectives. After screening a rejected lot, the final fraction defectives will be zero for that lot. However, accepted lots have fraction defective $p_0$. Therefore, the outgoing lots from the inspection stations are a mixture of lots with fractions defective $p_0$ and 0. Assuming the lot size is $N$, we have.
+
+$$ \text{AOQ} = \frac{P_a p(N-n)}{N} \, . $$
+
+For example, let $N=10000$, $n=52$, $c=3$, and $p$, the quality of incoming lots, equals 0.03. Now at $p = 0.03$, we glean from the OC curve table that $p_a = 0.930$ and
+
+$$ \text{AOQ} = \frac{(0.930)(0.03)(10000-52)}{10000} = 0.02775 \, . $$
+
+```{r}
+#| include: false
+N <- 10000
+pa_003 <- pbinom(c, n, 0.03)
+aoq_003 <- pa_003 * 0.03 * (N - n) / N
+```
+
+[**Sample table of AOQ versus $p$**]{#sec-pmc-232-aoq-table-note}
+
+Setting $p = 0.01, \, 0.02, \, \ldots, \, 0.12$, we can generate the following table.
+
+```{r}
+#| label: tbl-pmc-232-aoq-table
+#| tbl-cap: "AOQ versus p for a (52,3) sampling plan, N = 10000"
+#| code-fold: true
+aoq_data <- oc_data |>
+  filter(p <= 0.12) |>
+  mutate(AOQ = Pa * p * (N - n) / N)
+
+aoq_data |>
+  transmute(AOQ = round(AOQ, 4), `$p$` = p) |>
+  knitr::kable(align = "cc")
+```
+
+[**Sample plot of AOQ versus $p$**]{#sec-pmc-232-aoq-plot-note}
+
+A plot of the AOQ versus $p$ is given below.
+
+```{r}
+#| label: fig-pmc-232-aoq-curve
+#| fig-cap: "Plot of the AOQ versus p"
+#| code-fold: true
+ggplot(aoq_data, aes(p, AOQ)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
+  labs(x = "p = Incoming Quality Level", y = "AOQ") +
+  theme_light()
+```
+
+[**Interpretation of AOQ plot**]{#sec-pmc-232-aoq-interpretation}
+
+From examining this curve we observe that when the incoming quality is very good (very small fraction of defectives coming in), then the outgoing quality is also very good (very small fraction of defectives going out). When the incoming lot quality is very bad, most of the lots are rejected and then inspected. The "duds" are eliminated or replaced by good ones, so that the quality of the outgoing lots, the AOQ, becomes very good. In between these extremes, the AOQ rises, reaches a maximum, and then drops.
+
+The maximum ordinate on the AOQ curve represents the worst possible quality that results from the rectifying inspection program. It is called the **average outgoing quality limit**, ([AOQL](#sec-pmc-22-aoql)).
+
+From the table we see that the $\text{AOQL} = 0.0372$ at $p=0.06$ for the above example.
+
+One final remark: if $N \gg n$, then the $\text{AOQ} \approx P_a p$.
+
+**The Average Total Inspection (ATI)**
+
+[**Calculating the Average Total Inspection**]{#sec-pmc-232-calculating-ati}
+
+What is the total amount of inspection when rejected lots are screened?
+
+If all lots contain zero defectives, no lot will be rejected.
+
+If all items are defective, all lots will be inspected, and the amount to be inspected is $N$.
+
+Finally, if the lot quality is $0 \lt p \lt 1$, the average amount of inspection per lot will vary between the sample size $n$, and the lot size $N$.
+
+Let the quality of the lot be $p$ and the probability of lot acceptance be $P_a$, then the ATI per lot is
+
+$$ \text{ATI} = n + (1 - P_a) (N - n) \, . $$
+
+For example, let $N=10000$, $n=52$, $c=3$, and $p = 0.03$. We know from the OC table that $P_a = 0.93$. Then $\text{ATI} = 52 + (1-0.930)(10000 - 52) = 753$. (Note that while 0.930 was rounded to three decimal places, 753 was obtained using more decimal places.)
+
+```{r}
+#| include: false
+ati_003 <- n + (1 - pa_003) * (N - n)
+```
+
+[**Sample table of ATI versus $p$**]{#sec-pmc-232-ati-table-note}
+
+Setting $p = 0.01, \, 0.02, \, \ldots, \, 0.14$ generates the following table.
+
+```{r}
+#| label: tbl-pmc-232-ati-table
+#| tbl-cap: "ATI versus p for a (52,3) sampling plan, N = 10000"
+#| code-fold: true
+ati_data <- tibble(p = seq(0.01, 0.14, 0.01)) |>
+  mutate(Pa = pbinom(c, n, p), ATI = n + (1 - Pa) * (N - n))
+
+ati_data |>
+  transmute(ATI = round(ATI), `$p$` = p) |>
+  knitr::kable(align = "cc")
+```
+
+[**Plot of ATI versus $p$**]{#sec-pmc-232-ati-plot-note}
+
+A plot of ATI versus $p$, the Incoming Lot Quality (ILQ) is given below.
+
+```{r}
+#| label: fig-pmc-232-ati-curve
+#| fig-cap: "Plot of ATI versus p"
+#| code-fold: true
+ggplot(ati_data, aes(p, ATI)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
+  labs(x = "p = Incoming Quality Level", y = "ATI") +
+  theme_light()
+```

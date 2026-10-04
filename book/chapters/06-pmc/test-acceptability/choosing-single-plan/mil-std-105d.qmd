@@ -1,0 +1,55 @@
+#### Choosing a Sampling Plan: MIL Standard 105D {#sec-pmc-231}
+
+[**The AQL or Acceptable Quality Level is the baseline requirement**]{#sec-pmc-231-aql-baseline}
+
+Sampling plans are typically set up with reference to an acceptable quality level, or [AQL](#sec-pmc-22-aql). The AQL is the base line requirement for the quality of the producer's product. The producer would like to design a sampling plan such that the [OC curve](#sec-pmc-22-oc) yields a high probability of acceptance at the AQL. On the other side of the OC curve, the consumer wishes to be protected from accepting poor quality from the producer. So the consumer establishes a criterion, the *lot tolerance percent defective* or [LTPD](#sec-pmc-22-ltpd). Here the idea is to only accept poor quality product with a very low probability. Mil. Std. plans have been used for over 50 years to achieve these goals.
+
+**The U.S. Department of Defense Military Standard 105E**
+
+[**Military Standard 105E sampling plan**]{#sec-pmc-231-105e-plan}
+
+Standard military sampling procedures for inspection by attributes were developed during World War II. Army Ordnance tables and procedures were generated in the early 1940's and these grew into the Army Service Forces tables. At the end of the war, the Navy also worked on a set of tables. In the meanwhile, the Statistical Research Group at Columbia University performed research and outputted many outstanding results on attribute sampling plans.
+
+These three streams combined in 1950 into a standard called Mil. Std. 105A. It has since been modified from time to time and issued as 105B, 105C and 105D. Mil. Std. 105D was issued by the U.S. government in 1963. It was adopted in 1971 by the American National Standards Institute as ANSI Standard Z1.4 and in 1974 it was adopted (with minor changes) by the International Organization for Standardization as ISO Std. 2859. The latest revision is Mil. Std 105E and was issued in 1989.
+
+These three similar standards are continuously being updated and revised, but the basic tables remain the same. Thus the discussion that follows of the germane aspects of Mil. Std. 105E also applies to the other two standards.
+
+**Description of Mil. Std. 105D**
+
+[**Military Standard 105D sampling plan**]{#sec-pmc-231-105d-plan}
+
+This document is essentially a set of individual plans, organized in a system of sampling schemes. A sampling scheme consists of a combination of a normal sampling plan, a tightened sampling plan, and a reduced sampling plan plus rules for switching from one to the other.
+
+[**AQL is foundation of standard**]{#sec-pmc-231-aql-foundation}
+
+The foundation of the Standard is the acceptable quality level or AQL. In the following scenario, a certain military agency, called the Consumer from here on, wants to purchase a particular product from a supplier, called the Producer from here on.
+
+In applying the Mil. Std. 105D it is expected that there is perfect agreement between Producer and Consumer regarding what the AQL is for a given product characteristic. It is understood by both parties that the Producer will be submitting for inspection a number of lots whose quality level is typically as good as specified by the Consumer. Continued quality is assured by the acceptance or rejection of lots following a particular sampling plan and also by providing for a shift to another, tighter sampling plan, when there is evidence that the Producer's product does not meet the agreed-upon AQL.
+
+[**Standard offers 3 types of sampling plans**]{#sec-pmc-231-three-types}
+
+Mil. Std. 105E offers three types of sampling plans: single, double and multiple plans. The choice is, in general, up to the inspectors.
+
+Because of the three possible selections, the standard does not give a sample size, but rather a sample code letter. This, together with the decision of the type of plan yields the specific sampling plan to be used.
+
+[**Inspection level**]{#sec-pmc-231-inspection-level}
+
+In addition to an initial decision on an AQL it is also necessary to decide on an "inspection level". This determines the relationship between the lot size and the sample size. The standard offers three general and four special levels.
+
+[**Steps in the standard**]{#sec-pmc-231-steps}
+
+The steps in the use of the standard can be summarized as follows:
+
+1. Decide on the AQL.
+2. Decide on the inspection level.
+3. Determine the lot size.
+4. Enter the table to find sample size code letter.
+5. Decide on type of sampling to be used.
+6. Enter proper table to find the plan to be used.
+7. Begin with normal inspection, follow the switching rules and the rule for stopping the inspection (if needed).
+
+[**Additional information**]{#sec-pmc-231-additional-info}
+
+There is much more that can be said about Mil. Std. 105E, (and 105D). The interested reader is referred to references such as (Montgomery [-@Montgomery2000], Schilling [-@Schilling1982], tables 11-2 to 11-17, and Duncan [-@Duncan1986], pages 214 - 248).
+
+There is also (currently) a [web site](http://www.sqconline.com/) developed by Galit Shmueli that will develop sampling plans interactively with the user, according to Military Standard 105E (ANSI/ASQC Z1.4, ISO 2859) Tables.
