@@ -1,0 +1,100 @@
+#### Individuals Control Charts {#sec-pmc-322}
+
+**Samples are Individual Measurements**
+
+[**Moving range used to derive upper and lower limits**]{#sec-pmc-322-moving-range}
+
+Control charts for individual measurements, e.g., the sample size = 1, use the *moving range* of two successive observations to measure the process variability.
+
+The moving range is defined as
+
+$$ MR_i = |x_i - x_{i-1}| \, , $$
+
+which is the absolute value of the first difference (e.g., the difference between two consecutive data points) of the data. Analogous to the Shewhart control chart, one can plot both the data (which are the individuals) and the moving range.
+
+[**Individuals control limits for an observation**]{#sec-pmc-322-control-limits}
+
+For the control chart for individual measurements, the lines plotted are:
+
+$$ \begin{aligned}
+UCL & = \bar{x} + 3\frac{\overline{MR}}{1.128} \\
+\text{Center Line} & = \bar{x} \\
+LCL & = \bar{x} - 3\frac{\overline{MR}}{1.128} \, ,
+\end{aligned} $$
+
+where $\bar{x}$ is the average of all the individuals and $\overline{MR}$ is the average of all the moving ranges of two observations. Keep in mind that either or both averages may be replaced by a standard or target, if available. (Note that 1.128 is the value of $d_2$ for $n = 2$.)
+
+[**Example of moving range**]{#sec-pmc-322-example}
+
+The following example illustrates the control chart for individual observations. A new process was studied in order to monitor flow rate. The first 10 batches resulted in
+
+```{r}
+#| label: tbl-pmc-322-flowrate
+#| tbl-cap: "Flow rate and moving range for 10 batches"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+flowrate <- tibble(
+  batch = 1:10,
+  x = c(49.6, 47.6, 49.9, 51.3, 47.8, 51.2, 52.6, 52.4, 53.6, 52.1)
+) |>
+  mutate(MR = c(NA, abs(diff(x))))
+
+flowrate |>
+  mutate(MR = ifelse(is.na(MR), "", sprintf("%.1f", MR))) |>
+  knitr::kable(col.names = c("Batch Number", "Flowrate x", "Moving Range MR"), align = "ccc")
+```
+
+```{r}
+#| include: false
+xbar <- mean(flowrate$x)
+mrbar <- mean(flowrate$MR, na.rm = TRUE)
+```
+
+$\bar{x} = `r round(xbar, 2)`$, $\overline{MR} = `r round(mrbar, 4)`$
+
+[**Limits for the moving range chart**]{#sec-pmc-322-mr-limits}
+
+This yields the parameters below.
+
+$$ \begin{aligned}
+UCL & = \bar{x} + 3\frac{\overline{MR}}{1.128} = 50.81 + 3\frac{1.8778}{1.128} = 55.8041 \\
+\text{Center Line} & = \bar{x} = 50.81 \\
+LCL & = \bar{x} - 3\frac{\overline{MR}}{1.128} = 50.81 - 3\frac{1.8778}{1.128} = 45.8159 \, .
+\end{aligned} $$
+
+[**Example of individuals chart**]{#sec-pmc-322-chart}
+
+The control chart is given below
+
+```{r}
+#| label: fig-pmc-322-individuals-chart
+#| fig-cap: "Control chart for individuals from above table"
+#| code-fold: true
+ucl <- xbar + 3 * mrbar / 1.128
+lcl <- xbar - 3 * mrbar / 1.128
+
+ggplot(flowrate, aes(batch, x)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick") +
+  geom_hline(yintercept = c(ucl, xbar, lcl)) +
+  annotate("text", x = 10.3, y = ucl, label = "UCL", hjust = 0) +
+  annotate("text", x = 10.3, y = xbar, label = "Center", hjust = 0) +
+  annotate("text", x = 10.3, y = lcl, label = "LCL", hjust = 0) +
+  scale_x_continuous(breaks = 1:10) +
+  coord_cartesian(xlim = c(1, 11), clip = "off") +
+  labs(title = "Control Chart for Individuals", x = NULL, y = NULL) +
+  theme_light() +
+  theme(plot.title = element_text(hjust = 0.5), plot.margin = margin(5.5, 30, 5.5, 5.5))
+```
+
+The process is in control, since none of the plotted points fall outside either the $UCL$ or $LCL$.
+
+[**Alternative for constructing individuals control chart**]{#sec-pmc-322-alternative}
+
+**Note:** Another way to construct the individuals chart is by using the standard deviation. Then we can obtain the chart from
+
+$$ \bar{x} \pm 3s/c_4 \, .$$
+
+It is preferable to have the limits computed this way for the start of Phase 2.

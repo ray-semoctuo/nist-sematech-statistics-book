@@ -1,0 +1,140 @@
+#### EWMA Control Charts {#sec-pmc-324}
+
+[**EWMA statistic**]{#sec-pmc-324-statistic}
+
+The Exponentially Weighted Moving Average (EWMA) is a statistic for monitoring the process that averages the data in a way that gives less and less weight to data as they are further removed in time.
+
+[**Comparison of Shewhart control chart and EWMA control chart techniques**]{#sec-pmc-324-comparison}
+
+For the [Shewhart chart control](#sec-pmc-32) technique, the decision regarding the state of control of the process at any time, $t$, depends solely on the most recent measurement from the process and, of course, the degree of "trueness" of the estimates of the control limits from historical data. For the EWMA control technique, the decision depends on the EWMA statistic, which is an exponentially weighted average of all prior data, including the most recent measurement.
+
+By the choice of weighting factor, $\lambda$, the EWMA control procedure can be made sensitive to a small or gradual drift in the process, whereas the Shewhart control procedure can only react when the last data point is outside a control limit.
+
+[**Definition of EWMA**]{#sec-pmc-324-definition}
+
+The statistic that is calculated is:
+
+$$ \text{EWMA}_t = \lambda Y_t + (1-\lambda) \text{EWMA}_{t-1} \,\,\, \text{for} \,\,\, t = 1, \, 2, \, \ldots,\,  n \, . $$
+
+where
+
+- $\text{EWMA}_0$ is the mean of historical data (target)
+- $Y_t$ is the observation at time $t$
+- $n$ is the number of observations to be monitored including $\text{EWMA}_0$
+- $0 < \lambda \le 1$ is a constant that determines the depth of memory of the $\text{EWMA}$.
+
+The equation is due to Roberts (1959).
+
+[**Choice of weighting factor**]{#sec-pmc-324-weighting-factor}
+
+The parameter $\lambda$ determines the rate at which "older" data enter into the calculation of the EWMA statistic. A value of $\lambda = 1$ implies that only the most recent measurement influences the EWMA (degrades to Shewhart chart). Thus, a large value of $\lambda$ (closer to 1) gives more weight to recent data and less weight to older data; a small value of $\lambda$ (closer to 0) gives more weight to older data. The value of $\lambda$ is usually set between 0.2 and 0.3 [@Hunter] although this choice is somewhat arbitrary. Lucas and Saccucci [-@LucasSaccucci1990] give tables that help the user select $\lambda$.
+
+[**Variance of EWMA statistic**]{#sec-pmc-324-variance}
+
+The estimated variance of the EWMA statistic is approximately
+
+$$ s_{\text{ewma}}^2 = \frac{\lambda}{2-\lambda} s^2 \, , $$
+
+when $t$ is not small and where $s$ is the standard deviation calculated from the historical data.
+
+[**Definition of control limits for EWMA**]{#sec-pmc-324-control-limits}
+
+The center line for the control chart is the target value or $\text{EWMA}_0$. The control limits are:
+
+$$ \begin{aligned}
+   UCL & = \text{EWMA}_0 + k s_{\text{ewma}} \\
+   LCL & = \text{EWMA}_0 - k s_{\text{ewma}} \, ,
+\end{aligned} $$
+
+where the factor $k$ is either set equal 3 or chosen using the Lucas and Saccucci [-@LucasSaccucci1990] tables. The data are assumed to be independent and these tables also assume a normal population.
+
+As with all control procedures, the EWMA procedure depends on a database of measurements that are truly representative of the process. Once the mean value and standard deviation have been calculated from this database, the process can enter the monitoring stage, provided the process was in control when the data were collected. If not, then the usual Phase 1 work would have to be completed first.
+
+[**Example of calculation of parameters for an EWMA control chart**]{#sec-pmc-324-example}
+
+To illustrate the construction of an EWMA control chart, consider a process with the following parameters calculated from historical data:
+
+$$ \text{EWMA}_0 = 50 $$
+
+$$ s = 2.0539 $$
+
+with $\lambda$ chosen to be 0.3 so that $\lambda / (2-\lambda) = 0.3/1.7 = 0.1765$ and the square root = 0.4201. The control limits are given by
+
+$$ \begin{aligned}
+   UCL & = 50 + 3 (0.4201)(2.0539) = 52.5884 \\
+   LCL & = 50 - 3 (0.4201) (2.0539) = 47.4115 \, .
+\end{aligned}$$
+
+[**Sample data**]{#sec-pmc-324-sample-data}
+
+Consider the following data consisting of 20 points.
+
+```{r}
+#| label: setup-ewma
+#| message: false
+library(tidyverse)
+
+y <- c(
+  52.0, 47.0, 53.0, 49.3, 50.1, 47.0, 51.0, 50.1, 51.2, 50.5,
+  49.6, 47.6, 49.9, 51.3, 47.8, 51.2, 52.6, 52.4, 53.6, 52.1
+)
+```
+
+```{r}
+#| echo: false
+matrix(y, ncol = 6, byrow = TRUE) |>
+  as.data.frame() |>
+  setNames(rep("", 6)) |>
+  knitr::kable()
+```
+
+[**EWMA statistics for sample data**]{#sec-pmc-324-ewma-stats}
+
+These data represent control measurements from the process which is to be monitored using the EWMA control chart technique. The corresponding EWMA statistics that are computed from this data set are:
+
+```{r}
+lambda <- 0.3
+ewma0 <- 50
+s <- 2.0539
+
+ewma_df <- tibble(observation = seq_along(y), y = y) |>
+  mutate(ewma = accumulate(y, ~ lambda * .y + (1 - lambda) * .x, .init = ewma0)[-1])
+```
+
+```{r}
+#| echo: false
+matrix(round(ewma_df$ewma, 2), ncol = 5, byrow = TRUE) |>
+  as.data.frame() |>
+  setNames(rep("", 5)) |>
+  knitr::kable()
+```
+
+[**Sample EWMA plot**]{#sec-pmc-324-plot}
+
+The control chart is given below.
+
+```{r}
+#| label: fig-pmc-324-ewma-plot
+#| fig-cap: "EWMA plot of above data"
+#| code-fold: true
+s_ewma <- sqrt(lambda / (2 - lambda)) * s
+ucl <- ewma0 + 3 * s_ewma
+lcl <- ewma0 - 3 * s_ewma
+
+ggplot(ewma_df, aes(observation)) +
+  geom_hline(yintercept = c(ucl, lcl)) +
+  geom_line(aes(y = ewma), color = "forestgreen") +
+  geom_point(aes(y = ewma), shape = 0, color = "forestgreen") +
+  geom_point(aes(y = y), shape = 4, color = "firebrick") +
+  annotate("text", x = 20.5, y = ucl, label = "Upper EWMA Limit", color = "steelblue", hjust = 0, fontface = "bold") +
+  annotate("text", x = 20.5, y = lcl, label = "Lower EWMA Limit", color = "navy", hjust = 0) +
+  scale_x_continuous(breaks = seq(0, 20, 5)) +
+  coord_cartesian(xlim = c(0, 25), ylim = c(min(y), max(y)), clip = "off") +
+  labs(title = "EWMA Plot", x = "Observation Number", y = NULL) +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 90, 5.5, 5.5))
+```
+
+[**Interpretation of EWMA control chart**]{#sec-pmc-324-interpretation}
+
+The red dots are the raw data; the jagged line is the EWMA statistic over time. The chart tells us that the process is in control because all $\text{EWMA}_t$ lie between the control limits. However, there seems to be a trend upwards for the last 5 periods.

@@ -1,0 +1,129 @@
+### What are Variables Control Charts? {#sec-pmc-32}
+
+During the 1920's, Dr. Walter A. Shewhart proposed a general model for control charts as follows:
+
+[**Shewhart Control Charts for variables**]{#sec-pmc-32-shewhart}
+
+Let $w$ be a sample statistic that measures some continuously varying quality characteristic of interest (e.g., thickness), and suppose that the mean of $w$ is $\mu_w$, with a standard deviation of $\sigma_w$. Then the center line, the $UCL$, and the $LCL$ are
+
+- $UCL = \mu_w + k \sigma_w$
+- Center Line = $\mu_w$
+- $LCL = \mu_w - k \sigma_w$
+
+where $k$ is the distance of the control limits from the center line, expressed in terms of standard deviation units. When $k$ is set to 3, we speak of 3-sigma control charts.
+
+*Historically, $k = 3$ has become an accepted standard in industry*.
+
+The centerline is the process mean, which in general is unknown. We replace it with a *target* or the average of all the data. The quantity that we plot is the sample average, $\overline{X}$. The chart is called the $\overline{X}$ chart.
+
+We also have to deal with the fact that $\sigma$ is, in general, unknown. Here we replace $\sigma_w$ with a given standard value, or we estimate it by a function of the *average standard deviation*. This is obtained by averaging the individual standard deviations that we calculated from each of $m$ preliminary (or present) samples, each of size $n$. This function will be discussed shortly.
+
+It is equally important to examine the standard deviations in ascertaining whether the process is in control. There is, unfortunately, a slight problem involved when we work with the usual estimator of $\sigma$. The following discussion will illustrate this.
+
+[**Sample Variance**]{#sec-pmc-32-sample-variance}
+
+If $\sigma^2$ is the unknown variance of a probability distribution, then an unbiased estimator of $\sigma^2$ is the <u>sample</u> variance,
+
+$$ s^2 = \frac{\sum_{i=1}^n \left( x_i - \overline{x} \right)^2}{n-1} \, . $$
+
+However, $s$, the sample standard deviation, is *not* an unbiased estimator of $\sigma$. If the underlying distribution is normal, then $s$ actually estimates $c_4 \cdot \sigma$, where $c_4$ is a constant that depends on the sample size $n$. This constant is tabulated in most text books on statistical quality control and may be calculated using
+
+[**$c_4$ factor**]{#sec-pmc-32-c4}
+
+$$ c_4 = \sqrt{\frac{2}{n-1}} \frac{ \left( \frac{n}{2}-1 \right)!} {\left( \frac{n-1}{2}-1 \right)!} \, . $$
+
+Note that in some sources the formula is given in terms of $\sigma = c_4 \cdot s$, in which case $c_4$ will be the reciprocal of the formula given above.
+
+[**Fractional Factorials**]{#sec-pmc-32-fractional-factorials}
+
+To compute this we need a *non-integer factorial,* which is defined for $n/2$ as follows:
+
+$$ \left( \frac{n}{2} \right) ! =
+\left( \frac{n}{2} \right)
+\left( \frac{n}{2} - 1 \right)
+\left( \frac{n}{2} - 2 \right)
+ \cdots
+\left( \frac{1}{2} \right) \sqrt{\pi} \, . $$
+
+For example, let $n=7$. Then $n/2 = 7/2 = 3.5$ and
+
+$$ \left( \frac{7}{2} \right) ! = (3.5)! =
+(3.5)(2.5)(1.5)(0.5)(1.77246) = 11.632 \, . $$
+
+```{r}
+#| include: false
+c4 <- function(n) sqrt(2 / (n - 1)) * gamma(n / 2) / gamma((n - 1) / 2)
+c4_10 <- c4(10)
+```
+
+With this definition the reader should have no problem verifying that the $c_4$ factor for $n=10$ is `r round(c4_10, 4)`.
+
+[**Mean and standard deviation of the estimators**]{#sec-pmc-32-mean-sd}
+
+So the <u>mean</u> or expected value of the sample standard deviation is $c_4 \cdot \sigma$.
+
+The <u>standard deviation</u> of the sample standard deviation is
+
+$$ \sigma_s = \sigma \sqrt{1 - c_4^2} \, . $$
+
+**What are the differences between control limits and specification limits?**
+
+[**Control limits vs. specifications**]{#sec-pmc-32-limits-vs-specs}
+
+Control Limits are used to determine if the process is in a state of statistical control (i.e., is producing consistent output).
+
+Specification Limits are used to determine if the product will function in the intended fashion.
+
+**How many data points are needed to set up a control chart?**
+
+[**How many samples are needed?**]{#sec-pmc-32-how-many-samples}
+
+Shewhart gave the following rule of thumb:
+
+> "It has also been observed that a person would seldom if ever be justified in concluding that a state of statistical control of a given repetitive operation or production process has been reached until he had obtained, under presumably the same essential conditions, a sequence of not less than twenty five samples of size four that are in control."
+
+It is important to note that control chart properties, such as false alarm probabilities, are generally given under the assumption that the parameters, such as $\mu$ and $\sigma$, are known. When the control limits are not computed from a large amount of data, the actual properties might be quite different from what is assumed (see, e.g., Quesenberry [-@Quesenberry1993]).
+
+**When do we recalculate control limits?**
+
+[**When do we recalculate control limits?**]{#sec-pmc-32-recalculate}
+
+Since a control chart "compares" the current performance of the process characteristic to the past performance of this characteristic, changing the control limits frequently would negate any usefulness.
+
+So, only change your control limits if you have a valid, compelling reason for doing so. Some examples of reasons:
+
+- When you have at least 30 more data points to add to the chart and there have been no known changes to the process
+  - you get a better estimate of the variability
+- If a major process change occurs and affects the way your process runs.
+- If a known, preventable act changes the way the tool or process would behave (power goes out, consumable is corrupted or bad quality, etc.)
+
+**What are the WECO rules for signaling "Out of Control"?**
+
+[**General rules for detecting out of control or non-random situations**]{#sec-pmc-32-weco-rules}
+
+WECO stands for Western Electric Company Rules.
+
+| Zone | Rule |
+|---|---|
+| Above $+3\sigma$ | Any point above |
+| $+2\sigma$ to $+3\sigma$ | 2 out of the last 3 points |
+| $+1\sigma$ to $+2\sigma$ | 4 out of the last 5 points |
+| Center line to $+1\sigma$ | 8 consecutive points on this side of the center line |
+| Center line to $-1\sigma$ | 8 consecutive points on this side of the center line |
+| $-1\sigma$ to $-2\sigma$ | 4 out of the last 5 points |
+| $-2\sigma$ to $-3\sigma$ | 2 out of the last 3 points |
+| Below $-3\sigma$ | Any point below |
+
+: Western Electric Company (WECO) rules for signaling "out of control" {#tbl-pmc-32-weco}
+
+**Trend Rules:** 6 in a row trending up or down. 14 in a row alternating up and down.
+
+[**WECO rules based on probabilities**]{#sec-pmc-32-weco-probabilities}
+
+The WECO rules are based on probability. We know that, for a normal distribution, the probability of encountering a point outside $\pm 3 \sigma$ is 0.3%. This is a rare event. Therefore, if we observe a point outside the control limits, we conclude the process has shifted and is unstable. Similarly, we can identify other events that are equally rare and use them as flags for instability. The probability of observing two points out of three in a row between $2 \sigma$ and $3 \sigma$ and the probability of observing four points out of five in a row between $1 \sigma$ and $2 \sigma$ are also about 0.3%.
+
+[**WECO rules increase false alarms**]{#sec-pmc-32-false-alarms}
+
+**Note:** While the WECO rules increase a Shewhart chart's sensitivity to trends or drifts in the mean, there is a severe downside to adding the WECO rules to an ordinary Shewhart control chart that the user should understand. When following the standard Shewhart "out of control" rule (i.e., signal if and only if you see a point beyond the plus or minus 3 sigma control limits) you will have "false alarms" every 371 points on the average (see the description of [Average Run Length or ARL](#sec-pmc-321-arl) on the next page). Adding the WECO rules increases the frequency of false alarms to about once in every 91.75 points, on the average (see Champ and Woodall [-@ChampWoodall1987]). The user has to decide whether this price is worth paying (some users add the WECO rules, but take them "less seriously" in terms of the effort put into troubleshooting activities when out of control signals occur).
+
+With this background, the next page will describe how to construct Shewhart variables control charts.

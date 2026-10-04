@@ -1,0 +1,205 @@
+#### Cusum Control Charts {#sec-pmc-323}
+
+[**CUSUM is an efficient alternative to Shewhart procedures**]{#sec-pmc-323-efficient}
+
+CUSUM charts, while not as intuitive and simple to operate as Shewhart charts, have been shown to be more efficient in detecting small shifts in the mean of a process. In particular, analyzing [ARL's for CUSUM control charts](#sec-pmc-3231) shows that they are better than Shewhart control charts when it is desired to detect shifts in the mean that are 2 sigma or less.
+
+CUSUM works as follows: Let us collect $m$ samples, each of size $n$, and compute the mean of each sample. Then the cumulative sum (CUSUM) control chart is formed by plotting one of the following quantities:
+
+[**Definition of cumulative sum**]{#sec-pmc-323-definition}
+
+$$ S_{m} = \sum_{i=1}^{m}(\bar{x}_{i} - \hat{\mu}_{0})
+   \,\,\,\,\,\,\, \text{or} \,\,\,\,\,\,\,
+   S_{m}' = \frac{1}{\sigma_{\bar{x}}} \sum_{i=1}^{m}(\bar{x}_{i} - \hat{\mu}_{0})
+$$
+
+against the sample number $m$, where $\hat{\mu}_0$ is the estimate of the in-control mean and $\sigma_{\bar{x}}$ is the known (or estimated) standard deviation of the sample means. The choice of which of these two quantities is plotted is usually determined by the statistical software package. In either case, as long as the process remains in control centered at $\hat{\mu}_0$, the CUSUM plot will show variation in a random pattern centered about zero. If the process mean shifts upward, the charted CUSUM points will eventually drift upwards, and vice versa if the process mean decreases.
+
+[**V-Mask used to determine if process is out of control**]{#sec-pmc-323-v-mask}
+
+A visual procedure proposed by Barnard in 1959, known as *the V-Mask*, is sometimes used to determine whether a process is out of control. More often, the tabular form of the *V*-Mask is preferred. The tabular form is illustrated later in this section.
+
+A *V*-Mask is an overlay shape in the form of a *V* on its side that is superimposed on the graph of the cumulative sums. The origin point of the *V*-Mask (see diagram below) is placed on top of the latest cumulative sum point and past points are examined to see if any fall above or below the sides of the *V*. As long as all the previous points lie between the sides of the *V*, the process is in control. Otherwise (even if one point lies outside) the process is suspected of being out of control.
+
+```{r}
+#| label: setup-cusum
+#| include: false
+library(tidyverse)
+
+flow <- c(
+  324.925, 324.675, 324.725, 324.350, 325.350, 325.225, 324.125, 324.525,
+  325.225, 324.600, 324.625, 325.150, 328.325, 327.250, 327.825, 328.500,
+  326.675, 327.775, 326.875, 328.350
+)
+mu0 <- 325
+k <- 0.3175
+h <- 4.1959
+d <- h / k
+
+cusum_tbl <- tibble(group = seq_along(flow), x = flow) |>
+  mutate(
+    x_minus_mu = x - mu0,
+    hi_term = x - mu0 - k,
+    lo_term = mu0 - k - x
+  )
+Shi <- Slo <- numeric(nrow(cusum_tbl))
+for (i in seq_len(nrow(cusum_tbl))) {
+  prev_hi <- if (i == 1) 0 else Shi[i - 1]
+  prev_lo <- if (i == 1) 0 else Slo[i - 1]
+  Shi[i] <- max(0, prev_hi + cusum_tbl$hi_term[i])
+  Slo[i] <- max(0, prev_lo + cusum_tbl$lo_term[i])
+}
+cusum_tbl <- cusum_tbl |>
+  mutate(Shi = Shi, Slo = Slo, S = cumsum(x_minus_mu))
+
+v_mask_plot <- function(origin_i) {
+  S0 <- cusum_tbl$S[origin_i]
+  vertex_x <- origin_i + d
+  xmax <- max(cusum_tbl$group)
+  upper <- tibble(group = c(1, vertex_x)) |> mutate(S = S0 + k * (vertex_x - group))
+  lower <- tibble(group = c(1, vertex_x)) |> mutate(S = S0 - k * (vertex_x - group))
+
+  ggplot(cusum_tbl, aes(group, S)) +
+    geom_line(color = "grey40") +
+    geom_point(shape = 1, size = 2) +
+    geom_line(data = upper, aes(group, S), color = "firebrick") +
+    geom_line(data = lower, aes(group, S), color = "firebrick") +
+    geom_hline(yintercept = S0, color = "forestgreen") +
+    coord_cartesian(xlim = c(0, xmax), ylim = range(cusum_tbl$S) + c(-2, 7)) +
+    labs(x = "Sample", y = "Cumulative Sum") +
+    theme_light()
+}
+```
+
+[**Sample V-Mask demonstrating an out of control process**]{#sec-pmc-323-v-mask-example}
+
+```{r}
+#| label: fig-pmc-323-v-mask-demo
+#| fig-cap: "Cusum chart with V-Mask showing out of control point"
+#| code-fold: true
+v_mask_plot(20) +
+  annotate("text", x = 2, y = 35, label = "upper arm", hjust = 0) +
+  annotate("segment", x = 6, xend = 9, y = 33, yend = 27, arrow = arrow(length = unit(0.15, "cm"))) +
+  annotate("text", x = 1, y = -6.5, label = "lower arm", hjust = 0) +
+  annotate("segment", x = 5, xend = 10, y = -6, yend = -0.5, arrow = arrow(length = unit(0.15, "cm"))) +
+  annotate("text", x = 20.3, y = 19.08, label = "origin", hjust = 0, vjust = -1) +
+  coord_cartesian(xlim = c(0, 25), ylim = range(cusum_tbl$S) + c(-9, 16))
+```
+
+[**Interpretation of the V-Mask on the plot**]{#sec-pmc-323-interpretation}
+
+In the diagram above, the *V*-Mask shows an out of control situation because of the point that lies above the upper arm. By sliding the *V*-Mask backwards so that the origin point covers other cumulative sum data points, we can determine the first point that signaled an out-of-control situation. This is useful for diagnosing what might have caused the process to go out of control.
+
+From the diagram it is clear that the behavior of the *V*-Mask is determined by the distance $k$ (which is the slope of the lower arm) and the rise distance $h$. These are the *design parameters* of the *V*-Mask. Note that we could also specify $d$ and the vertex angle (or, as is more common in the literature, $\theta = 1/2$ of the vertex angle) as the design parameters, and we would end up with the same *V*-Mask.
+
+In practice, designing and manually constructing a *V*-Mask is a complicated procedure. A CUSUM spreadsheet style procedure shown below is more practical, unless you have statistical software that automates the *V*-Mask methodology. Before describing the spreadsheet approach, we will look briefly at an example of a *V*-Mask in graph form.
+
+[**V-Mask Example**]{#sec-pmc-323-v-mask-design-example}
+
+An example will be used to illustrate the construction and application of a *V*-Mask. The 20 data points
+
+```{r}
+#| label: tbl-pmc-323-raw-data
+#| tbl-cap: "20 sample means used in the V-Mask example"
+#| code-fold: true
+#| echo: false
+matrix(flow, ncol = 5, byrow = TRUE) |>
+  as.data.frame() |>
+  setNames(rep("", 5)) |>
+  knitr::kable()
+```
+
+are each the average of samples of size 4 taken from a process that has an estimated mean of 325. Based on process data, the process standard deviation is 1.27 and therefore the sample means have a standard deviation of $1.27 / (4^{1/2}) = 0.635$.
+
+We can design a *V*-Mask using $h$ and $k$ or we can use an $\alpha$ and $\beta$ design approach. For the latter approach we must specify
+
+- $\alpha$: the probability of a false alarm, i.e., concluding that a shift in the process has occurred, while in fact it did not,
+- $\beta$: the probability of not detecting that a shift in the process mean has, in fact, occurred, and
+- $\delta$ (delta): the amount of shift in the process mean that we wish to detect, expressed as a multiple of the standard deviation of the data points (which are the sample means).
+
+Note: Technically, $\alpha$ and $\beta$ are calculated in terms of one sequential trial where we monitor $S_m$ until we have either an out-of-control signal or $S_m$ returns to the starting point (and the monitoring begins, in effect, all over again).
+
+The values of $h$ and $k$ are related to $\alpha$, $\beta$, and $\delta$ based on the following equations (adapted from Montgomery [-@Montgomery2000]).
+
+$$ \begin{aligned}
+  k & = \frac{\delta \sigma_{x}}{2} \\
+  d & = \frac{2}{\delta^2}\text{ln} \left( \frac{1-\beta}{\alpha} \right) \\
+  h & = d k
+\end{aligned} $$
+
+In our example we choose $\alpha = 0.0027$ (equivalent to the plus or minus 3 sigma criteria used in a standard Shewhart chart), and $\beta = 0.01$. Finally, we decide we want to quickly detect a shift as large as 1 sigma, which sets $\delta = 1$. The values obtained by applying the above equations are $h = 4.1959$ and $k = 0.3175$.
+
+[**CUSUM Chart with *V*-Mask**]{#sec-pmc-323-chart-with-mask}
+
+When the *V*-Mask is placed over the last data point, the mask clearly indicates an out of control situation.
+
+```{r}
+#| label: fig-pmc-323-v-mask-last
+#| fig-cap: "CUSUM chart with V-Mask"
+#| code-fold: true
+v_mask_plot(20)
+```
+
+[**CUSUM chart after moving V-Mask to first out of control point**]{#sec-pmc-323-v-mask-moved}
+
+We next move the *V*-Mask and back to the first point that indicated the process was out of control. This is point number 14, as shown below.
+
+```{r}
+#| label: fig-pmc-323-v-mask-point14
+#| fig-cap: "CUSUM chart after moving V-Mask to first out of control point"
+#| code-fold: true
+v_mask_plot(14)
+```
+
+[**Rule of thumb for choosing $h$ and $k$**]{#sec-pmc-323-rule-of-thumb}
+
+Note: A general rule of thumb (Montgomery [-@Montgomery2000]) if one chooses to design with the $h$ and $k$ approach, instead of the $\alpha$ and $\beta$ method illustrated above, is to choose $k$ to be half the $\delta$ shift (0.5 in our example) and $h$ to be around 4 or 5.
+
+For more information on CUSUM chart design, see Woodall and Adams [-@WoodallAdams1993].
+
+**Tabular or Spreadsheet Form of the *V*-Mask**
+
+[**A spreadsheet approach to CUSUM monitoring**]{#sec-pmc-323-spreadsheet}
+
+Most users of CUSUM procedures prefer tabular charts over the *V*-Mask. The *V*-Mask is actually a carry-over of the pre-computer era. The tabular method can be quickly implemented by standard spreadsheet software.
+
+To generate the tabular form we use the $h$ and $k$ parameters expressed in the original data units. It is also possible to use sigma units.
+
+The following quantities are calculated:
+
+$$ \begin{aligned}
+S_{hi}(i) & = \text{max}(0,S_{hi}(i-1) + x_i - \hat{\mu}_0 - k) \\
+S_{lo}(i) & = \text{max}(0,S_{lo}(i-1) + \hat{\mu}_0 - k - x_i) \, ,
+\end{aligned} $$
+
+where $S_{hi}(0)$ and $S_{lo}(0)$ are 0. When either $S_{hi}(i)$ and $S_{lo}(i)$ exceeds $h$, the process is out of control.
+
+[**Example of spreadsheet calculations**]{#sec-pmc-323-spreadsheet-example}
+
+We will construct a CUSUM tabular chart for the example described above. For this example, the parameter are $h = 4.1959$ and $k = 0.3175$. Using these design values, the tabular form of the example is
+
+| $\hat{\mu}_0$ | $h$ | $k$ |
+|:---:|:---:|:---:|
+| 325 | 4.1959 | 0.3175 |
+
+```{r}
+#| label: tbl-pmc-323-cusum-table
+#| tbl-cap: "Tabular CUSUM for the V-Mask example; * marks an out-of-control signal"
+#| code-fold: true
+cusum_tbl |>
+  mutate(
+    Shi_flag = ifelse(Shi > h, sprintf("%.2f*", Shi), sprintf("%.2f", Shi)),
+    Slo_flag = sprintf("%.2f", Slo)
+  ) |>
+  transmute(
+    Group = group,
+    x = sprintf("%.2f", x),
+    `x - 325` = sprintf("%.2f", x_minus_mu),
+    `x - 325 - k` = sprintf("%.2f", hi_term),
+    S_hi = Shi_flag,
+    `325 - k - x` = sprintf("%.2f", lo_term),
+    S_lo = Slo_flag,
+    CUSUM = sprintf("%.2f", S)
+  ) |>
+  knitr::kable(align = "r")
+```

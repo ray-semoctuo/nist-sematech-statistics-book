@@ -1,0 +1,71 @@
+##### Cusum Average Run Length {#sec-pmc-3231}
+
+**The Average Run Length of Cumulative Sum Control Charts**
+
+[**The ARL of CUSUM**]{#sec-pmc-3231-arl}
+
+The operation of obtaining samples to use with a cumulative sum (CUSUM) control chart consists of taking samples of size $n$ and plotting the cumulative sums
+
+$$ S_r = \sum_{i=1}^{r}{(\bar{x}_i - k)}
+\;\;\; \text{or} \;\;\;
+S_r = \sum_{i=1}^{r}{(\bar{x}_i - k)/\sigma_{\bar{x}}} \;\;\; \text{(standardized)} $$
+
+versus the sample number $r$, where $\bar{x}_i$ is the sample mean and $k$ is a reference value.
+
+In practice, $k$ might be set equal to $(\hat{\mu}_0 + \mu_1)/2$, where $\hat{\mu}_0$ is the estimated in-control mean, which is sometimes known as the *acceptable quality level*, and $\mu_1$ is referred to as the *rejectable quality level*.
+
+If the distance between a plotted point and the <u>lowest previous point</u> is equal to or greater than $h$, one concludes that the process mean has shifted (increased).
+
+[**$h$ is decision limit**]{#sec-pmc-3231-decision-limit}
+
+Hence, $h$ is referred to as the *decision limit*. Thus the sample size $n$, reference value $k$, and decision limit $h$ are the parameters required for operating a one-sided CUSUM chart. If one has to control both positive and negative deviations, as is usually the case, two one-sided charts are used, with respective values $k_1, \, k_2, \, (k_1 > k_2)$ and respective decision limits $h$ and $-h$.
+
+[**Standardizing shift in mean and decision limit**]{#sec-pmc-3231-standardizing}
+
+The shift in the mean can be expressed as $\mu -k$. If we are dealing with normally distributed measurements, we can standardize this shift by
+
+$$ k_s = \frac{(\mu -k)}{\sigma/\sqrt{n}} \,\,\,\,\, \text{or} \,\,\,\,\,
+((\mu - k)\sqrt{n})/\sigma \, . $$
+
+Similarly, the decision limit can be standardized by
+
+$$ h_s = \frac{h}{\sigma / \sqrt{n}} = (h \sqrt{n})/\sigma \, . $$
+
+[**Determination of the ARL, given $h$ and $k$**]{#sec-pmc-3231-determination}
+
+The average run length (ARL) at a given quality level is the average number of samples (subgroups) taken before an action signal is given. The standardized parameters $k_s$ and $h_s$ together with the sample size $n$ are usually selected to yield approximate ARLs $L_0$ and $L_1$ at acceptable and rejectable quality levels $\mu_0$ and $\mu_1$ respectively. We would like to see a high ARL, $L_0$, when the process is on target, (i.e. in control), and a low ARL, $L_1$, when the process mean shifts to an unsatisfactory level.
+
+In order to determine the parameters of a CUSUM chart, the acceptable and rejectable quality levels along with the desired respective ARLs are usually specified. The design parameters can then be obtained by a number of ways. Unfortunately, the calculations of the ARL for CUSUM charts are quite involved.
+
+There are several nomographs available from different sources that can be utilized to find the ARLs when the standardized $h$ and $k$ are given. Some of the nomographs solve the unpleasant integral equations that form the basis of the exact solutions, using an approximation of Systems of Linear Algebraic Equations (SLAE). This Handbook used a computer program that furnished the required ARLs given the standardized $h$ and $k$. An example is given below.
+
+[**Example of finding ARLs given the standardized $h$ and $k$**]{#sec-pmc-3231-example}
+
+| mean shift ($k = 0.5$) | $(h\sqrt{n})/\sigma = 4$ | $(h\sqrt{n})/\sigma = 5$ | Shewhart $\bar{X}$ |
+|:---:|:---:|:---:|:---:|
+| 0.00 | 336  | 930  | 371.00 |
+| 0.25 | 74.2 | 140  | 281.14 |
+| 0.50 | 26.6 | 30.0 | 155.22 |
+| 0.75 | 13.3 | 17.0 | 81.22  |
+| 1.00 | 8.38 | 10.4 | 44.0   |
+| 1.50 | 4.75 | 5.75 | 14.97  |
+| 2.00 | 3.34 | 4.01 | 6.30   |
+| 2.50 | 2.62 | 3.11 | 3.24   |
+| 3.00 | 2.19 | 2.57 | 2.00   |
+| 4.00 | 1.71 | 2.01 | 1.19   |
+
+: Average Run Lengths for CUSUM ($k=0.5$) versus a Shewhart $\bar{X}$ chart, at selected mean shifts {#tbl-pmc-3231-arl}
+
+[**Using the table**]{#sec-pmc-3231-using-table}
+
+If $k = 0.5$, then the shift of the mean (in multiples of the standard deviation of the mean) is obtained by adding 0.5 to the first column. For example to detect a mean shift of $1 \sigma$ at $h = 4$, the ARL = 8.38 (at first column entry of 0.5).
+
+The last column of the table contains the ARLs for a Shewhart control chart at selected mean shifts. The ARL for Shewhart is $1/p$, where $p$ is the probability for a point to fall outside established control limits. Thus, for 3-sigma control limits and assuming normality, the probability to exceed the upper control limit is 0.00135 and to fall below the lower control limit is also 0.00135 and their sum is 0.0027. (These numbers come from standard normal distribution tables or computer programs, setting $z = 3$.) Then the ARL = 1/0.0027 = 370.37. This says that when a process is in control one expects an out-of-control signal (false alarm) each 371 runs.
+
+[**ARL if a 1 sigma shift has occurred**]{#sec-pmc-3231-1-sigma}
+
+When the means shifts up by $1 \sigma$, then the distance between the upper control limit and the shifted mean is $2 \sigma$ (instead of $3 \sigma$). Entering normal distribution tables with $z = 2$ yields a probability of $p = 0.02275$ to exceed this value. The distance between the shifted mean and the lower limit is now $4 \sigma$ and the probability of $\bar{X} < -4$ is only 0.000032 and can be ignored. The ARL is 1/0.02275 = 43.96.
+
+[**Shewhart is better for detecting large shifts, CUSUM is faster for small shifts**]{#sec-pmc-3231-comparison}
+
+The conclusion can be drawn that the Shewhart chart is superior for detecting large shifts and the CUSUM scheme is faster for small shifts. The break-even point is a function of $h$, as the table shows.

@@ -1,0 +1,165 @@
+#### Shewhart X-bar and R and S Control Charts {#sec-pmc-321}
+
+**$\bar{X}$ and $s$ Charts**
+
+[**$\bar{X}$ and $s$ Shewhart Control Charts**]{#sec-pmc-321-xbar-s}
+
+We begin with $\bar{X}$ and $s$ charts. We should use the $s$ chart first to determine if the distribution for the process characteristic is stable.
+
+Let us consider the case where we have to estimate $\sigma$ by analyzing past data. Suppose we have $m$ preliminary samples at our disposition, each of size $n$, and let $s_i$ be the standard deviation of the *i*th sample. Then the average of the $m$ standard deviations is
+
+$$ \bar{s} = \frac{1}{m} \sum_{i=1}^m s_i \, . $$
+
+[**Control Limits for $\bar{X}$ and $s$ Control Charts**]{#sec-pmc-321-control-limits}
+
+We make use of the factor $c_4$ described on the [previous page](#sec-pmc-32-c4).
+
+The statistic $\bar{s}/c_4$ is an unbiased estimator of $\sigma$. Therefore, the parameters of the $s$ chart would be
+
+$$
+\begin{aligned}
+UCL & = \bar{s} + 3\frac{\bar{s}} {c_4} \sqrt{1 - c_4^2} \\
+\text{Center Line} & = \bar{s} \\
+LCL & = \bar{s} - 3\frac{\bar{s}} {c_4} \sqrt{1 - c_4^2} \, .
+\end{aligned}
+$$
+
+Similarly, the parameters of the $\bar{X}$ chart would be
+
+$$
+\begin{aligned}
+UCL & = \bar{\bar{x}} + 3\frac{\bar{s}}{c_4\sqrt{n}} \\
+\text{Center Line} & = \bar{\bar{x}} \\
+LCL & = \bar{\bar{x}} - 3\frac{\bar{s}}{c_4\sqrt{n}} \, .
+\end{aligned}
+$$
+
+$\bar{\bar{x}}$, the "grand" mean, is the average of all the observations.
+
+It is often convenient to plot the $\bar{X}$ and $s$ charts on one page.
+
+**$\bar{X}$ and $R$ Control Charts**
+
+[**$\bar{X}$ and $R$ control charts**]{#sec-pmc-321-xbar-r}
+
+If the sample size is relatively small (say equal to or less than 10), we can use the range instead of the standard deviation of a sample to construct control charts on $\bar{X}$ and *the range*, $R$. The range of a sample is simply the difference between the largest and smallest observation.
+
+There is a statistical relationship (Patnaik, 1946) between the mean range for data from a normal distribution and $\sigma$, the standard deviation of that distribution. This relationship depends only on the sample size, $n$. The mean of $R$ is $d_2 \sigma$, where the value of $d_2$ is also a function of $n$. *An estimator of* $\sigma$ is therefore $R / d_2$.
+
+Armed with this background we can now develop the $\bar{X}$ and $R$ control chart.
+
+Let $R_1, \, R_2, \, \ldots, R_k$, be the ranges of $k$ samples. The average range is
+
+$$ \bar{R} = \frac{R_1 + R_2 + ... + R_k} {k} \, . $$
+
+Then an estimate of $\sigma$ can be computed as
+
+$$ \hat{\sigma} = \frac{\bar{R}} {d_2} \, .$$
+
+[**$\bar{X}$ control charts**]{#sec-pmc-321-xbar-charts}
+
+So, if we use $\bar{\bar{x}}$ (or a given target) as an estimator of $\mu$ and $\bar{R} / d_2$ as an estimator of $\sigma$, then the parameters of the $\bar{X}$ chart are
+
+$$
+\begin{aligned}
+UCL & = \bar{\bar{x}} + \frac{3}{d_2\sqrt{n}} \bar{R} \\
+\text{Center Line} & = \bar{\bar{x}} \\
+LCL & = \bar{\bar{x}} - \frac{3}{d_2\sqrt{n}} \bar{R} \, .
+\end{aligned}
+$$
+
+The simplest way to describe the limits is to define the factor $A_2 = 3 / (d_2 \sqrt{n})$ and the construction of the $\bar{X}$ becomes
+
+$$
+\begin{aligned}
+UCL & = \bar{\bar{x}} + A_2 \bar{R} \\
+\text{Center Line} & = \bar{\bar{x}} \\
+LCL & = \bar{\bar{x}} - A_2 \bar{R} \, . \\
+\end{aligned}
+$$
+
+The factor $A_2$ depends only on $n$, and is [tabled below](#tbl-pmc-321-factors).
+
+**The $R$ chart**
+
+[**$R$ control charts**]{#sec-pmc-321-r-charts}
+
+This chart controls the process variability since the sample range is related to the process standard deviation. *The center line of the $R$ chart is the average range.*
+
+To compute the control limits we need an estimate of the true, but unknown standard deviation $W = R/\sigma$. This can be found from the distribution of $W = R/\sigma$ (assuming that the items that we measure follow a normal distribution). The standard deviation of $W$ is $d_3$, and is a known function of the sample size, $n$. It is tabulated in many textbooks on statistical quality control.
+
+Therefore since $R = W \sigma$, the standard deviation of $R$ is $\sigma_R = d_3 \sigma$. But since the true $\sigma$ is unknown, we may estimate $\sigma_R$ by
+
+$$ \hat{\sigma}_{R} = d_3\frac{\bar{R}} {d_2} \, . $$
+
+As a result, the parameters of the $R$ chart with the customary 3-sigma control limits are
+
+$$
+\begin{aligned}
+UCL & = \bar{R} + 3\hat{\sigma_R} = \bar{R} + 3d_3\frac{\bar{R}}{d_2} \\
+\text{Center Line} & = \bar{R} \\
+LCL & = \bar{R} - 3\hat{\sigma_R} = \bar{R} - 3d_3\frac{\bar{R}}{d_2} \, .
+\end{aligned}
+$$
+
+As was the case with the control chart parameters for the subgroup averages, defining another set of factors will ease the computations, namely:
+
+$$ D_3 = 1 - 3 d_3/d_2 \,\, \text{ and } \,\, D_4 = 1 + 3 d_3/d_2 \, . $$
+
+These yield
+
+$$
+\begin{aligned}
+UCL & = \bar{R} D_4 \\
+\text{Center Line} & = \bar{R} \\
+LCL & = \bar{R} D_3 \, .
+\end{aligned}
+$$
+
+The factors $D_3$ and $D_4$ depend only on $n$, and are tabled below.
+
+: Factors for Calculating Limits for $\bar{X}$ and $R$ Charts {#tbl-pmc-321-factors}
+
+| $n$ | $A_2$ | $D_3$ | $D_4$ |
+|:---:|:---:|:---:|:---:|
+| 2  | 1.880 | 0     | 3.267 |
+| 3  | 1.023 | 0     | 2.575 |
+| 4  | 0.729 | 0     | 2.282 |
+| 5  | 0.577 | 0     | 2.115 |
+| 6  | 0.483 | 0     | 2.004 |
+| 7  | 0.419 | 0.076 | 1.924 |
+| 8  | 0.373 | 0.136 | 1.864 |
+| 9  | 0.337 | 0.184 | 1.816 |
+| 10 | 0.308 | 0.223 | 1.777 |
+
+In general, the range approach is quite satisfactory for sample sizes up to around 10. For larger sample sizes, using subgroup standard deviations is preferable. For small sample sizes, the relative efficiency of using the range approach as opposed to using standard deviations is shown in the following table.
+
+[**Efficiency of $R$ versus $s/c_4$**]{#sec-pmc-321-efficiency}
+
+| $n$ | Relative Efficiency |
+|:---:|:---:|
+| 2  | 1.000 |
+| 3  | 0.992 |
+| 4  | 0.975 |
+| 5  | 0.955 |
+| 6  | 0.930 |
+| 10 | 0.850 |
+
+A typical sample size is 4 or 5, so not much is lost by using the range for such sample sizes.
+
+**Time To Detection or Average Run Length (ARL)**
+
+[**Waiting time to signal "out of control"**]{#sec-pmc-321-arl}
+
+Two important questions when dealing with control charts are:
+
+1. How often will there be false alarms where we look for an assignable cause but nothing has changed?
+2. How quickly will we detect certain kinds of systematic changes, such as mean shifts?
+
+The ARL tells us, for a given situation, how long on the average we will plot successive control charts points before we detect a point beyond the control limits.
+
+For an $\bar{X}$ chart, with no change in the process, we wait on the average $1/p$ points before a false alarm takes place, with $p$ denoting the probability of an observation plotting outside the control limits. For a normal distribution, $p = 0.0027$ and the ARL is approximately 371.
+
+A [table](#sec-pmc-3231) comparing Shewhart $\bar{X}$ chart ARLs to Cumulative Sum (CUSUM) ARLs for various mean shifts is given later in this section.
+
+There is also (currently) a [web site](http://www.sqconline.com/) developed by Galit Shmueli that will do ARL calculations interactively with the user, for Shewhart charts with or without additional ([Western Electric](#sec-pmc-32-weco-rules)) rules added.

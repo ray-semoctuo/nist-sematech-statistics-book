@@ -20,3 +20,15 @@ Control charts in this section are classified and described according to three g
    3. [Multivariate EWMA Charts](#sec-pmc-343)
 
 {{< include control-charts/what-are-control-charts.qmd >}}
+
+{{< include control-charts/variables-charts/index.qmd >}}
+
+{{< include control-charts/variables-charts/shewhart-xbar-r-s.qmd >}}
+
+{{< include control-charts/variables-charts/individuals.qmd >}}
+
+{{< include control-charts/variables-charts/cusum/index.qmd >}}
+
+{{< include control-charts/variables-charts/cusum/average-run-length.qmd >}}
+
+{{< include control-charts/variables-charts/ewma.qmd >}}
