@@ -23,20 +23,24 @@ A *V*-Mask is an overlay shape in the form of a *V* on its side that is superimp
 
 ```{r}
 #| label: setup-cusum
-#| include: false
+#| code-fold: true
+#| message: false
 library(tidyverse)
 
-flow <- c(
-  324.925, 324.675, 324.725, 324.350, 325.350, 325.225, 324.125, 324.525,
-  325.225, 324.600, 324.625, 325.150, 328.325, 327.250, 327.825, 328.500,
-  326.675, 327.775, 326.875, 328.350
+flow_data <- tibble(
+  Sample = 1:20,
+  Means = c(
+    324.925, 324.675, 324.725, 324.350, 325.350, 325.225, 324.125, 324.525,
+    325.225, 324.600, 324.625, 325.150, 328.325, 327.250, 327.825, 328.500,
+    326.675, 327.775, 326.875, 328.350
+  )
 )
 mu0 <- 325
 k <- 0.3175
 h <- 4.1959
 d <- h / k
 
-cusum_tbl <- tibble(group = seq_along(flow), x = flow) |>
+cusum_tbl <- tibble(group = flow_data$Sample, x = flow_data$Means) |>
   mutate(
     x_minus_mu = x - mu0,
     hi_term = x - mu0 - k,
@@ -73,18 +77,7 @@ v_mask_plot <- function(origin_i) {
 
 [**Sample V-Mask demonstrating an out of control process**]{#sec-pmc-323-v-mask-example}
 
-```{r}
-#| label: fig-pmc-323-v-mask-demo
-#| fig-cap: "Cusum chart with V-Mask showing out of control point"
-#| code-fold: true
-v_mask_plot(20) +
-  annotate("text", x = 2, y = 35, label = "upper arm", hjust = 0) +
-  annotate("segment", x = 6, xend = 9, y = 33, yend = 27, arrow = arrow(length = unit(0.15, "cm"))) +
-  annotate("text", x = 1, y = -6.5, label = "lower arm", hjust = 0) +
-  annotate("segment", x = 5, xend = 10, y = -6, yend = -0.5, arrow = arrow(length = unit(0.15, "cm"))) +
-  annotate("text", x = 20.3, y = 19.08, label = "origin", hjust = 0, vjust = -1) +
-  coord_cartesian(xlim = c(0, 25), ylim = range(cusum_tbl$S) + c(-9, 16))
-```
+![Cusum chart with V-Mask showing out of control point](control-charts/variables-charts/images/v-mask-schematic.svg){#fig-pmc-323-v-mask-demo}
 
 [**Interpretation of the V-Mask on the plot**]{#sec-pmc-323-interpretation}
 
@@ -101,12 +94,9 @@ An example will be used to illustrate the construction and application of a *V*-
 ```{r}
 #| label: tbl-pmc-323-raw-data
 #| tbl-cap: "20 sample means used in the V-Mask example"
-#| code-fold: true
 #| echo: false
-matrix(flow, ncol = 5, byrow = TRUE) |>
-  as.data.frame() |>
-  setNames(rep("", 5)) |>
-  knitr::kable()
+flow_data |>
+  knitr::kable(align = "rr")
 ```
 
 are each the average of samples of size 4 taken from a process that has an estimated mean of 325. Based on process data, the process standard deviation is 1.27 and therefore the sample means have a standard deviation of $1.27 / (4^{1/2}) = 0.635$.
