@@ -1,0 +1,108 @@
+#### Proportions Control Charts {#sec-pmc-332}
+
+[**$p$ is the fraction defective in a lot or population**]{#sec-pmc-332-p-definition}
+
+The proportion or fraction nonconforming (defective) in a population is defined as the ratio of the number of nonconforming items in the population to the total number of items in that population. The item under consideration may have one or more quality characteristics that are inspected simultaneously. If at least one of the characteristics does not conform to standard, the item is classified as nonconforming.
+
+The fraction or proportion can be expressed as a decimal, or, when multiplied by 100, as a percent. The underlying statistical principles for a control chart for proportion nonconforming are based on the binomial distribution.
+
+Let us suppose that the production process operates in a stable manner, such that the probability that a given unit will not conform to specifications is $p$. Furthermore, we assume that successive units produced are independent. Under these conditions, each unit that is produced is a realization of a Bernoulli random variable with parameter $p$. If a random sample of $n$ units of product is selected and if $D$ is the number of units that are nonconforming, then $D$ follows a [binomial distribution](#sec-eda-366) with parameters $n$ and $p$ so that
+
+[**The binomial distribution model for number of defectives in a sample**]{#sec-pmc-332-binomial-model}
+
+$$ P(D=x) = \left( \begin{array}{c} n \\ x \end{array} \right)
+   p^x (1-p)^{n-x} \, , \,\,\,\,\,\, x = 0, \, 1, \, \ldots, \, n \, , $$
+
+where
+
+$$ \left( \begin{array}{c} n \\ x \end{array} \right) $$
+
+denotes a "combination", referring to $n$ things taken $x$ at a time.
+
+The mean of $D$ is $np$ and the variance is $np(1-p)$. The *sample* proportion nonconforming is the ratio of the number of nonconforming units in the sample, $D$, to the sample size $n$,
+
+$$ \hat{p} = \frac{D}{n} \, .$$
+
+The mean and variance of this estimator are
+
+$$ \mu = p $$
+
+and
+
+$$ \sigma_{\hat{p}}^2 = \frac{p(1-p)}{n} \, . $$
+
+This background is sufficient to develop the control chart for proportion or fraction nonconforming. The chart is called the $p$-chart.
+
+[**$p$ control charts for lot proportion defective**]{#sec-pmc-332-control-charts}
+
+If the true fraction conforming $p$ is known (or a standard value is given), then the center line and control limits of the fraction nonconforming control chart is
+
+$$ \begin{aligned}
+UCL & = p + 3\sqrt{\frac{p(1-p)}{n}} \\
+\text{Center Line} & = p \\
+LCL & = p - 3\sqrt{\frac{p(1-p)}{n}} \, .
+\end{aligned} $$
+
+When the process fraction (proportion) $p$ is not known, it must be estimated from the available data. This is accomplished by selecting $m$ preliminary samples, each of size $n$. If there are $D_i$ defectives in sample $i$, the fraction nonconforming in sample $i$ is
+
+$$ \hat{p}_i = \frac{D_i}{n} \, , \,\,\,\,\, i = 1, \, 2, \, \ldots, \, m \, , $$
+
+and the average of these individuals sample fractions is
+
+$$ \bar{p} = \frac{\sum_{i=1}^m D_i}{mn} = \frac{\sum_{i=1}^m \hat{p}_i}{m} \, . $$
+
+The $\bar{p}$ is used instead of $p$ in the control chart setup.
+
+[**Example of a $p$-chart**]{#sec-pmc-332-example}
+
+A numerical example will now be given to illustrate the above mentioned principles. The location of chips on a wafer is measured on 30 wafers.
+
+On each wafer 50 chips are measured and a defective is defined whenever a misregistration, in terms of horizontal and/or vertical distances from the center, is recorded. The results are
+
+```{r}
+#| label: tbl-pmc-332-wafer-fractions
+#| tbl-cap: "Fraction defective for 30 wafers, n = 50 chips per wafer"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+proportions_data <- tibble(
+  Wafer = 1:30,
+  FractionDefective = c(
+    0.24, 0.30, 0.16, 0.20, 0.08, 0.14, 0.32, 0.18, 0.28, 0.20,
+    0.10, 0.12, 0.34, 0.24, 0.44, 0.16, 0.20, 0.10, 0.26, 0.22,
+    0.40, 0.36, 0.48, 0.30, 0.18, 0.24, 0.14, 0.26, 0.18, 0.12
+  )
+)
+proportions_data |> knitr::kable(align = "rr")
+```
+
+The reader can download the data as a [text file](../../datasets/MONITOR-6_3_3_2.DAT).
+
+[**Sample proportions control chart**]{#sec-pmc-332-chart}
+
+The corresponding control chart is given below:
+
+```{r}
+#| label: fig-pmc-332-proportions-chart
+#| fig-cap: "Sample proportions control chart"
+#| code-fold: true
+n <- 50
+pbar <- mean(proportions_data$FractionDefective)
+ucl_p <- pbar + 3 * sqrt(pbar * (1 - pbar) / n)
+lcl_p <- pbar - 3 * sqrt(pbar * (1 - pbar) / n)
+
+ggplot(proportions_data, aes(Wafer, FractionDefective)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
+  annotate("segment", x = 1, xend = 30, y = pbar, yend = pbar, color = "black", linetype = "dashed") +
+  annotate("segment", x = 1, xend = 30, y = c(ucl_p, lcl_p), yend = c(ucl_p, lcl_p), color = "firebrick", linetype = "dashed") +
+  annotate("text", x = 30.5, y = ucl_p, label = sprintf("UCL = %.4f", ucl_p), hjust = 0) +
+  annotate("text", x = 30.5, y = pbar, label = sprintf("Center = %.4f", pbar), hjust = 0) +
+  annotate("text", x = 30.5, y = lcl_p, label = sprintf("LCL = %.4f", lcl_p), hjust = 0) +
+  scale_x_continuous(breaks = seq(1, 30, 2)) +
+  coord_cartesian(xlim = c(1, 38), clip = "off") +
+  labs(title = "Control Chart for Proportions", x = "Wafer", y = "Fraction Defective") +
+  theme_light() +
+  theme(plot.title = element_text(hjust = 0.5))
+```

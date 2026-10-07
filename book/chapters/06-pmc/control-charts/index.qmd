@@ -32,3 +32,9 @@ Control charts in this section are classified and described according to three g
 {{< include control-charts/variables-charts/cusum/average-run-length.qmd >}}
 
 {{< include control-charts/variables-charts/ewma.qmd >}}
+
+{{< include control-charts/attributes-charts/index.qmd >}}
+
+{{< include control-charts/attributes-charts/counts.qmd >}}
+
+{{< include control-charts/attributes-charts/proportions.qmd >}}
