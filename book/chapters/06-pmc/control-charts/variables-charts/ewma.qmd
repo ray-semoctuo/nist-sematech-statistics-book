@@ -71,43 +71,36 @@ Consider the following data consisting of 20 points.
 
 ```{r}
 #| label: setup-ewma
+#| code-fold: true
 #| message: false
 library(tidyverse)
 
-y <- c(
-  52.0, 47.0, 53.0, 49.3, 50.1, 47.0, 51.0, 50.1, 51.2, 50.5,
-  49.6, 47.6, 49.9, 51.3, 47.8, 51.2, 52.6, 52.4, 53.6, 52.1
+ewma_data <- tibble(
+  Observation = 1:20,
+  Y = c(
+    52.0, 47.0, 53.0, 49.3, 50.1, 47.0, 51.0, 50.1, 51.2, 50.5,
+    49.6, 47.6, 49.9, 51.3, 47.8, 51.2, 52.6, 52.4, 53.6, 52.1
+  )
 )
-```
 
-```{r}
-#| echo: false
-matrix(y, ncol = 6, byrow = TRUE) |>
-  as.data.frame() |>
-  setNames(rep("", 6)) |>
-  knitr::kable()
-```
-
-[**EWMA statistics for sample data**]{#sec-pmc-324-ewma-stats}
-
-These data represent control measurements from the process which is to be monitored using the EWMA control chart technique. The corresponding EWMA statistics that are computed from this data set are:
-
-```{r}
 lambda <- 0.3
 ewma0 <- 50
 s <- 2.0539
 
-ewma_df <- tibble(observation = seq_along(y), y = y) |>
-  mutate(ewma = accumulate(y, ~ lambda * .y + (1 - lambda) * .x, .init = ewma0)[-1])
+ewma_data <- ewma_data |>
+  mutate(EWMA = accumulate(Y, \(acc, y) lambda * y + (1 - lambda) * acc, .init = ewma0)[-1])
 ```
 
 ```{r}
 #| echo: false
-matrix(round(ewma_df$ewma, 2), ncol = 5, byrow = TRUE) |>
-  as.data.frame() |>
-  setNames(rep("", 5)) |>
-  knitr::kable()
+ewma_data |>
+  transmute(Observation, Y, EWMA = round(EWMA, 2)) |>
+  knitr::kable(align = "rrr")
 ```
+
+[**EWMA statistics for sample data**]{#sec-pmc-324-ewma-stats}
+
+These data represent control measurements from the process which is to be monitored using the EWMA control chart technique. The table above includes the corresponding EWMA statistics computed from this data set.
 
 [**Sample EWMA plot**]{#sec-pmc-324-plot}
 
@@ -121,18 +114,17 @@ s_ewma <- sqrt(lambda / (2 - lambda)) * s
 ucl <- ewma0 + 3 * s_ewma
 lcl <- ewma0 - 3 * s_ewma
 
-ggplot(ewma_df, aes(observation)) +
+ggplot(ewma_data, aes(Observation)) +
   geom_hline(yintercept = c(ucl, lcl)) +
-  geom_line(aes(y = ewma), color = "forestgreen") +
-  geom_point(aes(y = ewma), shape = 0, color = "forestgreen") +
-  geom_point(aes(y = y), shape = 4, color = "firebrick") +
-  annotate("text", x = 20.5, y = ucl, label = "Upper EWMA Limit", color = "steelblue", hjust = 0, fontface = "bold") +
-  annotate("text", x = 20.5, y = lcl, label = "Lower EWMA Limit", color = "navy", hjust = 0) +
+  geom_line(aes(y = EWMA), color = "forestgreen") +
+  geom_point(aes(y = EWMA), shape = 0, color = "forestgreen") +
+  geom_point(aes(y = Y), shape = 4, color = "firebrick") +
+  annotate("text", x = 0, y = ucl, label = "Upper EWMA Limit", color = "steelblue", hjust = 0, vjust = -0.6, fontface = "bold") +
+  annotate("text", x = 0, y = lcl, label = "Lower EWMA Limit", color = "navy", hjust = 0, vjust = 1.4) +
   scale_x_continuous(breaks = seq(0, 20, 5)) +
-  coord_cartesian(xlim = c(0, 25), ylim = c(min(y), max(y)), clip = "off") +
-  labs(title = "EWMA Plot", x = "Observation Number", y = NULL) +
-  theme_light() +
-  theme(plot.margin = margin(5.5, 90, 5.5, 5.5))
+  coord_cartesian(xlim = c(0, 20), ylim = c(min(ewma_data$Y), max(ewma_data$Y))) +
+  labs(title = "EWMA Plot", x = "Observation Number", y = "Value") +
+  theme_light()
 ```
 
 [**Interpretation of EWMA control chart**]{#sec-pmc-324-interpretation}
