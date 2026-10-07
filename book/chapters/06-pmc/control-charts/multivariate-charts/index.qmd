@@ -1,0 +1,62 @@
+### What are Multivariate Control Charts? {#sec-pmc-34}
+
+[**Multivariate control charts and Hotelling's $T^2$ statistic**]{#sec-pmc-34-hotelling}
+
+It is a fact of life that most data are naturally multivariate. Hotelling in 1947 introduced a statistic which uniquely lends itself to plotting multivariate observations [@Hotelling1947]. This statistic, appropriately named Hotelling's $T^2$, is a scalar that combines information from the dispersion and mean of several variables. Due to the fact that computations are laborious and fairly complex and require some knowledge of matrix algebra, acceptance of multivariate control charts by industry was slow and hesitant.
+
+[**Multivariate control charts now more accessible**]{#sec-pmc-34-accessible}
+
+Nowadays, modern computers in general and the PC in particular have made complex calculations accessible and during the last decade, multivariate control charts were given more attention. In fact, the multivariate charts which display the Hotelling $T^2$ statistic became so popular that they sometimes are called Shewhart charts as well (e.g., Crosier, 1988), although Shewhart had nothing to do with them.
+
+[**Hotelling charts for both means and dispersion**]{#sec-pmc-34-means-dispersion}
+
+As in the univariate case, when data are grouped, the $T^2$ chart can be paired with a chart that displays a measure of variability within the subgroups for all the analyzed characteristics. The combined $T^2$ and $T_d^2$ (dispersion) charts are thus a multivariate counterpart of the univariate $\bar{X}$ and $S$ (or $\bar{X}$ and $R$) charts.
+
+[**Hotelling mean and dispersion control charts**]{#sec-pmc-34-example}
+
+An example of a Hotelling $T^2$ and $T_d^2$ pair of charts is given below:
+
+```{r}
+#| label: fig-pmc-34-tsquare
+#| fig-cap: "Plots of Hotelling mean and dispersion control charts"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+tsquare_data <- tibble(
+  Group = 1:14,
+  Means = c(48, 57, 13, 18, 15, 16, 15, 18, 30, 35, 38, 10, 18, 20),
+  Dispersion = c(18, 15, 16, 14, 12, 11, 10, 11, 13, 28, 20, 15, 35, 48)
+)
+ucl_tsquare <- 20
+
+p_means <- ggplot(tsquare_data, aes(Group, Means)) +
+  geom_line() +
+  geom_hline(yintercept = ucl_tsquare, linetype = "dotted") +
+  scale_x_continuous(breaks = 1:14) +
+  labs(title = "T Square For Means", x = NULL, y = NULL) +
+  theme_light() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+p_dispersion <- ggplot(tsquare_data, aes(Group, Dispersion)) +
+  geom_line() +
+  geom_hline(yintercept = ucl_tsquare, linetype = "dotted") +
+  scale_x_continuous(breaks = 1:14) +
+  labs(title = "T Square For Dispersion", x = NULL, y = NULL) +
+  theme_light() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+p_means / p_dispersion
+```
+
+[**Interpretation of sample Hotelling control charts**]{#sec-pmc-34-interpretation}
+
+Each chart represents 14 consecutive measurements on the means of four variables. The $T^2$ chart for means indicates an out-of-control state for groups 1,2 and 9-11. The $T_d^2$ chart for dispersions indicate that groups 10, 13 and 14 are also out of control. The interpretation is that the multivariate system is suspect. To find an assignable cause, one has to resort to the individual univariate control charts or some other univariate procedure that should accompany this multivariate chart.
+
+[**Additional discussion**]{#sec-pmc-34-additional}
+
+For more details and examples see the [next section](#sec-pmc-341) and also Tutorials, section 5, subsections 4.3, 4.3.1 and 4.3.2.
+<!-- XREF: cross-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc543.htm -->
+An introduction to Elements of multivariate analysis is also given in the Tutorials.
+<!-- XREF: cross-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc54.htm#Elements of Multivariate Analysis -->

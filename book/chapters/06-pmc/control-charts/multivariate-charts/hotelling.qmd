@@ -1,0 +1,40 @@
+#### Hotelling Control Charts {#sec-pmc-341}
+
+[**Definition of Hotelling's $T^2$ "distance" statistic**]{#sec-pmc-341-definition}
+
+The Hotelling $T^2$ distance is a measure that accounts for the covariance structure of a multivariate normal distribution. It was proposed by Harold Hotelling in 1947 [@Hotelling1947] and is called Hotelling $T^2$. It may be thought of as the multivariate counterpart of the Student's-*t* statistic.
+
+The $T^2$ distance is a constant multiplied by a quadratic form. This quadratic form is obtained by multiplying the following three quantities.
+
+1. The vector of deviations between the observations and the mean, $\mathbf{m}$, which is expressed by $(\mathbf{X-m})^{T}$,
+2. the inverse of the covariance matrix, $\mathbf{S}^{-1}$,
+3. and the vector of deviations, $(\mathbf{X-m})$.
+
+It should be mentioned that for independent variables, the covariance matrix is a diagonal matrix and $T^2$ becomes proportional to the sum of squared standardized variables.
+
+In general, the higher the $T^2$ value, the more distant is the observation from the mean. The formula for computing the $T^2$ is:
+
+$$ T^2 = c( \mathbf{X-m} )^{T} \mathbf{S}^{-1} ( \mathbf{X-m} ) \, . $$
+
+The constant $c$ is the sample size from which the covariance matrix was estimated.
+
+[**$T^2$ readily graphable**]{#sec-pmc-341-graphable}
+
+The $T^2$ distances lend themselves readily to graphical displays and as a result the $T^2$ chart is the most popular among the multivariate control charts.
+
+**Estimation of the Mean and Covariance Matrix**
+
+[**Mean and Covariance matrices**]{#sec-pmc-341-mean-covariance}
+
+Let $\mathbf{X}_1, \, \mathbf{X}_2, \, \ldots, \, \mathbf{X}_n$ be $n$ $p$-dimensional vectors of observations that are sampled independently from $N_p(\mathbf{m}, \mathbf{\Sigma})$, where $p < n-1$, and $\mathbf{\Sigma}$ is the covariance matrix of $\mathbf{X}$. The observed mean vector $\mathbf{\bar{X}}$ and the sample dispersion matrix
+
+$$ \mathbf{S} = \frac{1}{n-1} \sum_{i=1}^n (\mathbf{X}_i - \mathbf{\bar{X}})(\mathbf{X}_i - \mathbf{\bar{X}})^{T} $$
+
+are the unbiased estimators of $\mathbf{m}$ and $\mathbf{\Sigma}$, respectively.
+
+[**Additional discussion**]{#sec-pmc-341-additional}
+
+See Tutorials (section 5), subsections 4.3, 4.3.1 and 4.3.2 for more details and examples.
+<!-- XREF: cross-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc543.htm, pmc5431.htm, pmc5432.htm -->
+An introduction to Elements of multivariate analysis is also given in the Tutorials.
+<!-- XREF: cross-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc54.htm -->

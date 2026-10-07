@@ -1,0 +1,160 @@
+#### Multivariate EWMA Charts {#sec-pmc-343}
+
+**Multivariate EWMA Control Chart**
+
+[**Univariate EWMA model**]{#sec-pmc-343-univariate-model}
+
+The model for a univariate EWMA chart is given by:
+
+$$ Z_i = \lambda X_i + (1-\lambda)Z_{i-1}, \,\,\,\,\,  i = 1, \, 2, \, \ldots, \, n \, , $$
+
+where $Z_i$ is the $i$th EWMA, $X_i$ is the the $i$th observation, $Z_0$ is the average from the historical data, and $0 < \lambda \le 1$.
+
+[**Multivariate EWMA model**]{#sec-pmc-343-multivariate-model}
+
+In the multivariate case, one can extend this formula to
+
+$$ Z_i = \Lambda X_i + (1-\Lambda)Z_{i-1} \, , $$
+
+where $Z_i$ is the $i$th EWMA vector, $X_i$ is the the $i$th observation vector $i = 1, \, 2, \, \ldots, \, n$, $Z_0$ is the vector of variable values from the historical data, $\Lambda$ is the $\text{diag}(\lambda_1, \, \lambda_2, \, \ldots, \, \lambda_p)$ which is a diagonal matrix with $\lambda_1, \, \lambda_2, \, \ldots, \, \lambda_p$ on the main diagonal, and $p$ is the number of variables; that is the number of elements in each vector.
+
+[**Illustration of multivariate EWMA**]{#sec-pmc-343-illustration}
+
+The following illustration may clarify this. There are $p$ variables and each variable contains $n$ observations. The input data matrix looks like the following.
+
+$$ \begin{array}{cccc}
+X_{11} & X_{12} & \cdots & X_{1p} \\
+X_{21} & X_{22} & \cdots & X_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+       &        &        &        \\
+X_{n1} & X_{n2} & \cdots & X_{np}
+\end{array} $$
+
+The quantity to be plotted on the control chart is
+
+$$ T_i^2 = Z_i^{T} \, \Sigma_{Z_i}^{-1} \, Z_i $$
+
+[**Simplification**]{#sec-pmc-343-simplification}
+
+It has been shown (Lowry et al. [-@Lowry1992]) that the $(k,l)$th element of the covariance matrix of the $i$th EWMA, $\Sigma_{Z_i}$, is
+
+$$ \Sigma_{Z_i}(k,l) = \lambda_k \lambda_l \,
+\frac{\left[ 1-(1-\lambda_k)^i (1-\lambda_l)^i \right]}{(\lambda_k + \lambda_l - \lambda_k \lambda_l )} \,
+\sigma_{k,l} \, ,  $$
+
+where $\sigma_{k,l}$ is the $(k,l)$th element of $\Sigma$, the covariance matrix of the $X$'s.
+
+If $\lambda_1 = \lambda_2 = \cdots = \lambda_p = \lambda$, then the above expression simplifies to
+
+$$ \Sigma_{Z_i}(k,l) = \frac{\lambda}{2 - \lambda} \left[ 1-(1-\lambda)^{2i} \right] \Sigma \, , $$
+
+where $\Sigma$ is the covariance matrix of the input data.
+
+[**Further simplification**]{#sec-pmc-343-further-simplification}
+
+There is a further simplification. When $i$ becomes large, the covariance matrix may be expressed as:
+
+$$ \Sigma_{Z_i} = \frac{\lambda}{2 - \lambda} \Sigma \, . $$
+
+The question is "What is large?". When we examine the formula with the $2i$ in it, we observe that when $2i$ becomes sufficiently large such that $(1-\lambda)^{2i}$ becomes almost zero, then we can use the simplified formula.
+
+[**Table for selected values of $\lambda$ and $i$**]{#sec-pmc-343-table}
+
+The following table gives the values of $(1-\lambda)^{2i}$ for selected values of $\lambda$ and $i$.
+
+| $1-\lambda$ \\ $2i$ | 4 | 6 | 8 | 10 | 12 | 20 | 30 | 40 | 50 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0.9 | 0.656 | 0.531 | 0.430 | 0.349 | 0.282 | 0.122 | 0.042 | 0.015 | 0.005 |
+| 0.8 | 0.410 | 0.262 | 0.168 | 0.107 | 0.069 | 0.012 | 0.001 | 0.000 | 0.000 |
+| 0.7 | 0.240 | 0.118 | 0.058 | 0.028 | 0.014 | 0.001 | 0.000 | 0.000 | 0.000 |
+| 0.6 | 0.130 | 0.047 | 0.017 | 0.006 | 0.002 | 0.000 | 0.000 | 0.000 | 0.000 |
+| 0.5 | 0.063 | 0.016 | 0.004 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| 0.4 | 0.026 | 0.004 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| 0.3 | 0.008 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| 0.2 | 0.002 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| 0.1 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+
+: Values of $(1-\lambda)^{2i}$ for selected $1-\lambda$ and $2i$ {#tbl-pmc-343-lambda}
+
+```{r}
+#| include: false
+# Verify the table above against directly computed values of (1-lambda)^(2i).
+one_minus_lambda <- c(0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1)
+two_i <- c(4, 6, 8, 10, 12, 20, 30, 40, 50)
+lambda_table <- outer(one_minus_lambda, two_i, function(a, b) a^b)
+```
+
+[**Simplified formula not required**]{#sec-pmc-343-not-required}
+
+It should be pointed out that a well-meaning computer program does not have to adhere to the simplified formula, and potential inaccuracies for low values for $\lambda$ and $i$ can thus be avoided.
+
+[**MEWMA computer output for the Lowry data**]{#sec-pmc-343-example}
+
+Here is an example of the application of an MEWMA control chart. To facilitate comparison with existing literature, we used data from Lowry et al. The data were simulated from a bivariate normal distribution with unit variances and a correlation coefficient of 0.5. The value for $\lambda = 0.10$ and the values for $T_i^2$ were obtained by the equation given above. The covariance of the MEWMA vectors was obtained by using the non-simplified equation. That means that for each MEWMA control statistic, the computer computed a covariance matrix, where $i = 1, \, 2, \, \ldots, \, 10$. The results of the computer routine are:
+
+```{r}
+#| label: setup-mewma
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+mewma_data <- tibble(
+  Series1 = c(-1.190, 0.120, -1.690, 0.300, 0.890, 0.820, -0.300, 0.630, 1.560, 1.460),
+  Series2 = c(0.590, 0.900, 0.400, 0.460, -0.750, 0.980, 2.280, 1.750, 1.580, 3.050)
+)
+
+lambda <- 0.10
+Sigma <- cov(mewma_data)
+n <- nrow(mewma_data)
+
+Z <- matrix(0, n, 2)
+z_prev <- c(0, 0)
+T2 <- numeric(n)
+for (i in seq_len(n)) {
+  Z[i, ] <- lambda * as.numeric(mewma_data[i, ]) + (1 - lambda) * z_prev
+  z_prev <- Z[i, ]
+  Sigma_Zi <- (lambda / (2 - lambda)) * (1 - (1 - lambda)^(2 * i)) * Sigma
+  T2[i] <- t(Z[i, ]) %*% solve(Sigma_Zi) %*% Z[i, ]
+}
+
+mewma_data <- mewma_data |>
+  mutate(Z1 = Z[, 1], Z2 = Z[, 2], T2 = T2)
+```
+
+```{r}
+#| echo: false
+mewma_data |>
+  transmute(
+    `Series 1` = sprintf("%.3f", Series1), `Series 2` = sprintf("%.3f", Series2),
+    `MEWMA 1` = sprintf("%.3f", Z1), `MEWMA 2` = sprintf("%.3f", Z2),
+    `MEWMA Statistic` = sprintf("%.4f", T2)
+  ) |>
+  knitr::kable(align = "rrrrr")
+```
+
+| VEC | XBAR | MSE | Lambda |
+|:---:|:---:|:---:|:---:|
+| 1 | .260 | 1.200 | 0.100 |
+| 2 | 1.124 | 1.774 | 0.100 |
+
+The *UCL* = 5.938 for $\alpha = 0.05$. Smaller choices of $\alpha$ are also used.
+
+[**Sample MEWMA plot**]{#sec-pmc-343-plot}
+
+The following is the plot of the above MEWMA.
+
+```{r}
+#| label: fig-pmc-343-mewma-plot
+#| fig-cap: "Sample MEWMA plot of the above data"
+#| code-fold: true
+ucl_mewma <- 5.938
+
+ggplot(mewma_data, aes(seq_along(T2), T2)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = ucl_mewma, color = "firebrick", linetype = "dashed") +
+  scale_x_continuous(breaks = 1:10) +
+  labs(title = "Plot of MEWMA's", x = NULL, y = NULL) +
+  theme_light() +
+  theme(plot.title = element_text(hjust = 0.5))
+```

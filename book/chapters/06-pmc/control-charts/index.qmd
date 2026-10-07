@@ -38,3 +38,11 @@ Control charts in this section are classified and described according to three g
 {{< include control-charts/attributes-charts/counts.qmd >}}
 
 {{< include control-charts/attributes-charts/proportions.qmd >}}
+
+{{< include control-charts/multivariate-charts/index.qmd >}}
+
+{{< include control-charts/multivariate-charts/hotelling.qmd >}}
+
+{{< include control-charts/multivariate-charts/principal-components.qmd >}}
+
+{{< include control-charts/multivariate-charts/multivariate-ewma.qmd >}}

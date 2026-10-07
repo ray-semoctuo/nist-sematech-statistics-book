@@ -1,0 +1,29 @@
+#### Principal Components Control Charts {#sec-pmc-342}
+
+[**Problems with $T^2$ charts**]{#sec-pmc-342-problems}
+
+Although the $T^2$ chart is the most popular, easiest to use and interpret method for handling multivariate process data, and is beginning to be widely accepted by quality engineers and operators, it is not a panacea. First, unlike the univariate case, the scale of the values displayed on the chart is not related to the scales of any of the monitored variables. Secondly, when the $T^2$ statistic exceeds the upper control limit ($UCL$), the user does not know which particular variable(s) caused the out-of-control signal.
+
+[**Run univariate charts along with the multivariate ones**]{#sec-pmc-342-run-univariate}
+
+With respect to scaling, we strongly advise to run individual univariate charts in tandem with the multivariate chart. This will also help in honing in on the culprit(s) that might have caused the signal. However, individual univariate charts cannot explain situations that are a result of some problems in the covariance or correlation between the variables. This is why a dispersion chart must also be used.
+
+[**Another way to monitor multivariate data: Principal Components control charts**]{#sec-pmc-342-another-way}
+
+Another way to analyze the data is to use *principal components*. For each multivariate measurement (or observation), the principal components are linear combinations of the standardized $p$ variables (to standardize subtract their respective targets and divide by their standard deviations). The principal components have two important advantages:
+
+1. the new variables are uncorrelated (or almost), and
+2. very often, a few (sometimes 1 or 2) principal components may capture most of the variability in the data so that we do not have to use all of the $p$ principal components for control.
+
+[**Eigenvalues**]{#sec-pmc-342-eigenvalues}
+
+Unfortunately, there is one big disadvantage: the identity of the original variables is lost! However, in some cases the specific linear combinations corresponding to the principal components with the largest *eigenvalues* may yield meaningful measurement units.
+<!-- XREF: cross-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc532.htm#eigenvalues -->
+What is being used in control charts are the *principal factors.*
+
+*A principal factor is the principal component divided by the square root of its eigenvalue.*
+
+[**Additional discussion**]{#sec-pmc-342-additional}
+
+More details and examples are given in the Tutorials (section 5).
+<!-- XREF: cross-chapter forward reference, not yet drafted; source handbook/pmc/section5/pmc55.htm -->
