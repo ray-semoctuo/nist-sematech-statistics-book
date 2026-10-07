@@ -38,14 +38,15 @@
   <text class="axis-label" x="330" y="414">Sample</text>
   <text class="axis-label" x="20" y="195" transform="rotate(-90 20 195)">Cumulative Sum</text>
 
-  <!-- Data curve: illustrative points at x = 1..7, y = 5, 3, 4, 1, 3.5, 6, 4.5 -->
-  <polyline class="curve" points="60,190 125,230 190,210 255,270 320,220 385,170 450,200" />
+  <!-- Data curve: illustrative points at x = 1..7, y = 5, 3, 4, 1, 3.5, 7.8, 4.5 -->
+  <!-- Point 6 is drawn above the upper arm (which is at y=7 at x=6), signaling out of control -->
+  <polyline class="curve" points="60,190 125,230 190,210 255,270 320,220 385,134 450,200" />
   <circle class="dot" cx="60" cy="190" r="3.5" />
   <circle class="dot" cx="125" cy="230" r="3.5" />
   <circle class="dot" cx="190" cy="210" r="3.5" />
   <circle class="dot" cx="255" cy="270" r="3.5" />
   <circle class="dot" cx="320" cy="220" r="3.5" />
-  <circle class="dot" cx="385" cy="170" r="3.5" />
+  <circle class="dot" cx="385" cy="134" r="3.5" />
   <circle class="dot" cx="450" cy="200" r="3.5" />
 
   <!-- Upper and lower arms, both meeting at the Vertex (same height as Origin) -->

@@ -60,14 +60,19 @@ v_mask_plot <- function(origin_i) {
   S0 <- cusum_tbl$S[origin_i]
   vertex_x <- origin_i + d
   xmax <- max(cusum_tbl$group)
-  upper <- tibble(group = c(1, vertex_x)) |> mutate(S = S0 + k * (vertex_x - group))
-  lower <- tibble(group = c(1, vertex_x)) |> mutate(S = S0 - k * (vertex_x - group))
+  # Arms are only meaningful for past samples, so they are drawn from the
+  # left edge up to the origin and capped there with a vertical segment --
+  # this is how the origin is marked in the original figures, with no text label.
+  upper <- tibble(group = c(1, origin_i)) |> mutate(S = S0 + k * (vertex_x - group))
+  lower <- tibble(group = c(1, origin_i)) |> mutate(S = S0 - k * (vertex_x - group))
+  cap <- tibble(group = origin_i, S = S0 - k * d, Send = S0 + k * d)
 
   ggplot(cusum_tbl, aes(group, S)) +
     geom_line(color = "grey40") +
     geom_point(shape = 1, size = 2) +
     geom_line(data = upper, aes(group, S), color = "firebrick") +
     geom_line(data = lower, aes(group, S), color = "firebrick") +
+    geom_segment(data = cap, aes(x = group, xend = group, y = S, yend = Send), color = "firebrick") +
     geom_hline(yintercept = S0, color = "forestgreen") +
     coord_cartesian(xlim = c(0, xmax), ylim = range(cusum_tbl$S) + c(-2, 7)) +
     labs(x = "Sample", y = "Cumulative Sum") +
