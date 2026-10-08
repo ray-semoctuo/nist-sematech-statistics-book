@@ -1,0 +1,47 @@
+#### Single Moving Average {#sec-pmc-421}
+
+[**Taking a moving average is a smoothing process**]{#sec-pmc-421-smoothing}
+
+An alternative way to summarize the past data is to compute the mean of successive smaller sets of numbers of past data as follows.
+
+> Recall the set of numbers 9, 8, 9, 12, 9, 12, 11, 7, 13, 9, 11, 10 which were the dollar amount of [12 suppliers](#sec-pmc-42-averaging) selected at random. Let us set $M$, the size of the "smaller set" equal to 3. Then the average of the first 3 numbers is:  (9 + 8 + 9) / 3 = 8.667.
+
+This is called "smoothing" (i.e., some form of averaging). This smoothing process is continued by advancing one period and calculating the next average of three numbers, dropping the first number.
+
+[**Moving average example**]{#sec-pmc-421-example}
+
+The next table summarizes the process, which is referred to as *Moving Averaging*. The general expression for the moving average is
+
+$$ M_t = \frac{X_t + X_{t-1} + \cdots + X_{t-N+1}}{N} \, . $$
+
+**Results of Moving Average**
+
+```{r}
+#| label: tbl-pmc-421-moving-average
+#| tbl-cap: "Three-period single moving average of the supplier data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+N <- 3
+suppliers2 <- tibble(
+  Supplier = 1:12,
+  Amount = c(9, 8, 9, 12, 9, 12, 11, 7, 13, 9, 11, 10)
+) |>
+  mutate(
+    MA = as.numeric(stats::filter(Amount, rep(1 / N, N), sides = 1)),
+    Error = Amount - MA,
+    `Error squared` = Error^2
+  )
+
+suppliers2 |>
+  mutate(across(c(MA, Error, `Error squared`), ~ ifelse(is.na(.x), "", sprintf("%.3f", .x)))) |>
+  knitr::kable(align = "rrrrr")
+```
+
+```{r}
+#| include: false
+mse_ma <- mean(suppliers2$Error^2, na.rm = TRUE)
+```
+
+The MSE = `r round(mse_ma, 2)` as compared to 3 in the previous case.

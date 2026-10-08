@@ -1,0 +1,42 @@
+### Definitions, Applications and Techniques {#sec-pmc-41}
+
+[**Definition**]{#sec-pmc-41-definition}
+
+**Definition of Time Series**: *An ordered sequence of values of a variable at equally spaced time intervals*.
+
+[**Time series occur frequently when looking at industrial data**]{#sec-pmc-41-occurrence}
+
+**Applications**: The usage of time series models is twofold:
+
+- Obtain an understanding of the underlying forces and structure that produced the observed data
+- Fit a model and proceed to forecasting, monitoring or even feedback and feedforward control.
+
+Time Series Analysis is used for many applications such as:
+
+- Economic Forecasting
+- Sales Forecasting
+- Budgetary Analysis
+- Stock Market Analysis
+- Yield Projections
+- Process and Quality Control
+- Inventory Studies
+- Workload Projections
+- Utility Studies
+- Census Analysis
+
+and many, many more...
+
+[**There are many methods used to model and forecast time series**]{#sec-pmc-41-methods}
+
+**Techniques:** The fitting of time series models can be an ambitious undertaking. There are many methods of model fitting including the following:
+
+- [Box-Jenkins ARIMA models](#sec-pmc-44)
+- [Box-Jenkins Multivariate Models](#sec-pmc-45)
+- [Holt-Winters Exponential Smoothing (single, double, triple)](#sec-pmc-43)
+
+The user's application and preference will decide the selection of the appropriate technique. It is beyond the realm and intention of the authors of this handbook to cover all these methods. The overview presented here will start by looking at some basic smoothing techniques:
+
+- Averaging Methods
+- Exponential Smoothing Techniques.
+
+Later in this section we will discuss the Box-Jenkins modeling methods and Multivariate Time Series.

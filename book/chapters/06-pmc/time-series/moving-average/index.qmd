@@ -1,0 +1,160 @@
+### What are Moving Average or Smoothing Techniques? {#sec-pmc-42}
+
+[**Smoothing data removes random variation and shows trends and cyclic components**]{#sec-pmc-42-smoothing}
+
+Inherent in the collection of data taken over time is some form of random variation. There exist methods for reducing of canceling the effect due to random variation. An often-used technique in industry is "smoothing". This technique, when properly applied, reveals more clearly the underlying trend, seasonal and cyclic components.
+
+There are two distinct groups of smoothing methods
+
+- Averaging Methods
+- Exponential Smoothing Methods
+
+[**Taking averages is the simplest way to smooth data**]{#sec-pmc-42-averaging}
+
+We will first investigate some averaging methods, such as the "simple" average of all past data.
+
+A manager of a warehouse wants to know how much a typical supplier delivers in 1000 dollar units. He/she takes a sample of 12 suppliers, at random, obtaining the following results:
+
+```{r}
+#| label: tbl-pmc-42-suppliers
+#| tbl-cap: "Amount delivered (in \\$1000 units) by 12 randomly sampled suppliers"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+suppliers <- tibble(
+  Supplier = 1:12,
+  Amount = c(9, 8, 9, 12, 9, 12, 11, 7, 13, 9, 11, 10)
+)
+suppliers |> knitr::kable(align = "rr")
+```
+
+```{r}
+#| include: false
+supplier_mean <- mean(suppliers$Amount)
+```
+
+The computed mean or average of the data = `r supplier_mean`. The manager decides to use this as the estimate for *expenditure of a typical supplier.*
+
+Is this a good or bad estimate?
+
+[**Mean squared error is a way to judge how good a model is**]{#sec-pmc-42-mse}
+
+We shall compute the *"mean squared error"*:
+
+- The "error" = true amount spent minus the estimated amount.
+- The "error squared" is the error above, squared.
+- The "SSE" is the sum of the squared errors.
+- The "MSE" is the mean of the squared errors.
+
+[**MSE results for example**]{#sec-pmc-42-mse-results}
+
+The results are:
+
+**Error and Squared Errors**
+
+**The estimate = 10**
+
+```{r}
+#| label: tbl-pmc-42-errors
+#| tbl-cap: "Error and squared error for the estimate 10"
+#| code-fold: true
+suppliers |>
+  mutate(Error = Amount - 10, `Error Squared` = Error^2) |>
+  knitr::kable(align = "rrrr")
+```
+
+```{r}
+#| include: false
+sse_10 <- sum((suppliers$Amount - 10)^2)
+mse_10 <- sse_10 / nrow(suppliers)
+```
+
+The SSE = `r sse_10` and the MSE = `r sse_10`/12 = `r mse_10`.
+
+[**Table of MSE results for example using different estimates**]{#sec-pmc-42-mse-table}
+
+So how good was the estimator for the amount spent for each supplier? Let us compare the estimate (10) with the following estimates: 7, 9, and 12. That is, we estimate that each supplier will spend \$7, or \$9 or \$12.
+
+Performing the same calculations we arrive at:
+
+```{r}
+#| label: tbl-pmc-42-estimator-comparison
+#| tbl-cap: "SSE and MSE for four candidate estimators"
+#| code-fold: true
+estimators <- c(7, 9, 10, 12)
+tibble(
+  Estimator = estimators,
+  SSE = map_dbl(estimators, ~ sum((suppliers$Amount - .x)^2)),
+  MSE = SSE / nrow(suppliers)
+) |>
+  pivot_longer(-Estimator, names_to = " ", values_to = "value") |>
+  pivot_wider(names_from = Estimator, values_from = value) |>
+  knitr::kable(align = "lrrrr")
+```
+
+The estimator with the smallest MSE is the best. It can be shown mathematically that the estimator that minimizes the MSE for a set of random data is the mean.
+
+[**Table showing squared error for the mean for sample data**]{#sec-pmc-42-income-table}
+
+Next we will examine the mean to see how well it predicts net income over time.
+
+The next table gives the income before taxes of a PC manufacturer between 1985 and 1994.
+
+```{r}
+#| label: tbl-pmc-42-income
+#| tbl-cap: "Income before taxes of a PC manufacturer, 1985-1994"
+#| code-fold: true
+income <- tibble(
+  Year = 1985:1994,
+  Income = c(46.163, 46.998, 47.816, 48.311, 48.758, 49.164, 49.548, 48.915, 50.315, 50.768)
+)
+income_mean <- mean(income$Income)
+
+income |>
+  mutate(Mean = round(income_mean, 3), Error = round(Income - income_mean, 3), `Squared Error` = round(Error^2, 3)) |>
+  knitr::kable(align = "rrrrr")
+```
+
+```{r}
+#| include: false
+income_mse <- mean((income$Income - income_mean)^2)
+```
+
+The MSE = `r round(income_mse, 4)`.
+
+[**The mean is not a good estimator when there are trends**]{#sec-pmc-42-trend-warning}
+
+The question arises: *can we use the mean to forecast income if we suspect a trend?* A look at the graph below shows clearly that we should not do this.
+
+```{r}
+#| label: fig-pmc-42-income-trend
+#| fig-cap: "Plot demonstrating the mean is not a good estimator in the presence of trend"
+#| code-fold: true
+ggplot(income, aes(Year)) +
+  geom_line(aes(y = Income, color = "Income")) +
+  geom_point(aes(y = Income, color = "Income"), shape = 18, size = 2) +
+  geom_line(aes(y = income_mean, color = "Mean")) +
+  geom_point(aes(y = income_mean, color = "Mean"), shape = 0) +
+  scale_color_manual(values = c(Income = "firebrick", Mean = "steelblue"), name = NULL) +
+  scale_x_continuous(breaks = seq(1985, 1994, 2)) +
+  labs(x = NULL, y = NULL) +
+  theme_light()
+```
+
+[**Average weighs all past observations equally**]{#sec-pmc-42-equal-weight}
+
+In summary, we state that
+
+1. The "simple" average or mean of all past observations is only a useful estimate for forecasting when there are no trends. If there are trends, use different estimates that take the trend into account.
+2. The average "weighs" all past observations equally. For example, the average of the values 3, 4, 5 is 4. We know, of course, that an average is computed by adding all the values and dividing the sum by the number of values. Another way of computing the average is by adding each value divided by the number of values, or
+
+   $$ 3/3 + 4/3 + 5/3 = 1 + 1.3333 + 1.6667 = 4. $$
+
+   The multiplier 1/3 is called the *weight*. In general:
+
+   $$ \bar{x} = \frac{1} {n} \sum_{i=1}^{n}{x_i} =
+   \left ( \frac{1} {n} \right ) x_1 + \left ( \frac{1} {n} \right )
+   x_2 \, + \, ... \, + \, \left ( \frac{1} {n} \right ) x_n \, . $$
+
+   The $\left ( \frac{1} {n} \right )$ are the weights and, of course, they sum to 1.

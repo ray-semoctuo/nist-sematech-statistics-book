@@ -1,0 +1,66 @@
+#### Centered Moving Average {#sec-pmc-422}
+
+[**When computing a running moving average, placing the average in the middle time period makes sense**]{#sec-pmc-422-placement}
+
+In the [previous example](#sec-pmc-421) we computed the average of the first 3 time periods and placed it next to period 3. We could have placed the average in the middle of the time interval of three periods, that is, next to period 2. This works well with odd time periods, but not so good for even time periods. So where would we place the first moving average when $M$ = 4?
+
+Technically, the Moving Average would fall at $t$ = 2.5, 3.5, ...
+
+To avoid this problem we smooth the MA's using $M$ = 2. **Thus we smooth the smoothed values!**
+
+[**If we average an even number of terms, we need to smooth the smoothed values**]{#sec-pmc-422-smooth-again}
+
+The following table shows the results using $M$ = 4.
+
+```{r}
+#| label: tbl-pmc-422-interim
+#| tbl-cap: "Interim Steps: M = 4 moving average, then centered by averaging adjacent pairs"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+N <- 4
+x <- c(9, 8, 9, 12, 9, 12, 11, 7, 13, 9, 11, 10)[1:7]
+
+# A trailing M=4 average naturally falls at half-integer periods (t-1.5);
+# averaging each adjacent pair of these then centers the result back on an
+# integer period, which is the "smooth the smoothed values" step described above.
+trail_ma <- as.numeric(stats::filter(x, rep(1 / N, N), sides = 1))
+
+periods <- seq(1, 7, by = 0.5)
+interim <- tibble(Period = periods) |>
+  mutate(
+    is_integer = Period == round(Period),
+    Value = ifelse(is_integer, x[Period], NA),
+    MA = ifelse(!is_integer, trail_ma[Period + 1.5], NA),
+    Centered = ifelse(is_integer, (lag(MA, 1) + lead(MA, 1)) / 2, NA)
+  ) |>
+  select(Period, Value, MA, Centered)
+
+interim |>
+  mutate(across(c(Value, MA, Centered), ~ ifelse(is.na(.x), "", sprintf("%.3f", .x)))) |>
+  knitr::kable(align = "rrrr")
+```
+
+[**Final table**]{#sec-pmc-422-final}
+
+This is the final table:
+
+```{r}
+#| label: tbl-pmc-422-final
+#| tbl-cap: "Centered moving average (M = 4) of the supplier data"
+#| code-fold: true
+centered_ma <- (lead(trail_ma, 1) + lead(trail_ma, 2)) / 2
+
+tibble(Period = 1:7, Value = x[1:7], `Centered MA` = centered_ma[1:7]) |>
+  mutate(`Centered MA` = ifelse(is.na(`Centered MA`), "", sprintf("%.2f", `Centered MA`))) |>
+  knitr::kable(align = "rrr")
+```
+
+**Double Moving Averages for a Linear Trend Process**
+
+[**Moving averages are still not able to handle significant trends when forecasting**]{#sec-pmc-422-trend-limitation}
+
+Unfortunately, neither the mean of all data nor the moving average of the most recent $M$ values, when used as forecasts for the next period, are able to cope with a significant trend.
+
+There exists a variation on the MA procedure that often does a better job of handling trend. It is called *Double Moving Averages for a Linear Trend Process*. It calculates a second moving average from the original moving average, using the same value for $M$. As soon as both single and double moving averages are available, a computer routine uses these averages to compute a slope and intercept, and then forecasts one or more periods ahead.
