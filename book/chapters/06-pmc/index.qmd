@@ -35,3 +35,9 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include time-series/exponential-smoothing/double.qmd >}}
 
 {{< include time-series/exponential-smoothing/forecasting-double.qmd >}}
+
+{{< include time-series/exponential-smoothing/triple.qmd >}}
+
+{{< include time-series/exponential-smoothing/triple-example.qmd >}}
+
+{{< include time-series/exponential-smoothing/summary.qmd >}}

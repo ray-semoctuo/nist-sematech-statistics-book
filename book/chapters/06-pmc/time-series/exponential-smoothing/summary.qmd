@@ -1,0 +1,15 @@
+#### Exponential Smoothing Summary {#sec-pmc-437}
+
+**Summary**
+
+[**Exponential smoothing has proven to be a useful technique**]{#sec-pmc-437-summary}
+
+Exponential smoothing has proven through the years to be very useful in many forecasting situations. It was first suggested by C.C. Holt in 1957 and was meant to be used for non-seasonal time series showing no trend. He later offered a procedure (1958) that does handle trends. Winters (1965) generalized the method to include seasonality, hence the name "Holt-Winters Method".
+
+[**Holt-Winters has 3 updating equations**]{#sec-pmc-437-three-equations}
+
+The Holt-Winters Method has 3 updating equations, each with a constant that ranges from 0 to 1. The equations are intended to give more weight to recent observations and less weight to observations further in the past.
+
+These weights are geometrically decreasing by a constant ratio.
+
+The HW procedure can be made fully automatic by user-friendly software.

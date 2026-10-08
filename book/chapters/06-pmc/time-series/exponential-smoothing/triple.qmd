@@ -1,0 +1,93 @@
+#### Triple Exponential Smoothing {#sec-pmc-435}
+
+What happens if the data show trend **and** seasonality?
+
+[**To handle seasonality, we have to add a third parameter**]{#sec-pmc-435-third-parameter}
+
+In this case double smoothing will not work. We now introduce a third equation to take care of seasonality (sometimes called periodicity). The resulting set of equations is called the "Holt-Winters" (HW) method after the names of the inventors.
+
+The basic equations for their method are given by:
+
+$$ \begin{aligned}
+S_t & = \alpha \frac{y_t}{I_{t-L}} + (1-\alpha)(S_{t-1}+b_{t-1}) & & \text{OVERALL SMOOTHING} \\
+b_t & = \gamma (S_t - S_{t-1}) + (1 - \gamma)b_{t-1} & & \text{TREND SMOOTHING} \\
+I_t & = \beta \frac{y_t}{S_t} + (1 - \beta) I_{t-L} & & \text{SEASONAL SMOOTHING} \\
+F_{t+m} & = (S_t + m b_t) I_{t-L+m} & & \text{FORECAST}
+\end{aligned} $$
+
+where
+
+- $y$ is the observation
+- $S$ is the smoothed observation
+- $b$ is the trend factor
+- $I$ is the seasonal index
+- $F$ is the forecast at $m$ periods ahead
+- $t$ is an index denoting a time period
+
+and $\alpha$, $\beta$, and $\gamma$ are constants that must be estimated in such a way that the MSE of the error is minimized. This is best left to a good software package.
+
+[**Complete season needed**]{#sec-pmc-435-complete-season}
+
+To initialize the HW method we need **at least** one complete season's data to determine initial estimates of the seasonal indices $I_{t-L}$.
+
+[**$L$ periods in a season**]{#sec-pmc-435-periods-in-season}
+
+A complete season's data consists of $L$ periods. And we need to estimate the trend factor from one period to the next. To accomplish this, it is advisable to use two complete seasons; that is, $2L$ periods.
+
+**Initial values for the trend factor**
+
+[**How to get initial estimates for trend and seasonality parameters**]{#sec-pmc-435-initial-trend}
+
+The general formula to estimate the initial trend is given by
+
+$$ b = \frac{1}{L} \left(
+\frac{y_{L+1} - y_1}{L} + \frac{y_{L+2} - y_2}{L} + \cdots + \frac{y_{L+L} - y_L}{L}
+\right) \, . $$
+
+**Initial values for the Seasonal Indices**
+
+As we will see in the example, we work with data that consist of 6 years with 4 periods (that is, 4 quarters) per year.
+
+[**Step 1: compute yearly averages**]{#sec-pmc-435-step1}
+
+**Step 1:** Compute the averages of each of the 6 years.
+
+$$ A_p = \frac{\sum_{i=1}^4 y_i}{4} \, , \,\,\,\,\, p = 1, \, 2, \, \ldots, \, 6 \, . $$
+
+[**Step 2: divide by yearly averages**]{#sec-pmc-435-step2}
+
+**Step 2:** Divide the observations by the appropriate yearly mean.
+
+| | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| | $y_1/A_1$ | $y_5/A_2$ | $y_9/A_3$ | $y_{13}/A_4$ | $y_{17}/A_5$ | $y_{21}/A_6$ |
+| | $y_2/A_1$ | $y_6/A_2$ | $y_{10}/A_3$ | $y_{14}/A_4$ | $y_{18}/A_5$ | $y_{22}/A_6$ |
+| | $y_3/A_1$ | $y_7/A_2$ | $y_{11}/A_3$ | $y_{15}/A_4$ | $y_{19}/A_5$ | $y_{23}/A_6$ |
+| | $y_4/A_1$ | $y_8/A_2$ | $y_{12}/A_3$ | $y_{16}/A_4$ | $y_{20}/A_5$ | $y_{24}/A_6$ |
+
+[**Step 3: form seasonal indices**]{#sec-pmc-435-step3}
+
+**Step 3:** Now the seasonal indices are formed by computing the average of each row. Thus the initial seasonal indices (symbolically) are:
+
+$$ \begin{aligned}
+I_1 & = \left( y_1/A_1 + y_5/A_2 + y_9/A_3 + y_{13}/A_4 + y_{17}/A_5 + y_{21}/A_6 \right) / 6 \\
+I_2 & = \left( y_2/A_1 + y_6/A_2 + y_{10}/A_3 + y_{14}/A_4 + y_{18}/A_5 + y_{22}/A_6 \right) / 6 \\
+I_3 & = \left( y_3/A_1 + y_7/A_2 + y_{11}/A_3 + y_{15}/A_4 + y_{19}/A_5 + y_{23}/A_6 \right) / 6 \\
+I_4 & = \left( y_4/A_1 + y_8/A_2 + y_{12}/A_3 + y_{16}/A_4 + y_{20}/A_5 + y_{24}/A_6 \right) / 6 \, .
+\end{aligned} $$
+
+::: {.callout-note}
+NIST's original page gives $I_3 = (y_3/A_1 + y_6/A_2 + y_{11}/A_3 + \ldots)/6$ and $I_4 = (y_4/A_1 + y_6/A_2 + y_{12}/A_3 + \ldots)/6$ — both reuse the $y_6/A_2$ term from the $I_2$ line. This contradicts NIST's own Step 2 table directly above, which places $y_7/A_2$ in row 3 and $y_8/A_2$ in row 4, and is also inconsistent with the worked seasonal-index table in the [next section](#sec-pmc-436-seasonal-indices), where row 3 and row 4 of the example data clearly follow the $y_7$/$y_8$ pattern. We correct the typo here, following the Step 2 table and the worked example.
+:::
+
+We now know the algebra behind the computation of the initial estimates. The next page contains an [example](#sec-pmc-436) of triple exponential smoothing.
+
+**The case of the Zero Coefficients**
+
+[**Zero coefficients for trend and seasonality parameters**]{#sec-pmc-435-zero-coefficients}
+
+Sometimes it happens that a computer program for triple exponential smoothing outputs a final coefficient for trend ($\gamma$) or for seasonality ($\beta$) of zero. Or worse, both are outputted as zero!
+
+Does this indicate that there is no trend and/or no seasonality?
+
+Of course not! It only means that the initial values for trend and/or seasonality were right on the money. No updating was necessary in order to arrive at the lowest possible MSE. We should inspect the updating formulas to verify this.

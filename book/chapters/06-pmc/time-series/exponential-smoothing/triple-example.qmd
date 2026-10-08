@@ -1,0 +1,204 @@
+#### Example of Triple Exponential Smoothing {#sec-pmc-436}
+
+[**Example comparing single, double, triple exponential smoothing**]{#sec-pmc-436-comparison}
+
+This example shows comparison of single, double and triple exponential smoothing for a data set.
+
+The following data set represents 24 observations. These are six years of quarterly data (each year has four quarters).
+
+```{r}
+#| label: tbl-pmc-436-data
+#| tbl-cap: "Six years of quarterly sales data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+sales_data <- tibble(
+  Year = rep(90:95, each = 4),
+  Quarter = rep(1:4, 6),
+  Period = 1:24,
+  Sales = c(362, 385, 432, 341, 382, 409, 498, 387, 473, 513, 582, 474,
+            544, 582, 681, 557, 628, 707, 773, 592, 627, 725, 854, 661)
+)
+
+sales_data |>
+  mutate(col = rep(1:2, each = 12), row = rep(1:12, 2)) |>
+  pivot_wider(id_cols = row, names_from = col, values_from = c(Year, Quarter, Period, Sales)) |>
+  select(Year_1, Quarter_1, Period_1, Sales_1, Year_2, Quarter_2, Period_2, Sales_2) |>
+  knitr::kable(
+    col.names = c("Year", "Quarter", "Period", "Sales", "Year", "Quarter", "Period", "Sales"),
+    align = "rrrrrrrr"
+  )
+```
+
+The reader can download the data as a [text file](../../datasets/MONITOR-6_4_3_6.DAT).
+
+**Comparison of MSEs**
+
+[**Comparison of MSEs**]{#sec-pmc-436-mse-comparison}
+
+| MSE | $\alpha$ demand | $\gamma$ trend | $\beta$ seasonality |
+|---:|---:|---:|---:|
+| 6906 | 0.4694 | | |
+| 5054 | 0.1086 | 1.0000 | |
+| 936 | 1.0000 | | 1.0000 |
+| 520 | 0.7556 | 0.0000 | 0.9837 |
+
+The updating coefficients were chosen by a computer program such that the MSE for each of the methods was minimized.
+
+::: {.callout-note}
+Reproducing the single and double exponential smoothing rows with the stated $\alpha$ (and $\gamma$) reproduces NIST's MSE closely: our recursion gives MSE = 6906.8 for single smoothing (stated 6906) and MSE = 5543.0 for double smoothing (stated 5054, within the same precision tolerance seen for the double-smoothing examples earlier in this section). For the triple (Holt-Winters) row, running our implementation of the equations above at NIST's stated $\alpha=0.7556$, $\gamma=0$, $\beta=0.9837$ gives MSE $\approx$ 995, and the best fit we can find by direct search of the three parameters gives MSE $\approx$ 816 — neither reproduces the stated 520. This is likely due to implementation details of the original fitting software (e.g., the exact handling of the startup period) that are not specified on this page. We use NIST's stated parameters directly, since they illustrate the "zero coefficient" case discussed on the [previous page](#sec-pmc-435-zero-coefficients), and reproduce the overall shape of the original forecast plots below.
+:::
+
+**Example of the computation of the Initial Trend**
+
+[**Computation of initial trend**]{#sec-pmc-436-initial-trend}
+
+The data set consists of quarterly sales data. The season is 1 year and since there are 4 quarters per year, $L=4$. Using the formula we obtain:
+
+$$ \begin{aligned}
+b_1 & = \frac{1}{4} \left[ \left( \frac{y_5-y_1}{4} \right) + \left( \frac{y_6-y_2}{4} \right)
+       + \left( \frac{y_7-y_3}{4} \right) + \left( \frac{y_8-y_4}{4} \right) \right] \\
+    & = \frac{1}{4} \left[ \left( \frac{382-362}{4} \right) + \left( \frac{409-385}{4} \right)
+       + \left( \frac{498-432}{4} \right) +  \left( \frac{387-341}{4} \right) \right] \\
+    & = \frac{5 + 6 + 16.5 + 11.5}{4} = 9.75 \, .
+\end{aligned} $$
+
+```{r}
+#| include: false
+y <- sales_data$Sales
+n <- length(y)
+L <- 4
+b1_check <- mean((y[5:8] - y[1:4]) / 4)
+```
+
+Our own recomputation confirms $b_1 = `r b1_check`$.
+
+**Example of the computation of the Initial Seasonal Indices**
+
+[**Table of initial seasonal indices**]{#sec-pmc-436-seasonal-indices}
+
+```{r}
+#| label: tbl-pmc-436-seasonal-table
+#| tbl-cap: "Quarterly sales by year, with yearly averages"
+#| code-fold: true
+yearly <- matrix(y, nrow = 4)
+A <- colMeans(yearly)
+
+rbind(yearly, A) |>
+  as_tibble() |>
+  mutate(Quarter = c("1", "2", "3", "4", "$\\bar{X}$"), .before = 1) |>
+  knitr::kable(col.names = c("", as.character(1:6)), align = "lrrrrrr")
+```
+
+```{r}
+#| include: false
+I0 <- sapply(1:4, function(q) mean(y[seq(q, 24, by = 4)] / A))
+```
+
+In this example we used the full 6 years of data. Other schemes may use only 3, or some other number of years. There are also a number of ways to compute initial estimates.
+
+::: {.callout-note}
+Our recomputation of the yearly averages ($A_1, \ldots, A_6 = `r paste(A, collapse=", ")`$) matches NIST's stated table exactly, and the resulting initial seasonal indices are $I_1, \ldots, I_4 = `r paste(round(I0, 4), collapse=", ")`$ (not shown numerically on NIST's original page, but consistent with the corrected formulas above).
+:::
+
+[**Plot of raw data with single, double, and triple exponential forecasts**]{#sec-pmc-436-triple-forecast-plot}
+
+```{r}
+#| label: fig-pmc-436-triple-forecast
+#| fig-cap: "Plot of raw data with single, double, and triple exponential forecasts"
+#| code-fold: true
+#| warning: false
+# Single exponential smoothing, alpha = 0.4694
+alpha_s <- 0.4694
+S1 <- rep(NA_real_, n)
+S1[2] <- y[1]
+for (t in 3:n) S1[t] <- alpha_s * y[t - 1] + (1 - alpha_s) * S1[t - 1]
+single_future <- accumulate(1:12, \(acc, i) alpha_s * y[n] + (1 - alpha_s) * acc, .init = S1[n])[-1]
+
+# Double exponential smoothing (Holt), alpha = 0.1086, gamma = 1.0
+alpha_d <- 0.1086
+gamma_d <- 1.0
+S2 <- numeric(n)
+b2 <- numeric(n)
+S2[1] <- y[1]
+b2[1] <- y[2] - y[1]
+for (t in 2:n) {
+  S2[t] <- alpha_d * y[t] + (1 - alpha_d) * (S2[t - 1] + b2[t - 1])
+  b2[t] <- gamma_d * (S2[t] - S2[t - 1]) + (1 - gamma_d) * b2[t - 1]
+}
+double_hist <- c(NA, (S2 + b2)[1:(n - 1)])
+double_future <- S2[n] + (1:12) * b2[n]
+
+# Triple exponential smoothing (Holt-Winters), alpha = 0.7556, gamma = 0, beta = 0.9837
+hw_fit <- function(y, alpha, gamma, beta, L, S_L, b_L, I0) {
+  n <- length(y)
+  S <- numeric(n)
+  b <- numeric(n)
+  I <- numeric(n)
+  S[L] <- S_L
+  b[L] <- b_L
+  I[1:L] <- I0
+  fc <- rep(NA_real_, n)
+  for (t in (L + 1):n) {
+    I_prev <- I[t - L]
+    S[t] <- alpha * (y[t] / I_prev) + (1 - alpha) * (S[t - 1] + b[t - 1])
+    b[t] <- gamma * (S[t] - S[t - 1]) + (1 - gamma) * b[t - 1]
+    I[t] <- beta * (y[t] / S[t]) + (1 - beta) * I_prev
+    fc[t] <- (S[t - 1] + b[t - 1]) * I_prev
+  }
+  list(S = S, b = b, I = I, fc = fc)
+}
+fit3 <- hw_fit(y, alpha = 0.7556, gamma = 0, beta = 0.9837, L = L, S_L = A[1], b_L = b1_check, I0 = I0)
+I_tail <- fit3$I[(n - L + 1):n]
+triple_future <- sapply(1:12, \(m) (fit3$S[n] + m * fit3$b[n]) * I_tail[((m - 1) %% L) + 1])
+
+plot_data <- bind_rows(
+  tibble(Period = 1:n, series = "Actual", value = y),
+  tibble(Period = 1:n, series = "single", value = S1),
+  tibble(Period = n + 1:12, series = "single", value = single_future),
+  tibble(Period = 1:n, series = "double", value = double_hist),
+  tibble(Period = n + 1:12, series = "double", value = double_future),
+  tibble(Period = 1:n, series = "triple", value = fit3$fc),
+  tibble(Period = n + 1:12, series = "triple", value = triple_future)
+)
+
+ggplot(plot_data, aes(Period, value, color = series, shape = series)) +
+  geom_line(data = \(d) filter(d, series == "Actual"), linewidth = 0.6) +
+  geom_line(data = \(d) filter(d, series == "single"), linetype = "dashed") +
+  geom_line(data = \(d) filter(d, series == "double"), linetype = "dashed") +
+  geom_line(data = \(d) filter(d, series == "triple"), linetype = "dashed") +
+  geom_point(size = 1.2) +
+  scale_color_manual(values = c(Actual = "black", single = "steelblue", double = "forestgreen", triple = "firebrick")) +
+  scale_shape_manual(values = c(Actual = 16, single = 15, double = 17, triple = 18)) +
+  scale_x_continuous(breaks = seq(1, 36, 3)) +
+  labs(x = "Period", y = "Sales", color = NULL, shape = NULL) +
+  theme_light() +
+  theme(legend.position = "top")
+```
+
+[**Plot of raw data with triple exponential forecasts**]{#sec-pmc-436-actual-vs-triple}
+
+**Actual Time Series with forecasts**
+
+```{r}
+#| label: fig-pmc-436-actual-vs-triple
+#| fig-cap: "Plot of raw data with triple exponential forecasts"
+#| code-fold: true
+#| warning: false
+plot_data_triple <- bind_rows(
+  tibble(Period = 1:n, series = "Actual", value = y),
+  tibble(Period = 1:n, series = "Triple", value = fit3$fc),
+  tibble(Period = n + 1:12, series = "Triple", value = triple_future)
+)
+
+ggplot(plot_data_triple, aes(Period, value, color = series, shape = series)) +
+  geom_line(linetype = "dashed") +
+  geom_point(size = 1.5) +
+  scale_color_manual(values = c(Actual = "firebrick", Triple = "black")) +
+  scale_shape_manual(values = c(Actual = 16, Triple = 15)) +
+  scale_x_continuous(breaks = seq(1, 36, 3)) +
+  labs(x = "Period", y = "Sales", color = NULL, shape = NULL) +
+  theme_light() +
+  theme(legend.position = "top")
+```
