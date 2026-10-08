@@ -62,26 +62,26 @@ The question is "What is large?". When we examine the formula with the $2i$ in i
 
 The following table gives the values of $(1-\lambda)^{2i}$ for selected values of $\lambda$ and $i$.
 
-| $1-\lambda$ \\ $2i$ | 4 | 6 | 8 | 10 | 12 | 20 | 30 | 40 | 50 |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0.9 | 0.656 | 0.531 | 0.430 | 0.349 | 0.282 | 0.122 | 0.042 | 0.015 | 0.005 |
-| 0.8 | 0.410 | 0.262 | 0.168 | 0.107 | 0.069 | 0.012 | 0.001 | 0.000 | 0.000 |
-| 0.7 | 0.240 | 0.118 | 0.058 | 0.028 | 0.014 | 0.001 | 0.000 | 0.000 | 0.000 |
-| 0.6 | 0.130 | 0.047 | 0.017 | 0.006 | 0.002 | 0.000 | 0.000 | 0.000 | 0.000 |
-| 0.5 | 0.063 | 0.016 | 0.004 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| 0.4 | 0.026 | 0.004 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| 0.3 | 0.008 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| 0.2 | 0.002 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| 0.1 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-
-: Values of $(1-\lambda)^{2i}$ for selected $1-\lambda$ and $2i$ {#tbl-pmc-343-lambda}
-
 ```{r}
-#| include: false
-# Verify the table above against directly computed values of (1-lambda)^(2i).
+#| label: tbl-pmc-343-lambda
+#| tbl-cap: "Values of $(1-\\lambda)^{2i}$ for selected $1-\\lambda$ and $2i$"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
 one_minus_lambda <- c(0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1)
 two_i <- c(4, 6, 8, 10, 12, 20, 30, 40, 50)
 lambda_table <- outer(one_minus_lambda, two_i, function(a, b) a^b)
+
+lambda_table |>
+  as.data.frame() |>
+  setNames(as.character(two_i)) |>
+  mutate(`1-lambda` = sprintf("%.1f", one_minus_lambda), .before = 1) |>
+  gt() |>
+  fmt_number(columns = -`1-lambda`, decimals = 3) |>
+  tab_spanner(label = "2i", columns = -`1-lambda`) |>
+  cols_label(`1-lambda` = html("1 &minus; &lambda;"))
 ```
 
 [**Simplified formula not required**]{#sec-pmc-343-not-required}
