@@ -1,0 +1,40 @@
+#### Double Exponential Smoothing {#sec-pmc-433}
+
+[**Double exponential smoothing uses two constants and is better at handling trends**]{#sec-pmc-433-two-constants}
+
+As was [previously observed](#sec-pmc-432-trend-example), Single Smoothing does not excel in following the data when there is a trend. This situation can be improved by the introduction of a second equation with a second constant, $\gamma$, which must be chosen in conjunction with $\alpha$.
+
+Here are the two equations associated with Double Exponential Smoothing.
+
+$$ \begin{aligned}
+S_t & = \alpha y_t + (1 - \alpha)(S_{t-1} + b_{t-1}) & & 0 \le \alpha \le 1 \\
+b_t & = \gamma(S_t - S_{t-1}) + (1 - \gamma) b_{t-1} & & 0 \le \gamma \le 1
+\end{aligned} $$
+
+Note that the current value of the series is used to calculate its smoothed value replacement in double exponential smoothing.
+
+**Initial Values**
+
+[**Several methods to choose the initial values**]{#sec-pmc-433-initial-values}
+
+As in the case for single smoothing, there are a variety of schemes to set initial values for $S_t$ and $b_t$ in double smoothing.
+
+$S_1$ is in general set to $y_1$. Here are three suggestions for $b_1$.
+
+$$ \begin{aligned}
+b_1 & = y_2 - y_1 \\
+b_1 & = \frac{1}{3} \left[ (y_2 - y_1) + (y_3 - y_2) + (y_4 - y_3) \right] \\
+b_1 & = \frac{y_n - y_1}{n-1}
+\end{aligned} $$
+
+**Comments**
+
+[**Meaning of the smoothing equations**]{#sec-pmc-433-meaning}
+
+The first smoothing equation adjusts $S_t$ directly for the trend of the previous period, $b_{t-1}$, by adding it to the last smoothed value, $S_{t-1}$. This helps to eliminate the lag and brings $S_t$ to the appropriate base of the current value.
+
+The second smoothing equation then updates the trend, which is expressed as the difference between the last two values. The equation is similar to the basic form of single smoothing, but here applied to the updating of the trend.
+
+[**Non-linear optimization techniques can be used**]{#sec-pmc-433-optimization}
+
+The values for $\alpha$ and $\gamma$ can be obtained via non-linear optimization techniques, such as the Marquardt Algorithm.

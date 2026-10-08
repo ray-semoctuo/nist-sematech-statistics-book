@@ -1,0 +1,11 @@
+### What is Exponential Smoothing? {#sec-pmc-43}
+
+[**Exponential smoothing schemes weight past observations using exponentially decreasing weights**]{#sec-pmc-43-weights}
+
+This is a very popular scheme to produce a smoothed Time Series. Whereas in Single Moving Averages the past observations are weighted equally, Exponential Smoothing assigns *exponentially decreasing weights* as the observation get older.
+
+In other words, *recent observations are given relatively more weight in forecasting than the older observations*.
+
+In the case of moving averages, the weights assigned to the observations are the same and are equal to 1/$N$. In exponential smoothing, however, there are one or more *smoothing parameters* to be determined (or estimated) and these choices determine the weights assigned to the observations.
+
+[Single](#sec-pmc-431), [double](#sec-pmc-433) and [triple](#sec-pmc-435) Exponential Smoothing will be described in this section.

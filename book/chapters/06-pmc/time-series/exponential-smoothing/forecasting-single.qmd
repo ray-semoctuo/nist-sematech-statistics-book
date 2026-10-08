@@ -1,0 +1,133 @@
+#### Forecasting with Single Exponential Smoothing {#sec-pmc-432}
+
+**Forecasting Formula**
+
+[**Forecasting the next point**]{#sec-pmc-432-forecast-formula}
+
+The forecasting formula is the basic equation
+
+$$ S_{t+1} = \alpha y_t + (1-\alpha) S_t, \,\,\,\,\,  0 < \alpha \le 1, \,\,\,\,\, t > 0 \, . $$
+
+[**New forecast is previous forecast plus an error adjustment**]{#sec-pmc-432-error-adjustment}
+
+This can be written as:
+
+$$ S_{t+1} = S_t + \alpha \epsilon_t \, , $$
+
+where $\epsilon_t$ is the forecast error (actual - forecast) for period $t$.
+
+In other words, the new forecast is the old one plus an adjustment for the error that occurred in the last forecast.
+
+**Bootstrapping of Forecasts**
+
+[**Bootstrapping forecasts**]{#sec-pmc-432-bootstrapping}
+
+What happens if you wish to forecast from some origin, usually the last data point, and no actual observations are available? In this situation we have to modify the formula to become:
+
+$$ S_{t+1} = \alpha y_{origin} + (1-\alpha) S_t \, , $$
+
+where $y_{origin}$ remains constant. This technique is known as *bootstrapping.*
+
+**Example of Bootstrapping**
+
+[**Example**]{#sec-pmc-432-bootstrapping-example}
+
+The last data point in the previous example was 70 and its forecast (smoothed value $S$) was 71.7. Since we do have the data point **and** the forecast available, we can calculate the next forecast using the regular formula with $\alpha = 0.1$ as
+
+$$ \begin{aligned}
+S_{t+1} & = \alpha y_{origin} + (1-\alpha) S_t \\
+        & = 0.1(70) + 0.9(71.7) \\
+        & = 71.5 \, .
+\end{aligned} $$
+
+But for the next forecast we have no data point (observation). So now we compute:
+
+$$ S_{t+2} = 0.1(70) + 0.9(71.5) = 71.35 \, . $$
+
+**Comparison between bootstrap and regular forecasting**
+
+[**Table comparing two methods**]{#sec-pmc-432-comparison-table}
+
+The following table displays the comparison between the two methods:
+
+```{r}
+#| label: tbl-pmc-432-comparison
+#| tbl-cap: "Bootstrap forecast vs. single smoothing forecast, periods 13-17"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+alpha <- 0.1
+s12_full <- 71.66528274 # full-precision S_12 carried forward from the 12-point example
+y_data <- c(75, 75, 74, 78, 86) # actual data for periods 13-17
+y_prior <- c(70, y_data[-length(y_data)]) # y_{t-1} feeding each forecast S13..S17
+
+bootstrap <- accumulate(1:5, \(acc, i) alpha * 70 + (1 - alpha) * acc, .init = s12_full)[-1]
+regular <- accumulate(y_prior, \(acc, y) alpha * y + (1 - alpha) * acc, .init = s12_full)[-1]
+
+tibble(
+  Period = 13:17,
+  `Bootstrap forecast` = sprintf("%.2f", bootstrap),
+  Data = y_data,
+  `Single Smoothing Forecast` = sprintf("%.1f", regular)
+) |>
+  knitr::kable(align = "rrrr")
+```
+
+**Single Exponential Smoothing with Trend**
+
+Single Smoothing (short for single exponential smoothing) is not very good when there is a trend. The single coefficient $\alpha$ is not enough.
+
+[**Sample data set with trend**]{#sec-pmc-432-trend-example}
+
+Let us demonstrate this with the following data set smoothed with an $\alpha$ of 0.3:
+
+```{r}
+#| label: tbl-pmc-432-trend
+#| tbl-cap: "Single exponential smoothing (alpha = 0.3) applied to trending data"
+#| code-fold: true
+trend_data <- c(6.4, 5.6, 7.8, 8.8, 11.0, 11.6, 16.7, 15.3, 21.6, 22.4)
+
+single_exp_smooth <- function(y, alpha) {
+  n <- length(y)
+  S <- rep(NA_real_, n)
+  S[2] <- y[1]
+  for (t in 3:n) S[t] <- alpha * y[t - 1] + (1 - alpha) * S[t - 1]
+  S
+}
+
+tibble(Data = trend_data, Fit = single_exp_smooth(trend_data, 0.3)) |>
+  mutate(Fit = ifelse(is.na(Fit), "", sprintf("%.1f", Fit))) |>
+  knitr::kable(align = "rr")
+```
+
+[**Plot demonstrating inadequacy of single exponential smoothing when there is trend**]{#sec-pmc-432-trend-plot}
+
+The resulting graph looks like (periods 11-15 extend the fitted series with the bootstrap forecast described above, holding the last data value as the origin):
+
+```{r}
+#| label: fig-pmc-432-trend-plot
+#| fig-cap: "Plot showing raw data with single exponential smoothed values"
+#| code-fold: true
+#| warning: false
+fitted_trend <- single_exp_smooth(trend_data, 0.3)
+y_origin <- trend_data[length(trend_data)]
+s_last <- fitted_trend[length(fitted_trend)]
+fitted_bootstrap <- accumulate(1:5, \(acc, i) 0.3 * y_origin + 0.7 * acc, .init = s_last)[-1]
+
+trend_plot_data <- bind_rows(
+  tibble(Period = seq_along(trend_data), series = "data", value = trend_data),
+  tibble(Period = seq_along(trend_data), series = "fitted", value = fitted_trend),
+  tibble(Period = length(trend_data) + 1:5, series = "fitted", value = fitted_bootstrap)
+)
+
+ggplot(trend_plot_data, aes(Period, value, color = series, linetype = series)) +
+  geom_line() +
+  geom_point(size = 1.5) +
+  scale_color_manual(values = c(data = "#4B0082", fitted = "darkorange")) +
+  scale_linetype_manual(values = c(data = "solid", fitted = "22")) +
+  scale_x_continuous(breaks = seq(1, 15, 2)) +
+  labs(x = NULL, y = NULL, color = NULL, linetype = NULL) +
+  theme_light() +
+  theme(legend.position = "top")
+```

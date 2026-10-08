@@ -25,3 +25,13 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include time-series/moving-average/single.qmd >}}
 
 {{< include time-series/moving-average/centered.qmd >}}
+
+{{< include time-series/exponential-smoothing/index.qmd >}}
+
+{{< include time-series/exponential-smoothing/single.qmd >}}
+
+{{< include time-series/exponential-smoothing/forecasting-single.qmd >}}
+
+{{< include time-series/exponential-smoothing/double.qmd >}}
+
+{{< include time-series/exponential-smoothing/forecasting-double.qmd >}}
