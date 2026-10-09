@@ -1,0 +1,87 @@
+##### Seasonal Subseries Plot {#sec-pmc-4431}
+
+[**Purpose**]{#sec-pmc-4431-purpose}
+
+Seasonal subseries plots (Cleveland 1993) are a tool for detecting seasonality in a time series.
+
+This plot is only useful if the period of the seasonality is already known. In many cases, this will in fact be known. For example, monthly data typically has a period of 12.
+
+If the period is not known, an autocorrelation plot or spectral plot can be used to determine it.
+
+[**Sample Plot**]{#sec-pmc-4431-sample-plot}
+
+```{r}
+#| label: fig-pmc-4431-sample-plot
+#| fig-cap: "Sample seasonal subseries plot"
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+co2_data <- read_table(
+  here::here("datasets", "MLCO2MON.DAT"),
+  skip = 25,
+  col_names = c("CO2", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+co2_fit <- lm(CO2 ~ YearMonth, data = co2_data)
+co2_data <- co2_data |> mutate(Residual = residuals(co2_fit))
+
+co2_subseries <- co2_data |>
+  group_by(Month) |>
+  mutate(
+    x = Month + scales::rescale(rank(Year, ties.method = "first"), to = c(-0.4, 0.4)),
+    group_mean = mean(Residual)
+  ) |>
+  ungroup()
+
+ggplot(co2_subseries, aes(x, Residual, group = Month)) +
+  geom_line() +
+  geom_segment(aes(x = Month - 0.4, xend = Month + 0.4, y = group_mean, yend = group_mean), color = "firebrick") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  labs(x = "Month", y = "CO2 Concentrations") +
+  theme_light()
+```
+
+This seasonal subseries plot containing monthly data of CO₂ concentrations reveals a strong seasonality pattern. The CO₂ concentrations peak in May, steadily decrease through September, and then begin rising again until the May peak.
+
+This plot allows you to detect both between group and within group patterns.
+
+If there is a large number of observations, then a box plot may be preferable.
+
+[**Definition**]{#sec-pmc-4431-definition}
+
+Seasonal subseries plots are formed by
+
+| | |
+|---|---|
+| Vertical axis: | Response variable |
+| Horizontal axis: | Time ordered by season. For example, with monthly data, all the January values are plotted (in chronological order), then all the February values, and so on. |
+
+In addition, a reference line is drawn at the group means.
+
+The user must specify the length of the seasonal pattern before generating this plot. In most cases, the analyst will know this from the context of the problem and data collection. Sometimes the series will need to be detrended before generating the plot, as was the case for the CO₂ data.
+
+[**Questions**]{#sec-pmc-4431-questions}
+
+The seasonal subseries plot can provide answers to the following questions:
+
+1. Do the data exhibit a seasonal pattern?
+2. What is the nature of the seasonality?
+3. Is there a within-group pattern (e.g., do January and July exhibit similar patterns)?
+4. Are there any outliers once seasonality has been accounted for?
+
+[**Importance**]{#sec-pmc-4431-importance}
+
+It is important to know when analyzing a time series if there is a significant seasonality effect. The seasonal subseries plot is an excellent tool for determining if there is a seasonal pattern.
+
+[**Related Techniques**]{#sec-pmc-4431-related}
+
+Box Plot
+Run Sequence Plot
+Autocorrelation Plot
+
+[**Software**]{#sec-pmc-4431-software}
+
+Seasonal subseries plots are available in a few general purpose statistical software programs. It may be possible to write macros to generate this plot in most statistical software programs that do not provide it directly. The reader can download the data as a [text file](../../datasets/MLCO2MON.DAT).

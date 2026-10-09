@@ -1,0 +1,24 @@
+##### Data Set of Southern Oscillations {#sec-pmc-4412}
+
+[**Source and Background**]{#sec-pmc-4412-background}
+
+The southern oscillation is defined as the barametric pressure difference between Tahiti and the Darwin Islands at sea level. The southern oscillation is a predictor of el nino which in turn is thought to be a driver of world-wide weather. Specifically, repeated southern oscillation values less than -1 typically defines an el nino. Note: the decimal values in the second column of the data given below are obtained as (month number - 0.5)/12. The reader can download the data as a [text file](../../datasets/ELNINO.DAT).
+
+[**Data**]{#sec-pmc-4412-data}
+
+```{r}
+#| label: tbl-pmc-4412-elnino
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+elnino_data <- read_table(
+  here::here("datasets", "ELNINO.DAT"),
+  skip = 25,
+  col_names = c("SouthernOscillation", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+elnino_data
+```

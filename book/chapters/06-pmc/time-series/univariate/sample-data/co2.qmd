@@ -1,0 +1,28 @@
+##### Data Set of Monthly CO₂ Concentrations {#sec-pmc-4411}
+
+[**Source and Background**]{#sec-pmc-4411-background}
+
+This data set contains selected monthly mean CO₂ concentrations at the Mauna Loa Observatory from 1974 to 1987. The CO₂ concentrations were measured by the continuous infrared analyser of the Geophysical Monitoring for Climatic Change division of NOAA's Air Resources Laboratory. The selection has been for an approximation of 'background conditions'. See Thoning et al., "Atmospheric Carbon Dioxide at Mauna Loa Observatory: II Analysis of the NOAA/GMCC Data 1974-1985", *Journal of Geophysical Research* (submitted) for details.
+
+This dataset was received from Jim Elkins of NOAA in 1988.
+
+[**Data**]{#sec-pmc-4411-data}
+
+Each line contains the CO₂ concentration (mixing ratio in dry air, expressed in the WMO X85 mole fraction scale, maintained by the Scripps Institution of Oceanography). In addition, it contains the year, month, and a numeric value for the combined month and year. This combined date is useful for plotting purposes. The reader can download the data as a [text file](../../datasets/MLCO2MON.DAT).
+
+```{r}
+#| label: tbl-pmc-4411-co2
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+co2_data <- read_table(
+  here::here("datasets", "MLCO2MON.DAT"),
+  skip = 25,
+  col_names = c("CO2", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+co2_data
+```

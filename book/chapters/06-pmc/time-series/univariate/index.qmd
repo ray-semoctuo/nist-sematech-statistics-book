@@ -1,0 +1,22 @@
+### Univariate Time Series Models {#sec-pmc-44}
+
+[**Univariate Time Series**]{#sec-pmc-44-univariate}
+
+The term "univariate time series" refers to a time series that consists of single (scalar) observations recorded sequentially over equal time increments. Some examples are [monthly CO₂ concentrations](#sec-pmc-4411) and [southern oscillations to predict el nino effects](#sec-pmc-4412).
+
+Although a univariate time series data set is usually given as a single column of numbers, time is in fact an implicit variable in the time series. If the data are equi-spaced, the time variable, or index, does not need to be explicitly given. The time variable may sometimes be explicitly used for plotting the series. However, it is not used in the time series model itself.
+
+The analysis of time series where the data are not collected in equal time increments is beyond the scope of this handbook.
+
+[**Contents**]{#sec-pmc-44-contents}
+
+1. [Sample Data Sets](#sec-pmc-441)
+2. [Stationarity](#sec-pmc-442)
+3. [Seasonality](#sec-pmc-443)
+4. [Common Approaches](#sec-pmc-444)
+5. [Box-Jenkins Approach](#sec-pmc-445)
+6. [Box-Jenkins Model Identification](#sec-pmc-446)
+7. [Box-Jenkins Model Estimation](#sec-pmc-447)
+8. [Box-Jenkins Model Validation](#sec-pmc-448)
+9. [Example of Univariate Box-Jenkins Analysis](#sec-pmc-449)
+10. [Box-Jenkins Analysis on Seasonal Data](#sec-pmc-44a)

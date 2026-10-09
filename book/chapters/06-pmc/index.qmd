@@ -41,3 +41,17 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include time-series/exponential-smoothing/triple-example.qmd >}}
 
 {{< include time-series/exponential-smoothing/summary.qmd >}}
+
+{{< include time-series/univariate/index.qmd >}}
+
+{{< include time-series/univariate/sample-data/index.qmd >}}
+
+{{< include time-series/univariate/sample-data/co2.qmd >}}
+
+{{< include time-series/univariate/sample-data/southern-oscillation.qmd >}}
+
+{{< include time-series/univariate/stationarity.qmd >}}
+
+{{< include time-series/univariate/seasonality/index.qmd >}}
+
+{{< include time-series/univariate/seasonality/seasonal-subseries-plot.qmd >}}

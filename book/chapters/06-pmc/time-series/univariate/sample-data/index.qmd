@@ -1,0 +1,8 @@
+#### Sample Data Sets {#sec-pmc-441}
+
+[**Sample Data Sets**]{#sec-pmc-441-intro}
+
+The following two data sets are used as examples in the text for this section.
+
+1. [Monthly mean CO₂ concentrations](#sec-pmc-4411).
+2. [Southern oscillations](#sec-pmc-4412).

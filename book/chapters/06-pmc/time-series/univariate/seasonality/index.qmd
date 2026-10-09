@@ -1,0 +1,160 @@
+#### Seasonality {#sec-pmc-443}
+
+[**Seasonality**]{#sec-pmc-443-intro}
+
+Many time series display seasonality. By seasonality, we mean periodic fluctuations. For example, retail sales tend to peak for the Christmas season and then decline after the holidays. So time series of retail sales will typically show increasing sales from September through December and declining sales in January and February.
+
+Seasonality is quite common in economic time series. It is less common in engineering and scientific data.
+
+If seasonality is present, it must be incorporated into the time series model. In this section, we discuss techniques for detecting seasonality. We defer modeling of seasonality until later sections.
+
+[**Detecting Seasonality**]{#sec-pmc-443-detecting}
+
+The following graphical techniques can be used to detect seasonality.
+
+1. A run sequence plot will often show seasonality.
+2. A [seasonal subseries plot](#sec-pmc-4431) is a specialized technique for showing seasonality.
+3. Multiple box plots can be used as an alternative to the seasonal subseries plot to detect seasonality.
+4. The autocorrelation plot can help identify seasonality.
+
+Examples of each of these plots will be shown below.
+
+The run sequence plot is a recommended first step for analyzing any time series. Although seasonality can sometimes be indicated with this plot, seasonality is shown more clearly by the seasonal subseries plot or the box plot. The seasonal subseries plot does an excellent job of showing both the seasonal differences (between group patterns) and also the within-group patterns. The box plot shows the seasonal difference (between group patterns) quite well, but it does not show within group patterns. However, for large data sets, the box plot is usually easier to read than the seasonal subseries plot.
+
+Both the seasonal subseries plot and the box plot assume that the seasonal periods are known. In most cases, the analyst will in fact know this. For example, for monthly data, the period is 12 since there are 12 months in a year. However, if the period is not known, the autocorrelation plot can help. If there is significant seasonality, the autocorrelation plot should show spikes at lags equal to the period. For example, for monthly data, if there is a seasonality effect, we would expect to see significant peaks at lag 12, 24, 36, and so on (although the intensity may decrease the further out we go).
+
+[**Example without Seasonality**]{#sec-pmc-443-no-seasonality}
+
+The following plots are from a [data set of southern oscillations](#sec-pmc-4412) for predicting el nino.
+
+[**Run Sequence Plot**]{#sec-pmc-443-osc-run-sequence}
+
+```{r}
+#| label: fig-pmc-443-osc-run-sequence
+#| fig-cap: "Run sequence plot of southern oscillations data shows no obvious seasonality"
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+elnino_data <- read_table(
+  here::here("datasets", "ELNINO.DAT"),
+  skip = 25,
+  col_names = c("SouthernOscillation", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+ggplot(elnino_data, aes(YearMonth, SouthernOscillation)) +
+  geom_line() +
+  labs(title = "Southern Oscillations", x = NULL, y = NULL) +
+  theme_light()
+```
+
+No obvious periodic patterns are apparent in the run sequence plot.
+
+[**Seasonal Subseries Plot**]{#sec-pmc-443-osc-seasonal-subseries}
+
+```{r}
+#| label: fig-pmc-443-osc-seasonal-subseries
+#| fig-cap: "Seasonal subseries plot of southern oscillations data shows no obvious seasonality"
+#| code-fold: true
+osc_subseries <- elnino_data |>
+  group_by(Month) |>
+  mutate(
+    x = Month + scales::rescale(rank(Year, ties.method = "first"), to = c(-0.4, 0.4)),
+    group_mean = mean(SouthernOscillation)
+  ) |>
+  ungroup()
+
+ggplot(osc_subseries, aes(x, SouthernOscillation, group = Month)) +
+  geom_line() +
+  geom_segment(aes(x = Month - 0.4, xend = Month + 0.4, y = group_mean, yend = group_mean), color = "firebrick") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  labs(title = "Seasonal Subseries Plot of Southern Oscillations", x = "Month", y = "OSC Concentrations") +
+  theme_light()
+```
+
+The means for each month are relatively close and show no obvious pattern.
+
+[**Box Plot**]{#sec-pmc-443-osc-box-plot}
+
+```{r}
+#| label: fig-pmc-443-osc-box-plot
+#| fig-cap: "Box plot of southern oscillations data shows no obvious seasonality"
+#| code-fold: true
+ggplot(elnino_data, aes(factor(Month, labels = month.abb), SouthernOscillation)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Southern Oscillations", x = "Month", y = "OSC Concentrations") +
+  theme_light()
+```
+
+As with the seasonal subseries plot, no obvious seasonal pattern is apparent.
+
+Due to the rather large number of observations, the box plot shows the difference between months better than the seasonal subseries plot.
+
+[**Example with Seasonality**]{#sec-pmc-443-with-seasonality}
+
+The following plots are from a [data set of monthly CO₂ concentrations](#sec-pmc-4411). A linear trend has been removed from these data.
+
+[**Run Sequence Plot**]{#sec-pmc-443-co2-run-sequence}
+
+```{r}
+#| label: fig-pmc-443-co2-run-sequence
+#| fig-cap: "Run sequence plot of CO2 data"
+#| code-fold: true
+#| warning: false
+co2_data <- read_table(
+  here::here("datasets", "MLCO2MON.DAT"),
+  skip = 25,
+  col_names = c("CO2", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+co2_fit <- lm(CO2 ~ YearMonth, data = co2_data)
+co2_data <- co2_data |> mutate(Residual = residuals(co2_fit))
+
+ggplot(co2_data, aes(YearMonth, Residual)) +
+  geom_line() +
+  labs(title = "CO2 Concentrations with Linear Trend Removed", x = "Date", y = "Residuals") +
+  theme_light()
+```
+
+This plot shows periodic behavior. However, it is difficult to determine the nature of the seasonality from this plot.
+
+[**Seasonal Subseries Plot**]{#sec-pmc-443-co2-seasonal-subseries}
+
+```{r}
+#| label: fig-pmc-443-co2-seasonal-subseries
+#| fig-cap: "Seasonal subseries plot of CO2 data shows distinct seasonal pattern"
+#| code-fold: true
+co2_subseries <- co2_data |>
+  group_by(Month) |>
+  mutate(
+    x = Month + scales::rescale(rank(Year, ties.method = "first"), to = c(-0.4, 0.4)),
+    group_mean = mean(Residual)
+  ) |>
+  ungroup()
+
+ggplot(co2_subseries, aes(x, Residual, group = Month)) +
+  geom_line() +
+  geom_segment(aes(x = Month - 0.4, xend = Month + 0.4, y = group_mean, yend = group_mean), color = "firebrick") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  labs(title = "Seasonal Subseries Plot of CO2 Concentrations", x = "Month", y = "CO2 Concentrations") +
+  theme_light()
+```
+
+The seasonal subseries plot shows the seasonal pattern more clearly. In this case, the CO₂ concentrations are at a minimum in September and October. From there, steadily the concentrations increase until June and then begin declining until September.
+
+[**Box Plot**]{#sec-pmc-443-co2-box-plot}
+
+```{r}
+#| label: fig-pmc-443-co2-box-plot
+#| fig-cap: "Box plot of CO2 data also shows distinct seasonal pattern"
+#| code-fold: true
+ggplot(co2_data, aes(factor(Month, labels = month.abb), Residual)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of CO2 Concentrations", x = "Month", y = "CO2 Concentrations") +
+  theme_light()
+```
+
+As with the seasonal subseries plot, the seasonal pattern is quite evident in the box plot.
