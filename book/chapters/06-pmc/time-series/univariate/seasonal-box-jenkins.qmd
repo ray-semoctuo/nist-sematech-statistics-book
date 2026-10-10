@@ -1,0 +1,208 @@
+#### Box-Jenkins Analysis of Seasonal Data {#sec-pmc-44a}
+
+[**Series G**]{#sec-pmc-44a-series-g}
+
+This example illustrates a Box-Jenkins time series analysis for seasonal data using the [series G data set](../../datasets/G_SERIES.DAT) in Box, Jenkins, and Reinsel [-@BoxJenkinsReinsel1994]. A plot of the 144 observations is shown below.
+
+```{r}
+#| label: fig-pmc-44a-raw-data
+#| fig-cap: "Plot of Series G Data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+series_g <- tibble(
+  Observation = 1:144,
+  SeriesG = scan(here::here("datasets", "G_SERIES.DAT"), skip = 25, quiet = TRUE)
+)
+
+ggplot(series_g, aes(Observation, SeriesG)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation", y = "Series G") +
+  theme_light()
+```
+
+Non-constant variance can be removed by performing a natural log transformation.
+
+```{r}
+#| label: fig-pmc-44a-log
+#| fig-cap: "Plot of natural log of series G"
+#| code-fold: true
+series_g <- series_g |> mutate(LogSeriesG = log(SeriesG))
+
+ggplot(series_g, aes(Observation, LogSeriesG)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation", y = "ln(Series G)") +
+  theme_light()
+```
+
+Next, we remove trend in the series by taking first differences. The resulting series is shown below.
+
+```{r}
+#| label: fig-pmc-44a-diff
+#| fig-cap: "Plot of first differences of the natural log of series G"
+#| code-fold: true
+fd <- diff(series_g$LogSeriesG)
+
+tibble(Observation = 2:144, DiffLogSeriesG = fd) |>
+  ggplot(aes(Observation, DiffLogSeriesG)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation", y = "Differenced ln(Series G)") +
+  theme_light()
+```
+
+[**Analyzing Autocorrelation Plot for Seasonality**]{#sec-pmc-44a-acf}
+
+To identify an appropriate model, we plot the ACF of the time series.
+
+```{r}
+#| label: fig-pmc-44a-acf
+#| fig-cap: "ACF plot of first differenced natural log series G"
+#| code-fold: true
+# ACF plot with widening (Bartlett) 95% confidence bands, as used throughout
+# the Box-Jenkins model-identification examples in Section 6.4.4.6.
+acf_plot_bj <- function(x, lag_max, title = NULL) {
+  n <- length(x)
+  a <- acf(x, lag.max = lag_max, plot = FALSE, demean = TRUE)
+  r <- as.numeric(a$acf)[-1]
+  lag <- as.integer(a$lag)[-1]
+  se <- sqrt((1 + 2 * cumsum(c(0, r[-length(r)])^2)) / n)
+  ci95 <- qnorm(0.975) * se
+
+  bands <- bind_rows(
+    tibble(lag = lag, value = ci95),
+    tibble(lag = lag, value = -ci95)
+  )
+
+  ggplot() +
+    geom_segment(data = tibble(lag = lag, acf = r), aes(lag, y = 0, xend = lag, yend = acf)) +
+    geom_hline(yintercept = 0) +
+    geom_line(data = bands, aes(lag, value, group = value > 0), color = "steelblue", linetype = "dashed") +
+    labs(title = title, x = "Lag", y = "ACF") +
+    theme_light()
+}
+
+acf_plot_bj(fd, lag_max = 36, title = "ACF with 95% Confidence Limits")
+```
+
+If very large autocorrelations are observed at lags spaced $n$ periods apart, for example at lags 12 and 24, then there is evidence of periodicity. That effect should be removed, since the objective of the identification stage is to reduce the autocorrelation throughout. So if simple differencing is not enough, try seasonal differencing at a selected period, such as 4, 6, or 12. In our example, the seasonal period is 12.
+
+A plot of Series G after taking the natural log, first differencing, and seasonal differencing is shown below.
+
+```{r}
+#| label: fig-pmc-44a-seasonal-diff
+#| fig-cap: "Seasonal and first differenced natural log of series G"
+#| code-fold: true
+sfd <- diff(fd, lag = 12)
+
+tibble(Observation = 14:144, SeasonalDiffLogSeriesG = sfd) |>
+  ggplot(aes(Observation, SeasonalDiffLogSeriesG)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation", y = "Seasonal and First Differenced ln(Series G)") +
+  theme_light()
+```
+
+The number of seasonal terms is rarely more than one. If you know the shape of your forecast function, or you wish to assign a particular shape to the forecast function, you can select the appropriate number of terms for seasonal AR or seasonal MA models.
+
+The book by Box and Jenkins, *Time Series Analysis Forecasting and Control* (the later edition is Box, Jenkins and Reinsel [-@BoxJenkinsReinsel1994]) has a discussion on these forecast functions on pages 326-328. Again, if you have only a faint notion, but you do know that there was a trend upwards before differencing, pick a seasonal MA term and see what comes out in the diagnostics.
+
+An ACF plot of the seasonal and first differenced natural log of series G is shown below.
+
+```{r}
+#| label: fig-pmc-44a-seasonal-acf
+#| fig-cap: "Autocorrelation plot after taking seasonal difference"
+#| code-fold: true
+acf_plot_bj(sfd, lag_max = 36, title = "ACF with 95% Confidence Limits")
+```
+
+The plot has a few spikes, but most autocorrelations are near zero, indicating that a seasonal MA(1) model is appropriate.
+
+[**Model Fitting**]{#sec-pmc-44a-model-fitting}
+
+We fit a seasonal MA(1) model to the data
+
+$$ X_t - \delta = A_t + \theta_1 \, A_{t-1} + \psi_1 \, A_{t-12}
+                + \theta_1 \, \psi_1 \, A_{t-13} \, , $$
+
+where $\theta_1$ represents the MA(1) parameter and $\psi_1$ represents the seasonal parameter. The model fitting results are shown below.
+
+```{r}
+#| label: tbl-pmc-44a-fit
+#| tbl-cap: "Seasonal MA(1) model fitting results for Series G"
+#| code-fold: true
+ma_fit <- arima(series_g$LogSeriesG, order = c(0, 1, 1), seasonal = list(order = c(0, 1, 1), period = 12))
+
+tibble(
+  Estimate = c("Parameter", "Standard Error"),
+  `MA(1)` = c(ma_fit$coef["ma1"], sqrt(ma_fit$var.coef["ma1", "ma1"])),
+  `Seasonal MA(1)` = c(ma_fit$coef["sma1"], sqrt(ma_fit$var.coef["sma1", "sma1"]))
+) |>
+  knitr::kable(digits = 4, align = "lrr")
+```
+
+Residual standard deviation = `r round(sqrt(ma_fit$sigma2), 4)`
+Log likelihood = `r round(ma_fit$loglik, 1)`
+AIC = `r round(AIC(ma_fit), 1)`
+
+Test the randomness of the residuals up to 30 lags using the Box-Ljung test. Recall that the degrees of freedom for the critical region must be adjusted to account for two estimated parameters.
+
+```{r}
+#| label: unnamed-pmc-44a-ljung
+#| include: false
+bt <- Box.test(ma_fit$residuals, lag = 30, type = "Ljung-Box", fitdf = 2)
+h <- 30 - 2
+crit <- qchisq(0.95, h)
+```
+
+$H_0$: The residuals are random.
+$H_a$: The residuals are not random.
+
+Test statistic: $Q$ = `r round(bt$statistic, 4)`
+Significance level: $\alpha$ = 0.05
+Degrees of freedom: $h$ = 30 - 2 = `r h`
+Critical value: $\chi_{1-\alpha, \, h}^2$ = `r round(crit, 4)`
+Critical region: Reject $H_0$ if $Q >$ `r round(crit, 4)`
+
+Since the null hypothesis of the Box-Ljung test is not rejected we conclude that the fitted model is adequate.
+
+[**Forecasting**]{#sec-pmc-44a-forecasting}
+
+Using our seasonal MA(1) model, we forecast values 12 periods into the future and compute 90% confidence limits.
+
+```{r}
+#| label: tbl-pmc-44a-forecast
+#| tbl-cap: "12-period-ahead forecasts for Series G, with 90% confidence limits"
+#| code-fold: true
+pred <- predict(ma_fit, 12)
+L90 <- exp(pred$pred - 1.645 * pred$se)
+U90 <- exp(pred$pred + 1.645 * pred$se)
+forecast_g <- exp(pred$pred + ma_fit$sigma2 / 2)
+
+tibble(
+  Period = 145:156,
+  `Lower Limit` = L90,
+  Forecast = forecast_g,
+  `Upper Limit` = U90
+) |>
+  knitr::kable(digits = 4, align = "rrrr")
+```
+
+```{r}
+#| label: fig-pmc-44a-forecast
+#| fig-cap: "Plot of forecasted values with 90% confidence limits"
+#| code-fold: true
+forecast_data <- tibble(Observation = 145:156, SeriesG = forecast_g, lower = L90, upper = U90)
+
+ggplot() +
+  geom_line(data = filter(series_g, Observation >= 108), aes(Observation, SeriesG)) +
+  geom_point(data = filter(series_g, Observation >= 108), aes(Observation, SeriesG)) +
+  geom_point(data = forecast_data, aes(Observation, SeriesG), color = "steelblue", size = 2) +
+  geom_line(data = forecast_data, aes(Observation, lower), color = "firebrick") +
+  geom_line(data = forecast_data, aes(Observation, upper), color = "firebrick") +
+  labs(title = "12 Forecasts and 90% Confidence Intervals", x = "Observation", y = "Series G") +
+  theme_light()
+```

@@ -75,3 +75,5 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include time-series/univariate/model-diagnostics/box-ljung-test.qmd >}}
 
 {{< include time-series/univariate/example-box-jenkins.qmd >}}
+
+{{< include time-series/univariate/seasonal-box-jenkins.qmd >}}
