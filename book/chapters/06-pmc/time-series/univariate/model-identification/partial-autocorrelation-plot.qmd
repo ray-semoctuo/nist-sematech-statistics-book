@@ -1,0 +1,71 @@
+##### Partial Autocorrelation Plot {#sec-pmc-4463}
+
+[**Purpose: Model Identification for Box-Jenkins Models**]{#sec-pmc-4463-purpose}
+
+Partial autocorrelation plots (Box and Jenkins, pp. 64-65 [-@BoxJenkinsReinsel1994]) are a commonly used tool for model identification in Box-Jenkins models.
+
+The partial autocorrelation at lag $k$ is the autocorrelation between $X_t$ and $X_{t-k}$ that is not accounted for by lags 1 through $k-1$.
+
+There are algorithms, not discussed here, for computing the partial autocorrelation based on the sample autocorrelations. See [@BoxJenkinsReinsel1994] or [@Brockwell1987] for the mathematical details.
+
+::: {.callout-note}
+NIST's original page cites this material as "Box, Jenkins, and Reinsel 1970" and "Brockwell, 1991", but links both citations to the same reference-list entries used throughout this chapter: Box, Jenkins, and Reinsel's 3rd edition (1994) and Brockwell and Davis's *Time Series: Theory and Methods* (1987) — Chapter 6's reference list has no 1970 or 1991 editions. We cite the 1994 and 1987 editions here to match the linked entries.
+:::
+
+Specifically, partial autocorrelations are useful in identifying the order of an [autoregressive model](#sec-pmc-444-ar). The partial autocorrelation of an AR($p$) process is zero at lag $p+1$ and greater. If the sample autocorrelation plot indicates that an AR model may be appropriate, then the sample partial autocorrelation plot is examined to help identify the order. We look for the point on the plot where the partial autocorrelations essentially become zero. Placing a 95% confidence interval for statistical significance is helpful for this purpose.
+
+The approximate 95% confidence interval for the partial autocorrelations are at $\pm 2/\sqrt{N}$.
+
+[**Sample Plot**]{#sec-pmc-4463-sample-plot}
+
+```{r}
+#| label: fig-pmc-4463-sample-plot
+#| fig-cap: "Partial autocorrelation plot of southern oscillations data"
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+elnino_data <- read_table(
+  here::here("datasets", "ELNINO.DAT"),
+  skip = 25,
+  col_names = c("SouthernOscillation", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+pacf_plot_bj(elnino_data$SouthernOscillation, lag_max = 114, title = "Southern Oscillations")
+```
+
+This partial autocorrelation plot, for the [southern oscillations](#sec-pmc-4412) data set, shows clear statistical significance for lags 1 and 2 (lag 0 is always 1). The next few lags are at the borderline of statistical significance. If the autocorrelation plot indicates that an AR model is appropriate, we could start our modeling with an AR(2) model. We might compare this with an AR(3) model.
+
+[**Definition**]{#sec-pmc-4463-definition}
+
+Partial autocorrelation plots are formed by
+
+| | |
+|---|---|
+| Vertical axis: | Partial autocorrelation coefficient at lag $h$. |
+| Horizontal axis: | Time lag $h \, (h=0, \, 1, \, 2, \, 3, \, \ldots)$. |
+
+In addition, 95% confidence interval bands are typically included on the plot.
+
+[**Questions**]{#sec-pmc-4463-questions}
+
+The partial autocorrelation plot can help provide answers to the following questions:
+
+1. Is an AR model appropriate for the data?
+2. If an AR model is appropriate, what order should we use?
+
+[**Related Techniques**]{#sec-pmc-4463-related}
+
+- Autocorrelation Plot
+- Run Sequence Plot
+- Spectral Plot
+
+[**Case Study**]{#sec-pmc-4463-case-study}
+
+The partial autocorrelation plot is demonstrated in the Negiz data case study.
+
+[**Software**]{#sec-pmc-4463-software}
+
+Partial autocorrelation plots are available in many general purpose statistical software programs.

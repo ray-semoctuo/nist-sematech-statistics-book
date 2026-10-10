@@ -1,0 +1,137 @@
+##### Model Identification for Southern Oscillations Data {#sec-pmc-4461}
+
+[**Example for Southern Oscillations**]{#sec-pmc-4461-example}
+
+We show typical series of plots for the initial model identification stages of Box-Jenkins modeling for two different examples.
+
+The first example is for the [southern oscillations](#sec-pmc-4412) data set. We start with the run sequence plot and seasonal subseries plot to determine if we need to address stationarity and seasonality.
+
+```{r}
+#| label: setup-model-identification
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+elnino_data <- read_table(
+  here::here("datasets", "ELNINO.DAT"),
+  skip = 25,
+  col_names = c("SouthernOscillation", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+# ACF plot with widening (Bartlett) 95%/99% confidence bands, matching
+# the Box-Jenkins model-identification convention described in Section 6.4.4.6.
+acf_plot_bj <- function(x, lag_max, title = NULL, xlab = "Lag") {
+  n <- length(x)
+  a <- acf(x, lag.max = lag_max, plot = FALSE, demean = TRUE)
+  r <- as.numeric(a$acf)[-1]
+  lag <- as.integer(a$lag)[-1]
+  se <- sqrt((1 + 2 * cumsum(c(0, r[-length(r)])^2)) / n)
+
+  bands <- bind_rows(
+    tibble(lag = lag, value = qnorm(0.975) * se, series = "95% Confidence Band"),
+    tibble(lag = lag, value = -qnorm(0.975) * se, series = "95% Confidence Band"),
+    tibble(lag = lag, value = qnorm(0.995) * se, series = "99% Confidence Band"),
+    tibble(lag = lag, value = -qnorm(0.995) * se, series = "99% Confidence Band")
+  )
+
+  ggplot() +
+    geom_segment(data = tibble(lag = lag, acf = r), aes(lag, y = 0, xend = lag, yend = acf)) +
+    geom_hline(yintercept = 0) +
+    geom_line(data = bands, aes(lag, value, color = series, group = interaction(series, value > 0))) +
+    scale_color_manual(values = c("95% Confidence Band" = "steelblue", "99% Confidence Band" = "firebrick")) +
+    labs(title = title, x = xlab, y = "Autocorrelation", color = NULL) +
+    theme_light() +
+    theme(legend.position = "top")
+}
+
+# PACF plot with flat +/- 2/sqrt(N) confidence bands.
+pacf_plot_bj <- function(x, lag_max, title = NULL, xlab = "Lag") {
+  n <- length(x)
+  p <- pacf(x, lag.max = lag_max, plot = FALSE)
+  lag <- as.integer(p$lag)
+  r <- as.numeric(p$acf)
+  ci95 <- qnorm(0.975) / sqrt(n)
+  ci99 <- qnorm(0.995) / sqrt(n)
+
+  bands <- tibble(
+    lag = rep(range(lag), 4),
+    value = rep(c(ci95, -ci95, ci99, -ci99), each = 2),
+    series = rep(c("95% Confidence Band", "95% Confidence Band", "99% Confidence Band", "99% Confidence Band"), each = 2)
+  )
+
+  ggplot() +
+    geom_segment(data = tibble(lag = lag, pacf = r), aes(lag, y = 0, xend = lag, yend = pacf)) +
+    geom_hline(yintercept = 0) +
+    geom_line(data = bands, aes(lag, value, color = series, group = interaction(series, value > 0))) +
+    scale_color_manual(values = c("95% Confidence Band" = "steelblue", "99% Confidence Band" = "firebrick")) +
+    labs(title = title, x = xlab, y = "Partial Autocorrelation", color = NULL) +
+    theme_light() +
+    theme(legend.position = "top")
+}
+```
+
+[**Run Sequence Plot**]{#sec-pmc-4461-run-sequence}
+
+```{r}
+#| label: fig-pmc-4461-run-sequence
+#| fig-cap: "Run sequence plot of southern oscillations data"
+#| code-fold: true
+ggplot(elnino_data, aes(YearMonth, SouthernOscillation)) +
+  geom_line() +
+  labs(title = "Southern Oscillations", x = NULL, y = "OSC Concentrations") +
+  theme_light()
+```
+
+The run sequence plot indicates stationarity.
+
+[**Seasonal Subseries Plot**]{#sec-pmc-4461-seasonal-subseries}
+
+```{r}
+#| label: fig-pmc-4461-seasonal-subseries
+#| fig-cap: "Seasonal subseries plot of southern oscillations data"
+#| code-fold: true
+osc_subseries <- elnino_data |>
+  group_by(Month) |>
+  mutate(
+    x = Month + scales::rescale(rank(Year, ties.method = "first"), to = c(-0.4, 0.4)),
+    group_mean = mean(SouthernOscillation)
+  ) |>
+  ungroup()
+
+ggplot(osc_subseries, aes(x, SouthernOscillation, group = Month)) +
+  geom_line() +
+  geom_segment(aes(x = Month - 0.4, xend = Month + 0.4, y = group_mean, yend = group_mean), color = "firebrick") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  labs(title = "Seasonal Subseries Plot of Southern Oscillations", x = "Month", y = "OSC Concentrations") +
+  theme_light()
+```
+
+The seasonal subseries plot indicates that there is no significant seasonality.
+
+Since the above plots show that this series does not exhibit any significant non-stationarity or seasonality, we generate the autocorrelation and partial autocorrelation plots of the raw data.
+
+[**Autocorrelation Plot**]{#sec-pmc-4461-acf}
+
+```{r}
+#| label: fig-pmc-4461-acf
+#| fig-cap: "Autocorrelation plot of southern oscillations data"
+#| code-fold: true
+acf_plot_bj(elnino_data$SouthernOscillation, lag_max = 114, title = "Southern Oscillations")
+```
+
+The autocorrelation plot shows a mixture of exponentially decaying and damped sinusoidal components. This indicates that an autoregressive model, with order greater than one, may be appropriate for these data. The partial autocorrelation plot should be examined to determine the order.
+
+[**Partial Autocorrelation Plot**]{#sec-pmc-4461-pacf}
+
+```{r}
+#| label: fig-pmc-4461-pacf
+#| fig-cap: "Partial autocorrelation plot of southern oscillations data"
+#| code-fold: true
+pacf_plot_bj(elnino_data$SouthernOscillation, lag_max = 114, title = "Southern Oscillations")
+```
+
+The partial autocorrelation plot suggests that an AR(2) model might be appropriate.
+
+In summary, our initial attempt would be to fit an AR(2) model with no seasonal terms and no differencing or trend removal. Model validation should be performed before accepting this as a final model.

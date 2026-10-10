@@ -1,0 +1,117 @@
+##### Model Identification for the CO₂ Concentrations Data {#sec-pmc-4462}
+
+[**Example for Monthly CO₂ Concentrations**]{#sec-pmc-4462-example}
+
+The second example is for the [monthly CO₂ concentrations](#sec-pmc-4411) data set. As before, we start with the run sequence plot to check for stationarity.
+
+```{r}
+#| label: setup-pmc-4462
+#| code-fold: true
+#| message: false
+#| warning: false
+library(tidyverse)
+
+co2_data <- read_table(
+  here::here("datasets", "MLCO2MON.DAT"),
+  skip = 25,
+  col_names = c("CO2", "YearMonth", "Year", "Month")
+) |>
+  drop_na()
+
+co2_fit <- lm(CO2 ~ YearMonth, data = co2_data)
+co2_data <- co2_data |> mutate(Residual = residuals(co2_fit))
+```
+
+[**Run Sequence Plot**]{#sec-pmc-4462-run-sequence}
+
+```{r}
+#| label: fig-pmc-4462-run-sequence
+#| fig-cap: "Run sequence plot of CO2 data"
+#| code-fold: true
+ggplot(co2_data, aes(YearMonth, CO2)) +
+  geom_line() +
+  labs(title = "CO2 Concentrations for Mauna Loa Observatory", x = "Time", y = "CO2 Concentrations") +
+  theme_light()
+```
+
+The initial run sequence plot of the data indicates a rising trend. A visual inspection of this plot indicates that a simple linear fit should be sufficient to remove this upward trend.
+
+[**Linear Trend Removed**]{#sec-pmc-4462-trend-removed}
+
+```{r}
+#| label: fig-pmc-4462-trend-removed
+#| fig-cap: "Run sequence plot after linear trend removed"
+#| code-fold: true
+ggplot(co2_data, aes(YearMonth, Residual)) +
+  geom_line() +
+  labs(title = "CO2 Concentrations with Linear Trend Removed", x = "Date", y = "Residuals") +
+  theme_light()
+```
+
+This plot contains the residuals from a linear fit to the original data. After removing the linear trend, the run sequence plot indicates that the data have a constant location and variance, which implies stationarity.
+
+However, the plot does show seasonality. We generate an autocorrelation plot to help determine the period followed by a seasonal subseries plot.
+
+[**Autocorrelation Plot**]{#sec-pmc-4462-acf}
+
+```{r}
+#| label: fig-pmc-4462-acf
+#| fig-cap: "Autocorrelation plot of CO2 data"
+#| code-fold: true
+acf_plot_bj(co2_data$Residual, lag_max = 39, title = "CO2 Concentrations for Mauna Loa Observatory")
+```
+
+The autocorrelation plot shows an alternating pattern of positive and negative spikes. It also shows a repeating pattern every 12 lags, which indicates a seasonality effect.
+
+The two connected lines on the autocorrelation plot are 95% and 99% confidence intervals for statistical significance of the autocorrelations.
+
+[**Seasonal Subseries Plot**]{#sec-pmc-4462-seasonal-subseries}
+
+```{r}
+#| label: fig-pmc-4462-seasonal-subseries
+#| fig-cap: "Seasonal subseries plot of CO2 data"
+#| code-fold: true
+co2_subseries <- co2_data |>
+  group_by(Month) |>
+  mutate(
+    x = Month + scales::rescale(rank(Year, ties.method = "first"), to = c(-0.4, 0.4)),
+    group_mean = mean(Residual)
+  ) |>
+  ungroup()
+
+ggplot(co2_subseries, aes(x, Residual, group = Month)) +
+  geom_line() +
+  geom_segment(aes(x = Month - 0.4, xend = Month + 0.4, y = group_mean, yend = group_mean), color = "firebrick") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  labs(title = "Seasonal Subseries Plot of CO2 Concentrations", x = "Month", y = "CO2 Concentrations") +
+  theme_light()
+```
+
+A significant seasonal pattern is obvious in this plot, so we need to include seasonal terms in fitting a Box-Jenkins model. Since this is monthly data, we would typically include either a lag 12 seasonal autoregressive and/or moving average term.
+
+To help identify the non-seasonal components, we will take a seasonal difference of 12 and generate the autocorrelation plot on the seasonally differenced data.
+
+[**Autocorrelation Plot for Seasonally Differenced Data**]{#sec-pmc-4462-acf-diff}
+
+```{r}
+#| label: fig-pmc-4462-acf-diff
+#| fig-cap: "Autocorrelation plot of seasonally differenced data"
+#| code-fold: true
+co2_sdiff <- diff(co2_data$Residual, lag = 12)
+acf_plot_bj(co2_sdiff, lag_max = 36, title = "CO2 Concentrations for Mauna Loa Observatory", xlab = "Lag\n(Seasonally Differenced)")
+```
+
+This autocorrelation plot shows a mixture of exponential decay and a damped sinusoidal pattern. This indicates that an AR model, with order greater than one, may be appropriate. We generate a partial autocorrelation plot to help identify the order.
+
+[**Partial Autocorrelation Plot of Seasonally Differenced Data**]{#sec-pmc-4462-pacf-diff}
+
+```{r}
+#| label: fig-pmc-4462-pacf-diff
+#| fig-cap: "Partial autocorrelation plot of seasonally differenced data"
+#| code-fold: true
+pacf_plot_bj(co2_sdiff, lag_max = 36, title = "CO2 Concentrations for Mauna Loa Observatory", xlab = "Lag\n(Seasonally Differenced)")
+```
+
+The partial autocorrelation plot suggests that an AR(2) model might be appropriate since the partial autocorrelation becomes zero after the second lag. The lag 12 is also significant, indicating some remaining seasonality.
+
+In summary, our initial attempt would be to fit an AR(2) model with a seasonal AR(12) term on the data with a linear trend line removed. We could try the model both with and without seasonal differencing applied. Model validation should be performed before accepting this as a final model.
