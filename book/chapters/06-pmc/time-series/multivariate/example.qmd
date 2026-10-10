@@ -1,0 +1,189 @@
+#### Example of Multivariate Time Series Analysis {#sec-pmc-451}
+
+[**Bivariate Gas Furnace Example**]{#sec-pmc-451-example}
+
+The [gas furnace data](../../datasets/GAS_FURNACE.DAT) from Box, Jenkins, and Reinsel [-@BoxJenkinsReinsel1994] is used to illustrate the analysis of a bivariate time series. Inside the gas furnace, air and methane were combined in order to obtain a mixture of gases containing CO₂ (carbon dioxide). The input series $x_t$ is the methane gas feedrate and the CO₂ concentration is the output series $y_t$.
+
+In this experiment 296 successive pairs of observations $(x_t, \, y_t)$ were collected from continuous records at 9-second intervals. For the analysis described here, only the first 60 pairs were used. We fit an ARV(2) model as described in [6.4.5](#sec-pmc-45). This data set is available as a [text file](../../datasets/GAS_FURNACE.DAT).
+
+[**Plots of input and output series**]{#sec-pmc-451-plots}
+
+The plots of the input and output series are displayed below.
+
+```{r}
+#| label: setup-pmc-451
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+gas_furnace <- read.table(
+  here::here("datasets", "GAS_FURNACE.DAT"),
+  header = TRUE,
+  nrows = 60
+) |>
+  rename(GasRate = 1, CO2 = 2) |>
+  mutate(Observation = row_number())
+```
+
+```{r}
+#| label: fig-pmc-451-input
+#| fig-cap: "Plot of input gas rate"
+#| code-fold: true
+ggplot(gas_furnace, aes(Observation, GasRate)) +
+  geom_line(color = "firebrick") +
+  labs(title = "Input Series", x = "Observation", y = "Gas Rate") +
+  theme_light()
+```
+
+```{r}
+#| label: fig-pmc-451-output
+#| fig-cap: "Plot of output outlet gas"
+#| code-fold: true
+ggplot(gas_furnace, aes(Observation, CO2)) +
+  geom_line(color = "steelblue") +
+  labs(title = "Output Series", x = "Observation", y = "CO2 Concentration") +
+  theme_light()
+```
+
+[**Model Fitting**]{#sec-pmc-451-model-fitting}
+
+The scalar form of the ARV(2) model is the following.
+
+$$ \begin{aligned}
+x_t & = \phi_{1.11}x_{t-1} + \phi_{2.11}x_{t-2} +
+          \phi_{1.12}y_{t-1} + \phi_{2.12}y_{t-2} + a_{1t} \\
+y_t & = \phi_{1.22}y_{t-1} + \phi_{2.22}y_{t-2} +
+          \phi_{1.21}x_{t-1} + \phi_{2.21}x_{t-2} + a_{2t}
+\end{aligned} $$
+
+The equation for $x_t$ corresponds to gas rate while the equation for $y_t$ corresponds to CO₂ concentration.
+
+Each series is first centered on its own mean (consistent with the zero-mean-vector assumption in [Section 6.4.5](#sec-pmc-45)), and each equation is then fit by ordinary least squares on the centered series.
+
+The parameter estimates for the equation associated with gas rate are the following.
+
+```{r}
+#| label: tbl-pmc-451-fit-rate
+#| tbl-cap: "ARV(2) parameter estimates for the gas rate equation"
+#| code-fold: true
+gas_furnace <- gas_furnace |>
+  mutate(GasRateC = GasRate - mean(GasRate), CO2C = CO2 - mean(CO2))
+
+n <- nrow(gas_furnace)
+lagged <- tibble(
+  x = gas_furnace$GasRateC[3:n],
+  x1 = gas_furnace$GasRateC[2:(n - 1)],
+  x2 = gas_furnace$GasRateC[1:(n - 2)],
+  y = gas_furnace$CO2C[3:n],
+  y1 = gas_furnace$CO2C[2:(n - 1)],
+  y2 = gas_furnace$CO2C[1:(n - 2)]
+)
+
+fit_rate <- lm(x ~ x1 + x2 + y1 + y2, data = lagged)
+fit_conc <- lm(y ~ y1 + y2 + x1 + x2, data = lagged)
+
+broom::tidy(fit_rate) |>
+  mutate(term = c("$a_{1t}$", "$\\phi_{1.11}$", "$\\phi_{2.11}$", "$\\phi_{1.12}$", "$\\phi_{2.12}$")) |>
+  rename(Source = term, Estimate = estimate, `Std. Err.` = std.error, `t value` = statistic, `Pr(>|t|)` = p.value) |>
+  knitr::kable(digits = 6, align = "lrrrr")
+```
+
+Residual standard error: `r round(summary(fit_rate)$sigma, 4)` based on `r summary(fit_rate)$df[2]` degrees of freedom
+Multiple R-Squared: `r round(summary(fit_rate)$r.squared, 4)`
+Adjusted R-squared: `r round(summary(fit_rate)$adj.r.squared, 4)`
+F-statistic: `r round(summary(fit_rate)$fstatistic[1], 1)` based on 4 and `r summary(fit_rate)$df[2]` degrees of freedom
+
+The parameter estimates for the equation associated with CO₂ concentration are the following.
+
+```{r}
+#| label: tbl-pmc-451-fit-conc
+#| tbl-cap: "ARV(2) parameter estimates for the CO2 concentration equation"
+#| code-fold: true
+broom::tidy(fit_conc) |>
+  mutate(term = c("$a_{2t}$", "$\\phi_{1.22}$", "$\\phi_{2.22}$", "$\\phi_{1.21}$", "$\\phi_{2.21}$")) |>
+  rename(Source = term, Estimate = estimate, `Std. Err.` = std.error, `t value` = statistic, `Pr(>|t|)` = p.value) |>
+  knitr::kable(digits = 6, align = "lrrrr")
+```
+
+Residual standard error: `r round(summary(fit_conc)$sigma, 4)` based on `r summary(fit_conc)$df[2]` degrees of freedom
+Multiple R-Squared: `r round(summary(fit_conc)$r.squared, 4)`
+Adjusted R-squared: `r round(summary(fit_conc)$adj.r.squared, 4)`
+F-statistic: `r round(summary(fit_conc)$fstatistic[1], 1)` based on 4 and `r summary(fit_conc)$df[2]` degrees of freedom
+
+```{r}
+#| include: false
+bt_rate <- Box.test(residuals(fit_rate), lag = 24, type = "Ljung-Box", fitdf = 4)
+bt_conc <- Box.test(residuals(fit_conc), lag = 24, type = "Ljung-Box", fitdf = 4)
+```
+
+Box-Ljung tests performed for each series to test the randomness of the first 24 residuals were not significant. The $p$-values for the tests using CO₂ concentration residuals and gas rate residuals were 0.4 and 0.6, respectively.
+
+::: {.callout-note}
+Our own Box-Ljung tests (24 lags, 4 fitted parameters) give $p \approx$ `r round(bt_conc$p.value, 2)` for the CO₂ concentration residuals and $p \approx$ `r round(bt_rate$p.value, 2)` for the gas rate residuals — close to NIST's stated 0.4 and 0.6, and leading to the same conclusion (neither series shows significant residual autocorrelation), but not identical. NIST does not specify its exact test configuration here, so small differences are expected.
+:::
+
+[**Forecasting**]{#sec-pmc-451-forecasting}
+
+The forecasting method is an extension of the model and follows the theory outlined in the previous section. The forecasted values of the next six observations (61-66) and the associated 90% confidence limits are shown below for each series.
+
+```{r}
+#| label: tbl-pmc-451-forecast
+#| tbl-cap: "Six-period-ahead forecasts for Series G, with 90% confidence limits"
+#| code-fold: true
+cx <- coef(fit_rate)
+cy <- coef(fit_conc)
+mx <- mean(gas_furnace$GasRate)
+my <- mean(gas_furnace$CO2)
+xf <- gas_furnace$GasRateC
+yf <- gas_furnace$CO2C
+for (h in 1:6) {
+  t <- n + h
+  xf[t] <- cx["(Intercept)"] + cx["x1"] * xf[t - 1] + cx["x2"] * xf[t - 2] + cx["y1"] * yf[t - 1] + cx["y2"] * yf[t - 2]
+  yf[t] <- cy["(Intercept)"] + cy["y1"] * yf[t - 1] + cy["y2"] * yf[t - 2] + cy["x1"] * xf[t - 1] + cy["x2"] * xf[t - 2]
+}
+
+# Forecast error variance via the VAR(2) companion-matrix recursion:
+# state s_t = (x_t, y_t, x_{t-1}, y_{t-1})', s_t = A s_{t-1} + innovation.
+A <- matrix(c(
+  cx["x1"], cy["x1"], 1, 0,
+  cx["y1"], cy["y1"], 0, 1,
+  cx["x2"], cy["x2"], 0, 0,
+  cx["y2"], cy["y2"], 0, 0
+), nrow = 4, byrow = FALSE)
+
+dfree <- summary(fit_rate)$df[2]
+res_x <- residuals(fit_rate)
+res_y <- residuals(fit_conc)
+Sigma_e <- matrix(c(
+  sum(res_x^2), sum(res_x * res_y),
+  sum(res_x * res_y), sum(res_y^2)
+), 2, 2) / dfree
+Sigma4 <- matrix(0, 4, 4)
+Sigma4[1:2, 1:2] <- Sigma_e
+
+V <- matrix(0, 4, 4)
+se_x <- numeric(6)
+se_y <- numeric(6)
+for (h in 1:6) {
+  V <- A %*% V %*% t(A) + Sigma4
+  se_x[h] <- sqrt(V[1, 1])
+  se_y[h] <- sqrt(V[2, 2])
+}
+
+z90 <- qnorm(0.95)
+tibble(
+  Observation = 61:66,
+  `90% Lower Limit (Concentration)` = yf[(n + 1):(n + 6)] + my - z90 * se_y,
+  `Concentration Forecast` = yf[(n + 1):(n + 6)] + my,
+  `90% Upper Limit (Concentration)` = yf[(n + 1):(n + 6)] + my + z90 * se_y
+) |>
+  knitr::kable(digits = 1, align = "rrrr")
+
+tibble(
+  Observation = 61:66,
+  `90% Lower Limit (Rate)` = xf[(n + 1):(n + 6)] + mx - z90 * se_x,
+  `Rate Forecast` = xf[(n + 1):(n + 6)] + mx,
+  `90% Upper Limit (Rate)` = xf[(n + 1):(n + 6)] + mx + z90 * se_x
+) |>
+  knitr::kable(digits = 3, align = "rrrr")
+```

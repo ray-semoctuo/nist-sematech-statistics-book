@@ -1,0 +1,118 @@
+### Multivariate Time Series Models {#sec-pmc-45}
+
+[**If each time series observation is a vector of numbers, you can model them using a multivariate form of the Box-Jenkins model**]{#sec-pmc-45-armav-intro}
+
+The multivariate form of the Box-Jenkins univariate models is sometimes called the ARMAV model, for AutoRegressive Moving Average Vector or simply vector ARMA process.
+
+The ARMAV model for a *stationary* multivariate time series, with a zero mean vector, represented by
+
+$$ x_t = (x_{1t}, \, x_{2t}, \, \ldots, \, x_{nt})^T, \,\,\,\,\,\,\,\,  -\infty < t < \infty $$
+
+is of the form
+
+$$ \begin{aligned}
+x_t & = \phi_1 x_{t-1} + \phi_2 x_{t-2} + \cdots + \phi_p x_{t-p} + \\
+    & a_t - \theta_1 a_{t-1} - \theta_2 a_{t-2} - \cdots - \theta_q a_{t-q} \, ,
+\end{aligned} $$
+
+where
+
+- $x_t$ and $a_t$ are $n \times 1$ column vectors with $a_t$ representing multivariate white noise,
+- $\phi_k = \{\phi_{k.jj}\}, \,\,\,  k = 1, \, 2, \, \ldots, \, p$
+
+  $\theta_k = \{\theta_{k.jj}\}, \,\,\,  k = 1, \, 2, \, \ldots, \, q$
+
+  are $n \times n$ matrices for autoregressive and moving average parameters,
+- $E[a_t]=0$
+- $E[a_t a_{t-k}'] = 0,  \,\,\, k \ne 0$
+
+  $E[a_t a_{t-k}'] = \Sigma_a,  \,\,\, k = 0$
+
+  where $\Sigma_a$ is the dispersion or covariance matrix of $a_t$.
+
+As an example, for a bivariate series with $n=2$, $p=2$, and $q=1$, the ARMAV(2,1) model is:
+
+$$ \begin{aligned}
+\left( \begin{array}{c} x_{1t} \\ x_{2t} \end{array} \right) & = \left( \begin{array}{cc} \phi_{1.11} & \phi_{1.12} \\ \phi_{1.21} & \phi_{1.22} \end{array} \right)  \left( \begin{array}{c}  x_{1t-1} \\ x_{2t-1} \end{array} \right)  +
+\left( \begin{array}{cc} \phi_{2.11} & \phi_{2.12} \\ \phi_{2.21} & \phi_{2.22} \end{array} \right)  \left( \begin{array}{c}  x_{1t-2} \\ x_{2t-2} \end{array} \right) + \\
+ &  \left( \begin{array}{c} a_{1t} \\ a_{2t} \end{array} \right) - \left( \begin{array}{cc} \theta_{1.11} & \theta_{1.12} \\ \theta_{1.21} & \theta_{1.22} \end{array} \right) \left( \begin{array}{c} a_{1t-1} \\ a_{2t-1} \end{array} \right)
+\end{aligned} $$
+
+with
+
+$$ a_t = \left( \begin{array}{c} a_{1t} \\ a_{2t} \end{array} \right) \, .$$
+
+::: {.callout-note}
+NIST's original equation reuses the $\phi_1$ (autoregressive) matrix for the moving-average term shown here, instead of a $\theta_1$ matrix. This contradicts the general ARMAV definition above, which explicitly defines separate $\phi_k$ and $\theta_k$ matrices for the autoregressive and moving-average parameters respectively. We use $\theta_1$ here, consistent with the general model and with standard ARMA notation.
+:::
+
+[**Estimation of parameters and covariance matrix difficult**]{#sec-pmc-45-estimation}
+
+The estimation of the matrix parameters and covariance matrix is complicated and very difficult without computer software. The estimation of the Moving Average matrices is especially an ordeal. If we opt to ignore the MA component(s) we are left with the ARV model given by:
+
+$$ x_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + \ldots + \phi_{p}x_{t-p} + a_{t} \, , $$
+
+where
+
+- $x_t$ is a vector of observations, $x_{1t}, \, x_{2t}, \, \ldots, \, x_{nt}$ at time $t$,
+- $a_t$ is a vector of white noise, $a_{1t}, \, a_{2t}, \, \ldots, \, a_{nt}$ at time $t$,
+- $\phi_k = \{\phi_{k.jj}\}, \,\,\, k = 1, \, 2, \, \ldots, \, p$ is a $n \times n$ matrix of autoregressive parameters,
+- $E[a_t] = 0$
+- $E[a_t a_{t-k}'] = 0, \,\,\,\,\, k \ne 0$
+
+  $E[a_t a_{t-k}'] = \Sigma_a, \,\,\,\,\, k = 0$
+
+  where $\Sigma_a$ is the dispersion or covariance matrix.
+
+A model with $p$ autoregressive matrix parameters is an ARV($p$) model or a vector AR model.
+
+The parameter matrices may be estimated by multivariate least squares, but there are other methods such as maximum likelihood estimation.
+
+[**Interesting properties of parameter matrices**]{#sec-pmc-45-properties}
+
+There are a few interesting properties associated with the phi or AR parameter matrices. Consider the following example for a bivariate series with $n=2$, $p=2$, and $q = 0$. The ARMAV(2,0) model is:
+
+$$ \left( \begin{array}{c} x_{t} \\ y_{t} \end{array} \right) =
+   \left( \begin{array}{cc} \phi_{1.11} & \phi_{1.12} \\
+   \phi_{1.21} & \phi_{1.22} \end{array} \right)  \left( \begin{array}{c}  x_{t-1} \\
+   y_{t-1} \end{array} \right)  + \left( \begin{array}{cc} \phi_{2.11} & \phi_{2.12} \\
+   \phi_{2.21} & \phi_{2.22} \end{array} \right)  \left( \begin{array}{c}  x_{t-2} \\
+   y_{t-2} \end{array} \right)  + \left( \begin{array}{c} a_{1t} \\ a_{2t} \end{array} \right) \, .$$
+
+Without loss of generality, assume that the $X$ series is input and the $Y$ series are output and that the mean vector is $(0,0)$.
+
+Therefore, transform the observation by subtracting their respective averages.
+
+[**Diagonal terms of Phi matrix**]{#sec-pmc-45-diagonal}
+
+The diagonal terms of each Phi matrix are the scalar estimates for each series, in this case:
+
+- $\phi_{1.11}, \, \phi_{2.11}$ for the input series $X$,
+- $\phi_{1.22}, \, \phi_{2.22}$ for the output series $Y$.
+
+[**Transfer mechanism**]{#sec-pmc-45-transfer}
+
+The lower off-diagonal elements represent the influence of the input on the output.
+
+This is called the "transfer" mechanism or transfer-function model as discussed by Box and Jenkins in Chapter 11. The $\phi$ terms here correspond to their $\delta$ terms.
+
+The upper off-diagonal terms represent the influence of the output on the input.
+
+[**Feedback**]{#sec-pmc-45-feedback}
+
+This is called "feedback". The presence of feedback can also be seen as a high value for a coefficient in the correlation matrix of the residuals. A "true" transfer model exists when there is no feedback.
+
+This can be seen by expressing the matrix form into scalar form:
+
+$$ \begin{aligned}
+x_t & = \phi_{1.11}x_{t-1} + \phi_{2.11}x_{t-2} +
+          \phi_{1.12}y_{t-1} + \phi_{2.12}y_{t-2} + a_{1t} \\
+y_t & = \phi_{1.22}y_{t-1} + \phi_{2.22}y_{t-2} +
+          \phi_{1.21}x_{t-1} + \phi_{2.21}x_{t-2} + a_{2t}
+\end{aligned} $$
+
+[**Delay**]{#sec-pmc-45-delay}
+
+Finally, delay or "dead" time can be measured by studying the lower off-diagonal elements again.
+
+If, for example, $\phi_{1.21}$ is non-significant, the delay is 1 time period.
