@@ -1,0 +1,48 @@
+#### Box-Jenkins Models {#sec-pmc-445}
+
+[**Box-Jenkins Approach**]{#sec-pmc-445-approach}
+
+The Box-Jenkins ARMA model is a combination of the [AR](#sec-pmc-444-ar) and [MA](#sec-pmc-444-ma) models (described on the [previous page](#sec-pmc-444)):
+
+$$ \begin{aligned}
+X_t & = \delta + \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-p} + \\
+    & A_t - \theta_1 A_{t-1} - \theta_2 A_{t-2} - \cdots - \theta_q A_{t-q} \, ,
+\end{aligned} $$
+
+where the terms in the equation have the same meaning as given for the AR and MA model.
+
+[**Comments on Box-Jenkins Model**]{#sec-pmc-445-comments}
+
+A couple of notes on this model.
+
+1. The Box-Jenkins model assumes that the time series is [stationary](#sec-pmc-442). Box and Jenkins recommend differencing non-stationary series one or more times to achieve stationarity. Doing so produces an ARIMA model, with the "I" standing for "Integrated".
+
+2. Some formulations transform the series by subtracting the mean of the series from each data point. This yields a series with a mean of zero. Whether you need to do this or not is dependent on the software you use to estimate the model.
+
+3. Box-Jenkins models can be extended to include [seasonal](#sec-pmc-443) autoregressive and seasonal moving average terms. Although this complicates the notation and mathematics of the model, the underlying concepts for seasonal autoregressive and seasonal moving average terms are similar to the non-seasonal autoregressive and moving average terms.
+
+4. The most general Box-Jenkins model includes difference operators, autoregressive terms, moving average terms, seasonal difference operators, seasonal autoregressive terms, and seasonal moving average terms. As with modeling in general, however, only necessary terms should be included in the model. Those interested in the mathematical details can consult Box, Jenkins and Reinsel [-@BoxJenkinsReinsel1994], Chatfield [-@Chatfield1996], or Brockwell and Davis [-@Brockwell2002].
+
+[**Stages in Box-Jenkins Modeling**]{#sec-pmc-445-stages}
+
+There are three primary stages in building a Box-Jenkins time series model.
+
+1. [Model Identification](#sec-pmc-446)
+2. [Model Estimation](#sec-pmc-447)
+3. [Model Validation](#sec-pmc-448)
+
+[**Remarks**]{#sec-pmc-445-remarks}
+
+The following remarks regarding Box-Jenkins models should be noted.
+
+1. Box-Jenkins models are quite flexible due to the inclusion of both autoregressive and moving average terms.
+
+2. Based on the Wold decomposition theorem (not discussed in the Handbook), a stationary process can be approximated by an ARMA model. In practice, finding that approximation may not be easy.
+
+3. Chatfield [-@Chatfield1996] recommends [decomposition](#sec-pmc-444-decomposition) methods for series in which the trend and seasonal components are dominant.
+
+4. Building good ARIMA models generally requires more experience than commonly used statistical methods such as regression.
+
+[**Sufficiently Long Series Required**]{#sec-pmc-445-long-series}
+
+Typically, effective fitting of Box-Jenkins models requires at least a moderately long series. Chatfield [-@Chatfield1996] recommends at least 50 observations. Many others would recommend at least 100 observations.

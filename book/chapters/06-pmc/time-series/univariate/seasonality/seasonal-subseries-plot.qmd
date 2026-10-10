@@ -2,7 +2,7 @@
 
 [**Purpose**]{#sec-pmc-4431-purpose}
 
-Seasonal subseries plots (Cleveland 1993) are a tool for detecting seasonality in a time series.
+Seasonal subseries plots [@Cleveland2] are a tool for detecting seasonality in a time series.
 
 This plot is only useful if the period of the seasonality is already known. In many cases, this will in fact be known. For example, monthly data typically has a period of 12.
 
@@ -78,9 +78,9 @@ It is important to know when analyzing a time series if there is a significant s
 
 [**Related Techniques**]{#sec-pmc-4431-related}
 
-Box Plot
-Run Sequence Plot
-Autocorrelation Plot
+- Box Plot
+- Run Sequence Plot
+- Autocorrelation Plot
 
 [**Software**]{#sec-pmc-4431-software}
 

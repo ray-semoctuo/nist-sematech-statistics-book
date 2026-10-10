@@ -1,0 +1,51 @@
+#### Common Approaches to Univariate Time Series {#sec-pmc-444}
+
+There are a number of approaches to modeling time series. We outline a few of the most common approaches below.
+
+[**Trend, Seasonal, Residual Decompositions**]{#sec-pmc-444-decomposition}
+
+One approach is to decompose the time series into a trend, seasonal, and residual component.
+
+[Triple exponential smoothing](#sec-pmc-435) is an example of this approach. Another example, called seasonal *loess*, is based on locally weighted least squares and is discussed by Cleveland [-@Cleveland2]. We do not discuss seasonal *loess* in this handbook.
+
+[**Frequency Based Methods**]{#sec-pmc-444-frequency}
+
+Another approach, commonly used in scientific and engineering applications, is to analyze the series in the frequency domain. An example of this approach in modeling a sinusoidal type data set is shown in the beam deflection case study. The spectral plot is the primary tool for the frequency analysis of time series.
+
+Detailed discussions of frequency-based methods are included in Bloomfield [-@Bloomfield], Jenkins and Watts [-@Jenkins], and Chatfield [-@Chatfield1996].
+
+[**Autoregressive (AR) Models**]{#sec-pmc-444-ar}
+
+A common approach for modeling univariate time series is the autoregressive (AR) model:
+
+$$ X_t = \delta + \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-p} + A_t \, $$
+
+where $X_t$ is the time series, $A_t$ is white noise, and
+
+$$ \delta = \left( 1 - \sum_{i=1}^p \phi_i \right) \mu \, , $$
+
+with $\mu$ denoting the process mean.
+
+An autoregressive model is simply a linear regression of the current value of the series against one or more prior values of the series. The value of $p$ is called the order of the AR model.
+
+AR models can be analyzed with one of various methods, including standard linear least squares techniques. They also have a straightforward interpretation.
+
+[**Moving Average (MA) Models**]{#sec-pmc-444-ma}
+
+Another common approach for modeling univariate time series models is the moving average (MA) model:
+
+$$ X_t = \mu + A_t - \theta_1 A_{t-1} - \theta_2 A_{t-2} - \cdots - \theta_q A_{t-q} \, $$
+
+where $X_t$ is the time series, $\mu$ is the mean of the series, $A_{t-i}$ are white noise terms, and $\theta_1, \, \ldots, \, \theta_q$ are the parameters of the model. The value of $q$ is called the order of the MA model.
+
+That is, a moving average model is conceptually a linear regression of the current value of the series against the white noise or random shocks of one or more prior values of the series. The random shocks at each point are assumed to come from the same distribution, typically a normal distribution, with location at zero and constant scale. The distinction in this model is that these random shocks are propogated to future values of the time series. Fitting the MA estimates is more complicated than with AR models because the error terms are not observable. This means that iterative non-linear fitting procedures need to be used in place of linear least squares. MA models also have a less obvious interpretation than AR models.
+
+Sometimes the ACF and PACF will suggest that a MA model would be a better model choice and sometimes both AR and MA terms should be used in the same model (see [Section 6.4.4.5](#sec-pmc-445)).
+
+Note, however, that the error terms *after* the model is fit should be independent and follow the standard assumptions for a univariate process.
+
+[**Box-Jenkins Approach**]{#sec-pmc-444-box-jenkins}
+
+Box and Jenkins popularized an approach that combines the moving average and the autoregressive approaches in the book *Time Series Analysis: Forecasting and Control* [@BoxJenkinsReinsel1994].
+
+Although both autoregressive and moving average approaches were already known (and were originally investigated by Yule), the contribution of Box and Jenkins was in developing a systematic methodology for identifying and estimating models that could incorporate both approaches. This makes Box-Jenkins models a powerful class of models. The next several sections will discuss these models in detail.

@@ -55,3 +55,9 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include time-series/univariate/seasonality/index.qmd >}}
 
 {{< include time-series/univariate/seasonality/seasonal-subseries-plot.qmd >}}
+
+{{< include time-series/univariate/common-approaches.qmd >}}
+
+{{< include time-series/univariate/box-jenkins-approach.qmd >}}
+
+{{< include time-series/univariate/model-identification/index.qmd >}}

@@ -1,0 +1,70 @@
+#### Box-Jenkins Model Identification {#sec-pmc-446}
+
+[**Stationarity and Seasonality**]{#sec-pmc-446-stationarity-seasonality}
+
+The first step in developing a Box-Jenkins model is to determine if the series is [stationary](#sec-pmc-442) and if there is any significant [seasonality](#sec-pmc-443) that needs to be modeled.
+
+[**Detecting stationarity**]{#sec-pmc-446-detecting-stationarity}
+
+Stationarity can be assessed from a run sequence plot. The run sequence plot should show constant location and scale. It can also be detected from an autocorrelation plot. Specifically, non-stationarity is often indicated by an autocorrelation plot with very slow decay.
+
+[**Detecting seasonality**]{#sec-pmc-446-detecting-seasonality}
+
+Seasonality (or periodicity) can usually be assessed from an autocorrelation plot, a [seasonal subseries plot](#sec-pmc-4431), or a spectral plot.
+
+[**Differencing to achieve stationarity**]{#sec-pmc-446-differencing}
+
+Box and Jenkins recommend the differencing approach to achieve stationarity. However, fitting a curve and subtracting the fitted values from the original data can also be used in the context of Box-Jenkins models.
+
+[**Seasonal differencing**]{#sec-pmc-446-seasonal-differencing}
+
+At the model identification stage, our goal is to detect seasonality, if it exists, and to identify the order for the seasonal autoregressive and seasonal moving average terms. For many series, the period is known and a single seasonality term is sufficient. For example, for monthly data we would typically include either a seasonal AR 12 term or a seasonal MA 12 term. For Box-Jenkins models, we do not explicitly remove seasonality before fitting the model. Instead, we include the order of the seasonal terms in the model specification to the ARIMA estimation software. However, it may be helpful to apply a seasonal difference to the data and regenerate the autocorrelation and partial autocorrelation plots. This may help in the model identification of the non-seasonal component of the model. In some cases, the seasonal differencing may remove most or all of the seasonality effect.
+
+[**Identify p and q**]{#sec-pmc-446-identify-p-q}
+
+Once stationarity and seasonality have been addressed, the next step is to identify the order (i.e., the $p$ and $q$) of the autoregressive and moving average terms.
+
+[**Autocorrelation and Partial Autocorrelation Plots**]{#sec-pmc-446-acf-pacf}
+
+The primary tools for doing this are the autocorrelation plot and the [partial autocorrelation plot](#sec-pmc-4463). The sample autocorrelation plot and the sample partial autocorrelation plot are compared to the theoretical behavior of these plots when the order is known.
+
+[**Order of Autoregressive Process ($p$)**]{#sec-pmc-446-order-ar}
+
+Specifically, for an AR(1) process, the sample autocorrelation function should have an exponentially decreasing appearance. However, higher-order AR processes are often a mixture of exponentially decreasing and damped sinusoidal components.
+
+For higher-order autoregressive processes, the sample autocorrelation needs to be supplemented with a partial autocorrelation plot. The partial autocorrelation of an AR($p$) process becomes zero at lag $p + 1$ and greater, so we examine the sample partial autocorrelation function to see if there is evidence of a departure from zero. This is usually determined by placing a 95% confidence interval on the sample partial autocorrelation plot (most software programs that generate sample autocorrelation plots will also plot this confidence interval). If the software program does not generate the confidence band, it is approximately $\pm 2/\sqrt{N}$, with $N$ denoting the sample size.
+
+[**Order of Moving Average Process ($q$)**]{#sec-pmc-446-order-ma}
+
+The autocorrelation function of a MA($q$) process becomes zero at lag $q + 1$ and greater, so we examine the sample autocorrelation function to see where it essentially becomes zero. We do this by placing the 95% confidence interval for the sample autocorrelation function on the sample autocorrelation plot. Most software that can generate the autocorrelation plot can also generate this confidence interval.
+
+The sample partial autocorrelation function is generally not helpful for identifying the order of the moving average process.
+
+[**Shape of Autocorrelation Function**]{#sec-pmc-446-shape-acf}
+
+The following table summarizes how we use the sample autocorrelation function for model identification.
+
+| SHAPE | INDICATED MODEL |
+|---|---|
+| Exponential, decaying to zero | Autoregressive model. Use the partial autocorrelation plot to identify the order of the autoregressive model. |
+| Alternating positive and negative, decaying to zero | Autoregressive model. Use the partial autocorrelation plot to help identify the order. |
+| One or more spikes, rest are essentially zero | Moving average model, order identified by where plot becomes zero. |
+| Decay, starting after a few lags | Mixed autoregressive and moving average model. |
+| All zero or close to zero | Data is essentially random. |
+| High values at fixed intervals | Include seasonal autoregressive term. |
+| No decay to zero | Series is not stationary. |
+
+[**Mixed Models Difficult to Identify**]{#sec-pmc-446-mixed-models}
+
+In practice, the sample autocorrelation and partial autocorrelation functions are random variables and will not give the same picture as the theoretical functions. This makes the model identification more difficult. In particular, mixed models can be particularly difficult to identify.
+
+Although experience is helpful, developing good models using these sample plots can involve much trial and error. For this reason, in recent years information-based criteria such as FPE (Final Prediction Error) and AIC (Akaike Information Criterion) and others have been preferred and used. These techniques can help automate the model identification process. These techniques require computer software to use. Fortunately, these techniques are available in many commercial statistical software programs that provide ARIMA modeling capabilities.
+
+For additional information on these techniques, see Brockwell and Davis [-@Brockwell1987; -@Brockwell2002].
+
+[**Examples**]{#sec-pmc-446-examples}
+
+We show a typical series of plots for performing the initial model identification for
+
+1. the [southern oscillations](#sec-pmc-4461) data and
+2. the [CO₂ monthly concentrations](#sec-pmc-4462) data.
