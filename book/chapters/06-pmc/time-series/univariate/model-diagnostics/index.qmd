@@ -1,0 +1,15 @@
+#### Box-Jenkins Model Diagnostics {#sec-pmc-448}
+
+[**Assumptions for a Stable Univariate Process**]{#sec-pmc-448-assumptions}
+
+Model diagnostics for Box-Jenkins models is similar to model validation for non-linear least squares fitting.
+
+That is, the error term $A_t$ is assumed to follow the assumptions for a stationary univariate process. The residuals should be white noise (or independent when their distributions are normal) drawings from a fixed distribution with a constant mean and variance. If the Box-Jenkins model is a good model for the data, the residuals should satisfy these assumptions.
+
+If these assumptions are not satisfied, we need to fit a more appropriate model. That is, we go back to the model identification step and try to develop a better model. Hopefully the analysis of the residuals can provide some clues as to a more appropriate model.
+
+[**4-Plot of Residuals**]{#sec-pmc-448-4-plot}
+
+As discussed in the EDA chapter, one way to assess if the residuals from the Box-Jenkins model follow the assumptions is to generate a 4-plot of the residuals and an autocorrelation plot of the residuals. One could also look at the value of the Box-Ljung [-@Ljung1978] statistic.
+
+An example of analyzing the residuals from a Box-Jenkins model is given in the Negiz data case study.

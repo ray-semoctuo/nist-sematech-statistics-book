@@ -1,0 +1,21 @@
+##### Box-Ljung Test {#sec-pmc-4481}
+
+[**Test for Lack of Fit**]{#sec-pmc-4481-test}
+
+The Box-Ljung test [-@Ljung1978] is a diagnostic tool used to test the lack of fit of a time series model.
+
+The test is applied to the residuals of a time series after fitting an ARMA($p,q$) model to the data. The test examines $m$ autocorrelations of the residuals. If the autocorrelations are very small, we conclude that the model does not exhibit significant lack of fit.
+
+Section [6.4.4.9](#sec-pmc-449) contains an example in which the Box-Ljung test is implemented using a residual time series.
+
+[**Definition**]{#sec-pmc-4481-definition}
+
+In general, the Box-Ljung test is defined as:
+
+| | |
+|---|---|
+| $H_0$: | The model does not exhibit lack of fit. |
+| $H_a$: | The model exhibits lack of fit. |
+| Test Statistic: | Given a time series $Y$ of length $n$, the test statistic is defined as: $$ Q = n(n+2)\sum_{k=1}^{m} \, \frac{\hat{r}^2_k}{n-k} $$ where $\hat{r}_k$ is the estimated autocorrelation of the series at lag $k$, and $m$ is the number of lags being tested. |
+| Significance Level: | $\alpha$ |
+| Critical Region: | The Box-Ljung test rejects the null hypothesis (indicating that the model has significant lack of fit) if $$ Q > \chi_{1-\alpha, \, h}^2 $$ where $\chi_{1-\alpha, \, h}^2$ is the chi-square distribution table value with $h$ degrees of freedom and significance level $\alpha$. Because the test is applied to residuals, the degrees of freedom must account for the estimated model parameters so that $h = m-p-q$, where $p$ and $q$ indicate the number of parameters from the ARMA($p,q$) model fit to the data. |

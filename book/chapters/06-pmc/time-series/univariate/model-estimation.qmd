@@ -1,0 +1,15 @@
+#### Box-Jenkins Model Estimation {#sec-pmc-447}
+
+[**Use Software**]{#sec-pmc-447-use-software}
+
+Estimating the parameters for the Box-Jenkins models is a quite complicated non-linear estimation problem. For this reason, the parameter estimation should be left to a high quality software program that fits Box-Jenkins models. Fortunately, many commercial statistical software programs now fit Box-Jenkins models.
+
+[**Approaches**]{#sec-pmc-447-approaches}
+
+The main approaches to fitting Box-Jenkins models are non-linear least squares and maximum likelihood estimation.
+
+Maximum likelihood estimation is generally the preferred technique. The likelihood equations for the full Box-Jenkins model are complicated and are not included here. See Brockwell and Davis [-@Brockwell1987] for the mathematical details.
+
+[**Model Estimation Example**]{#sec-pmc-447-example}
+
+The Negiz case study shows an example of the Box-Jenkins model-fitting.

@@ -1,0 +1,177 @@
+#### Example of Univariate Box-Jenkins Analysis {#sec-pmc-449}
+
+[**Series F**]{#sec-pmc-449-series-f}
+
+We analyze the [series F data set](../../datasets/F_SERIES.DAT) in Box, Jenkins, and Reinsel [-@BoxJenkinsReinsel1994]. A plot of the 70 raw data points is shown below.
+
+```{r}
+#| label: fig-pmc-449-raw-data
+#| fig-cap: "Plot of Series F Data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+series_f <- read_table(
+  here::here("datasets", "F_SERIES.DAT"),
+  skip = 25,
+  col_names = "Yield"
+) |>
+  mutate(Observation = row_number())
+
+ggplot(series_f, aes(Observation, Yield)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Observation", y = "F Series") +
+  theme_light()
+```
+
+The data do not appear to have a seasonal component or a noticeable trend. (The stationarity of the series was verified by fitting a straight line to the data versus time period. The slope was not found to be significantly different from zero ($p$-value = 0.2).)
+
+```{r}
+#| include: false
+trend_fit <- lm(Yield ~ Observation, data = series_f)
+trend_p <- summary(trend_fit)$coefficients["Observation", "Pr(>|t|)"]
+```
+
+Our own fit confirms this: the slope $p$-value is `r round(trend_p, 2)`.
+
+[**Model Identification**]{#sec-pmc-449-model-identification}
+
+We compute the autocorrelation function (ACF) of the data for the first 35 lags to determine the type of model to fit to the data. We list the numeric results and plot the ACF (along with 95% confidence limits) versus the lag number.
+
+```{r}
+#| label: tbl-pmc-449-acf
+#| tbl-cap: "Autocorrelation function of Series F, lags 0-35"
+#| code-fold: true
+acf_f <- acf(series_f$Yield, lag.max = 35, plot = FALSE)
+
+tibble(Lag = acf_f$lag[, 1, 1], ACF = acf_f$acf[, 1, 1]) |>
+  knitr::kable(digits = 9, align = "rr")
+```
+
+```{r}
+#| label: fig-pmc-449-acf
+#| fig-cap: "Autocorrelation showing first 35 lags"
+#| code-fold: true
+n_f <- nrow(series_f)
+ci95 <- qnorm(0.975) / sqrt(n_f)
+
+tibble(lag = acf_f$lag[, 1, 1], acf = acf_f$acf[, 1, 1]) |>
+  filter(lag > 0) |>
+  ggplot(aes(lag, acf)) +
+  geom_segment(aes(xend = lag, y = 0, yend = acf)) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = c(-ci95, ci95), linetype = "dashed", color = "steelblue") +
+  labs(title = "ACF with 95% Confidence Limits", x = "Lag", y = "ACF") +
+  theme_light()
+```
+
+The ACF values alternate in sign and decay quickly after lag 2, indicating that an AR(2) model is appropriate for the data.
+
+[**Model Fitting**]{#sec-pmc-449-model-fitting}
+
+We fit an AR(2) model to the data.
+
+$$ X_t = \delta + \phi_1 X_{t-1} + \phi_2 X_{t-2} + A_t $$
+
+The model fitting results are shown below.
+
+```{r}
+#| label: tbl-pmc-449-fit
+#| tbl-cap: "AR(2) model fitting results for Series F"
+#| code-fold: true
+ar_fit <- ar.yw(series_f$Yield, order.max = 2, aic = FALSE)
+phi1 <- ar_fit$ar[1]
+phi2 <- ar_fit$ar[2]
+mu <- ar_fit$x.mean
+delta <- (1 - phi1 - phi2) * mu
+
+n <- nrow(series_f)
+y <- series_f$Yield
+yhat <- rep(NA_real_, n)
+for (t in 3:n) yhat[t] <- delta + phi1 * y[t - 1] + phi2 * y[t - 2]
+resid_f <- y[3:n] - yhat[3:n]
+m <- length(resid_f)
+resid_sd <- sqrt(sum(resid_f^2) / (m - 3))
+
+tibble(
+  Source = c("$\\phi_1$", "$\\phi_2$"),
+  Estimate = c(phi1, phi2),
+  `Standard Error` = sqrt((1 - phi2^2) / n)
+) |>
+  knitr::kable(digits = 4, align = "lrr")
+```
+
+$\delta$ (the process mean) = `r round(mu, 4)`
+
+Residual standard deviation = `r round(resid_sd, 4)`
+
+```{r}
+#| label: tbl-pmc-449-runs
+#| tbl-cap: "Runs test for randomness of residuals"
+#| code-fold: true
+s_med <- sign(resid_f - median(resid_f))
+runs <- 1 + sum(diff(s_med) != 0)
+n1 <- sum(s_med > 0)
+n2 <- sum(s_med < 0)
+N <- n1 + n2
+mean_runs <- 2 * n1 * n2 / N + 1
+var_runs <- (2 * n1 * n2 * (2 * n1 * n2 - N)) / (N^2 * (N - 1))
+Z <- (runs - mean_runs) / sqrt(var_runs)
+p_val <- 2 * (1 - pnorm(abs(Z)))
+
+tibble(Statistic = "Standardized Runs Statistic Z", Value = Z, `p-value` = p_val) |>
+  knitr::kable(digits = 4, align = "lrr")
+```
+
+::: {.callout-note}
+NIST's original table reports $\delta = 51.1286$ (matching the series mean computed here), standard errors of 0.1202 for both $\phi_1$ and $\phi_2$, a residual standard deviation of 10.9599, and a runs-test $Z = 0.4887$ ($p = 0.625$). Fitting an AR(2) model by the method of moments (Yule-Walker equations) reproduces $\phi_1 = -0.3198$ and $\phi_2 = 0.1797$ exactly, and the runs test (splitting residuals at their median) reproduces $Z$ and the $p$-value to the stated precision. The standard errors and residual standard deviation computed here are close to NIST's stated values (within the usual precision-of-estimation-method tolerance seen elsewhere in this chapter) but not bit-for-bit identical, consistent with NIST using a slightly different but equivalent asymptotic formula or software package. The quantity NIST labels $\delta$ in this table is the series mean $\mu$, not the intercept constant $\delta = (1-\phi_1-\phi_2)\mu$ defined in [Section 6.4.4.4](#sec-pmc-444-ar) — using $\mu$ directly in the mean-adjusted form of the AR(2) recursion reproduces NIST's forecasts exactly, as shown below.
+:::
+
+[**Forecasting**]{#sec-pmc-449-forecasting}
+
+Using our AR(2) model, we forecast values six time periods into the future.
+
+```{r}
+#| label: tbl-pmc-449-forecast
+#| tbl-cap: "Six-period-ahead forecasts for Series F"
+#| code-fold: true
+f <- c(y[n - 1], y[n], rep(NA_real_, 6))
+for (h in 1:6) f[2 + h] <- mu + phi1 * (f[1 + h] - mu) + phi2 * (f[h] - mu)
+
+sigma2 <- sum(resid_f^2) / (m - 3)
+psi <- c(1, phi1)
+for (j in 2:5) psi[j + 1] <- phi1 * psi[j] + phi2 * psi[j - 1]
+se_fc <- sqrt(sigma2 * cumsum(psi^2))
+
+tibble(
+  Period = (n + 1):(n + 6),
+  Prediction = f[3:8],
+  `Standard Error` = se_fc
+) |>
+  knitr::kable(digits = 4, align = "rrr")
+```
+
+The "historical" data and forecasted values (with 90% confidence limits) are shown in the graph below.
+
+```{r}
+#| label: fig-pmc-449-forecast
+#| fig-cap: "Plot of forecasted values"
+#| code-fold: true
+z90 <- qnorm(0.95)
+forecast_data <- tibble(
+  Observation = (n + 1):(n + 6),
+  Yield = f[3:8],
+  lower = f[3:8] - z90 * se_fc,
+  upper = f[3:8] + z90 * se_fc
+)
+
+ggplot() +
+  geom_line(data = series_f, aes(Observation, Yield)) +
+  geom_line(data = forecast_data, aes(Observation, Yield), color = "steelblue") +
+  geom_point(data = forecast_data, aes(Observation, Yield), color = "steelblue") +
+  geom_line(data = forecast_data, aes(Observation, lower), color = "firebrick") +
+  geom_line(data = forecast_data, aes(Observation, upper), color = "firebrick") +
+  labs(title = "Series F with Forecasts and 90% Confidence Limits", x = "Observation", y = "Series F") +
+  theme_light()
+```
