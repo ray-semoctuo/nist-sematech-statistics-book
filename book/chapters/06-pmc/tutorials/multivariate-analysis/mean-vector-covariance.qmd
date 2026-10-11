@@ -56,6 +56,11 @@ Our own computation confirms this exactly: $\bar{\bf x} = (`r paste(round(xbar, 
 ```{r}
 #| label: verify-pmc-541-S
 #| code-fold: true
+X <- matrix(
+  c(4.0, 2.0, 0.60, 4.2, 2.1, 0.59, 3.9, 2.0, 0.58, 4.3, 2.1, 0.62, 4.1, 2.2, 0.63),
+  ncol = 3, byrow = TRUE
+)
+S <- cov(X)
 S
 ```
 
