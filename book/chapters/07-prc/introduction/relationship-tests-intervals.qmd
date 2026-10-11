@@ -1,0 +1,25 @@
+### What is the relationship between a test and a confidence interval? {#sec-prc-15}
+
+[**There is a correspondence between hypothesis testing and confidence intervals**]{#sec-prc-15-correspondence}
+
+In general, for every test of hypothesis there is an equivalent statement about whether the hypothesized parameter value is included in a confidence interval. For example, consider the [previous example of linewidths](#sec-prc-13-null) where photomasks are tested to ensure that their linewidths have a mean of 500 micrometers. The null and alternative hypotheses are:
+
+$$ H_0: \text{mean linewidth} = 500 \text{ micrometers} $$
+
+$$ H_a: \text{mean linewidth} \ne 500 \text{ micrometers} $$
+
+[**Hypothesis test for the mean**]{#sec-prc-15-test}
+
+For the test, the sample mean, $\bar{Y}$, is calculated from $N$ linewidths chosen at random positions on each photomask. For the purpose of the test, it is assumed that the standard deviation, $\sigma$, is known from a long history of this process. A test statistic is calculated from these sample statistics, and the null hypothesis is rejected if:
+
+$$ \frac{\bar{Y}-500}{\sigma / \sqrt{N}} \le z_{\alpha/2} \,\, \text{ or } \,\, \frac{\bar{Y}-500}{\sigma / \sqrt{N}} \ge z_{1-\alpha/2} \, , $$
+
+where $z_{\alpha/2}$ and $z_{1-\alpha/2}$ are [tabled values from the normal distribution](#sec-eda-standard-normal-cdf-table).
+
+[**Equivalent confidence interval**]{#sec-prc-15-interval}
+
+With some algebra, it can be seen that the null hypothesis is rejected if and only if the value 500 micrometers is not in the confidence interval
+
+$$ \bar{Y} \pm \frac{z_{1-\alpha/2} \, \sigma}{\sqrt{N}} \, . $$
+
+In fact, all values bracketed by this interval would be accepted as null values for a given set of test data.

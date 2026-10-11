@@ -1,13 +1,26 @@
 # Product and Process Comparisons {#sec-prc}
 
-::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/prc/`.
-:::
+This chapter presents the background and specific analysis techniques needed to compare the performance of one or more processes against known standards or one another.
 
-<!--
-TODO:
-- Port narrative content from handbook/prc/prc.htm and handbook/prc/section*/*.htm
-- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+1. [Introduction](#sec-prc-1)
+2. [Comparisons Based on Data from One Process](#sec-prc-2)
+3. [Comparisons Based on Data from Two Processes](#sec-prc-3)
+4. [Comparisons Based on Data from More than Two Processes](#sec-prc-4)
+
+{{< include introduction/index.qmd >}}
+
+{{< include introduction/scope.qmd >}}
+
+{{< include introduction/assumptions.qmd >}}
+
+{{< include introduction/statistical-tests.qmd >}}
+
+{{< include introduction/critical-values-p-values.qmd >}}
+
+{{< include introduction/confidence-intervals.qmd >}}
+
+{{< include introduction/relationship-tests-intervals.qmd >}}
+
+{{< include introduction/outliers.qmd >}}
+
+{{< include introduction/trends.qmd >}}

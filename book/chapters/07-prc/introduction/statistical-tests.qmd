@@ -1,0 +1,36 @@
+### What are statistical tests? {#sec-prc-13}
+
+[**What is meant by a statistical test?**]{#sec-prc-13-what}
+
+A statistical test provides a mechanism for making quantitative decisions about a process or processes. The intent is to determine whether there is enough evidence to "reject" a conjecture or hypothesis about the process. The conjecture is called the null hypothesis. Not rejecting may be a good result if we want to continue to act as if we "believe" the null hypothesis is true. Or it may be a disappointing result, possibly indicating we may not yet have enough data to "prove" something by rejecting the null hypothesis.
+
+For more discussion about the meaning of a statistical hypothesis test, see [Chapter 1](#sec-eda-35).
+
+[**Concept of null hypothesis**]{#sec-prc-13-null}
+
+A classic use of a statistical test occurs in process control studies. For example, suppose that we are interested in ensuring that photomasks in a production process have mean linewidths of 500 micrometers. The null hypothesis, in this case, is that the mean linewidth is 500 micrometers. Implicit in this statement is the need to flag photomasks which have mean linewidths that are either much greater or much less than 500 micrometers. This translates into the alternative hypothesis that the mean linewidths are not equal to 500 micrometers. This is a two-sided alternative because it guards against alternatives in opposite directions; namely, that the linewidths are too small or too large.
+
+The testing procedure works this way. Linewidths at random positions on the photomask are measured using a scanning electron microscope. A test statistic is computed from the data and tested against pre-determined upper and lower critical values. If the test statistic is greater than the upper critical value or less than the lower critical value, the null hypothesis is rejected because there is evidence that the mean linewidth is not 500 micrometers.
+
+[**One-sided tests of hypothesis**]{#sec-prc-13-one-sided}
+
+Null and alternative hypotheses can also be one-sided. For example, to ensure that a lot of light bulbs has a mean lifetime of at least 500 hours, a testing program is implemented. The null hypothesis, in this case, is that the mean lifetime is greater than or equal to 500 hours. The complement or alternative hypothesis that is being guarded against is that the mean lifetime is less than 500 hours. The test statistic is compared with a lower critical value, and if it is less than this limit, the null hypothesis is rejected.
+
+Thus, a statistical test requires a pair of hypotheses; namely,
+
+- $H_0$: a null hypothesis
+- $H_a$: an alternative hypothesis.
+
+[**Significance levels**]{#sec-prc-13-significance}
+
+The null hypothesis is a statement about a belief. We may doubt that the null hypothesis is true, which might be why we are "testing" it. The alternative hypothesis might, in fact, be what we believe to be true. The test procedure is constructed so that the risk of rejecting the null hypothesis, when it is in fact true, is small. This risk, $\alpha$, is often referred to as the *significance level* of the test. By having a test with a small value of $\alpha$, we feel that we have actually "proved" something when we reject the null hypothesis.
+
+[**Errors of the second kind**]{#sec-prc-13-errors}
+
+The risk of failing to reject the null hypothesis when it is in fact false is not chosen by the user but is determined, as one might expect, by the magnitude of the real discrepancy. This risk, $\beta$, is usually referred to as the *error of the second kind*. Large discrepancies between reality and the null hypothesis are easier to detect and lead to small errors of the second kind; while small discrepancies are more difficult to detect and lead to large errors of the second kind. Also the risk $\beta$ increases as the risk $\alpha$ decreases. The risks of errors of the second kind are usually summarized by an *operating characteristic curve (OC)* for the test. OC curves for several types of tests are shown in Natrella [-@Natrella].
+
+[**Guidance in this chapter**]{#sec-prc-13-guidance}
+
+This chapter gives methods for constructing test statistics and their corresponding critical values for both one-sided and two-sided tests for the specific situations outlined under the [scope](#sec-prc-11). It also provides guidance on the sample sizes required for these tests.
+
+Further guidance on statistical hypothesis testing, significance levels and critical regions, is given in [Chapter 1](#sec-eda-35).

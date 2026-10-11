@@ -1,0 +1,31 @@
+### What are confidence intervals? {#sec-prc-14}
+
+[**How do we form a confidence interval?**]{#sec-prc-14-how}
+
+The purpose of taking a random sample from a lot or population and computing a statistic, such as the mean from the data, is to approximate the mean of the population. How well the sample statistic estimates the underlying population value is always an issue. A confidence interval addresses this issue because it provides a range of values which is likely to contain the population parameter of interest.
+
+[**Confidence levels**]{#sec-prc-14-levels}
+
+Confidence intervals are constructed at a *confidence level*, such as 95%, selected by the user. What does this mean? It means that if the same population is sampled on numerous occasions and interval estimates are made on each occasion, the resulting intervals would bracket the true population parameter in approximately 95% of the cases. A confidence stated at a $1-\alpha$ level can be thought of as the inverse of a significance level, $\alpha$.
+
+[**One and two-sided confidence intervals**]{#sec-prc-14-one-two-sided}
+
+In the same way that [statistical tests](#sec-prc-13) can be one or two-sided, confidence intervals can be one or two-sided. A two-sided confidence interval brackets the population parameter from above and below. A one-sided confidence interval brackets the population parameter either from above or below and furnishes an upper or lower bound to its magnitude.
+
+[**Example of a two-sided confidence interval**]{#sec-prc-14-example}
+
+For example, a $100(1-\alpha)$% confidence interval for the mean of a normal population is
+
+$$ \bar{Y} \pm \frac{z_{1-\alpha/2} \, \sigma}{\sqrt{N}} \, , $$
+
+where $\bar{Y}$ is the sample mean, $z_{1-\alpha/2}$ is the $1-\alpha/2$ critical value of the standard normal distribution which is found in the [table of the standard normal distribution](#sec-eda-standard-normal-cdf-table), $\sigma$ is the known population standard deviation, and $N$ is the sample size.
+
+[**Guidance in this chapter**]{#sec-prc-14-guidance}
+
+This chapter provides methods for estimating the population parameters and confidence intervals for the situations described under the [scope](#sec-prc-11).
+
+[**Problem with unknown standard deviation**]{#sec-prc-14-unknown-sd}
+
+In the normal course of events, population standard deviations are not known, and must be estimated from the data. Confidence intervals, given the same confidence level, are by necessity wider if the standard deviation is estimated from limited data because of the uncertainty in this estimate. Procedures for creating confidence intervals in this situation are described fully in this chapter.
+
+More information on confidence intervals can also be found in [Chapter 1](#sec-eda-confidence-limits-for-the-mean).

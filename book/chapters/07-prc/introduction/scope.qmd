@@ -1,0 +1,5 @@
+### What is the scope? {#sec-prc-11}
+
+[**Data from one process**]{#sec-prc-11-one-process}
+
+This section deals with introductory material related to comparisons that can be made on data from one process for cases where the process standard deviation may be known or unknown.

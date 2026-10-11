@@ -8,7 +8,6 @@ This chapter presents techniques for monitoring and controlling processes and si
 4. [Introduction to Time Series Analysis](#sec-pmc-4)
 5. [Tutorials](#sec-pmc-5)
 6. [Case Studies in Process Monitoring](#sec-pmc-6)
-7. References
 
 {{< include introduction/index.qmd >}}
 

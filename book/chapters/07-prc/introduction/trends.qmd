@@ -1,0 +1,11 @@
+### What are trends in sequential process or product data? {#sec-prc-17}
+
+[**Detecting trends by plotting the data points to see if a line with an obviously non-zero slope fits the points**]{#sec-prc-17-detecting}
+
+Detecting trends is equivalent to comparing the process values to what we would expect a series of numbers to look like if there were no trends. If we see a significant departure from a model where the next observation is equally likely to go up or down, then we would reject the hypothesis of "no trend".
+
+A common way of investigating for trends is to fit a straight line to the data and observe the line's direction (or slope). If the line looks horizontal, then there is no evidence of a trend; otherwise there is. Formally, this is done by testing whether the slope of the line is significantly different from zero. The methodology for this is covered in [Chapter 4](#sec-pmd).
+
+[**Other trend tests**]{#sec-prc-17-other}
+
+A non-parametric approach for detecting significant trends known as the Reverse Arrangement Test is described in [Chapter 8](#sec-apr).

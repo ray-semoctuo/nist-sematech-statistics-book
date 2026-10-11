@@ -1,0 +1,118 @@
+### What are outliers in the data? {#sec-prc-16}
+
+[**Definition of outliers**]{#sec-prc-16-definition}
+
+An *outlier* is an observation that lies an abnormal distance from other values in a random sample from a population. In a sense, this definition leaves it up to the analyst (or a consensus process) to decide what will be considered abnormal. Before abnormal observations can be singled out, it is necessary to characterize normal observations.
+
+[**Ways to describe data**]{#sec-prc-16-describe}
+
+Two activities are essential for characterizing a set of data:
+
+1. Examination of the overall shape of the graphed data for important features, including symmetry and departures from assumptions. The chapter on [Exploratory Data Analysis (EDA)](#sec-eda) discusses assumptions and summarization of data in detail.
+2. Examination of the data for unusual observations that are far removed from the mass of data. These points are often referred to as outliers. Two graphical techniques for identifying outliers, [scatter plots](#sec-eda-scatter-plot) and [box plots](#sec-eda-box-plot), along with an analytic procedure for detecting outliers when the distribution is normal ([Grubbs' Test](#sec-eda-detection-of-outliers)), are also discussed in detail in the EDA chapter.
+
+[**Box plot construction**]{#sec-prc-16-box-plot}
+
+The box plot is a useful graphical display for describing the behavior of the data in the middle as well as at the ends of the distributions. The box plot uses the [median](#sec-eda-measures-of-location) and the lower and upper quartiles (defined as the 25th and 75th [percentiles](#sec-prc-262)). If the lower quartile is Q1 and the upper quartile is Q3, then the difference (Q3 - Q1) is called the interquartile range or IQ.
+
+[**Box plots with fences**]{#sec-prc-16-fences}
+
+A box plot is constructed by drawing a box between the upper and lower quartiles with a solid line drawn across the box to locate the median. The following quantities (called *fences*) are needed for identifying extreme values in the tails of the distribution:
+
+1. lower inner fence: Q1 - 1.5*IQ
+2. upper inner fence: Q3 + 1.5*IQ
+3. lower outer fence: Q1 - 3*IQ
+4. upper outer fence: Q3 + 3*IQ
+
+[**Outlier detection criteria**]{#sec-prc-16-criteria}
+
+A point beyond an inner fence on either side is considered a **mild outlier**. A point beyond an outer fence is considered an **extreme outlier**.
+
+[**Example of an outlier box plot**]{#sec-prc-16-example}
+
+The data set of $N$ = 90 ordered observations as shown below is examined for outliers:
+
+```{r}
+#| label: tbl-prc-16-data
+#| tbl-cap: "Outlier example data set (90 ordered observations)"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+y_raw <- scan(here::here("datasets", "COMPARE-7_1_6.DAT"), skip = 25, quiet = TRUE)
+
+outlier_data <- tibble(Observation = seq_along(y_raw), Value = y_raw)
+
+outlier_data
+```
+
+The above data is available as a [text file](../../datasets/COMPARE-7_1_6.DAT).
+
+The computations are as follows:
+
+```{r}
+#| label: verify-prc-16-fences
+#| code-fold: true
+y <- outlier_data$Value
+n <- length(y)
+
+med <- median(y)
+q1 <- quantile(y, 0.25, type = 6, names = FALSE)
+q3 <- quantile(y, 0.75, type = 6, names = FALSE)
+iq <- q3 - q1
+
+tibble(
+  Statistic = c("Median", "Lower quartile", "Upper quartile", "Interquartile range", "Lower inner fence", "Upper inner fence", "Lower outer fence", "Upper outer fence"),
+  Value = c(med, q1, q3, iq, q1 - 1.5 * iq, q3 + 1.5 * iq, q1 - 3 * iq, q3 + 3 * iq)
+) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+- Median = $(N+1)/2$ largest data point = the average of the 45th and 46th ordered points = (559 + 560)/2 = 559.5
+- [Lower quartile](#sec-prc-262) = $.25(N+1)$th ordered point = 22.75th ordered point = 411 + .75(436-411) = 429.75
+- [Upper quartile](#sec-prc-262) = $.75(N+1)$th ordered point = 68.25th ordered point = 739 + .25(752-739) = 742.25
+- Interquartile range = 742.25 - 429.75 = 312.5
+- Lower inner fence = 429.75 - 1.5 (312.5) = -39.0
+- Upper inner fence = 742.25 + 1.5 (312.5) = 1211.0
+- Lower outer fence = 429.75 - 3.0 (312.5) = -507.75
+- Upper outer fence = 742.25 + 3.0 (312.5) = 1679.75
+
+From an examination of the fence points and the data, one point (1441) exceeds the upper inner fence and stands out as a mild outlier; there are no extreme outliers.
+
+[**Histogram with box plot**]{#sec-prc-16-histogram}
+
+A histogram with an overlaid box plot are shown below.
+
+```{r}
+#| label: fig-prc-16-histogram-boxplot
+#| fig-cap: "Histogram and box plot of the outlier example data"
+#| code-fold: true
+#| message: false
+#| warning: false
+library(patchwork)
+
+x_breaks <- seq(0, 1500, by = 500)
+x_limits <- c(0, 1650)
+
+p_box <- ggplot(outlier_data, aes(x = Value, y = 1)) +
+  geom_boxplot() +
+  labs(x = NULL, y = NULL) +
+  scale_x_continuous(breaks = x_breaks, limits = x_limits) +
+  scale_y_continuous(breaks = NULL) +
+  theme_light() +
+  theme(axis.text.x = element_blank())
+
+p_hist <- ggplot(outlier_data, aes(Value)) +
+  geom_histogram(binwidth = 200, boundary = 0, fill = "lightblue", color = "black") +
+  labs(x = "Data Values", y = "Frequency") +
+  scale_x_continuous(breaks = x_breaks, limits = x_limits) +
+  theme_light()
+
+p_box / p_hist + plot_layout(heights = c(1, 4))
+```
+
+The outlier is identified as the largest value in the data set, 1441, and appears as the circle to the right of the box plot.
+
+[**Outliers may contain important information**]{#sec-prc-16-important}
+
+Outliers should be investigated carefully. Often they contain valuable information about the process under investigation or the data gathering and recording process. Before considering the possible elimination of these points from the data, one should try to understand why they appeared and whether it is likely similar values will continue to appear. Of course, outliers are often bad data points.

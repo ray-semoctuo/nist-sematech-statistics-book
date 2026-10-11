@@ -1,0 +1,19 @@
+### What assumptions are typically made? {#sec-prc-12}
+
+[**Validity of tests**]{#sec-prc-12-validity}
+
+The validity of the tests described in this chapter depend on the following assumptions:
+
+1. The data come from a single process that can be represented by a single statistical distribution.
+2. The distribution is a normal distribution.
+3. The data are uncorrelated over time.
+
+An easy method for checking the assumption of a single normal distribution is to construct a [histogram](#sec-eda-histogram) of the data.
+
+[**Clarification**]{#sec-prc-12-clarification}
+
+The tests described in this chapter depend on the assumption of normality, and the data should be examined for departures from normality before the tests are applied. However, the tests are robust to small departures from normality; i.e., they work fairly well as long as the data are bell-shaped and the tails are not heavy. [Quantitative methods for checking the normality assumption](#sec-prc-21) are discussed in the next section.
+
+Another graphical method for testing the normality assumption is the [normal probability plot](#sec-eda-normal-probability-plot).
+
+A graphical method for testing for correlation among measurements is a [time-lag plot](#sec-eda-lag-plot). Correlation may not be a problem if measurements are properly structured over time. Correlation problems often occur when measurements are made close together in time.

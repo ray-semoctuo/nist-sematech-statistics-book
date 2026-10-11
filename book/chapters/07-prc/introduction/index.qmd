@@ -1,0 +1,17 @@
+## Introduction {#sec-prc-1}
+
+[**Goals of this section**]{#sec-prc-1-goals}
+
+The primary goal of this section is to lay a foundation for understanding statistical tests and confidence intervals that are useful for making decisions about processes and comparisons among processes. The materials covered are:
+
+- [Scope](#sec-prc-11)
+- [Assumptions](#sec-prc-12)
+- [Introduction to hypothesis testing](#sec-prc-13)
+- [Introduction to confidence intervals](#sec-prc-14)
+- [Relationship between hypothesis testing and confidence intervals](#sec-prc-15)
+- [Outlier detection](#sec-prc-16)
+- [Detection of sequential trends in data or processes](#sec-prc-17)
+
+[**Hypothesis testing and confidence intervals**]{#sec-prc-1-hypothesis-testing}
+
+This chapter explores the types of comparisons which can be made from data and explains hypothesis testing, confidence intervals, and the interpretation of each.

@@ -1,0 +1,17 @@
+#### Critical values and $p$ values {#sec-prc-131}
+
+[**Determination of critical values**]{#sec-prc-131-determination}
+
+Critical values for a test of hypothesis depend upon a test statistic, which is specific to the type of test, and the significance level, $\alpha$, which defines the sensitivity of the test. A value of $\alpha$ = 0.05 implies that the null hypothesis is rejected 5% of the time when it is in fact true. The choice of $\alpha$ is somewhat arbitrary, although in practice values of 0.1, 0.05, and 0.01 are common. Critical values are essentially cut-off values that define regions where the test statistic is unlikely to lie; for example, a region where the critical value is exceeded with probability $\alpha$ if the null hypothesis is true. The null hypothesis is rejected if the test statistic lies within this region which is often referred to as the rejection region(s). [Critical values](#sec-eda-367) for specific tests of hypothesis are tabled in chapter 1.
+
+[**Information in this chapter**]{#sec-prc-131-information}
+
+This chapter gives formulas for the test statistics and points to the appropriate tables of critical values for tests of hypothesis regarding means, standard deviations, and proportion defectives.
+
+[**$p$-values**]{#sec-prc-131-pvalues}
+
+Another quantitative measure for reporting the result of a test of hypothesis is the $p$-value. The $p$-value is the probability of the test statistic being at least as extreme as the one observed given that the null hypothesis is true. A small $p$-value is an indication that the null hypothesis is false.
+
+[**Good practice**]{#sec-prc-131-good-practice}
+
+It is good practice to decide in advance of the test how small a $p$-value is required to reject the test. This is exactly analogous to choosing a significance level, $\alpha$, for test. For example, we decide either to reject the null hypothesis if the test statistic exceeds the critical value (for $\alpha$ = 0.05) or analogously to reject the null hypothesis if the $p$-value is smaller than 0.05. It is important to understand the relationship between the two concepts because some statistical software packages report $p$-values rather than critical values.
