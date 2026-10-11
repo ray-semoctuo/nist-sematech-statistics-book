@@ -6,7 +6,7 @@ This chapter presents techniques for monitoring and controlling processes and si
 2. [Test Product for Acceptability](#sec-pmc-2)
 3. [Univariate and Multivariate Control Charts](#sec-pmc-3)
 4. [Introduction to Time Series Analysis](#sec-pmc-4)
-5. Tutorials
+5. [Tutorials](#sec-pmc-5)
 6. Case Study
 7. References
 
@@ -81,3 +81,7 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include time-series/multivariate/index.qmd >}}
 
 {{< include time-series/multivariate/example.qmd >}}
+
+{{< include tutorials/index.qmd >}}
+
+{{< include tutorials/normal-data.qmd >}}

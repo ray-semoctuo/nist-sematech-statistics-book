@@ -1,0 +1,20 @@
+## Tutorials {#sec-pmc-5}
+
+[**Tutorial contents**]{#sec-pmc-5-contents}
+
+1. [What do we mean by "Normal" data?](#sec-pmc-51)
+2. [What do we do when data are "Non-normal"?](#sec-pmc-52)
+3. [Elements of Matrix Algebra](#sec-pmc-53)
+   1. [Numerical Examples](#sec-pmc-531)
+   2. [Determinant and Eigenstructure](#sec-pmc-532)
+4. [Elements of Multivariate Analysis](#sec-pmc-54)
+   1. [Mean vector and Covariance Matrix](#sec-pmc-541)
+   2. [The Multivariate Normal Distribution](#sec-pmc-542)
+   3. [Hotelling's $T^2$](#sec-pmc-543)
+      1. [Example of Hotelling's $T^2$ Test](#sec-pmc-5431)
+      2. [Example 1 (continued)](#sec-pmc-5432)
+      3. [Example 2 (multiple groups)](#sec-pmc-5433)
+   4. [Hotelling's $T^2$ Chart](#sec-pmc-544)
+5. [Principal Components](#sec-pmc-55)
+   1. [Properties of Principal Components](#sec-pmc-551)
+   2. [Numerical Example](#sec-pmc-552)
