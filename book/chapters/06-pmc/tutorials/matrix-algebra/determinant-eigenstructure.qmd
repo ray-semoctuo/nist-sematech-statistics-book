@@ -10,7 +10,7 @@ As is the case of inversion of a square matrix, calculation of the determinant i
 
 [**Determinant of variance-covariance matrix**]{#sec-pmc-532-covariance}
 
-Of great interest in statistics is the determinant of a square symmetric matrix ${\bf D}$ whose diagonal elements are sample variances and whose off-diagonal elements are sample covariances. Symmetry means that the matrix and its transpose are identical (i.e., ${\bf A} = {\bf A}'$). An example is
+Of great interest in statistics is the determinant of a square symmetric matrix ${\bf D}$ whose diagonal elements are sample variances and whose off-diagonal elements are sample covariances. Symmetry means that the matrix and its transpose are identical (i.e., ${\bf A} = {\bf A}^T$). An example is
 
 $$ {\bf D} = \left[ \begin{array}{cccc}
 s_1^2 & s_1 s_2 r_{12} &  \cdots & s_1 s_p r_{1p} \\

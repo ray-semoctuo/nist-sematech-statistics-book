@@ -86,7 +86,7 @@ $$
 Pre-multiplying a $p \times n$ matrix by the transpose of a $p$-element vector yields a $n$-element transpose,
 
 $$
-{\bf c}' = {\bf a}'{\bf B} =
+{\bf c}^T = {\bf a}^T{\bf B} =
 \left[ \begin{array}{cc} a_1 & a_2 \end{array} \right]
 \left[ \begin{array}{ccc}
 b_{11} & b_{12} & b_{13} \\ b_{21} & b_{22} & b_{23}
@@ -109,10 +109,10 @@ $$
 
 [**Quadratic form**]{#sec-pmc-531-quadratic}
 
-It is not possible to pre-multiply a matrix by a column vector, nor to post-multiply a matrix by a row vector. The matrix product ${\bf a}'{\bf Ba}$ yields a scalar and is called a quadratic form. Note that ${\bf B}$ must be a square matrix if ${\bf a}'{\bf Ba}$ is to conform to multiplication. Here is an example of a quadratic form
+It is not possible to pre-multiply a matrix by a column vector, nor to post-multiply a matrix by a row vector. The matrix product ${\bf a}^T{\bf Ba}$ yields a scalar and is called a quadratic form. Note that ${\bf B}$ must be a square matrix if ${\bf a}^T{\bf Ba}$ is to conform to multiplication. Here is an example of a quadratic form
 
 $$
-{\bf a}'{\bf Ba} =
+{\bf a}^T{\bf Ba} =
 \left[ \begin{array}{cc} 2 & 3 \end{array} \right]
 \left[ \begin{array}{cc} 1 & 2 \\ 3 & 1 \end{array} \right]
 \left[ \begin{array}{c} 2 \\ 3 \end{array} \right] =

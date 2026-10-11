@@ -18,9 +18,13 @@ The scalars $a_i$ are the elements of vector ${\bf a}$.
 
 [**Transpose**]{#sec-pmc-53-transpose}
 
-The *transpose* of ${\bf a}$, denoted by ${\bf a}'$, is the row arrangement of the elements of ${\bf a}$.
+The *transpose* of ${\bf a}$, denoted by ${\bf a}^T$, is the row arrangement of the elements of ${\bf a}$.
 
-$$ {\bf a}' = \left[ a_1 \,\,\, a_2 \,\,\, \cdots \,\,\, a_p \right] $$
+$$ {\bf a}^T = \left[ a_1 \,\,\, a_2 \,\,\, \cdots \,\,\, a_p \right] $$
+
+::: {.callout-note}
+NIST's original page denotes the transpose with a prime (${\bf a}'$). We use the superscript-$T$ notation (${\bf a}^T$) throughout this book, consistent with its use elsewhere.
+:::
 
 [**Sum of two vectors**]{#sec-pmc-53-sum}
 
@@ -30,11 +34,11 @@ $$ {\bf a} + {\bf b} = \left[ \begin{array}{c} a_1 + b_1 \\ a_2 + b_2 \\ \vdots 
 
 The difference of two vectors is the vector of differences of corresponding elements.
 
-[**Product of ${\bf a}'{\bf b}$**]{#sec-pmc-53-product-ab}
+[**Product of ${\bf a}^T{\bf b}$**]{#sec-pmc-53-product-ab}
 
-The **product** ${\bf a}'{\bf b}$ is a scalar formed by
+The **product** ${\bf a}^T{\bf b}$ is a scalar formed by
 
-$$ {\bf a}'{\bf b} = \left[ a_1 b_1 + a_2 b_2 + \cdots + a_p b_p \right] $$
+$$ {\bf a}^T{\bf b} = \left[ a_1 b_1 + a_2 b_2 + \cdots + a_p b_p \right] $$
 
 which may be written in shortcut notation as
 
@@ -42,11 +46,11 @@ $$ c = \sum_{i=1}^p a_i b_i \, , $$
 
 where $a_i$ and $b_i$ are the $i$th elements of vectors ${\bf a}$ and ${\bf b}$, respectively.
 
-[**Product of ${\bf ab}'$**]{#sec-pmc-53-product-ab-prime}
+[**Product of ${\bf ab}^T$**]{#sec-pmc-53-product-ab-prime}
 
-The **product** ${\bf ab}'$ is a *square matrix*
+The **product** ${\bf ab}^T$ is a *square matrix*
 
-$$ {\bf ab}' = \left[ \begin{array}{cccc}
+$$ {\bf ab}^T = \left[ \begin{array}{cccc}
     a_1 b_1 & a_1 b_2 & \cdots & a_1 b_p \\
     a_2 b_1 & a_2 b_2 & \cdots & a_2 b_p \\
     \vdots  & \vdots  &       & \vdots  \\
