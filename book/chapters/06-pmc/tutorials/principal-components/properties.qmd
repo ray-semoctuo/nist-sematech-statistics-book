@@ -16,7 +16,7 @@ There are an infinite number of values for ${\bf V}$ that will produce a diagona
 
 [**Principal components maximize variance of the transformed elements, one by one**]{#sec-pmc-551-maximize}
 
-Hotelling (1933) derived the "principal components" solution. It proceeds as follows: for the first principal component, which will be the first element of ${\bf y}$ and be defined by the coefficients in the first column of ${\bf V}$, (denoted by ${\bf v}_1$), we want a solution such that the variance of ${\bf y}_1$ will be maximized.
+Hotelling [-@Hotelling1933] derived the "principal components" solution. It proceeds as follows: for the first principal component, which will be the first element of ${\bf y}$ and be defined by the coefficients in the first column of ${\bf V}$, (denoted by ${\bf v}_1$), we want a solution such that the variance of ${\bf y}_1$ will be maximized.
 
 [**Constrain ${\bf v}$ to generate a unique solution**]{#sec-pmc-551-constrain}
 
@@ -151,7 +151,11 @@ The number of eigenvalues, $N$, used in the final set determines the dimensional
 
 [**Eigenvalues greater than unity**]{#sec-pmc-551-greater-unity}
 
-Each column or principal factor should represent a number of original variables. Kaiser (1966) suggested a rule-of-thumb that takes as a value for $N$, the number of eigenvalues larger than unity.
+Each column or principal factor should represent a number of original variables. Kaiser [-@Kaiser1960] suggested a rule-of-thumb that takes as a value for $N$, the number of eigenvalues larger than unity.
+
+::: {.callout-note}
+NIST's original page cites this rule-of-thumb as "Kaiser (1966)". The eigenvalue-greater-than-unity criterion is widely attributed to Kaiser's 1960 paper "The Application of Electronic Computers to Factor Analysis" (*Educational and Psychological Measurement*, 20, 141-151); we were unable to find a distinct 1966 Kaiser publication proposing this same rule, so we cite the 1960 paper here.
+:::
 
 **Factor Structure**
 
@@ -186,7 +190,7 @@ If this correlation matrix, i.e., the factor structure matrix, does not help muc
 
 [**Varimax rotation**]{#sec-pmc-551-varimax}
 
-A popular scheme for rotation was suggested by Henry Kaiser in 1958. He produced a method for orthogonal rotation of factors, called the varimax rotation, which cleans up the factors as follows:
+A popular scheme for rotation was suggested by Henry Kaiser [-@Kaiser1958]. He produced a method for orthogonal rotation of factors, called the varimax rotation, which cleans up the factors as follows:
 
 > *For each factor, high loadings (correlations) will result for a few variables; the rest will be near zero.*
 
