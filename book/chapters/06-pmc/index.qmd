@@ -125,3 +125,11 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include case-studies/lithography/index.qmd >}}
 
 {{< include case-studies/lithography/background-data.qmd >}}
+
+{{< include case-studies/lithography/graphical-representation.qmd >}}
+
+{{< include case-studies/lithography/subgroup-analysis.qmd >}}
+
+{{< include case-studies/lithography/shewhart-control-chart.qmd >}}
+
+{{< include case-studies/lithography/work-yourself.qmd >}}

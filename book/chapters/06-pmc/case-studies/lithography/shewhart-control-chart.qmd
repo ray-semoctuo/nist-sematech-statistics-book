@@ -1,0 +1,72 @@
+#### Shewhart Control Chart {#sec-pmc-614}
+
+[**Choosing the right control charts to monitor the process**]{#sec-pmc-614-choosing}
+
+The largest source of variation in this data is the lot-to-lot variation. So, using classical Shewhart methods, if we specify our subgroup to be anything other than lot, we will be ignoring the known lot-to-lot variation and could get out-of-control points that already have a known, assignable cause - the data comes from different lots. However, in the lithography processing area the measurements of most interest are the site level measurements, not the lot means. How can we get around this seeming contradiction?
+
+[**Chart sources of variation separately**]{#sec-pmc-614-separately}
+
+One solution is to chart the important sources of variation separately. We would then be able to monitor the variation of our process and truly understand where the variation is coming from and if it changes. For this dataset, this approach would require having two sets of control charts, one for the individual site measurements and the other for the lot means. This would double the number of charts necessary for this process (we would have 4 charts for line width instead of 2).
+
+[**Chart only most important source of variation**]{#sec-pmc-614-single-source}
+
+Another solution would be to have one chart on the largest source of variation. This would mean we would have one set of charts that monitor the lot-to-lot variation. From a manufacturing standpoint, this would be unacceptable.
+
+[**Use boxplot type chart**]{#sec-pmc-614-boxplot}
+
+We could create a non-standard chart that would plot all the individual data values and group them together in a boxplot type format by lot. The control limits could be generated to monitor the individual data values while the lot-to-lot variation would be monitored by the patterns of the groupings. This would take special programming and management intervention to implement non-standard charts in most floor shop control systems.
+
+[**Alternate form for mean control chart**]{#sec-pmc-614-alternate}
+
+A commonly applied solution is the first option; have multiple charts on this process. When creating the control limits for the lot means, care must be taken to use the lot-to-lot variation instead of the within lot variation. The resulting control charts are: the standard individuals/moving range charts (as seen previously), and a control chart on the lot means that is different from the previous lot means chart. This new chart uses the lot-to-lot variation to calculate control limits instead of the average within-lot standard deviation. The accompanying standard deviation chart is the same as seen previously.
+
+[**Mean control chart using lot-to-lot variation**]{#sec-pmc-614-lot-to-lot}
+
+```{r}
+#| label: fig-pmc-614-cass2mea
+#| fig-cap: "Mean control chart using lot-to-lot variation"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+lithography <- read_table(
+  here::here("datasets", "LITHOGRA.DAT"),
+  skip = 25,
+  col_names = c("Cassette", "Wafer", "Site", "LineWidth", "Sequence", "CleanedLineWidth")
+)
+
+c4 <- function(n) sqrt(2 / (n - 1)) * gamma(n / 2) / gamma((n - 1) / 2)
+
+cassette_groups <- lithography |>
+  group_by(Cassette) |>
+  summarise(mean = mean(LineWidth), sd = sd(LineWidth), .groups = "drop")
+
+n15 <- 15
+c4_15 <- c4(n15)
+xbarbar15 <- mean(cassette_groups$mean)
+sbar15 <- mean(cassette_groups$sd)
+ucl_x15 <- xbarbar15 + 3 * sbar15 / (c4_15 * sqrt(n15))
+lcl_x15 <- xbarbar15 - 3 * sbar15 / (c4_15 * sqrt(n15))
+
+# Lot-to-lot ("LL") limits use the standard deviation of the lot (cassette)
+# means directly, rather than the average within-lot standard deviation.
+sd_lot_means <- sd(cassette_groups$mean)
+ucl_ll <- xbarbar15 + 3 * sd_lot_means
+lcl_ll <- xbarbar15 - 3 * sd_lot_means
+
+ggplot(cassette_groups, aes(Cassette, mean)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_ll, ucl_x15, xbarbar15, lcl_x15, lcl_ll)) +
+  annotate("text", x = 31.5, y = ucl_ll, label = "UCL: LL", hjust = 0) +
+  annotate("text", x = 31.5, y = ucl_x15, label = "UCL", hjust = 0) +
+  annotate("text", x = 31.5, y = xbarbar15, label = "TARGET", hjust = 0) +
+  annotate("text", x = 31.5, y = lcl_x15, label = "LCL", hjust = 0) +
+  annotate("text", x = 31.5, y = lcl_ll, label = "LCL: LL", hjust = 0) +
+  coord_cartesian(xlim = c(1, 30), clip = "off") +
+  labs(x = "Cassette", y = "Mean of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 45, 5.5, 5.5))
+```
+
+The control limits labeled with "UCL" and "LCL" are the standard control limits. The control limits labeled with "UCL: LL" and "LCL: LL" are based on the lot-to-lot variation.

@@ -1,0 +1,246 @@
+#### Subgroup Analysis {#sec-pmc-613}
+
+[**Control charts for subgroups**]{#sec-pmc-613-intro}
+
+The resulting classical Shewhart control charts for each possible subgroup are shown below.
+
+```{r}
+#| label: setup-pmc-613
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+lithography <- read_table(
+  here::here("datasets", "LITHOGRA.DAT"),
+  skip = 25,
+  col_names = c("Cassette", "Wafer", "Site", "LineWidth", "Sequence", "CleanedLineWidth")
+)
+
+c4 <- function(n) sqrt(2 / (n - 1)) * gamma(n / 2) / gamma((n - 1) / 2)
+```
+
+[**Site as subgroup**]{#sec-pmc-613-site}
+
+The first pair of control charts use the site as the subgroup. However, since site has a subgroup size of one we use the control charts for [individual measurements](#sec-pmc-322). A moving average and a moving range chart are shown.
+
+[**Moving average control chart**]{#sec-pmc-613-movemean}
+
+```{r}
+#| label: fig-pmc-613-movemean
+#| fig-cap: "Moving average control chart with site as the subgroup"
+#| code-fold: true
+y <- lithography$LineWidth
+xbar <- mean(y)
+mr <- abs(diff(y))
+mrbar <- mean(mr)
+ucl_i <- xbar + 3 * mrbar / 1.128
+lcl_i <- xbar - 3 * mrbar / 1.128
+
+ggplot(tibble(Sequence = seq_along(y), y = y), aes(Sequence, y)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_i, xbar, lcl_i)) +
+  annotate("text", x = 460, y = ucl_i, label = "UCL", hjust = 0) +
+  annotate("text", x = 460, y = xbar, label = "TARGET", hjust = 0) +
+  annotate("text", x = 460, y = lcl_i, label = "LCL", hjust = 0) +
+  coord_cartesian(xlim = c(0, 450), clip = "off") +
+  labs(x = NULL, y = "Mean of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
+```
+
+[**Moving range control chart**]{#sec-pmc-613-moverang}
+
+```{r}
+#| label: fig-pmc-613-moverang
+#| fig-cap: "Moving range control chart with site as the subgroup"
+#| code-fold: true
+ucl_mr <- 3.267 * mrbar
+
+ggplot(tibble(Sequence = 2:450, MR = mr), aes(Sequence, MR)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_mr, mrbar, 0)) +
+  annotate("text", x = 460, y = ucl_mr, label = "UCL", hjust = 0) +
+  annotate("text", x = 460, y = mrbar, label = "TARGET", hjust = 0) +
+  annotate("text", x = 460, y = 0, label = "LCL", hjust = 0) +
+  coord_cartesian(xlim = c(0, 450), clip = "off") +
+  labs(x = NULL, y = "Range of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
+```
+
+[**Wafer as subgroup**]{#sec-pmc-613-wafer}
+
+The next pair of control charts use the wafer as the subgroup. In this case, the subgroup size is five. A mean and a standard deviation control chart are shown.
+
+```{r}
+#| label: verify-pmc-613-wafer-groups
+#| code-fold: true
+wafer_groups <- lithography |>
+  group_by(Cassette, Wafer) |>
+  summarise(mean = mean(LineWidth), sd = sd(LineWidth), .groups = "drop") |>
+  mutate(WaferIndex = row_number())
+
+n5 <- 5
+c4_5 <- c4(n5)
+xbarbar5 <- mean(wafer_groups$mean)
+sbar5 <- mean(wafer_groups$sd)
+ucl_x5 <- xbarbar5 + 3 * sbar5 / (c4_5 * sqrt(n5))
+lcl_x5 <- xbarbar5 - 3 * sbar5 / (c4_5 * sqrt(n5))
+ucl_s5 <- sbar5 + 3 * sbar5 / c4_5 * sqrt(1 - c4_5^2)
+lcl_s5 <- sbar5 - 3 * sbar5 / c4_5 * sqrt(1 - c4_5^2)
+c(xbarbar5 = xbarbar5, sbar5 = sbar5, ucl_x5 = ucl_x5, lcl_x5 = lcl_x5, ucl_s5 = ucl_s5, lcl_s5 = lcl_s5)
+```
+
+[**Mean control chart**]{#sec-pmc-613-wafemean}
+
+```{r}
+#| label: fig-pmc-613-wafemean
+#| fig-cap: "Mean control chart with wafer as subgroup"
+#| code-fold: true
+ggplot(wafer_groups, aes(WaferIndex, mean)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_x5, xbarbar5, lcl_x5)) +
+  annotate("text", x = 93, y = ucl_x5, label = "UCL", hjust = 0) +
+  annotate("text", x = 93, y = xbarbar5, label = "TARGET", hjust = 0) +
+  annotate("text", x = 93, y = lcl_x5, label = "LCL", hjust = 0) +
+  coord_cartesian(xlim = c(0, 90), clip = "off") +
+  labs(x = "Wafer", y = "Mean of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
+```
+
+[**SD control chart**]{#sec-pmc-613-wafesd}
+
+```{r}
+#| label: fig-pmc-613-wafesd
+#| fig-cap: "Standard deviation control chart with wafer as subgroup"
+#| code-fold: true
+ggplot(wafer_groups, aes(WaferIndex, sd)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_s5, sbar5)) +
+  annotate("text", x = 93, y = ucl_s5, label = "UCL", hjust = 0) +
+  annotate("text", x = 93, y = sbar5, label = "TARGET", hjust = 0) +
+  coord_cartesian(xlim = c(0, 90), clip = "off") +
+  labs(x = "Wafer", y = "SD of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
+```
+
+There is no *LCL* for the standard deviation chart because of the small subgroup size.
+
+[**Cassette as subgroup**]{#sec-pmc-613-cassette}
+
+The next pair of control charts use the cassette as the subgroup. In this case, the subgroup size is 15. A mean and a standard deviation control chart are shown.
+
+```{r}
+#| label: verify-pmc-613-cassette-groups
+#| code-fold: true
+cassette_groups <- lithography |>
+  group_by(Cassette) |>
+  summarise(mean = mean(LineWidth), sd = sd(LineWidth), .groups = "drop")
+
+n15 <- 15
+c4_15 <- c4(n15)
+xbarbar15 <- mean(cassette_groups$mean)
+sbar15 <- mean(cassette_groups$sd)
+ucl_x15 <- xbarbar15 + 3 * sbar15 / (c4_15 * sqrt(n15))
+lcl_x15 <- xbarbar15 - 3 * sbar15 / (c4_15 * sqrt(n15))
+ucl_s15 <- sbar15 + 3 * sbar15 / c4_15 * sqrt(1 - c4_15^2)
+lcl_s15 <- sbar15 - 3 * sbar15 / c4_15 * sqrt(1 - c4_15^2)
+c(xbarbar15 = xbarbar15, sbar15 = sbar15, ucl_x15 = ucl_x15, lcl_x15 = lcl_x15, ucl_s15 = ucl_s15, lcl_s15 = lcl_s15)
+```
+
+[**Mean control chart**]{#sec-pmc-613-cassmean}
+
+```{r}
+#| label: fig-pmc-613-cassmean
+#| fig-cap: "Mean control chart with cassette as subgroup"
+#| code-fold: true
+ggplot(cassette_groups, aes(Cassette, mean)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_x15, xbarbar15, lcl_x15)) +
+  annotate("text", x = 31.5, y = ucl_x15, label = "UCL", hjust = 0) +
+  annotate("text", x = 31.5, y = xbarbar15, label = "TARGET", hjust = 0) +
+  annotate("text", x = 31.5, y = lcl_x15, label = "LCL", hjust = 0) +
+  coord_cartesian(xlim = c(1, 30), clip = "off") +
+  labs(x = "Cassette", y = "Mean of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
+```
+
+[**SD control chart**]{#sec-pmc-613-casssd}
+
+```{r}
+#| label: fig-pmc-613-casssd
+#| fig-cap: "Standard deviation control chart with cassette as subgroup"
+#| code-fold: true
+ggplot(cassette_groups, aes(Cassette, sd)) +
+  geom_line(color = "grey40") +
+  geom_point(color = "firebrick", size = 0.8) +
+  geom_hline(yintercept = c(ucl_s15, sbar15, lcl_s15)) +
+  annotate("text", x = 31.5, y = ucl_s15, label = "UCL", hjust = 0) +
+  annotate("text", x = 31.5, y = sbar15, label = "TARGET", hjust = 0) +
+  annotate("text", x = 31.5, y = lcl_s15, label = "LCL", hjust = 0) +
+  coord_cartesian(xlim = c(1, 30), clip = "off") +
+  labs(x = "Cassette", y = "SD of Line Width") +
+  theme_light() +
+  theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
+```
+
+[**Interpretation**]{#sec-pmc-613-interpretation}
+
+Which of these subgroupings of the data is correct? As you can see, each subgrouping produces a different chart. Part of the answer lies in the manufacturing requirements for this process. Another aspect that can be statistically determined is the magnitude of each of the sources of variation. In order to understand our data structure and how much variation each of our sources contribute, we need to perform a variance component analysis. The variance component analysis for this data set is shown below.
+
+```{r}
+#| label: verify-pmc-613-anova
+#| code-fold: true
+anova_data <- lithography |> mutate(Cassette = factor(Cassette), Wafer = factor(Wafer))
+fit <- aov(LineWidth ~ Cassette / Wafer, data = anova_data)
+summary(fit)
+```
+
+| Component | Variance Component Estimate |
+|---|---|
+| Cassette | 0.2645 |
+| Wafer | 0.0500 |
+| Site | 0.1755 |
+
+[**Variance Component Estimation**]{#sec-pmc-613-estimation}
+
+If your software does not generate the variance components directly, they can be computed from a standard analysis of variance output by equating mean squares (MS) to expected mean squares (EMS).
+
+The sum of squares and mean squares for a nested, random effects model are shown below.
+
+| Source | Degrees of Freedom | Sum of Squares | Mean Squares |
+|---|---:|---:|---:|
+| Cassette | 29 | 127.40293 | 4.3932 |
+| Wafer(Cassette) | 60 | 25.52089 | 0.4253 |
+| Site(Cassette, Wafer) | 360 | 63.17865 | 0.1755 |
+
+The expected mean squares for cassette, wafer within cassette, and site within cassette and wafer, along with their associated mean squares, are the following.
+
+$$ \begin{aligned}
+4.3932 & = (3 \times 5)\text{Var(cassettes)} + 5\,\text{Var(wafer)} + \text{Var(site)} \\
+0.4253 & = 5\,\text{Var(wafer)} + \text{Var(site)} \\
+0.1755 & = \text{Var(site)}
+\end{aligned} $$
+
+Solving these equations, we obtain the variance component estimates 0.2645, 0.04997, and 0.1755 for cassettes, wafers, and sites, respectively.
+
+```{r}
+#| label: verify-pmc-613-variance-components
+#| code-fold: true
+var_site <- 0.1755
+var_wafer <- (0.4253 - var_site) / 5
+var_cassette <- (4.3932 - 5 * var_wafer - var_site) / 15
+c(var_cassette = var_cassette, var_wafer = var_wafer, var_site = var_site)
+```
+
+Expressed as a percentage of the total variance, cassette-to-cassette variation accounts for `r round(100 * var_cassette / sum(var_cassette, var_wafer, var_site), 0)`% of the total, site-to-site variation accounts for `r round(100 * var_site / sum(var_cassette, var_wafer, var_site), 0)`%, and wafer-to-wafer variation accounts for the remaining `r round(100 * var_wafer / sum(var_cassette, var_wafer, var_site), 0)`%.
+
+All of the analyses in this section can be completed using R code. The reader can download the data as a [text file](../../datasets/LITHOGRA.DAT).

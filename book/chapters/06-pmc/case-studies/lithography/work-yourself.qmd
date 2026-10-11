@@ -1,0 +1,3 @@
+#### Work This Example Yourself {#sec-pmc-615}
+
+NIST's original case study provides Dataplot macros that let the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code -- no separate software installation or macro is required.
