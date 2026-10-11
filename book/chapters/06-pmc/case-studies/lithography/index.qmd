@@ -1,0 +1,11 @@
+### Lithography Process {#sec-pmc-61}
+
+[**Lithography Process**]{#sec-pmc-61-intro}
+
+This case study illustrates the use of control charts in analyzing a lithography process.
+
+1. [Background and Data](#sec-pmc-611)
+2. [Graphical Representation of the Data](#sec-pmc-612)
+3. [Subgroup Analysis](#sec-pmc-613)
+4. [Shewhart Control Chart](#sec-pmc-614)
+5. [Work This Example Yourself](#sec-pmc-615)

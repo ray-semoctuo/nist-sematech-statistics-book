@@ -1,0 +1,10 @@
+## Case Studies in Process Monitoring {#sec-pmc-6}
+
+[**Detailed Examples**]{#sec-pmc-6-intro}
+
+The general points of the first five sections are illustrated in this section using data from physical science and engineering applications. Each example is presented step-by-step in the text, and is often cross-linked with the relevant sections of the chapter describing the analysis in general.
+
+[**Contents: Section 6**]{#sec-pmc-6-contents}
+
+1. [Lithography Process Example](#sec-pmc-61)
+2. [Aerosol Particle Size Example](#sec-pmc-62)

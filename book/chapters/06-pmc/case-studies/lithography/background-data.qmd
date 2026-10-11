@@ -1,0 +1,35 @@
+#### Background and Data {#sec-pmc-611}
+
+**Case Study for SPC in Batch Processing Environment**
+
+[**Semiconductor processing creates multiple sources of variability to monitor**]{#sec-pmc-611-sources}
+
+One of the assumptions in using classical Shewhart SPC charts is that the only source of variation is from part to part (or within subgroup variation). This is the case for most continuous processing situations. However, many of today's processing situations have different sources of variation. The semiconductor industry is one of the areas where the processing creates multiple sources of variation.
+
+In semiconductor processing, the basic experimental unit is a silicon wafer. Operations are performed on the wafer, but individual wafers can be grouped multiple ways. In the diffusion area, up to 150 wafers are processed in one time in a diffusion tube. In the etch area, single wafers are processed individually. In the lithography area, the light exposure is done on sub-areas of the wafer. There are many times during the production of a computer chip where the experimental unit varies and thus there are different sources of variation in this batch processing environment.
+
+The following is a case study of a lithography process. Five sites are measured on each wafer, three wafers are measured in a cassette (typically a grouping of 24 - 25 wafers) and thirty cassettes of wafers are used in the study. The width of a line is the measurement under study. There are two line width variables. The first is the original data and the second has been cleaned up somewhat. This case study uses the raw data. The entire data table is 450 rows long with six columns.
+
+[**Software**]{#sec-pmc-611-software}
+
+The reader can download the data as a [text file](../../datasets/LITHOGRA.DAT).
+
+[**Case study data: wafer line width measurements**]{#sec-pmc-611-data}
+
+```{r}
+#| label: tbl-pmc-611-data
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+site_labels <- c("Top", "Lef", "Cen", "Rgt", "Bot")
+
+lithography <- read_table(
+  here::here("datasets", "LITHOGRA.DAT"),
+  skip = 25,
+  col_names = c("Cassette", "Wafer", "Site", "LineWidth", "Sequence", "CleanedLineWidth")
+) |>
+  mutate(Site = factor(Site, labels = site_labels))
+
+lithography
+```
