@@ -1,0 +1,8 @@
+#### Work This Example Yourself {#sec-pmc-625}
+
+NIST's original handbook provides a Dataplot macro that lets the reader step through this case study interactively, one Dataplot command at a time. This book takes a different approach: every plot, table, and computed value in [the preceding sections](#sec-pmc-62) is produced by a live, visible R code chunk reading directly from [`NEGIZ4.DAT`](../../datasets/NEGIZ4.DAT). To work through this example yourself, expand the code blocks in those sections (via the "Code" toggles) and run them in your own R session -- the sequence of steps is the same one NIST's macro walks through:
+
+1. [Read in the data](#sec-pmc-621-data).
+2. Generate the model identification plots: [run sequence plot](#sec-pmc-622-run-sequence) and [autocorrelation plot](#sec-pmc-622-autocorrelation) of the original data, and [run sequence plot](#sec-pmc-622-run-sequence-diff), [autocorrelation plot](#sec-pmc-622-autocorrelation-diff), and [partial autocorrelation plot](#sec-pmc-622-partial-autocorrelation-diff) of the differenced data.
+3. Estimate the [ARIMA(2,1,0)](#sec-pmc-623-ar2) and [ARIMA(0,1,1)](#sec-pmc-623-ma1) models.
+4. Validate the models: generate a [4-plot](#sec-pmc-624-4plot-ar2) and [autocorrelation plot](#sec-pmc-624-acf-ar2) of the residuals from the ARIMA(2,1,0) model, and perform a [Box-Ljung test](#sec-pmc-624-ljung-ar2) of randomness on those residuals; then generate a [4-plot](#sec-pmc-624-4plot-ma1) and [autocorrelation plot](#sec-pmc-624-acf-ma1) of the residuals from the ARIMA(0,1,1) model, and perform a [Box-Ljung test](#sec-pmc-624-ljung-ma1) of randomness on those residuals.

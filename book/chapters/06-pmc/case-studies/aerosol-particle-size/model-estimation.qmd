@@ -1,0 +1,113 @@
+#### Model Estimation {#sec-pmc-623}
+
+[**AR(2) Model Parameter Estimates**]{#sec-pmc-623-ar2}
+
+The following parameter estimates were computed for the AR(2) model based on the differenced data.
+
+```{r}
+#| label: tbl-pmc-623-ar2
+#| tbl-cap: "AR(2) model fitting results for the differenced data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+aerosol <- read_table(
+  here::here("datasets", "NEGIZ4.DAT"),
+  skip = 50,
+  col_names = c("Junk1", "Junk2", "ParticleSize", "Junk3", "Junk4")
+) |>
+  select(ParticleSize)
+
+diff_y <- diff(aerosol$ParticleSize)
+
+fit_ar2 <- arima(diff_y, order = c(2, 0, 0), method = "ML")
+ar2_se <- sqrt(diag(vcov(fit_ar2)))
+
+tibble(
+  Source = c("Intercept", "AR1", "AR2"),
+  Estimate = c(fit_ar2$coef["intercept"], fit_ar2$coef["ar1"], fit_ar2$coef["ar2"]),
+  `Standard Error` = c(ar2_se["intercept"], ar2_se["ar1"], ar2_se["ar2"])
+) |>
+  mutate(
+    Lower = Estimate - qnorm(0.975) * `Standard Error`,
+    Upper = Estimate + qnorm(0.975) * `Standard Error`
+  ) |>
+  knitr::kable(digits = 4, align = "lrrrr")
+```
+
+```{r}
+#| include: false
+n_ar2 <- length(diff_y)
+resid_sd_ar2 <- sqrt(fit_ar2$sigma2)
+```
+
+Number of Observations: `r n_ar2`
+
+Degrees of Freedom: `r n_ar2` - 3 = `r n_ar2 - 3`
+
+Residual Standard Deviation: `r round(resid_sd_ar2, 4)`
+
+Both AR parameters are significant since the confidence intervals do not contain zero.
+
+The model for the differenced data, $Y_t$, is an AR(2) model,
+
+$$ Y_{t} = -0.4064 Y_{t-1} - 0.1649 Y_{t-2} - 0.0050 \, , $$
+
+with $\sigma =$ `r round(resid_sd_ar2, 4)`.
+
+It is often more convenient to express the model in terms of the original data, $X_t$, rather than the differenced data. From the definition of the difference, $Y_t = X_t - X_{t-1}$, we can make the appropriate substitutions into the above equation,
+
+$$ X_{t} - X_{t-1} = -0.4064 (X_{t-1} - X_{t-2}) - 0.1649 (X_{t-2} - X_{t-3}) - 0.0050 \, , $$
+
+to arrive at the model in terms of the original series,
+
+$$ X_{t} = 0.5936 X_{t-1} + 0.2415 X_{t-2} + 0.1649 X_{t-3} - 0.0050 \, . $$
+
+[**MA(1) Model Parameter Estimates**]{#sec-pmc-623-ma1}
+
+Alternatively, the parameter estimates for an MA(1) model based on the differenced data are the following.
+
+```{r}
+#| label: tbl-pmc-623-ma1
+#| tbl-cap: "MA(1) model fitting results for the differenced data"
+#| code-fold: true
+fit_ma1 <- arima(diff_y, order = c(0, 0, 1), method = "ML")
+ma1_se <- sqrt(diag(vcov(fit_ma1)))
+
+tibble(
+  Source = c("Intercept", "MA1"),
+  Estimate = c(fit_ma1$coef["intercept"], fit_ma1$coef["ma1"]),
+  `Standard Error` = c(ma1_se["intercept"], ma1_se["ma1"])
+) |>
+  mutate(
+    Lower = Estimate - qnorm(0.975) * `Standard Error`,
+    Upper = Estimate + qnorm(0.975) * `Standard Error`
+  ) |>
+  knitr::kable(digits = 4, align = "lrrrr")
+```
+
+```{r}
+#| include: false
+n_ma1 <- length(diff_y)
+resid_sd_ma1 <- sqrt(fit_ma1$sigma2)
+```
+
+Number of Observations: `r n_ma1`
+
+Degrees of Freedom: `r n_ma1` - 2 = `r n_ma1 - 2`
+
+Residual Standard Deviation: `r round(resid_sd_ma1, 4)`
+
+The model for the differenced data, $Y_t$, is an ARIMA(0,1,1) model,
+
+$$ Y_{t} = a_{t} - 0.3921 a_{t-1} - 0.0051 \, , $$
+
+with $\sigma =$ `r round(resid_sd_ma1, 4)`.
+
+It is often more convenient to express the model in terms of the original data, $X_t$, rather than the differenced data. Making the appropriate substitutions into the above equation,
+
+$$ X_{t} - X_{t-1} = a_{t} - 0.3921 a_{t-1} - 0.0051 \, , $$
+
+we arrive at the model in terms of the original series,
+
+$$ X_{t} = X_{t-1} + a_{t} - 0.3921 a_{t-1} - 0.0051 \, . $$

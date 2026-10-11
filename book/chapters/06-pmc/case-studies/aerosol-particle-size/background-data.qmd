@@ -1,0 +1,44 @@
+#### Background and Data {#sec-pmc-621}
+
+[**Data Source**]{#sec-pmc-621-source}
+
+The source of the data for this case study is Antuan Negiz who analyzed these data while he was a post-doc in the NIST Statistical Engineering Division from the Illinois Institute of Technology.
+
+[**Data Collection**]{#sec-pmc-621-collection}
+
+These data were collected from an aerosol mini-spray dryer device. The purpose of this device is to convert a slurry stream into deposited particles in a drying chamber. The device injects the slurry at high speed. The slurry is pulverized as it enters the drying chamber when it comes into contact with a hot gas stream at low humidity. The liquid contained in the pulverized slurry particles is vaporized, then transferred to the hot gas stream leaving behind dried small-sized particles.
+
+The response variable is particle size, which is collected equidistant in time. There are a variety of associated variables that may affect the injection process itself and hence the size and quality of the deposited particles. For this case study, we restrict our analysis to the response variable.
+
+[**Applications**]{#sec-pmc-621-applications}
+
+Such deposition process operations have many applications from powdered laundry detergents at one extreme to ceramic molding at an important other extreme. In ceramic molding, the distribution and homogeneity of the particle sizes are particularly important because after the molds are baked and cured, the properties of the final molded ceramic product is strongly affected by the intermediate uniformity of the base ceramic particles, which in turn is directly reflective of the quality of the initial atomization process in the aerosol injection device.
+
+[**Aerosol Particle Size Dynamic Modeling and Control**]{#sec-pmc-621-dynamic-modeling}
+
+The data set consists of particle sizes collected over time. The basic distributional properties of this process are of interest in terms of distributional shape, constancy of size, and variation in size. In addition, this time series may be examined for autocorrelation structure to determine a prediction model of particle size as a function of time--such a model is frequently autoregressive in nature. Such a high-quality prediction equation would be essential as a first step in developing a predictor-corrective recursive feedback mechanism which would serve as the core in developing and implementing real-time dynamic corrective algorithms. The net effect of such algorithms is, of course, a particle size distribution that is much less variable, much more stable in nature, and of much higher quality. All of this results in final ceramic mold products that are more uniform and predictable across a wide range of important performance characteristics.
+
+For the purposes of this case study, we restrict the analysis to determining an appropriate Box-Jenkins model of the particle size.
+
+[**Software**]{#sec-pmc-621-software}
+
+The reader can download the data as a [text file](../../datasets/NEGIZ4.DAT).
+
+[**Case study data**]{#sec-pmc-621-data}
+
+```{r}
+#| label: tbl-pmc-621-data
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+aerosol <- read_table(
+  here::here("datasets", "NEGIZ4.DAT"),
+  skip = 50,
+  col_names = c("Junk1", "Junk2", "ParticleSize", "Junk3", "Junk4")
+) |>
+  select(ParticleSize) |>
+  mutate(Sequence = row_number(), .before = ParticleSize)
+
+aerosol
+```

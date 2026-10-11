@@ -1,0 +1,154 @@
+#### Model Identification {#sec-pmc-622}
+
+[**Check for Stationarity, Outliers, Seasonality**]{#sec-pmc-622-check}
+
+The first step in the analysis is to generate a [run sequence plot](#sec-eda-run-sequence-plot) of the response variable. A run sequence plot can indicate [stationarity](#sec-pmc-442) (i.e., constant location and scale), the presence of outliers, and seasonal patterns.
+
+Non-stationarity can often be removed by differencing the data or fitting some type of trend curve. We would then attempt to fit a Box-Jenkins model to the differenced data or to the residuals after fitting a trend curve.
+
+Although Box-Jenkins models can estimate seasonal components, the analyst needs to specify the seasonal period (for example, 12 for monthly data). Seasonal components are common for economic time series. They are less common for engineering and scientific data.
+
+```{r}
+#| label: setup-pmc-622
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+aerosol <- read_table(
+  here::here("datasets", "NEGIZ4.DAT"),
+  skip = 50,
+  col_names = c("Junk1", "Junk2", "ParticleSize", "Junk3", "Junk4")
+) |>
+  select(ParticleSize) |>
+  mutate(Sequence = row_number(), .before = ParticleSize)
+
+# ACF plot with a single widening (Bartlett) 95% confidence band, matching
+# the style of the original figures for this case study.
+acf_plot_single <- function(x, lag_max, title = NULL, xlab = "Lag") {
+  n <- length(x)
+  a <- acf(x, lag.max = lag_max, plot = FALSE, demean = TRUE)
+  r <- as.numeric(a$acf)[-1]
+  lag <- as.integer(a$lag)[-1]
+  se <- sqrt((1 + 2 * cumsum(c(0, r[-length(r)])^2)) / n)
+  band <- qnorm(0.975) * se
+
+  ggplot() +
+    geom_segment(data = tibble(lag = lag, acf = r), aes(lag, y = 0, xend = lag, yend = acf)) +
+    geom_hline(yintercept = 0) +
+    geom_line(data = tibble(lag = lag, value = band), aes(lag, value, color = "95% Confidence Band")) +
+    geom_line(data = tibble(lag = lag, value = -band), aes(lag, value, color = "95% Confidence Band")) +
+    scale_color_manual(values = c("95% Confidence Band" = "steelblue")) +
+    labs(title = title, x = xlab, y = "Autocorrelation", color = NULL) +
+    theme_light() +
+    theme(legend.position = "top")
+}
+
+# PACF plot with flat +/- 2/sqrt(N) confidence bands.
+pacf_plot_single <- function(x, lag_max, title = NULL, xlab = "Lag") {
+  n <- length(x)
+  p <- pacf(x, lag.max = lag_max, plot = FALSE)
+  lag <- as.integer(p$lag)
+  r <- as.numeric(p$acf)
+  ci95 <- qnorm(0.975) / sqrt(n)
+
+  ggplot() +
+    geom_segment(data = tibble(lag = lag, pacf = r), aes(lag, y = 0, xend = lag, yend = pacf)) +
+    geom_hline(yintercept = 0) +
+    geom_hline(yintercept = c(ci95, -ci95), color = "steelblue") +
+    labs(title = title, x = xlab, y = "Partial Autocorrelation") +
+    theme_light()
+}
+```
+
+[**Run Sequence Plot**]{#sec-pmc-622-run-sequence}
+
+```{r}
+#| label: fig-pmc-622-run-sequence
+#| fig-cap: "Run sequence plot of particle size"
+#| code-fold: true
+ggplot(aerosol, aes(Sequence, ParticleSize)) +
+  geom_line() +
+  labs(x = "Sequence", y = "Width") +
+  theme_light()
+```
+
+[**Interpretation of the Run Sequence Plot**]{#sec-pmc-622-interpretation-run-sequence}
+
+We can make the following conclusions from the run sequence plot.
+
+1. The data show strong and positive autocorrelation.
+2. There does not seem to be a significant trend or any obvious seasonal pattern in the data.
+
+The next step is to examine the sample autocorrelations using the [autocorrelation plot](#sec-eda-autocorrelation-plot).
+
+[**Autocorrelation Plot**]{#sec-pmc-622-autocorrelation}
+
+```{r}
+#| label: fig-pmc-622-autocorrelation
+#| fig-cap: "Autocorrelation plot of the original data"
+#| code-fold: true
+acf_plot_single(aerosol$ParticleSize, lag_max = 50, title = "Autocorrelation Plot of the Original Data")
+```
+
+[**Interpretation of the Autocorrelation Plot**]{#sec-pmc-622-interpretation-autocorrelation}
+
+The autocorrelation plot has a [95% confidence band](#sec-eda-33-autocorrelation-plot), which is constructed based on the assumption that the process is a moving average process. The autocorrelation plot shows that the sample autocorrelations are very strong and positive and decay very slowly.
+
+The autocorrelation plot indicates that the process is non-stationary and suggests an ARIMA model. The next step is to difference the data.
+
+[**Run Sequence Plot of Differenced Data**]{#sec-pmc-622-run-sequence-diff}
+
+```{r}
+#| label: fig-pmc-622-run-sequence-diff
+#| fig-cap: "Run sequence plot of the differenced data"
+#| code-fold: true
+diff_aerosol <- tibble(
+  Sequence = 2:nrow(aerosol),
+  DiffParticleSize = diff(aerosol$ParticleSize)
+)
+
+ggplot(diff_aerosol, aes(Sequence, DiffParticleSize)) +
+  geom_line() +
+  labs(x = "Sequence", y = "Width", title = "Run Sequence Plot of the Differenced Data") +
+  theme_light()
+```
+
+[**Interpretation of the Run Sequence Plot**]{#sec-pmc-622-interpretation-run-sequence-diff}
+
+The run sequence plot of the differenced data shows that the mean of the differenced data is around zero, with the differenced data less autocorrelated than the original data.
+
+The next step is to examine the sample autocorrelations of the differenced data.
+
+[**Autocorrelation Plot of the Differenced Data**]{#sec-pmc-622-autocorrelation-diff}
+
+```{r}
+#| label: fig-pmc-622-autocorrelation-diff
+#| fig-cap: "Autocorrelation plot of the differenced data"
+#| code-fold: true
+acf_plot_single(diff_aerosol$DiffParticleSize, lag_max = 50, title = "Autocorrelation Plot of the Differenced Data")
+```
+
+[**Interpretation of the Autocorrelation Plot of the Differenced Data**]{#sec-pmc-622-interpretation-autocorrelation-diff}
+
+The autocorrelation plot of the differenced data with a 95% confidence band shows that only the autocorrelation at lag 1 is significant. The autocorrelation plot together with run sequence of the differenced data suggest that the differenced data are stationary. Based on the autocorrelation plot, an MA(1) model is suggested for the differenced data.
+
+To examine other possible models, we produce the partial autocorrelation plot of the differenced data.
+
+[**Partial Autocorrelation Plot of the Differenced Data**]{#sec-pmc-622-partial-autocorrelation-diff}
+
+```{r}
+#| label: fig-pmc-622-partial-autocorrelation-diff
+#| fig-cap: "Partial autocorrelation plot of the differenced data"
+#| code-fold: true
+pacf_plot_single(diff_aerosol$DiffParticleSize, lag_max = 50, title = "Partial Autocorrelation Plot of the Differenced Data")
+```
+
+[**Interpretation of the Partial Autocorrelation Plot of the Differenced Data**]{#sec-pmc-622-interpretation-partial-autocorrelation-diff}
+
+The partial autocorrelation plot of the differenced data with 95% confidence bands shows that only the partial autocorrelations of the first and second lag are significant. This suggests an AR(2) model for the differenced data.
+
+[**Akaike Information Criterion (AIC and AICC)**]{#sec-pmc-622-aic}
+
+Information-based criteria, such as the AIC or AICC (see Brockwell and Davis [-@Brockwell2002], pp. 171-174), can be used to automate the choice of an appropriate model. Many software programs for time series analysis will generate the AIC or AICC for a broad range of models.
+
+Whatever method is used for model identification, model diagnostics should be performed on the selected model. Based on the plots in this section, we will examine the ARIMA(2,1,0) and ARIMA(0,1,1) models in detail.

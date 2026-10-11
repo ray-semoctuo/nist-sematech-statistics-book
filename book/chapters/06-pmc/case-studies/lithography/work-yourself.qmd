@@ -1,3 +1,8 @@
 #### Work This Example Yourself {#sec-pmc-615}
 
-NIST's original case study provides Dataplot macros that let the reader repeat this analysis step-by-step inside the Dataplot application. Since this book reproduces every step of the analysis above as executable, code-folded R chunks, the reader can work through this example directly by running (or modifying) that code -- no separate software installation or macro is required.
+NIST's original handbook provides a Dataplot macro that lets the reader step through this case study interactively, one Dataplot command at a time. This book takes a different approach: every plot, table, and computed value in [the preceding sections](#sec-pmc-61) is produced by a live, visible R code chunk reading directly from [`LITHOGRA.DAT`](../../datasets/LITHOGRA.DAT). To work through this example yourself, expand the code blocks in those sections (via the "Code" toggles) and run them in your own R session -- the sequence of steps is the same one NIST's macro walks through:
+
+1. [Read in the data](#sec-pmc-611-data).
+2. Generate a [numerical summary](#sec-pmc-612-summary) and [4-plot](#sec-pmc-612-4plot) of the response variable, along with its [run sequence plot](#sec-pmc-612-run-sequence).
+3. Generate [scatter and box plots](#sec-pmc-612-factors) of width versus cassette, wafer, and site, along with [DOE mean](#sec-pmc-612-doe-mean) and [DOE sd](#sec-pmc-612-doe-sd) plots.
+4. Perform a [subgroup analysis](#sec-pmc-613-intro): [moving mean](#sec-pmc-613-movemean) and [moving range](#sec-pmc-613-moverang) control charts (site as subgroup), [mean](#sec-pmc-613-wafemean) and [sd](#sec-pmc-613-wafesd) control charts for wafer, [mean](#sec-pmc-613-cassmean) and [sd](#sec-pmc-613-casssd) control charts for cassette, an [analysis of variance and components of variance calculation](#sec-pmc-613-interpretation), and a [mean control chart using lot-to-lot variation](#sec-pmc-614-lot-to-lot).

@@ -133,3 +133,15 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include case-studies/lithography/shewhart-control-chart.qmd >}}
 
 {{< include case-studies/lithography/work-yourself.qmd >}}
+
+{{< include case-studies/aerosol-particle-size/index.qmd >}}
+
+{{< include case-studies/aerosol-particle-size/background-data.qmd >}}
+
+{{< include case-studies/aerosol-particle-size/model-identification.qmd >}}
+
+{{< include case-studies/aerosol-particle-size/model-estimation.qmd >}}
+
+{{< include case-studies/aerosol-particle-size/model-validation.qmd >}}
+
+{{< include case-studies/aerosol-particle-size/work-yourself.qmd >}}

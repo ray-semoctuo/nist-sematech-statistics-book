@@ -1,0 +1,11 @@
+### Aerosol Particle Size {#sec-pmc-62}
+
+[**Box-Jenkins Modeling of Aerosol Particle Size**]{#sec-pmc-62-intro}
+
+This case study illustrates the use of Box-Jenkins modeling with aerosol particle size data.
+
+1. [Background and Data](#sec-pmc-621)
+2. [Model Identification](#sec-pmc-622)
+3. [Model Estimation](#sec-pmc-623)
+4. [Model Validation](#sec-pmc-624)
+5. [Work This Example Yourself](#sec-pmc-625)
