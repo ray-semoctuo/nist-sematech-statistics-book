@@ -1,0 +1,102 @@
+### What do we do when data are "Non-normal"? {#sec-pmc-52}
+
+[**Often it is possible to transform non-normal data into approximately normal data**]{#sec-pmc-52-intro}
+
+Non-normality is a way of life, since no characteristic (height, weight, etc.) will have *exactly* a normal distribution. One strategy to make non-normal data resemble normal data is by using a transformation. There is no dearth of transformations in statistics; the issue is which one to select for the situation at hand. Unfortunately, the choice of the "best" transformation is generally not obvious.
+
+This was recognized in 1964 by G.E.P. Box and D.R. Cox [-@Boxcox]. They wrote a paper in which a useful family of power transformations was suggested. These transformations are defined only for positive data values. This should not pose any problem because a constant can always be added if the set of observations contains one or more negative values.
+
+The Box-Cox power transformations are given by
+
+[**The Box-Cox Transformation**]{#sec-pmc-52-transformation}
+
+$$ \begin{aligned}
+x(\lambda) & =  \frac{x^\lambda -1}{\lambda}  \,\,\,\,\, & \lambda \ne 0 \\
+x(\lambda) & = \ln(x) & \lambda = 0 \, .
+\end{aligned} $$
+
+Given the vector of data observations $x = x_1, \, x_2, \, \ldots, \, x_n$, one way to select the power $\lambda$ is to use the $\lambda$ that maximizes the logarithm of the likelihood function
+
+[**The logarithm of the likelihood function**]{#sec-pmc-52-llf}
+
+$$ f(x,\lambda) = -\frac{n}{2} \ln\left[ \sum_{i=1}^{n}{\frac{(x_i(\lambda) - \bar{x}(\lambda))^2}{n}} \right] +
+                  (\lambda - 1)\sum_{i=1}^{n}{\ln(x_i)} \, , $$
+
+where
+
+$$ \bar{x}(\lambda) = \frac{1}{n}\sum_{i=1}^{n}{x_i(\lambda)} $$
+
+is the arithmetic mean of the transformed data.
+
+[**Confidence bound for $\lambda$**]{#sec-pmc-52-confidence-bound}
+
+In addition, a confidence bound (based on the likelihood ratio statistic) can be constructed for $\lambda$ as follows: a set of $\lambda$ values that represent an approximate $100(1-\alpha)$% confidence bound for $\lambda$ is formed from those $\lambda$ that satisfy
+
+$$ f(x,\lambda) \ge f(x,\hat{\lambda}) - 0.5 \chi^2_{1-\alpha, \, 1} \, ,$$
+
+where $\hat{\lambda}$ denotes the maximum likelihood estimator for $\lambda$ and $\chi_{1-\alpha, \, 1}^2$ is the $100(1-\alpha)$ percentile of the chi-square distribution with 1 degree of freedom.
+
+[**Example of the Box-Cox scheme**]{#sec-pmc-52-example}
+
+To illustrate the procedure, we used the [data from Johnson and Wichern's textbook](../../datasets/MONITOR-6_5_2.DAT) [-@JohnsonWichern1998], Example 4.14. The observations are microwave radiation measurements.
+
+[**Sample data**]{#sec-pmc-52-data}
+
+```{r}
+#| label: tbl-pmc-52-data
+#| tbl-cap: "Microwave radiation measurements"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+microwave <- scan(here::here("datasets", "MONITOR-6_5_2.DAT"), skip = 25, quiet = TRUE)
+
+matrix(microwave, ncol = 7, byrow = TRUE) |>
+  as.data.frame() |>
+  knitr::kable(col.names = NULL)
+```
+
+[**Table of log-likelihood values for various values of $\lambda$**]{#sec-pmc-52-llf-table}
+
+The values of the log-likelihood function obtained by varying $\lambda$ from -2.0 to 1.9 are given below.
+
+```{r}
+#| label: tbl-pmc-52-llf
+#| tbl-cap: "Box-Cox log-likelihood function values"
+#| code-fold: true
+n <- length(microwave)
+
+box_cox_llf <- function(lambda, y, n) {
+  xt <- if (abs(lambda) < 1e-8) log(y) else (y^lambda - 1) / lambda
+  xbar <- mean(xt)
+  -(n / 2) * log(sum((xt - xbar)^2) / n) + (lambda - 1) * sum(log(y))
+}
+
+lambdas <- seq(-2, 1.9, by = 0.1)
+llf_values <- sapply(lambdas, box_cox_llf, y = microwave, n = n)
+
+n_rows <- ceiling(length(lambdas) / 3)
+tibble(
+  lambda = c(lambdas, rep(NA, n_rows * 3 - length(lambdas))),
+  LLF = c(llf_values, rep(NA, n_rows * 3 - length(llf_values)))
+) |>
+  mutate(col = rep(1:3, each = n_rows), row = rep(seq_len(n_rows), 3)) |>
+  pivot_wider(id_cols = row, names_from = col, values_from = c(lambda, LLF)) |>
+  select(lambda_1, LLF_1, lambda_2, LLF_2, lambda_3, LLF_3) |>
+  mutate(
+    across(starts_with("lambda"), \(x) ifelse(is.na(x), "", sprintf("%.1f", x))),
+    across(starts_with("LLF"), \(x) ifelse(is.na(x), "", sprintf("%.4f", x)))
+  ) |>
+  knitr::kable(col.names = c("$\\lambda$", "LLF", "$\\lambda$", "LLF", "$\\lambda$", "LLF"), align = "rrrrrr")
+```
+
+```{r}
+#| include: false
+opt <- optimize(box_cox_llf, c(-2, 2), maximum = TRUE, y = microwave, n = n)
+```
+
+This table shows that $\lambda = 0.3$ maximizes the log-likelihood function (LLF). This becomes 0.28 if a second digit of accuracy is calculated.
+
+Our own computation confirms this exactly: maximizing the log-likelihood over the continuous range gives $\hat{\lambda} = `r round(opt$maximum, 2)`$.
+
+The Box-Cox transform is also discussed in Chapter 1 under the Box Cox Linearity Plot and the Box Cox Normality Plot. The Box-Cox normality plot discussion provides a graphical method for choosing $\lambda$ to transform a data set to normality. The criterion used to choose $\lambda$ for the Box-Cox linearity plot is the value of $\lambda$ that maximizes the correlation between the transformed $x$-values and the $y$-values when making a normal probability plot of the (transformed) data.
