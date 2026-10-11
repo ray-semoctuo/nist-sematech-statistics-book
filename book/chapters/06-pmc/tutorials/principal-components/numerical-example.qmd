@@ -1,0 +1,199 @@
+#### Numerical Example {#sec-pmc-552}
+
+[**Calculation of principal components example**]{#sec-pmc-552-intro}
+
+**A numerical example** may clarify the mechanics of principal component analysis.
+
+[**Sample data set**]{#sec-pmc-552-data}
+
+Let us analyze the following 3-variate dataset with 10 observations. Each observation consists of 3 measurements on a wafer: thickness, horizontal displacement, and vertical displacement.
+
+```{r}
+#| label: setup-pmc-552
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+X <- matrix(
+  c(
+    7, 4, 3,
+    4, 1, 8,
+    6, 3, 5,
+    8, 6, 1,
+    8, 5, 7,
+    7, 2, 9,
+    5, 3, 3,
+    9, 5, 8,
+    7, 4, 5,
+    8, 2, 2
+  ),
+  ncol = 3, byrow = TRUE
+)
+X
+```
+
+[**Compute the correlation matrix**]{#sec-pmc-552-correlation}
+
+First compute the correlation matrix.
+
+```{r}
+#| label: verify-pmc-552-correlation
+#| code-fold: true
+R <- cor(X)
+round(R, 2)
+```
+
+[**Solve for the roots of ${\bf R}$**]{#sec-pmc-552-roots}
+
+Next solve for the roots of ${\bf R}$, using software.
+
+```{r}
+#| label: tbl-pmc-552-eigenvalues
+#| tbl-cap: "Eigenvalues of the correlation matrix, with cumulative proportion of variance explained"
+#| code-fold: true
+eig <- eigen(R)
+
+tibble(
+  lambda = 1:3,
+  value = eig$values,
+  proportion = cumsum(eig$values) / 3
+) |>
+  knitr::kable(digits = 3, col.names = c("$\\lambda$", "value", "proportion"), align = "rrr")
+```
+
+Notice that:
+
+- Each eigenvalue satisfies $|{\bf R} - \lambda {\bf I}| = 0$.
+- The sum of the eigenvalues $= 3 = p$, which is equal to the trace of ${\bf R}$ (i.e., the sum of the main diagonal elements).
+- The determinant of ${\bf R}$ is the product of the eigenvalues.
+- The product is $\lambda_1 \times \lambda_2 \times \lambda_3 = `r round(prod(eig$values), 3)`$.
+
+```{r}
+#| label: verify-pmc-552-sum-det
+#| code-fold: true
+sum(eig$values)
+sum(diag(R))
+det(R)
+prod(eig$values)
+```
+
+[**Compute the first column of the ${\bf V}$ matrix**]{#sec-pmc-552-first-column}
+
+Substituting the first eigenvalue of 1.769 and ${\bf R}$ in the appropriate equation we obtain
+
+$$ \left[ \begin{array}{rrr}
+-0.769 & 0.670 & -0.100 \\
+0.670 & -0.769 & -0.290 \\
+-0.100 & -0.290 & -0.769
+\end{array} \right]
+\left[ \begin{array}{c}
+v_{11} \\ v_{21} \\ v_{31}
+\end{array} \right]
+=
+\left[ \begin{array}{c}
+0 \\ 0 \\ 0
+\end{array} \right]  \, . $$
+
+This is the matrix expression for three homogeneous equations with three unknowns and yields the first column of ${\bf V}$:  0.64  0.69  -0.34  (again, a computerized solution is indispensable).
+
+[**Compute the remaining columns of the ${\bf V}$ matrix**]{#sec-pmc-552-remaining-columns}
+
+Repeating this procedure for the other two eigenvalues yields the matrix ${\bf V}$.
+
+```{r}
+#| label: verify-pmc-552-V
+#| code-fold: true
+# eigen() returns eigenvectors unique only up to sign; we flip columns 1
+# and 3 to match the sign convention used on the original page.
+V <- eig$vectors
+V[, c(1, 3)] <- -V[, c(1, 3)]
+round(V, 2)
+```
+
+Notice that if you multiply ${\bf V}$ by its transpose, the result is an identity matrix, ${\bf V}^T{\bf V} = {\bf I}$.
+
+```{r}
+#| label: verify-pmc-552-VtV
+#| code-fold: true
+round(t(V) %*% V, 4)
+```
+
+[**Compute the ${\bf L}^{1/2}$ matrix**]{#sec-pmc-552-L-sqrt}
+
+Now form the matrix ${\bf L}^{1/2}$, which is a diagonal matrix whose elements are the square roots of the eigenvalues of ${\bf R}$. Then obtain ${\bf S}$, the factor structure, using ${\bf S} = {\bf VL}^{1/2}$.
+
+```{r}
+#| label: verify-pmc-552-S
+#| code-fold: true
+L_sqrt <- diag(sqrt(eig$values))
+S <- V %*% L_sqrt
+round(S, 2)
+```
+
+So, for example, 0.91 is the correlation between the second variable and the first principal component.
+
+[**Compute the communality**]{#sec-pmc-552-communality}
+
+Next compute the communality, using the first two eigenvalues only.
+
+```{r}
+#| label: verify-pmc-552-communality
+#| code-fold: true
+S2 <- S[, 1:2]
+SSt <- S2 %*% t(S2)
+round(SSt, 4)
+```
+
+[**Diagonal elements report how much of the variability is explained**]{#sec-pmc-552-diagonal}
+
+Communality consists of the diagonal elements.
+
+```{r}
+#| label: tbl-pmc-552-communality
+#| tbl-cap: "Communality for each variable, using the first two principal components"
+#| code-fold: true
+tibble(var = 1:3, communality = diag(SSt)) |>
+  knitr::kable(digits = 4, align = "rr")
+```
+
+This means that the first two principal components "explain" `r round(diag(SSt)[1]*100, 2)`% of the first variable, `r round(diag(SSt)[2]*100, 2)`% of the second variable, and `r round(diag(SSt)[3]*100, 2)`% of the third.
+
+[**Compute the coefficient matrix**]{#sec-pmc-552-coefficient}
+
+The coefficient matrix, ${\bf B}$, is formed using the reciprocals of the diagonals of ${\bf L}^{1/2}$.
+
+$$ {\bf B} = {\bf VL}^{-1/2} $$
+
+```{r}
+#| label: verify-pmc-552-B
+#| code-fold: true
+L_inv_sqrt <- diag(1 / sqrt(eig$values))
+B <- V %*% L_inv_sqrt
+round(B, 2)
+```
+
+[**Compute the principal factors**]{#sec-pmc-552-factors}
+
+Finally, we can compute the factor scores from ${\bf ZB}$, where ${\bf Z}$ is ${\bf X}$ converted to standard score form. These columns are the *principal factors*.
+
+```{r}
+#| label: verify-pmc-552-F
+#| code-fold: true
+# Standardizing by the population (n-divisor) standard deviation, rather
+# than R's default sample (n-1-divisor) standard deviation, is needed to
+# reproduce the factor scores exactly.
+n <- nrow(X)
+means <- colMeans(X)
+pop_sd <- sqrt(colSums((t(t(X) - means))^2) / n)
+Z <- scale(X, center = means, scale = pop_sd)
+Fmat <- Z %*% B
+round(Fmat, 2)
+```
+
+::: {.callout-note}
+NIST's page does not state explicitly how ${\bf X}$ is standardized to form ${\bf Z}$. Reproducing the factor scores table exactly requires standardizing with the population (divide-by-$n$) standard deviation rather than the sample (divide-by-$(n-1)$) standard deviation ordinarily used for a correlation matrix (the correlation matrix ${\bf R}$ itself is unaffected by this choice, since both standard deviations cancel in the correlation formula). We've noted this detail in the code above for anyone reproducing the calculation.
+:::
+
+[**Principal factors control chart**]{#sec-pmc-552-chart}
+
+These factors can be plotted against the indices, which could be times. If time is used, *the resulting plot is an example of a principal factors control chart.*

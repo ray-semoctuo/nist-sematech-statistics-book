@@ -117,3 +117,5 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include tutorials/principal-components/index.qmd >}}
 
 {{< include tutorials/principal-components/properties.qmd >}}
+
+{{< include tutorials/principal-components/numerical-example.qmd >}}
