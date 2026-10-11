@@ -1,0 +1,72 @@
+#### Mean Vector and Covariance Matrix {#sec-pmc-541}
+
+The first step in analyzing multivariate data is computing the mean vector and the variance-covariance matrix.
+
+[**Sample data matrix**]{#sec-pmc-541-data}
+
+Consider the following matrix:
+
+$$ {\bf X} = \left[ \begin{array}{ccc}
+4.0 & 2.0 & 0.60 \\
+4.2 & 2.1 & 0.59 \\
+3.9 & 2.0 & 0.58 \\
+4.3 & 2.1 & 0.62 \\
+4.1 & 2.2 & 0.63
+\end{array} \right] $$
+
+The set of 5 observations, measuring 3 variables, can be described by its *mean vector* and *variance-covariance matrix*. The three variables, from left to right are length, width, and height of a certain object, for example. Each row vector ${\bf X}_i$ is another observation of the three variables (or components).
+
+[**Definition of mean vector and variance-covariance matrix**]{#sec-pmc-541-definition}
+
+The mean vector consists of the means of each variable and the variance-covariance matrix consists of the variances of the variables along the main diagonal and the covariances between each pair of variables in the other matrix positions.
+
+The formula for computing the covariance of the variables $X$ and $Y$ is
+
+$$ \text{COV} = \frac{\sum_{i=1}^n (X_i - \bar{x})(Y_i - \bar{y})}{n-1} \, , $$
+
+with $\bar{x}$ and $\bar{y}$ denoting the means of $X$ and $Y$, respectively.
+
+[**Mean vector and variance-covariance matrix for sample data matrix**]{#sec-pmc-541-results}
+
+The results are:
+
+```{r}
+#| label: setup-pmc-541
+#| include: false
+X <- matrix(
+  c(4.0, 2.0, 0.60, 4.2, 2.1, 0.59, 3.9, 2.0, 0.58, 4.3, 2.1, 0.62, 4.1, 2.2, 0.63),
+  ncol = 3, byrow = TRUE
+)
+xbar <- colMeans(X)
+S <- cov(X)
+```
+
+$$ {\bf \bar{x}} = \left[ \begin{array}{ccc}
+4.10 & 2.08 & 0.604
+\end{array} \right] $$
+
+$$ {\bf S} = \left[ \begin{array}{ccc}
+0.025 & 0.0075 & 0.00175 \\
+0.0075 & 0.0070 & 0.00135 \\
+0.00175 & 0.00135 & 0.00043
+\end{array} \right] $$
+
+Our own computation confirms this exactly: $\bar{\bf x} = (`r paste(round(xbar, 3), collapse = ", ")`)$ and
+
+```{r}
+#| label: verify-pmc-541-S
+#| code-fold: true
+S
+```
+
+where the mean vector contains the arithmetic averages of the three variables and the (unbiased) variance-covariance matrix ${\bf S}$ is calculated by
+
+$$ S = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})(X_i - \bar{X})^T \, , $$
+
+where $n=5$ for this example.
+
+Thus, 0.025 is the variance of the length variable, 0.0075 is the covariance between the length and the width variables, 0.00175 is the covariance between the length and the height variables, 0.007 is the variance of the width variable, 0.00135 is the covariance between the width and height variables and 0.00043 is the variance of the height variable.
+
+[**Centroid, dispersion matrix**]{#sec-pmc-541-centroid}
+
+The mean vector is often referred to as the *centroid* and the variance-covariance matrix as the *dispersion* or dispersion matrix. Also, the terms variance-covariance matrix and covariance matrix are used interchangeably.

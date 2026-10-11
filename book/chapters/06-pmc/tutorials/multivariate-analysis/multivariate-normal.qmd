@@ -1,0 +1,45 @@
+#### The Multivariate Normal Distribution {#sec-pmc-542}
+
+[**Multivariate normal model**]{#sec-pmc-542-model}
+
+When multivariate data are analyzed, the multivariate normal model is the most commonly used model.
+
+The multivariate normal distribution model extends the univariate [normal distribution model](#sec-pmc-51) to fit vector observations.
+
+[**Definition of multivariate normal distribution**]{#sec-pmc-542-definition}
+
+A $p$-dimensional vector of random variables,
+
+$$ {\bf X} = X_1, \, X_2, \, \ldots, \, X_p \,\,\,\,\,\, -\infty < X_i < \infty, \,\, i = 1, \, \ldots, \, p \, , $$
+
+is said to have a multivariate normal distribution if its density function $f({\bf X})$ is of the form
+
+$$ \begin{aligned}
+f({\bf X}) & = f(X_1, \, X_2, \, \ldots, \, X_p) \\
+     & = \left( \frac{1}{2 \pi} \right)^{p / 2} |{\bf \Sigma}|^{-1/2} \text{exp}
+           \left[ -\frac{1}{2} ({\bf X} - {\bf m})^T {\bf \Sigma}^{-1} ({\bf X} - {\bf m}) \right] \, ,
+\end{aligned} $$
+
+where ${\bf m} = (m_1, \, \ldots, \, m_p)$ is the vector of means and ${\bf \Sigma}$ is the variance-covariance matrix of the multivariate normal distribution. The shortcut notation for this density is
+
+$$ {\bf X} = \text{N}_p ({\bf m}, {\bf \Sigma}) \, . $$
+
+[**Univariate normal distribution**]{#sec-pmc-542-univariate}
+
+When $p=1$, the one-dimensional vector ${\bf X} = X_1$ has the normal distribution with mean $m$ and variance $\sigma^2$
+
+$$ f(x) = \frac{1}{\sigma \sqrt{2 \pi}} \text{exp}
+          \left[ -\frac{(x - m)^2}{2 \sigma^2} \right] \,\,\,\,\,\, -\infty < x < \infty \, . $$
+
+[**Bivariate normal distribution**]{#sec-pmc-542-bivariate}
+
+When $p=2$, ${\bf X} = (X_1, \, X_2)$ has the bivariate normal distribution with a two-dimensional vector of means, ${\bf m} = (m_1, \, m_2)$ and covariance matrix
+
+$$ {\bf \Sigma} = \left[ \begin{array}{cc}
+\sigma_1^2  & \sigma_{12} \\
+\sigma_{21} & \sigma_2^2
+\end{array} \right] \, . $$
+
+The correlation between the two random variables is given by
+
+$$ \rho = \frac{\sigma_{21}}{\sigma_1 \sigma_2} \, . $$

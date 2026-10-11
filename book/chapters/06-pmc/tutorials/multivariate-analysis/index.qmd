@@ -1,0 +1,47 @@
+### Elements of Multivariate Analysis {#sec-pmc-54}
+
+[**Multivariate analysis**]{#sec-pmc-54-intro}
+
+Multivariate analysis is a branch of statistics concerned with the analysis of multiple measurements, made on one or several samples of individuals. For example, we may wish to measure length, width, and weight of a product.
+
+[**Multiple measurement, or observation, as row or column vector**]{#sec-pmc-54-vector}
+
+A multiple measurement or observation may be expressed as
+
+$$
+{\bf x} = \left[ \begin{array}{ccc}
+ 4 & 2 & 0.6
+\end{array} \right] \, , $$
+
+referring to the physical properties of length, width, and weight, respectively. It is customary to denote multivariate quantities with bold letters. The collection of measurements on ${\bf x}$ is called a vector. In this case it is a row vector. We could have written ${\bf x}$ as a column vector.
+
+$$
+{\bf x} = \left[ \begin{array}{c}
+ 4 \\ 2 \\ 0.6
+\end{array} \right] $$
+
+[**Matrix to represent more than one multiple measurement**]{#sec-pmc-54-matrix}
+
+If we take several such measurements, we record them in a rectangular array of numbers. For example, the ${\bf X}$ matrix below represents five observations, on each of three variables.
+
+$$ {\bf X} = \left[ \begin{array}{ccc}
+4.0 & 2.0 & 0.60 \\
+4.2 & 2.1 & 0.59 \\
+3.9 & 2.0 & 0.58 \\
+4.3 & 2.1 & 0.62 \\
+4.1 & 2.2 & 0.63
+\end{array} \right] $$
+
+[**By convention, rows typically represent observations and columns represent variables**]{#sec-pmc-54-convention}
+
+In this case the number of rows, ($n = 5$), is the number of observations, and the number of columns, ($p=3$), is the number of variables that are measured. The rectangular array is an assembly of $n$ row vectors of length $p$. This array is called a matrix, or, more specifically, a $n$ by $p$ matrix. Its name is ${\bf X}$. The names of matrices are usually written in bold, uppercase letters, as in [Section 6.5.3](#sec-pmc-53). We could just as well have written ${\bf X}$ as a $p$ (variables) by $n$ (measurements) matrix as follows:
+
+$$ {\bf X} = \left[ \begin{array}{ccccc}
+4.0 & 4.2 & 3.9 & 4.3 & 4.1 \\
+2.0 & 2.1 & 2.0 & 2.1 & 2.2 \\
+0.60 & 0.59 & 0.58 & 0.62 & 0.63
+\end{array} \right] $$
+
+[**Definition of Transpose**]{#sec-pmc-54-transpose}
+
+A matrix with rows and columns exchanged in this manner is called the transpose of the original matrix.

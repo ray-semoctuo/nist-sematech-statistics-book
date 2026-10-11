@@ -93,3 +93,9 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include tutorials/matrix-algebra/numerical-examples.qmd >}}
 
 {{< include tutorials/matrix-algebra/determinant-eigenstructure.qmd >}}
+
+{{< include tutorials/multivariate-analysis/index.qmd >}}
+
+{{< include tutorials/multivariate-analysis/mean-vector-covariance.qmd >}}
+
+{{< include tutorials/multivariate-analysis/multivariate-normal.qmd >}}
