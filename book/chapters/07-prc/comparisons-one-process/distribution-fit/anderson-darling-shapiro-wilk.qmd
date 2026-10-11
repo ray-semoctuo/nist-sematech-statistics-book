@@ -1,0 +1,35 @@
+#### Anderson-Darling and Shapiro-Wilk tests {#sec-prc-213}
+
+[**Purpose: Test for distributional adequacy**]{#sec-prc-213-purpose}
+
+**The Anderson-Darling Test**
+
+The Anderson-Darling test (Stephens [-@Stephens]) is used to test if a sample of data comes from a specific distribution. It is a modification of the [Kolmogorov-Smirnov (K-S) test](#sec-eda-kolmogorov-smirnov-test) and gives more weight to the tails of the distribution than does the K-S test. The K-S test is distribution free in the sense that the critical values do not depend on the specific distribution being tested.
+
+[**Requires critical values for each distribution**]{#sec-prc-213-critical-values}
+
+The Anderson-Darling test makes use of the specific distribution in calculating critical values. This has the advantage of allowing a more sensitive test and the disadvantage that critical values must be calculated for each distribution. Tables of critical values are not given in this handbook (see Stephens [-@Stephens; -@Stephens2; -@Stephens3; -@Stephens4; -@Stephens5]) because this test is usually applied with a statistical software program that produces the relevant critical values. Currently, [Dataplot](#sec-eda-anderson-darling-test) computes critical values for the Anderson-Darling test for the following distributions:
+
+- normal
+- lognormal
+- Weibull
+- extreme value type I.
+
+[**Anderson-Darling procedure**]{#sec-prc-213-procedure}
+
+Details on the construction and interpretation of the Anderson-Darling test statistic, $A^2$, and examples for several distributions are outlined in [Chapter 1](#sec-eda-anderson-darling-test).
+
+[**Shapiro-Wilk test for normality**]{#sec-prc-213-shapiro-wilk}
+
+**The Shapiro-Wilk Test For Normality**
+
+The Shapiro-Wilk test, proposed in Shapiro and Wilk [-@ShapiroWilk1965], calculates a $W$ statistic that tests whether a random sample, $x_1, x_2, \ldots, x_n$ comes from (specifically) a normal distribution. Small values of $W$ are evidence of departure from normality and percentage points for the $W$ statistic, obtained via Monte Carlo simulations, were reproduced by Pearson and Hartley [-@PearsonHartley1972, table 16]. This test has done very well in comparison studies with other goodness of fit tests.
+
+The $W$ statistic is calculated as follows:
+
+$$ W = \frac{\left( \sum_{i=1}^n a_i x_{(i)} \right)^2}
+            {\sum_{i=1}^n (x_i - \bar{x})^2} \, , $$
+
+where the $x_{(i)}$ are the ordered sample values ($x_{(1)}$ is the smallest) and the $a_i$ are constants generated from the means, variances and covariances of the order statistics of a sample of size $n$ from a normal distribution (see Pearson and Hartley [-@PearsonHartley1972, table 15]).
+
+For more information about the Shapiro-Wilk test the reader is referred to the original Shapiro and Wilk [-@ShapiroWilk1965] paper and the tables in Pearson and Hartley [-@PearsonHartley1972].

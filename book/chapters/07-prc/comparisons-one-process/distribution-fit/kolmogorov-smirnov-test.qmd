@@ -1,0 +1,17 @@
+#### Kolmogorov-Smirnov test {#sec-prc-212}
+
+[**The K-S test is a good alternative to the chi-square test**]{#sec-prc-212-alternative}
+
+The Kolmogorov-Smirnov (K-S) test was originally proposed in the 1930's in papers by Kolmogorov [-@Kolmogorov1933] and Smirnov [-@Smirnov1936]. Unlike the [Chi-Square test](#sec-prc-211), which can be used for testing against both continuous and discrete distributions, the K-S test is only appropriate for testing data against a continuous distribution, such as the normal or Weibull distribution. It is one of a number of tests that are based on the [empirical cumulative distribution function (ECDF)](#sec-eda-kolmogorov-smirnov-test).
+
+::: {.callout-note}
+NIST's original page links both the Kolmogorov (1933) and Smirnov (1936) citations to the chapter's general reference list page rather than to specific entries, and the chapter's own reference list has no corresponding entries for either paper. We cite Kolmogorov's "Sulla Determinazione Empirica di una Legge di Distribuzione" (*Giornale dell'Istituto Italiano degli Attuari*, 1933) and Smirnov's "Sur la Distribution de $\omega^2$" (*Comptes Rendus de l'Académie des Sciences*, 1936), the papers conventionally credited with introducing the one- and two-sample forms of this test.
+:::
+
+[**K-S procedure**]{#sec-prc-212-procedure}
+
+Details on the construction and interpretation of the K-S test statistic, $D$, and examples for several distributions are outlined in [Chapter 1](#sec-eda-kolmogorov-smirnov-test).
+
+[**The probability associated with the test statistic is difficult to compute**]{#sec-prc-212-probability}
+
+Critical values associated with the test statistic, $D$, are difficult to compute for finite sample sizes, often requiring Monte Carlo simulation. However, some general purpose statistical software programs support the Kolmogorov-Smirnov test at least for some of the more common distributions. Tabled values can be found in Birnbaum [-@Birnbaum1952]. A correction factor can be applied if the parameters of the distribution are estimated with the same data that are being tested. See D'Agostino and Stephens [-@DAgostinoStephens1986] for details.

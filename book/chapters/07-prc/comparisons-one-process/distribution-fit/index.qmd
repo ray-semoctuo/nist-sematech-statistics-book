@@ -1,0 +1,41 @@
+### Do the observations come from a particular distribution? {#sec-prc-21}
+
+[**Data are often assumed to come from a particular distribution**]{#sec-prc-21-assumed}
+
+Goodness-of-fit tests indicate whether or not it is reasonable to assume that a random sample comes from a specific distribution. Statistical techniques often rely on observations having come from a population that has a distribution of a specific form (e.g., normal, lognormal, Poisson, etc.). Standard control charts for continuous measurements, for instance, require that the data come from a normal distribution. Accurate lifetime modeling requires specifying the correct distributional model. There may be historical or theoretical reasons to assume that a sample comes from a particular population, as well. Past data may have consistently fit a known distribution, for example, or theory may predict that the underlying population should be of a specific form.
+
+[**Hypothesis Test model for Goodness-of-fit**]{#sec-prc-21-hypothesis}
+
+Goodness-of-fit tests are a form of hypothesis testing where the null and alternative hypotheses are
+
+$H_0$: Sample data come from the stated distribution.
+
+$H_a$: Sample data **do not** come from the stated distribution.
+
+[**Parameters may be assumed or estimated from the data**]{#sec-prc-21-parameters}
+
+One needs to consider whether a simple or composite hypothesis is being tested. For a simple hypothesis, values of the distribution's parameters are specified prior to drawing the sample. For a composite hypothesis, one or more of the parameters is unknown. Often, these parameters are estimated using the sample observations.
+
+A simple hypothesis would be:
+
+$H_0$: Data are from a normal distribution, $\mu=0$ and $\sigma=1$.
+
+A composite hypothesis would be:
+
+$H_0$: Data are from a normal distribution, unknown $\mu$ and $\sigma$.
+
+Composite hypotheses are more common because they allow us to decide whether a sample comes from any distribution of a specific type. In this situation, the form of the distribution is of interest, regardless of the values of the parameters. Unfortunately, composite hypotheses are more difficult to work with because the critical values are often hard to compute.
+
+[**Problems with censored data**]{#sec-prc-21-censored}
+
+A second issue that affects a test is whether the data are censored. When data are censored, sample values are in some way restricted. Censoring occurs if the range of potential values are limited such that values from one or both tails of the distribution are unavailable (e.g., right and/or left censoring -- where high and/or low values are missing). Censoring frequently occurs in [reliability testing](#sec-apr), when either the testing time or the number of failures to be observed is fixed in advance. A thorough treatment of goodness-of-fit testing under censoring is beyond the scope of this document. See D'Agostino and Stephens [-@DAgostinoStephens1986] for more details.
+
+[**Three types of tests will be covered**]{#sec-prc-21-three-tests}
+
+Three goodness-of-fit tests are examined in detail:
+
+1. [Chi-square test](#sec-prc-211) for continuous and discrete distributions;
+2. [Kolmogorov-Smirnov test](#sec-prc-212) for continuous distributions based on the empirical distribution function (EDF);
+3. [Anderson-Darling test](#sec-prc-213) for continuous distributions.
+
+A more extensive treatment of goodness-of-fit techniques is presented in D'Agostino and Stephens [-@DAgostinoStephens1986]. Along with the tests mentioned above, other general and specific tests are examined, including tests based on regression and graphical techniques.

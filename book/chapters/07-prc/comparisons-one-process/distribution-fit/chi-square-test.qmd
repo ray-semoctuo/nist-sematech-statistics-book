@@ -1,0 +1,17 @@
+#### Chi-square goodness-of-fit test {#sec-prc-211}
+
+[**Choice of number of groups for "Goodness of Fit" tests is important -- but only useful rules of thumb can be given**]{#sec-prc-211-choice}
+
+The test requires that the data first be grouped. The actual number of observations in each group is compared to the expected number of observations and the test statistic is calculated as a function of this difference. The number of groups and how group membership is defined will affect the power of the test (i.e., how sensitive it is to detecting departures from the null hypothesis). Power will not only be affected by the number of groups and how they are defined, but by the sample size and shape of the null and underlying (true) distributions. Despite the lack of a clear "best method", some useful rules of thumb can be given.
+
+[**Group Membership**]{#sec-prc-211-membership}
+
+When data are discrete, group membership is unambiguous. Tabulation or cross tabulation can be used to categorize the data. Continuous data present a more difficult challenge. One defines groups by segmenting the range of possible values into non-overlapping intervals. Group membership can then be defined by the endpoints of the intervals. In general, power is maximized by choosing endpoints such that group membership is equiprobable (i.e., the probabilities associated with an observation falling into a given group are divided as evenly as possible across the intervals). Many commercial software packages follow this procedure.
+
+[**Rule-of-thumb for number of groups**]{#sec-prc-211-rule-of-thumb}
+
+One rule-of-thumb suggests using the value $2n^{2/5}$ as a good starting point for choosing the number of groups. Another well-known rule-of-thumb requires every group to have at least five data points.
+
+[**Computation of the chi-square goodness-of-fit test**]{#sec-prc-211-computation}
+
+The formulas for the computation of the chi-square goodness-of-fit test are given in the [EDA](#sec-eda-chi-square-goodness-of-fit-test) chapter.

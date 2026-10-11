@@ -24,3 +24,13 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include introduction/outliers.qmd >}}
 
 {{< include introduction/trends.qmd >}}
+
+{{< include comparisons-one-process/index.qmd >}}
+
+{{< include comparisons-one-process/distribution-fit/index.qmd >}}
+
+{{< include comparisons-one-process/distribution-fit/chi-square-test.qmd >}}
+
+{{< include comparisons-one-process/distribution-fit/kolmogorov-smirnov-test.qmd >}}
+
+{{< include comparisons-one-process/distribution-fit/anderson-darling-shapiro-wilk.qmd >}}
