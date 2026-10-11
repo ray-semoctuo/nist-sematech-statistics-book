@@ -113,3 +113,7 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include tutorials/multivariate-analysis/variability-charts.qmd >}}
 
 {{< include tutorials/multivariate-analysis/constructing-charts.qmd >}}
+
+{{< include tutorials/principal-components/index.qmd >}}
+
+{{< include tutorials/principal-components/properties.qmd >}}

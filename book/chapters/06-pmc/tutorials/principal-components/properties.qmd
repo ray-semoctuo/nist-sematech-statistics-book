@@ -1,0 +1,224 @@
+#### Properties of Principal Components {#sec-pmc-551}
+
+**Orthogonalizing Transformations**
+
+[**Transformation from ${\bf z}$ to ${\bf y}$**]{#sec-pmc-551-transformation}
+
+The equation ${\bf y} = {\bf V}^T{\bf z}$ represents a transformation, where ${\bf y}$ is the transformed variable, ${\bf z}$ is the original standardized variable, and ${\bf V}$ is the premultiplier to go from ${\bf z}$ to ${\bf y}$.
+
+[**Orthogonal transformations simplify things**]{#sec-pmc-551-orthogonal}
+
+To produce a transformation vector for ${\bf y}$ for which the elements are uncorrelated is the same as saying that we want ${\bf V}$ such that ${\bf D}_{\bf y}$ is a diagonal matrix. That is, all the off-diagonal elements of ${\bf D}_{\bf y}$ must be zero. This is called an *orthogonalizing transformation*.
+
+[**Infinite number of values for ${\bf V}$**]{#sec-pmc-551-infinite}
+
+There are an infinite number of values for ${\bf V}$ that will produce a diagonal ${\bf D}_{\bf y}$ for any correlation matrix ${\bf R}$. Thus the mathematical problem "find a unique ${\bf V}$ such that ${\bf D}_{\bf y}$ is diagonal" cannot be solved as it stands. A number of famous statisticians such as Karl Pearson and Harold Hotelling pondered this problem and suggested a "variance maximizing" solution.
+
+[**Principal components maximize variance of the transformed elements, one by one**]{#sec-pmc-551-maximize}
+
+Hotelling (1933) derived the "principal components" solution. It proceeds as follows: for the first principal component, which will be the first element of ${\bf y}$ and be defined by the coefficients in the first column of ${\bf V}$, (denoted by ${\bf v}_1$), we want a solution such that the variance of ${\bf y}_1$ will be maximized.
+
+[**Constrain ${\bf v}$ to generate a unique solution**]{#sec-pmc-551-constrain}
+
+The constraint on the numbers in ${\bf v}_1$ is that the sum of the squares of the coefficients equals 1. Expressed mathematically, we wish to maximize
+
+$$ \frac{1}{N} \sum_{i=1}^N Y_{1i}^2 \, , $$
+
+where
+
+$$ y_{1i} = {\bf v}_1^T {\bf z}_i \, , $$
+
+and ${\bf v}_1^T{\bf v}_1 = 1$ (this is called "normalizing" ${\bf v}_1$).
+
+[**Computation of first principal component from ${\bf R}$ and ${\bf v}_1$**]{#sec-pmc-551-computation}
+
+Substituting the middle equation in the first yields
+
+$$ \frac{1}{N} \sum_{i=1}^N Y_{1i}^2 = {\bf v}_1^T {\bf R} {\bf v}_1 \, , $$
+
+where ${\bf R}$ is the correlation matrix of ${\bf Z}$, which, in turn, is the standardized matrix of ${\bf X}$, the original data matrix. Therefore, we want to maximize ${\bf v}_1^T {\bf R} {\bf v}_1$ subject to ${\bf v}_1^T{\bf v}_1 = 1$.
+
+**The eigenstructure**
+
+[**Lagrange multiplier approach**]{#sec-pmc-551-lagrange}
+
+Let
+
+$$ \phi_1 = {\bf v}_1^T {\bf R} {\bf v}_1 - \lambda_1({\bf v}_1^T{\bf v}_1 - 1) $$
+
+introduce the restriction on ${\bf v}_1$ via the Lagrange multiplier approach. It can be shown (T.W. Anderson [-@Anderson1958], page 347, theorem 8) that the vector of partial derivatives is
+
+$$ \frac{\partial \phi_1}{\partial {\bf v}_1} = 2 {\bf R} {\bf v}_1 - 2 \lambda_1 {\bf v}_1 \, , $$
+
+and setting this equal to zero, dividing out 2, and factoring, gives
+
+$$ ({\bf R} - \lambda_1 {\bf I}) {\bf v}_1 = 0 \, . $$
+
+This is known as "the problem of the eigenstructure of ${\bf R}$".
+
+[**Set of $p$ homogeneous equations**]{#sec-pmc-551-homogeneous}
+
+The partial differentiation resulted in a set of $p$ homogeneous equations, which may be written in matrix form as follows.
+
+$$
+\left[ \begin{array}{cccc}
+(1-\lambda_i) & r_{12} & \cdots & r_{1p} \\
+r_{21} & (1-\lambda_i) & \cdots & r_{2p} \\
+\vdots & \vdots &      & \vdots \\
+r_{p1} & r_{p2} & \cdots & (1-\lambda_i)
+\end{array} \right]
+\left[ \begin{array}{c}
+v_{1i} \\ v_{2i} \\ \vdots \\ v_{pi}
+\end{array} \right]
+=
+\left[ \begin{array}{c}
+0 \\ 0 \\ \vdots \\ 0
+\end{array} \right]
+$$
+
+**The characteristic equation**
+
+[**Characteristic equation of ${\bf R}$ is a polynomial of degree $p$**]{#sec-pmc-551-characteristic}
+
+The characteristic equation of ${\bf R}$ is a polynomial of degree $p$, which is obtained by expanding the determinant of
+
+$$ |{\bf R} - \lambda {\bf I}| =
+\left| \begin{array}{cccc}
+r_{11}-\lambda & r_{12} & \cdots & r_{1p} \\
+r_{21} & r_{22}-\lambda  & \cdots & r_{2p} \\
+\vdots & \vdots &      & \vdots \\
+r_{p1} & r_{p2} & \cdots & r_{pp}-\lambda
+\end{array} \right|
+= 0 \, , $$
+
+and solving for the roots $\lambda_j, \, j = 1, \, 2, \, \ldots, \, p$.
+
+[**Largest eigenvalue**]{#sec-pmc-551-largest}
+
+Specifically, the largest eigenvalue, $\lambda_1$, and its associated vector, ${\bf v}_1$, are required. Solving for this eigenvalue and vector is another mammoth numerical task that can realistically only be performed by a computer. In general, software is involved and the algorithms are complex.
+
+[**Remaining $p$ eigenvalues**]{#sec-pmc-551-remaining}
+
+After obtaining the first eigenvalue, the process is repeated until all $p$ eigenvalues are computed.
+
+[**Full eigenstructure of ${\bf R}$**]{#sec-pmc-551-full}
+
+To succinctly define the full eigenstructure of ${\bf R}$, we introduce another matrix ${\bf L}$, which is a diagonal matrix with $\lambda_j$ in the $j$th position on the diagonal. Then the full eigenstructure of ${\bf R}$ is given as
+
+- ${\bf RV} = {\bf VL}$,
+
+where
+
+- ${\bf V}^T{\bf V} = {\bf VV}^T = {\bf I}$
+
+and
+
+- ${\bf V}^T{\bf RV} = {\bf L} = {\bf D_y}$.
+
+**Principal Factors**
+
+[**Scale to zero means and unit variances**]{#sec-pmc-551-scale}
+
+It was mentioned before that it is helpful to scale any transformation ${\bf y}$ of a vector variable ${\bf z}$ so that its elements have zero means and unit variances. Such a standardized transformation is called a *factoring* of ${\bf z}$, or of ${\bf R}$, and each linear component of the transformation is called a factor.
+
+[**Deriving unit variances for principal components**]{#sec-pmc-551-unit-variance}
+
+Now, the principal components already have zero means, but their variances are not 1; in fact, they are the eigenvalues, comprising the diagonal elements of ${\bf L}$. It is possible to derive the principal factor with unit variance from the principal component as follows:
+
+$$f_i = \frac{y_i}{\sqrt{\lambda}} \, , $$
+
+or for all factors,
+
+$$ f = {\bf L}^{-1/2}{\bf y} \, . $$
+
+Substituting ${\bf V}^T{\bf z}$ for ${\bf y}$ we have
+
+$$f = {\bf L}^{-1/2} {\bf V}^T {\bf z} = {\bf B}^T{\bf z} \, , $$
+
+where
+
+$${\bf B} = {\bf VL}^{-1/2} \, . $$
+
+[**${\bf B}$ matrix**]{#sec-pmc-551-b-matrix}
+
+The matrix ${\bf B}$ is then the matrix of *factor score coefficients* for principal factors.
+
+**How many Eigenvalues?**
+
+[**Dimensionality of the set of factor scores**]{#sec-pmc-551-dimensionality}
+
+The number of eigenvalues, $N$, used in the final set determines the dimensionality of the set of factor scores. For example, if the original test consisted of 8 measurements on 100 subjects, and we extract 2 eigenvalues, the set of factor scores is a matrix of 100 rows by 2 columns.
+
+[**Eigenvalues greater than unity**]{#sec-pmc-551-greater-unity}
+
+Each column or principal factor should represent a number of original variables. Kaiser (1966) suggested a rule-of-thumb that takes as a value for $N$, the number of eigenvalues larger than unity.
+
+**Factor Structure**
+
+[**Factor structure matrix ${\bf S}$**]{#sec-pmc-551-structure}
+
+The primary interpretative device in principal components is the factor structure, computed as
+
+$$ {\bf S} = {\bf VL}^{1/2} \, . $$
+
+${\bf S}$ is a matrix whose elements are the correlations between the principal components and the variables. If we retain, for example, two eigenvalues, meaning that there are two principal components, then the ${\bf S}$ matrix consists of two columns and $p$ (number of variables) rows.
+
+[**Table showing relation between variables and principal components**]{#sec-pmc-551-table}
+
+| | Principal Component 1 | Principal Component 2 |
+|---|---|---|
+| Variable 1 | $r_{11}$ | $r_{12}$ |
+| Variable 2 | $r_{21}$ | $r_{22}$ |
+| Variable 3 | $r_{31}$ | $r_{32}$ |
+| Variable 4 | $r_{41}$ | $r_{42}$ |
+
+The $r_{ij}$ are the correlation coefficients between variable $i$ and principal component $j$, where $i$ ranges from 1 to 4 and $j$ from 1 to 2.
+
+[**The communality**]{#sec-pmc-551-communality-intro}
+
+${\bf SS}^T$ is the source of the "explained" correlations among the variables. Its diagonal is called ["the communality"](#sec-pmc-551-communality).
+
+**Rotation**
+
+[**Factor analysis**]{#sec-pmc-551-factor-analysis}
+
+If this correlation matrix, i.e., the factor structure matrix, does not help much in the interpretation, it is possible to rotate the axis of the principal components. This may result in the polarization of the correlation coefficients. Some practitioners refer to rotation after generating the factor structure as *factor analysis*.
+
+[**Varimax rotation**]{#sec-pmc-551-varimax}
+
+A popular scheme for rotation was suggested by Henry Kaiser in 1958. He produced a method for orthogonal rotation of factors, called the varimax rotation, which cleans up the factors as follows:
+
+> *For each factor, high loadings (correlations) will result for a few variables; the rest will be near zero.*
+
+[**Example**]{#sec-pmc-551-example}
+
+The following computer output from a principal component analysis on a four-variable data set, followed by varimax rotation of the factor structure, will illustrate his point.
+
+| | Before Rotation (Factor 1) | Before Rotation (Factor 2) | After Rotation (Factor 1) | After Rotation (Factor 2) |
+|---|---|---|---|---|
+| 1 | 0.853 | -0.989 | 0.997 | 0.058 |
+| 2 | 0.634 | 0.762 | 0.089 | 0.987 |
+| 3 | 0.858 | -0.498 | 0.989 | 0.076 |
+| 4 | 0.633 | 0.736 | 0.103 | 0.965 |
+
+**Communality**
+
+[**Formula for communality statistic**]{#sec-pmc-551-communality}
+
+A measure of how well the selected factors (principal components) "explain" the variance of each of the variables is given by a statistic called *communality*. This is defined by
+
+$$ h_k^2 = \sum_{i=1}^k S_{ki}^2 \, . $$
+
+[**Explanation of communality statistic**]{#sec-pmc-551-explanation}
+
+That is: the square of the correlation of variable $k$ with factor $i$ gives the part of the variance accounted for by that factor. The sum of these squares for $n$ factors is the communality, or explained variable for that variable (row).
+
+**Roadmap to solve the V matrix**
+
+[**Main steps to obtaining eigenstructure for a correlation matrix**]{#sec-pmc-551-roadmap}
+
+In summary, here are the main steps to obtain the eigenstructure for a correlation matrix.
+
+1. Compute ${\bf R}$, the correlation matrix of the original data. ${\bf R}$ is also the correlation matrix of the standardized data.
+2. Obtain the characteristic equation of ${\bf R}$ which is a polynomial of degree $p$ (the number of variables), obtained from expanding the determinant of $|{\bf R} - \lambda{\bf I}|=0$ and solving for the roots $\lambda_p$, that is: $\lambda_1, \, \lambda_2, \, \ldots, \, \lambda_p$.
+3. Then solve for the columns of the ${\bf V}$ matrix, (${\bf v}_1, \, {\bf v}_2\, \, \ldots, \, {\bf v}_p$). The roots, $\lambda_i$, are called the *eigenvalues* (or latent values). The columns of ${\bf V}$ are called the *eigenvectors*.

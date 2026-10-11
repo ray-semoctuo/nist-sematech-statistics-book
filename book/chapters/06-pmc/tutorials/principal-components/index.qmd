@@ -1,0 +1,62 @@
+### Principal Components {#sec-pmc-55}
+
+[**Dimension reduction tool**]{#sec-pmc-55-intro}
+
+A Multivariate Analysis problem could start out with a substantial number of correlated variables. **Principal Component Analysis** is a dimension-reduction tool that can be used advantageously in such situations. Principal component analysis aims at reducing a large set of variables to a small set that still contains most of the information in the large set.
+
+[**Principal factors**]{#sec-pmc-55-factors}
+
+The technique of principal component analysis enables us to create and use a reduced set of variables, which are called *principal factors*. A reduced set is much easier to analyze and interpret. To study a data set that results in the estimation of roughly 500 parameters may be difficult, but if we could reduce these to 5 it would certainly make our day. We will show in what follows how to achieve substantial dimension reduction.
+
+[**Inverse transformation not possible**]{#sec-pmc-55-inverse}
+
+While these principal factors represent or replace one or more of the original variables, it should be noted that they are not just a one-to-one transformation, so inverse transformations are not possible.
+
+[**Original data matrix**]{#sec-pmc-55-data-matrix}
+
+To shed a light on the structure of principal components analysis, let us consider a multivariate data matrix ${\bf X}$, with $n$ rows and $p$ columns. The $p$ elements of each row are scores or measurements on a subject such as height, weight and age.
+
+[**Linear function that maximizes variance**]{#sec-pmc-55-linear-function}
+
+Next, *standardize* the ${\bf X}$ matrix so that each column mean is 0 and each column variance is 1. Call this matrix ${\bf Z}$. Each column is a vector variable, ${\bf z}_i, \, i = 1, \, \ldots, \, p$. The main idea behind principal component analysis is to derive a linear function ${\bf y}$ for each of the vector variables ${\bf z}_i$. This linear function possesses an extremely important property; namely, its variance is maximized.
+
+[**Linear function is component of ${\bf z}$**]{#sec-pmc-55-component}
+
+This linear function is referred to as a component of ${\bf z}$. To illustrate the computation of a single element for the $j$th ${\bf y}$ vector, consider the product ${\bf y} = {\bf z} {\bf v}^T$ where ${\bf v}^T$ is a column vector of ${\bf V}$, and ${\bf V}$ is a $p \times p$ coefficient matrix that carries the $p$-element variable ${\bf z}$ into the derived $n$-element variable ${\bf y}$. ${\bf V}$ is known as the eigen vector matrix. The dimension of ${\bf z}$ is $1 \times p$, the dimension of ${\bf v}^T$ is $p \times 1$. The scalar algebra for the component score for the $i$th individual of ${\bf y}_j, \, j = 1, \, \ldots, \, p$ is:
+
+$$ y_{ij} = v_1 z_{1i} + v_2 z_{2i} + \cdots + v_p z_{pi} \, . $$
+
+This becomes in matrix notation for all of the $y$:
+
+$$ {\bf Y} = {\bf Z} {\bf V} \, . $$
+
+[**Mean and dispersion matrix of ${\bf y}$**]{#sec-pmc-55-mean-dispersion}
+
+The mean of ${\bf y}$ is ${\bf m}_y = {\bf V}^T{\bf m}_z = 0$, because ${\bf m}_z = 0$.
+
+The dispersion matrix of ${\bf y}$ is
+
+$$ {\bf D}_y = {\bf V}^T {\bf D}_z {\bf V} = {\bf V}^T {\bf R} {\bf V} \, . $$
+
+[**${\bf R}$ is correlation matrix**]{#sec-pmc-55-correlation}
+
+Now, it can be shown that the dispersion matrix ${\bf D}_z$ of a standardized variable is a correlation matrix. Thus ${\bf R}$ is the correlation matrix for ${\bf z}$.
+
+[**Number of parameters to estimate increases rapidly as $p$ increases**]{#sec-pmc-55-parameters}
+
+At this juncture you may be tempted to say: "so what?". To answer this let us look at the intercorrelations among the elements of a vector variable. The number of parameters to be estimated for a $p$-element variable is
+
+- $p$ means
+- $p$ variances
+- $(p^2 - p)/2$ covariances
+- for a total of $2p + (p^2 - p)/2$ parameters.
+
+So
+
+- If $p = 2$, there are 5 parameters
+- If $p = 10$, there are 65 parameters
+- If $p \ge 30$, there are 495 parameters
+
+[**Uncorrelated variables require no covariance estimation**]{#sec-pmc-55-uncorrelated}
+
+All these parameters must be estimated and interpreted. That is a herculean task, to say the least. Now, if we could transform the data so that we obtain a vector of uncorrelated variables, life becomes much more bearable, since there are no covariances.
