@@ -1,0 +1,20 @@
+##### $T^2$ Chart for Subgroup Averages -- Phase II {#sec-pmc-5432}
+
+[**Phase II requires recomputing ${\bf S}_p$ and $\bar{\bar{\bf x}}$ and different control limits**]{#sec-pmc-5432-recompute}
+
+Determining the *UCL* that is to be subsequently applied to *future* subgroups entails recomputing, if necessary, ${\bf S}_p$ and $\bar{\bar{\bf x}}$, *and* using a constant and an $F$ value that are different from the form given [for the Phase I control limits](#sec-pmc-5431-ucl). The form is different because different distribution theory is involved since future subgroups are assumed to be independent of the "current" set of subgroups that is used in calculating ${\bf S}_p$ and $\bar{\bar{\bf x}}$. (The same thing happens with $\bar{X}$ charts; the problem is simply ignored through the use of 3-sigma limits, although a different approach should be used when there is a small number of subgroups -- and the necessary theory has been worked out.)
+
+[**Illustration**]{#sec-pmc-5432-illustration}
+
+To illustrate, assume that $a$ subgroups had been discarded (with possibly $a = 0$) so that $k - a$ subgroups are used in obtaining ${\bf S}_p$ and $\bar{\bar{\bf x}}$. We shall let these two values be represented by ${\bf S}_p^\bullet$ and $\bar{\bar{\bf x}}^\bullet$ to distinguish them from the original values, ${\bf S}_p$ and $\bar{\bar{\bf x}}$, before any subgroups are deleted. Future values to be plotted on the multivariate chart would then be obtained from
+
+$$ n (\bar{{\bf x}}^{(future)} - \bar{\bar{{\bf x}}}^\bullet)^T ({\bf S}_p^\bullet)^{-1}
+     (\bar{{\bf x}}^{(future)} - \bar{\bar{{\bf x}}}^\bullet) \, ,$$
+
+with $\bar{{\bf x}}^{(future)}$ denoting an arbitrary vector containing the averages for the $p$ characteristics for a single subgroup obtained in the future. Each of these future values would be plotted on the multivariate chart and compared with
+
+[**Phase II control limits**]{#sec-pmc-5432-ucl}
+
+$$ UCL = \left( \frac{p(k-a+1)(n-1)}{(k-a)n - k + a - p + 1} \right) F_{\alpha, \, (p, \, (k-a)n-k+a-p+1)} \, , $$
+
+with $a$ denoting the number of the original subgroups that are deleted before computing ${\bf S}_p^\bullet$ and $\bar{\bar{\bf x}}^\bullet$. Notice that the equation for the control limits for Phase II given here does *not* reduce to [the equation for the control limits for Phase I](#sec-pmc-5431-ucl) when $a=0$, nor should we expect it to since the Phase I *UCL* is used when testing for control of the entire *set* of subgroups that is used in computing ${\bf S}_p$ and $\bar{\bar{\bf x}}$.

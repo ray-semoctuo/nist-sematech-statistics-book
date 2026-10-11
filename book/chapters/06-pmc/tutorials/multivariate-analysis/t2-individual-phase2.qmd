@@ -1,0 +1,13 @@
+##### Chart for Individual Observations -- Phase II {#sec-pmc-5434}
+
+[**Control limits**]{#sec-pmc-5434-limits}
+
+In Phase II, each value of $Q_j$ would be plotted against the *UCL* of
+
+$$ \frac{p(m+1)(m-1)}{m^2 - mp} F_{\alpha,\, (p, \, m-p)} \, , $$
+
+with, as before, $p$ denoting the number of characteristics.
+
+[**Further Information**]{#sec-pmc-5434-further}
+
+The control limit expressions given in this section and the immediately preceding sections are given in Ryan [-@Ryan2000, Chapter 9].

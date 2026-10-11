@@ -2,6 +2,10 @@
 
 [**Tutorial contents**]{#sec-pmc-5-contents}
 
+::: {.callout-note}
+The archived handbook's own table of contents for this section is out of date: it lists only three sub-pages under Hotelling's $T^2$ (two worked-example pages and a continuation), plus a separate "Hotelling's $T^2$ Chart" page. The live page sequence, however, contains six sub-pages of general Phase I/II control-chart theory with no worked example, and the "Hotelling's $T^2$ Chart" page is an orphan: it is not reachable from that sequence, and it opens by continuing a worked example that no longer exists anywhere in the archived site (its own figure is identical to the one already presented in [Section 6.3.4](#sec-pmc-34)). We list the contents below as they actually appear in the live sequence rather than as the stale page-level table of contents states them, and omit the orphaned chart page.
+:::
+
 1. [What do we mean by "Normal" data?](#sec-pmc-51)
 2. [What do we do when data are "Non-normal"?](#sec-pmc-52)
 3. [Elements of Matrix Algebra](#sec-pmc-53)
@@ -11,10 +15,12 @@
    1. [Mean vector and Covariance Matrix](#sec-pmc-541)
    2. [The Multivariate Normal Distribution](#sec-pmc-542)
    3. [Hotelling's $T^2$](#sec-pmc-543)
-      1. [Example of Hotelling's $T^2$ Test](#sec-pmc-5431)
-      2. [Example 1 (continued)](#sec-pmc-5432)
-      3. [Example 2 (multiple groups)](#sec-pmc-5433)
-   4. [Hotelling's $T^2$ Chart](#sec-pmc-544)
+      1. [$T^2$ Chart for Subgroup Averages -- Phase I](#sec-pmc-5431)
+      2. [$T^2$ Chart for Subgroup Averages -- Phase II](#sec-pmc-5432)
+      3. [Chart for Individual Observations -- Phase I](#sec-pmc-5433)
+      4. [Chart for Individual Observations -- Phase II](#sec-pmc-5434)
+      5. [Charts for Controlling Multivariate Variability](#sec-pmc-5435)
+      6. [Constructing Multivariate Charts](#sec-pmc-5436)
 5. [Principal Components](#sec-pmc-55)
    1. [Properties of Principal Components](#sec-pmc-551)
    2. [Numerical Example](#sec-pmc-552)

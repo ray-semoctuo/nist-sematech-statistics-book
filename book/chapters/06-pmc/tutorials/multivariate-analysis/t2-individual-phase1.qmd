@@ -1,0 +1,26 @@
+##### Chart for Individual Observations -- Phase I {#sec-pmc-5433}
+
+[**Multivariate individual control charts**]{#sec-pmc-5433-intro}
+
+Control charts for multivariate individual observations can be constructed, just as charts can be constructed for univariate individual observations.
+
+[**Constructing the control chart**]{#sec-pmc-5433-constructing}
+
+Assume there are $m$ historical multivariate observations to be tested for control, so that $Q_j, \, j = 1, \, 2, \, \ldots, \, m$ are computed, with
+
+$$ Q_j = (x - \bar{x}_m)^T S_m^{-1} (x - \bar{x}_m) \, . $$
+
+[**Control limits**]{#sec-pmc-5433-limits}
+
+Each value of $Q_j$ is compared against control limits of
+
+$$ \begin{aligned}
+LCL & = \left( \frac{(m-1)^2}{m} \right) B \left( 1-\frac{\alpha}{2}; \, \frac{p}{2}; \, \frac{m-p-1}{2} \right) \\
+UCL & = \left( \frac{(m-1)^2}{m} \right) B \left( \frac{\alpha}{2}; \, \frac{p}{2}; \, \frac{m-p-1}{2} \right) \\
+\end{aligned} $$
+
+with $B(\cdot)$ denoting the beta distribution with parameters $p/2$ and $(m-p-1)/2$. These limits are due to Tracy, Young and Mason [-@TracyYoungMason1992]. Note that a *LCL* is stated, unlike the other multivariate control chart procedures given in this section. Although interest will generally be centered at the *UCL*, a value of $Q$ below the *LCL* should also be investigated, as this could signal problems in data recording.
+
+[**Delete points if special cause(s) are identified and corrected**]{#sec-pmc-5433-delete}
+
+As in the case when subgroups are used, if any points plot outside these control limits and special cause(s) that were subsequently removed can be identified, the point(s) would be deleted and the control limits recomputed, making the appropriate adjustments on the degrees of freedom, and re-testing the remaining points against the new limits.

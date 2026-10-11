@@ -1,0 +1,5 @@
+##### Constructing Multivariate Charts {#sec-pmc-5436}
+
+[**Multivariate control charts not commonly available in statistical software**]{#sec-pmc-5436-intro}
+
+Although control charts were originally constructed and maintained by hand, it would be extremely impractical to try to do that with the chart procedures that were presented in Sections 6.5.4.3.1-6.5.4.3.4. Unfortunately, the well-known statistical software packages do not have capability for the four procedures just outlined. However, Dataplot, which is used for case studies and tutorials throughout this e-Handbook, does have that capability.

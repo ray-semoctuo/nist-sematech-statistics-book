@@ -1,0 +1,76 @@
+#### Hotelling's $T^2$ {#sec-pmc-543}
+
+[**Hotelling's $T^2$ distribution**]{#sec-pmc-543-intro}
+
+A multivariate method that is the multivariate counterpart of Student's $t$ and which also forms the basis for certain multivariate control charts is based on Hotelling's $T^2$ distribution, which was introduced by Hotelling [-@Hotelling1947].
+
+[**Univariate $t$-test for mean**]{#sec-pmc-543-univariate}
+
+Recall, from Section 1.3.5.2,
+
+$$ t = \frac{\bar{x} - \mu}{s/\sqrt{n}} $$
+
+has a $t$ distribution provided that $X$ is normally distributed, and can be used as long as $X$ doesn't differ greatly from a normal distribution. If we wanted to test the hypothesis that $\mu = \mu_0$, we would then have
+
+$$ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} $$
+
+so that
+
+$$ \begin{aligned}
+t^2 & = \frac{(\bar{x} - \mu_0)^2}{s^2 / n} \\
+    & = n (\bar{x} - \mu_0)(s^2)^{-1} (\bar{x} - \mu_0) \, .
+\end{aligned} $$
+
+[**Generalize to $p$ variables**]{#sec-pmc-543-generalize}
+
+When $T^2$ is generalized to $p$ variables it becomes
+
+$$ T^2 = n (\bar{{\bf x}} - {\bf \mu}_0)^T {\bf S}^{-1} (\bar{{\bf x}} - {\bf \mu}_0) \, , $$
+
+with
+
+$$
+\bar{{\bf x}} = \left[ \begin{array}{c}
+\bar{x}_1 \\
+\bar{x}_2 \\
+\vdots \\
+\bar{x}_p
+\end{array} \right]
+\,\,\,\,\,\,\,\,\,\,\,\,
+{\bf \mu}_0 = \left[ \begin{array}{c}
+\mu_1^0 \\
+\mu_2^0 \\
+\vdots \\
+\mu_p^0
+\end{array} \right]
+\, . $$
+
+${\bf S}^{-1}$ is the inverse of the sample variance-covariance matrix, ${\bf S}$, and $n$ is the sample size upon which each $\bar{x}_i, \, i=1, \, 2, \, \ldots, \, p$, is based. (The diagonal elements of ${\bf S}$ are the variances and the off-diagonal elements are the covariances for the $p$ variables. This is discussed further in [Section 6.5.4.3.1](#sec-pmc-5431).)
+
+::: {.callout-note}
+NIST's original page omits the transpose on $(\bar{{\bf x}} - {\bf \mu}_0)$ in the $T^2$ formula, writing it as a bare row-times-matrix-times-column product without indicating which factor is transposed. We write it with the leading transpose, consistent with the quadratic-form convention introduced in [Section 6.5.3.1](#sec-pmc-531-quadratic) and with the univariate-to-multivariate generalization immediately above it.
+:::
+
+[**Distribution of $T^2$**]{#sec-pmc-543-distribution}
+
+It is well known that when $\mu = \mu_0$
+
+$$ T^2 \sim \frac{p(n-1)}{n-p} F_{(p, \, n-p)} \, , $$
+
+with $F_{(p, \, n-p)}$ representing the $F$ distribution with $p$ degrees of freedom for the numerator and $n-p$ for the denominator. Thus, if $\mu$ were specified to be $\mu_0$, this could be tested by taking a single $p$-variate sample of size $n$, then computing $T^2$ and comparing it with
+
+$$  \frac{p(n-1)}{n-p} F_{\alpha \, (p, \, n-p)} $$
+
+for a suitably chosen $\alpha$.
+
+[**Result does not apply directly to multivariate Shewhart-type charts**]{#sec-pmc-543-shewhart}
+
+Although this result applies to hypothesis testing, it does not apply directly to multivariate Shewhart-type charts (for which there is no $\mu_0$), although the result might be used as an approximation when a large sample is used and data are in subgroups, with the upper control limit (*UCL*) of a chart based on the approximation.
+
+[**Three-sigma limits from univariate control chart**]{#sec-pmc-543-three-sigma}
+
+When a univariate control chart is used for Phase I (analysis of historical data), and subsequently for Phase II (real-time process monitoring), the general form of the control limits is the same for each phase, although this need not be the case. Specifically, three-sigma limits are used in the univariate case, which skirts the relevant distribution theory for each Phase.
+
+[**Selection of different control limit forms for each Phase**]{#sec-pmc-543-phases}
+
+Three-sigma units are generally not used with multivariate charts, however, which makes the selection of different control limit forms for each Phase (based on the relevant distribution theory), a natural choice.

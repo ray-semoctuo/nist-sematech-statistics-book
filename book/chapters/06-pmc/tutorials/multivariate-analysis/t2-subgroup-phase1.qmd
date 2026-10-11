@@ -1,0 +1,66 @@
+##### $T^2$ Chart for Subgroup Averages -- Phase I {#sec-pmc-5431}
+
+[**Estimate $\mu$ with $\bar{\bar{x}}$**]{#sec-pmc-5431-estimate}
+
+Since $\mu$ is generally unknown, it is necessary to estimate $\mu$ analogous to the way that $\mu$ is estimated when an $\bar{X}$ chart is used. Specifically, when there are rational subgroups, $\mu$ is estimated by $\bar{\bar{x}}$, with
+
+$$
+\bar{{\bf x}} = \left[ \begin{array}{c}
+\bar{\bar{x}}_1 \\
+\bar{\bar{x}}_2 \\
+\vdots          \\
+                \\
+\bar{\bar{x}}_p
+\end{array} \right] \, . $$
+
+[**Obtaining the $\bar{\bar{x}}_i$**]{#sec-pmc-5431-obtaining}
+
+Each $\bar{\bar{x}}_i, \, i=1, \, 2, \, \ldots, \, p$, is obtained the same way as with an $\bar{X}$ chart, namely, by taking $k$ subgroups of size $n$ and computing
+
+$$ \bar{\bar{x}}_i = \frac{1}{k} \sum_{l=1}^k \bar{x}_{il} \, . $$
+
+Here $\bar{x}_{il}$ is used to denote the average for the $l$th subgroup of the $i$th variable. That is,
+
+$$ \bar{x}_{il} = \frac{1}{n}\sum_{r=1}^n x_{ilr} \, , $$
+
+with $x_{ilr}$ denoting the $r$th observation (out of $n$) for the $i$th variable in the $l$th subgroup.
+
+[**Estimating the variances and covariances**]{#sec-pmc-5431-variances}
+
+The variances and covariances are similarly averaged over the subgroups. Specifically, the $s_{ij}$ elements of the variance-covariance matrix ${\bf S}$ are obtained as
+
+$$ s_{ij} = \frac{1}{k} \sum_{l=1}^k s_{ijl} \, , $$
+
+with $s_{ijl}$ for $i \ne j$ denoting the sample covariance between variables $X_i$ and $X_j$ for the $l$th subgroup, and $s_{ij}$ for $i = j$ denotes the sample variance of $X_i$. The variances $s_{ijl}^2 (=s_{iil})$ for subgroup $l$ and for variables $i = 1, \, 2, \, \ldots, \, p$ are computed as
+
+$$ \frac{1}{n-1} \sum_{r=1}^n (x_{ilr} - \bar{x}_{il})^2 \, . $$
+
+Similarly, the covariances $s_{ijl}$ between variables $X_i$ and $X_j$ for subgroup $l$ are computed as
+
+$$ \frac{1}{n-1} \sum_{r=1}^n (x_{ilr} - \bar{x}_{il})(x_{jlr} - \bar{x}_{jl}) \, . $$
+
+[**Compare $T^2$ against control values**]{#sec-pmc-5431-compare}
+
+As with an $\bar{X}$ chart (or any other chart), the $k$ subgroups would be tested for control by computing $k$ values of $T^2$ and comparing each against the *UCL*. If any value falls above the *UCL* (there is no lower control limit), the corresponding subgroup would be investigated.
+
+[**Formula for plotted $T^2$ values**]{#sec-pmc-5431-formula}
+
+Thus, one would plot
+
+$$ T_{j}^2 = n (\bar{{\bf x}}^{(j)} - \bar{\bar{{\bf x}}})^T {\bf S}_p^{-1} (\bar{{\bf x}}^{(j)} - \bar{\bar{{\bf x}}}) $$
+
+for the $j$th subgroup ($j = 1, \, 2, \, \ldots, \, k$), with $\bar{{\bf x}}$ denoting a vector with $p$ elements that contains the subgroup averages for each of the $p$ characteristics for the $j$th subgroup. (${\bf S}_p^{-1}$ is the inverse matrix of the "pooled" variance-covariance matrix, ${\bf S}_p$, which is obtained by averaging the subgroup variance-covariance matrices over the $k$ subgroups.)
+
+[**Formula for the upper control limit**]{#sec-pmc-5431-ucl}
+
+Each of the $k$ values of $T_j^2$ given in the equation above would be compared with
+
+$$ UCL = \left( \frac{knp - kp - np + p}{kn - k - p + 1} \right) F_{\alpha, \, (p, \, kn-k-p+1)} \, . $$
+
+[**Lower control limits**]{#sec-pmc-5431-lcl}
+
+A lower control limit is generally not used in multivariate control chart applications, although some control chart methods do utilize a *LCL*. Although a small value for $T_j^2$ might seem desirable, a value that is very small would likely indicate a problem of some type as we would not expect every element of $\bar{{\bf x}}^{(j)}$ to be virtually equal to every element in $\bar{\bar{x}}$.
+
+[**Delete out-of-control points once cause discovered and corrected**]{#sec-pmc-5431-delete}
+
+As with any Phase I control chart procedure, if there are any points that plot above the *UCL* and can be identified as corresponding to out-of-control conditions that have been corrected, the point(s) should be deleted and the *UCL* recomputed. The remaining points would then be compared with the new *UCL* and the process continued as long as necessary, remembering that points should be deleted only if their correspondence with out-of-control conditions can be identified and the cause(s) of the condition(s) were removed.

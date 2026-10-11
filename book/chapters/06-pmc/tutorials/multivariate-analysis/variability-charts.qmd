@@ -1,0 +1,5 @@
+##### Charts for Controlling Multivariate Variability {#sec-pmc-5435}
+
+[**No satisfactory charts for multivariate variability**]{#sec-pmc-5435-intro}
+
+Unfortunately, there are no charts for controlling multivariate variability, with either subgroups or individual observations, that are simple, easy-to-understand and implement, and statistically defensible. Methods based on the generalized variance have been proposed for subgroup data, but such methods have been criticized by Ryan [-@Ryan2000, Section 9.4] and some references cited therein. For individual observations, the multivariate analogue of a univariate moving range chart might be considered as an estimator of the variance-covariance matrix for Phase I, although the distribution of the estimator is unknown.

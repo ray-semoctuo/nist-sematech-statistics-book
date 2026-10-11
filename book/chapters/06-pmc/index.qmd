@@ -99,3 +99,17 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include tutorials/multivariate-analysis/mean-vector-covariance.qmd >}}
 
 {{< include tutorials/multivariate-analysis/multivariate-normal.qmd >}}
+
+{{< include tutorials/multivariate-analysis/hotelling-t2.qmd >}}
+
+{{< include tutorials/multivariate-analysis/t2-subgroup-phase1.qmd >}}
+
+{{< include tutorials/multivariate-analysis/t2-subgroup-phase2.qmd >}}
+
+{{< include tutorials/multivariate-analysis/t2-individual-phase1.qmd >}}
+
+{{< include tutorials/multivariate-analysis/t2-individual-phase2.qmd >}}
+
+{{< include tutorials/multivariate-analysis/variability-charts.qmd >}}
+
+{{< include tutorials/multivariate-analysis/constructing-charts.qmd >}}
