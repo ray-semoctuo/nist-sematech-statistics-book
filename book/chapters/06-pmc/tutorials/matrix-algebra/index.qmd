@@ -1,0 +1,114 @@
+### Elements of Matrix Algebra {#sec-pmc-53}
+
+**Elementary Matrix Algebra**
+
+[**Basic definitions and operations of matrix algebra - needed for multivariate analysis**]{#sec-pmc-53-intro}
+
+Vectors and matrices are arrays of numbers. The algebra for symbolic operations on them is different from the algebra for operations on scalars, or single numbers. For example there is no division in matrix algebra, although there is an operation called "multiplying by an inverse". It is possible to express the exact equivalent of matrix algebra equations in terms of scalar algebra expressions, but the results look rather messy.
+
+It can be said that the matrix algebra notation is shorthand for the corresponding scalar longhand.
+
+[**Vectors**]{#sec-pmc-53-vectors}
+
+A *vector* is a column of numbers.
+
+$$ {\bf a} = \left[ \begin{array}{c} a_1 \\ a_2 \\ \vdots \\ a_p \end{array} \right] $$
+
+The scalars $a_i$ are the elements of vector ${\bf a}$.
+
+[**Transpose**]{#sec-pmc-53-transpose}
+
+The *transpose* of ${\bf a}$, denoted by ${\bf a}'$, is the row arrangement of the elements of ${\bf a}$.
+
+$$ {\bf a}' = \left[ a_1 \,\,\, a_2 \,\,\, \cdots \,\,\, a_p \right] $$
+
+[**Sum of two vectors**]{#sec-pmc-53-sum}
+
+The **sum of two vectors** (say, ${\bf a}$ and ${\bf b}$) is the vector of sums of corresponding elements.
+
+$$ {\bf a} + {\bf b} = \left[ \begin{array}{c} a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_p + b_p \end{array} \right] $$
+
+The difference of two vectors is the vector of differences of corresponding elements.
+
+[**Product of ${\bf a}'{\bf b}$**]{#sec-pmc-53-product-ab}
+
+The **product** ${\bf a}'{\bf b}$ is a scalar formed by
+
+$$ {\bf a}'{\bf b} = \left[ a_1 b_1 + a_2 b_2 + \cdots + a_p b_p \right] $$
+
+which may be written in shortcut notation as
+
+$$ c = \sum_{i=1}^p a_i b_i \, , $$
+
+where $a_i$ and $b_i$ are the $i$th elements of vectors ${\bf a}$ and ${\bf b}$, respectively.
+
+[**Product of ${\bf ab}'$**]{#sec-pmc-53-product-ab-prime}
+
+The **product** ${\bf ab}'$ is a *square matrix*
+
+$$ {\bf ab}' = \left[ \begin{array}{cccc}
+    a_1 b_1 & a_1 b_2 & \cdots & a_1 b_p \\
+    a_2 b_1 & a_2 b_2 & \cdots & a_2 b_p \\
+    \vdots  & \vdots  &       & \vdots  \\
+    a_p b_1 & a_p b_2 & \cdots & a_p b_p
+   \end{array} \right]
+$$
+
+[**Product of scalar times a vector**]{#sec-pmc-53-scalar-product}
+
+The product of a scalar ($k$), times a vector (${\bf a}$) is $k$ times each element of ${\bf a}$.
+
+$$ k{\bf a}  = {\bf a}k = \left[ \begin{array}{c} k a_1 \\ k a_2 \\ \vdots \\ k a_p \end{array} \right] $$
+
+[**A matrix is a rectangular table of numbers**]{#sec-pmc-53-matrix}
+
+A matrix is a rectangular table of numbers, with $p$ rows and $n$ columns. It is also referred to as an array of $n$ column vectors of length $p$. Thus
+
+$$ {\bf A} = \left[ \begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n} \\
+    a_{21} & a_{22} & \cdots & a_{2n} \\
+    \vdots  & \vdots  &       & \vdots  \\
+    a_{p1} & a_{p2} & \cdots & a_{pn}
+   \end{array} \right]
+$$
+
+is a $p$ by $n$ matrix. The typical element of ${\bf A}$ is $a_{ij}$, denoting the element of row $i$ and column $j$.
+
+[**Matrix addition and subtraction**]{#sec-pmc-53-add-sub}
+
+Matrices are **added and subtracted** on an element-by-element basis. Thus
+
+$$ {\bf A}+{\bf B} = \left[ \begin{array}{cccc}
+    a_{11} + b_{11} & a_{12} + b_{12} & \cdots & a_{1n} + b_{1n} \\
+    a_{21} + b_{21} & a_{22} + b_{22} & \cdots & a_{2n} + b_{2n} \\
+    \vdots  & \vdots  &       & \vdots  \\
+    a_{p1} + b_{p1} & a_{p2} + b_{p2} & \cdots & a_{pn} + b_{pn}
+   \end{array} \right]
+$$
+
+[**Matrix multiplication**]{#sec-pmc-53-multiplication}
+
+Matrix **multiplication** involves the computation of the sum of the products of elements from a row of the first matrix (the premultiplier on the left) and a column of the second matrix (the postmultiplier on the right). This sum of products is computed for every combination of rows and columns. For example, if ${\bf A}$ is a $2 \times 3$ matrix and ${\bf B}$ is a $3 \times 2$ matrix, the product ${\bf AB}$ is
+
+$$ {\bf AB} = \left[ \begin{array}{cc}
+ a_{11} b_{11} + a_{12} b_{21} + a_{13} b_{31} &  a_{11} b_{12} + a_{12} b_{22} + a_{13} b_{32} \\
+ a_{21} b_{11} + a_{22} b_{21} + a_{23} b_{31} &  a_{21} b_{12} + a_{22} b_{22} + a_{23} b_{32} \, .
+\end{array} \right]
+$$
+
+Thus, the product is a $2 \times 2$ matrix. This came about as follows: The number of columns of ${\bf A}$ must be equal to the number of rows of ${\bf B}$. In this case this is 3. If they are not equal, multiplication is impossible. If they are equal, then the number of rows of the product ${\bf AB}$ is equal to the number of rows of ${\bf A}$ and the number of columns is equal to the number of columns of ${\bf B}$.
+
+[**Example of $3 \times 2$ matrix multiplied by a $2 \times 3$**]{#sec-pmc-53-example}
+
+It follows that the result of the product ${\bf BA}$ is a $3 \times 3$ matrix.
+
+$$ {\bf BA} = \left[ \begin{array}{ccc}
+ b_{11} a_{11} + b_{12} a_{21} & b_{11} a_{12} + b_{12} a_{22} & b_{11} a_{13} + b_{12} a_{23} \\
+ b_{21} a_{11} + b_{22} a_{21} & b_{21} a_{12} + b_{22} a_{22} & b_{21} a_{13} + b_{22} a_{23} \\
+ b_{31} a_{11} + b_{32} a_{21} & b_{31} a_{12} + b_{32} a_{22} & b_{31} a_{13} + b_{32} a_{23}
+\end{array} \right]
+$$
+
+[**General case for matrix multiplication**]{#sec-pmc-53-general}
+
+In general, if ${\bf A}$ is a $k \times p$ matrix and ${\bf B}$ is a $p \times n$ matrix, the product ${\bf AB}$ is a $k \times n$ matrix. If $k = n$, then the product ${\bf BA}$ can also be formed. We say that matrices conform for the operations of addition, subtraction or multiplication when their respective orders (numbers of row and columns) are such as to permit the operations. Matrices that do not conform for addition or subtraction cannot be added or subtracted. Matrices that do not conform for multiplication cannot be multiplied.

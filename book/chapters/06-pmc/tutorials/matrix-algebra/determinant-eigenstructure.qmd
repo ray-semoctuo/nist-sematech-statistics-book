@@ -1,0 +1,58 @@
+#### Determinant and Eigenstructure {#sec-pmc-532}
+
+[**A matrix determinant is difficult to define but a very useful number**]{#sec-pmc-532-determinant}
+
+Unfortunately, not every square matrix has an inverse (although most do). Associated with any square matrix is a single number that represents a unique function of the numbers in the matrix. This scalar function of a square matrix is called the *determinant*. The determinant of a matrix ${\bf A}$ is denoted by $|{\bf A}|$. A formal definition for the determinant of a square matrix ${\bf A} = (a_{ij})$ is somewhat beyond the scope of this Handbook. Consult any good linear algebra textbook if you are interested in the mathematical details.
+
+[**Singular matrix**]{#sec-pmc-532-singular}
+
+As is the case of inversion of a square matrix, calculation of the determinant is tedious and computer assistance is needed for practical calculations. If the determinant of the (square) matrix is exactly zero, the matrix is said to be *singular* and it has no inverse.
+
+[**Determinant of variance-covariance matrix**]{#sec-pmc-532-covariance}
+
+Of great interest in statistics is the determinant of a square symmetric matrix ${\bf D}$ whose diagonal elements are sample variances and whose off-diagonal elements are sample covariances. Symmetry means that the matrix and its transpose are identical (i.e., ${\bf A} = {\bf A}'$). An example is
+
+$$ {\bf D} = \left[ \begin{array}{cccc}
+s_1^2 & s_1 s_2 r_{12} &  \cdots & s_1 s_p r_{1p} \\
+s_2 s_1 r_{21} & s_2^2 &  \cdots & s_2 s_p r_{2p} \\
+\vdots & \vdots &   & \vdots \\
+s_p s_1 r_{p1} & s_p s_2 r_{p2} & \cdots & s_p^2
+\end{array} \right] \, . $$
+
+where $s_1$ and $s_2$ are sample standard deviations and $r_{ij}$ is the sample correlation.
+
+${\bf D}$ is the *sample variance-covariance matrix* for observations of a multivariate vector of $p$ elements. The determinant of ${\bf D}$, in this case, is sometimes called the *generalized variance.*
+
+[**Characteristic equation**]{#sec-pmc-532-characteristic}
+
+In addition to a determinant and possibly an inverse, every square matrix has associated with it a *characteristic equation*. The characteristic equation of a matrix is formed by subtracting some particular value, usually denoted by the greek letter $\lambda$, (lambda), from each diagonal element of the matrix, such that the determinant of the resulting matrix is equal to zero. For example, the characteristic equation of a second order ($2 \times 2$) matrix ${\bf A}$ may be written as
+
+[**Definition of the characteristic equation for $2 \times 2$ matrix**]{#sec-pmc-532-def}
+
+$$ |{\bf A}-\lambda {\bf I}| =
+\left| \begin{array}{cc}
+a_{11} - \lambda & a_{12}  \\
+a_{21} & a_{22} - \lambda
+\end{array} \right| = 0 \, . $$
+
+[**Eigenvalues of a matrix**]{#sec-pmc-532-eigenvalues}
+
+For a matrix of order $p$, there may be as many as $p$ different values for $\lambda$ that will satisfy the equation. These different values are called the eigenvalues of the matrix.
+
+[**Eigenvectors of a matrix**]{#sec-pmc-532-eigenvectors}
+
+Associated with each eigenvalue is a vector, ${\bf v}$, called the *eigenvector*. The eigenvector satisfies the equation
+
+$$ {\bf Av} = \lambda {\bf v} \, . $$
+
+[**Eigenstructure of a matrix**]{#sec-pmc-532-eigenstructure}
+
+If the complete set of eigenvectors is arranged as the columns of a matrix ${\bf V}$, and the corresponding eigenvalues are arranged in the diagonal positions of a diagonal matrix ${\bf L}$, the following relationship holds.
+
+$$ {\bf AV} = {\bf VL} $$
+
+::: {.callout-note}
+NIST's original page states that the *eigenvalues* are arranged in the diagonal positions of matrix ${\bf V}$, then writes the relationship ${\bf AV} = {\bf VL}$ — but this equation only holds if ${\bf L}$ (not ${\bf V}$) is the diagonal matrix of eigenvalues and ${\bf V}$ holds the eigenvectors as its columns (so that each column satisfies ${\bf A}{\bf v}_i = \lambda_i {\bf v}_i$, consistent with the eigenvector equation above). We state it the consistent way here.
+:::
+
+This equation specifies the complete *eigenstructure* of ${\bf A}$. Eigenstructures and the associated theory figure heavily in multivariate procedures and the numerical evaluation of ${\bf L}$ and ${\bf V}$ is a central computing problem.

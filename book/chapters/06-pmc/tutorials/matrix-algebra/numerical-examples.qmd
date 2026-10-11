@@ -1,0 +1,151 @@
+#### Numerical Examples {#sec-pmc-531}
+
+[**Numerical examples of matrix operations**]{#sec-pmc-531-intro}
+
+Numerical examples of the matrix operations described on the [previous page](#sec-pmc-53) are given here to clarify these operations.
+
+```{r}
+#| label: setup-pmc-531
+#| include: false
+A <- matrix(c(5, 3, 6, 7), nrow = 2)
+B <- matrix(c(3, 1, 2, 5), nrow = 2)
+```
+
+[**Sample matrices**]{#sec-pmc-531-sample}
+
+If
+
+$$
+{\bf A} = \left[ \begin{array}{cc}
+ 5 & 6 \\ 3 & 7
+\end{array} \right] \,\,\,\,\,\,
+\text{and} \,\,\,\,\,\,
+{\bf B} = \left[ \begin{array}{cc}
+ 3 & 2 \\ 1 & 5
+\end{array} \right] \, ,
+$$
+
+then
+
+[**Matrix addition, subtraction, and multiplication**]{#sec-pmc-531-arithmetic}
+
+$$
+{\bf A} + {\bf B} = \left[ \begin{array}{cc}
+ 8 & 8 \\ 4 & 12
+\end{array} \right] \,\,\,\,\,\,
+\text{and} \,\,\,\,\,\,
+{\bf A} - {\bf B} = \left[ \begin{array}{cc}
+ 2 & 4 \\ 2 & 2
+\end{array} \right]
+$$
+
+and
+
+$$
+{\bf AB} = \left[ \begin{array}{cc}
+ 21 & 40 \\ 16 & 41
+\end{array} \right] \,\,\,\,\,\,
+\text{and} \,\,\,\,\,\,
+{\bf BA} = \left[ \begin{array}{cc}
+ 21 & 32 \\ 20 & 41
+\end{array} \right] \, .
+$$
+
+```{r}
+#| label: verify-pmc-531-arithmetic
+#| code-fold: true
+A + B
+A - B
+A %*% B
+B %*% A
+```
+
+[**Multiply matrix by a scalar**]{#sec-pmc-531-scalar}
+
+To multiply a matrix by a given scalar, each element of the matrix is multiplied by that scalar
+
+$$
+2{\bf A} = \left[ \begin{array}{cc}
+ 10 & 12 \\ 6 & 14
+\end{array} \right] \,\,\,\,\,\,
+\text{and} \,\,\,\,\,\,
+0.5{\bf B} = \left[ \begin{array}{cc}
+ 1.5 & 1.0 \\ 0.5 & 2.5
+\end{array} \right] \, .
+$$
+
+```{r}
+#| label: verify-pmc-531-scalar
+#| code-fold: true
+2 * A
+0.5 * B
+```
+
+[**Pre-multiplying matrix by transpose of a vector**]{#sec-pmc-531-pre-multiply}
+
+Pre-multiplying a $p \times n$ matrix by the transpose of a $p$-element vector yields a $n$-element transpose,
+
+$$
+{\bf c}' = {\bf a}'{\bf B} =
+\left[ \begin{array}{cc} a_1 & a_2 \end{array} \right]
+\left[ \begin{array}{ccc}
+b_{11} & b_{12} & b_{13} \\ b_{21} & b_{22} & b_{23}
+\end{array} \right] =
+\left[ \begin{array}{ccc} c_1 & c_2 & c_3 \end{array} \right] \, .
+$$
+
+[**Post-multiplying matrix by vector**]{#sec-pmc-531-post-multiply}
+
+Post-multiplying a $p \times n$ matrix by an $n$-element vector yields an $n$-element vector,
+
+$$
+{\bf c} = {\bf Ba} =
+\left[ \begin{array}{ccc}
+b_{11} & b_{12} & b_{13} \\ b_{21} & b_{22} & b_{23}
+\end{array} \right]
+\left[ \begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array} \right] =
+\left[ \begin{array}{c} c_1 \\ c_2 \end{array} \right] \, .
+$$
+
+[**Quadratic form**]{#sec-pmc-531-quadratic}
+
+It is not possible to pre-multiply a matrix by a column vector, nor to post-multiply a matrix by a row vector. The matrix product ${\bf a}'{\bf Ba}$ yields a scalar and is called a quadratic form. Note that ${\bf B}$ must be a square matrix if ${\bf a}'{\bf Ba}$ is to conform to multiplication. Here is an example of a quadratic form
+
+$$
+{\bf a}'{\bf Ba} =
+\left[ \begin{array}{cc} 2 & 3 \end{array} \right]
+\left[ \begin{array}{cc} 1 & 2 \\ 3 & 1 \end{array} \right]
+\left[ \begin{array}{c} 2 \\ 3 \end{array} \right] =
+\left[ \begin{array}{cc} 11 & 7 \end{array} \right]
+\left[ \begin{array}{c} 2 \\ 3 \end{array} \right] = 43 \, .
+$$
+
+```{r}
+#| label: verify-pmc-531-quadratic
+#| code-fold: true
+a_vec <- c(2, 3)
+B_quad <- matrix(c(1, 3, 2, 1), nrow = 2, byrow = TRUE)
+t(a_vec) %*% B_quad %*% a_vec
+```
+
+[**Inverting a matrix**]{#sec-pmc-531-inverse}
+
+The matrix analog of division involves an operation called *inverting a matrix.* Only square matrices can be inverted. Inversion is a tedious numerical procedure and it is best performed by computers. There are many ways to invert a matrix, but ultimately whichever method is selected by a program is immaterial. If you wish to try one method by hand, a very popular numerical method is the Gauss-Jordan method.
+
+[**Identity matrix**]{#sec-pmc-531-identity}
+
+To augment the notion of the inverse of a matrix, ${\bf A}^{-1}$ (${\bf A}$ inverse) we notice the following relation.
+
+$$ {\bf A}^{-1}{\bf A} = {\bf A A}^{-1} = {\bf I} $$
+
+where ${\bf I}$ is a matrix of form
+
+$$ {\bf I} = \left[ \begin{array}{ccccc}
+1 & 0 & 0 & \cdots & 0 \\
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots &  & \vdots \\
+0 & 0 & 0 & \cdots & 1
+\end{array} \right] \, . $$
+
+${\bf I}$ is called the identity matrix and is a special case of a *diagonal* matrix. Any matrix that has zeros in all of the off-diagonal positions is a diagonal matrix.

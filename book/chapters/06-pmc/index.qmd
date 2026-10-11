@@ -87,3 +87,9 @@ This chapter presents techniques for monitoring and controlling processes and si
 {{< include tutorials/normal-data.qmd >}}
 
 {{< include tutorials/non-normal-data.qmd >}}
+
+{{< include tutorials/matrix-algebra/index.qmd >}}
+
+{{< include tutorials/matrix-algebra/numerical-examples.qmd >}}
+
+{{< include tutorials/matrix-algebra/determinant-eigenstructure.qmd >}}
