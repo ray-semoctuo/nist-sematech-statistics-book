@@ -51,9 +51,8 @@ library(tidyverse)
 
 microwave <- scan(here::here("datasets", "MONITOR-6_5_2.DAT"), skip = 25, quiet = TRUE)
 
-matrix(microwave, ncol = 7, byrow = TRUE) |>
-  as.data.frame() |>
-  knitr::kable(col.names = NULL)
+tibble(Observation = seq_along(microwave), MicrowaveRadiation = microwave) |>
+  knitr::kable(align = "rr")
 ```
 
 [**Table of log-likelihood values for various values of $\lambda$**]{#sec-pmc-52-llf-table}
