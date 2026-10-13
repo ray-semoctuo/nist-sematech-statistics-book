@@ -1,0 +1,131 @@
+### Do two processes have the same standard deviation? {#sec-prc-32}
+
+[**Testing hypotheses related to standard deviations from two processes**]{#sec-prc-32-testing}
+
+Given two random samples of measurements,
+
+$$ Y_1, \, \ldots, \, Y_N \,\,\,\,\, \text{ and } \,\,\,\,\,
+   Z_1, \, \ldots, \, Z_N $$
+
+from two independent processes, there are three types of questions regarding the true standard deviations of the processes that can be addressed with the sample data. They are:
+
+1. Are the standard deviations from the two processes the same?
+2. Is the standard deviation of one process less than the standard deviation of the other process?
+3. Is the standard deviation of one process greater than the standard deviation of the other process?
+
+[**Typical null hypotheses**]{#sec-prc-32-hypotheses}
+
+The corresponding null hypotheses that test the true standard deviation of the first process, $\sigma_1$, against the true standard deviation of the second process, $\sigma_2$, are:
+
+1. $H_0: \sigma_1 = \sigma_2$
+2. $H_0: \sigma_1 \le \sigma_2$
+3. $H_0: \sigma_1 \ge \sigma_2$
+
+[**Basic statistics from the two processes**]{#sec-prc-32-formula}
+
+The basic statistics for the test are the sample variances
+
+$$ s_1^2 = \frac{1}{N_1 - 1} \sum_{i=1}^{N_1} (Y_i - \bar{Y})^2 $$
+
+$$ s_2^2 = \frac{1}{N_2 - 1} \sum_{i=1}^{N_2} (Z_i - \bar{Z})^2 $$
+
+and degrees of freedom $\nu_1 = N_1 - 1$ and $\nu_2 = N_2 - 1$, respectively.
+
+[**Form of the test statistic**]{#sec-prc-32-test-statistic}
+
+The test statistic is
+
+$$ F = \frac{s_1^2}{s_2^2} \, . $$
+
+[**Test strategies**]{#sec-prc-32-test-strategies}
+
+The strategy for testing the [hypotheses under (1), (2) or (3) above](#sec-prc-32-hypotheses) is to calculate the $F$ statistic from the formula above, and then perform a test at significance level $\alpha$, where $\alpha$ is chosen to be small, typically 0.01, 0.05 or 0.10. The hypothesis associated with each case enumerated above is rejected if:
+
+$$ \begin{array}{cl}
+1. & F \le \frac{1}{F_{\alpha/2, \, \nu_2, \, \nu_1}}
+       \text{ or } F \ge F_{\alpha/2, \, \nu_1, \, \nu_2} \\
+2. & F \ge F_{\alpha, \, \nu_1, \, \nu_2} \\
+3. & F \le \frac{1}{F_{\alpha, \, \nu_2, \, \nu_1}}
+\end{array} $$
+
+[**Explanation of critical values**]{#sec-prc-32-critical-values}
+
+The critical values from the $F$ table depend on the significance level and the degrees of freedom in the standard deviations from the two processes. For hypothesis (1):
+
+- $F_{\alpha/2, \, \nu_2, \, \nu_1}$ is the [upper critical value from the F table](#sec-eda-f-distribution-table) with
+- $\nu_2 = N_2-1$ degrees of freedom for the numerator and
+- $\nu_1 = N_1-1$ degrees of freedom for the denominator,
+
+and
+
+- $F_{\alpha/2, \, \nu_1, \, \nu_2}$ is the [upper critical value from the F table](#sec-eda-f-distribution-table) with
+- $\nu_1 = N_1-1$ degrees of freedom for the numerator and
+- $\nu_2 = N_2-1$ degrees of freedom for the denominator.
+
+[**Caution on looking up critical values**]{#sec-prc-32-caution}
+
+The $F$ distribution has the property that
+
+$$ F_{1-\alpha/2, \, \nu_1, \, \nu_2}
+   = \frac{1}{F_{\alpha/2, \, \nu_2, \, \nu_1}} \, ,$$
+
+which means that only upper critical values are required for two-sided tests. However, note that the degrees of freedom are interchanged in the ratio. For example, for a two-sided test at significance level 0.05, go to the $F$ table labeled "2.5% significance level".
+
+- For $F_{\alpha/2, \, \nu_2, \, \nu_1}$, reverse the order of the degrees of freedom; i.e., look across the top of the table for $\nu_2 = N_2-1$ and down the table for $\nu_1 = N_1-1$.
+- For $F_{\alpha/2, \, \nu_1, \, \nu_2}$, look across the top of the table for $\nu_1 = N_1-1$ and down the table for $\nu_2 = N_2-1$.
+
+Critical values for cases (2) and (3) are defined similarly, except that the critical values for the one-sided tests are based on $\alpha$ rather than on $\alpha/2$.
+
+[**Two-sided confidence interval**]{#sec-prc-32-ci}
+
+The two-sided confidence interval for the ratio of the two unknown variances (squares of the standard deviations) is shown below.
+
+**Two-sided confidence interval with $100(1-\alpha)$% coverage for:**
+
+| | |
+|---|---|
+| $\dfrac{\sigma_1^2}{\sigma_2^2}$ | $\dfrac{1}{F_{\alpha/2, \, N_1 - 1, \, N_2 - 1}} \left( \dfrac{s_1^2}{s_2^2} \right) \, , \,\,\, F_{\alpha/2, \, N_2 - 1, \, N_1 - 1} \left( \dfrac{s_1^2}{s_2^2} \right)$ |
+
+One interpretation of the confidence interval is that if the quantity "one" is contained within the interval, the standard deviations are equivalent.
+
+[**Example of unequal number of data points**]{#sec-prc-32-example}
+
+A new procedure to assemble a device is introduced and tested for possible improvement in time of assembly. The question being addressed is whether the standard deviation, $\sigma_2$, of the new assembly process is better (i.e., smaller) than the standard deviation, $\sigma_1$, for the old assembly process. Therefore, we test the null hypothesis that $\sigma_1 \le \sigma_2$. We form the hypothesis in this way because we hope to reject it, and therefore accept the alternative that $\sigma_2$ is less than $\sigma_1$. This is [hypothesis (2)](#sec-prc-32-hypotheses). Data ([in minutes required to assemble a device](#sec-prc-31-example)) for both the old and new processes are listed on an earlier page. Relevant statistics are shown below:
+
+```
+                  Process 1             Process 2
+
+Mean                36.0909               32.2222
+Standard deviation   4.9082                2.5386
+No. measurements         11                     9
+Degrees freedom          10                     8
+```
+
+[**Computation of the test statistic**]{#sec-prc-32-computation}
+
+From this table we generate the test statistic
+
+```{r}
+#| label: verify-prc-32-example
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+s1 <- 4.9082
+s2 <- 2.5386
+nu1 <- 10
+nu2 <- 8
+
+F_stat <- (s1 / s2)^2
+F_crit <- qf(0.95, nu1, nu2)
+
+tibble(Statistic = c("F", "Critical value $F_{0.95,10,8}$"), Value = c(F_stat, F_crit)) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+$$ F = \frac{s_1^2}{s_2^2} =
+     \left( \frac{4.9082}{2.5386} \right)^2 = 3.74 \, . $$
+
+[**Decision process**]{#sec-prc-32-decision}
+
+For a test at the 5% significance level, go to the [$F$ table for 5% significance level](#sec-eda-f-distribution-table), and look up the critical value for numerator degrees of freedom $\nu_1 = N_1-1 = 10$ and denominator degrees of freedom $\nu_2 = N_2 - 1 = 8$. The critical value is 3.35. Thus, hypothesis (2) can be rejected because the test statistic (F = 3.74) is greater than 3.35. Therefore, we accept the alternative hypothesis that process 2 has better precision (smaller standard deviation) than process 1.
