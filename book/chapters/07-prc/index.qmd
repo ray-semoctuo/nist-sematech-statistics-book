@@ -52,3 +52,5 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-one-process/proportion-defective/confidence-intervals.qmd >}}
 
 {{< include comparisons-one-process/proportion-defective/sample-sizes.qmd >}}
+
+{{< include comparisons-one-process/defect-density/index.qmd >}}

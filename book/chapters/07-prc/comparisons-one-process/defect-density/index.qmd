@@ -1,0 +1,92 @@
+### Does the defect density meet requirements? {#sec-prc-25}
+
+[**Testing defect densities is based on the Poisson distribution**]{#sec-prc-25-poisson}
+
+The number of defects observed in an area of size $A$ units is often assumed to have a [Poisson distribution](#sec-eda-poisson-distribution) with parameter $A \times D$, where $D$ is the actual process defect density ($D$ is defects per unit area). In other words:
+
+$$ P(\text{Number of Defects } = n) = \frac{(AD)^n}{n!} e^{-AD} \, . $$
+
+The questions of primary interest for quality control are:
+
+1. Is the defect density within prescribed limits?
+2. Is the defect density less than a prescribed limit?
+3. Is the defect density greater than a prescribed limit?
+
+[**Normal approximation to the Poisson**]{#sec-prc-25-normal-approximation}
+
+We assume that $AD$ is large enough so that the normal approximation to the Poisson applies (in other words, $AD >$ 10 for a reasonable approximation and $AD >$ 20 for a good one). That translates to
+
+$$ P(\text{Number of Defects } < n)
+   = \Phi \left( \frac{n-AD}{\sqrt{AD}} \right) \, , $$
+
+where $\Phi$ is the standard normal distribution function.
+
+[**Test statistic based on a normal approximation**]{#sec-prc-25-test-statistic}
+
+If, for a sample of area $A$ with a defect density target of $D_0$, a defect count of $C$ is observed, then the test statistic,
+
+$$ Z = \frac{C - AD_0}{\sqrt{AD_0}} \, , $$
+
+can be used exactly as shown in the discussion of the test statistic for [fraction defectives](#sec-prc-24) in the preceding section.
+
+[**Testing the hypothesis that the process defect density is less than or equal to $D_0$**]{#sec-prc-25-ruleofthumb}
+
+For example, after choosing a sample size of area $A$ (see below for sample size calculation) we can reject that the process defect density is less than or equal to the target $D_0$ if the number of defects $C$ in the sample is greater than $C_A$, where
+
+$$ C_A = z_{1-\alpha} \sqrt{AD_0} + AD_0 \, , $$
+
+and $z_{1-\alpha}$ is the $100(1-\alpha)$ percentile of the standard normal distribution. The test significance level is $100(1-\alpha)$. For a 90% significance level use $z_{0.90}$ = 1.282 and for a 95% test use $z_{0.95}$ = 1.645. $\alpha$ is the maximum risk that an acceptable process with a defect density at least as low as $D_0$ "fails" the test.
+
+[**Choice of sample size (or area) to examine for defects**]{#sec-prc-25-sample-size}
+
+In order to determine a suitable area $A$ to examine for defects, you first need to choose an unacceptable defect density level. Call this unacceptable defect density $D_1 = k D_0$, where $k >$ 1.
+
+We want to have a probability of less than or equal to $\beta$ is of "passing" the test (and not rejecting the hypothesis that the true level is $D_0$ or better) when, in fact, the true defect level is $D_1$ or worse. Typically $\beta$ will be 0.2, 0.1 or 0.05. Then we need to count defects in a sample size of area $A$, where $A$ is equal to
+
+$$ A = \frac{k}{D_0} \left( \frac{\frac{z_{1-\alpha}}
+       {\sqrt{k}} - z_\beta} {k-1} \right)^2 \, . $$
+
+[**Example**]{#sec-prc-25-example}
+
+Suppose the target is $D_0$ = 4 defects per wafer and we want to verify a new process meets that target. We choose $\alpha$ = 0.1 to be the chance of failing the test if the new process is as good as $D_0$ ($\alpha$ = the Type I error probability or the "producer's risk") and we choose $\beta$ = 0.1 for the chance of passing the test if the new process is as bad as 6 defects per wafer ($\beta$ = the Type II error probability or the "consumer's risk"). That means $z_{1-\alpha}$ = 1.282 and $z_{\beta}$ = -1.282.
+
+The sample size needed is $A$ wafers, where
+
+```{r}
+#| label: verify-prc-25-example
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+alpha <- 0.1
+beta <- 0.1
+D0 <- 4
+D1 <- 6
+k <- D1 / D0
+
+z_1_alpha <- qnorm(1 - alpha)
+z_beta <- qnorm(beta)
+
+A <- (k / D0) * ((z_1_alpha / sqrt(k) - z_beta) / (k - 1))^2
+A_rounded <- ceiling(A)
+C_A <- z_1_alpha * sqrt(A_rounded * D0) + A_rounded * D0
+
+tibble(
+  Statistic = c("$z_{1-\\alpha}$", "$z_\\beta$", "A", "A (rounded up)", "$C_A$"),
+  Value = c(z_1_alpha, z_beta, A, A_rounded, C_A)
+) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+$$ A = \frac{1.5}{4} \left( \frac{\frac{1.282}{\sqrt{1.5}} -
+       (-1.282)}{k-1} \right) ^ 2 = 8.1 \, , $$
+
+which we round up to 9.
+
+The test criteria is to "accept" that the new process meets target unless the number of defects in the sample of 9 wafers exceeds
+
+$$ C_A = z_{1-\alpha} \sqrt{AD_0} + AD_0 = 1.282 \sqrt{36} + 36 = 43.7 \, . $$
+
+In other words, the reject criteria for the test of the new process is 44 or more defects in the sample of 9 wafers.
+
+Note: Technically, all we can say if we run this test and end up *not rejecting* is that we do not have statistically significant evidence that the new process exceeds target. However, the way we chose the sample size for this test assures us we most likely would have had statistically significant evidence for rejection if the process had been as bad as 1.5 times the target.
