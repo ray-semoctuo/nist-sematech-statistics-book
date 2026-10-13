@@ -1,0 +1,147 @@
+### How can we compare the results of classifying according to several categories? {#sec-prc-45}
+
+[**Contingency Table approach**]{#sec-prc-45-contingency-table}
+
+When items are classified according to two or more criteria, it is often of interest to decide whether these criteria act independently of one another.
+
+For example, suppose we wish to classify defects found in wafers produced in a manufacturing plant, first according to the type of defect and, second, according to the production shift during which the wafers were produced. If the proportions of the various types of defects are constant from shift to shift, then classification by defects is independent of the classification by production shift. On the other hand, if the proportions of the various defects vary from shift to shift, then the classification by defects depends upon or is *contingent* upon the shift classification and the classifications are dependent.
+
+In the process of investigating whether one method of classification is contingent upon another, it is customary to display the data by using a cross classification in an array consisting of $r$ rows and $c$ columns called a *contingency table*. A contingency table consists of $r \times c$ cells representing the $r \times c$ possible outcomes in the classification process. Let us construct an industrial case.
+
+[**Industrial example**]{#sec-prc-45-example}
+
+A total of 309 wafer defects were recorded and the defects were classified as being one of four types, $A, \, B, \, C,$ or $D$. At the same time each wafer was identified according to the production shift in which it was manufactured, 1, 2, or 3.
+
+[**Contingency table classifying defects in wafers according to type and production shift**]{#sec-prc-45-contingency-data}
+
+These counts are presented in the following table.
+
+```{r}
+#| label: tbl-prc-45-contingency
+#| tbl-cap: "Observed (expected) frequencies by shift and defect type"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+defects <- matrix(c(15, 21, 45, 13, 26, 31, 34, 5, 33, 17, 49, 20), nrow = 3, byrow = TRUE)
+dimnames(defects) <- list(Shift = c("1", "2", "3"), Type = c("A", "B", "C", "D"))
+
+row_totals <- rowSums(defects)
+col_totals <- colSums(defects)
+n_total <- sum(defects)
+expected <- outer(row_totals, col_totals) / n_total
+
+display <- matrix(
+  paste0(defects, "(", sprintf("%.2f", expected), ")"),
+  nrow = 3, dimnames = dimnames(defects)
+)
+
+as_tibble(display, rownames = "Shift") |>
+  mutate(Total = row_totals) |>
+  bind_rows(tibble(Shift = "Total", A = as.character(col_totals["A"]), B = as.character(col_totals["B"]), C = as.character(col_totals["C"]), D = as.character(col_totals["D"]), Total = n_total)) |>
+  knitr::kable(align = "lrrrrr")
+```
+
+(Note: the numbers in parentheses are the expected cell frequencies).
+
+[**Column probabilities**]{#sec-prc-45-column-probabilities}
+
+Let $p_A$ be the probability that a defect will be of type A. Likewise, define $p_B, \, p_C,$ and $p_D$ as the probabilities of observing the other three types of defects. These probabilities, which are called the *column probabilities*, will satisfy the requirement
+
+$$ p_A + p_B + p_C + p_D = 1 \, . $$
+
+[**Row probabilities**]{#sec-prc-45-row-probabilities}
+
+By the same token, let $p_i (i = 1, \, 2, \, 3)$ be the **row probability** that a defect will have occurred during shift $i$, where
+
+$$ p_1 + p_2 + p_3 = 1 \, . $$
+
+[**Multiplicative Law of Probability**]{#sec-prc-45-multiplicative-law}
+
+**Then if the two classifications are independent of each other, a cell probability will equal the product of its respective row and column probabilities in accordance with the Multiplicative Law of Probability.**
+
+[**Example of obtaining column and row probabilities**]{#sec-prc-45-prob-example}
+
+For example, the probability that a particular defect will occur in shift 1 and is of type $A$ is $(p_1)(p_A)$. While the numerical values of the cell probabilities are unspecified, the null hypothesis states that each cell probability will equal the product of its respective row and column probabilities. This condition implies independence of the two classifications. The alternative hypothesis is that this equality does not hold for at least one cell.
+
+In other words, we state the null hypothesis as $H_0$: the two classifications are independent, while the alternative hypothesis is $H_1$: the classifications are dependent.
+
+To obtain the observed column probability, divide the column total by the grand total, $n$. Denoting the total of column $j$ as $c_j$, we get
+
+```{r}
+#| label: verify-prc-45-probs
+#| code-fold: true
+col_probs <- col_totals / n_total
+row_probs <- row_totals / n_total
+
+tibble(Defect = names(col_probs), `$\\hat{p}$` = col_probs) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+$$ \begin{aligned}
+\hat{p}_A = \frac{c_1}{n} = \frac{74}{309} & \,\,\,\,\, & \hat{p}_C = \frac{c_3}{n} = \frac{128}{309} \\
+\hat{p}_B = \frac{c_2}{n} = \frac{69}{309} & \,\,\,\,\, & \hat{p}_D = \frac{c_4}{n} = \frac{38}{309} \, .\\
+\end{aligned} $$
+
+Similarly, the row probabilities $p_1, \, p_2,$ and $p_3$ are estimated by dividing the row totals $r_1, \, r_2,$ and $r_3$ by the grand total $n$, respectively.
+
+```{r}
+#| label: verify-prc-45-row-probs
+#| code-fold: true
+tibble(Shift = names(row_probs), `$\\hat{p}$` = row_probs) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+$$ \begin{aligned}
+\hat{p_1} & = \frac{r_1}{n} = \frac{94}{309} \\
+\hat{p_2} & = \frac{r_2}{n} = \frac{96}{309} \\
+\hat{p_3} & = \frac{r_3}{n} = \frac{119}{309} \\
+\end{aligned} $$
+
+[**Expected cell frequencies**]{#sec-prc-45-expected-frequencies}
+
+Denote the observed frequency of the cell in row $i$ and column $j$ of the contingency table by $n_{ij}$. Then we have
+
+$$ \hat{E}(n_{ij}) = n(\hat{p}_i \, \hat{p}_j) = n \, \left( \frac{r_i}{n} \right) \left( \frac{c_j}{n} \right)
+    = \frac{r_i \cdot c_j}{n} \, . $$
+
+[**Estimated expected cell frequency when $H_0$ is true**]{#sec-prc-45-expected-h0}
+
+In other words, when the row and column classifications are independent, the estimated expected value of the observed cell frequency $n_{ij}$ in an $r \times c$ contingency table is equal to the product of its respective row and column totals divided by the total frequency.
+
+$$ \hat{E}(n_{ij}) = \frac{r_i \cdot c_j}{n} $$
+
+The estimated cell frequencies are shown in parentheses in the contingency table above.
+
+[**Test statistic**]{#sec-prc-45-test-statistic}
+
+From here we use the expected and observed frequencies shown in the table to calculate the value of the test statistic.
+
+```{r}
+#| label: verify-prc-45-chisq
+#| code-fold: true
+chi2_stat <- sum((defects - expected)^2 / expected)
+chi2_crit <- qchisq(0.95, 6)
+p_value <- 1 - pchisq(chi2_stat, 6)
+
+tibble(Statistic = c("$\\chi^2$", "Critical value $\\chi^2_{0.95,6}$", "$p$-value"), Value = c(chi2_stat, chi2_crit, p_value)) |>
+  knitr::kable(digits = 5, align = "lr")
+```
+
+$$ \begin{aligned}
+\chi^2 & = \sum_{i=1}^3 \sum_{j=1}^4 \frac{[n_{ij} - \hat{E}(n_{ij})]^2}{\hat{E}(n_{ij})} \\
+\chi^2 & = \frac{(15 - 22.51)^2}{22.51} + \frac{(26 - 22.99)^2}{22.99} +
+   \cdots + \frac{(20 - 14.63)^2}{14.63} = 19.18 \\
+\end{aligned} $$
+
+[**Degrees of freedom = $(r-1)(c-1)$**]{#sec-prc-45-degrees-of-freedom}
+
+The next step is to find the appropriate number of degrees of freedom associated with the test statistic. Leaving out the details of the derivation, we state the result:
+
+> *The number of degrees of freedom associated with a contingency table consisting of $r$ rows and $c$ columns is $(r-1)(c-1)$.*
+
+So for our example we have (3-1) (4-1) = 6 degrees of freedom.
+
+[**Testing the null hypothesis**]{#sec-prc-45-testing}
+
+In order to test the null hypothesis, we compare the test statistic with the critical value of $\chi_{1 - \alpha}^2$ at a selected value of $\alpha$. Let us use $\alpha$ = 0.05. Then the critical value is $\chi_{0.95, \, 6}^2$ = 12.5916 (see the [chi square table](#sec-eda-chi-square-distribution-table) in Chapter 1). Since the test statistic of 19.18 exceeds the critical value, we reject the null hypothesis and conclude that there is significant evidence that the proportions of the different defect types vary from shift to shift. In this case, the $p$-value of the test statistic is 0.00387.
