@@ -1,0 +1,14 @@
+### What intervals contain a fixed percentage of the population values? {#sec-prc-26}
+
+[**Observations tend to cluster around the median or mean**]{#sec-prc-26-clustering}
+
+Empirical studies have demonstrated that it is typical for a large number of the observations in any study to cluster near the median. In right-skewed data this clustering takes place to the left of (i.e., below) the median and in left-skewed data the observations tend to cluster to the right (i.e., above) the median. In symmetrical data, where the median and the mean are the same, the observations tend to distribute equally around these measures of central tendency.
+
+[**Various methods**]{#sec-prc-26-methods}
+
+Several types of intervals about the mean that contain a large percentage of the population values are discussed in this section.
+
+- [Approximate intervals that contain most of the population values](#sec-prc-261)
+- [Percentiles](#sec-prc-262)
+- [Tolerance intervals for a normal distribution](#sec-prc-263)
+- [Tolerance intervals based on the smallest and largest observations](#sec-prc-264)

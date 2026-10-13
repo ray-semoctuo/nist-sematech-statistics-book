@@ -1,0 +1,101 @@
+#### Percentiles {#sec-prc-262}
+
+[**Definitions of order statistics and ranks**]{#sec-prc-262-order-statistics}
+
+For a series of measurements $Y_1, \, \ldots, \, Y_N$, denote the data ordered in increasing order of magnitude by $Y_{[1]}, \, \ldots, \, Y_{[N]}$. These ordered data are called order statistics. If $Y_{[j]}$ is the order statistic that corresponds to the measurement $Y_i$, then the rank for $Y_i$ is $j$; i.e.,
+
+$$ Y_{[j]} \sim Y_i \,\, \Longrightarrow \,\, r_i = j \, .$$
+
+[**Definition of percentiles**]{#sec-prc-262-definition}
+
+Order statistics provide a way of estimating proportions of the data that should fall above and below a given value, called a *percentile*. The $p$th percentile is a value, $Y_{(p)}$, such that at most $(100 p)$% of the measurements are less than this value and at most $100(1-p)$% are greater. The 50th percentile is called the *median*.
+
+Percentiles split a set of ordered data into hundredths. (Deciles split ordered data into tenths). For example, 70% of the data should fall below the 70th percentile.
+
+Given $n$ points, the percentile corresponding to the $i$-th point is
+
+$$ \frac{i}{n+1} $$
+
+More typically we start with a desired percentile value and this percentile of interest may not correspond to a specific data point. In this case, interpolation between points is required. There is not a standard universally accepted way to perform this interpolation. After describing our default method, several alternative methods are given. All of the methods discussed here are used in practice.
+
+[**Estimation of percentiles**]{#sec-prc-262-estimation}
+
+Percentiles can be estimated from $N$ measurements as follows: for the $p$th percentile, set $p(N+1)$ equal to $k + d$ for $k$ an integer, and $d$, a fraction greater than or equal to 0 and less than 1.
+
+1. For $0 \lt k \lt N, \,\,\,\,\,
+   Y_{(p)} = Y_{[k]} + d \left( Y_{[k+1]} - Y_{[k]} \right)$
+2. For $k = 0, \,\,\,\,\, Y_{(p)} = Y_{[1]}$
+
+   Note that any $p \le$ 1/($N$+1) will simply be set to the minimum value.
+3. For $k \ge N, \,\,\,\,\, Y_{(p)} = Y_{[N]}$
+
+   Note that any $p \ge$ $N$/($N$+1) will simply be set to the maximum value.
+
+[**Example and interpretation**]{#sec-prc-262-example}
+
+For the purpose of illustration, twelve measurements from a [gage study](#sec-mpc-6111) are shown below. The measurements are resistivities of silicon wafers measured in ohm$\cdot$cm.
+
+```{r}
+#| label: tbl-prc-262-data
+#| tbl-cap: "Resistivity measurements, order statistics, and ranks"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+resistivity <- c(95.1772, 95.1567, 95.1937, 95.1959, 95.1442, 95.0610, 95.1591, 95.1195, 95.1065, 95.0925, 95.1990, 95.1682)
+
+tibble(
+  i = seq_along(resistivity),
+  Measurement = resistivity,
+  `Order stat.` = sort(resistivity),
+  Rank = rank(resistivity)
+) |>
+  knitr::kable(digits = 4, align = "rrrr")
+```
+
+To find the 90th percentile, $p(N+1)$ = 0.9(13) = 11.7; $k$ = 11, and $d$ = 0.7. From condition (1) above, $Y_{(90)}$ is estimated to be
+
+```{r}
+#| label: verify-prc-262-r6
+#| code-fold: true
+y90_r6 <- quantile(resistivity, 0.90, type = 6, names = FALSE)
+y90_r6
+```
+
+95.1981 ohm$\cdot$cm. This percentile, although it is an estimate from a small sample of resistivities measurements, gives an indication of the percentile for a population of resistivity measurements.
+
+[**Note that there are other ways of calculating percentiles in common use**]{#sec-prc-262-other-methods}
+
+Hyndman and Fan [-@HyndmanFan1996] in an American Statistician article evaluated nine different methods (we will refer to these as R1 through R9) for computing percentiles relative to six desirable properties. Their goal was to advocate a "standard" definition for percentiles that would be implemented in statistical software. Although this has not in fact happened, the article does provide a useful summary and evaluation of various methods for computing percentiles. Most statistical and spreadsheet software use one of the methods described in Hyndman and Fan.
+
+The method described above corresponds to method R6 of Hyndman and Fan. This is the default method used by Dataplot.
+
+The method advocated by Hyndman and Fan is R8. For the R8 method, set $p(N+(1/3)) + (1/3)$ and proceed as above. Note that any $p \le$ (2/3)/($N$+(1/3)) will be set to the minimum value and any $p \ge$ ($N$-(1/3))/($N$+(1/3)) will be set to the maximum value. Both R and Dataplot can optionally use this method. For the example given above, R8 gives
+
+```{r}
+#| label: verify-prc-262-r8
+#| code-fold: true
+y90_r8 <- quantile(resistivity, 0.90, type = 8, names = FALSE)
+y90_r8
+```
+
+95.1972 (compared to 95.1981) for the 90-th percentile.
+
+Some software packages set $1 + p(N-1)$ equal to $k + d$ and then proceed as above. This is method R7 of Hyndman and Fan. This is the method used by Excel and is the default method for R (the R `quantile` function can optionally use any of the nine methods discussed in Hyndman and Fan). For the example given above, R7 gives
+
+```{r}
+#| label: verify-prc-262-r7
+#| code-fold: true
+y90_r7 <- quantile(resistivity, 0.90, type = 7, names = FALSE)
+y90_r7
+```
+
+95.1957.
+
+The R6, R7, and R8 methods give fairly similar, but not exactly the same (particularly for small samples), results. For most purposes, any of these three methods should be acceptable.
+
+Another method of calculating percentiles (given in some elementary textbooks) starts by calculating $p N$. If that is not an integer, round up to the next highest integer $k$ and use $Y_{[k]}$ as the percentile estimate. If $p N$ is an integer $k$, use $0.5 \left( Y_{[k]} + Y_{[k+1]} \right)$. One of R6, R7, or R8 would typically be preferred to this method.
+
+[**Definition of Tolerance Interval**]{#sec-prc-262-tolerance-interval}
+
+An interval covering population percentiles can be interpreted as "covering a proportion $p$ of the population with a level of confidence, say, 90%." This is known as a [tolerance interval](#sec-prc-263).

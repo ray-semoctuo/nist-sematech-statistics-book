@@ -1,0 +1,29 @@
+#### Approximate intervals that contain most of the population values {#sec-prc-261}
+
+[**Empirical intervals**]{#sec-prc-261-empirical}
+
+A rule of thumb is that where there is no evidence of significant skewness or clustering, two out of every three observations (67%) should be contained within a distance of one standard deviation of the mean; 90% to 95% of the observations should be contained within a distance of two standard deviations of the mean; 99-100% should be contained within a distance of three standard deviations. This rule can help identify outliers in the data.
+
+[**Intervals that apply to any distribution**]{#sec-prc-261-any-distribution}
+
+The **Bienayme-Chebyshev** rule states that regardless of how the data are distributed, the percentage of observations that are contained within a distance of $k$ standard deviations of the mean is at least $100(1-1/k^2)$%.
+
+[**Exact intervals for the normal distribution**]{#sec-prc-261-exact-normal}
+
+The Bienayme-Chebyshev rule is conservative because it applies to any distribution. For a *normal* distribution, a higher percentage of the observations are contained within $k$ standard deviations of the mean as shown in the following table.
+
+```{r}
+#| label: tbl-prc-261-intervals
+#| tbl-cap: "Percentage of observations contained between the mean and k standard deviations"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+tibble(
+  k = 1:4,
+  `Empirical Rule` = c("67%", "90-95%", "99-100%", "N/A"),
+  `Bienayme-Chebyshev` = c("N/A", "at least 75%", "at least 88.89%", "at least 93.75%"),
+  `Normal Distribution` = str_c(round((pnorm(1:4) - pnorm(-(1:4))) * 100, 2), "%")
+) |>
+  knitr::kable(align = "lccc", col.names = c("$k$, No. of Standard Deviations", "Empirical Rule", "Bienayme-Chebyshev", "Normal Distribution"))
+```

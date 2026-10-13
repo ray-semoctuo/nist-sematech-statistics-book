@@ -54,3 +54,13 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-one-process/proportion-defective/sample-sizes.qmd >}}
 
 {{< include comparisons-one-process/defect-density/index.qmd >}}
+
+{{< include comparisons-one-process/population-intervals/index.qmd >}}
+
+{{< include comparisons-one-process/population-intervals/empirical-intervals.qmd >}}
+
+{{< include comparisons-one-process/population-intervals/percentiles.qmd >}}
+
+{{< include comparisons-one-process/population-intervals/tolerance-intervals-normal.qmd >}}
+
+{{< include comparisons-one-process/population-intervals/tolerance-intervals-extremes.qmd >}}
