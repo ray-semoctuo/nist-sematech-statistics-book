@@ -1,0 +1,138 @@
+#### One-way ANOVA calculations {#sec-prc-434}
+
+[**Formulas for one-way ANOVA hand calculations**]{#sec-prc-434-formulas}
+
+Although computer programs that do ANOVA calculations now are common, for reference purposes this page describes how to calculate the various entries in an ANOVA table. Remember, the goal is to produce two variances (of treatments and error) and their ratio. The various computational formulas will be shown and applied to the data from the previous [example](#sec-prc-433-example).
+
+```{r}
+#| label: setup-prc-434
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+level1 <- c(6.9, 5.4, 5.8, 4.6, 4.0)
+level2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
+level3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
+y <- c(level1, level2, level3)
+N_total <- length(y)
+```
+
+[**Step 1: compute $CM$**]{#sec-prc-434-step1}
+
+**STEP 1** Compute $CM$, the correction for the mean.
+
+```{r}
+#| label: verify-prc-434-cm
+#| code-fold: true
+CM <- sum(y)^2 / N_total
+CM
+```
+
+$$ CM = \frac{ \left( \sum_{i=1}^3 \sum_{j=1}^5 y_{ij} \right)^2}{N_{total}} =
+\frac{(\text{Total of all observations})^2}{N_{total}} = \frac{(108.1)^2}{15} = 779.041 $$
+
+[**Step 2: compute $SS(Total)$**]{#sec-prc-434-step2}
+
+**STEP 2** Compute the total $SS$.
+
+The total $SS$ = $SS(Total)$ = sum of squares of all observations $- CM$.
+
+```{r}
+#| label: verify-prc-434-sstotal
+#| code-fold: true
+raw_ss <- sum(y^2)
+ss_total <- raw_ss - CM
+
+tibble(Statistic = c("Raw sum of squares", "$CM$", "$SS(Total)$"), Value = c(raw_ss, CM, ss_total)) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+$$ \begin{aligned}
+SS(Total) & = \sum_{i=1}^3 \sum_{j=1}^5 y_{ij}^2 - CM \\
+          & = (6.9)^2 + (5.4)^2 + \ldots + (6.9)^2 + (9.3)^2 - CM \\
+          & = 824.390 - 779.041 = 45.349
+\end{aligned} $$
+
+The value of 824.390 is called the "raw" or "uncorrected" sum of squares.
+
+::: {.callout-note}
+NIST's original page states the raw sum of squares as 829.390 and the resulting total as 829.390 - 779.041 = 45.439. Both numbers are arithmetic slips: the raw sum of squares of the 15 observations is 824.390 (not 829.390), and 824.390 - 779.041 = 45.349, which matches the $SS(Total)$ already given in the [ANOVA table on the preceding page](#sec-prc-433-example-table). We give the corrected values here.
+:::
+
+[**Step 3: compute $SST$**]{#sec-prc-434-step3}
+
+**STEP 3** Compute $SST$, the treatment sum of squares.
+
+First we compute the total (sum) for each treatment.
+
+```{r}
+#| label: verify-prc-434-totals
+#| code-fold: true
+T1 <- sum(level1)
+T2 <- sum(level2)
+T3 <- sum(level3)
+
+tibble(Treatment = c("$T_1$", "$T_2$", "$T_3$"), Total = c(T1, T2, T3)) |>
+  knitr::kable(digits = 1, align = "lr")
+```
+
+$$ \begin{aligned}
+T_1 & = 6.9 + 5.4 + \ldots + 4.0 = 26.7 \\
+T_2 & = 8.3 + 6.8 + \ldots + 6.5 = 38.6 \\
+T_3 & = 8.0 + 10.5 + \ldots + 9.3 = 42.8
+\end{aligned} $$
+
+Then,
+
+```{r}
+#| label: verify-prc-434-sst
+#| code-fold: true
+SST <- T1^2 / 5 + T2^2 / 5 + T3^2 / 5 - CM
+SST
+```
+
+$$ SST = \sum_{i=1}^3 \frac{T_i^2}{n_i} - CM = \frac{(26.7)^2}{5} +
+         \frac{(38.6)^2}{5} + \frac{(42.8)^2}{5} - 779.041 = 27.897 \, . $$
+
+[**Step 4: compute $SSE$**]{#sec-prc-434-step4}
+
+**STEP 4** Compute $SSE$, the error sum of squares.
+
+Here we utilize the property that the treatment sum of squares plus the error sum of squares equals the total sum of squares. Hence,
+
+```{r}
+#| label: verify-prc-434-sse
+#| code-fold: true
+SSE <- ss_total - SST
+SSE
+```
+
+$$ SSE = SS(Total) - SST = 45.349 - 27.897 = 17.452 \, . $$
+
+[**Step 5: Compute $MST$, $MSE$, and $F$**]{#sec-prc-434-step5}
+
+**STEP 5** Compute $MST$, $MSE$, and their ratio, $F$.
+
+$MST$ is the mean square of treatments, $MSE$ is the mean square of error ($MSE$ is also frequently denoted by $\hat{\sigma}_e^2$).
+
+```{r}
+#| label: verify-prc-434-mst-mse-f
+#| code-fold: true
+k <- 3
+MST <- SST / (k - 1)
+MSE <- SSE / (N_total - k)
+F_stat <- MST / MSE
+
+tibble(Statistic = c("$MST$", "$MSE$", "$F$"), Value = c(MST, MSE, F_stat)) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+$$ MST = \frac{SST}{k-1} = \frac{27.897}{2} = 13.949 $$
+
+$$ MSE = \frac{SSE}{N-k} = \frac{17.452}{12} = 1.454 $$
+
+where $N$ is the total number of observations and $k$ is the number of treatments. Finally, compute $F$ as
+
+$$ F = \frac{MST}{MSE} = 9.59 \, . $$
+
+That is it. These numbers are the quantities that are assembled in the [ANOVA table](#sec-prc-433-example-table) that was shown previously.
