@@ -1,0 +1,122 @@
+#### Models and calculations for the two-way ANOVA {#sec-prc-438}
+
+**Basic Layout**
+
+[**The balanced two-way factorial layout**]{#sec-prc-438-layout}
+
+Factor $A$ has 1, 2, ..., $a$ levels. Factor $B$ has 1, 2, ..., $b$ levels. There are $ab$ treatment combinations (or cells) in a complete factorial layout. Assume that each treatment cell has $r$ independent observations (known as replications). When each cell has the same number of replications, the design is a *balanced factorial*. In this case, the $abr$ data points $\{y_{ijk}\}$ can be shown pictorially as follows:
+
+$$ \begin{array}{cccc}
+                   &                                & \text{Factor } B \\
+\text{Factor } A   & 1                              & 2                                          & \ldots & b                                          \\
+1      & y_{111}, \, y_{112}, \, \ldots, \, y_{11r} & y_{121}, \, y_{122}, \, \ldots, \, y_{12r} & \ldots & y_{1b1}, \, y_{1b2}, \, \ldots, \, y_{1br} \\
+2      & y_{211}, \, y_{212}, \, \ldots, \, y_{21r} & y_{221}, \, y_{222}, \, \ldots, \, y_{22r} & \ldots & y_{2b1}, \, y_{2b2}, \, \ldots, \, y_{2br} \\
+\vdots & \vdots                                     & \vdots                                     & \ldots & \vdots                                     \\
+a      & y_{a11}, \, y_{a12}, \, \ldots, \, y_{a1r} & y_{a21}, \, y_{a22}, \, \ldots, \, y_{a2r} & \ldots & y_{ab1}, \, y_{ab2}, \, \ldots, \, y_{abr} \\
+\end{array} $$
+
+[**How to obtain sums of squares for the balanced factorial layout**]{#sec-prc-438-sums-of-squares}
+
+Next, we will calculate the sums of squares needed for the ANOVA table.
+
+- Let $A_i$ be the sum of all observations of level $i$ of factor $A$, $i = 1, \, \ldots, \, a$. The $A_i$ are the row sums.
+- Let $B_j$ be the sum of all observations of level $j$ of factor $B$, $j = 1, \, \ldots, b$. The $B_j$ are the column sums.
+- Let $(AB)_{ij}$ be the sum of all observations of level $i$ of $A$ and level $j$ of $B$. These are cell sums.
+- Let $r$ be the number of replicates in the experiment; that is: the number of times each factorial treatment combination appears in the experiment.
+
+Then the total number of observations for each level of factor $A$ is $rb$ and the total number of observations for each level of factor B is $ra$ and the total number of observations for each interaction is $r$.
+
+Finally, the total number of observations $n$ in the experiment is $abr$.
+
+With the help of these expressions, we obtain (omitting derivations):
+
+$$ \begin{aligned}
+\text{CM } & = \frac{(\text{Sum of all observations})^2}{rab} \\
+SS_{total} & = \sum (\text{each observation})^2 - CM \\
+SS(A)      & = \frac{\sum_{i=1}^a A_i^2}{rb} - CM \\
+SS(B)      & = \frac{\sum_{j=1}^b B_j^2}{ra} - CM \\
+SS(AB)     & = \frac{\sum_{i=1}^a \sum_{j=1}^b (AB)_{ij}^2}{r} - CM - SS(A) - SS(B) \\
+SSE        & = SS_{total} - SS(A) - SS(B) - SS(AB)
+\end{aligned} $$
+
+These expressions are used to calculate the ANOVA table entries for the (fixed effects) two-way ANOVA.
+
+**Two-Way ANOVA Example:**
+
+[**Data**]{#sec-prc-438-data}
+
+An evaluation of a new coating applied to 3 different materials was conducted at 2 different laboratories. Each laboratory tested 3 samples from each of the treated materials. The results are given in the next table:
+
+```{r}
+#| label: tbl-prc-438-data
+#| tbl-cap: "Coating evaluation data by lab and material"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+coating_data <- tibble(
+  Lab = factor(rep(c(1, 2), each = 9)),
+  Material = factor(rep(rep(1:3, each = 3), 2)),
+  Response = c(
+    4.1, 3.9, 4.3, 3.1, 2.8, 3.3, 3.5, 3.2, 3.6,
+    2.7, 3.1, 2.6, 1.9, 2.2, 2.3, 2.7, 2.3, 2.5
+  )
+)
+
+coating_data |>
+  mutate(Replicate = row_number(), .by = c(Lab, Material)) |>
+  pivot_wider(names_from = Material, values_from = Response, names_prefix = "Material ") |>
+  arrange(Lab, Replicate) |>
+  select(-Replicate) |>
+  knitr::kable(align = "lrrr")
+```
+
+[**Row and column sums**]{#sec-prc-438-row-column-sums}
+
+The preliminary part of the analysis yields a table of row and column sums.
+
+```{r}
+#| label: tbl-prc-438-sums
+#| tbl-cap: "Row and column sums for the coating evaluation"
+#| code-fold: true
+cell_sums <- coating_data |>
+  summarise(Total = sum(Response), .by = c(Lab, Material)) |>
+  pivot_wider(names_from = Material, values_from = Total, names_prefix = "Material ")
+
+row_totals <- coating_data |>
+  summarise(`Total ($A_i$)` = sum(Response), .by = Lab)
+
+sums_table <- cell_sums |>
+  left_join(row_totals, by = "Lab")
+
+col_totals <- coating_data |>
+  summarise(Total = sum(Response), .by = Material) |>
+  pivot_wider(names_from = Material, values_from = Total, names_prefix = "Material ") |>
+  mutate(Lab = "Total ($B_j$)", `Total ($A_i$)` = sum(coating_data$Response))
+
+bind_rows(sums_table, col_totals) |>
+  knitr::kable(align = "lrrrr", col.names = c("Lab", "Material 1", "Material 2", "Material 3", "Total ($A_i$)"))
+```
+
+[**ANOVA table**]{#sec-prc-438-anova-table}
+
+From this table we generate the ANOVA table.
+
+```{r}
+#| label: tbl-prc-438-anova
+#| tbl-cap: "Two-way ANOVA table for the coating evaluation"
+#| code-fold: true
+fit_2way <- aov(Response ~ Lab * Material, data = coating_data)
+anova_2way <- summary(fit_2way)[[1]]
+
+tibble(
+  Source = c("A (Lab)", "B (Material)", "AB", "Error", "Total (Corr)"),
+  SS = c(anova_2way$`Sum Sq`[1], anova_2way$`Sum Sq`[2], anova_2way$`Sum Sq`[3], anova_2way$`Sum Sq`[4], sum(anova_2way$`Sum Sq`)),
+  DF = c(anova_2way$Df[1], anova_2way$Df[2], anova_2way$Df[3], anova_2way$Df[4], sum(anova_2way$Df)),
+  MS = c(anova_2way$`Mean Sq`[1], anova_2way$`Mean Sq`[2], anova_2way$`Mean Sq`[3], anova_2way$`Mean Sq`[4], NA),
+  F = c(anova_2way$`F value`[1], anova_2way$`F value`[2], anova_2way$`F value`[3], NA, NA),
+  `p-value` = c(anova_2way$`Pr(>F)`[1], anova_2way$`Pr(>F)`[2], anova_2way$`Pr(>F)`[3], NA, NA)
+) |>
+  mutate(across(c(MS, F, `p-value`), ~ ifelse(is.na(.x), "", as.character(round(.x, 4))))) |>
+  knitr::kable(digits = 4, align = "lrrrrr")
+```
