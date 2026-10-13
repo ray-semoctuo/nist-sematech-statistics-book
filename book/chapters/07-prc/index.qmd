@@ -76,3 +76,7 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-two-processes/two-sample-sd.qmd >}}
 
 {{< include comparisons-two-processes/two-sample-proportion-defective.qmd >}}
+
+{{< include comparisons-two-processes/two-sample-failure-rates.qmd >}}
+
+{{< include comparisons-two-processes/two-sample-central-tendency.qmd >}}

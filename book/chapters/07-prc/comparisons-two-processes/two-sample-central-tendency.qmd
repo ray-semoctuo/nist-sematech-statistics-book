@@ -1,0 +1,111 @@
+### Do two arbitrary processes have the same central tendency? {#sec-prc-35}
+
+[**The nonparametric equivalent of the $t$ test is due to Mann and Whitney, called the $U$ test**]{#sec-prc-35-mann-whitney}
+
+By "arbitrary" we mean that we make no underlying assumptions about normality or any other distribution. The test is called the **Mann-Whitney U Test**, which is the nonparametric equivalent of the $t$ test for means.
+
+The $U$-test (as the majority of nonparametric tests) uses the rank sums of the two samples.
+
+[**Procedure**]{#sec-prc-35-procedure}
+
+The test is implemented as follows.
+
+1. Rank all $(n_1 + n_2)$ observations in ascending order. Ties receive the average of their observations.
+2. Calculate the sum of the ranks, call these $T_a$ and $T_b$.
+3. Calculate the $U$ statistic,
+
+$$ U_a = n_1 \, n_2 + 0.5 \, n_1 (n_1 + 1) - T_a $$
+
+or
+
+$$ U_b = n_1 \, n_2 + 0.5 \, n_2(n_2 + 1) - T_b $$
+
+where $U_a + U_b = n_1 \, n_2$.
+
+[**Null Hypothesis**]{#sec-prc-35-null-hypothesis}
+
+The null hypothesis is: the two populations have the same central tendency. The alternative hypothesis is: The central tendencies are **NOT** the same.
+
+[**Test statistic**]{#sec-prc-35-test-statistic}
+
+The test statistic, $U$, is the smaller of $U_a$ and $U_b$. For sample sizes larger than 20, we can use the normal $z$ as follows:
+
+$$ z = \frac{U - \text{E }(U)}{\sigma} \, , $$
+
+where
+
+$$\text{E }(U) = 0.5 \, n_1 \, n_2 \,\,\,\,\, \text{ and } \,\,\,\,\,
+   \sigma^2 = \frac{n_1 \, n_2 \,(n_1 + n_2 + 1)}{12} \, . $$
+
+The critical value is the normal tabled $z$ for $\alpha/2$ for a two-tailed test or $z$ at $\alpha$ level, for a one-tail test.
+
+For small samples, tables are readily available in most textbooks on nonparametric statistics.
+
+**Example**
+
+[**An illustrative example of the $U$ test**]{#sec-prc-35-example}
+
+Two processing systems were used to clean wafers. The following data represent the (coded) particle counts. The null hypothesis is that there is no difference between the central tendencies of the particle counts; the alternative hypothesis is that there is a difference. The solution shows the typical kind of output software for this procedure would generate, based on the large sample approximation.
+
+```{r}
+#| label: tbl-prc-35-ranks
+#| tbl-cap: "Particle counts and ranks for Group A and Group B"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+group_a <- c(0.55, 0.67, 0.43, 0.51, 0.48, 0.60, 0.71, 0.53, 0.44, 0.65, 0.75)
+group_b <- c(0.49, 0.68, 0.59, 0.72, 0.67, 0.75, 0.65, 0.77, 0.62, 0.48, 0.59)
+all_ranks <- rank(c(group_a, group_b))
+rank_a <- all_ranks[seq_along(group_a)]
+rank_b <- all_ranks[(length(group_a) + 1):length(all_ranks)]
+
+tibble(`Group A` = group_a, Rank = rank_a, `Group B` = group_b, `Rank ` = rank_b) |>
+  knitr::kable(align = "rrrr", col.names = c("Group A", "Rank", "Group B", "Rank"))
+```
+
+```{r}
+#| label: verify-prc-35-example
+#| code-fold: true
+n1 <- length(group_a)
+n2 <- length(group_b)
+T_a <- sum(rank_a)
+T_b <- sum(rank_b)
+U_a <- n1 * n2 + 0.5 * n1 * (n1 + 1) - T_a
+U_b <- n1 * n2 + 0.5 * n2 * (n2 + 1) - T_b
+U <- min(U_a, U_b)
+sigma <- sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
+
+tibble(
+  Group = c("A", "B"),
+  N = c(n1, n2),
+  `Sum of Ranks` = c(T_a, T_b),
+  U = c(U_a, U_b),
+  `Std. Dev of U` = c(sigma, sigma)
+) |>
+  knitr::kable(digits = 3, align = "lrrrr")
+```
+
+::: {.callout-note}
+NIST's original table also includes a "Median" column (0.540 for Group A, 0.635 for Group B). Recomputing the ordinary sample median directly from the listed data gives 0.55 for Group A and 0.65 for Group B, not NIST's stated values. The rank sums, $U$ statistics, and the final $z$ test below all reproduce exactly, so this discrepancy appears to be isolated to the median column -- possibly a different point estimator (e.g., a Hodges-Lehmann-type estimate) used by whatever software produced NIST's original output, rather than the raw sample median.
+:::
+
+For $U = 40.0$ and $\text{E }(U) = 0.5 \, n_1 \, n_2 = 60.5$, the test statistic is
+
+```{r}
+#| label: verify-prc-35-zstat
+#| code-fold: true
+E_U <- 0.5 * n1 * n2
+z_stat <- (U - E_U) / sigma
+
+tibble(Statistic = c("U", "E(U)", "$\\sigma$", "z"), Value = c(U, E_U, sigma, z_stat)) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+$$ z = \frac{U - \text{E }(U)}{\sigma} = \frac{40.0 - 60.5}{15.23} = -1.346 \, , $$
+
+where
+
+$$ \sigma = \sqrt{\frac{n_1 \, n_2 \, (n_1 + n_2 + 1)}{12}} = \sqrt{\frac{11(11)(11+11+1)}{12}} =15.23 \, . $$
+
+For a two-sided test with significance level $\alpha$ = 0.05, the critical value is $z_{1-\alpha/2}$ = 1.96. Since $|z|$ is less than the critical value, we do not reject the null hypothesis and conclude that there is not enough evidence to claim that two groups have different central tendencies.

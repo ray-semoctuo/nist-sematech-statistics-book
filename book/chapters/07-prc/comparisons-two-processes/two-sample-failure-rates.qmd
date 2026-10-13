@@ -1,0 +1,120 @@
+### Assuming the observations are failure times, are the failure rates (or Mean Times To Failure) for two distributions the same? {#sec-prc-34}
+
+[**Comparing two exponential distributions is to compare the means or hazard rates**]{#sec-prc-34-comparing}
+
+The comparison of two (or more) life distributions is a common objective when performing statistical analyses of lifetime data. Here we look at the one-parameter exponential distribution case.
+
+In this case, comparing two exponential distributions is equivalent to comparing their means (or the reciprocal of their means, known as their hazard rates).
+
+**Type II Censored data**
+
+[**Definition of Type II censored data**]{#sec-prc-34-definition}
+
+**Definition**: Type II censored data occur when a life test is terminated exactly when a pre-specified number of failures have occurred. The remaining units have not yet failed. If $n$ units were on test, and the pre-specified number of failures is $r$ (where $r$ is less than or equal to $n$), then the test ends at $t_r$, the time of the $r$-th failure.
+
+[**Two exponential samples ordered by time**]{#sec-prc-34-ordered}
+
+Suppose we have Type II censored data from two exponential distributions with means $\theta_1$ and $\theta_2$. We have two samples from these distributions, of sizes $n_1$ on test with $r_1$ failures and $n_2$ on test with $r_2$ failures, respectively. The observations are time to failure and are therefore ordered by time.
+
+$$ t_{1(1)} \, < \, \ldots \, < t_{1(n)} \,\,\,\,\, (r_1 \le n_1) $$
+
+$$ t_{2(1)} \, < \, \ldots \, < t_{2(n)} \,\,\,\,\, (r_2 \le n_2) $$
+
+[**Test of equality of $\theta_1$ and $\theta_2$ and confidence interval for $\theta_1 / \theta_2$**]{#sec-prc-34-test}
+
+Letting
+
+$$ T_i = \sum_{j=1}^{r_i} t_{i(j)} + (n_i - r_i) t_{i(r_i)} \,\,\,\,\, i = 1, \, 2 \, .$$
+
+Then
+
+$$ \frac{2T_1}{\theta_1} \approx \chi_{2r_1}^2 \,\,\,\,\, \text{ and } \,\,\,\,\,
+   \frac{2T_2}{\theta_2} \approx \chi_{2r_2}^2 \, , $$
+
+with $T_1$ and $T_2$ independent. Thus
+
+$$ U = \frac{2T_1 / (2 r_1 \theta_1)}{2T_2 / (2 r_2 \, \theta_2)}
+     = \frac{\hat{\theta}_1 \theta_2}{\hat{\theta}_2 \, \theta_1} \, , $$
+
+where
+
+$$ \hat{\theta}_1 = \frac{T_1}{r_1} \,\,\,\,\, \text{ and } \,\,\,\,\,
+   \hat{\theta}_2 = \frac{T_2}{r_2} \, . $$
+
+$U$ has an $F$ distribution with $(2 r_1, \, 2 r_2)$ degrees of freedom. Tests of equality of $\theta_1$ and $\theta_2$ can be performed using tables of the $F$ distribution or computer programs. Confidence intervals for $\theta_1 / \theta_2$, which is the ratio of the means or the hazard rates for the two distributions, are also readily obtained.
+
+[**Numerical example**]{#sec-prc-34-example}
+
+A numerical application will illustrate the concepts outlined above.
+
+For this example,
+
+$$ H_0: \,\, \theta_1 / \theta_2 = 1 $$
+
+$$ H_a: \,\, \theta_1 / \theta_2 \ne 1 $$
+
+Two samples of size 10 from exponential distributions were put on life test. The first sample was censored after 7 failures and the second sample was censored after 5 failures. The times to failure were:
+
+| | | | | | | | |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Sample 1: | 125 | 189 | 210 | 356 | 468 | 550 | 610 |
+| Sample 2: | 170 | 234 | 280 | 350 | 467 | | |
+
+So $r_1$ = 7, $r_2$ = 5, and $t_{1, \, r_1}$ = 610, $t_{2, \, r_2}$ = 467.
+
+```{r}
+#| label: verify-prc-34-example
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+sample1 <- c(125, 189, 210, 356, 468, 550, 610)
+sample2 <- c(170, 234, 280, 350, 467)
+n1 <- 10
+n2 <- 10
+r1 <- length(sample1)
+r2 <- length(sample2)
+
+T1 <- sum(sample1) + (n1 - r1) * max(sample1)
+T2 <- sum(sample2) + (n2 - r2) * max(sample2)
+
+theta1_hat <- T1 / r1
+theta2_hat <- T2 / r2
+U <- theta1_hat / theta2_hat
+
+tibble(
+  Statistic = c("$T_1$", "$T_2$", "$\\hat{\\theta}_1$", "$\\hat{\\theta}_2$", "$U$"),
+  Value = c(T1, T2, theta1_hat, theta2_hat, U)
+) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+Then $T_1$ = 4338 and $T_2$ = 3836.
+
+The estimator for $\theta_1$ is 4338 / 7 = 619.71 and the estimator for $\theta_2$ is 3836 / 5 = 767.20.
+
+The ratio of the estimators = $U$ = 619.71 / 767.20 = 0.808.
+
+If the means are the same, the ratio of the estimators, $U$, follows an $F$ distribution with $(2 r_1, \, 2 r_2)$ degrees of freedom. The $P(F < 0.808) = 0.348$. The associated [$p$-value](#sec-prc-131-pvalues) is 2(0.348) = 0.696. Based on this $p$-value, we find no evidence to reject the null hypothesis (that the true but unknown ratio = 1). Note that this is a two-sided test, and we would reject the null hypothesis if the $p$-value is either too small (i.e., less or equal to 0.025) or too large (i.e., greater than or equal to 0.975) for a 95% significance level test.
+
+```{r}
+#| label: verify-prc-34-ci
+#| code-fold: true
+p_value <- 2 * pf(U, 2 * r1, 2 * r2)
+q025 <- qf(0.025, 2 * r1, 2 * r2)
+q975 <- qf(0.975, 2 * r1, 2 * r2)
+ci_lower <- U / q975
+ci_upper <- U / q025
+
+tibble(
+  Statistic = c("$P(F<U)$", "$p$-value", "$F_{0.025,14,10}$", "$F_{0.975,14,10}$", "Lower CI", "Upper CI"),
+  Value = c(pf(U, 2 * r1, 2 * r2), p_value, q025, q975, ci_lower, ci_upper)
+) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+We can also put a 95% confidence interval around the ratio of the two means. Since the 0.025 and 0.975 quantiles of $F_{14, \, 10}$ are 0.3178 and 3.5504, respectively, we have
+
+$$ P(U/3.5504 < \theta_1 / \theta_2 < U/0.3178) = 0.95 $$
+
+and (0.228, 2.542) is a 95% confidence interval for the ratio of the unknown means. The value of 1 is within this range, which is another way of showing that we cannot reject the null hypothesis at the 95% significance level.
