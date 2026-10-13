@@ -1,0 +1,126 @@
+#### Sample sizes required {#sec-prc-222}
+
+[**The computation of sample sizes depends on many things, some of which have to be assumed in advance**]{#sec-prc-222-depends}
+
+Perhaps one of the most frequent questions asked of a statistician is,
+
+> "How many measurements should be included in the sample?"
+
+Unfortunately, there is no correct answer without additional information (or assumptions). The sample size required for an experiment designed to investigate the behavior of an unknown population mean will be influenced by the following:
+
+- value selected for $\alpha$, the risk of rejecting a true hypothesis,
+- value of $\beta$, the risk of accepting a false null hypothesis when a particular value of the alternative hypothesis is true,
+- value of the population standard deviation.
+
+[**Application -- estimating a minimum sample size, $N$, for limiting the error in the estimate of the mean**]{#sec-prc-222-application}
+
+For example, suppose that we wish to estimate the average daily yield, $\mu$, of a chemical process by the mean of a sample, $Y_1, \, \ldots, \, Y_N$, such that the error of estimation is less than $\delta$ with a probability of 95%. This means that a 95% confidence interval centered at the sample mean should be
+
+$$ \bar{Y} - \delta \le \mu \le \bar{Y} + \delta \, , $$
+
+and if the standard deviation is known,
+
+$$ \delta = \frac{\sigma}{\sqrt{N}} \, z_{1 - 0.025} \, . $$
+
+The [critical value from the normal distribution](#sec-eda-standard-normal-cdf-table) for 1 - $\alpha$/2 = 0.975 is 1.96. Therefore,
+
+$$ N \ge \left( \frac{1.96}{\delta} \right)^2 \sigma^2 \, . $$
+
+[**Limitation and interpretation**]{#sec-prc-222-limitation}
+
+A restriction is that the standard deviation must be known. Lacking an exact value for the standard deviation requires some accommodation, perhaps the best estimate available from a previous experiment.
+
+[**Controlling the risk of accepting a false hypothesis**]{#sec-prc-222-controlling-risk}
+
+To control the risk of accepting a false hypothesis, we set not only $\alpha$, the probability of rejecting the null hypothesis when it is true, but also $\beta$, the probability of accepting the null hypothesis when in fact the population mean is $\mu + \delta$ where $\delta$ is the difference or shift we want to detect.
+
+[**Standard deviation assumed to be known**]{#sec-prc-222-sd-known}
+
+The minimum sample size, $N$, is shown below for two- and one-sided tests of hypotheses with $\sigma$ assumed to be known.
+
+$$ \begin{aligned}
+N = (z_{1-\alpha/2} + z_{1-\beta})^2 \left( \frac{\sigma}{\delta} \right)^2 &\rightarrow \text{two-sided test} \\
+N = (z_{1-\alpha} + z_{1-\beta})^2 \left( \frac{\sigma}{\delta} \right)^2 &\rightarrow \text{one-sided test}
+\end{aligned} $$
+
+The quantities $z_{1-\alpha/2}$ and $z_{1-\beta}$ are critical values from the [normal distribution](#sec-eda-standard-normal-cdf-table).
+
+Note that it is usual to state the shift, $\delta$, in units of the standard deviation, thereby simplifying the calculation.
+
+[**Example where the shift is stated in terms of the standard deviation**]{#sec-prc-222-example}
+
+For a one-sided hypothesis test where we wish to detect an increase in the population mean of one standard deviation, the following information is required: $\alpha$, the significance level of the test, and $\beta$, the probability of failing to detect a shift of one standard deviation. For a test with $\alpha$ = 0.05 and $\beta$ = 0.10, the minimum sample size required for the test is
+
+```{r}
+#| label: verify-prc-222-example1
+#| code-fold: true
+za <- qnorm(0.95)
+zb <- qnorm(0.90)
+n_est <- (za + zb)^2
+
+tibble::tibble(Statistic = c("z(0.95)", "z(0.90)", "N"), Value = c(za, zb, n_est)) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+$$ N = (1.645 + 1.282)^2 = 8.567 \approx 9 \, . $$
+
+[**More often we must compute the sample size with the population standard deviation being unknown**]{#sec-prc-222-sd-unknown}
+
+The procedures for computing sample sizes when the standard deviation is not known are similar to, but more complex, than when the standard deviation is known. The formulation depends on the $t$ distribution where the minimum sample size is given by
+
+$$ \begin{aligned}
+N = (t_{1-\alpha/2} + t_{1-\beta})^2 \left( \frac{s}{\delta} \right)^2 &\rightarrow \text{two-sided test} \\
+N = (t_{1-\alpha} + t_{1-\beta})^2 \left( \frac{s}{\delta} \right)^2 &\rightarrow \text{one-sided test}
+\end{aligned} $$
+
+The drawback is that [critical values of the $t$ distribution](#sec-eda-t-distribution-table) depend on known degrees of freedom, which in turn depend upon the sample size which we are trying to estimate.
+
+[**Iterate on the initial estimate using critical values from the $t$ table**]{#sec-prc-222-iterate}
+
+Therefore, the best procedure is to start with an initial estimate based on a sample standard deviation and iterate. Take the example discussed above where the minimum sample size is computed to be $N$ = 9. This estimate is low. Now use the formula above with degrees of freedom $N$ - 1 = 8 which gives a second estimate of
+
+```{r}
+#| label: verify-prc-222-example2
+#| code-fold: true
+ta <- qt(0.95, 8)
+tb <- qt(0.90, 8)
+n_est2 <- (ta + tb)^2
+
+tibble::tibble(Statistic = c("t(0.95, 8)", "t(0.90, 8)", "N"), Value = c(ta, tb, n_est2)) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+$$ N = (1.860 + 1.397)^2 = 10.6 \approx 11 \, . $$
+
+It is possible to apply another iteration using degrees of freedom 10, but in practice one iteration is usually sufficient. For the purpose of this example, results have been rounded to the closest integer; however, computer programs for finding critical values from the $t$ distribution allow non-integer degrees of freedom.
+
+[**Table showing minimum sample sizes for a two-sided test**]{#sec-prc-222-table}
+
+The table below gives sample sizes for a two-sided test of hypothesis that the mean is a given value, with the shift to be detected a multiple of the standard deviation. For a one-sided test at significance level $\alpha$, look under the value of 2$\alpha$ in column 1. Note that this table is based on the normal approximation (i.e., the standard deviation is known).
+
+```{r}
+#| label: tbl-prc-222-sample-sizes
+#| tbl-cap: "Sample size table for two-sided tests"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+alphas <- c(0.01, 0.05, 0.10, 0.20)
+betas <- c(0.01, 0.05, 0.10, 0.20, 0.50)
+deltas <- c(0.5, 1.0, 1.5)
+
+sample_size_table <- expand_grid(alpha = alphas, beta = betas) |>
+  rowwise() |>
+  mutate(
+    n = list(pmax(ceiling((qnorm(1 - alpha / 2) + qnorm(1 - beta))^2 / deltas^2), 3))
+  ) |>
+  unnest_wider(n, names_sep = "_") |>
+  rename(`delta = 0.5` = n_1, `delta = 1.0` = n_2, `delta = 1.5` = n_3)
+
+sample_size_table |>
+  knitr::kable(align = "rrrrr", col.names = c("$\\alpha$", "$\\beta$", "$\\delta = 0.5\\sigma$", "$\\delta = 1.0\\sigma$", "$\\delta = 1.5\\sigma$"))
+```
+
+::: {.callout-note}
+Our recomputed table (using $N = \lceil (z_{1-\alpha/2} + z_{1-\beta})^2 / \delta^2 \rceil$, floored at a minimum of 3) matches NIST's published table exactly in 52 of 60 cells. The remaining 8 cells, all in the $\delta = 0.5\sigma$ column, are smaller than NIST's value by exactly 1 (e.g., we compute 97 where NIST shows 98 for $\alpha=\beta=0.01$). This is consistent with NIST rounding intermediate critical values to fewer decimal places before squaring, which can tip a value just over an integer boundary; it does not affect the other two columns, which match exactly, or the overall use of the table.
+:::

@@ -1,0 +1,59 @@
+#### Confidence interval approach {#sec-prc-221}
+
+[**Testing using a confidence interval**]{#sec-prc-221-testing}
+
+The hypothesis test results in a "yes" or "no" answer. The null hypothesis is either rejected or not rejected. There is another way of testing a mean and that is by constructing a confidence interval about the true but unknown mean.
+
+[**General form of confidence intervals where the standard deviation is unknown**]{#sec-prc-221-general-form}
+
+Tests of hypotheses that can be made from a single sample of data were discussed on the [foregoing page](#sec-prc-22). As with null hypotheses, confidence intervals can be two-sided or one-sided, depending on the question at hand. The general form of confidence intervals, for the three cases discussed earlier, where the standard deviation is unknown are:
+
+1. Two-sided confidence interval for $\mu$:
+
+$$ \bar{Y} + \frac{s}{\sqrt{N}} \,  t_{\alpha/2, \, N-1} \, \le \, \mu \, \le \, \bar{Y} + \frac{s}{\sqrt{N}} \,  t_{1-\alpha/2, \, N-1} \, , $$
+
+2. Lower one-sided confidence interval for $\mu$:
+
+$$ \mu \ge \bar{Y} + \frac{s}{\sqrt{N}} \,  t_{\alpha, \, N-1} \, , $$
+
+3. Upper one-sided confidence interval for $\mu$:
+
+$$ \mu \le \bar{Y} + \frac{s}{\sqrt{N}} \, t_{1-\alpha, \, N-1} \, , $$
+
+where $t_{\alpha/2, \, N-1}$ is the $\alpha/2$ critical value from the $t$ distribution with $N-1$ degrees of freedom and similarly for cases (2) and (3). Critical values can be found in the [$t$ table](#sec-eda-t-distribution-table) in Chapter 1.
+
+[**Confidence level**]{#sec-prc-221-confidence-level}
+
+The confidence intervals are constructed so that the probability of the interval containing the mean is 1 - $\alpha$. Such intervals are referred to as $100(1-\alpha)$% confidence intervals.
+
+[**A 95% confidence interval for the example**]{#sec-prc-221-example}
+
+The corresponding confidence interval for the test of hypothesis [example](#sec-prc-22-example) on the foregoing page is shown below. A 95% confidence interval for the population mean of particle counts per wafer is given by
+
+```{r}
+#| label: verify-prc-221-ci
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+wafer_counts <- c(50, 48, 44, 56, 61, 52, 53, 55, 67, 51)
+n <- length(wafer_counts)
+m <- mean(wafer_counts)
+s <- sd(wafer_counts)
+
+lower <- m + s / sqrt(n) * qt(0.025, n - 1)
+upper <- m + s / sqrt(n) * qt(0.975, n - 1)
+
+tibble(Bound = c("Lower", "Upper"), Value = c(lower, upper)) |>
+  knitr::kable(digits = 1, align = "lr")
+```
+
+$$ \begin{aligned}
+\bar{Y} + \frac{s}{\sqrt{N}} \,  (t_{0.025, 9}) \, &\le \, \mu \, \le \, \bar{Y} + \frac{s}{\sqrt{N}} \,  (t_{0.975, 9}) \\[0.5em]
+53.7 + \frac{6.567}{\sqrt{10}} (-2.262)   \, &\le \, \mu \, \le \, 53.7 + \frac{6.567}{\sqrt{10}}(2.262) \\[0.5em]
+49.0  \, &\le \, \mu \, \le \, 58.4 \, .
+\end{aligned} $$
+
+[**Interpretation**]{#sec-prc-221-interpretation}
+
+The 95% confidence interval includes the null hypothesis if, and only if, it would be accepted at the 5% level. This interval includes the null hypothesis of 50 counts so we cannot reject the hypothesis that the process mean for particle counts is 50. The confidence interval includes all null hypothesis values for the population mean that would be accepted by an hypothesis test at the 5% significance level. This assumes, of course, a two-sided alternative.

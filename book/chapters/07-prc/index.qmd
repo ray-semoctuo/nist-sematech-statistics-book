@@ -34,3 +34,9 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-one-process/distribution-fit/kolmogorov-smirnov-test.qmd >}}
 
 {{< include comparisons-one-process/distribution-fit/anderson-darling-shapiro-wilk.qmd >}}
+
+{{< include comparisons-one-process/process-mean/index.qmd >}}
+
+{{< include comparisons-one-process/process-mean/confidence-interval.qmd >}}
+
+{{< include comparisons-one-process/process-mean/sample-sizes.qmd >}}
