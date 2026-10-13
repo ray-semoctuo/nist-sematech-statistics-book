@@ -1,0 +1,139 @@
+#### Exponential {#sec-apr-161}
+
+[**All the key formulas for using the exponential model**]{#sec-apr-161-formulas}
+
+**Formulas and Plots**
+
+The exponential model, with only one unknown parameter, is the simplest of all life distribution models. The key equations for the exponential are shown below:
+
+$$
+\begin{array}{ll}
+\mbox{PDF:}                 & f(t, \lambda) = \lambda e^{-\lambda t} \\
+                            & \\
+\mbox{CDF:}                 & F(t) = 1-e^{-\lambda t} \\
+                            & \\
+\mbox{Reliability:}         & R(t) = e^{-\lambda t} \\
+                            & \\
+\mbox{Failure Rate:}        & h(t) = \lambda  \\
+                            & \\
+\mbox{Mean:}                & \frac{1}{\lambda} \\
+                            & \\
+\mbox{Median:}              & \frac{\mbox{ln} 2}{\lambda} \cong \frac{0.693}{\lambda} \\
+                            & \\
+\mbox{Variance:}            & \frac{1}{\lambda^2}
+\end{array}
+$$
+
+Note that the failure rate reduces to the constant $\lambda$ for any time. The exponential distribution is the only distribution to have a constant failure rate. Also, another name for the exponential mean is the **Mean Time To Fail** or **MTTF** and we have MTTF = $1/\lambda$.
+
+The cumulative hazard function for the exponential is just the integral of the failure rate or $H(t) = \lambda t$.
+
+The PDF for the exponential has the familiar shape shown below.
+
+[**The Exponential distribution "shape"**]{#sec-apr-161-pdf-shape}
+
+```{r}
+#| label: fig-apr-161-pdf-shapes
+#| fig-cap: "Examples of exponential distribution shapes"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+t_seq <- seq(0, 9, length.out = 400)
+lambda_levels <- c("lambda == 1.5", "lambda == 0.8", "lambda == 0.5")
+pdf_df <- bind_rows(
+  tibble(t = t_seq, pdf = dexp(t_seq, 1.5), lambda = "lambda == 1.5"),
+  tibble(t = t_seq, pdf = dexp(t_seq, 0.8), lambda = "lambda == 0.8"),
+  tibble(t = t_seq, pdf = dexp(t_seq, 0.5), lambda = "lambda == 0.5")
+) |>
+  mutate(lambda = factor(lambda, levels = lambda_levels))
+
+ggplot(pdf_df, aes(t, pdf, color = lambda, linetype = lambda)) +
+  geom_line(linewidth = 0.8) +
+  scale_color_manual(values = c("black", "blue", "red"), labels = scales::label_parse()) +
+  scale_linetype_manual(values = c("solid", "dotted", "dashed"), labels = scales::label_parse()) +
+  labs(title = "Examples of Exponential Distribution Shapes", x = "Time", y = "PDF", color = NULL, linetype = NULL) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "top")
+```
+
+[**The Exponential CDF**]{#sec-apr-161-cdf}
+
+```{r}
+#| label: fig-apr-161-cdf
+#| fig-cap: "Exponential CDF"
+#| code-fold: true
+cdf_df <- bind_rows(
+  tibble(t = t_seq, cdf = pexp(t_seq, 1.5), lambda = "lambda == 1.5"),
+  tibble(t = t_seq, cdf = pexp(t_seq, 0.8), lambda = "lambda == 0.8"),
+  tibble(t = t_seq, cdf = pexp(t_seq, 0.5), lambda = "lambda == 0.5")
+) |>
+  mutate(lambda = factor(lambda, levels = lambda_levels))
+
+ggplot(cdf_df, aes(t, cdf, linetype = lambda)) +
+  geom_line(linewidth = 0.6, color = "black") +
+  scale_linetype_manual(values = c("solid", "dotted", "dashed"), labels = scales::label_parse()) +
+  labs(title = "Exponential CDF", x = "Time", y = "CDF", linetype = NULL) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "top")
+```
+
+Below is an example of typical exponential lifetime data displayed in Histogram form with corresponding exponential PDF drawn through the histogram.
+
+[**Histogram of Exponential Data**]{#sec-apr-161-histogram}
+
+```{r}
+#| label: fig-apr-161-histogram
+#| fig-cap: "Exponential histogram with overlaid PDF"
+#| code-fold: true
+set.seed(42)
+hist_data <- tibble(x = rexp(214, 1 / 150))
+
+ggplot(hist_data, aes(x)) +
+  geom_histogram(aes(y = after_stat(density)), breaks = seq(0, 600, by = 75), fill = NA, color = "black") +
+  stat_function(fun = dexp, args = list(rate = 1 / 150), linewidth = 0.8) +
+  coord_cartesian(xlim = c(0, 600)) +
+  labs(title = "Exponential Histogram", x = expression(t), y = "Relative Frequency") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+[**Uses of the Exponential Distribution Model**]{#sec-apr-161-uses}
+
+1. Because of its constant failure rate property, the exponential distribution is an excellent model for the long flat "intrinsic failure" portion of the [Bathtub Curve](#sec-apr-124). Since most components and systems spend most of their lifetimes in this portion of the Bathtub Curve, this justifies frequent use of the exponential distribution (when early failures or wear out is not a concern).
+2. Just as it is often useful to approximate a curve by piecewise straight line segments, we can approximate any failure rate curve by week-by-week or month-by-month constant rates that are the average of the actual changing rate during the respective time durations. That way we can approximate any model by piecewise exponential distribution segments patched together.
+3. Some natural phenomena have a constant failure rate (or occurrence rate) property; for example, the arrival rate of cosmic ray alpha particles or Geiger counter tics. The exponential model works well for inter arrival times (while the Poisson distribution describes the total number of events in a given period). When these events trigger failures, the exponential life distribution model will naturally apply.
+
+[**Exponential probability plot**]{#sec-apr-161-probability-plot}
+
+We can generate a [probability plot](#sec-eda-probability-plot) of normalized exponential data, so that a perfect exponential fit is a diagonal line with slope 1. The probability plot for 100 normalized random exponential observations ($\lambda$ = 0.01) is shown below.
+
+```{r}
+#| label: fig-apr-161-probability-plot
+#| fig-cap: "Exponential probability plot for 100 simulated observations (lambda = 0.01)"
+#| code-fold: true
+#| message: false
+library(MASS)
+
+set.seed(42)
+Y <- rexp(100, 0.01)
+p <- fitdistr(Y, "exponential")
+sim_quantiles <- qexp(ppoints(length(Y)), rate = p$estimate)
+
+ggplot(tibble(theoretical = sim_quantiles, observed = sort(Y)), aes(theoretical, observed)) +
+  geom_point(shape = 1) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") +
+  labs(x = "Theoretical Quantiles", y = "Y") +
+  theme_classic()
+```
+
+We can calculate the exponential PDF and CDF at 100 hours for the case where $\lambda$ = 0.01. The PDF value is 0.0037 and the CDF value is 0.6321.
+
+```{r}
+#| label: verify-apr-161-pdf-cdf
+#| code-fold: true
+tibble(Statistic = c("PDF", "CDF"), Value = c(dexp(100, 0.01), pexp(100, 0.01))) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+Functions for computing exponential PDF values, CDF values, and for producing probability plots, are available in R via `dexp()`, `pexp()`, and `qqplot()`.

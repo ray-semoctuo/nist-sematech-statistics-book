@@ -22,3 +22,7 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include introduction/physical-acceleration.qmd >}}
 
 {{< include introduction/acceleration-models/index.qmd >}}
+
+{{< include introduction/lifetime-distributions/index.qmd >}}
+
+{{< include introduction/lifetime-distributions/exponential.qmd >}}

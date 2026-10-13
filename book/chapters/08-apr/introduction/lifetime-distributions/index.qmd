@@ -1,0 +1,15 @@
+### What are the basic lifetime distribution models used for non-repairable populations? {#sec-apr-16}
+
+[**A handful of lifetime distribution models have enjoyed great practical success**]{#sec-apr-16-overview}
+
+There are a handful of parametric models that have successfully served as population models for failure times arising from a wide range of products and failure mechanisms. Sometimes there are probabilistic arguments based on the physics of the failure mode that tend to justify the choice of model. Other times the model is used solely because of its empirical success in fitting actual failure data.
+
+Seven models will be described in this section:
+
+1. [Exponential](#sec-apr-161)
+2. [Weibull](#sec-apr-162)
+3. [Extreme Value](#sec-apr-163)
+4. [Lognormal](#sec-apr-164)
+5. [Gamma](#sec-apr-165)
+6. [Birnbaum-Saunders](#sec-apr-166)
+7. [Proportional hazards](#sec-apr-167)
