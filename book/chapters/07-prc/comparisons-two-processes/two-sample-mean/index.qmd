@@ -82,6 +82,22 @@ The critical values from the $t$ table depend on the significance level and the 
 
 A new procedure (process 2) to assemble a device is introduced and tested for possible improvement in time of assembly. The question being addressed is whether the mean, $\mu_2$, of the new assembly process is smaller than the mean, $\mu_1$, for the old assembly process (process 1). We choose to test [hypothesis (2)](#sec-prc-31-hypotheses) in the hope that we will reject this null hypothesis and thereby feel we have a strong degree of confidence that the new process is an improvement worth implementing. Data (in minutes required to assemble a device) for both the new and old processes are listed below along with their relevant statistics.
 
+```
+        Device    Process 1 (Old)  Process 2 (New)
+
+           1            32            36
+           2            37            31
+           3            35            30
+           4            28            31
+           5            41            34
+           6            44            36
+           7            35            29
+           8            31            32
+           9            34            31
+          10            38
+          11            42
+```
+
 ```{r}
 #| label: verify-prc-31-example
 #| code-fold: true
@@ -97,22 +113,6 @@ tibble(
   `Process 2 (New)` = c(mean(process2_new), sd(process2_new), length(process2_new), length(process2_new) - 1)
 ) |>
   knitr::kable(digits = 4, align = "lrr")
-```
-
-```
-        Device    Process 1 (Old)  Process 2 (New)
-
-           1            32            36
-           2            37            31
-           3            35            30
-           4            28            31
-           5            41            34
-           6            44            36
-           7            35            29
-           8            31            32
-           9            34            31
-          10            38
-          11            42
 ```
 
 [**Computation of the test statistic**]{#sec-prc-31-computation}

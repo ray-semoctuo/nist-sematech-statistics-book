@@ -1,0 +1,136 @@
+### How can we determine whether two processes produce the same proportion of defectives? {#sec-prc-33}
+
+**Case 1: Large Samples (Normal Approximation to Binomial)**
+
+[**The hypothesis of equal proportions can be tested using a $z$ statistic**]{#sec-prc-33-z-statistic}
+
+If the samples are reasonably large we can use the normal approximation to the binomial to develop a test similar to testing whether two normal means are equal.
+
+Let sample 1 have $x_1$ defects out of $n_1$ and sample 2 have $x_2$ defects out of $n_2$. Calculate the proportion of defects for each sample and the $z$ statistic below:
+
+$$ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{ \hat{p}(1-\hat{p})(1/n_1 + 1/n_2) }} \, , $$
+
+where
+
+$$ \hat{p} = \frac{n_1 \hat{p}_1 + n_2 \hat{p}_2}{n_1 + n_2} = \frac{x_1 + x_2}{n_1 + n_2} \, . $$
+
+Compare $|z|$ to the [normal $z_{1-\alpha/2}$ table value](#sec-eda-standard-normal-cdf-table) for a two-sided test. For a one-sided test, assuming the alternative hypothesis is $p_1 > p_2$, compare $z$ to the normal $z_{1-\alpha}$ table value. If the alternative hypothesis is $p_1 < p_2$, compare $z$ to $z_{\alpha}$.
+
+**Case 2: An Exact Test for Small Samples**
+
+[**The Fisher Exact Probability test is an excellent choice for small samples**]{#sec-prc-33-fisher}
+
+The **Fisher Exact Probability Test** is an excellent nonparametric technique for analyzing discrete data (either nominal or ordinal), when the two independent samples are small in size. It is used when the results from two independent random samples fall into one or the other of two mutually exclusive classes (i.e., defect versus good, or successes vs failures).
+
+[**Example of a 2x2 contingency table**]{#sec-prc-33-contingency-table}
+
+In other words, every subject in each group has one of two possible scores. These scores are represented by frequencies in a 2x2 contingency table. The following discussion, using a 2x2 contingency table, illustrates how the test operates.
+
+We are working with two independent groups, such as experiments and controls, males and females, the Chicago Bulls and the New York Knicks, etc.
+
+| | - | + | Total |
+|---|---|---|---|
+| Group I | A | B | A+B |
+| Group II | C | D | C+D |
+| Total | A+C | B+D | N |
+
+The column headings, here arbitrarily indicated as plus and minus, may be of any two classifications, such as: above and below the median, passed and failed, Democrat and Republican, agree and disagree, etc.
+
+[**Determine whether two groups differ in the proportion with which they fall into two classifications**]{#sec-prc-33-determine}
+
+Fisher's test determines whether the two groups differ in the proportion with which they fall into the two classifications. For the table above, the test would determine whether Group I and Group II differ significantly in the proportion of plusses and minuses attributed to them.
+
+The method proceeds as follows:
+
+The exact probability of observing a particular set of frequencies in a 2 $\times$ 2 table, when the marginal totals are regarded as fixed, is given by the hypergeometric distribution
+
+$$ \begin{aligned}
+p & = \frac{\left(\begin{array}{c} A+C \\ A \end{array}\right) \left(\begin{array}{c} B+D \\ B \end{array}\right)}
+             {\left(\begin{array}{c} N \\ A+B \end{array}\right)} \\
+  & = \frac{\frac{(A+C)!}{A! \, C!} \frac{(B+D)!}{B! \, D!}}
+             {\frac{N!}{(A+B)! \, (C+D)!}} \\
+  & = \frac{(A+B)! \, (C+D)! \, (A+C)! \, (B+D)!}{N! \, A! \, B! \, C! \, D!} \, .
+\end{aligned} $$
+
+But the test does not just look at the observed case. If needed, it also computes the probability of more extreme outcomes, *with the same marginal totals.* By "more extreme", we mean relative to the null hypothesis of equal proportions.
+
+[**Example of Fisher's test**]{#sec-prc-33-example}
+
+This will become clear in the next illustrative example. Consider the following set of 2 x 2 contingency tables:
+
+| Observed Data (a) | More extreme (b) | More extreme (c) |
+|:---:|:---:|:---:|
+| 2 5 7 <br> 3 2 5 <br> 5 7 12 | 1 6 7 <br> 4 1 5 <br> 5 7 12 | 0 7 7 <br> 5 0 5 <br> 5 7 12 |
+
+Table (a) shows the observed frequencies and tables (b) and (c) show the two more extreme distributions of frequencies that could occur with the same marginal totals 7, 5. Given the observed data in table (a), we wish to test the null hypothesis at, say, $\alpha$ = 0.05.
+
+Applying the previous formula to tables (a), (b), and (c), we obtain
+
+```{r}
+#| label: verify-prc-33-fisher
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+fisher_p <- function(A, B, C, D) {
+  N <- A + B + C + D
+  exp(lfactorial(A + B) + lfactorial(C + D) + lfactorial(A + C) + lfactorial(B + D) -
+    lfactorial(N) - lfactorial(A) - lfactorial(B) - lfactorial(C) - lfactorial(D))
+}
+
+p_a <- fisher_p(2, 5, 3, 2)
+p_b <- fisher_p(1, 6, 4, 1)
+p_c <- fisher_p(0, 7, 5, 0)
+
+tibble(Table = c("a", "b", "c"), Probability = c(p_a, p_b, p_c)) |>
+  knitr::kable(digits = 5, align = "lr")
+```
+
+$$ \begin{aligned}
+p_a & = \frac{7! \, 5! \, 5! \, 7!}{12! \, 2! \, 5! \, 3! \, 2!} = 0.26515 \\
+p_b & = \frac{7! \, 5! \, 5! \, 7!}{12! \, 1! \, 6! \, 4! \, 1!} = 0.04419 \\
+p_c & = \frac{7! \, 5! \, 5! \, 7!}{12! \, 0! \, 7! \, 5! \, 0!} = 0.00126 \, .
+\end{aligned} $$
+
+The probability associated with the occurrence of values as extreme as the observed results under $H_0$ is given by adding these three values of $p$:
+
+```{r}
+#| label: verify-prc-33-sum
+#| code-fold: true
+p_total <- p_a + p_b + p_c
+p_total
+```
+
+$$ 0.26515 + 0.04419 + 0.00126 = 0.31060 \, . $$
+
+So $p$ = 0.31060 is the probability that we get from Fisher's test. Since 0.31060 is larger than $\alpha$, we cannot reject the null hypothesis.
+
+**Tocher's Modification**
+
+[**Tocher's modification makes Fisher's test less conservative**]{#sec-prc-33-tocher}
+
+Tocher [-@Tocher1950] showed that a slight modification of the Fisher test makes it a more useful test. Tocher starts by isolating the probability of all cases more extreme than the observed one. In this example that is
+
+$$ p_b + p_c = 0.04419 + 0.00126 = 0.04545 \, . $$
+
+Now, if this probability is larger than $\alpha$, we cannot reject $H_0$. But if this probability is less than $\alpha$, while the probability that we got from Fisher's test is greater than $\alpha$ (as is the case in our example) then Tocher advises to compute the following ratio:
+
+$$ \frac{\alpha - p_{\text{more extreme cases}}}{p_{\text{observed alone}}} \, . $$
+
+For the data in the example, that would be
+
+```{r}
+#| label: verify-prc-33-tocher
+#| code-fold: true
+alpha <- 0.05
+tocher_ratio <- (alpha - (p_b + p_c)) / p_a
+tocher_ratio
+```
+
+$$ \frac{\alpha - (p_b + p_c)}{p_a} = \frac{0.05 - 0.04545}{0.2615} = 0.0172 \, . $$
+
+Now we go to a table of random numbers and at random draw a number between 0 and 1. If this random number is *smaller* than the ratio above of 0.0172, we reject $H_0$. If it is larger we cannot reject $H_0$. This added small probability of rejecting $H_0$ brings the test procedure Type I error (i.e., $\alpha$ value) to exactly 0.05 and makes the Fisher test less conservative.
+
+The test is a one-tailed test. For a two-tailed test, the value of $p$ obtained from the formula must be doubled.
+
+A difficulty with the Tocher procedure is that someone else analyzing the same data would draw a different random number and possibly make a different decision about the validity of $H_0$.
