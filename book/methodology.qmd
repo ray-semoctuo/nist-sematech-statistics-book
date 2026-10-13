@@ -1,0 +1,77 @@
+# Methodology {.unnumbered}
+
+## Source materials
+
+Materials in this edition were generated from the [compressed zip
+file](https://www.itl.nist.gov/div898/handbook.zip) available on the [CD
+distribution page](https://www.itl.nist.gov/div898/handbook/cd.htm) of the
+e-Handbook. The content of this file was compared against the e-Handbook's
+online materials; discrepancies were few, and where they mattered they are
+called out in the text of this edition.
+
+- URL: <http://www.itl.nist.gov/div898/handbook/>
+- Digital Object Identifier (DOI): <https://doi.org/10.18434/M32189>
+- Zip file: <http://www.itl.nist.gov/div898/handbook.zip>
+
+## Code conventions
+
+Code is intended to be pragmatic, readable, and — most importantly —
+reproducible. New code favors functions from the
+[tidyverse](https://www.tidyverse.org/) over base R or the original
+Dataplot/S-PLUS scripts, which are retained alongside the original handbook
+content for reference.
+
+## Diagram conventions
+
+Where possible, diagrams were recreated as SVG files (or as R/ggplot2
+figures rendered directly from the chapter's own code), so that they can be
+edited independently of any particular software program. Where it was not
+practical to reproduce an original figure faithfully this way, the original
+GIF image from the e-Handbook was retained instead.
+
+## Review methodology
+
+Every worked numerical example in this edition was checked against the
+value reported in the original e-Handbook, generally by reproducing the
+calculation in R (and, where one exists, cross-checking against the
+e-Handbook's own companion Dataplot or R script). Genuine discrepancies
+between the original text and the recomputed value are flagged in place
+with a callout note, rather than silently corrected — the goal is to
+preserve the original NIST content as the reference, while being transparent
+about anywhere this edition's numbers diverge from it.
+
+A full line-by-line comparison of the original archived materials against
+this edition was not feasible — the original e-Handbook runs to more than
+1,300 individual pages. Instead, each section was built and spot-checked for
+accuracy as it was migrated, and whenever a deviation from the archived
+material was detected, the surrounding section received a careful,
+dedicated inspection. Undoubtedly, additional corrections will be needed as
+this edition is used and reviewed more broadly — see `CONTRIBUTING.md` in
+the repository for how to report them.
+
+## Statement on the use of generative AI technologies
+
+This edition was produced in close collaboration with
+[Claude Code](https://claude.com/claude-code), Anthropic's agentic coding
+tool, working under the direction and review of the editor throughout.
+
+For each chapter, the editor directed which section of the original
+e-Handbook to migrate next; Claude Code then read the corresponding source
+page(s) under `handbook/`, drafted the Quarto (`.qmd`) markdown and R code
+reproducing the worked examples, executed that R code to verify every
+reported numerical result against the original text, and rendered the
+chapter to confirm the page built correctly before moving on. Genuine
+discrepancies between NIST's published values and the recomputed ones were
+flagged with callout notes rather than silently altered; the editor's own
+transcription or formatting corrections were applied directly. Decisions
+about structure, tone, visual conventions, and how to handle ambiguous or
+inconsistent source material were made by the editor in the course of this
+collaboration, and captured as standing conventions for the rest of the
+project as they arose.
+
+The editor reviewed each section as it was produced, spot-checked
+calculations and rendering, and made the final call on anything flagged as
+a discrepancy, an ambiguous judgment call, or a structural decision. As with
+any large-scale migration of this kind, responsibility for the accuracy of
+the final published content rests with the editor, not with the tool used
+to help produce it.

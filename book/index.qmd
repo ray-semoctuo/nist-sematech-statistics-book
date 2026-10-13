@@ -12,3 +12,29 @@ extensions). Original datasets are retained for reference and validation.
 
 The source content for this migration lives in `handbook/` at the root of
 this repository.
+
+## Why this edition exists
+
+I first became aware of the e-Handbook in the early 2000s, while working in
+optical metrology (reflectometry, ellipsometry, and scatterometry) for a
+semiconductor capital equipment company — the content was directly
+applicable to my role as an application scientist. I have continued to use
+it throughout my career, including outside the semiconductor industry, and
+eventually as a primary text for a graduate-level applied statistics course
+I have taught for almost a decade.
+
+The content and examples in the e-Handbook are excellent and meet its
+stated objective to "help scientists and engineers incorporate statistical
+methods into their work as efficiently as possible." While minor corrections
+have been made over the years, the last major update is reported as April
+2012, and the layout — a 1990s-era HTML frameset — is less than ideal for
+modern use. An additional challenge to using the e-Handbook as a primary
+course text has been the infrequent, but always poorly timed, shutdowns of
+the U.S. government, which take the website offline along with it. (I have
+made a `handbook.zip` snapshot available to students in the past, but this
+is far from an ideal substitute for a working site.)
+
+This edition exists to address both problems: a modern, searchable book
+format, and a local, version-controlled copy that doesn't depend on any
+single website staying up. See the "Methodology" appendix for how it was
+produced, and "About the Editor" for more on who put it together.

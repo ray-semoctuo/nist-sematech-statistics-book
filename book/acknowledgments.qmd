@@ -1,0 +1,172 @@
+# Acknowledgments {.unnumbered}
+
+## NIST
+
+This edition would not exist without the original
+[NIST/SEMATECH e-Handbook of Statistical Methods](https://www.itl.nist.gov/div898/handbook/),
+a public resource produced and maintained by the National Institute of
+Standards and Technology in collaboration with SEMATECH. See the
+"Copyright" appendix for NIST's full statement on the use of its materials.
+
+The acknowledgments below are reproduced from the original e-Handbook's own
+[Acknowledgements](https://www.itl.nist.gov/div898/handbook/acknwldg.htm)
+page, crediting everyone who built the source material this edition is
+based on.
+
+### Origins of the e-Handbook
+
+The e-Handbook's origins trace back to the work of Mary Natrella — see
+[Origins of the e-Handbook in the Work of Mary Natrella](natrella.pdf) for
+the full account.
+
+### Technical Editors
+
+- Carroll Croarkin — Statistical Engineering Division, Information
+  Technology Laboratory, NIST
+- Paul Tobias — Statistical Methods Group, SEMATECH
+
+### Chapter Editors
+
+1. [Exploratory Data Analysis](#sec-eda):
+   - [James J. Filliben](https://www.nist.gov/people/james-j-filliben) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+2. [Measurement Process Characterization](#sec-mpc):
+   - Carroll Croarkin — Statistical Engineering Division, Information
+     Technology Laboratory, NIST
+3. [Production Process Characterization](#sec-ppc):
+   - Barry Hembree — AMD
+4. [Process Modeling](#sec-pmd):
+   - [William Guthrie](https://www.nist.gov/people/william-f-guthrie) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+5. [Process Improvement](#sec-pri):
+   - Paul Tobias — Statistical Methods Group, SEMATECH
+   - Ledi Trutna — Advanced Micro Devices
+6. [Process or Product Monitoring and Control](#sec-pmc):
+   - Jack Prins — Statistical Methods Group, SEMATECH
+7. [Product and Process Comparisons](#sec-prc):
+   - Jack Prins — Statistical Methods Group, SEMATECH
+8. [Assessing Product Reliability](#sec-apr):
+   - Paul Tobias — Statistical Methods Group, SEMATECH
+
+### Project Coordinator
+
+- Chelli Zey — Statistical Methods Group, SEMATECH
+
+### Chapter Authors
+
+1. [Exploratory Data Analysis](#sec-eda):
+   - [James J. Filliben](https://www.nist.gov/people/james-j-filliben) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+   - [Alan Heckert](https://www.nist.gov/people/n-alan-heckert) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+2. [Measurement Process Characterization](#sec-mpc):
+   - Carroll Croarkin — Statistical Engineering Division, Information
+     Technology Laboratory, NIST
+3. [Production Process Characterization](#sec-ppc):
+   - Barry Hembree — AMD
+4. [Process Modeling](#sec-pmd):
+   - [William Guthrie](https://www.nist.gov/people/william-f-guthrie) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+   - [James Filliben](https://www.nist.gov/people/james-j-filliben) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+   - [Alan Heckert](https://www.nist.gov/people/n-alan-heckert) —
+     Statistical Engineering Division, Information Technology Laboratory,
+     NIST
+5. [Process Improvement](#sec-pri):
+   - Ledi Trutna — Advanced Micro Devices
+   - Pat Spagon — Motorola University
+   - Dr. Enrique del Castillo — Department of Industrial & Manufacturing
+     Engineering, Pennsylvania State University
+   - Terri Moore — Motorola
+   - Sam Hartley — Motorola
+   - Arnon Hurwitz — QualTech Motorola
+6. [Process or Product Monitoring and Control](#sec-pmc):
+   - Jack Prins — Statistical Methods Group, SEMATECH
+7. [Product and Process Comparisons](#sec-prc):
+   - Jack Prins — Statistical Methods Group, SEMATECH
+   - Don McCormack — Statistical Methods Group, SEMATECH
+   - Di Michelson — Statistical Methods Group, SEMATECH
+   - Karen Horrell — Statistical Methods Group, SEMATECH
+8. [Assessing Product Reliability](#sec-apr):
+   - Paul Tobias — Statistical Methods Group, SEMATECH
+
+### Review and Management Contributors
+
+- Tom Ryan — NIST: external staff
+- Keith Eberhardt — Statistical Engineering Division, Information
+  Technology Laboratory, NIST
+- Dom Vecchia — Statistical Engineering Division, Information Technology
+  Laboratory, NIST
+- [Nien-Fan Zhang](https://www.nist.gov/people/nien-fan-zhang) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- [Jolene Splett](https://www.nist.gov/people/splett-jolene-d) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- [Jack Wang](https://www.nist.gov/people/wang-chih-ming-jack) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- David Banks — Statistical Engineering Division, Information Technology
+  Laboratory, NIST
+- Mark Levenson — Statistical Engineering Division, Information Technology
+  Laboratory, NIST
+
+### HTML Developers/Coders
+
+- [Alan Heckert](https://www.nist.gov/people/n-alan-heckert) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- Cesar Iriarte — Iris Visual Design
+- George Kaupas — AMD
+- Mark Reeder — Statistical Engineering Division, Information Technology
+  Laboratory, NIST
+- Chelli Zey — Statistical Methods Group, SEMATECH
+
+### Graphic Artist
+
+- Cesar Iriarte — Iris Visual Design
+
+### Dataplot Developers
+
+- [James J. Filliben](https://www.nist.gov/people/james-j-filliben) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- [Alan Heckert](https://www.nist.gov/people/n-alan-heckert) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- Robert Lipman — Building and Fire Research Laboratory, NIST
+
+### Case Study Contributors
+
+- James Ehrstein — NIST: [Check standard for resistivity
+  measurements](#sec-mpc-62)
+- James Ehrstein — NIST: [Gauge Study of Resistivity
+  Probes](#sec-mpc-61)
+- Paul Pontius — NIST: [Load Cell Calibration](#sec-pmd-611)
+
+### R Code Contributors
+
+- Ivelisse Aviles
+- Charline Cleraux
+- Francesca Pennecchi
+- [Jolene Splett](https://www.nist.gov/people/splett-jolene-d) —
+  Statistical Engineering Division, Information Technology Laboratory,
+  NIST
+- [James Yen](https://www.nist.gov/people/james-h-yen) — Statistical
+  Engineering Division, Information Technology Laboratory, NIST
+- [Jack Wang](https://www.nist.gov/people/wang-chih-ming-jack) —
+  Technical Editor, Statistical Engineering Division, Information
+  Technology Laboratory, NIST
+- [Antonio Possolo](https://www.nist.gov/people/antonio-possolo) —
+  Project Leader, Technical Editor, Statistical Engineering Division,
+  Information Technology Laboratory, NIST
+
+This work was supported in part by the High Performance Computing and
+Communications/Systems Integration for Manufacturing Applications
+(HPCC/SIMA).

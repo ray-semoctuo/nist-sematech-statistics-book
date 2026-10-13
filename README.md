@@ -5,6 +5,26 @@ Methods](https://www.itl.nist.gov/div898/handbook/) from its original static
 HTML/Dataplot form into a [Quarto](https://quarto.org/) book, with worked
 examples re-implemented in R using the [tidyverse](https://www.tidyverse.org/).
 
+## About this project
+
+The e-Handbook's content is excellent and still relevant, but the original
+site is a 1990s-era HTML frameset, last substantively updated in 2012, and
+periodically unavailable during U.S. government shutdowns. This project
+reproduces the full handbook as a modern, searchable Quarto book, with every
+worked example re-implemented and numerically verified in R rather than the
+original Dataplot/S-PLUS code. See the book's Preface and "Methodology"
+appendix for the full story of why and how this edition was produced.
+
+## Forking this book
+
+This repository is meant to be forked. New material here (R code, Quarto
+source, diagrams, and original prose) is released under CC0 1.0 Universal —
+see `LICENSE` — so you're free to take this as a starting point for your own
+course materials, your own re-implementation, or your own restructuring,
+with no attribution required and no need to ask. See `CONTRIBUTING.md` for
+more on the distinction between contributing a fix back to this edition
+versus forking to build your own.
+
 ## Repository layout
 
 - `handbook/` — the original static HTML handbook content (source material

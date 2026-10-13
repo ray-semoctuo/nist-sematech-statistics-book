@@ -18,6 +18,11 @@ book:
     - chapters/06-pmc/index.qmd
     - chapters/07-prc/index.qmd
     - chapters/08-apr/index.qmd
+  appendices:
+    - about-the-editor.qmd
+    - methodology.qmd
+    - acknowledgments.qmd
+    - copyright.qmd
     - references.qmd
 
 bibliography: references.bib
