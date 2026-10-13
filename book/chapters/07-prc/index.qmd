@@ -86,3 +86,7 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/kruskal-wallis.qmd >}}
 
 {{< include comparisons-multiple-processes/compare-variances.qmd >}}
+
+{{< include comparisons-multiple-processes/anova/index.qmd >}}
+
+{{< include comparisons-multiple-processes/anova/one-way-overview.qmd >}}

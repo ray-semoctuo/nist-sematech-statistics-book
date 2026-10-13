@@ -1,0 +1,68 @@
+### Are the means equal? {#sec-prc-43}
+
+[**Test equality of means**]{#sec-prc-43-test-equality}
+
+The procedure known as the *Analysis of Variance* or *ANOVA* is used to test hypotheses concerning means when we have several populations.
+
+**The Analysis of Variance (ANOVA)**
+
+[**The ANOVA procedure is one of the most powerful statistical techniques**]{#sec-prc-43-powerful}
+
+ANOVA is a general technique that can be used to test the hypothesis that the means among two or more groups are equal, under the assumption that the sampled populations are normally distributed.
+
+A couple of questions come immediately to mind: **what** means? and why analyze **variances** in order to derive conclusions about the **means**?
+
+Both questions will be answered as we delve further into the subject.
+
+[**Introduction to ANOVA**]{#sec-prc-43-introduction}
+
+To begin, let us study the effect of temperature on a passive component such as a resistor. We select three different temperatures and observe their effect on the resistors. This experiment can be conducted by measuring all the participating resistors before placing $n$ resistors each in three different ovens.
+
+Each oven is heated to a selected temperature. Then we measure the resistors again after, say, 24 hours and analyze the responses, which are the differences between before and after being subjected to the temperatures. The temperature is called a *factor*. The different temperature settings are called *levels*. In this example there are three levels or settings of the factor Temperature.
+
+[**What is a factor?**]{#sec-prc-43-factor}
+
+**A factor is an independent treatment variable whose settings (values) are controlled and varied by the experimenter. The intensity setting of a factor is the level**.
+
+- **Levels may be quantitative numbers or, in many cases, simply "present" or "not present" ("0" or "1")**.
+
+[**The one-way ANOVA**]{#sec-prc-43-one-way}
+
+In the experiment above, there is only one factor, temperature, and the analysis of variance that we will be using to analyze the effect of temperature is called a *one-way* or *one-factor* ANOVA.
+
+[**The two-way or three-way ANOVA**]{#sec-prc-43-two-three-way}
+
+We could have opted to also study the effect of positions in the oven. In this case there would be two factors, temperature and oven position. Here we speak of a *two-way* or *two-factor* ANOVA. Furthermore, we may be interested in a third factor, the effect of time. Now we deal with a *three-way* or *three-factor* ANOVA. In each of these ANOVA techniques we test a variety of hypotheses of equality of means (or average responses when the factors are varied).
+
+[**Hypotheses that can be tested in an ANOVA**]{#sec-prc-43-hypotheses}
+
+First consider the one-way ANOVA. The null hypothesis is: there is no difference in the population means of the different levels of factor $A$ (the only factor).
+
+The alternative hypothesis is: the means are not the same.
+
+For the two-way ANOVA, the possible null hypotheses are:
+
+1. There is no difference in the means of factor $A$
+2. There is no difference in means of factor $B$
+3. There is no interaction between factors $A$ and $B$
+
+The alternative hypothesis for cases 1 and 2 is: the means are not equal.
+
+The alternative hypothesis for case 3 is: there is an interaction between $A$ and $B$.
+
+For the three-way ANOVA, the main effects are factors $A$, $B$, and $C$, and the two-factor interactions are $AB$, $AC$, and $BC$. There is also a three-factor interaction, $ABC$.
+
+For each of the seven cases the null hypothesis is the same: there is no difference in means, and the alternative hypothesis is the means are not equal.
+
+[**The $n$-way ANOVA**]{#sec-prc-43-n-way}
+
+In general, the number of main effects and interactions can be found by the following expression:
+
+$$ N = \left( \begin{array}{c} n \\ 0 \end{array} \right) +
+       \left( \begin{array}{c} n \\ 1 \end{array} \right) +
+       \left( \begin{array}{c} n \\ 2 \end{array} \right) + \ldots +
+       \left( \begin{array}{c} n \\ n \end{array} \right) \, . $$
+
+The first term is for the overall mean, and is always 1. The second term is for the number of main effects. The third term is for the number of two-factor interactions, and so on. The last term is for the $n$-factor interaction and is always 1.
+
+In what follows, we will discuss only the one-way and two-way ANOVA.
