@@ -1,0 +1,58 @@
+#### The two-way ANOVA {#sec-prc-437}
+
+[**Definition of a factorial experiment**]{#sec-prc-437-factorial}
+
+The two-way ANOVA is probably the most popular layout in the [Design of Experiments](#sec-pri). To begin with, let us define a *factorial experiment*:
+
+**An experiment that utilizes every combination of factor levels as treatments is called a factorial experiment.**
+
+[**Model for the two-way factorial experiment**]{#sec-prc-437-model}
+
+In a factorial experiment with factor $A$ at $a$ levels and factor $B$ at $b$ levels, the model for the [general layout](#sec-prc-438) can be written as
+
+$$ Y_{ij}  =  \mu + \tau_i + \beta_j + \gamma_{ij} + \epsilon_{ijk}  \, , $$
+
+$$ \begin{aligned}
+\text{for } i & = 1, \, 2, \, \ldots, \, a, \\
+j & = 1, \, 2, \, \ldots, \, b, \\
+k & = 1, \, 2, \, \ldots, \, r,
+\end{aligned} $$
+
+where $\mu$ is the overall mean response, $\tau_i$ is the effect due to the $i$-th level of factor $A$, $\beta_j$ is the effect due to the $j$-th level of factor $B$ and $\gamma_{ij}$ is the effect due to any interaction between the $i$-th level of $A$ and the $j$-th level of $B$.
+
+[**Fixed factors and fixed effects models**]{#sec-prc-437-fixed-effects}
+
+At this point, consider the levels of factor $A$ and of factor $B$ chosen for the experiment to be the only levels of interest to the experimenter such as predetermined levels for temperature settings or the length of time for process step. The factors $A$ and $B$ are said to be *fixed factors* and the model is a *fixed-effects model*. Random factors will be discussed [later](#sec-prc-44).
+
+When an $a \times b$ factorial experiment is conducted with an equal number of observations per treatment combination, the total (corrected) sum of squares is partitioned as:
+
+$$ SS(total) = SS(A) + SS(B) + SS(AB) + SSE \, , $$
+
+where $AB$ represents the interaction between $A$ and $B$.
+
+For reference, the formulas for the sums of squares are:
+
+$$ \begin{aligned}
+SS(A)     & = rb \sum_{i=1}^a (\bar{y}_{i \cdot \cdot} - \bar{y}_{\cdot \cdot \cdot})^2 \\
+SS(B)     & = ra \sum_{j=1}^b (\bar{y}_{\cdot j \cdot} - \bar{y}_{\cdot \cdot \cdot})^2 \\
+SS(AB)    & = r  \sum_{j=1}^b \sum_{i=1}^a (\bar{y}_{ij \cdot} - \bar{y}_{i \cdot \cdot}
+                 - \bar{y}_{\cdot j \cdot} + \bar{y}_{\cdot \cdot \cdot})^2 \\
+SSE       & =    \sum_{k=1}^r \sum_{j=1}^b \sum_{i=1}^a (y_{ijk} - \bar{y}_{ij \cdot})^2 \\
+SS(Total) & =    \sum_{k=1}^r \sum_{j=1}^b \sum_{i=1}^a (y_{ijk} - \bar{y}_{\cdot \cdot \cdot} )^2
+\end{aligned} $$
+
+[**The breakdown of the total (corrected for the mean) sums of squares**]{#sec-prc-437-breakdown}
+
+The resulting ANOVA table for an $a \times b$ factorial experiment is
+
+| Source | $SS$ | $df$ | Mean Square |
+|---|---|---|---|
+| Factor $A$ | $SS(A)$ | $(a-1)$ | $SS(A) / (a-1)$ |
+| Factor $B$ | $SS(B)$ | $(b-1)$ | $SS(B) / (b-1)$ |
+| Interaction | $SS(AB)$ | $(a-1)(b-1)$ | $SS(AB) / ((a-1)(b-1))$ |
+| Error | $SSE$ | $(N-ab)$ | $SSE / (N-ab)$ |
+| Total (Corrected) | $SS(Total)$ | $(N-1)$ | |
+
+[**The ANOVA table can be used to test hypotheses about the effects and interactions**]{#sec-prc-437-test-hypotheses}
+
+The various hypotheses that can be tested using this ANOVA table concern whether the different levels of Factor $A$, or Factor $B$, really make a difference in the response, and whether the $AB$ interaction is significant (see previous discussion of [ANOVA hypotheses](#sec-prc-43-hypotheses)).
