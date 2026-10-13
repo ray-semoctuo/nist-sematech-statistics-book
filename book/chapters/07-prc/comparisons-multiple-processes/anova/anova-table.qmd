@@ -61,11 +61,23 @@ level1 <- c(6.9, 5.4, 5.8, 4.6, 4.0)
 level2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
 level3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
 
+library(gt)
+
 resistor_data <- tibble(`Level 1` = level1, `Level 2` = level2, `Level 3` = level3)
 
-resistor_data |>
-  bind_rows(summarise(resistor_data, across(everything(), mean))) |>
-  knitr::kable(digits = 2, align = "rrr")
+resistor_data_full <- tibble(Observation = c(as.character(1:5), "Mean")) |>
+  bind_cols(
+    resistor_data |>
+      bind_rows(summarise(resistor_data, across(everything(), mean)))
+  )
+
+resistor_data_full |>
+  gt() |>
+  fmt_number(columns = -Observation, rows = Observation == "Mean", decimals = 2) |>
+  tab_style(
+    style = list(cell_borders(sides = "top", weight = px(2)), cell_text(weight = "bold")),
+    locations = cells_body(rows = Observation == "Mean")
+  )
 ```
 
 The resulting ANOVA table is

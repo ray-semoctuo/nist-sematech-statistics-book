@@ -50,14 +50,23 @@ group2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
 group3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
 group4 <- c(5.8, 3.8, 6.1, 5.6, 6.2)
 
+library(gt)
+
 data4 <- tibble(`Group 1` = group1, `Group 2` = group2, `Group 3` = group3, `Group 4` = group4)
 
-data4 |>
+data4_full <- data4 |>
   bind_rows(summarise(data4, across(everything(), sum))) |>
   bind_rows(summarise(data4, across(everything(), mean))) |>
   mutate(Row = c(as.character(1:5), "Total", "Mean")) |>
-  select(Row, everything()) |>
-  knitr::kable(digits = 2, align = "lrrrr")
+  select(Row, everything())
+
+data4_full |>
+  gt() |>
+  fmt_number(columns = -Row, rows = Row %in% c("Total", "Mean"), decimals = 2) |>
+  tab_style(
+    style = list(cell_borders(sides = "top", weight = px(2)), cell_text(weight = "bold")),
+    locations = cells_body(rows = Row %in% c("Total", "Mean"))
+  )
 ```
 
 [**One-way ANOVA table layout**]{#sec-prc-436-layout}

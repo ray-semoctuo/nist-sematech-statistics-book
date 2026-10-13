@@ -84,10 +84,21 @@ rank_table <- bind_rows(
   pivot_wider(names_from = Firm, values_from = Rank) |>
   select(-Observation)
 
-rank_table |>
-  bind_rows(summarise(rank_table, across(everything(), \(x) sum(x, na.rm = TRUE)))) |>
-  mutate(across(everything(), ~ ifelse(is.na(.x), "", as.character(.x)))) |>
-  knitr::kable(align = "rrrr")
+library(gt)
+
+rank_table_full <- tibble(Observation = c(as.character(1:5), "SUM")) |>
+  bind_cols(
+    rank_table |>
+      bind_rows(summarise(rank_table, across(everything(), \(x) sum(x, na.rm = TRUE))))
+  )
+
+rank_table_full |>
+  gt() |>
+  sub_missing(columns = everything(), missing_text = "") |>
+  tab_style(
+    style = list(cell_borders(sides = "top", weight = px(2)), cell_text(weight = "bold")),
+    locations = cells_body(rows = Observation == "SUM")
+  )
 ```
 
 [**Compute the test statistic**]{#sec-prc-41-compute}
