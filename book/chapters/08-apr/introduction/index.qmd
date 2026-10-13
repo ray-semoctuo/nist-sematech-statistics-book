@@ -1,0 +1,5 @@
+## Introduction {#sec-apr-1}
+
+[**Goals of this section**]{#sec-apr-1-goals}
+
+This section introduces the terminology and models that will be used to describe and quantify product reliability. The terminology, probability distributions and models used for reliability analysis differ in many cases from those used in other statistical applications.

@@ -1,0 +1,7 @@
+### What are the basic terms and models used for reliability evaluation? {#sec-apr-12}
+
+[**Reliability methods and terminology began with 19th century insurance companies**]{#sec-apr-12-history}
+
+Reliability theory developed apart from the mainstream of probability and statistics, and was used primarily as a tool to help nineteenth century maritime and life insurance companies compute profitable rates to charge their customers. Even today, the terms "failure rate" and "hazard rate" are often used interchangeably.
+
+The following sections will define some of the concepts, terms, and models we need to describe, estimate and predict reliability.

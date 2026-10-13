@@ -1,13 +1,16 @@
 # Assessing Product Reliability {#sec-apr}
 
-::: {.callout-note}
-## Status
-Not yet migrated. Source content: `handbook/apr/`.
-:::
+This chapter describes the terms, models, and techniques used to evaluate and predict product reliability.
 
-<!--
-TODO:
-- Port narrative content from handbook/apr/apr.htm and handbook/apr/section*/*.htm
-- Re-implement worked examples in R using tidyverse (see book/R/ for shared helpers)
-- Cross-check numeric results against original Dataplot/S-PLUS/R output before marking complete
--->
+1. [Introduction](#sec-apr-1)
+2. [Assumptions/Prerequisites](#sec-apr-2)
+3. [Reliability Data Collection](#sec-apr-3)
+4. [Reliability Data Analysis](#sec-apr-4)
+
+{{< include introduction/index.qmd >}}
+
+{{< include introduction/why-reliability-matters.qmd >}}
+
+{{< include introduction/basic-terms-models/index.qmd >}}
+
+{{< include introduction/basic-terms-models/lifetime-distribution-models.qmd >}}

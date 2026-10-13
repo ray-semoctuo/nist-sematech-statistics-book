@@ -1,0 +1,41 @@
+### Why is the assessment and control of product reliability important? {#sec-apr-11}
+
+[**We depend on, demand, and expect reliable products**]{#sec-apr-11-depend}
+
+In today's technological world nearly everyone depends upon the continued functioning of a wide array of complex machinery and equipment for their everyday health, safety, mobility and economic welfare. We expect our cars, computers, electrical appliances, lights, televisions, etc. to function whenever we need them - day after day, year after year. When they fail the results can be catastrophic: injury, loss of life and/or costly lawsuits can occur. More often, repeated failure leads to annoyance, inconvenience and a lasting customer dissatisfaction that can play havoc with the responsible company's marketplace position.
+
+[**Shipping unreliable products can destroy a company's reputation**]{#sec-apr-11-reputation}
+
+It takes a long time for a company to build up a reputation for reliability, and only a short time to be branded as "unreliable" after shipping a flawed product. Continual assessment of new product reliability and ongoing control of the reliability of everything shipped are critical necessities in today's competitive business arena.
+
+#### Quality versus reliability {#sec-apr-111}
+
+[**Reliability is "quality changing over time"**]{#sec-apr-111-quality-over-time}
+
+The everyday usage term "quality of a product" is loosely taken to mean its inherent degree of excellence. In industry, this is made more precise by defining quality to be "conformance to requirements at the start of use". Assuming the product specifications adequately capture customer requirements, the quality level can now be precisely measured by the fraction of units shipped that meet specifications.
+
+[**A motion picture instead of a snapshot**]{#sec-apr-111-motion-picture}
+
+But how many of these units still meet specifications after a week of operation? Or after a month, or at the end of a one year warranty period? That is where "reliability" comes in. Quality is a snapshot at the start of life and reliability is a motion picture of the day-by-day operation. Time zero defects are manufacturing mistakes that escaped final test. The additional defects that appear over time are "reliability defects" or reliability fallout.
+
+[**Life distributions model fraction fallout over time**]{#sec-apr-111-life-distributions}
+
+The quality level might be described by a single fraction defective. To describe reliability fallout a probability model that describes the fraction fallout over time is needed. This is known as the life distribution model.
+
+#### Competitive driving factors {#sec-apr-112}
+
+[**Reliability is a major economic factor in determining a product's success**]{#sec-apr-112-economic-factor}
+
+Accurate prediction and control of reliability plays an important role in the profitability of a product. Service costs for products within the warranty period or under a service contract are a major expense and a significant pricing factor. Proper spare part stocking and support personnel hiring and training also depend upon good reliability fallout predictions. On the other hand, missing reliability targets may invoke contractual penalties and cost future business.
+
+Companies that can economically design and market products that meet their customers' reliability expectations have a strong competitive advantage in today's marketplace.
+
+#### Safety and health considerations {#sec-apr-113}
+
+[**Some failures have serious social consequences and this should be taken into account when planning reliability studies**]{#sec-apr-113-social-consequences}
+
+Sometimes equipment failure can have a major impact on human safety and/or health. Automobiles, planes, life support equipment, and power generating plants are a few examples.
+
+From the point of view of "assessing product reliability", we treat these kinds of catastrophic failures no differently from the failure that occurs when a key parameter measured on a manufacturing tool drifts slightly out of specification, calling for an unscheduled maintenance action.
+
+It is up to the reliability engineer (and the relevant customer) to define what constitutes a failure in any reliability study. More resource (test time and test units) should be planned for when an incorrect reliability assessment could negatively impact safety and/or health.
