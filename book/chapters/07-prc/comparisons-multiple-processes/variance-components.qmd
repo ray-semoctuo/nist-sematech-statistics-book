@@ -1,0 +1,148 @@
+### What are variance components? {#sec-prc-44}
+
+**Fixed and Random Factors and Components of Variance**
+
+[**A fixed level of a factor or variable means that the factor levels in the experiment are the only ones we are interested in**]{#sec-prc-44-fixed}
+
+In the previous [example](#sec-prc-433-example), the levels of the temperature factor were considered as *fixed*; that is, the three temperatures were the only ones that we were interested in. The model employed for fixed levels is called a *fixed effects model*.
+
+The adequacy of the fixed effects model may be questionable in the previous example, but for a study involving fixed points of the International Temperature Scale of 1990 (ITS-90), treating the effects of temperature as fixed effects can be meaningful and very appropriate.
+
+When the levels of a factor have been chosen by random sampling, such as operators, days, lots or batches, or more generally when they are of no specific interest in themselves, being regarded as representative of all possible levels that the factor may take, then the appropriate model is a [random effects model](#sec-prc-432-random-effects). In these circumstances, the inferences drawn from the data are meant to apply to the whole collection of levels that the factor may conceivably take.
+
+[**Variance Components**]{#sec-prc-44-variance-components}
+
+Fitting a random effects model is often the means to obtain estimates of the contributions that different experimental factors make to the overall variability of the data, as expressed by their variance. These contributions are called *variance components*.
+
+**Example: Variance Components**
+
+[**Data for the example**]{#sec-prc-44-data}
+
+A company supplies a customer with a larger number of batches of raw materials. The customer makes three sample determinations from each of five randomly selected batches to control the quality of the incoming material. The model is
+
+$$ Y_{ij} = \mu + \tau_i + \epsilon_{ij} \, , $$
+
+and the $k$ levels (e.g., the batches) are chosen at random from a population with variance $\sigma_\tau$. The data are shown below.
+
+```{r}
+#| label: tbl-prc-44-data
+#| tbl-cap: "Batch sample data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+batch1 <- c(74, 76, 75)
+batch2 <- c(68, 71, 72)
+batch3 <- c(75, 77, 77)
+batch4 <- c(72, 74, 73)
+batch5 <- c(79, 81, 79)
+
+tibble(B1 = batch1, B2 = batch2, B3 = batch3, B4 = batch4, B5 = batch5) |>
+  knitr::kable(align = "rrrrr")
+```
+
+[**ANOVA table for example**]{#sec-prc-44-anova}
+
+A one-way ANOVA performed on the data yielded the following results, where *SS* denotes the sums of squares, *df* denotes the numbers of degrees of freedom, *MS* denotes the mean squares, *EMS* denotes the expected mean squares, *F* is the value of the statistic used to test whether $\sigma_\tau$ = 0, followed by the *p*-value of the test.
+
+```{r}
+#| label: tbl-prc-44-anova
+#| tbl-cap: "ANOVA table for the batch example"
+#| code-fold: true
+y <- c(batch1, batch2, batch3, batch4, batch5)
+batch <- factor(rep(1:5, each = 3))
+fit_batch <- aov(y ~ batch)
+anova_batch <- summary(fit_batch)[[1]]
+
+tibble(
+  Source = c("Batch", "Error", "Total"),
+  SS = c(anova_batch$`Sum Sq`[1], anova_batch$`Sum Sq`[2], sum(anova_batch$`Sum Sq`)),
+  DF = c(anova_batch$Df[1], anova_batch$Df[2], sum(anova_batch$Df)),
+  MS = c(anova_batch$`Mean Sq`[1], anova_batch$`Mean Sq`[2], NA),
+  EMS = c("$\\sigma_\\epsilon^2 + 3\\sigma_\\tau^2$", "$\\sigma_\\epsilon^2$", ""),
+  F = c(anova_batch$`F value`[1], NA, NA),
+  `p-value` = c(anova_batch$`Pr(>F)`[1], NA, NA)
+) |>
+  mutate(across(c(MS, F, `p-value`), ~ ifelse(is.na(.x), "", as.character(round(.x, 5))))) |>
+  knitr::kable(digits = 5, align = "lrrrlrr")
+```
+
+[**Interpretation of the ANOVA table**]{#sec-prc-44-interpretation}
+
+The computations that produce the *SS* are the same for both the fixed and the random effects models. For the random effects model, however, the batch sum of squares, 147.73, is an estimate of $\{\sigma_\epsilon^2 + 3 \sigma_\tau^2\}$. This is shown in the *EMS* column of the ANOVA table.
+
+The statistic used to test the hypothesis that there are no batch effects, that is $\sigma_\tau^2$ = 0, is *F* = 36.933 / 1.800 = 20.52. The *p*-value is the probability of observing an *F* statistic this large or larger owing to the vagaries of sampling alone, when $\sigma_\tau^2$ = 0.
+
+Since the *p*-value is very small, we conclude that $\sigma_\tau^2$ > 0, hence that there are significant batch effects. The validity of this conclusion rests on several assumptions: (i) the $\{\tau_{i}\}$ are a sample from a Gaussian distribution with mean 0 and standard deviation $\sigma_\tau$; (ii) the $\{\epsilon_{ij}\}$ are a sample from a Gaussian distribution with mean 0 and standard deviation $\sigma_{\epsilon}$; and (iii) the $\{\tau_{i}\}$ and the $\{\epsilon_{ij}\}$ are mutually independent.
+
+To find out how much of the variance in the results of the experiment may be attributed to batch differences and how much to random error, we need to estimate the *variance components*, $\sigma_{\tau}^{2}$ and $\sigma_{\epsilon}^{2}$.
+
+[**Method of moments estimates of variance components**]{#sec-prc-44-method-of-moments}
+
+The classical estimates of $\sigma_{\tau}^{2}$ and $\sigma_{\epsilon}^{2}$ are computed using the method of moments, by equating expected and observed mean squares, and solving the two simultaneous equations for $\sigma_{\tau}^{2}$ and $\sigma_{\epsilon}^{2}$:
+
+$$
+\begin{aligned}
+\sigma_{\epsilon}^{2} + 3 \sigma_{\tau}^{2} &= 36.933 \\
+\sigma_{\epsilon}^{2} &= 1.800 .
+\end{aligned}
+$$
+
+```{r}
+#| label: verify-prc-44-moments
+#| code-fold: true
+MSB <- anova_batch$`Mean Sq`[1]
+MSE_batch <- anova_batch$`Mean Sq`[2]
+sigma_eps2 <- MSE_batch
+sigma_tau2 <- (MSB - MSE_batch) / 3
+pct_tau <- sigma_tau2 / (sigma_tau2 + sigma_eps2) * 100
+
+tibble(
+  Statistic = c("$\\hat{\\sigma}_\\epsilon^2$", "$\\hat{\\sigma}_\\tau^2$", "% variance from batch"),
+  Value = c(sigma_eps2, sigma_tau2, pct_tau)
+) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+The solution is $\widehat{\sigma}_{\epsilon}^{2}$ = 1.800 and $\widehat{\sigma}_{\tau}^{2}$ = (36.933 - 1.800)/3 = 11.71. The latter amounts to 11.71/ (1.800 + 11.71) = 86.7% of the total variance, while the batch-specific errors contribute only 13.3%.
+
+Note that, especially when $\sigma_{\tau}^{2}$ is small relative to $\sigma_{\epsilon}^{2}$, the batch *MS* can be smaller than the error *MS*. In these circumstances, the method of moments estimate of $\sigma_{\tau}^{2}$ can be negative, which is nonsensical. For this reason, and for reasons related to the performance of the estimates, alternative estimates may be preferable, which we illustrate next.
+
+[**Restricted maximum likelihood estimates of variance components**]{#sec-prc-44-reml}
+
+The restricted maximum likelihood (REML) estimates of the variance components are generally preferable to the method of moments estimates. Searle, Casella, and McCulloch [-@Searle2006] discuss the matter in detail.
+
+The companion R code shows how these estimates can be computed. In this case, the REML estimates of $\sigma_{\tau}^{2}$ and of $\sigma_{\epsilon}^{2}$ are identical to those obtained by application of the method of moments.
+
+```{r}
+#| label: verify-prc-44-reml
+#| code-fold: true
+#| message: false
+library(lme4)
+
+fit_reml <- lmer(y ~ 1 + (1 | batch), REML = TRUE)
+vc <- as.data.frame(VarCorr(fit_reml))
+
+tibble(Group = vc$grp, Variance = vc$vcov, `Std. Dev.` = vc$sdcor) |>
+  knitr::kable(digits = 3, align = "lrr")
+```
+
+However, the REML approach also yields confidence intervals for the variance components. A 95% confidence interval for $\sigma_{\tau}^{2}$ ranges from about 1 to 34; while confirming the significance of the batch effects, it also reveals that there is great uncertainty about the true value of this variance component.
+
+```{r}
+#| label: verify-prc-44-reml-ci
+#| code-fold: true
+#| message: false
+#| warning: false
+set.seed(123)
+ci_boot <- confint(fit_reml, level = 0.95, method = "boot", nsim = 1000, boot.type = "perc", quiet = TRUE)
+
+tau_sd_ci <- ci_boot[1, ]
+
+tibble(
+  Parameter = c("$\\sigma_\\tau$ (SD scale)", "$\\sigma_\\tau^2$ (variance scale)"),
+  `2.5%` = c(tau_sd_ci[1], tau_sd_ci[1]^2),
+  `97.5%` = c(tau_sd_ci[2], tau_sd_ci[2]^2)
+) |>
+  knitr::kable(digits = 3, align = "lrr")
+```

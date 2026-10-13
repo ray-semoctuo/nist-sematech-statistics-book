@@ -104,3 +104,5 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/anova/two-way-anova.qmd >}}
 
 {{< include comparisons-multiple-processes/anova/two-way-calculations.qmd >}}
+
+{{< include comparisons-multiple-processes/variance-components.qmd >}}
