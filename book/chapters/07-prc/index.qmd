@@ -110,3 +110,13 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/categorical-data.qmd >}}
 
 {{< include comparisons-multiple-processes/proportion-defectives.qmd >}}
+
+{{< include comparisons-multiple-processes/multiple-comparisons/index.qmd >}}
+
+{{< include comparisons-multiple-processes/multiple-comparisons/tukey.qmd >}}
+
+{{< include comparisons-multiple-processes/multiple-comparisons/scheffe.qmd >}}
+
+{{< include comparisons-multiple-processes/multiple-comparisons/bonferroni.qmd >}}
+
+{{< include comparisons-multiple-processes/multiple-comparisons/marascuilo.qmd >}}

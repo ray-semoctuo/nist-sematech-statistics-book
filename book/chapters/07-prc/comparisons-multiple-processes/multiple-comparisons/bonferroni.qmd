@@ -1,0 +1,137 @@
+#### Bonferroni's method {#sec-prc-473}
+
+[**Simple method**]{#sec-prc-473-simple-method}
+
+The Bonferroni method is a simple method that allows many comparison statements to be made (or confidence intervals to be constructed) while still assuring an overall confidence coefficient is maintained.
+
+[**Applies for a finite number of contrasts**]{#sec-prc-473-finite-contrasts}
+
+This method applies to an ANOVA situation when the analyst has picked out a particular set of pairwise comparisons or contrasts or linear combinations in advance. This set is not infinite, as in the Scheffé case, but may exceed the set of pairwise comparisons specified in the Tukey procedure.
+
+[**Valid for both equal and unequal sample sizes**]{#sec-prc-473-equal-unequal}
+
+The Bonferroni method is valid for equal and unequal sample sizes. We restrict ourselves to only linear combinations or comparisons of treatment level means (pairwise comparisons and contrasts are special cases of linear combinations). We denote the number of statements or comparisons in the finite set by $g$.
+
+[**Bonferroni general inequality**]{#sec-prc-473-general-inequality}
+
+Formally, the Bonferroni general inequality is presented by:
+
+$$ P\left( \bigcap_{i=1}^g A_i \right) \ge 1 - \sum_{i=1}^g P[\bar{A_i}] \, , $$
+
+where $A_i$ and its complement $\bar{A_i}$ are any events.
+
+[**Interpretation of Bonferroni inequality**]{#sec-prc-473-interpretation}
+
+In particular, if each $A_i$ is the event that a calculated confidence interval for a particular linear combination of treatments includes the true value of that combination, then the left-hand side of the inequality is the probability that all the confidence intervals simultaneously cover their respective true values. The right-hand side is one minus the sum of the probabilities of each of the intervals missing their true values. Therefore, if simultaneous multiple interval estimates are desired with an overall confidence coefficient $1 - \alpha$, one can construct each interval with confidence coefficient $(1 - \alpha/g)$, and the Bonferroni inequality insures that the overall confidence coefficient is at least $1 - \alpha$.
+
+[**Formula for Bonferroni confidence interval**]{#sec-prc-473-formula}
+
+In summary, the Bonferroni method states that the confidence coefficient is at least $1 - \alpha$ that simultaneously all the following confidence limits for the $g$ linear combinations $C_i$ are "correct" (or capture their respective true values):
+
+$$ \hat{C}_{i} \pm t_{1-\alpha/(2g), N-r} \,\, s_{\hat{C}_i} $$
+
+where
+
+$$ s_{\hat{C}_i} = \hat{\sigma}_\epsilon \, \sqrt{\sum^{r}_{i=1} \frac{c^2_i}{n_i}} \, . $$
+
+**Example using Bonferroni method**
+
+[**Contrasts to estimate**]{#sec-prc-473-contrasts-to-estimate}
+
+We wish to estimate, [as we did using the Scheffe method](#sec-prc-472-contrasts-to-estimate), the following linear combinations (contrasts):
+
+$$ \begin{aligned}
+ C_1 & = \frac{\mu_1 + \mu_2}{2} - \frac{\mu_3 + \mu_4}{2} \\
+ C_2 & = \frac{\mu_1 + \mu_3}{2} - \frac{\mu_2 + \mu_4}{2} \, , \\
+\end{aligned} $$
+
+and construct 95% confidence intervals around the estimates.
+
+[**Compute the point estimates of the individual contrasts**]{#sec-prc-473-point-estimates}
+
+The point estimates are:
+
+$$ \begin{aligned}
+ \hat{C}_1 & = \frac{\bar{Y}_1 + \bar{Y}_2}{2} - \frac{\bar{Y}_3 + \bar{Y}_4}{2} = -0.5 \\
+ \hat{C}_2 & = \frac{\bar{Y}_1 + \bar{Y}_3}{2} - \frac{\bar{Y}_2 + \bar{Y}_4}{2} = 0.34 \, .\\
+\end{aligned} $$
+
+[**Compute the point estimate and variance of $C$**]{#sec-prc-473-variance}
+
+As before, for both contrasts, we have
+
+$$ \sum_{i=1}^4 \frac{c_i^2}{n_i} = \frac{4(1/2)^2}{5} = 0.2 $$
+
+and
+
+$$ s_{\hat{C}}^2 = \hat{\sigma}_\epsilon^2 \, \sum_{i=1}^4 \frac{c_i^2}{4} = 1.331(0.2) = 0.2661 \, , $$
+
+where $\sigma_\epsilon^2$ = 1.331 was computed in our [previous example](#sec-prc-436-point-estimate). The standard error is 0.5158 (the square root of 0.2661).
+
+[**Compute the Bonferroni simultaneous confidence interval**]{#sec-prc-473-ci}
+
+For a 95% overall confidence coefficient using the Bonferroni method, the $t$ value is $t_{1-0.05/(2\cdot2), \, 16} = t_{0.9875, \, 16}$ = 2.473 (from the [$t$ table](#sec-eda-t-distribution-table) in Chapter 1). Now we can calculate the confidence intervals for the two contrasts. For $C_1$ we have confidence limits -0.5 ± 2.473(0.5158) and for $C_2$ we have confidence limits 0.34 ± 2.473(0.5158).
+
+Thus, the confidence intervals are:
+
+$$ -1.776 \le C_1 \le 0.776 $$
+
+and
+
+$$ -0.936 \le C_2 \le 1.616 \, .$$
+
+```{r}
+#| label: tbl-prc-473-bonferroni-ci
+#| tbl-cap: "Bonferroni simultaneous 95% confidence intervals"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+group1 <- c(6.9, 5.4, 5.8, 4.6, 4.0)
+group2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
+group3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
+group4 <- c(5.8, 3.8, 6.1, 5.6, 6.2)
+
+y <- c(group1, group2, group3, group4)
+grp <- factor(rep(1:4, each = 5))
+fit <- aov(y ~ grp)
+mse <- summary(fit)[[1]]["Residuals", "Mean Sq"]
+means <- c(mean(group1), mean(group2), mean(group3), mean(group4))
+
+C1 <- (means[1] + means[2]) / 2 - (means[3] + means[4]) / 2
+C2 <- (means[1] + means[3]) / 2 - (means[2] + means[4]) / 2
+sum_c2_n <- 4 * (0.5)^2 / 5
+se_C <- sqrt(mse * sum_c2_n)
+
+g <- 2
+tcrit <- qt(1 - 0.05 / (2 * g), 16)
+
+tibble(
+  Contrast = c("$C_1$", "$C_2$"),
+  Estimate = c(C1, C2),
+  `$t$ multiplier` = tcrit,
+  Lower = c(C1 - tcrit * se_C, C2 - tcrit * se_C),
+  Upper = c(C1 + tcrit * se_C, C2 + tcrit * se_C)
+) |>
+  knitr::kable(digits = 3, align = "lrrrr")
+```
+
+[**Comparison to Scheffe interval**]{#sec-prc-473-scheffe-comparison}
+
+Notice that the [Scheffé interval](#sec-prc-472-scheffe-ci) for $C_1$ is:
+
+$$ -2.108 \le C_1 \le 1.108 \, , $$
+
+which is wider and therefore less attractive.
+
+**Comparison of Bonferroni Method with Scheffé and Tukey Methods**
+
+[**No one comparison method is uniformly best - each has its uses**]{#sec-prc-473-no-single-best}
+
+1. If all pairwise comparisons are of interest, Tukey has the edge. If only a subset of pairwise comparisons are required, Bonferroni may sometimes be better.
+
+2. When the number of contrasts to be estimated is small, (about as many as there are factors) Bonferroni is better than Scheffé. Actually, unless the number of desired contrasts is at least twice the number of factors, Scheffé will always show wider confidence bands than Bonferroni.
+
+3. Many computer packages include all three methods. So, study the output and select the method with the smallest confidence band.
+
+4. No single method of multiple comparisons is uniformly best among all the methods.

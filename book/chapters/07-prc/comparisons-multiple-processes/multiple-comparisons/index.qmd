@@ -1,0 +1,60 @@
+### How can we make multiple comparisons? {#sec-prc-47}
+
+[**What to do after equality of means is rejected**]{#sec-prc-47-after-rejection}
+
+When processes are compared and the null hypothesis of equality (or homogeneity) is rejected, all we know at that point is that there is no equality amongst them. But we do not know the form of the inequality.
+
+[**Typical questions**]{#sec-prc-47-typical-questions}
+
+Questions concerning the reason for the rejection of the null hypothesis arise in the form of:
+
+- "Which mean(s) or proportion(s) differ from a standard or from each other?"
+- "Does the mean of treatment 1 differ from that of treatment 2?"
+- "Does the average of treatments 1 and 2 differ from the average of treatments 3 and 4?"
+
+[**Multiple Comparison test procedures are needed**]{#sec-prc-47-procedures-needed}
+
+One popular way to investigate the cause of rejection of the null hypothesis is a *Multiple Comparison Procedure*. These are methods which examine or compare more than one pair of means or proportions at the same time.
+
+> **Note**: Doing pairwise comparison procedures over and over again for all possible pairs will not, in general, work. This is because the overall significance level is not as specified for a single pair comparison.
+
+[**ANOVA F test is a preliminary test**]{#sec-prc-47-preliminary-test}
+
+The ANOVA uses the F test to determine whether there exists a significant difference among treatment means or interactions. In this sense it is a preliminary test that informs us if we should continue the investigation of the data at hand.
+
+If the null hypothesis (no difference among treatments or interactions) is accepted, there is an implication that no relation exists between the factor levels and the response. There is not much we can learn, and we are finished with the analysis.
+
+When the F test rejects the null hypothesis, we usually want to undertake a thorough analysis of the nature of the factor-level effects.
+
+[**Procedures for examining factor-level effects**]{#sec-prc-47-examining-effects}
+
+Previously, we discussed several procedures for examining particular factor-level effects. These were
+
+- [Estimation of the Difference Between Two Factor Means](#sec-prc-435)
+- [Estimation of Factor Level Effects](#sec-prc-436-estimating-means)
+- [Confidence Intervals For A Contrast](#sec-prc-436-ci)
+
+[**Determine contrasts in advance of observing the experimental results**]{#sec-prc-47-contrasts-in-advance}
+
+These types of investigations should be done on combinations of factors that were determined in advance of observing the experimental results, or else the confidence levels are not as specified by the procedure. Also, doing several comparisons might change the overall confidence level (see [note](#sec-prc-47-after-rejection) above). This can be avoided by carefully selecting contrasts to investigate in advance and making sure that:
+
+- the number of such contrasts does not exceed the number of degrees of freedom between the treatments
+- only [orthogonal contrasts](#sec-prc-436-definition-estimation) are chosen.
+
+However, there are also several powerful multiple comparison procedures we can use after observing the experimental results.
+
+**Tests on Means after Experimentation**
+
+[**Procedures for performing multiple comparisons**]{#sec-prc-47-procedures-list}
+
+If the decision on what comparisons to make is withheld until after the data are examined, the following procedures can be used:
+
+- [Tukey's Method](#sec-prc-471) *to test all possible pairwise differences of means to determine if at least one difference is significantly different from 0.*
+- [Scheffé's Method](#sec-prc-472) *to test all possible contrasts at the same time, to see if at least one is significantly different from 0.*
+- [Bonferroni Method](#sec-prc-473) *to test, or put simultaneous confidence intervals around, a pre-selected group of contrasts*
+
+**Multiple Comparisons Between Proportions**
+
+[**Procedure for proportion defective data**]{#sec-prc-47-proportion-defective}
+
+When we are dealing with [population proportion defective data](#sec-prc-46), the [Marascuilo procedure](#sec-prc-474) can be used to simultaneously examine comparisons between all groups after the data have been collected.

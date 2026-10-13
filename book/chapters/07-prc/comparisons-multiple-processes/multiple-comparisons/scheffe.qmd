@@ -1,0 +1,180 @@
+#### Scheffé's method {#sec-prc-472}
+
+[**Scheffé's method tests all possible contrasts at the same time**]{#sec-prc-472-intro}
+
+Scheffé's method applies to the set of estimates of all possible contrasts among the factor level means, not just the pairwise differences considered by Tukey's method.
+
+[**Definition of contrast**]{#sec-prc-472-contrast-definition}
+
+An arbitrary contrast is defined by
+
+$$ C = \sum_{i=1}^r c_i \, \mu_i \, , $$
+
+where
+
+$$ \sum_{i=1}^r c_i = 0 \, . $$
+
+[**Infinite number of contrasts**]{#sec-prc-472-infinite-contrasts}
+
+Technically there is an infinite number of contrasts. The simultaneous confidence coefficient is exactly $1 - \alpha$, whether the factor level sample sizes are equal or unequal.
+
+[**Estimate and variance for $C$**]{#sec-prc-472-estimate-variance}
+
+As was [described earlier](#sec-prc-436-point-estimate), we estimate $C$ by:
+
+$$ \hat{C} = \sum_{i=1}^r c_i \, \bar{Y}_{i \scriptsize{\, \bullet}} $$
+
+for which the estimated variance is:
+
+$$ s_{\hat{C}}^2 = \hat{\sigma}_e^2 \, \sum_{i=1}^r \frac{c_i^2}{n_i} \, . $$
+
+[**Simultaneous confidence interval**]{#sec-prc-472-ci}
+
+It can be shown that the probability is $1 - \alpha$ that all confidence limits of the type
+
+$$ \hat{C} \pm \sqrt{(r-1) F_{\alpha; \, r-1, \, N-r}} \,\, \cdot s_{\hat{C}} $$
+
+are correct simultaneously.
+
+[**Scheffe method example**]{#sec-prc-472-example}
+
+[**Contrasts to estimate**]{#sec-prc-472-contrasts-to-estimate}
+
+We wish to estimate, in our [previous experiment](#sec-prc-436-example1), the following contrasts
+
+$$ \begin{aligned}
+ C_1 & = \frac{\mu_1 + \mu_2}{2} - \frac{\mu_3 + \mu_4}{2} \\
+ C_2 & = \frac{\mu_1 + \mu_3}{2} - \frac{\mu_2 + \mu_4}{2} \, , \\
+\end{aligned} $$
+
+and construct 95 percent confidence intervals for them.
+
+[**Compute the point estimates of the individual contrasts**]{#sec-prc-472-point-estimates}
+
+```{r}
+#| label: verify-prc-472-scheffe
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+group1 <- c(6.9, 5.4, 5.8, 4.6, 4.0)
+group2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
+group3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
+group4 <- c(5.8, 3.8, 6.1, 5.6, 6.2)
+
+y <- c(group1, group2, group3, group4)
+grp <- factor(rep(1:4, each = 5))
+fit <- aov(y ~ grp)
+mse <- summary(fit)[[1]]["Residuals", "Mean Sq"]
+means <- c(mean(group1), mean(group2), mean(group3), mean(group4))
+
+C1 <- (means[1] + means[2]) / 2 - (means[3] + means[4]) / 2
+C2 <- (means[1] + means[3]) / 2 - (means[2] + means[4]) / 2
+
+tibble(Contrast = c("$\\hat{C}_1$", "$\\hat{C}_2$"), Value = c(C1, C2)) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+The point estimates are:
+
+$$ \begin{aligned}
+ \hat{C}_1 & = \frac{\bar{Y}_1 + \bar{Y}_2}{2} - \frac{\bar{Y}_3 + \bar{Y}_4}{2} = -0.5 \\
+ \hat{C}_2 & = \frac{\bar{Y}_1 + \bar{Y}_3}{2} - \frac{\bar{Y}_2 + \bar{Y}_4}{2} = 0.34 \, .\\
+\end{aligned} $$
+
+[**Compute the point estimate and variance of $C$**]{#sec-prc-472-variance}
+
+Applying the formulas above we obtain in both cases:
+
+$$ \sum_{i=1}^4 \frac{c_i^2}{n_i} = \frac{4(1/2)^2}{5} = 0.2 $$
+
+and
+
+$$ s_{\hat{C}}^2 = \hat{\sigma}_\epsilon^2 \, \sum_{i=1}^4 \frac{c_i^2}{4} = 1.331(0.2) = 0.2661 \, , $$
+
+where $\sigma_\epsilon^2$ = 1.331 was computed in our [previous example](#sec-prc-436-point-estimate). The standard error is 0.5158 (square root of 0.2661).
+
+```{r}
+#| label: verify-prc-472-se
+#| code-fold: true
+sum_c2_n <- 4 * (0.5)^2 / 5
+var_C <- mse * sum_c2_n
+se_C <- sqrt(var_C)
+
+tibble(Statistic = c("$\\sum c_i^2 / n_i$", "$s_{\\hat{C}}^2$", "$s_{\\hat{C}}$"), Value = c(sum_c2_n, var_C, se_C)) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+[**Scheffe confidence interval**]{#sec-prc-472-scheffe-ci}
+
+For a confidence coefficient of 95 percent and degrees of freedom in the numerator of $r$ - 1 = 4 - 1 = 3, and in the denominator of 20 - 4 = 16, we have:
+
+$$ \sqrt{(r-1) F_{\alpha; \, r-1, \, N-r}} = \sqrt{3 \, F_{0.05; \, 3, \, 16}} = 3.12 \, . $$
+
+The confidence limits for $C_1$ are -0.5 ± 3.12(0.5158) = -0.5 ± 1.608, and for $C_2$ they are 0.34 ± 1.608.
+
+The desired simultaneous 95 percent confidence intervals are
+
+$$ -2.108 \le C_1 \le 1.108 $$
+
+$$ -1.268 \le C_2 \le 1.948 \, . $$
+
+```{r}
+#| label: tbl-prc-472-scheffe-ci
+#| tbl-cap: "Scheffé simultaneous 95% confidence intervals"
+#| code-fold: true
+Fcrit <- qf(0.95, 3, 16)
+mult <- sqrt(3 * Fcrit)
+
+tibble(
+  Contrast = c("$C_1$", "$C_2$"),
+  Estimate = c(C1, C2),
+  Multiplier = mult,
+  Lower = c(C1 - mult * se_C, C2 - mult * se_C),
+  Upper = c(C1 + mult * se_C, C2 + mult * se_C)
+) |>
+  knitr::kable(digits = 3, align = "lrrrr")
+```
+
+[**Comparison to confidence interval for a single contrast**]{#sec-prc-472-single-comparison}
+
+Recall that when we constructed a confidence interval for a [single contrast](#sec-prc-436-point-estimate), we found the 95 percent confidence interval:
+
+$$ -1.594 \le C \le 0.594 \, . $$
+
+As expected, the Scheffé confidence interval procedure that generates simultaneous intervals for all contrasts is considerably wider.
+
+**Comparison of Scheffé's Method with Tukey's Method**
+
+[**Tukey preferred when only pairwise comparisons are of interest**]{#sec-prc-472-tukey-preferred}
+
+If only pairwise comparisons are to be made, the Tukey method will result in a narrower confidence limit, which is preferable.
+
+Consider for example the comparison between $\mu_3$ and $\mu_1$.
+
+```{r}
+#| label: verify-prc-472-tukey-vs-scheffe
+#| code-fold: true
+diff31 <- means[3] - means[1]
+se_pair <- sqrt(mse * (1 / 5 + 1 / 5))
+tukey_mult <- qtukey(0.95, 4, 16) / sqrt(2)
+scheffe_mult <- mult
+
+tibble(
+  Method = c("Tukey", "Scheffé"),
+  Lower = c(diff31 - tukey_mult * se_pair, diff31 - scheffe_mult * se_pair),
+  Upper = c(diff31 + tukey_mult * se_pair, diff31 + scheffe_mult * se_pair)
+) |>
+  knitr::kable(digits = 2, align = "lrr")
+```
+
+$$ \mbox{Tukey:}\,\,\, 1.13 < \mu_3 - \mu_1 < 5.31 $$
+$$ \mbox{Scheffé:}\, 0.95 < \mu_3 - \mu_1 < 5.49 $$
+
+which gives Tukey's method the edge.
+
+The normalized contrast, using sums, for the Scheffé method is 4.413, which is close to the maximum contrast.
+
+[**Scheffe preferred when many contrasts are of interest**]{#sec-prc-472-scheffe-preferred}
+
+In the general case when many or all contrasts might be of interest, the Scheffé method tends to give narrower confidence limits and is therefore the preferred method.
