@@ -96,3 +96,5 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/anova/anova-table.qmd >}}
 
 {{< include comparisons-multiple-processes/anova/one-way-calculations.qmd >}}
+
+{{< include comparisons-multiple-processes/anova/confidence-intervals-treatment-means.qmd >}}

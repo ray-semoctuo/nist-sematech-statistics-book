@@ -1,0 +1,74 @@
+#### Confidence intervals for the difference of treatment means {#sec-prc-435}
+
+[**Confidence intervals for the difference between two means**]{#sec-prc-435-intro}
+
+This page shows how to construct a confidence interval around $(\mu_i - \mu_j)$ for the one-way ANOVA by continuing the [example](#sec-prc-433-example) shown on a previous page.
+
+[**Formula for the confidence interval**]{#sec-prc-435-formula}
+
+The formula for a $100(1-\alpha)$% confidence interval for the difference between two treatment means is:
+
+$$ (\hat{\mu_i} - \hat{\mu_j}) \pm t_{1-\alpha/2, \, N-k} \,\,\sqrt{\hat{\sigma}^2_\epsilon \left(
+\frac{1}{n_i}+\frac{1}{n_j}\right)} \, , $$
+
+where $\hat{\sigma}_\epsilon^2 = MSE$.
+
+[**Computation of the confidence interval for $\mu_3 - \mu_1$**]{#sec-prc-435-computation}
+
+For the example, we have the following quantities for the formula.
+
+- $\bar{y}_3 = 8.56$
+- $\bar{y}_1 = 5.34$
+- $\sqrt{1.454(1/5 + 1/5)} = 0.763$
+- $t_{0.975, \, 12} = 2.179$
+
+```{r}
+#| label: verify-prc-435-ci31
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+y1 <- 5.34
+y2 <- 7.72
+y3 <- 8.56
+MSE <- 1.454
+se <- sqrt(MSE * (1 / 5 + 1 / 5))
+t_crit <- qt(0.975, 12)
+
+diff_31 <- y3 - y1
+ci_31 <- c(diff_31 - t_crit * se, diff_31 + t_crit * se)
+
+tibble(Statistic = c("$\\bar{y}_3 - \\bar{y}_1$", "SE term", "$t_{0.975,12}$", "Lower limit", "Upper limit"), Value = c(diff_31, se, t_crit, ci_31[1], ci_31[2])) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+Substituting these values yields (8.56 - 5.34) $\pm$ 2.179(0.763) or 3.22 $\pm$ 1.663.
+
+That is, the confidence interval is (1.557, 4.883).
+
+[**Additional 95% confidence intervals**]{#sec-prc-435-additional}
+
+```{r}
+#| label: verify-prc-435-additional-cis
+#| code-fold: true
+diff_32 <- y3 - y2
+ci_32 <- c(diff_32 - t_crit * se, diff_32 + t_crit * se)
+
+diff_21 <- y2 - y1
+ci_21 <- c(diff_21 - t_crit * se, diff_21 + t_crit * se)
+
+tibble(
+  Comparison = c("$\\mu_3 - \\mu_2$", "$\\mu_2 - \\mu_1$"),
+  Lower = c(ci_32[1], ci_21[1]),
+  Upper = c(ci_32[2], ci_21[2])
+) |>
+  knitr::kable(digits = 3, align = "lrr")
+```
+
+A 95% confidence interval for $\mu_3 - \mu_2$ is: (-0.823, 2.503).
+
+A 95% confidence interval for $\mu_2 - \mu_1$ is: (0.717, 4.043).
+
+[**Contrasts discussed later**]{#sec-prc-435-contrasts}
+
+Later on the topic of [estimating more general linear combinations of means](#sec-prc-436) (primarily [contrasts](#sec-prc-436-definition-estimation)) will be discussed, including how to put [confidence bounds around contrasts](#sec-prc-436-confidence-contrast).
