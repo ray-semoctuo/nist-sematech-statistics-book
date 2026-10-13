@@ -1,0 +1,33 @@
+#### Confidence intervals for differences between means {#sec-prc-312}
+
+[**Definition of confidence interval for difference between population means**]{#sec-prc-312-definition}
+
+Given two random samples,
+
+$$ Y_1, \, \ldots, \, Y_N \,\,\,\,\, \text{ and } \,\,\,\,\,
+   Z_1, \, \ldots, \, Z_N $$
+
+from two populations, two-sided confidence intervals with $100(1-\alpha)$% coverage for the difference between the unknown population means, $\mu_1$ and $\mu_2$, are shown in the table below. Relevant statistics for [paired observations](#sec-prc-311) and for [unpaired observations](#sec-prc-31) are shown elsewhere.
+
+**Two-sided confidence intervals with $100(1-\alpha)$% coverage for $\mu_1 - \mu_2$:**
+
+**Paired observations**
+
+| | |
+|---|---|
+| $\mu_1 - \mu_2$ (where $\sigma_1 = \sigma_2$) | $\bar{d} \pm t_{1-\alpha/2, \, N-1} \dfrac{s_{d}}{\sqrt{N}}$ |
+
+**Unpaired observations**
+
+| | |
+|---|---|
+| $\mu_1 - \mu_2$ (where $\sigma_1 = \sigma_2$) | $\bar{Y} - \bar{Z} \pm t_{1-\alpha/2, \, N_1 + N_2 - 2} \,\, s \sqrt{\dfrac{1}{N_1} + \dfrac{1}{N_2}}$ |
+| $\mu_1 - \mu_2$ (where $\sigma_1 \ne \sigma_2$) | $\bar{Y} - \bar{Z} \pm t_{1-\alpha/2, \, \nu} \, \sqrt{\dfrac{s_{1}^{2}}{N_1} + \dfrac{s_{2}^{2}}{N_2}}$ |
+
+::: {.callout-note}
+NIST's original page gives the degrees of freedom for the unequal-variance (unpaired) case as $N_1 + N_2 - 2$, the same value used in the row immediately above it for the equal-variance case. This cannot be correct: the whole point of the unequal-variance case, as developed on the [preceding page](#sec-prc-31-unequal-sd), is that the degrees of freedom are not known exactly and must be estimated by the Welch-Satterthwaite approximation, $\nu$. We give the confidence interval here using $\nu$ (matching the archived page's own image `alt` text, "effective df", which the live page's rendered formula did not match).
+:::
+
+[**Interpretation of confidence interval**]{#sec-prc-312-interpretation}
+
+One interpretation of the confidence interval for means is that if zero is contained within the confidence interval, the two population means are equivalent.

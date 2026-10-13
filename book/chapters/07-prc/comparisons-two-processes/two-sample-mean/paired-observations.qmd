@@ -1,0 +1,40 @@
+#### Analysis of paired observations {#sec-prc-311}
+
+[**Definition of paired comparisons**]{#sec-prc-311-definition}
+
+Given two random samples,
+
+$$ Y_1, \, \ldots, \, Y_N \,\,\,\,\, \text{ and } \,\,\,\,\,
+   Z_1, \, \ldots, \, Z_N $$
+
+from two populations, the data are said to be paired if the $i$-th measurement on the first sample is naturally paired with the $i$-th measurement on the second sample. For example, if $N$ supposedly identical products are chosen from a production line, and each one, in turn, is tested with first one measuring device and then with a second measuring device, it is possible to decide whether the measuring devices are compatible; i.e., whether there is a difference between the two measurement systems. Similarly, if "before" and "after" measurements are made with the same device on $N$ objects, it is possible to decide if there is a difference between "before" and "after"; for example, whether a cleaning process changes an important characteristic of an object. Each "before" measurement is paired with the corresponding "after" measurement, and the differences,
+
+$$ d_i = Y_i - Z_i \,\,\,\,\, (i = 1, \, \ldots, \, N) \, , $$
+
+are calculated.
+
+[**Basic statistics for the test**]{#sec-prc-311-formula}
+
+The mean and standard deviation for the differences are calculated as
+
+$$ \bar{d} = \frac{1}{N} \sum_{i=1}^N d_i $$
+
+and
+
+$$ s_d = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (d_i - \bar{d})^2} $$
+
+with $\nu = N-1$ degrees of freedom.
+
+[**Test statistic based on the $t$ distribution**]{#sec-prc-311-test-statistic}
+
+The paired-sample $t$ test is used to test for the difference of two means before and after a treatment. The test statistic is:
+
+$$ t = \frac{\bar{d}}{s_d / \sqrt{N}} \, . $$
+
+The [hypotheses described on the foregoing page](#sec-prc-31) are rejected if:
+
+1. $|t| \ge t_{1-\alpha/2, \, \nu}$
+2. $t \ge t_{1-\alpha, \, \nu}$
+3. $t \le t_{\alpha, \, \nu}$
+
+where for hypothesis (1), $t_{1-\alpha/2, \, \nu}$ is the $1-\alpha/2$ critical value from the $t$ distribution with $\nu$ degrees of freedom and similarly for cases (2) and (3). Critical values can be found in the [$t$ table](#sec-eda-t-distribution-table) in Chapter 1.

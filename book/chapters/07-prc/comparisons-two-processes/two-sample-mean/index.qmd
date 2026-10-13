@@ -1,0 +1,151 @@
+### Do two processes have the same mean? {#sec-prc-31}
+
+[**Testing hypotheses related to the means of two processes**]{#sec-prc-31-testing}
+
+Given two random samples of measurements,
+
+$$ Y_1, \, \ldots, \, Y_N \,\,\,\,\, \text{ and } \,\,\,\,\,
+   Z_1, \, \ldots, \, Z_N $$
+
+from two independent processes (the $Y$ values are sampled from process 1 and the $Z$ values are sampled from process 2), there are three types of questions regarding the true means of the processes that are often asked. They are:
+
+1. Are the means from the two processes the same?
+2. Is the mean of process 1 less than or equal to the mean of process 2?
+3. Is the mean of process 1 greater than or equal to the mean of process 2?
+
+[**Typical null hypotheses**]{#sec-prc-31-hypotheses}
+
+The corresponding null hypotheses that test the true mean of the first process, $\mu_1$, against the true mean of the second process, $\mu_2$, are:
+
+1. $H_0: \mu_1 = \mu_2$
+2. $H_0: \mu_1 \le \mu_2$
+3. $H_0: \mu_1 \ge \mu_2$
+
+Note that as [previously discussed](#sec-prc-13), our choice of which null hypothesis to use is typically made based on one of the following considerations:
+
+1. When we are hoping to prove something new with the sample data, we make that the alternative hypothesis, whenever possible.
+2. When we want to continue to assume a reasonable or traditional hypothesis still applies, unless very strong contradictory evidence is present, we make that the null hypothesis, whenever possible.
+
+[**Basic statistics from the two processes**]{#sec-prc-31-formula}
+
+The basic statistics for the test are the sample means
+
+$$ \bar{Y} = \frac{1}{N_1} \sum_{i=1}^{N_1} Y_i \, , \,\,\,\,\,
+   \bar{Z} = \frac{1}{N_2} \sum_{i=1}^{N_2} Z_i $$
+
+and the sample standard deviations
+
+$$ s_1 = \sqrt{\frac{\sum_{i=1}^{N_1} (Y_i - \bar{Y})^2}{N_1-1}} $$
+
+$$ s_2 = \sqrt{\frac{\sum_{i=1}^{N_2} (Z_i - \bar{Z})^2}{N_2-1}} $$
+
+with degrees of freedom $\nu_1 = N_1 - 1$ and $\nu_2 = N_2 - 1$ respectively.
+
+[**Form of the test statistic where the two processes have equivalent standard deviations**]{#sec-prc-31-equal-sd}
+
+If the standard deviations from the two processes are equivalent, and this should be tested before this assumption is made, the test statistic is
+
+$$ t = \frac{\bar{Y} - \bar{Z}}{s \sqrt{\frac{1}{N_1} + \frac{1}{N_2}}} \, , $$
+
+where the pooled standard deviation is estimated as
+
+$$ s = \sqrt{\frac{(N_1 - 1) s_1^2 + (N_2 - 1) s_2^2}
+                  {(N_1 - 1) + (N_2 - 1)}} \, , $$
+
+with degrees of freedom $\nu = N_1 + N_2 - 2$.
+
+[**Form of the test statistic where the two processes do NOT have equivalent standard deviations**]{#sec-prc-31-unequal-sd}
+
+If it cannot be assumed that the standard deviations from the two processes are equivalent, the test statistic is
+
+$$ t = \frac{\bar{Y} - \bar{Z}}
+            {\sqrt{\frac{s_1^2}{N_1} + \frac{s_2^2}{N_2}}} \, . $$
+
+The degrees of freedom are not known exactly but can be estimated using the Welch-Satterthwaite approximation
+
+$$ \nu = \frac{\left( \frac{s_1^2}{N_1} + \frac{s_2^2}{N_2} \right)^2}
+              {\frac{s_1^4}{N_1^2(N_1-1)} + \frac{s_2^4}{N_2^2(N_2-1)}} \, . $$
+
+[**Test strategies**]{#sec-prc-31-test-strategies}
+
+The strategy for testing the [hypotheses under (1), (2) or (3) above](#sec-prc-31-hypotheses) is to calculate the appropriate $t$ statistic from one of the formulas above, and then perform a test at significance level $\alpha$, where $\alpha$ is chosen to be small, typically .01, .05 or .10. The hypothesis associated with each case enumerated above is rejected if:
+
+1. $|t| \ge t_{1-\alpha/2, \, \nu}$
+2. $t \ge t_{1-\alpha, \, \nu}$
+3. $t \le t_{\alpha, \, \nu}$
+
+[**Explanation of critical values**]{#sec-prc-31-critical-values}
+
+The critical values from the $t$ table depend on the significance level and the degrees of freedom in the standard deviation. For hypothesis (1), $t_{1-\alpha/2, \, \nu}$ is the $1-\alpha/2$ [critical value from the $t$ table](#sec-eda-t-distribution-table) with $\nu$ degrees of freedom and similarly for hypotheses (2) and (3).
+
+[**Example of unequal number of data points**]{#sec-prc-31-example}
+
+A new procedure (process 2) to assemble a device is introduced and tested for possible improvement in time of assembly. The question being addressed is whether the mean, $\mu_2$, of the new assembly process is smaller than the mean, $\mu_1$, for the old assembly process (process 1). We choose to test [hypothesis (2)](#sec-prc-31-hypotheses) in the hope that we will reject this null hypothesis and thereby feel we have a strong degree of confidence that the new process is an improvement worth implementing. Data (in minutes required to assemble a device) for both the new and old processes are listed below along with their relevant statistics.
+
+```{r}
+#| label: verify-prc-31-example
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+process1_old <- c(32, 37, 35, 28, 41, 44, 35, 31, 34, 38, 42)
+process2_new <- c(36, 31, 30, 31, 34, 36, 29, 32, 31)
+
+tibble(
+  Statistic = c("Mean", "Standard deviation", "No. measurements", "Degrees freedom"),
+  `Process 1 (Old)` = c(mean(process1_old), sd(process1_old), length(process1_old), length(process1_old) - 1),
+  `Process 2 (New)` = c(mean(process2_new), sd(process2_new), length(process2_new), length(process2_new) - 1)
+) |>
+  knitr::kable(digits = 4, align = "lrr")
+```
+
+```
+        Device    Process 1 (Old)  Process 2 (New)
+
+           1            32            36
+           2            37            31
+           3            35            30
+           4            28            31
+           5            41            34
+           6            44            36
+           7            35            29
+           8            31            32
+           9            34            31
+          10            38
+          11            42
+```
+
+[**Computation of the test statistic**]{#sec-prc-31-computation}
+
+From this table we generate the test statistic
+
+```{r}
+#| label: verify-prc-31-tstat
+#| code-fold: true
+n1 <- length(process1_old)
+n2 <- length(process2_new)
+s1 <- sd(process1_old)
+s2 <- sd(process2_new)
+
+t_stat <- (mean(process1_old) - mean(process2_new)) / sqrt(s1^2 / n1 + s2^2 / n2)
+nu <- (s1^2 / n1 + s2^2 / n2)^2 / (s1^4 / (n1^2 * (n1 - 1)) + s2^4 / (n2^2 * (n2 - 1)))
+
+tibble(Statistic = c("t", "$\\nu$ (Welch-Satterthwaite)"), Value = c(t_stat, nu)) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+$$ t = \frac{\bar{Y} - \bar{Z}}{\sqrt{s_1^2/N_1 + s_2^2/N_2}}
+     = \frac{36.0909 - 32.2222}{\sqrt{4.9082^2 / 11 + 2.5386^2 / 9}}
+     = 2.2694 \, , $$
+
+with the degrees of freedom approximated by
+
+$$ \nu = \frac{\left( s_1^2 / N_1 + s_2^2 / N_2 \right)^2}
+              {s_1^4 / (N_1^2(N_1-1)) + s_2^4 / (N_2^2(N_2-1))}
+       = \frac{\left( 4.9082^2 / 11 + 2.5386^2 / 9\right)^2}
+              {4.9082^4 / 1210 + 2.5386^4 /648}
+       = 15.5 \, . $$
+
+[**Decision process**]{#sec-prc-31-decision}
+
+For a one-sided test at the 5% significance level, go to the [$t$ table for 0.95 significance level](#sec-eda-t-distribution-table), and look up the critical value for degrees of freedom $\nu$ = 16. The critical value is 1.746. Thus, hypothesis (2) is rejected because the test statistic ($t$ = 2.269) is greater than 1.746 and, therefore, we conclude that process 2 has improved assembly time (smaller mean) over process 1.

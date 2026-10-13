@@ -1,0 +1,37 @@
+## Comparisons Based on Data from Two Processes {#sec-prc-3}
+
+[**Outline for this section**]{#sec-prc-3-outline}
+
+In many manufacturing environments it is common to have two or more processes performing the same task or generating similar products. The following pages describe tests covering several of the most common and useful cases for two processes.
+
+1. [Do two processes have the same mean?](#sec-prc-31)
+   1. [Tests when the standard deviations are equal](#sec-prc-31)
+   2. [Tests when the standard deviations are unequal](#sec-prc-31)
+   3. [Tests for paired data](#sec-prc-311)
+2. [Do two processes have the same standard deviation?](#sec-prc-32)
+3. [Do two processes produce the same proportion of defectives?](#sec-prc-33)
+4. [If the observations are failure times, are the failure rates (or mean times to failure) the same?](#sec-prc-34)
+5. [Do two arbitrary processes have the same central tendency?](#sec-prc-35)
+
+[**Example of a dual track process**]{#sec-prc-3-dual-track}
+
+For example, in an automobile manufacturing plant, there may exist several assembly lines producing the same part. If one line goes down for some reason, parts can still be produced and production will not be stopped. For example, if the parts are piston rings for a particular model car, the rings produced by either line should conform to a given set of specifications.
+
+How does one confirm that the two processes are in fact producing rings that are similar? That is, how does one determine if the two processes are similar?
+
+[**The goal is to determine if the two processes are similar**]{#sec-prc-3-goal}
+
+In order to answer this question, data on piston rings are collected for each process. For example, on a particular day, data on the diameters of ten piston rings from each process are measured over a one-hour time frame.
+
+To determine if the two processes are similar, we are interested in answering the following questions:
+
+1. Do the two processes produce piston rings with the same diameter?
+2. Do the two processes have similar variability in the diameters of the rings produced?
+
+[**Unknown standard deviation**]{#sec-prc-3-unknown-sd}
+
+The second question assumes that one does not know the standard deviation of either process and therefore it must be estimated from the data. This is usually the case, and the tests in this section assume that the population standard deviations are unknown.
+
+[**Assumption of a normal distribution**]{#sec-prc-3-normal-assumption}
+
+The statistical methodology used (i.e., the specific test to be used) to answer these two questions depends on the underlying distribution of the measurements. The tests in this section assume that the data are normally distributed.

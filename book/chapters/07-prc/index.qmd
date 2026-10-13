@@ -64,3 +64,11 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-one-process/population-intervals/tolerance-intervals-normal.qmd >}}
 
 {{< include comparisons-one-process/population-intervals/tolerance-intervals-extremes.qmd >}}
+
+{{< include comparisons-two-processes/index.qmd >}}
+
+{{< include comparisons-two-processes/two-sample-mean/index.qmd >}}
+
+{{< include comparisons-two-processes/two-sample-mean/paired-observations.qmd >}}
+
+{{< include comparisons-two-processes/two-sample-mean/confidence-intervals-differences.qmd >}}
