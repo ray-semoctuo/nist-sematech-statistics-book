@@ -84,3 +84,5 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/index.qmd >}}
 
 {{< include comparisons-multiple-processes/kruskal-wallis.qmd >}}
+
+{{< include comparisons-multiple-processes/compare-variances.qmd >}}

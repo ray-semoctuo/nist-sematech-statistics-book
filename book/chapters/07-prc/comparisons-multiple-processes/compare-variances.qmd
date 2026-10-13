@@ -1,0 +1,69 @@
+### Assuming the observations are normal, do the processes have the same variance? {#sec-prc-42}
+
+[**Before comparing means, test whether the variances are equal**]{#sec-prc-42-before-comparing}
+
+Techniques for comparing means of normal populations generally assume the populations have the same variance. Before using these [ANOVA](#sec-prc-43) techniques, it is advisable to test whether this assumption of homogeneity of variance is reasonable. The following procedure is widely used for this purpose.
+
+**Bartlett's Test for Homogeneity of Variances**
+
+[**Null hypothesis**]{#sec-prc-42-null-hypothesis}
+
+Bartlett's test is a commonly used test for equal variances. Let's examine the null and alternative hypotheses,
+
+$$ H_0: \,\,\,\,  \sigma_1^2 = \sigma_2^2 = \ldots = \sigma_k^2 $$
+
+and
+
+$$ H_a: \,\,\,\,  \sigma_i^2 \text{ are not all equal} \, . $$
+
+[**Test statistic**]{#sec-prc-42-test-statistic}
+
+Assume we have samples of size $n_i$ from the $i$-th population, $i = 1, \, 2, \, \ldots, \, k$, and the usual variance estimates from each sample:
+
+$$ s_1^2, \, s_2^2, \, \ldots, s_k^2 \, , $$
+
+where
+
+$$ s_i^2 = \frac{\sum_{j=1}^{n_i} (x_{ij} - \bar{x}_{i \cdot})^2}{n_i - 1} \, . $$
+
+Now introduce the following notation: $\nu_i = n_i - 1$ (the $\nu_i$ are the degrees of freedom) and
+
+$$ \nu = \sum_{i=1}^k \nu_i $$
+
+$$ s^2 = \frac{\sum_{i=1}^k \nu_i \, s_i^2}{\nu} \, . $$
+
+The Bartlett's test statistic $M$ is defined by
+
+$$ M = \nu \text{ ln } s^2 - \sum_{i=1}^k \nu_i \text{ ln } s_i^2 \, . $$
+
+[**Distribution of the test statistic**]{#sec-prc-42-distribution}
+
+When none of the degrees of freedom is small, Bartlett showed that $M$ is distributed approximately as $\chi_{k-1}^2$. The chi-square approximation is generally acceptable if all the $n_i$ are at least 5.
+
+[**Bias correction**]{#sec-prc-42-bias-correction}
+
+This is a slightly biased test, according to Bartlett. It can be improved by dividing $M$ by the factor
+
+$$ C = 1 + \frac{1}{3(k-1)} \left[ \left( \sum_{i=1}^k \frac{1}{\nu_i} \right) - \frac{1}{\nu} \right] \, . $$
+
+Instead of $M$, it is suggested to use $M/C$ for the test statistic.
+
+[**Bartlett's test is not robust**]{#sec-prc-42-not-robust}
+
+This test is not robust, it is very sensitive to departures from normality.
+
+An alternative description of Bartlett's test appears in [Chapter 1](#sec-eda-bartletts-test).
+
+**Gear Data Example (from Chapter 1)**:
+
+[**An illustrative example of Bartlett's test**]{#sec-prc-42-example}
+
+Gear diameter measurements were made on 10 batches of product. The complete set of measurements appears in [Chapter 1](#sec-eda-bartletts-test). Bartlett's test was [applied to this dataset](#sec-eda-bartletts-test) leading to a rejection of the assumption of equal batch variances at the 0.05 critical value level.
+
+**The Levene Test for Homogeneity of Variances**
+
+[**The Levene test for equality of variances**]{#sec-prc-42-levene}
+
+Levene's test offers a more robust alternative to Bartlett's procedure. That means it will be less likely to reject a true hypothesis of equality of variances just because the distributions of the sampled populations are not normal. When non-normality is suspected, Levene's procedure is a better choice than Bartlett's.
+
+Levene's test is described in [Chapter 1](#sec-eda-levene-test). This description also includes an example where the test is applied to the gear data. Levene's test does not reject the assumption of equality of batch variances for these data. This differs from the conclusion drawn from Bartlett's test and is a better answer if, indeed, the batch population distributions are non-normal.
