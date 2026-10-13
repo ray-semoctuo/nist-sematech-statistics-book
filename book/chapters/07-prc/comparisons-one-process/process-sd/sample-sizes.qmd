@@ -1,0 +1,127 @@
+#### Sample sizes required {#sec-prc-232}
+
+[**Sample sizes to minimize risk of false acceptance**]{#sec-prc-232-minimize-risk}
+
+The following procedure for computing sample sizes for tests involving standard deviations follows W. Diamond [-@Diamond1989]. The idea is to find a sample size that is large enough to guarantee that the risk, $\beta$, of accepting a false hypothesis is small.
+
+[**Alternatives are specific departures from the null hypothesis**]{#sec-prc-232-alternatives}
+
+This procedure is stated in terms of changes in the variance, not the standard deviation, which makes it somewhat difficult to interpret. Tests that are generally of interest are stated in terms of $\delta$, a discrepancy from the hypothesized variance. For example:
+
+1. Is the true variance larger than its hypothesized value by $\delta$?
+2. Is the true variance smaller than its hypothesized value by $\delta$?
+
+That is, the tests of interest are:
+
+1. $H_0: \,\, \sigma^2 \ge \sigma_0^2 + \delta ; \,\,\, \delta \ge 0$
+2. $H_0: \,\, \sigma^2 \le \sigma_0^2 - \delta ; \,\,\, \delta \ge 0$.
+
+[**Interpretation**]{#sec-prc-232-interpretation}
+
+The experimenter wants to assure that the probability of erroneously accepting the null hypothesis of unchanged variance is at most $\beta$. The sample size, $N$, required for this type of detection depends on the factor, $\delta$; the significance level, $\alpha$; and the risk, $\beta$.
+
+[**First choose the level of significance and beta risk**]{#sec-prc-232-first-choose}
+
+The sample size is determined by first choosing appropriate values of $\alpha$ and $\beta$ and then following the directions below to find the degrees of freedom, $\nu$, from the chi-square distribution.
+
+[**The calculations should be done by creating a table or spreadsheet**]{#sec-prc-232-table}
+
+First compute
+
+$$ R = 1 + \frac{\delta}{\sigma^2_0} \, . $$
+
+Then generate a table of degrees of freedom, $\nu$, say between 1 and 200. For case (1) or (2) above, calculate $\beta_\nu$ and the corresponding value of $C_\nu$ for each value of degrees of freedom in the table where
+
+$$ \begin{aligned}
+\text{ 1.  } & \beta_\nu & = \chi^2_{1-\alpha, \nu} / R \\
+                      & C_\nu  & = \text{Pr }(\chi^2_\nu < \beta_\nu) \\
+\text{ 2.  } & \beta_\nu & = \chi^2_{\alpha, \nu} / R \\
+                      & C_\nu  & = \text{Pr }(\chi^2_\nu > \beta_\nu)
+\end{aligned} $$
+
+The value of $\nu$ where $C_\nu$ is closest to $\beta$ is the correct degrees of freedom and
+
+$$ N = \nu + 1 \, . $$
+
+[**Hints on using software packages to do the calculations**]{#sec-prc-232-hints}
+
+The quantity $\chi_{1-\alpha, \, \nu}^2$ is the [critical value from the chi-square distribution](#sec-eda-chi-square-distribution-table) with $\nu$ degrees of freedom which is exceeded with probability $\alpha$. It is sometimes referred to as the percent point function (PPF) or the inverse chi-square function. The probability that is evaluated to get $C_\nu$ is called the [cumulative density function (CDF)](#sec-eda-chi-square-distribution).
+
+[**Example**]{#sec-prc-232-example}
+
+Consider the case where the variance for resistivity measurements on a lot of silicon wafers is claimed to be 100 (ohm$\cdot$cm)$^2$. A buyer is unwilling to accept a shipment if $\delta$ is greater than 55 ohm$\cdot$cm for a particular lot. This problem falls under case (1) above. How many samples are needed to assure risks of $\alpha$ = 0.05 and $\beta$ = 0.01?
+
+[**Calculations**]{#sec-prc-232-calculations}
+
+If software is available to compute the roots (or zero values) of a univariate function, then we can determine the sample size by finding the roots of a function that calculates $C_\nu$ for a given value of $\nu$. The procedure is:
+
+1. Define constants.
+
+$$ \begin{aligned}
+\alpha & = 0.05 \\
+\beta  & = 0.01 \\
+\delta & = 55 \\
+\sigma_0^2 & = 100 \\
+R & = 1 + \delta / \sigma_0^2
+\end{aligned} $$
+
+2. Create a function, $C_\nu$.
+
+$$ C_\nu = F(F^{-1}(\alpha, \, \nu)/R, \, \nu) - \beta $$
+
+$F(x, \nu)$ returns the probability of a chi-square random variable with $\nu$ degrees of freedom that is less than or equal to $x$ and $F^{-1}(\alpha, \, \nu)$ returns $x$ such that $F(x, \, \nu) = \alpha$.
+
+3. Find the value of $\nu$ for which the function, $C_\nu$, is zero.
+
+```{r}
+#| label: verify-prc-232-root
+#| code-fold: true
+alpha <- 0.05
+beta <- 0.01
+delta <- 55
+sigma0_sq <- 100
+R <- 1 + delta / sigma0_sq
+
+c_nu <- function(nu) pchisq(qchisq(1 - alpha, nu) / R, nu) - beta
+
+nu_root <- uniroot(c_nu, c(100, 200))$root
+nu_root
+```
+
+Using this procedure, $C_\nu$ is zero when $\nu$ is 169.3. Therefore, the minimum sample size needed to guarantee the risk level is $N$ = 170.
+
+Alternatively, we can determine the sample size by simply printing computed values of $C_\nu$ for various values of $\nu$.
+
+1. Define constants.
+
+$$ \begin{aligned}
+\alpha & = 0.05 \\
+\delta & = 55 \\
+\sigma_0^2 & = 100 \\
+R & = 1 + \delta / \sigma_0^2
+\end{aligned} $$
+
+2. Generate $C_\nu$ for values of $\nu$ from 1 to 200.
+
+$$ \beta_\nu = F^{-1}(\alpha, \,\nu) / R$$
+
+$$ C_\nu = F(\beta_\nu, \, \nu) $$
+
+The values of $C_\nu$ generated for $\nu$ between 165 and 175 degrees of freedom are shown below.
+
+```{r}
+#| label: tbl-prc-232-cnu
+#| tbl-cap: "Values of $C_\\nu$ for degrees of freedom 165-175"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+nu_range <- 165:175
+beta_nu <- qchisq(1 - alpha, nu_range) / R
+c_nu_vals <- pchisq(beta_nu, nu_range)
+
+tibble(nu = nu_range, beta_nu = beta_nu, C_nu = c_nu_vals) |>
+  knitr::kable(digits = 4, align = "rrr", col.names = c("$\\nu$", "$\\beta_\\nu$", "$C_\\nu$"))
+```
+
+The value of $C_\nu$ closest to 0.01 is 0.0101, which is associated with $\nu$ = 169 degrees of freedom. Therefore, the minimum sample size needed to guarantee the risk level is $N$ = 170.

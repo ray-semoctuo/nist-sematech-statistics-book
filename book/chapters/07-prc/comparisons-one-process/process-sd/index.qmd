@@ -1,0 +1,72 @@
+### Are the data consistent with a nominal standard deviation? {#sec-prc-23}
+
+[**The testing of $H_0$ for a single population mean**]{#sec-prc-23-testing}
+
+Given a random sample of measurements, $Y_1, \, \ldots, \, Y_N$, there are three types of questions regarding the true standard deviation of the population that can be addressed with the sample data. They are:
+
+1. Does the true standard deviation agree with a nominal value?
+2. Is the true standard deviation of the population less than or equal to a nominal value?
+3. Is the true standard deviation of the population at least as large as a nominal value?
+
+[**Corresponding null hypotheses**]{#sec-prc-23-sigmanull}
+
+The corresponding null hypotheses that test the true standard deviation, $\sigma$, against the nominal value, $\sigma_0$, are:
+
+1. $H_0: \,\, \sigma = \sigma_0$
+2. $H_0: \,\, \sigma \le \sigma_0$
+3. $H_0: \,\, \sigma \ge \sigma_0$
+
+[**Test statistic**]{#sec-prc-23-test-statistic}
+
+The basic test statistic is the chi-square statistic
+
+$$ \chi^2 = \frac{(N-1)s^2}{\sigma_0^2} \, , $$
+
+with $N-1$ degrees of freedom where $s$ is the sample standard deviation; i.e.,
+
+$$ s = \sqrt{\frac{1}{N-1} \sum_{i=1}^N \left( Y_i - \bar{Y} \right)^2} \, . $$
+
+[**Comparison with critical values**]{#sec-prc-23-critical-values}
+
+For a test at significance level $\alpha$, where $\alpha$ is chosen to be small, typically 0.01, 0.05 or 0.10, the hypothesis associated with each case enumerated above is rejected if:
+
+$$ \begin{aligned}
+\text{1.  } & \chi^2 \ge \chi^2_{1-\alpha/2} \,\, \text{ or  } \,\, \chi^2 \le \chi^2_{\alpha/2} \\
+\text{2.  } & \chi^2  \ge \chi^2_{1-\alpha}  \\
+\text{3.  } & \chi^2  \le \chi^2_{\alpha}  \, , \\
+\end{aligned} $$
+
+where $\chi^2_{\alpha/2}$ is the $\alpha/2$ critical value from the chi-square distribution with $N-1$ degrees of freedom and similarly for cases (2) and (3). Critical values can be found in the [chi-square table](#sec-eda-chi-square-distribution-table) in Chapter 1.
+
+[**Warning**]{#sec-prc-23-warning}
+
+Because the chi-square distribution is a non-negative, asymmetrical distribution, care must be taken in looking up critical values from tables. For two-sided tests, critical values are required for both tails of the distribution.
+
+[**Example**]{#sec-prc-23-example}
+
+A supplier of 100 ohm$\cdot$cm silicon wafers claims that his fabrication process can produce wafers with sufficient consistency so that the standard deviation of resistivity for the lot does not exceed 10 ohm$\cdot$cm. A sample of $N$ = 10 wafers taken from the lot has a standard deviation of 13.97 ohm$\cdot$cm. Is the supplier's claim reasonable? This question falls under [null hypothesis (2)](#sec-prc-23-sigmanull) above. For a test at significance level, $\alpha$ = 0.05, the test statistic,
+
+```{r}
+#| label: verify-prc-23-example
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+n <- 10
+s <- 13.97
+sigma0 <- 10
+chisq_stat <- (n - 1) * s^2 / sigma0^2
+chisq_crit <- qchisq(0.95, n - 1)
+
+tibble(
+  Statistic = c("$\\chi^2$ test statistic", "Critical value $\\chi^2_{0.95,9}$"),
+  Value = c(chisq_stat, chisq_crit)
+) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+$$ \chi^2 = \frac{(N-1)s^2}{\sigma_0^2} = \frac{9(13.97)^2}{100} = 17.56\, , $$
+
+is compared with the critical value, $\chi_{0.95, \, 9}^2$ = 16.92.
+
+Since the test statistic (17.56) exceeds the critical value (16.92) of the chi-square distribution with 9 degrees of freedom, the manufacturer's claim is rejected.

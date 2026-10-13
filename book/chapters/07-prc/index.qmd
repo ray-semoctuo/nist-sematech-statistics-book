@@ -40,3 +40,9 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-one-process/process-mean/confidence-interval.qmd >}}
 
 {{< include comparisons-one-process/process-mean/sample-sizes.qmd >}}
+
+{{< include comparisons-one-process/process-sd/index.qmd >}}
+
+{{< include comparisons-one-process/process-sd/confidence-interval.qmd >}}
+
+{{< include comparisons-one-process/process-sd/sample-sizes.qmd >}}
