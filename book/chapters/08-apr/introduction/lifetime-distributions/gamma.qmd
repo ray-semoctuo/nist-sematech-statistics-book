@@ -1,0 +1,147 @@
+#### Gamma {#sec-apr-165}
+
+[**Formulas for the gamma model**]{#sec-apr-165-formulas}
+
+**Formulas and Plots**
+
+There are two ways of writing (parameterizing) the gamma distribution that are common in the literature. In addition, different authors use different symbols for the shape and scale parameters. Below we show two ways of writing the gamma, with "shape" parameter $a = \alpha$, and "scale" parameter $b = 1/\beta$.
+
+$$ \begin{array}{ll}
+\mbox{PDF:}          & f(t, a, b) = \frac{b^a}{\Gamma(a)}t^{a-1} e^{-bt} \\
+                     & \\
+                     & f(t, \alpha, \beta) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)}t^{\alpha-1}e^{-t/\beta} \\
+                     & \\
+\mbox{CDF:}          & F(t) = \int \limits_{0}^{t}  f(t)dt \\
+                     & \\
+\mbox{Reliability:}  & R(t) = 1 - F(t) \\
+                     & \\
+\mbox{Failure Rate:} \,\,   & h(t) = f(t)/R(t) \\
+                     & \\
+\mbox{Mean:}         & a/b \mbox{ or } \alpha \beta \\
+                     & \\
+\mbox{Variance:}     & a/b^2 \mbox{ or } \alpha \beta^2
+\end{array} $$
+
+[**The exponential is a special case of the gamma**]{#sec-apr-165-exponential-special-case}
+
+**Note:** When $a$ = 1, the gamma reduces to an [exponential distribution](#sec-apr-161) with $b = \lambda$.
+
+Another well-known statistical distribution, the Chi-Square, is also a special case of the gamma. A Chi-Square distribution with $n$ degrees of freedom is the same as a gamma with $a = n$/2 and $b$ = 0.5 (or $\beta$ = 2).
+
+The following plots give examples of gamma PDF, CDF and failure rate shapes.
+
+[**Shapes for gamma data**]{#sec-apr-165-pdf-shapes}
+
+```{r}
+#| label: fig-apr-165-pdf-shapes
+#| fig-cap: "Examples of gamma PDF shapes"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+t_seq <- seq(0.01, 14, length.out = 500)
+shape_levels <- c("a = .5", "a = 2", "a = 3")
+shape_vals <- c(0.5, 2, 3)
+pdf_df <- map2_dfr(shape_vals, shape_levels, \(a, lbl) tibble(t = t_seq, fx = dgamma(t_seq, shape = a, scale = 1), shape = lbl)) |>
+  mutate(shape = factor(shape, levels = shape_levels)) |>
+  filter(fx <= 0.52)
+
+ggplot(pdf_df, aes(t, fx, color = shape, linetype = shape)) +
+  geom_line(linewidth = 0.6) +
+  scale_color_manual(values = c("blue", "red", "black"), guide = "none") +
+  scale_linetype_manual(values = c("dashed", "dotted", "solid"), guide = "none") +
+  labs(title = "Examples of Gamma PDF Shapes", x = "Time", y = "PDF") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+[**Gamma CDF shapes**]{#sec-apr-165-cdf-shapes}
+
+```{r}
+#| label: fig-apr-165-cdf-shapes
+#| fig-cap: "Examples of gamma CDF shapes"
+#| code-fold: true
+cdf_df <- map2_dfr(shape_vals, shape_levels, \(a, lbl) tibble(t = t_seq, cdf = pgamma(t_seq, shape = a, scale = 1), shape = lbl)) |>
+  mutate(shape = factor(shape, levels = shape_levels))
+
+ggplot(cdf_df, aes(t, cdf, color = shape, linetype = shape)) +
+  geom_line(linewidth = 0.6) +
+  scale_color_manual(values = c("blue", "red", "black"), guide = "none") +
+  scale_linetype_manual(values = c("dashed", "dotted", "solid"), guide = "none") +
+  labs(title = "Examples of Gamma CDF Shapes", x = "Time", y = "F(t)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+[**Gamma failure rate shapes**]{#sec-apr-165-failure-rate-shapes}
+
+```{r}
+#| label: fig-apr-165-failure-rate-shapes
+#| fig-cap: "Examples of gamma failure rate shapes"
+#| code-fold: true
+h_gamma <- function(t, shape, scale) dgamma(t, shape = shape, scale = scale) / (1 - pgamma(t, shape = shape, scale = scale))
+
+t_fr <- seq(0.01, 14, length.out = 500)
+fr_df <- bind_rows(
+  tibble(t = t_fr, fr = h_gamma(t_fr, 2, 2.2), curve = "a"),
+  tibble(t = t_fr, fr = h_gamma(t_fr, 2, 1.1), curve = "b")
+)
+
+ggplot(fr_df, aes(t, fr, group = curve)) +
+  geom_line(linewidth = 0.6, color = "black") +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  labs(title = "Examples of Gamma Failure Rate Shapes", x = "Time", y = "Failure Rate") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+[**The gamma is used in "Standby" system models and also for Bayesian reliability analysis**]{#sec-apr-165-uses}
+
+**Uses of the Gamma Distribution Model**
+
+1. The gamma is a flexible life distribution model that may offer a good fit to some sets of failure data. It is not, however, widely used as a life distribution model for common failure mechanisms.
+2. The gamma does arise naturally as the time-to-first fail distribution for a system with [standby](#sec-apr-185) exponentially distributed backups. If there are $n$-1 standby backup units and the system and all backups have exponential lifetimes with parameter $\lambda$, then the total lifetime has a gamma distribution with $a = n$ and $b = \lambda$. **Note**: when $a$ is a positive integer, the gamma is sometimes called an **Erlang distribution**. The Erlang distribution is used frequently in queuing theory applications.
+3. A common use of the gamma model occurs in [Bayesian reliability applications](#sec-apr-1a). When a system follows an [HPP (exponential) model](#sec-apr-171) with a constant repair rate $\lambda$, and it is desired to make use of prior information about possible values of $\lambda$, a gamma Bayesian prior for $\lambda$ is a convenient and popular choice.
+
+[**Gamma probability plot**]{#sec-apr-165-probability-plot}
+
+We generated 100 random gamma data points using shape parameter $\alpha$ = 2 and scale parameter $\beta$ = 30. A [gamma probability plot](#sec-eda-probability-plot) of the 100 data points is shown below.
+
+```{r}
+#| label: fig-apr-165-probability-plot
+#| fig-cap: "Gamma probability plot of 100 simulated gamma random numbers"
+#| code-fold: true
+set.seed(42)
+gamma_sample <- rgamma(100, shape = 2, scale = 30)
+expected_gamma <- qgamma(ppoints(length(gamma_sample)), shape = 2)
+
+ggplot(tibble(expected = expected_gamma, time = sort(gamma_sample)), aes(expected, time)) +
+  geom_point(shape = 1, color = "blue") +
+  labs(x = "Expected (normalized) values", y = "Time") +
+  theme_classic()
+```
+
+The value of the shape parameter $\alpha$ can be estimated from data using
+
+$$ \hat{\alpha} = \left[ \frac{\bar{t}}{s_t} \right]^2 $$
+
+the squared ratio of mean failure time to the standard deviation of the failure times.
+
+Using an example solved in the section on [standby models](#sec-apr-185), where $\alpha$ = 2, $\beta$ = 30, and $t$ = 24 months, the PDF, CDF, reliability, and failure rate are the following.
+
+```{r}
+#| label: verify-apr-165-pdf-cdf
+#| code-fold: true
+pdf_val <- dgamma(24, shape = 2, scale = 30)
+cdf_val <- pgamma(24, shape = 2, scale = 30)
+rel_val <- 1 - cdf_val
+fr_val <- pdf_val / rel_val
+
+tibble(
+  Statistic = c("PDF", "CDF", "Reliability", "Failure Rate"),
+  Value = c(pdf_val, cdf_val, rel_val, fr_val)
+) |>
+  knitr::kable(digits = 5, align = "lr")
+```
+
+Functions for computing gamma distribution PDF values, CDF values, reliability values, failure rates, and for producing probability plots, are available in R via `dgamma()`, `pgamma()`, and `qgamma()`.

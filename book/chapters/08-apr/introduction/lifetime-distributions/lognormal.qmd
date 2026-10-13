@@ -1,0 +1,129 @@
+#### Lognormal {#sec-apr-164}
+
+[**Lognormal Formulas and relationship to the normal distribution**]{#sec-apr-164-formulas}
+
+**Formulas and Plots**
+
+The lognormal life distribution, like the Weibull, is a very flexible model that can empirically fit many types of failure data. The two-parameter form has parameters $\sigma$ is the **shape** parameter and $T_{50}$ is the **median** (a **scale** parameter).
+
+**Note**: If time to failure, $t_f$, has a lognormal distribution, then the (natural) logarithm of time to failure has a normal distribution with mean $\mu$ = ln $T_{50}$ and standard deviation $\sigma$. This makes lognormal data convenient to work with; just take natural logarithms of all the failure times and censoring times and analyze the resulting normal data. Later on, convert back to real time and lognormal parameters using $\sigma$ as the lognormal shape and $T_{50} = e^\mu$ as the (median) scale parameter.
+
+Below is a summary of the key formulas for the lognormal.
+
+$$ \begin{array}{ll}
+\mbox{PDF:}          & f(t) = \frac{1}{\sigma t \sqrt{2 \pi}} \, e^{- \left( \displaystyle{\frac{1}{2 \sigma^2}} \right) \left( \mbox{ln } \displaystyle{t} - \mbox{ln } \displaystyle{T_{50}} \right)^2 } \\
+                     & \\
+\mbox{CDF:}          & F(t) = \int_{0}^{T} \frac{1}{\sigma t \sqrt{2 \pi}} \, e^{- \left( \displaystyle{\frac{1}{2 \sigma^2}} \right) \left( \mbox{ln } \displaystyle{t} - \mbox{ln } \displaystyle{T_{50}} \right)^2} dt \\
+                     & \\
+                     & F(t) = \Phi \left( \frac{\mbox{ln }t - \mbox{ln } T_{50}}{\sigma}\right) \\
+                     & \\
+                     & \Phi(z) \mbox{ denotes the standard normal CDF.}\\
+                     & \\
+\mbox{Reliability:}  & R(t) = 1-F(t)  \\
+                     & \\
+\mbox{Failure Rate:} & h(t) =  \frac{f(t)}{R(t)} \\
+                     & \\
+\mbox{Mean:}         & T_{50} \, e^{\frac{1}{2} \sigma^2} \\
+                     & \\
+\mbox{Median:}       & T_{50} \\
+                     & \\
+\mbox{Variance:}     & T_{50}^2 \, e^{\sigma^2} \left(e^{\sigma^2} -1 \right)
+\end{array} $$
+
+**Note:** A more general three-parameter form of the lognormal includes an additional **waiting time** parameter $\theta$ (sometimes called a **shift** or **location** parameter). The formulas for the three-parameter lognormal are easily obtained from the above formulas by replacing $t$ by $(t - \theta)$ wherever $t$ appears. No failure can occur before $\theta$ hours, so the time scale starts at $\theta$ and not 0. If a shift parameter $\theta$ is known (based, perhaps, on the physics of the failure mode), then all you have to do is subtract $\theta$ from all the observed failure times and/or readout times and analyze the resulting shifted data with a two-parameter lognormal.
+
+Examples of lognormal PDF and failure rate plots are shown below. Note that lognormal shapes for small sigmas are very similar to Weibull shapes when the shape parameter $\gamma$ is large and large sigmas give plots similar to small Weibull $\gamma$'s. Both distributions are very flexible and it is often difficult to choose which to use based on empirical fits to small samples of (possibly censored) data.
+
+[**Lognormal data 'shapes'**]{#sec-apr-164-pdf-shapes}
+
+```{r}
+#| label: fig-apr-164-pdf-shapes
+#| fig-cap: "Examples of lognormal failure PDFs"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+t_seq <- seq(0.01, 3, length.out = 500)
+sigma_levels <- c("Sigma = .2", "Sigma = .5", "Sigma = 1", "Sigma = 5", "Sigma = 10")
+sigma_vals <- c(0.2, 0.5, 1, 5, 10)
+pdf_df <- map2_dfr(sigma_vals, sigma_levels, \(s, lbl) tibble(t = t_seq, fx = dlnorm(t_seq, sdlog = s, meanlog = 0), sigma = lbl)) |>
+  mutate(sigma = factor(sigma, levels = sigma_levels))
+
+ggplot(pdf_df, aes(t, fx, color = sigma)) +
+  geom_line(linewidth = 0.6) +
+  coord_cartesian(ylim = c(0, 2.1)) +
+  scale_color_manual(values = c("black", "blue", "red", "darkgreen", "magenta"), name = NULL) +
+  labs(title = "Examples of Lognormal Failure PDFs", x = "Time (in T50 units)", y = "PDF") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "right")
+```
+
+[**Lognormal failure rate 'shapes'**]{#sec-apr-164-failure-rate-shapes}
+
+```{r}
+#| label: fig-apr-164-failure-rate-shapes
+#| fig-cap: "Lognormal failure rate shape examples"
+#| code-fold: true
+h_lnorm <- function(t, sigma) dlnorm(t, sdlog = sigma, meanlog = 0) / (1 - plnorm(t, sdlog = sigma, meanlog = 0))
+
+t_fr <- seq(0.01, 2, length.out = 500)
+fr_df <- map2_dfr(sigma_vals, sigma_levels, \(s, lbl) tibble(t = t_fr, fr = h_lnorm(t_fr, s), sigma = lbl)) |>
+  mutate(sigma = factor(sigma, levels = sigma_levels))
+
+ggplot(fr_df, aes(t, fr, color = sigma)) +
+  geom_line(linewidth = 0.6) +
+  coord_cartesian(ylim = c(0, 2)) +
+  scale_color_manual(values = c("black", "blue", "red", "darkgreen", "magenta"), name = NULL) +
+  labs(title = "Lognormal Failure Rate Shape Examples", x = "Time (in T50 units)", y = "Failure Rate") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "right")
+```
+
+[**A very flexible model that also can apply (theoretically) to many degradation process failure modes**]{#sec-apr-164-uses}
+
+**Uses of the Lognormal Distribution Model**
+
+1. As shown in the preceding plots, the lognormal PDF and failure rate shapes are flexible enough to make the lognormal a very useful empirical model. In addition, the relationship to the normal (just take natural logarithms of all the data and time points and you have "normal" data) makes it easy to work with mathematically, with many good software analysis programs available to treat normal data.
+2. The lognormal model can be theoretically derived under assumptions matching many failure degradation processes common to electronic (semiconductor) failure mechanisms. Some of these are: corrosion, diffusion, migration, crack growth, electromigration, and, in general, failures resulting from chemical reactions or processes. That does not mean that the lognormal is always the correct model for these mechanisms, but it does perhaps explain why it has been empirically successful in so many of these cases.
+
+A brief sketch of the theoretical arguments leading to a lognormal model follows.
+
+> Applying the Central Limit Theorem to small additive errors in the log domain and justifying a normal model is equivalent to justifying the lognormal model in real time when a process moves towards failure based on the cumulative effect of many small "multiplicative" shocks. More precisely, if at any instant in time a degradation process undergoes a small increase in the total amount of degradation that is proportional to the current total amount of degradation, then it is reasonable to expect the time to failure (i.e., reaching a critical amount of degradation) to follow a lognormal distribution (Kolmogorov, 1941).
+
+A more detailed description of the [multiplicative degradation argument](#sec-apr-213) appears in a later section.
+
+[**Lognormal probability plot**]{#sec-apr-164-probability-plot}
+
+We generated 100 random numbers from a lognormal distribution with shape 0.5 and median life 20,000. To see how well these random lognormal data points are fit by a lognormal distribution, we generate the lognormal probability plot shown below. Points that line up approximately on a straight line indicates a good fit to a lognormal (with shape 0.5). The time that corresponds to the (normalized) $x$-axis $T_{50}$ of 1 is the estimated $T_{50}$ according to the data. In this case it is close to 20,000, as expected.
+
+```{r}
+#| label: fig-apr-164-probability-plot
+#| fig-cap: "Lognormal probability plot of 100 simulated lognormal random numbers"
+#| code-fold: true
+set.seed(42)
+lognormal_sample <- sort(rlnorm(100, meanlog = log(20000), sdlog = 0.5))
+expected <- qlnorm(ppoints(length(lognormal_sample)), sdlog = 0.5)
+
+ggplot(tibble(expected = expected, time = lognormal_sample), aes(expected, time)) +
+  geom_line(color = "blue", linewidth = 0.5) +
+  labs(x = "Expected (normalized) values", y = "Time") +
+  theme_classic()
+```
+
+For a lognormal distribution at time $T$ = 5000 with $\sigma$ = 0.5 and $T_{50}$ = 20,000, the PDF value is 0.34175E-5, the CDF value is 0.002781, and the failure rate is 0.3427E-5.
+
+```{r}
+#| label: verify-apr-164-pdf-cdf
+#| code-fold: true
+T_val <- 5000
+sigma_val <- 0.5
+T50_val <- 20000
+pdf_val <- dlnorm(T_val, sdlog = sigma_val, meanlog = log(T50_val))
+cdf_val <- plnorm(T_val, sdlog = sigma_val, meanlog = log(T50_val))
+haz_val <- pdf_val / (1 - cdf_val)
+
+tibble(Statistic = c("PDF", "CDF", "Failure Rate"), Value = c(pdf_val, cdf_val, haz_val)) |>
+  knitr::kable(digits = 8, align = "lr")
+```
+
+Functions for computing lognormal distribution PDF values, CDF values, failure rates, and for producing probability plots, are available in R via `dlnorm()`, `plnorm()`, and `qlnorm()`.

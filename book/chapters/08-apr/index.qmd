@@ -26,3 +26,13 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include introduction/lifetime-distributions/index.qmd >}}
 
 {{< include introduction/lifetime-distributions/exponential.qmd >}}
+
+{{< include introduction/lifetime-distributions/weibull.qmd >}}
+
+{{< include introduction/lifetime-distributions/extreme-value.qmd >}}
+
+{{< include introduction/lifetime-distributions/lognormal.qmd >}}
+
+{{< include introduction/lifetime-distributions/gamma.qmd >}}
+
+{{< include introduction/lifetime-distributions/fatigue-life.qmd >}}

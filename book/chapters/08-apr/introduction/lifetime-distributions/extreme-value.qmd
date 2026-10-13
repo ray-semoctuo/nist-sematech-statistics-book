@@ -1,0 +1,103 @@
+#### Extreme value distributions {#sec-apr-163}
+
+[**The Extreme Value Distribution usually refers to the distribution of the minimum of a large number of unbounded random observations**]{#sec-apr-163-intro}
+
+**Description, Formulas, and Plots**
+
+We have already referred to **Extreme Value Distributions** when describing the [uses of the Weibull distribution](#sec-apr-162-uses). Extreme value distributions are the limiting distributions for the minimum or the maximum of a very large collection of random observations from the same arbitrary distribution. Gumbel (1958) showed that for any well-behaved initial distribution (i.e., $F(x)$ is continuous and has an inverse), only a few models are needed, depending on whether you are interested in the maximum or the minimum, and also if the observations are bounded above or below.
+
+In the context of reliability modeling, extreme value distributions for the minimum are frequently encountered. For example, if a system consists of $n$ identical components in series, and the system fails when the first of these components fails, then system failure times are the minimum of $n$ random component failure times. Extreme value theory says that, independent of the choice of component model, the system model will approach a Weibull as $n$ becomes large. The same reasoning can also be applied at a component level, if the component failure occurs when the first of many similar competing failure processes reaches a critical level.
+
+The distribution often referred to as the **Extreme Value Distribution (Type I)** is the limiting distribution of the minimum of a large number of unbounded identically distributed random variables. The PDF and CDF are given by:
+
+[**Extreme Value Distribution formulas and PDF shapes**]{#sec-apr-163-formulas}
+
+$$ \begin{array}{llll}
+f(x) & = & \frac{1}{\beta} \cdot e^{\frac{x-\mu}{\beta}} \cdot \mbox{exp} \left[ -e^{\frac{x-\mu}{\beta}} \right] \,\, , & -\infty < x < \infty, \,\, \beta > 0  \\
+     &   &   &   \\
+F(x) & = & 1 - \mbox{exp} \left[ -e^{\frac{x-\mu}{\beta}} \right] \,\, , & -\infty < x < \infty, \,\, \beta > 0
+\end{array} $$
+
+If the $x$ values are bounded below (as is the case with times of failure) then the limiting distribution is the Weibull. [Formulas](#sec-apr-162-formulas) and [uses](#sec-apr-162-uses) of the Weibull have already been discussed.
+
+PDF Shapes for the (minimum) Extreme Value Distribution (Type I) are shown in the following figure.
+
+```{r}
+#| label: fig-apr-163-pdf-shapes
+#| fig-cap: "PDF shapes for the extreme value distribution"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+devgumbel <- function(x, mu, beta) (1 / beta) * exp((x - mu) / beta) * exp(-exp((x - mu) / beta))
+
+x_seq <- seq(-8, 8, length.out = 500)
+beta_levels <- c("Beta = .3", "Beta = .5", "Beta = 1", "Beta = 2", "Beta = 3")
+beta_vals <- c(0.3, 0.5, 1, 2, 3)
+pdf_df <- map2_dfr(beta_vals, beta_levels, \(b, lbl) tibble(x = x_seq, fx = devgumbel(x_seq, 0, b), beta = lbl)) |>
+  mutate(beta = factor(beta, levels = beta_levels))
+
+ggplot(pdf_df, aes(x, fx, color = beta)) +
+  geom_line(linewidth = 0.6) +
+  scale_color_manual(values = c("red", "blue", "darkgreen", "gold3", "magenta"), name = NULL) +
+  labs(title = "PDF Shapes for Extreme Value Distribution", x = "X", y = "f(X)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "right")
+```
+
+[**The natural log of Weibull data is extreme value data**]{#sec-apr-163-log-weibull}
+
+**Uses of the Extreme Value Distribution Model**
+
+1. In any modeling application for which the variable of interest is the minimum of many random factors, all of which can take positive or negative values, try the extreme value distribution as a likely candidate model. For lifetime distribution modeling, since failure times are bounded below by zero, the Weibull distribution is a better choice.
+2. The Weibull distribution and the extreme value distribution have a useful mathematical relationship. If $t_1, \, t_2, \, \ldots, \, t_n$ are a sample of random times of fail from a Weibull distribution, then ln($t_1$), ln($t_2$), ..., ln($t_n$) are random observations from the extreme value distribution. In other words, the natural log of a Weibull random time is an extreme value random observation.
+
+   If the Weibull has the shape parameter $\gamma$ and the characteristic life $\alpha$, then the extreme value distribution (after taking natural logarithms) has $\mu$ = ln($\alpha$), $\beta = \frac{1}{\gamma}$.
+
+   Because of this relationship, computer programs designed for the extreme value distribution can be used to analyze Weibull data. The situation exactly parallels using normal distribution programs to analyze lognormal data, after first taking natural logarithms of the data points.
+
+[**Probability plot for the extreme value distribution**]{#sec-apr-163-probability-plot}
+
+Assume $\mu$ = ln (200,000) = 12.206 and $\beta$ = 1/2 = 0.5. The extreme value distribution associated with these parameters could be obtained by taking natural logarithms of data from a Weibull population with characteristic life $\alpha$ = 200,000 and shape $\gamma$ = 2.
+
+We generate 100 random numbers from this extreme value distribution and construct the following [probability plot](#sec-eda-probability-plot).
+
+```{r}
+#| label: fig-apr-163-probability-plot
+#| fig-cap: "Extreme value type I probability plot for 100 simulated random numbers"
+#| code-fold: true
+pevgumbel <- function(x, mu, beta) 1 - exp(-exp((x - mu) / beta))
+qevgumbel <- function(p, mu, beta) mu + beta * log(-log(1 - p))
+revgumbel <- function(n, mu, beta) qevgumbel(runif(n), mu, beta)
+
+mu_ex <- log(200000)
+beta_ex <- 0.5
+
+set.seed(42)
+sample_data <- sort(revgumbel(100, mu_ex, beta_ex))
+theoretical <- qevgumbel(ppoints(100), 0, 1)
+
+ggplot(tibble(theoretical = theoretical, sample = sample_data), aes(theoretical, sample)) +
+  geom_point(shape = 1, color = "blue") +
+  labs(x = "Theoretical Minimum", y = "Sample Data") +
+  theme_classic()
+```
+
+Data from an extreme value distribution will line up approximately along a straight line when this kind of plot is constructed. The slope of the line is an estimate of $\beta$, the "$y$-axis" value on the line corresponding to the "$x$-axis" 0 point is an estimate of $\mu$. For the graph above, these turn out to be very close to the actual values of $\beta$ and $\mu$.
+
+For the example extreme value distribution with $\mu$ = ln(200,000) = 12.206 and $\beta$ = 1/2 = 0.5, the PDF values corresponding to the points 5, 8, 10, 12, 12.8 are 0.110E-5, 0.444E-3, 0.024, 0.683 and 0.247, and the CDF values corresponding to the same points are 0.551E-6, 0.222E-3, 0.012, 0.484 and 0.962.
+
+```{r}
+#| label: verify-apr-163-pdf-cdf
+#| code-fold: true
+X <- c(5, 8, 10, 12, 12.8)
+
+tibble(
+  X = X,
+  PDF = devgumbel(X, mu_ex, beta_ex),
+  CDF = pevgumbel(X, mu_ex, beta_ex)
+) |>
+  knitr::kable(digits = c(1, 7, 7), align = "lrr")
+```
+
+Functions for computing extreme value distribution PDF values, CDF values, and for producing probability plots, are available in R via the `devgumbel()`, `pevgumbel()`, `qevgumbel()`, and `revgumbel()` helper functions defined above (equivalent to `dGU()`/`pGU()`/`qGU()`/`rGU()` in the `gamlss.dist` package used by NIST's own companion script).

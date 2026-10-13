@@ -1,0 +1,154 @@
+#### Fatigue life (Birnbaum-Saunders) {#sec-apr-166}
+
+[**A model based on cycles of stress causing degradation or crack growth**]{#sec-apr-166-intro}
+
+In 1969, Birnbaum and Saunders described a life distribution model that could be derived from a physical fatigue process where crack growth causes failure [@BirnbaumSaunders1969]. Since one of the best ways to [choose a life distribution model](#sec-apr-21) is to derive it from a physical/statistical argument that is consistent with the failure mechanism, the Birnbaum-Saunders fatigue life distribution is worth considering.
+
+[**Formulas and shapes for the fatigue life model**]{#sec-apr-166-formulas}
+
+**Formulas and Plots for the Birnbaum-Saunders Model**
+
+The PDF, CDF, mean, and variance for the Birnbaum-Saunders distribution are shown below. The parameters are: $\gamma$, a shape parameter; and $\mu$, a scale parameter. These are the parameters we will use in our discussion, but there are other choices also common in the literature (see the parameters used for the [derivation of the model](#sec-apr-166-derivation)).
+
+$$ \begin{array}{ll}
+\mbox{PDF:}          & f(t) = \frac{1}{2 \mu^2 \gamma^2\sqrt{\pi}} \left( \frac{t^2 - \mu^2}{\sqrt{\frac{t}{\mu}} - \sqrt{\frac{\mu}{t}}} \right)
+                              \mbox{exp} \left[ -\frac{1}{\gamma^2} \left( \frac{t}{\mu} + \frac{\mu}{t} -2 \right) \right] \\
+                     & \\
+\mbox{CDF:}          & F(t) = \Phi \left( \frac{1}{\gamma} \left[ \sqrt{\frac{t}{\mu}} - \sqrt{\frac{\mu}{t}} \, \right] \right) \\
+                     & \\
+                     & \Phi(z) \mbox{ denotes the standard normal CDF.} \\
+                     & \\
+\mbox{Mean:}         & \mu \left( 1 + \frac{\gamma^2}{2} \right) \\
+                     & \\
+\mbox{Variance:}     & \mu^2 \gamma^2 \left( 1 + \frac{5 \gamma^2}{4} \right)
+\end{array} $$
+
+PDF shapes for the model vary from highly skewed and long tailed (small gamma values) to nearly symmetric and short tailed as gamma increases. This is shown in the figure below.
+
+::: {.callout-note}
+NIST's variance formula above, $\mu^2 \gamma^2 (1 + 5\gamma^2/4)$, is strictly increasing in $\gamma$ for any fixed $\mu$ — the distribution's overall spread actually *increases* as $\gamma$ increases, not decreases as the prose above states. For larger $\gamma$, essentially all of this extra spread shows up as an extreme, narrow spike immediately after $t = 0$ (values well off the scale of the figure below) together with a long, low tail; for smaller $\gamma$, the same total probability is instead spread into a single broad, visibly long-tailed hump. The figure below, computed directly from the stated PDF and CDF formulas with $\mu$ held fixed and cropped to a readable vertical scale, shows this latter, visible part of the story clearly, but the handbook's framing of large $\gamma$ as "short tailed" only holds if the (much larger, off-scale) spike near the origin is ignored.
+:::
+
+```{r}
+#| label: fig-apr-166-pdf-shapes
+#| fig-cap: "Examples of fatigue life (Birnbaum-Saunders) PDF shapes"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+dbs <- function(t, gamma, mu) {
+  z <- (1 / gamma) * (sqrt(t / mu) - sqrt(mu / t))
+  zprime <- (1 / (2 * gamma)) * (1 / sqrt(t * mu) + sqrt(mu) / t^1.5)
+  dnorm(z) * zprime
+}
+
+t_seq <- exp(seq(log(1), log(3000), length.out = 2000))
+gamma_levels <- c("Gamma = .5", "Gamma = 1", "Gamma = 2", "Gamma = 5", "Gamma = 10")
+gamma_vals <- c(0.5, 1, 2, 5, 10)
+mu_fixed <- 1000
+
+pdf_df <- map2_dfr(gamma_vals, gamma_levels, \(g, lbl) tibble(t = t_seq, fx = dbs(t_seq, g, mu_fixed), gamma = lbl)) |>
+  mutate(gamma = factor(gamma, levels = gamma_levels)) |>
+  filter(fx <= 0.0015)
+
+ggplot(pdf_df, aes(t, fx, color = gamma, linetype = gamma)) +
+  geom_line(linewidth = 0.6) +
+  scale_color_manual(values = c("black", "blue", "darkgreen", "gold3", "magenta"), name = NULL) +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted", "dotdash", "longdash"), name = NULL) +
+  labs(title = "Examples of Fatigue Life PDF Shapes", x = "Time", y = "f(t)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "right")
+```
+
+Corresponding failure rate curves are shown in the next figure.
+
+```{r}
+#| label: fig-apr-166-failure-rate-shapes
+#| fig-cap: "Examples of fatigue life (Birnbaum-Saunders) failure rate shapes"
+#| code-fold: true
+pbs <- function(t, gamma, mu) pnorm((1 / gamma) * (sqrt(t / mu) - sqrt(mu / t)))
+h_bs <- function(t, gamma, mu) dbs(t, gamma, mu) / (1 - pbs(t, gamma, mu))
+
+fr_df <- map2_dfr(gamma_vals, gamma_levels, \(g, lbl) tibble(t = t_seq, fr = h_bs(t_seq, g, mu_fixed), gamma = lbl)) |>
+  mutate(gamma = factor(gamma, levels = gamma_levels)) |>
+  filter(fr <= 0.005)
+
+ggplot(fr_df, aes(t, fr, color = gamma, linetype = gamma)) +
+  geom_line(linewidth = 0.6) +
+  scale_color_manual(values = c("black", "blue", "darkgreen", "gold3", "magenta"), name = NULL) +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted", "dotdash", "longdash"), name = NULL) +
+  labs(title = "Examples of Fatigue Life Failure Rate Shapes", x = "Time", y = "h(t)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), legend.position = "right")
+```
+
+[**If crack growth in each stress cycle is a random amount independent of past cycles of growth, the Fatigue Life mode model may apply.**]{#sec-apr-166-derivation}
+
+**Derivation and Use of the Birnbaum-Saunders Model**:
+
+Consider a material that continually undergoes cycles of stress loads. During each cycle, a dominant crack grows towards a critical length that will cause failure. Under repeated application of $n$ cycles of loads, the total extension of the dominant crack can be written as
+
+$$ W_n = \sum_{j=1}^n Y_j \, , $$
+
+and we assume the $Y_j$ are independent and identically distributed non-negative random variables with mean $\mu$ and variance $\sigma^2$. Suppose failure occurs at the $N$-th cycle, when $W_n$ first exceeds a constant critical value $w$. If $n$ is large, we can use a central limit theorem argument to conclude that
+
+$$ \mbox{Pr}(N \le n) = 1 - \mbox{Pr} \left( \sum_{j=1}^n Y_j \le w \right)
+                      = \Phi \left( \frac{\mu \sqrt{n}}{\sigma} - \frac{w}{\sigma \sqrt{n}} \right) \, . $$
+
+Since there are many cycles, each lasting a very short time, we can replace the discrete number of cycles $N$ needed to reach failure by the continuous time $t_f$ needed to reach failure. The CDF $F(t)$ of $t_f$ is given by
+
+$$ F(t) = \Phi \left\{ \frac{1}{\alpha} \left[ \sqrt{\frac{t}{\beta}} - \sqrt{\frac{\beta}{t}} \right] \right\} \, , $$
+
+for appropriate choice of
+
+$$ \alpha = \frac{\sigma}{\sqrt{\mu w}} \,\, \mbox{ and } \,\, \beta = \frac{w}{\mu} \,\, .$$
+
+Here $\Phi$ denotes the standard normal CDF. Writing the model with parameters $\alpha$ and $\beta$ is an alternative way of writing the Birnbaum-Saunders distribution that is often used ($\alpha = \gamma$ and $\beta = \mu$, as compared to the way the formulas were parameterized earlier in this section).
+
+**Note:**
+The critical assumption in the derivation, from a physical point of view, is that the crack growth during any one cycle is independent of the growth during any other cycle. Also, the growth has approximately the same random distribution, from cycle to cycle. This is a very different situation from the proportional degradation argument used to derive a log normal distribution model, with the rate of degradation at any point in time depending on the total amount of degradation that has occurred up to that time.
+
+[**This kind of physical degradation is consistent with Miner's Rule.**]{#sec-apr-166-miners-rule}
+
+The Birnbaum-Saunders assumption, while physically restrictive, is consistent with a deterministic model from materials physics known as Miner's Rule (Miner's Rule implies that the damage that occurs after $n$ cycles, at a stress level that produces a fatigue life of $N$ cycles, is proportional to $n/N$). So, when the physics of failure suggests Miner's Rule applies, the Birnbaum-Saunders model is a reasonable choice for a life distribution model.
+
+[**Birnbaum-Saunders probability plot**]{#sec-apr-166-probability-plot}
+
+We generated 100 random numbers from a Birnbaum-Saunders distribution where $\mu$ = 5000 and $\gamma$ = 2, and created a [fatigue life probability plot](#sec-eda-probability-plot) of the 100 data points.
+
+```{r}
+#| label: fig-apr-166-probability-plot
+#| fig-cap: "Fatigue life probability plot of 100 simulated Birnbaum-Saunders random numbers"
+#| code-fold: true
+qbs <- function(p, gamma, mu) {
+  z <- qnorm(p)
+  r <- gamma * z
+  mu * (r / 2 + sqrt((r / 2)^2 + 1))^2
+}
+rbs <- function(n, gamma, mu) qbs(runif(n), gamma, mu)
+
+set.seed(42)
+bs_sample <- sort(rbs(100, 2, 5000))
+expected_bs <- qbs(ppoints(length(bs_sample)), 2, 1)
+
+ggplot(tibble(expected = expected_bs, time = bs_sample), aes(expected, time)) +
+  geom_point(shape = 1, color = "blue") +
+  labs(x = "Expected Value", y = "Time") +
+  theme_classic()
+```
+
+If the points on the probability plot line up roughly on a straight line, as expected for data we generated, then the data are correctly modeled by the Birnbaum-Saunders distribution.
+
+The PDF value at time $t$ = 4000 for a Birnbaum-Saunders (fatigue life) distribution with parameters $\mu$ = 5000 and $\gamma$ = 2 is 4.987e-05 and the CDF value is 0.455.
+
+```{r}
+#| label: verify-apr-166-pdf-cdf
+#| code-fold: true
+pdf_val <- dbs(4000, 2, 5000)
+cdf_val <- pbs(4000, 2, 5000)
+
+tibble(Statistic = c("PDF", "CDF"), Value = c(sprintf("%.4e", pdf_val), sprintf("%.4f", cdf_val))) |>
+  knitr::kable(align = "lr")
+```
+
+Functions for computing Birnbaum-Saunders distribution PDF values, CDF values, and for producing probability plots, are available in R via the `VGAM` package's `dbisa()`/`pbisa()`/`qbisa()`/`rbisa()` functions, equivalent to the `dbs()`/`pbs()`/`qbs()`/`rbs()` helper functions defined above.
