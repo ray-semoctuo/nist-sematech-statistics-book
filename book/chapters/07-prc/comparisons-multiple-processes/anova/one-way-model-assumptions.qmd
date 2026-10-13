@@ -1,0 +1,23 @@
+#### The one-way ANOVA model and assumptions {#sec-prc-432}
+
+[**A model that describes the relationship between the response and the treatment (between the dependent and independent variables)**]{#sec-prc-432-model}
+
+The mathematical model that describes the relationship between the response and treatment for the one-way ANOVA is given by
+
+$$ Y_{ij} = \mu + \tau_i + \epsilon_{ij} \, , $$
+
+where $Y_{ij}$ represents the $j$-th observation ($j = 1, \, 2, \, \ldots, \, n_i$) on the $i$-th treatment ($i = 1, \, 2, \, \ldots, \, k$ levels). So, $Y_{23}$ represents the third observation using level 2 of the factor. $\mu$ is the common effect for the whole experiment, $\tau_i$ represents the $i$-th treatment effect, and $\epsilon_{ij}$ represents the random error present in the $j$-th observation on the $i$-th treatment.
+
+[**Fixed effects model**]{#sec-prc-432-fixed-effects}
+
+The errors $\epsilon_{ij}$ are assumed to be normally and independently (NID) distributed, with mean zero and variance $\sigma_\epsilon^2$. $\mu$ is always a fixed parameter, and $\tau_1, \, \tau_2, \, \ldots, \, \tau_k$ are considered to be fixed parameters *if the levels of the treatment are fixed* and not a random sample from a population of possible levels. It is also assumed that $\mu$ is chosen so that
+
+$$ \sum \tau_i = 0 \, , \,\,\,\,\, i = 1, \, \ldots, \, k $$
+
+holds. This is the *fixed effects model*.
+
+[**Random effects model**]{#sec-prc-432-random-effects}
+
+If the $k$ levels of treatment are chosen at random, the model equation remains the same. However, now the $\tau_i$ values are random variables assumed to be NID(0, $\sigma_\tau$). This is the *random effects model*.
+
+Whether the levels are fixed or random depends on how these levels are chosen in a given experiment.

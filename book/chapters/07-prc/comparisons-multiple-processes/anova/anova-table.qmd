@@ -1,0 +1,120 @@
+#### The ANOVA table and tests of hypotheses about means {#sec-prc-433}
+
+[**Sums of Squares help us compute the variance estimates displayed in ANOVA Tables**]{#sec-prc-433-sums-of-squares}
+
+[The sums of squares $SST$ and $SSE$](#sec-prc-431-decomposition) previously computed for the one-way ANOVA are used to form two mean squares, one for *treatments* and the second for *error*. These mean squares are denoted by $MST$ and $MSE$, respectively. These are typically displayed in a tabular form, known as an *ANOVA Table*. The ANOVA table also shows the statistics used to test hypotheses about the population means.
+
+[**Ratio of $MST$ and $MSE$**]{#sec-prc-433-ratio}
+
+When the null hypothesis of equal means is true, the two mean squares estimate the same quantity (error variance), and should be of approximately equal magnitude. In other words, their ratio should be close to 1. If the null hypothesis is false, $MST$ should be larger than $MSE$.
+
+[**Divide sum of squares by degrees of freedom to obtain mean squares**]{#sec-prc-433-mean-squares}
+
+The mean squares are formed by dividing the sum of squares by the associated degrees of freedom.
+
+Let $N = \sum n_i$. Then, the degrees of freedom for treatment are
+
+$$ DFT = k - 1 \, , $$
+
+and the degrees of freedom for error are
+
+$$ DFE = N - k \, . $$
+
+The corresponding *mean squares* are:
+
+$$MST = SST / DFT$$
+
+$$MSE = SSE / DFE \, .$$
+
+[**The F-test**]{#sec-prc-433-f-test}
+
+The test statistic, used in testing the equality of treatment means is: $F = MST / MSE$.
+
+The critical value is the tabular value of the $F$ distribution, based on the chosen $\alpha$ level and the degrees of freedom $DFT$ and $DFE$.
+
+The calculations are displayed in an ANOVA table, as follows:
+
+[**ANOVA table**]{#sec-prc-433-table}
+
+| Source | SS | DF | MS | F |
+|---|---|---|---|---|
+| Treatments | $SST$ | $k-1$ | $SST / (k-1)$ | $MST/MSE$ |
+| Error | $SSE$ | $N-k$ | $SSE / (N-k)$ | |
+| Total (corrected) | $SS$ | $N-1$ | | |
+
+The word "source" stands for source of variation. Some authors prefer to use "between" and "within" instead of "treatments" and "error", respectively.
+
+**ANOVA Table Example**
+
+[**A numerical example**]{#sec-prc-433-example}
+
+The data below resulted from measuring the difference in resistance resulting from subjecting identical resistors to three different temperatures for a period of 24 hours. The sample size of each group was 5. In the language of design of experiments, we have an experiment in which each of three treatments was replicated 5 times.
+
+```{r}
+#| label: tbl-prc-433-data
+#| tbl-cap: "Resistance readings at three temperature levels"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+level1 <- c(6.9, 5.4, 5.8, 4.6, 4.0)
+level2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
+level3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
+
+resistor_data <- tibble(`Level 1` = level1, `Level 2` = level2, `Level 3` = level3)
+
+resistor_data |>
+  bind_rows(summarise(resistor_data, across(everything(), mean))) |>
+  knitr::kable(digits = 2, align = "rrr")
+```
+
+The resulting ANOVA table is
+
+[**Example ANOVA table**]{#sec-prc-433-example-table}
+
+```{r}
+#| label: tbl-prc-433-anova
+#| tbl-cap: "ANOVA table for the resistance example"
+#| code-fold: true
+y <- c(level1, level2, level3)
+treatment <- factor(rep(1:3, each = 5))
+
+fit <- aov(y ~ treatment)
+anova_summary <- summary(fit)[[1]]
+
+correction_factor <- sum(y)^2 / length(y)
+
+tibble(
+  Source = c("Treatments", "Error", "Total (corrected)", "Correction Factor"),
+  SS = c(anova_summary$`Sum Sq`[1], anova_summary$`Sum Sq`[2], sum(anova_summary$`Sum Sq`), correction_factor),
+  DF = c(anova_summary$Df[1], anova_summary$Df[2], sum(anova_summary$Df), 1),
+  MS = c(anova_summary$`Mean Sq`[1], anova_summary$`Mean Sq`[2], NA, NA),
+  F = c(anova_summary$`F value`[1], NA, NA, NA)
+) |>
+  mutate(across(c(MS, F), ~ ifelse(is.na(.x), "", as.character(round(.x, 3))))) |>
+  knitr::kable(digits = 3, align = "lrrrr")
+```
+
+[**Interpretation of the ANOVA table**]{#sec-prc-433-interpretation}
+
+The test statistic is the $F$ value of 9.59. Using an $\alpha$ of 0.05, we have $F_{0.05; \, 2, \, 12}$ = 3.89 (see the [F distribution table](#sec-eda-f-distribution-table) in Chapter 1). Since the test statistic is much larger than the critical value, we reject the null hypothesis of equal population means and conclude that there is a (statistically) significant difference among the population means. The $p$-value for 9.59 is 0.00325, so the test statistic is significant at that level.
+
+```{r}
+#| label: verify-prc-433-interpretation
+#| code-fold: true
+f_crit <- qf(0.95, 2, 12)
+p_value <- anova_summary$`Pr(>F)`[1]
+
+tibble(Statistic = c("$F_{0.05,2,12}$", "$p$-value"), Value = c(f_crit, p_value)) |>
+  knitr::kable(digits = 5, align = "lr")
+```
+
+[**Techniques for further analysis**]{#sec-prc-433-further-analysis}
+
+The populations here are resistor readings while operating under the three different temperatures. What we do **not** know at this point is whether the three means are all different or which of the three means is different from the other two, and by how much.
+
+There are several techniques we might use to further analyze the differences. These are:
+
+- [constructing confidence intervals around the difference of two means](#sec-prc-435)
+- [estimating combinations of factor levels with confidence bounds](#sec-prc-436)
+- [multiple comparisons of combinations of factor levels tested simultaneously](#sec-prc-47).

@@ -90,3 +90,7 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/anova/index.qmd >}}
 
 {{< include comparisons-multiple-processes/anova/one-way-overview.qmd >}}
+
+{{< include comparisons-multiple-processes/anova/one-way-model-assumptions.qmd >}}
+
+{{< include comparisons-multiple-processes/anova/anova-table.qmd >}}
