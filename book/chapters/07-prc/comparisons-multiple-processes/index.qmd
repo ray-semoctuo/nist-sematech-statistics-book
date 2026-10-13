@@ -1,0 +1,12 @@
+## Comparisons Based on Data from More than Two Processes {#sec-prc-4}
+
+[**Introduction**]{#sec-prc-4-introduction}
+
+This section begins with a [nonparametric procedure for comparing several populations](#sec-prc-41) with unknown distributions. Then the following topics are discussed:
+
+- [Comparing variances](#sec-prc-42)
+- [Comparing means (ANOVA technique)](#sec-prc-43)
+- [Estimating variance components](#sec-prc-44)
+- [Comparing categorical data](#sec-prc-45)
+- [Comparing population proportion defectives](#sec-prc-46)
+- [Making multiple comparisons](#sec-prc-47)

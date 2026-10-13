@@ -1,0 +1,118 @@
+### How can we compare several populations with unknown distributions (the Kruskal-Wallis test)? {#sec-prc-41}
+
+**The Kruskal-Wallis (KW) Test for Comparing Populations with Unknown Distributions**
+
+[**A nonparametric test for comparing population medians by Kruskal and Wallis**]{#sec-prc-41-nonparametric}
+
+The KW procedure tests the null hypothesis that $k$ samples from possibly different populations actually originate from similar populations, at least as far as their central tendencies, or medians, are concerned. The test assumes that the variables under consideration have underlying continuous distributions.
+
+In what follows assume we have $k$ samples, and the sample size of the $i$-th sample is $n_i, \,\, i=1, \, 2, \, \ldots, \, k$.
+
+[**Test based on ranks of combined data**]{#sec-prc-41-ranks}
+
+In the computation of the KW statistic, each observation is replaced by its rank in an ordered combination of all the $k$ samples. By this we mean that the data from the $k$ samples combined are ranked in a single series. The minimum observation is replaced by a rank of 1, the next-to-the-smallest by a rank of 2, and the largest or maximum observation is replaced by the rank of $N$, where $N$ is the total number of observations in all the samples ($N$ is the sum of the $n_i$).
+
+[**Compute the sum of the ranks for each sample**]{#sec-prc-41-sum-ranks}
+
+The next step is to compute the sum of the ranks for each of the original samples. The KW test determines whether these sums of ranks are so different by sample that they are not likely to have all come from the same population.
+
+[**Test statistic follows a $\chi^2$ distribution**]{#sec-prc-41-test-statistic}
+
+It can be shown that if the $k$ samples come from the same population, that is, if the null hypothesis is true, then the test statistic, $H$, used in the KW procedure is distributed approximately as a chi-square statistic with $df$ = $k-1$, provided that the sample sizes of the $k$ samples are not too small (say, $n_i > 4$, for all $i$). $H$ is defined as follows:
+
+$$ H = \frac{12}{N(N+1)} \, \sum_{i=1}^k \frac{R_i^2}{n_i} - 3(N+1) \, , $$
+
+where
+
+- $k$ = number of samples (groups)
+- $n_i$ = number of observations for the $i$-th sample or group
+- $N$ = total number of observations (sum of all the $n_i$)
+- $R_i$ = sum of ranks for group $i$
+
+**Example**
+
+[**An illustrative example**]{#sec-prc-41-example}
+
+The following data are from a comparison of four investment firms. The observations represent percentage of growth during a three month period for recommended funds.
+
+```{r}
+#| label: tbl-prc-41-data
+#| tbl-cap: "Percentage growth by investment firm"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+firm_a <- c(4.2, 4.6, 3.9, 4.0)
+firm_b <- c(3.3, 2.4, 2.6, 3.8, 2.8)
+firm_c <- c(1.9, 2.4, 2.1, 2.7, 1.8)
+firm_d <- c(3.5, 3.1, 3.7, 4.1, 4.4)
+
+bind_rows(
+  tibble(Firm = "A", Growth = firm_a),
+  tibble(Firm = "B", Growth = firm_b),
+  tibble(Firm = "C", Growth = firm_c),
+  tibble(Firm = "D", Growth = firm_d)
+) |>
+  mutate(Observation = row_number(), .by = Firm) |>
+  pivot_wider(names_from = Firm, values_from = Growth) |>
+  select(-Observation) |>
+  mutate(across(everything(), ~ ifelse(is.na(.x), "", as.character(.x)))) |>
+  knitr::kable(align = "rrrr")
+```
+
+[**Step 1: Express the data in terms of their ranks**]{#sec-prc-41-step1}
+
+```{r}
+#| label: tbl-prc-41-ranks
+#| tbl-cap: "Ranks and rank sums by investment firm"
+#| code-fold: true
+all_growth <- c(firm_a, firm_b, firm_c, firm_d)
+all_ranks <- rank(all_growth)
+
+rank_a <- all_ranks[seq_along(firm_a)]
+rank_b <- all_ranks[(length(firm_a) + 1):(length(firm_a) + length(firm_b))]
+rank_c <- all_ranks[(length(firm_a) + length(firm_b) + 1):(length(firm_a) + length(firm_b) + length(firm_c))]
+rank_d <- all_ranks[(length(firm_a) + length(firm_b) + length(firm_c) + 1):length(all_ranks)]
+
+rank_table <- bind_rows(
+  tibble(Firm = "A", Rank = rank_a),
+  tibble(Firm = "B", Rank = rank_b),
+  tibble(Firm = "C", Rank = rank_c),
+  tibble(Firm = "D", Rank = rank_d)
+) |>
+  mutate(Observation = row_number(), .by = Firm) |>
+  pivot_wider(names_from = Firm, values_from = Rank) |>
+  select(-Observation)
+
+rank_table |>
+  bind_rows(summarise(rank_table, across(everything(), \(x) sum(x, na.rm = TRUE)))) |>
+  mutate(across(everything(), ~ ifelse(is.na(.x), "", as.character(.x)))) |>
+  knitr::kable(align = "rrrr")
+```
+
+[**Compute the test statistic**]{#sec-prc-41-compute}
+
+The corresponding $H$ test statistic is
+
+```{r}
+#| label: verify-prc-41-H
+#| code-fold: true
+R_a <- sum(rank_a)
+R_b <- sum(rank_b)
+R_c <- sum(rank_c)
+R_d <- sum(rank_d)
+N <- length(all_growth)
+
+H <- 12 / (N * (N + 1)) * (R_a^2 / length(firm_a) + R_b^2 / length(firm_b) + R_c^2 / length(firm_c) + R_d^2 / length(firm_d)) - 3 * (N + 1)
+chisq_crit <- qchisq(0.95, 3)
+
+tibble(Statistic = c("H", "Critical value $\\chi^2_{0.95,3}$"), Value = c(H, chisq_crit)) |>
+  knitr::kable(digits = 3, align = "lr")
+```
+
+$$ H = \frac{12}{19(20)} \left[ \frac{65^2}{4} + \frac{41.5^2}{5} + \frac{17.5^2}{5} + \frac{66^2}{5} \right]
+     - 3(20) = 13.678 \, . $$
+
+From the [chi-square table](#sec-eda-chi-square-distribution-table) in Chapter 1, the critical value for 1 - $\alpha$ = 0.95 with $df$ = $k$ - 1 = 3 is 7.812. Since 13.678 > 7.812, we reject the null hypothesis.
+
+Note that the rejection region for the KW procedure is one-sided, since we only reject the null hypothesis when the $H$ statistic is too large.
