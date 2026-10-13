@@ -108,3 +108,5 @@ This chapter presents the background and specific analysis techniques needed to 
 {{< include comparisons-multiple-processes/variance-components.qmd >}}
 
 {{< include comparisons-multiple-processes/categorical-data.qmd >}}
+
+{{< include comparisons-multiple-processes/proportion-defectives.qmd >}}

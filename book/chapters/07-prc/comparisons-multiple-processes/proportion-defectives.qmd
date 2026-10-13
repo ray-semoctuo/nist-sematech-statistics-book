@@ -1,0 +1,172 @@
+### Do all the processes have the same proportion of defectives? {#sec-prc-46}
+
+[**The contingency table approach**]{#sec-prc-46-contingency-table}
+
+[**Testing for homogeneity of proportions using the chi-square distribution via contingency tables**]{#sec-prc-46-homogeneity-test}
+
+When we have samples from $n$ populations (i.e., lots, vendors, production runs, etc.), we can test whether there are significant differences in the proportion defectives for these populations using a contingency table approach. The contingency table we construct has two rows and $n$ columns.
+
+To test the null hypothesis of no difference in the proportions among the $n$ populations
+
+$$ \mbox{H}_0: \,\,\, p_1 = p_2 = \cdots = p_n $$
+
+against the alternative that not all $n$ population proportions are equal
+
+$$ \mbox{H}_a: \,\,\, \mbox{Not all } p_i \mbox{ are equal } (i = 1, \, 2, \, \ldots, \, n) \, , $$
+
+[**The chi-square test statistic**]{#sec-prc-46-test-statistic}
+
+we use the following test statistic:
+
+$$ \chi^2 = \sum_{\mbox{all cells}} \frac{(f_o - f_c)^2}{f_c} \, , $$
+
+where $f_o$ is the observed frequency in a given cell of a $2 \times n$ contingency table, and $f_c$ is the theoretical count or expected frequency in a given cell if the null hypothesis were true.
+
+[**The critical value**]{#sec-prc-46-critical-value}
+
+The critical value is obtained from the $\chi^2$ distribution table with degrees of freedom $(2-1)(n-1) = n-1$, at a given level of significance.
+
+**An illustrative example**
+
+[**Data for the example**]{#sec-prc-46-data}
+
+Diodes used on a printed circuit board are produced in lots of size 4000. To study the homogeneity of lots with respect to a demanding specification, we take random samples of size 300 from 5 consecutive lots and test the diodes. The results are:
+
+```{r}
+#| label: tbl-prc-46-observed
+#| tbl-cap: "Observed frequencies by lot"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(gt)
+
+nonconforming <- c(36, 46, 42, 63, 38)
+conforming <- c(264, 254, 258, 237, 262)
+lot_totals <- nonconforming + conforming
+
+observed <- tibble(
+  Results = c("Nonconforming", "Conforming", "Totals"),
+  `1` = c(nonconforming[1], conforming[1], lot_totals[1]),
+  `2` = c(nonconforming[2], conforming[2], lot_totals[2]),
+  `3` = c(nonconforming[3], conforming[3], lot_totals[3]),
+  `4` = c(nonconforming[4], conforming[4], lot_totals[4]),
+  `5` = c(nonconforming[5], conforming[5], lot_totals[5]),
+  Totals = c(sum(nonconforming), sum(conforming), sum(lot_totals))
+)
+
+observed |>
+  gt() |>
+  tab_spanner(label = "Lot", columns = c(`1`, `2`, `3`, `4`, `5`)) |>
+  tab_style(
+    style = list(cell_borders(sides = "top", weight = px(2)), cell_text(weight = "bold")),
+    locations = cells_body(rows = Results == "Totals")
+  )
+```
+
+[**Computation of the overall proportion of nonconforming units**]{#sec-prc-46-pbar}
+
+Assuming the null hypothesis is true, we can estimate the single overall proportion of nonconforming diodes by pooling the results of all the samples as
+
+$$ \bar{p} = \frac{36 + 46 + 42 + 63 + 38}{5(300)} = \frac{225}{1500} = 0.15 \, . $$
+
+```{r}
+#| label: verify-prc-46-pbar
+#| code-fold: true
+pbar <- sum(nonconforming) / sum(lot_totals)
+
+tibble(Statistic = "$\\bar{p}$", Value = pbar) |>
+  knitr::kable(digits = 2, align = "lr")
+```
+
+[**Computation of the overall proportion of conforming units**]{#sec-prc-46-expected}
+
+We estimate the proportion of conforming ("good") diodes by the complement 1 - 0.15 = 0.85. Multiplying these two proportions by the sample sizes used for each lot results in the expected frequencies of nonconforming and conforming diodes. These are presented below:
+
+```{r}
+#| label: tbl-prc-46-expected
+#| tbl-cap: "Expected frequencies by lot"
+#| code-fold: true
+expected_nonconforming <- pbar * lot_totals
+expected_conforming <- (1 - pbar) * lot_totals
+
+expected <- tibble(
+  Results = c("Nonconforming", "Conforming", "Totals"),
+  `1` = c(expected_nonconforming[1], expected_conforming[1], lot_totals[1]),
+  `2` = c(expected_nonconforming[2], expected_conforming[2], lot_totals[2]),
+  `3` = c(expected_nonconforming[3], expected_conforming[3], lot_totals[3]),
+  `4` = c(expected_nonconforming[4], expected_conforming[4], lot_totals[4]),
+  `5` = c(expected_nonconforming[5], expected_conforming[5], lot_totals[5]),
+  Totals = c(sum(expected_nonconforming), sum(expected_conforming), sum(lot_totals))
+)
+
+expected |>
+  gt() |>
+  tab_spanner(label = "Lot", columns = c(`1`, `2`, `3`, `4`, `5`)) |>
+  tab_style(
+    style = list(cell_borders(sides = "top", weight = px(2)), cell_text(weight = "bold")),
+    locations = cells_body(rows = Results == "Totals")
+  )
+```
+
+[**Null and alternate hypotheses**]{#sec-prc-46-hypotheses}
+
+To test the null hypothesis of homogeneity or equality of proportions
+
+$$ \mbox{H}_0: \,\,\, p_1 = p_2 = \cdots = p_5 $$
+
+against the alternative that not all 5 population proportions are equal
+
+$$ \mbox{H}_a: \,\,\, \mbox{Not all } p_i \mbox{ are equal } (i = 1, \, 2, \, \ldots, \, 5) \, , $$
+
+[**Table for computing the test statistic**]{#sec-prc-46-calculations}
+
+we use the observed and expected values from the tables above to compute the $\chi^2$ test statistic. The calculations are presented below:
+
+```{r}
+#| label: tbl-prc-46-chisq-calc
+#| tbl-cap: "Chi-square calculations"
+#| code-fold: true
+fo <- c(nonconforming, conforming)
+fc <- c(expected_nonconforming, expected_conforming)
+
+chisq_calc <- tibble(
+  fo_col = c(fo, NA),
+  fc_col = c(fc, NA),
+  diff_col = c(fo - fc, NA),
+  diff2_col = c((fo - fc)^2, NA),
+  contrib_col = c((fo - fc)^2 / fc, sum((fo - fc)^2 / fc))
+)
+
+chisq_calc |>
+  gt() |>
+  cols_label(
+    fo_col = html("f<sub>o</sub>"),
+    fc_col = html("f<sub>c</sub>"),
+    diff_col = html("(f<sub>o</sub> &minus; f<sub>c</sub>)"),
+    diff2_col = html("(f<sub>o</sub> &minus; f<sub>c</sub>)<sup>2</sup>"),
+    contrib_col = html("(f<sub>o</sub> &minus; f<sub>c</sub>)<sup>2</sup> / f<sub>c</sub>")
+  ) |>
+  sub_missing(columns = everything(), missing_text = "") |>
+  fmt_number(columns = everything(), decimals = 3) |>
+  tab_style(
+    style = list(cell_borders(sides = "top", weight = px(2)), cell_text(weight = "bold")),
+    locations = cells_body(rows = 11)
+  ) |>
+  cols_width(contrib_col ~ px(160), everything() ~ px(90)) |>
+  tab_options(table.width = pct(100))
+```
+
+```{r}
+#| label: verify-prc-46-chisq
+#| code-fold: true
+chi2_stat <- sum((fo - fc)^2 / fc)
+chi2_crit <- qchisq(0.95, 4)
+p_value <- 1 - pchisq(chi2_stat, 4)
+
+tibble(Statistic = c("$\\chi^2$", "Critical value $\\chi^2_{0.95,4}$", "$p$-value"), Value = c(chi2_stat, chi2_crit, p_value)) |>
+  knitr::kable(digits = 5, align = "lr")
+```
+
+[**Conclusions**]{#sec-prc-46-conclusions}
+
+If we choose a 0.05 level of significance, the critical value of $\chi^2$ with 4 degrees of freedom is 9.488 (see the [chi square distribution table](#sec-eda-chi-square-distribution-table) in Chapter 1). Since the test statistic (12.131) exceeds this critical value, we reject the null hypothesis.
