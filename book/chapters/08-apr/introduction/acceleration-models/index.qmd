@@ -1,0 +1,180 @@
+### What are some common acceleration models? {#sec-apr-15}
+
+[**Acceleration models predict time to fail as a function of stress**]{#sec-apr-15-predict}
+
+Acceleration factors show how time-to-fail at a particular operating stress level (for one failure mode or mechanism) can be used to predict the equivalent time to fail at a different operating stress level.
+
+A model that predicts time-to-fail as a function of stress would be even better than a collection of acceleration factors. If we write $t_f = G(S)$, with $G(S)$ denoting the model equation for an arbitrary stress level $S$, then the acceleration factor between two stress levels $S_1$ and $S_2$ can be evaluated simply by $AF = G(S_1) / G(S_2)$. Now we can test at the higher stress $S_2$, obtain a sufficient number of failures to fit life distribution models and evaluate failure rates, and use the [Linear Acceleration Relationships Table](#tbl-apr-14-linear-acceleration) to predict what will occur at the lower use stress $S_1$.
+
+A model that predicts time-to-fail as a function of operating stresses is known as an **acceleration model**.
+
+[**Acceleration models are often derived from physics or kinetics models related to the failure mechanism**]{#sec-apr-15-physics-basis}
+
+Acceleration models are usually based on the physics or chemistry underlying a particular failure mechanism. Successful empirical models often turn out to be approximations of complicated physics or kinetics models, when the theory of the failure mechanism is better understood. The following sections will consider a variety of powerful and useful models:
+
+- [Arrhenius](#sec-apr-151)
+- [Eyring](#sec-apr-152)
+- [Other Models](#sec-apr-153)
+
+#### Arrhenius {#sec-apr-151}
+
+[**The Arrhenius model predicts failure acceleration due to temperature increase**]{#sec-apr-151-model}
+
+One of the earliest and most successful acceleration models predicts how time-to-fail varies with temperature. This empirically based model is known as the Arrhenius equation. It takes the form
+
+$$ t_f = A \cdot \mbox{exp} \left[ \frac{\Delta H}{k T} \right] \,\, , $$
+
+with $T$ denoting temperature measured in degrees Kelvin (273.16 + degrees Celsius) at the point when the failure process takes place and $k$ is Boltzmann's constant (8.617e-5 in ev/K). The constant $A$ is a scaling factor that drops out when calculating acceleration factors, with $\Delta H$ (pronounced "Delta H") denoting the activation energy, which is the critical parameter in the model.
+
+[**The Arrhenius activation energy, $\Delta H$, is all you need to know to calculate temperature acceleration**]{#sec-apr-151-activation-energy}
+
+The value of $\Delta H$ depends on the failure mechanism and the materials involved, and typically ranges from 0.3 or 0.4 up to 1.5, or even higher. Acceleration factors between two temperatures increase exponentially as $\Delta H$ increases.
+
+The acceleration factor between a higher temperature $T_2$ and a lower temperature $T_1$ is given by
+
+$$ AF = \mbox{exp} \left[ \frac{\Delta H}{k} \left( \frac{1}{T_1} - \frac{1}{T_2} \right) \right] \,\, . $$
+
+Using the value of $k$ given above, this can be written in terms of $T$ in degrees Celsius as
+
+$$ AF = \mbox{exp} \left[ \Delta H \cdot 11605 \cdot \left( \frac{1}{T_1 + 273.16} - \frac{1}{T_2 + 273.16} \right) \right] \,\, . $$
+
+Note that the only unknown parameter in this formula is $\Delta H$.
+
+**Example**: The acceleration factor between 25°C and 125°C is 133 if $\Delta H$ = 0.5 and 17,597 if $\Delta H$ = 1.0.
+
+```{r}
+#| label: verify-apr-151-arrhenius
+#| code-fold: true
+AF <- function(dH, T1, T2) exp(dH * 11605 * (1 / (T1 + 273.16) - 1 / (T2 + 273.16)))
+
+tibble::tibble(
+  `$\\Delta H$` = c(0.5, 1.0),
+  AF = c(AF(0.5, 25, 125), AF(1.0, 25, 125))
+) |>
+  knitr::kable(digits = c(1, 0), align = "lr")
+```
+
+The Arrhenius model has been used successfully for failure mechanisms that depend on chemical reactions, diffusion processes or migration processes. This covers many of the non-mechanical (or non-material fatigue) failure modes that cause electronic equipment failure.
+
+#### Eyring {#sec-apr-152}
+
+[**The Eyring model has a theoretical basis in chemistry and quantum mechanics and can be used to model acceleration when many stresses are involved**]{#sec-apr-152-theoretical-basis}
+
+Henry Eyring's contributions to chemical reaction rate theory have led to a very general and powerful model for acceleration known as the Eyring Model. This model has several key features:
+
+- It has a theoretical basis from chemistry and quantum mechanics.
+- If a chemical process (chemical reaction, diffusion, corrosion, migration, etc.) is causing degradation leading to failure, the Eyring model describes how the rate of degradation varies with stress or, equivalently, how time to failure varies with stress.
+- The model includes temperature and can be expanded to include other relevant stresses.
+- The temperature term by itself is very similar to the Arrhenius empirical model, explaining why that model has been so successful in establishing the connection between the $\Delta H$ parameter and the quantum theory concept of "activation energy needed to cross an energy barrier and initiate a reaction".
+
+The model for temperature and one additional stress takes the general form:
+
+$$ t_f = A T^\alpha \mbox{exp} \left[ \frac{\Delta H}{k T} + \left(B + \frac{C}{T} \right) \cdot S_1 \right] \,\, , $$
+
+for which $S_1$ could be some function of voltage or current or any other relevant stress and the parameters $\alpha, \Delta H, B,$ and $C$ determine acceleration between stress combinations. As with the [Arrhenius Model](#sec-apr-151), $k$ is Boltzmann's constant and temperature is in degrees Kelvin.
+
+If we want to add an additional non-thermal stress term, the model becomes
+
+$$ t_f = A T^\alpha \mbox{exp} \left[ \frac{\Delta H}{kT} + \left( B + \frac{C}{T} \right) \cdot S_1 +
+ \left(D + \frac{E}{T} \right) \cdot S_2 \right] \,\, , $$
+
+and as many stresses as are relevant can be included by adding similar terms.
+
+[**Models with multiple stresses generally have no interaction terms - which means you can multiply acceleration factors due to different stresses**]{#sec-apr-152-no-interaction}
+
+Note that the general Eyring model includes terms that have stress and temperature interactions (in other words, the effect of changing temperature varies, depending on the levels of other stresses). Most models in actual use do not include any interaction terms, so that the relative change in acceleration factors when only one stress changes does not depend on the level of the other stresses.
+
+In models with no interaction, you can compute acceleration factors for each stress and multiply them together. This would not be true if the physical mechanism required interaction terms - but, at least to first approximations, it seems to work for most examples in the literature.
+
+[**The Eyring model can also be used to model rate of degradation leading to failure as a function of stress**]{#sec-apr-152-degradation}
+
+**Advantages of the Eyring Model**
+
+- Can handle many stresses.
+- Can be used to model degradation data as well as failure data.
+- The $\Delta H$ parameter has a physical meaning and has been studied and estimated for many well known failure mechanisms and materials.
+
+[**In practice, the Eyring Model is usually too complicated to use in its most general form and must be "customized" or simplified for any particular failure mechanism**]{#sec-apr-152-disadvantages}
+
+**Disadvantages of the Eyring Model**
+
+- Even with just two stresses, there are 5 parameters to estimate. Each additional stress adds 2 more unknown parameters.
+- Many of the parameters may have only a second-order effect. For example, setting $\alpha$ = 0 works quite well since the temperature term then becomes the same as in the Arrhenius model. Also, the constants $C$ and $E$ are only needed if there is a significant temperature interaction effect with respect to the other stresses.
+- The form in which the other stresses appear is not specified by the general model and may vary according to the particular failure mechanism. In other words, $S_1$ may be voltage or ln (voltage) or some other function of voltage.
+
+Many well-known models are simplified versions of the Eyring model with appropriate functions of relevant stresses chosen for $S_1$ and $S_2$. Some of these will be shown in the [Other Models](#sec-apr-153) section. The trick is to find the right simplification to use for a particular failure mechanism.
+
+#### Other models {#sec-apr-153}
+
+[**Many useful 1, 2 and 3 stress models are simple Eyring models. Six are described**]{#sec-apr-153-overview}
+
+This section will discuss several acceleration models whose successful use has been described in the literature.
+
+- [The (Inverse) Power Rule for Voltage](#sec-apr-153-power-rule)
+- [The Exponential Voltage Model](#sec-apr-153-exponential-voltage)
+- [Two Temperature/Voltage Models](#sec-apr-153-temp-voltage)
+- [The Electromigration Model](#sec-apr-153-electromigration)
+- [Three Stress Models (Temperature, Voltage and Humidity)](#sec-apr-153-three-stress)
+- [The Coffin-Manson Mechanical Crack Growth Model](#sec-apr-153-coffin-manson)
+
+[**The (Inverse) Power Rule for Voltage**]{#sec-apr-153-power-rule}
+
+This model, used for capacitors, has only voltage dependency and takes the form:
+
+$$ t_f = AV^{-\beta} \,\, . $$
+
+This is a very simplified [Eyring model](#sec-apr-152) with $\alpha, \Delta H,$ and $C$ all 0, $S = \mbox{ln} V$, and $\beta = -B$.
+
+[**The Exponential Voltage Model**]{#sec-apr-153-exponential-voltage}
+
+In some cases, voltage dependence is modeled better with an exponential model:
+
+$$ t_f = A e^{-BV} \,\, . $$
+
+[**Two Temperature/Voltage Models**]{#sec-apr-153-temp-voltage}
+
+Temperature/Voltage models are common in the literature and take one of the two forms given below:
+
+$$ t_f = A \cdot \mbox{exp} \left( \frac{\Delta H}{kT} \right) \cdot V^{-\beta} $$
+
+or
+
+$$ t_f = A \cdot \mbox{exp} \left( \frac{\Delta H}{kT} \right) \cdot e^{-BV} \,\, . $$
+
+Again, these are just simplified two stress Eyring models with the appropriate choice of constants and functions of voltage.
+
+[**The Electromigration Model**]{#sec-apr-153-electromigration}
+
+Electromigration is a semiconductor failure mechanism where open failures occur in metal thin film conductors due to the movement of ions toward the anode. This ionic movement is accelerated high temperatures and high current density. The (modified Eyring) model takes the form
+
+$$ t_f = A \cdot J^{-n} \cdot \mbox{exp} \left( \frac{\Delta H}{kT} \right) \,\, , $$
+
+with $J$ denoting the current density. $\Delta H$ is typically between 0.5 and 1.2 electron volts, while an $n$ around 2 is common.
+
+[**Three-Stress Models (Temperature, Voltage and Humidity)**]{#sec-apr-153-three-stress}
+
+Humidity plays an important role in many failure mechanisms that depend on corrosion or ionic movement. A common 3-stress model takes the form
+
+$$ t_f = A \cdot \mbox{exp} \left( \frac{\Delta H}{kT} \right) \cdot V^{-\beta} \cdot R H^{-\gamma} \,\, . $$
+
+Here $RH$ is percent relative humidity. Other obvious variations on this model would be to use an exponential voltage term and/or an exponential $RH$ term.
+
+Even this simplified Eyring 3-stress model has 4 unknown parameters and an extensive experimental setup would be required to fit the model and calculate acceleration factors.
+
+[**The Coffin-Manson Model is a useful non-Eyring model for crack growth or material fatigue**]{#sec-apr-153-coffin-manson}
+
+**The Coffin-Manson Mechanical Crack Growth Model**
+
+Models for mechanical failure, material fatigue or material deformation are not forms of the Eyring model. These models typically have terms relating to cycles of stress or frequency of use or change in temperatures. A model of this type known as the (modified) Coffin-Manson model has been used successfully to model crack growth in solder and other metals due to repeated temperature cycling as equipment is turned on and off. This model takes the form
+
+$$ N_f = A \cdot f^{-\alpha} \cdot \Delta T^{-\beta} \cdot G(T_{\mbox{max}}) \,\, , $$
+
+with
+
+- $N_f$ = the number of cycles to fail
+- $f$ = the cycling frequency
+- $\Delta T$ = the temperature range during a cycle
+
+and $G(T_{\mbox{max}})$ is an [Arrhenius](#sec-apr-151) term evaluated at the maximum temperature reached in each cycle.
+
+Typical values for the cycling frequency exponent $\alpha$ and the temperature range exponent $\beta$ are around -1/3 and 2, respectively (note that reducing the cycling frequency reduces the number of cycles to failure). The $\Delta H$ activation energy term in $G(T_{\mbox{max}})$ is around 1.25.

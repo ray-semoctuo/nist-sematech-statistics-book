@@ -1,0 +1,75 @@
+### What are some common difficulties with reliability data and how are they overcome? {#sec-apr-13}
+
+[**The Paradox of Reliability Analysis: The more reliable a product is, the harder it is to get the failure data needed to "prove" it is reliable!**]{#sec-apr-13-paradox}
+
+There are two closely related problems that are typical with reliability data and not common with most other forms of statistical data. These are:
+
+- [Censoring](#sec-apr-131) (when the observation period ends, not all units have failed - some are survivors)
+- [Lack of Failures](#sec-apr-132) (if there is too much censoring, even though a large number of units may be under observation, the information in the data is limited due to the lack of actual failures)
+
+These problems cause considerable practical difficulty when planning reliability assessment tests and analyzing failure data. Some solutions are discussed in the next two sections. Typically, the solutions involve making additional assumptions and using complicated models.
+
+#### Censoring {#sec-apr-131}
+
+[**When not all units on test fail we have censored data**]{#sec-apr-131-intro}
+
+Consider a situation in which we are reliability testing $n$ (non-repairable) units taken randomly from a population. We are investigating the population to determine if its failure rate is acceptable. In the typical test scenario, we have a fixed time $T$ to run the units to see if they survive or fail. The data obtained are called **Censored Type I** data.
+
+[**Censored Type I Data**]{#sec-apr-131-type-1}
+
+During the $T$ hours of test we observe $r$ failures (where $r$ can be any number from 0 to $n$). The (exact) failure times are $t_1, \, t_2, \, \ldots, \, t_r$, and there are $(n - r)$ units that survived the entire $T$-hour test without failing. Note that $T$ is fixed in advance and $r$ is random, since we don't know how many failures will occur until the test is run. Note also that we assume the exact times of failure are recorded when there are failures.
+
+This type of censoring is also called "right censored" data since the times of failure to the right (i.e., larger than $T$) are missing.
+
+Another (much less common) way to test is to decide in advance that you want to see exactly $r$ failure times and then test until they occur. For example, you might put 100 units on test and decide you want to see at least half of them fail. Then $r = 50$, but $T$ is unknown until the 50th failure occurs. This is called **Censored Type II** data.
+
+[**Censored Type II Data**]{#sec-apr-131-type-2}
+
+We observe $t_1, \, t_2, \, \ldots, \, t_r$, where $r$ is specified in advance. The test ends at time $T = t_r$, and $(n - r)$ units have survived. Again we assume it is possible to observe the exact time of failure for failed units.
+
+Type II censoring has the significant advantage that you know in advance how many failure times your test will yield - this helps enormously when planning adequate tests. However, an open-ended random test time is generally impractical from a management point of view and this type of testing is rarely seen.
+
+[**Sometimes we don't even know the exact time of failure**]{#sec-apr-131-readout}
+
+**Readout or Interval Data**
+
+Sometimes exact times of failure are not known; only an interval of time in which the failure occurred is recorded. This kind of data is called **Readout** or **Interval** data and the situation is shown in the figure below:
+
+![Reliability testing timeline with interval (readout) data: n units start test at time 0, with r1, r2, r3, r4, ... failures observed at readout times T1, T2, T3, T4, ..., and the remaining n - sum(ri) units left at the final readout time Tk = T](introduction/images/interval-censoring.svg){#fig-apr-131-interval-data}
+
+[**Multicensored Data**]{#sec-apr-131-multicensored}
+
+In the most general case, every unit observed yields exactly one of the following three types of information:
+
+- a run-time if the unit did not fail while under observation
+- an exact failure time
+- an interval of time during which the unit failed.
+
+The units may all have different run-times and/or readout intervals.
+
+[**Many special methods have been developed to handle censored data**]{#sec-apr-131-methods}
+
+**How do we handle censored data?**
+
+Many statistical methods can be used to fit models and estimate failure rates, even with censored data. In later sections we will discuss the [Kaplan-Meier](#sec-apr-215) approach, [Probability Plotting](#sec-apr-221), [Hazard Plotting](#sec-apr-222), [Graphical Estimation](#sec-apr-411), and [Maximum Likelihood Estimation](#sec-apr-412).
+
+**Separating out Failure Modes**
+
+Note that when a data set consists of failure times that can be sorted into several different failure modes, it is possible (and often necessary) to analyze and model each mode separately. Consider all failures due to modes other than the one being analyzed as censoring times, with the censored run-time equal to the time it failed due to the different (independent) failure mode. This is discussed further in the [competing risk section](#sec-apr-181) and later analysis sections.
+
+#### Lack of failures {#sec-apr-132}
+
+[**Failure data is needed to accurately assess and improve reliability - this poses problems when testing highly reliable parts**]{#sec-apr-132-problem}
+
+When fitting models and estimating failure rates from reliability data, the precision of the estimates (as measured by the width of the confidence intervals) tends to vary inversely with the square root of the number of failures observed - not the number of units on test or the length of the test. In other words, a test where 5 fail out of a total of 10 on test gives more information than a test with 1000 units but only 2 failures.
+
+Since the number of failures $r$ is critical, and not the sample size $n$ on test, it becomes increasingly difficult to assess the failure rates of highly reliable components. Parts like memory chips, that in typical use have failure rates measured in parts per million per thousand hours, will have few or no failures when tested for reasonable time periods with affordable sample sizes. This gives little or no information for accomplishing the two primary purposes of reliability testing, namely:
+
+- accurately assessing population failure rates
+- obtaining failure mode information to feedback for product improvement.
+
+[**Testing at much higher than typical stresses can yield failures but models are then needed to relate these back to use stress**]{#sec-apr-132-acceleration}
+
+**How can tests be designed to overcome an expected lack of failures?**
+
+The answer is to make failures occur by testing at much higher stresses than the units would normally see in their intended application. This creates a new problem: how can these failures at higher-than-normal stresses be related to what would be expected to happen over the course of many years at normal use stresses? The models that relate high stress reliability to normal use reliability are called [acceleration models](#sec-apr-14).

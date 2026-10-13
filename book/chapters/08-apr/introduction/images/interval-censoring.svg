@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 260" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .axis { stroke: #1B1B1B; stroke-width: 2; }
+    .tick { stroke: #1B1B1B; stroke-width: 2; }
+    .arrow { stroke: #1B1B1B; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .fail-label { font-size: 17px; fill: #1B1B1B; text-anchor: middle; }
+    .start-label { font-size: 17px; fill: #1B1B1B; text-anchor: end; }
+    .tick-label { font-size: 18px; fill: #1B1B1B; text-anchor: middle; }
+    .dot { fill: #1B1B1B; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1B1B1B" />
+    </marker>
+  </defs>
+
+  <!-- main horizontal axis -->
+  <line class="axis" x1="180" y1="170" x2="860" y2="170" />
+
+  <!-- "n units start test" entry arrow -->
+  <line class="arrow" x1="90" y1="170" x2="172" y2="170" />
+  <text class="start-label" x="80" y="163">n units</text>
+  <text class="start-label" x="80" y="183">start test</text>
+
+  <!-- tick marks along the axis (equally spaced: 0, T1, T2, T3, T4, then a longer run with ellipsis to Tk) -->
+  <line class="tick" x1="190" y1="155" x2="190" y2="185" />
+  <line class="tick" x1="310" y1="155" x2="310" y2="185" />
+  <line class="tick" x1="430" y1="155" x2="430" y2="185" />
+  <line class="tick" x1="550" y1="155" x2="550" y2="185" />
+  <line class="tick" x1="670" y1="155" x2="670" y2="185" />
+  <line class="tick" x1="850" y1="155" x2="850" y2="185" />
+
+  <!-- ellipsis between T4 and Tk -->
+  <circle class="dot" cx="715" cy="170" r="2.5" />
+  <circle class="dot" cx="745" cy="170" r="2.5" />
+  <circle class="dot" cx="775" cy="170" r="2.5" />
+
+  <!-- tick labels below axis -->
+  <text class="tick-label" x="190" y="220">0</text>
+  <text class="tick-label" x="310" y="220">T1</text>
+  <text class="tick-label" x="430" y="220">T2</text>
+  <text class="tick-label" x="550" y="220">T3</text>
+  <text class="tick-label" x="670" y="220">T4</text>
+  <text class="tick-label" x="850" y="220">Tk = T</text>
+
+  <!-- failure arrows (originating within the preceding interval, pointing up to the readout label) and labels -->
+  <line class="arrow" x1="270" y1="158" x2="305" y2="78" />
+  <text class="fail-label" x="310" y="55">r1 fail</text>
+
+  <line class="arrow" x1="390" y1="158" x2="425" y2="78" />
+  <text class="fail-label" x="430" y="55">r2 fail</text>
+
+  <line class="arrow" x1="510" y1="158" x2="545" y2="78" />
+  <text class="fail-label" x="550" y="55">r3 fail</text>
+
+  <line class="arrow" x1="630" y1="158" x2="665" y2="78" />
+  <text class="fail-label" x="670" y="55">r4 fail</text>
+
+  <line class="arrow" x1="810" y1="158" x2="845" y2="78" />
+  <text class="fail-label" x="850" y="40">n &#8722; &#931;ri</text>
+  <text class="fail-label" x="850" y="58">left</text>
+</svg>

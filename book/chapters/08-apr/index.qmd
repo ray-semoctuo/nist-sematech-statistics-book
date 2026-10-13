@@ -14,3 +14,11 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include introduction/basic-terms-models/index.qmd >}}
 
 {{< include introduction/basic-terms-models/lifetime-distribution-models.qmd >}}
+
+{{< include introduction/basic-terms-models/survival-failure-rate-bathtub.qmd >}}
+
+{{< include introduction/data-difficulties.qmd >}}
+
+{{< include introduction/physical-acceleration.qmd >}}
+
+{{< include introduction/acceleration-models/index.qmd >}}

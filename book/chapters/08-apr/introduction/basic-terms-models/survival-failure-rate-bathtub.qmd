@@ -1,0 +1,120 @@
+#### Reliability or survival function {#sec-apr-122}
+
+[**Survival is the complementary event to failure**]{#sec-apr-122-survival}
+
+The **Reliability Function** $R(t)$, also known as the **Survival Function** $S(t)$, is defined by
+
+$$ R(t) = S(t) = \mbox{the probability a unit survives beyond time } t \, . $$
+
+Since a unit either fails, or survives, and one of these two mutually exclusive alternatives must occur, we have
+
+$$ R(t) = 1 - F(t), \,\,\,\,\, F(t) = 1 - R(t) \, . $$
+
+Calculations using $R(t)$ often occur when building up from single components to subsystems with many components. For example, if one microprocessor comes from a population with reliability function $R_m(t)$ and two of them are used for the CPU in a system, then the system CPU has a reliability function given by
+
+$$ R_{cpu}(t) = R_m^2(t) \, , $$
+
+[**The reliability of the system is the product of the reliability functions of the components**]{#sec-apr-122-product}
+
+since both must survive in order for the system to survive. This building up to the system from the individual components will be discussed in detail when we look at the ["Bottom-Up"](#sec-apr-18) method. The general rule is: to calculate the reliability of a system of independent components, multiply the reliability functions of all the components together.
+
+#### Failure (or hazard) rate {#sec-apr-123}
+
+[**The failure rate is the rate at which the population survivors at any given instant are "falling over the cliff"**]{#sec-apr-123-falling-over-cliff}
+
+The failure rate is defined for non repairable populations as the (instantaneous) rate of failure for the survivors to time $t$ during the next instant of time. It is a rate per unit of time similar in meaning to reading a car speedometer at a particular instant and seeing 45 mph. The next instant the failure rate may change and the units that have already failed play no further role since only the survivors count.
+
+The failure rate (or hazard rate) is denoted by $h(t)$ and is calculated from
+
+$$ h(t) = \frac{f(t)}{1 - F(t)} = \frac{f(t)}{R(t)} = \mbox{the instantaneous (conditional) failure rate.} $$
+
+The failure rate is sometimes called a "conditional failure rate" since the denominator $1 - F(t)$ (i.e., the population survivors) converts the expression into a conditional rate, given survival past time $t$.
+
+Since $h(t)$ is also equal to the negative of the derivative of $\mbox{ln}[R(t)]$, we have the useful identity:
+
+$$ F(t) = 1 - \mbox{exp} \left[ -\int_0^t h(t)dt \right] \,\, . $$
+
+If we let
+
+$$ H(t) = \int_0^t h(t)dt $$
+
+be the **Cumulative Hazard Function**, we then have $F(t) = 1 - e^{-H(t)}$. Two other useful identities that follow from these formulas are:
+
+$$ h(t) = - \frac{d \mbox{ln} R(t)}{dt} $$
+
+$$ H(t) = - \mbox{ln} R(t) \,\, . $$
+
+It is also sometimes useful to define an average failure rate over any interval $(T_1, T_2)$ that "averages" the failure rate over that interval. This rate, denoted by $AFR(T_1, T_2)$, is a single number that can be used as a specification or target for the population failure rate over that interval. If $T_1$ is 0, it is dropped from the expression. Thus, for example, $AFR(40,000)$ would be the average failure rate for the population over the first 40,000 hours of operation.
+
+The formulas for calculating $AFR$ values are:
+
+$$ AFR(T_2 - T_1) = \frac{\int_{T_1}^{T_2} h(t)dt}{T_2 - T_1}
+   = \frac{H(T_2) - H(T_1)}{T_2 - T_1} = \frac{\mbox{ln}R(T_1) - \mbox{ln}R(T_2)}{T_2 - T_1} $$
+
+and
+
+$$ AFR(0,T) = AFR(T) = \frac{H(T)}{T} = \frac{-\mbox{ln} R(T)}{T} \,\, . $$
+
+#### "Bathtub" curve {#sec-apr-124}
+
+[**A plot of the failure rate over time for most products yields a curve that looks like a drawing of a bathtub**]{#sec-apr-124-shape}
+
+If enough units from a given population are observed operating and failing over time, it is relatively easy to compute week-by-week (or month-by-month) estimates of the failure rate $h(t)$. For example, if $N_{12}$ units survive to start the 13th month of life and $r_{13}$ of them fail during the next month (or 720 hours) of life, then a simple empirical estimate of $h(t)$ averaged across the 13th month of life (or between 8640 hours and 9360 hours of age), is given by $(r_{13} / N_{12} \cdot 720)$. Similar estimates are discussed in detail in the section on [Empirical Model Fitting](#sec-apr-215).
+
+Over many years, and across a wide variety of mechanical and electronic components and systems, people have calculated empirical population failure rates as units age over time and repeatedly obtained a graph such as shown below. Because of the shape of this failure rate curve, it has become widely known as the "Bathtub" curve.
+
+The initial region that begins at time zero when a customer first begins to use the product is characterized by a high but rapidly decreasing failure rate. This region is known as the **Early Failure Period** (also referred to as **Infant Mortality Period**, from the actuarial origins of the first bathtub curve plots). This decreasing failure rate typically lasts several weeks to a few months.
+
+Next, the failure rate levels off and remains roughly constant for (hopefully) the majority of the useful life of the product. This long period of a level failure rate is known as the **Intrinsic Failure Period** (also called the **Stable Failure Period**) and the constant failure rate level is called the **Intrinsic Failure Rate**. Note that most systems spend most of their lifetimes operating in this flat portion of the bathtub curve.
+
+Finally, if units from the population remain in use long enough, the failure rate begins to increase as materials wear out and degradation failures occur at an ever increasing rate. This is the **Wearout Failure Period**.
+
+```{r}
+#| label: fig-apr-124-bathtub
+#| fig-cap: "The Bathtub Curve"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+t_seq <- seq(0.05, 10, length.out = 500)
+h_t <- 1 + 4 * exp(-1.5 * t_seq) + ifelse(t_seq > 7, 0.05 * (t_seq - 7)^3, 0)
+v1 <- 2
+v2 <- 7
+
+ggplot(tibble(t = t_seq, h = h_t), aes(t, h)) +
+  geom_line(linewidth = 0.8) +
+  geom_vline(xintercept = c(v1, v2), linetype = "solid") +
+  annotate("segment", x = c(0.5, 4.5, 8.5), xend = c(0.5, 4.5, 8.5),
+           y = c(5.3, 5.3, 5.3), yend = c(4.6, 4.3, 4.3),
+           arrow = arrow(length = unit(0.2, "cm")), color = "red", linewidth = 0.8) +
+  annotate("label", x = c(0.5, 4.5, 8.5), y = c(3.6, 3.2, 3.2),
+           label = c("Early\nFailure\nPeriod", "Intrinsic\nFailure\nPeriod", "Wearout\nFailure\nPeriod"),
+           fontface = "bold", size = 3) +
+  labs(title = "The Bathtub Curve", x = "Time", y = "h(t)") +
+  scale_x_continuous(breaks = 0, labels = "0") +
+  coord_cartesian(ylim = c(0, 6), clip = "off") +
+  theme_classic() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+```
+
+NOTE: The Bathtub Curve also applies (based on much empirical evidence) to Repairable Systems. In this case, the vertical axis is the [Repair Rate or the Rate of Occurrence of Failures (ROCOF)](#sec-apr-125).
+
+#### Repair rate or ROCOF {#sec-apr-125}
+
+[**Repair Rate models are based on counting the cumulative number of failures over time**]{#sec-apr-125-counting}
+
+A different approach is used for modeling the rate of occurrence of failure incidences for a repairable system. In this chapter, these rates are called *repair rates* (not to be confused with the length of time for a repair, which is not discussed in this chapter). Time is measured by system power-on-hours from initial turn-on at time zero, to the end of system life. Failures occur as given system ages and the system is repaired to a state that may be the same as new, or better, or worse. The frequency of repairs may be increasing, decreasing, or staying at a roughly constant rate.
+
+Let $N(t)$ be a counting function that keeps track of the cumulative number of failures a given system has had from time zero to time $t$. $N(t)$ is a step function that jumps up one every time a failure occurs and stays at the new level until the next failure.
+
+Every system will have its own observed $N(t)$ function over time. If we observed the $N(t)$ curves for a large number of similar systems and "averaged" these curves, we would have an estimate of $M(t)$ = the expected number (average number) of cumulative failures by time $t$ for these systems.
+
+[**The Repair Rate (or ROCOF) is the mean rate of failures per unit time**]{#sec-apr-125-mean-rate}
+
+The derivative of $M(t)$, denoted $m(t)$, is defined to be the **Repair Rate** or the **Rate Of Occurrence Of Failures at Time $t$**, or **ROCOF**.
+
+Models for $N(t)$, $M(t)$, and $m(t)$ will be described in the section on [Repair Rate Models](#sec-apr-17).

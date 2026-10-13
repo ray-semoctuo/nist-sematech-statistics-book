@@ -1,0 +1,46 @@
+### What is "physical acceleration" and how do we model it? {#sec-apr-14}
+
+[**When changing stress is equivalent to multiplying time to fail by a constant, we have true (physical) acceleration**]{#sec-apr-14-true-acceleration}
+
+**Physical Acceleration** (sometimes called **True Acceleration** or just **Acceleration**) means that operating a unit at high stress (i.e., higher temperature or voltage or humidity or duty cycle, etc.) produces the same failures that would occur at typical-use stresses, except that they happen much quicker.
+
+Failure may be due to mechanical fatigue, corrosion, chemical reaction, diffusion, migration, etc. These are the same causes of failure under normal stress; the time scale is simply different.
+
+[**An Acceleration Factor is the constant multiplier between the two stress levels**]{#sec-apr-14-acceleration-factor}
+
+When there is true acceleration, changing stress is equivalent to transforming the time scale used to record when failures occur. The transformations commonly used are *linear*, which means that time-to-fail at high stress just has to be multiplied by a constant (the **acceleration factor**) to obtain the equivalent time-to-fail at use stress.
+
+We use the following notation:
+
+| At stress | At use |
+|---|---|
+| $t_s$ = time-to-fail at stress | $t_u$ = corresponding time-to-fail at use |
+| $F_s(t)$ = CDF at stress | $F_u(t)$ = CDF at use |
+| $f_s(t)$ = PDF at stress | $f_u(t)$ = PDF at use |
+| $h_s(t)$ = failure rate at stress | $h_u(t)$ = failure rate at use |
+
+Then, an acceleration factor $AF$ between stress and use means the following relationships hold:
+
+: Linear Acceleration Relationships {#tbl-apr-14-linear-acceleration}
+
+|  |  |
+|---|---|
+| **Time-to-Fail** | $t_u = AF \times t_s$ |
+| **Failure Probability** | $F_u(t) = F_s(t/AF)$ |
+| **Reliability** | $R_u(t) = R_s(t/AF)$ |
+| **PDF or Density Function** | $f_u(t) = (1/AF) f_s(t/AF)$ |
+| **Failure Rate** | $h_u(t) = (1/AF) h_s(t/AF)$ |
+
+[**Each failure mode has its own acceleration factor**]{#sec-apr-14-each-mode}
+
+[**Failure data should be separated by failure mode when analyzed, if acceleration is relevant**]{#sec-apr-14-separate-modes}
+
+[**Probability plots of data from different stress cells have the same slope (if there is acceleration)**]{#sec-apr-14-same-slope}
+
+**Note**: Acceleration requires that there be a stress dependent physical process causing change or degradation that leads to failure. In general, different failure modes will be affected differently by stress and have different acceleration factors. Therefore, it is unlikely that a single acceleration factor will apply to more than one failure mechanism. Separate out different types of failure when analyzing failure data.
+
+Also, a consequence of the linear acceleration relationships shown above (which follows directly from "true acceleration") is the following:
+
+> The Shape Parameter for the key life distribution models (Weibull, Lognormal) does not change for units operating under different stresses. Probability plots of data from different stress cells will line up roughly parallel.
+
+These [distributions](#sec-apr-16) and [probability plotting](#sec-apr-221) will be discussed in later sections.
