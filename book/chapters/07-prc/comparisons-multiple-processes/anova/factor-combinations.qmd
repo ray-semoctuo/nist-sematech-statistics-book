@@ -1,0 +1,300 @@
+#### Assessing the response from any factor combination {#sec-prc-436}
+
+[**Contrasts**]{#sec-prc-436-contrasts-intro}
+
+This page treats how to estimate and put confidence bounds around the response to different combinations of factors. Primary focus is on the combinations that are known as [*contrasts*](#sec-prc-436-definition-estimation). We begin, however, with the simple case of a single factor-level mean.
+
+**Estimation of a Factor Level Mean With Confidence Bounds**
+
+[**Estimating factor level means**]{#sec-prc-436-estimating-means}
+
+An unbiased estimator of the factor level mean $\mu_i$ in the one-way ANOVA model is given by:
+
+$$ \hat{\mu}_i = \bar{Y}_{i \cdot} \, , $$
+
+where
+
+$$ \bar{Y}_{i \cdot} = \frac{\sum_{j=1}^{n_i} Y_{ij}}{n_i} = \frac{Y_{i \cdot}}{n_i} \, . $$
+
+[**Variance of the factor level means**]{#sec-prc-436-variance}
+
+The variance of this sample mean estimator is
+
+$$ s_{\bar{Y}_{i \cdot}}^2 = \frac{MSE}{n_i} = \frac{\hat{\sigma}_e^2}{n_i} \, . $$
+
+[**Confidence intervals for the factor level means**]{#sec-prc-436-ci}
+
+It can be shown that:
+
+$$ t = \frac{\bar{Y}_{i \cdot} - \mu_i}{s_{\bar{Y}_{i \cdot}}} \, , $$
+
+has a $t$ distribution with $(N-k)$ degrees of freedom for the ANOVA model under consideration, where $N$ is the total number of observations and $k$ is the number of factor levels or groups. The degrees of freedom are the same as were used to calculate the MSE in the ANOVA table. That is: $dfe$ (degrees of freedom for error) = $N - k$. From this we can calculate $100(1-\alpha)$% confidence limits for each $\mu_i$. These are given by:
+
+$$ \bar{Y}_{i\cdot} \pm t_{1-\alpha/2, \, N-k} \,\,\sqrt{\frac{\hat{\sigma}^2_\epsilon}{n_i}} \, . $$
+
+**Example 1**
+
+[**Example for a 4-level treatment (or 4 different treatments)**]{#sec-prc-436-example1}
+
+The data in the accompanying table resulted from an experiment run in a completely randomized design in which each of four treatments was replicated five times.
+
+```{r}
+#| label: tbl-prc-436-data
+#| tbl-cap: "Four-treatment experiment data, totals, and means"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+group1 <- c(6.9, 5.4, 5.8, 4.6, 4.0)
+group2 <- c(8.3, 6.8, 7.8, 9.2, 6.5)
+group3 <- c(8.0, 10.5, 8.1, 6.9, 9.3)
+group4 <- c(5.8, 3.8, 6.1, 5.6, 6.2)
+
+data4 <- tibble(`Group 1` = group1, `Group 2` = group2, `Group 3` = group3, `Group 4` = group4)
+
+data4 |>
+  bind_rows(summarise(data4, across(everything(), sum))) |>
+  bind_rows(summarise(data4, across(everything(), mean))) |>
+  mutate(Row = c(as.character(1:5), "Total", "Mean")) |>
+  select(Row, everything()) |>
+  knitr::kable(digits = 2, align = "lrrrr")
+```
+
+[**One-way ANOVA table layout**]{#sec-prc-436-layout}
+
+This experiment can be illustrated by the table layout for this one-way ANOVA experiment shown below:
+
+| Level $i$ | Sample $j$: 1 | 2 | ... | 5 | Sum | Mean | $N$ |
+|---|---|---|---|---|---|---|---|
+| 1 | $Y_{11}$ | $Y_{12}$ | ... | $Y_{15}$ | $Y_{1\cdot}$ | $\bar{Y}_{1\cdot}$ | $n_1$ |
+| 2 | $Y_{21}$ | $Y_{22}$ | ... | $Y_{25}$ | $Y_{2\cdot}$ | $\bar{Y}_{2\cdot}$ | $n_2$ |
+| 3 | $Y_{31}$ | $Y_{32}$ | ... | $Y_{35}$ | $Y_{3\cdot}$ | $\bar{Y}_{3\cdot}$ | $n_3$ |
+| 4 | $Y_{41}$ | $Y_{42}$ | ... | $Y_{45}$ | $Y_{4\cdot}$ | $\bar{Y}_{4\cdot}$ | $n_4$ |
+| All | | | | | $Y_{\cdot\cdot}$ | $\bar{Y}_{\cdot\cdot}$ | $n_t$ |
+
+[**ANOVA table**]{#sec-prc-436-anova-table}
+
+```{r}
+#| label: tbl-prc-436-anova
+#| tbl-cap: "ANOVA table for the four-treatment experiment"
+#| code-fold: true
+y <- c(group1, group2, group3, group4)
+treatment <- factor(rep(1:4, each = 5))
+fit4 <- aov(y ~ treatment)
+anova4 <- summary(fit4)[[1]]
+
+N_total4 <- length(y)
+CM4 <- sum(y)^2 / N_total4
+raw_total4 <- sum(y^2)
+
+tibble(
+  Source = c("Treatments", "Error", "Total (Corrected)", "Mean", "Total (Raw)"),
+  SS = c(anova4$`Sum Sq`[1], anova4$`Sum Sq`[2], sum(anova4$`Sum Sq`), CM4, raw_total4),
+  DF = c(anova4$Df[1], anova4$Df[2], sum(anova4$Df), 1, N_total4),
+  MS = c(anova4$`Mean Sq`[1], anova4$`Mean Sq`[2], NA, NA, NA),
+  F = c(anova4$`F value`[1], NA, NA, NA, NA)
+) |>
+  mutate(across(c(MS, F), ~ ifelse(is.na(.x), "", as.character(round(.x, 3))))) |>
+  knitr::kable(digits = 3, align = "lrrrr")
+```
+
+The estimate for the mean of group 1 is 5.34, and the sample size is $n_1$ = 5.
+
+[**Computing the confidence interval**]{#sec-prc-436-computing-ci}
+
+Since the confidence interval is two-sided, the entry $(1-\alpha/2)$ value for the $t$ table is (1 - 0.05/2) = 0.975, and the associated degrees of freedom is $N$ - 4, or 20 - 4 = 16.
+
+From the [$t$ table](#sec-eda-t-distribution-table) in Chapter 1, we obtain $t_{0.975, \, 16}$ = 2.120.
+
+Next we need the standard error of the mean for group 1:
+
+```{r}
+#| label: verify-prc-436-mu1-ci
+#| code-fold: true
+MSE4 <- anova4$`Mean Sq`[2]
+n1 <- 5
+var_y1bar <- MSE4 / n1
+se_y1bar <- sqrt(var_y1bar)
+t_crit4 <- qt(0.975, 16)
+y1bar <- mean(group1)
+ci_mu1 <- c(y1bar - t_crit4 * se_y1bar, y1bar + t_crit4 * se_y1bar)
+
+tibble(
+  Statistic = c("$s^2_{\\bar{Y}_{1\\cdot}}$", "$s_{\\bar{Y}_{1\\cdot}}$", "$t_{0.975,16}$", "Lower limit", "Upper limit"),
+  Value = c(var_y1bar, se_y1bar, t_crit4, ci_mu1[1], ci_mu1[2])
+) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+$$ s_{\bar{Y}_{1 \cdot}}^2 = \frac{MSE}{n_1} = \frac{1.331}{5} = 0.2662 $$
+
+$$ s_{\bar{Y}_{1 \cdot}} = \sqrt{0.2662} = 0.5159 \, . $$
+
+Hence, we obtain confidence limits 5.34 $\pm$ 2.120 (0.5159) and the confidence interval is
+
+$$ 4.246 \le \mu_1 \le 6.434 \, . $$
+
+**Definition and Estimation of Contrasts**
+
+[**Definition of contrasts and orthogonal contrasts**]{#sec-prc-436-definition-estimation}
+
+*Definitions*
+
+A contrast is a linear combination of two or more factor level means with coefficients that sum to zero.
+
+Two contrasts are orthogonal if the sum of the products of corresponding coefficients (i.e., coefficients for the same means) adds to zero.
+
+Formally, the definition of a contrast is expressed below, using the notation $\mu_i$ for the $i$-th treatment mean:
+
+$$ C = c_1 \mu_1 + c_2 \mu_2 + \cdots + c_j \mu_j + \cdots + c_k \mu_k \, , $$
+
+where
+
+$$ c_1 + c_2 + \cdots + c_j + \cdots + c_k = \sum_{j=1}^k c_j = 0 \, . $$
+
+Simple contrasts include the case of the difference between two factor means, such as $\mu_1 - \mu_2$. If one wishes to compare treatments 1 and 2 with treatment 3, one way of expressing this is by: $\mu_1 + \mu_2 - 2\mu_3$. Note that
+
+> $\mu_1 - \mu_2$ has coefficients +1, -1.
+>
+> $\mu_1 + \mu_2 - 2\mu_3$ has coefficients +1, +1, -2.
+>
+> *These coefficients sum to zero*.
+
+[**An example of orthogonal contrasts**]{#sec-prc-436-orthogonal-example}
+
+As an example of *orthogonal contrasts*, note the three contrasts defined by the table below, where the rows denote coefficients for the column treatment means.
+
+| | $\mu_1$ | $\mu_2$ | $\mu_3$ | $\mu_4$ |
+|---|---|---|---|---|
+| $c_1$ | +1 | 0 | 0 | -1 |
+| $c_2$ | 0 | +1 | -1 | 0 |
+| $c_3$ | +1 | -1 | -1 | +1 |
+
+[**Some properties of orthogonal contrasts**]{#sec-prc-436-properties}
+
+The following is true:
+
+1. The sum of the coefficients for each contrast is zero.
+2. The sum of the products of coefficients of each pair of contrasts is also 0 (orthogonality property).
+3. The first two contrasts are simply pairwise comparisons, the third one involves all the treatments.
+
+[**Estimation of contrasts**]{#sec-prc-436-estimation}
+
+As might be expected, *contrasts are estimated by taking the same linear combination of treatment mean estimators*. In other words:
+
+$$ \hat{C} = \sum_{i=1}^r c_i \bar{Y}_{i \cdot} $$
+
+and
+
+$$ \text{Var } (\hat{C}) = \sum_{i=1}^r c_i^2 \cdot \text{ Var } (\bar{Y}_{i \cdot}) =
+   \sum_{i=1}^r c_i^2 \left( \frac{\sigma^2}{n_i} \right) = \sigma^2 \sum_{i=1}^r \frac{c_i^2}{n_i} \, . $$
+
+**Note:** These formulas hold for any linear combination of treatment means, not just for contrasts.
+
+**Confidence Interval for a Contrast**
+
+[**Confidence intervals for contrasts**]{#sec-prc-436-confidence-contrast}
+
+An unbiased estimator for a contrast $C$ is given by
+
+$$ \hat{C} = \sum_{i=1}^r c_i \bar{Y}_{i \cdot} \, . $$
+
+The estimator of $\text{Var }(\hat{C})$ is
+
+$$ s_{\hat{C}}^2 = \hat{\sigma}_e^2 \, \sum_{i=1}^r \frac{c_i^2}{n_i} \, . $$
+
+The estimator $\hat{C}$ is normally distributed because it is a linear combination of independent normal random variables. It can be shown that:
+
+$$ \frac{\hat{C} - C}{s_{\hat{C}}} \, , $$
+
+is distributed as $t_{N-r}$ for the one-way ANOVA model under discussion.
+
+Therefore, the $1-\alpha$ confidence limits for $C$ are:
+
+$$ \hat{C} \pm t_{1-\alpha/2, \, N-r} \,\, s_{\hat{C}} \, . $$
+
+**Example 2 (estimating contrast)**
+
+[**Contrast to estimate**]{#sec-prc-436-example2}
+
+We wish to estimate, in our previous example, the following contrast:
+
+$$ C = \frac{\mu_1 + \mu_2}{2} - \frac{\mu_3 + \mu_4}{2} \, , $$
+
+and construct a 95% confidence interval for $C$.
+
+[**Computing the point estimate and standard error**]{#sec-prc-436-point-estimate}
+
+The point estimate is:
+
+```{r}
+#| label: verify-prc-436-contrast
+#| code-fold: true
+means4 <- c(mean(group1), mean(group2), mean(group3), mean(group4))
+c_coef <- c(0.5, 0.5, -0.5, -0.5)
+
+C_hat <- sum(c_coef * means4)
+sum_c2_n <- sum(c_coef^2 / 5)
+var_C <- MSE4 * sum_c2_n
+se_C <- sqrt(var_C)
+
+tibble(
+  Statistic = c("$\\hat{C}$", "$\\sum c_i^2/n_i$", "$s^2_{\\hat{C}}$", "$s_{\\hat{C}}$"),
+  Value = c(C_hat, sum_c2_n, var_C, se_C)
+) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+$$ \hat{C} = \frac{\bar{Y}_1 + \bar{Y}_2}{2} - \frac{\bar{Y}_3 + \bar{Y}_4}{2} = -0.5 \, . $$
+
+Applying the formulas above we obtain
+
+$$ \sum_{i=1}^4 \frac{c_i^2}{n_i} = \frac{4(1/2)^2}{5} = 0.2 $$
+
+and
+
+$$ s_{\hat{C}}^2 = MSE \, \sum_{i=1}^4 \frac{c_i^2}{n_i} = 1.331(0.2) = 0.2662 \, , $$
+
+and the standard error is $\sqrt{0.2661} = 0.5159$.
+
+[**Confidence interval**]{#sec-prc-436-contrast-ci}
+
+For a confidence coefficient of 95% and $df$ = 20 - 4 = 16, $t_{0.975, \, 16}$ = 2.12. Therefore, the desired 95% confidence interval is -0.5 $\pm$ 2.12(0.5159) or
+
+```{r}
+#| label: verify-prc-436-contrast-ci
+#| code-fold: true
+ci_C <- c(C_hat - t_crit4 * se_C, C_hat + t_crit4 * se_C)
+ci_C
+```
+
+(-1.594, 0.594).
+
+**Estimation of Linear Combinations**
+
+[**Estimating linear combinations**]{#sec-prc-436-linear-combinations}
+
+Sometimes we are interested in a linear combination of the factor-level means that is not a contrast. Assume that in our sample experiment certain costs are associated with each group. For example, there might be costs associated with each factor as follows:
+
+| Factor | Cost in \$ |
+|---|---|
+| 1 | 3 |
+| 2 | 5 |
+| 3 | 2 |
+| 4 | 1 |
+
+The following linear combination might then be of interest:
+
+$$ C = 3\mu_1 + 5\mu_2 + 2\mu_3 + 1\mu_4 \, . $$
+
+[**Coefficients do not have to sum to zero for linear combinations**]{#sec-prc-436-coefficients}
+
+This resembles a contrast, **but the coefficients $c_i$ do not sum to zero**. A linear combination is given by the definition:
+
+$$ C = \sum_{i=1}^r c_i \mu_i \, , $$
+
+with no restrictions on the coefficients $c_i$.
+
+[**Confidence interval identical to contrast**]{#sec-prc-436-ci-identical}
+
+Confidence limits for a linear combination $C$ are obtained in precisely the same way as those for a contrast, using the same calculation for the point estimator and estimated variance.
