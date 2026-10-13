@@ -33,7 +33,8 @@ ggplot(df, aes(t, f)) +
   geom_area(data = df |> filter(t >= t1, t <= t2), aes(t, f), fill = "grey20", alpha = 0.6) +
   geom_line(linewidth = 0.8) +
   annotate("text", x = 2, y = 0.1, label = "Area = F(t)", size = 3.5) +
-  annotate("text", x = 8.5, y = 0.08, label = "f(t) = height of curve", size = 3.5) +
+  annotate("text", x = 6.2, y = 0.17, label = "f(t) = height of curve", size = 3.5) +
+  annotate("segment", x = 5.75, xend = t1 + 0.05, y = 0.163, yend = dweibull(t1, 2, 4) + 0.003) +
   annotate("segment", x = t1, xend = t1, y = 0, yend = dweibull(t1, 2, 4), linetype = "dashed") +
   annotate("segment", x = t2, xend = t2, y = 0, yend = dweibull(t2, 2, 4), linetype = "dashed") +
   scale_x_continuous(breaks = c(t1, t2), labels = c(expression(t[1]), expression(t[2]))) +
