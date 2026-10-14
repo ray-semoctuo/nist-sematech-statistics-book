@@ -1,5 +1,8 @@
 # NIST/SEMATECH e-Handbook of Statistical Methods — Tidyverse Edition
 
+[![Book](https://img.shields.io/badge/book-live-brightgreen)](https://ray-semoctuo.github.io/nist-sematech-statistics-book/)
+[![Render and Publish Book](https://github.com/ray-semoctuo/nist-sematech-statistics-book/actions/workflows/publish.yml/badge.svg)](https://github.com/ray-semoctuo/nist-sematech-statistics-book/actions/workflows/publish.yml)
+
 A migration of the [NIST/SEMATECH e-Handbook of Statistical
 Methods](https://www.itl.nist.gov/div898/handbook/) from its original static
 HTML/Dataplot form into a [Quarto](https://quarto.org/) book, with worked
@@ -61,5 +64,5 @@ quarto preview      # live-reload local preview
 
 The book is rendered by a GitHub Actions workflow
 (`.github/workflows/publish.yml`) on every push to `main`, and the rendered
-output is deployed to Netlify. See `netlify.toml` for the Netlify publish
-directory configuration.
+output is deployed to GitHub Pages at
+<https://ray-semoctuo.github.io/nist-sematech-statistics-book/>.
