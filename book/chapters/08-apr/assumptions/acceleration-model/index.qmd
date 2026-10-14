@@ -1,0 +1,46 @@
+### How do you choose an appropriate physical acceleration model? {#sec-apr-24}
+
+[**Choosing a good acceleration model is part science and part art - but start with a good literature search**]{#sec-apr-24-literature}
+
+Choosing a physical acceleration model is a lot like choosing a life distribution model. First identify the failure mode and what stresses are relevant (i.e., will accelerate the failure mechanism). Then check to see if the literature contains examples of successful applications of a particular model for this mechanism.
+
+If the literature offers little help, try the models described in earlier sections:
+
+- [Arrhenius](#sec-apr-151)
+- [The (inverse) power rule for voltage](#sec-apr-153)
+- [The exponential voltage model](#sec-apr-153)
+- [Two temperature/voltage models](#sec-apr-153)
+- [The electromigration model](#sec-apr-153)
+- [Three stress models (temperature, voltage and humidity)](#sec-apr-153)
+- [Eyring](#sec-apr-152) (for more than three stresses or when the above models are not satisfactory)
+- [The Coffin-Manson mechanical crack growth model](#sec-apr-153)
+
+All but the last model (the Coffin-Manson) apply to chemical or electronic failure mechanisms, and since temperature is almost always a relevant stress for these mechanisms, the Arrhenius model is nearly always a part of any more general model. The Coffin-Manson model works well for many mechanical fatigue-related mechanisms.
+
+Sometimes models have to be adjusted to include a **threshold level** for some stresses. In other words, failure might never occur due to a particular mechanism unless a particular stress (temperature, for example) is beyond a threshold value. A model for a temperature-dependent mechanism with a threshold at $T = T_0$ might look like
+
+$$ \mbox{time to fail } = \frac{f(T)}{T - T_0} \, , $$
+
+for which $f(T)$ could be Arrhenius. As the temperature decreases towards $T_0$, time to fail increases toward infinity in this (deterministic) acceleration model.
+
+[**Models derived theoretically have been very successful and are convincing**]{#sec-apr-24-theoretical}
+
+In some cases, a mathematical/physical description of the failure mechanism can lead to an acceleration model. Some of the models above were originally derived that way.
+
+[**Simple models are often the best**]{#sec-apr-24-simple}
+
+In general, use the simplest model (fewest parameters) you can. When you have chosen a model, use visual tests and formal statistical fit tests to confirm the model is consistent with your data. Continue to use the model as long as it gives results that "work," but be quick to look for a new model when it is clear the old one is no longer adequate.
+
+There are some good quotes that apply here:
+
+[**Quotes from experts on models**]{#sec-apr-24-quotes}
+
+"All models are wrong, but some are useful." - George Box, and the principle of *Occam's Razor* (attributed to the 14th century logician William of Occam who said "Entities should not be multiplied unnecessarily" - or something equivalent to that in Latin).
+
+A modern version of Occam's Razor is: If you have two theories that both explain the observed facts then you should use the simplest one until more evidence comes along - also called the **Law of Parsimony**.
+
+Finally, for those who feel the above quotes place too much emphasis on simplicity, there are several appropriate quotes from Albert Einstein:
+
+> "Make your theory as simple as possible, but no simpler."
+>
+> "For every complex question there is a simple and wrong solution."

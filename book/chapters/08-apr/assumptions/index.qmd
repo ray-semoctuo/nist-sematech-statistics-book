@@ -1,0 +1,5 @@
+## Assumptions/Prerequisites {#sec-apr-2}
+
+[**Goals of this section**]{#sec-apr-2-goals}
+
+This section describes how life distribution models and acceleration models are typically chosen. Several graphical and analytical methods for evaluating model fit are also discussed.

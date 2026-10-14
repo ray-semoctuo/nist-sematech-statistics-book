@@ -1,0 +1,171 @@
+### How do you choose an appropriate life distribution model? {#sec-apr-21}
+
+[**Choose models that make sense, fit the data and, hopefully, have a plausible theoretical justification**]{#sec-apr-21-make-sense}
+
+Life distribution models are chosen for one or more of the following three reasons:
+
+1. There is a physical/statistical argument that theoretically matches a failure mechanism to a life distribution model
+2. A particular model has previously been used successfully for the same or a similar failure mechanism
+3. A convenient model provides a good empirical fit to all the failure data
+
+Whatever method is used to choose a model, the model should
+
+- "make sense" - for example, don't use an exponential model with a constant failure rate to model a "wear out" failure mechanism
+- pass [visual and statistical tests](#sec-apr-23) for fitting the data.
+
+Models like the lognormal and the Weibull are so flexible that it is not uncommon for both to fit a small set of failure data equally well. Yet, especially when projecting via [acceleration models](#sec-apr-14) to a use condition far removed from the test data, these two models may predict failure rates that differ by orders of magnitude. That is why it is more than an academic exercise to try to find a theoretical justification for using a particular distribution.
+
+[**There are several useful theoretical arguments to help guide the choice of a model**]{#sec-apr-21-theoretical-arguments}
+
+We will consider three well-known arguments of this type:
+
+- [Extreme value argument](#sec-apr-212)
+- [Multiplicative degradation argument](#sec-apr-213)
+- [Fatigue life (Birnbaum-Saunders) model](#sec-apr-214)
+
+Note that physical/statistical arguments for choosing a life distribution model are typically based on individual [failure modes](#sec-apr-211).
+
+[**For some questions, an "empirical" distribution-free approach can be used**]{#sec-apr-21-empirical}
+
+The [Kaplan-Meier](#sec-apr-215) technique can be used when it is appropriate to just "let the data points speak for themselves" without making any model assumptions. However, you generally need a considerable amount of data for this approach to be useful, and acceleration modeling is much more difficult.
+
+#### Based on failure mode {#sec-apr-211}
+
+[**Life distribution models and physical acceleration models typically only apply at the individual failure mode level**]{#sec-apr-211-mode-level}
+
+**Failure mode** data are failure data sorted by types of failures. Root cause analysis must be done on each failure incident in order to characterize them by failure mode. While this may be difficult and costly, it is a key part of any serious effort to understand, model, project and improve component or system reliability.
+
+The natural place to apply both [life distribution models](#sec-apr-121) and [physical acceleration models](#sec-apr-14) is at the failure mode level. Each component failure mode will typically have its own life distribution model. The same is true for acceleration models. For the most part, these models only make sense at the failure mode level, and not at the component or system level. Once each mode (or mechanism) is modeled, the [bottom-up approach](#sec-apr-18) can be used to build up to the entire component or system.
+
+In particular, the arguments for choosing a life distribution model described in the next 3 sections apply at the failure mode level only. These are the [Extreme value argument](#sec-apr-212), the [Multiplicative degradation argument](#sec-apr-213) and the [Fatigue life (Birnbaum-Saunders) model](#sec-apr-214).
+
+The [distribution-free (Kaplan-Meier)](#sec-apr-215) approach can be applied at any level (mode, component, system, etc.).
+
+#### Extreme value argument {#sec-apr-212}
+
+[**If component or system failure occurs when the first of many competing failure processes reaches a critical point, then Extreme Value Theory suggests that the Weibull Distribution will be a good model**]{#sec-apr-212-weibull-suggestion}
+
+It is well known that the **Central Limit Theorem** suggests that normal distributions will successfully model most engineering data when the observed measurements arise from the sum of many small random sources (such as measurement errors). Practical experience validates this theory - the normal distribution "works" for many engineering data sets.
+
+Less known is the fact that [Extreme Value Theory](#sec-apr-163) suggests that the Weibull distribution will successfully model failure times for mechanisms for which many competing similar failure processes are "racing" to failure and the first to reach it (i.e., the minimum of a large collection of roughly comparable random failure times) produces the observed failure time. Analogously, when a large number of roughly equivalent runners are competing and the winning time is recorded for many similar races, these times are likely to follow a Weibull distribution.
+
+Note that this does not mean that anytime there are several failure mechanisms competing to cause a component or system to fail, the Weibull model applies. One or a few of these mechanisms may dominate the others and cause almost all of the failures. Then the "minimum of a large number of roughly comparable" random failure times does not apply and the proper model should be derived from the distribution models for the few dominating mechanisms using the [competing risk model](#sec-apr-181).
+
+On the other hand, there are many cases in which failure occurs at the weakest link of a large number of similar degradation processes or defect flaws. One example of this occurs when modeling catastrophic failures of capacitors caused by dielectric material breakdown. Typical dielectric material has many "flaws" or microscopic sites where a breakdown will eventually take place. These sites may be thought of as **competing with each other** to reach failure first. The Weibull model, as extreme value theory would suggest, has been very successful as a life distribution model for this failure mechanism.
+
+#### Multiplicative degradation argument {#sec-apr-213}
+
+[**The lognormal model can be applied when degradation is caused by random shocks that increase degradation at a rate proportional to the total amount already present**]{#sec-apr-213-lognormal}
+
+A brief verbal description of the multiplicative degradation argument (leading to a derivation of the lognormal model) was given under [Uses of the Lognormal Distribution Model](#sec-apr-164). Here a formal derivation will be outlined because it gives insight into why the lognormal has been a successful model for many failure mechanisms based on degradation processes.
+
+Let $y_1, \, y_2, \, \ldots, \, y_n$ be measurements of the amount of degradation for a particular failure process taken at successive discrete instants of time as the process moves towards failure. Assume the following relationships exist between the $y$'s:
+
+$$ y_i = (1 + \epsilon_i)y_{i-1} \, , $$
+
+where the $\epsilon_i$ are small, independent random perturbations or "shocks" to the system that move the failure process along. In other words, the increase in the amount of degradation from one instant to the next is a small random multiple of the total amount of degradation already present. This is what is meant by **multiplicative degradation**. The situation is analogous to a snowball rolling down a snow covered hill; the larger it becomes, the faster it grows because it is able to pick up even more snow.
+
+We can express the total amount of degradation at the $n$-th instant of time by
+
+$$ x_n = \left( \prod_{i=1}^n (1 + \epsilon_i) \right) x_0 \, , $$
+
+where $x_0$ is a constant and the $\epsilon_i$ are small random shocks. Next we take natural logarithms of both sides and obtain:
+
+$$ \mbox{ln } x_n = \sum_{i=1}^n \mbox{ln }(1 + \epsilon_i) + \mbox{ln } x_0 \approx \sum_{i=1}^n \epsilon_i + \mbox{ln } x_0 \, . $$
+
+Using a Central Limit Theorem argument we can conclude that ln $x_n$ has approximately a normal distribution. But by the [properties of the lognormal](#sec-apr-164) distribution, this means that $x_n$ (or the amount of degradation) will follow approximately a lognormal model for any $n$ (or at any time $t$). Since failure occurs when the amount of degradation reaches a critical point, time of failure will be modeled successfully by a lognormal for this type of process.
+
+[**Failure mechanisms that might be successfully modeled by the lognormal distribution based on the multiplicative degradation model**]{#sec-apr-213-mechanisms}
+
+What kinds of failure mechanisms might be expected to follow a multiplicative degradation model? The processes listed below are likely candidates:
+
+1. Chemical reactions leading to the formation of new compounds
+2. Diffusion or migration of ions
+3. Crack growth or propagation
+
+Many semiconductor failure modes are caused by one of these three degradation processes. Therefore, it is no surprise that the lognormal model has been very successful for the following semiconductor wear out failure mechanisms:
+
+1. Corrosion
+2. Metal migration
+3. Electromigration
+4. Diffusion
+5. Crack growth
+
+#### Fatigue life (Birnbaum-Saunders) model {#sec-apr-214}
+
+[**A model derived from random crack growth occurring during many independent cycles of stress**]{#sec-apr-214-crack-growth}
+
+The [derivation of the Fatigue Life model](#sec-apr-166) is based on repeated cycles of stress causing degradation leading to eventual failure. The typical example is crack growth. One key assumption is that the amount of degradation during any cycle is independent of the degradation in any other cycle, with the same random distribution.
+
+When this assumption matches well with a hypothesized physical model describing the degradation process, one would expect the Birnbaum-Saunders model to be a reasonable distribution model candidate. (See the note in the [derivation](#sec-apr-166) for comments about the difference between the lognormal model derivation and the Fatigue Life model assumptions. Also see the comment on Miner's Rule).
+
+#### Empirical model fitting - distribution free (Kaplan-Meier) approach {#sec-apr-215}
+
+[**The Kaplan-Meier procedure gives CDF estimates for complete or censored sample data without assuming a particular distribution model**]{#sec-apr-215-cdf-estimates}
+
+The Kaplan-Meier (K-M) Product Limit procedure provides quick, simple estimates of the [Reliability function](#sec-apr-122) or the [CDF](#sec-apr-121) based on failure data that may even be [multicensored](#sec-apr-131). No underlying model (such as Weibull or lognormal) is assumed; K-M estimation is an empirical (non-parametric) procedure. Exact times of failure are required, however.
+
+**Calculating Kaplan-Meier Estimates**
+
+The steps for calculating K-M estimates are the following:
+
+1. Order the actual failure times from $t_1$ through $t_r$, where there are $r$ failures
+2. Corresponding to each $t_i$, associate the number $n_i$, with $n_i$ = the number of operating units just before the the $i$-th failure occurred at time $t_i$
+3. Estimate $R(t_1)$ by $(n_1 - 1)/n_1$
+4. Estimate $R(t_i)$ by $R(t_{i-1}) \times (n_i - 1)/n_i$
+5. Estimate the CDF $F(t_i)$ by 1 - $R(t_i)$
+
+Note that unfailed units taken off test (i.e., [censored](#sec-apr-131)) only count up to the last actual failure time before they were removed. They are included in the $n_i$ counts up to and including that failure time, but not after.
+
+[**Example of K-M estimate calculations**]{#sec-apr-215-example}
+
+A simple example will illustrate the K-M procedure. Assume 20 units are on life test and 6 failures occur at the following times: 10, 32, 56, 98, 122, and 181 hours. There were 4 unfailed units removed from the test for other experiments at the following times: 50, 100, 125 and 150 hours. The remaining 10 unfailed units were removed from the test at 200 hours. The K-M estimates for this life test are:
+
+$$
+\begin{array}{ll}
+R(10)  & = 19/20 \\
+R(32)  & = 19/20 \times 18/19 \\
+R(56)  & = 19/20 \times 18/19 \times 16/17 \\
+R(98)  & = 19/20 \times 18/19 \times 16/17 \times 15/16 \\
+R(122) & = 19/20 \times 18/19 \times 16/17 \times 15/16 \times 13/14 \\
+R(181) & = 19/20 \times 18/19 \times 16/17 \times 15/16 \times 13/14 \times 10/11
+\end{array}
+$$
+
+```{r}
+#| label: verify-apr-215-example
+#| code-fold: true
+n <- c(20, 19, 17, 16, 14, 11)
+R_hat <- cumprod((n - 1) / n)
+
+tibble::tibble(
+  `Failure Time` = c(10, 32, 56, 98, 122, 181),
+  `n (at risk)` = n,
+  `R(t)` = round(R_hat, 4),
+  `F(t)` = round(1 - R_hat, 4)
+) |>
+  knitr::kable(align = "rrrr")
+```
+
+The R computation above matches NIST's hand-worked values exactly.
+
+[**A General Expression for K-M Estimates**]{#sec-apr-215-general}
+
+A general expression for the K-M estimates can be written. Assume we have $n$ units on test and order the observed times for these $n$ units from $t_1$ to $t_n$. Some of these are actual failure times and some are running times for units taken off test before they fail. Keep track of all the indices corresponding to actual failure times. Then the K-M estimates are given by:
+
+$$ \hat{R}(t_i) = \prod_{\begin{array}{c} j \in S \\ t_j \le t_i \end{array}} \frac{n-j}{n-j+1} \, , $$
+
+with the "hat" over $R$ indicating it is an estimate and $S$ is the set of all subscripts $j$ such that $t_j$ is an actual failure time. The notation $j \in S$ and $t_j$ less than or equal to $t_i$ means we only form products for indices $j$ that are in $S$ and also correspond to times of failure less than or equal to $t_i$.
+
+Once values for $R(t_i)$ are calculated, the CDF estimates are $F(t_i) = 1 - R(t_i)$.
+
+[**A small modification of K-M estimates produces better results for probability plotting**]{#sec-apr-215-modified}
+
+**Modified K-M Estimates**
+
+The K-M estimate at the time of the last failure is $R(t_r)$ = 0 and $F(t_r)$ = 1. This estimate has a pessimistic bias and cannot be plotted (without modification) on a [probability plot](#sec-apr-221) since the CDF for standard reliability models asymptotically approaches 1 as time approaches infinity. Better estimates for graphical plotting can be obtained by modifying the K-M estimates so that they reduce to the median rank estimates for plotting [Type I Censored](#sec-apr-131) life test data (described in the next section). Modified K-M estimates are given by the formula
+
+$$ \hat{R}(t_i) = \frac{n + 0.7}{n + 0.4} \prod_{\begin{array}{c} j \in S \\ t_j \le t_i \end{array}}
+                  \frac{n-j+0.7}{n-j+1.7} \, . $$
+
+Once values for $R(t_i)$ are calculated, the CDF estimates are $F(t_i) = 1 - R(t_i)$.

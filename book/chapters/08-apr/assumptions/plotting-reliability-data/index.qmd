@@ -1,0 +1,364 @@
+### How do you plot reliability data? {#sec-apr-22}
+
+[**Create a probability plot and if the points line up approximately on a straight line, the assumed model is a reasonable fit**]{#sec-apr-22-straight-line}
+
+Graphical plots of reliability data are quick, useful visual tests of whether a particular model is consistent with the observed data. The basic idea behind virtually all graphical plotting techniques is the following:
+
+> Points calculated from the data are plotted on a log-log scale and, as long as they line up approximately on a straight line, the analyst can conclude that the data are consistent with the assumed model.
+
+If the reliability data consist of (possibly [multicensored](#sec-apr-131)) failure data from a [non repairable population](#sec-apr-121) (or a repairable population for which only time to the first failure is considered) then the models are life distribution models such as the [exponential](#sec-apr-161), [Weibull](#sec-apr-162) or [lognormal](#sec-apr-164). If the data consist of repair times for a [repairable system](#sec-apr-17), then the model might be the [NHPP Power Law](#sec-apr-172) and the plot would be a [Duane Plot](#sec-apr-223).
+
+The kinds of plots we will consider for failure data from non-repairable populations are:
+
+- [Probability (CDF) plots](#sec-apr-221)
+- [Hazard and Cum Hazard plots](#sec-apr-222)
+
+For repairable populations we have
+
+- [Trend plots](#sec-apr-223) (to check whether an [HPP](#sec-apr-171) or exponential model applies)
+- [Duane plots](#sec-apr-223) (to check whether the [NHPP Power Law](#sec-apr-172) applies)
+
+Later on ([Section 8.4.2.1](#sec-apr-421)) we will also look at plots that can be used to check acceleration model assumptions.
+
+**Note**: Many of the plots discussed in this section can also be used to obtain quick estimates of model parameters. This will be covered in later sections. While there may be other, more accurate ways of estimating parameters, simple graphical estimates can be very handy, especially when other techniques require software programs that are not readily available.
+
+#### Probability plotting {#sec-apr-221}
+
+[**Use probability plots to see your data and visually check model assumptions**]{#sec-apr-221-visual-check}
+
+Probability plots are simple visual ways of summarizing reliability data by plotting [CDF](#sec-apr-121) estimates versus time using a log-log scale.
+
+The $x$ axis is labeled "Time" and the $y$ axis is labeled "cumulative percent" or "percentile". There are rules, independent of the model, for calculating plotting positions (points) from the reliability data. These only depend on the type of [censoring](#sec-apr-131) in the data and whether exact times of failure are recorded or only readout times.
+
+[**Plot each failure mode separately**]{#sec-apr-221-failure-mode}
+
+Remember that different failure modes can and should be separated out and individually analyzed. When analyzing failure mode A, for example, treat failure times from failure modes B, C, etc., as [censored run times](#sec-apr-131). Then repeat for failure mode B, and so on.
+
+[**Data points line up roughly on a straight line when the model chosen is reasonable**]{#sec-apr-221-straight-line}
+
+When the points are plotted, the analyst fits a straight line to the data (either by eye, or with the aid of a least squares fitting program). Every straight line on, say, a Weibull probability plot uniquely corresponds to a particular [Weibull life distribution](#sec-apr-162) model and the same is true for [lognormal](#sec-apr-164) or [exponential](#sec-apr-161) plots. If the points follow the line reasonably well, then the model is consistent with the data. If it was your previously chosen model, there is no reason to question the choice. In addition, there is a simple way to find the parameter estimates that correspond to the fitted straight line.
+
+[**Plotting positions on the $x$ axis depend on the type of data censoring**]{#sec-apr-221-plotting-positions}
+
+**Plotting Positions**: Censored Data (Type I or Type II)
+
+At the time $t_i$ of the $i$-th failure, we need an estimate of the CDF (or the cumulative population percent failure). The simplest and most obvious estimate is just $100(i/n)$ (with a total of $n$ units on test). This, however, is generally an overestimate (i.e. biased). Various texts recommend corrections such as $100(i-0.5)/n$ or $100i/(n+1)$. Here, we recommend what are known as (approximate) **median rank** estimates.
+
+For each time $t_i$ of the $i$-th failure, calculate the CDF or percentile estimate using $100(i-0.3)/(n+0.4)$.
+
+**Plotting Positions**: Readout Data
+
+Let the readout times be $T_1, \, T_2, \, \ldots, \, T_k$ and let the corresponding new failures recorded at each readout be $r_1, \, r_2, \, \ldots, \, r_k$. Again, there are $n$ units on test.
+
+For each readout time $T_j$, calculate the CDF or percentile estimate using
+
+$$ \frac{100 \sum_{i=1}^j r_i}{n} \, . $$
+
+**Plotting Positions**: Multicensored Data
+
+The calculations are more complicated for multicensored data. [K-M estimates](#sec-apr-215) (described in a preceding section) can be used to obtain plotting positions at every failure time. The more precise [Modified K-M Estimates](#sec-apr-215-modified) are recommended. They reduce to the Censored Type I or the Censored Type II median rank estimates when the data consist of only failures, without any removals except possibly at the end of the test.
+
+**Reliability Models**
+
+[**Plotting positions on the $y$ axis depend on the reliability model**]{#sec-apr-221-y-axis}
+
+The general idea is to take the model CDF equation and write it in such a way that a function of $F(t)$ is a linear equation of a function of $t$. This will be clear after a few examples. In the formulas that follow, "ln" always means "natural logarithm", while "log" always means "base 10 logarithm".
+
+a) **Exponential Model**: Rewrite the [exponential CDF](#sec-apr-161) as
+
+$$ \mbox{ln} \left( \frac{1}{1-F(t)} \right) = \lambda t \, , $$
+
+or, equivalently,
+
+$$ \mbox{log} \left( \frac{1}{1 - F(t)} \right) = \frac{\lambda}{\mbox{ln } 10} t \, . $$
+
+If we let $y = 1/[1-F(t)]$ and $x = t$, then $\mbox{log } y$ is linear in $x$ with slope $\lambda / \mbox{ln } 10$. Thus, we can make an exponential probability plot by using a logarithmic $y$ axis. Use the plotting position estimates for $F(t_i)$ described above (without the 100 $\times$ multiplier) to calculate pairs of $(x_i,\, y_i)$ points.
+
+If the data are consistent with an exponential model, the resulting plot will have points that line up almost as a straight line going through the origin with slope $\lambda / \mbox{ln } 10$.
+
+b) **Weibull Model**: Rewrite the [Weibull CDF](#sec-apr-162) as
+
+$$ \mbox{ln ln } \left( \frac{1}{1-F(t)} \right) = \gamma \mbox{ ln } t - \gamma \mbox{ ln } \alpha $$
+
+or
+
+$$ \mbox{log ln } \left( \frac{1}{1-F(t)} \right) = \gamma \mbox{ log } t - \gamma \mbox{ log } \alpha \, . $$
+
+If we let $y = \mbox{ln}(1/[1-F(t)])$ and $x = t$, then $\mbox{log } y$ is linear in $\mbox{log } x$ with slope $\gamma$. Thus, we can make a Weibull probability plot using a log-log scale. Use the plotting position estimates for $F(t_i)$ (without the 100 $\times$ multiplier) to calculate pairs of $(x_i, \, y_i)$ points.
+
+If the data are consistent with a Weibull model, the resulting plot will have points that line up roughly on a straight line with slope $\gamma$. This line will cross the $\mbox{log } x$ axis at time $t = \alpha$ and the $\mbox{log } y$ axis (i.e., the intercept) at $-\gamma \mbox{ log } \alpha$.
+
+c) **Lognormal Model**: Rewrite the [lognormal CDF](#sec-apr-164) as
+
+$$ \mbox{ln } t = \sigma \, \Phi^{-1} \left[ F(t) \right] + \mbox{ ln } T_{50} $$
+
+or,
+
+$$ \mbox{log } t = \frac{\sigma}{\mbox{ln } 10} \Phi^{-1} \left[ F(t) \right] + \mbox{ log } T_{50} \, , $$
+
+with $\Phi^{-1}$ denoting the inverse function for the standard normal distribution (taking a probability as an argument and returning the corresponding "$z$" value).
+
+If we let $y = t$ and $x = \Phi^{-1}[F(t)]$, then $\mbox{log } y$ is linear in $x$ with slope $\sigma / \mbox{ln } 10$ and intercept (when $F(t)$ = 0.5) of $\mbox{log } T_{50}$. We generate a lognormal probability plot using a logarithmic $y$ axis. Use the plotting position estimates for $F(t_i)$ (without the 100 $\times$ multiplier) to calculate pairs of $(x_i, \, y_i)$ points.
+
+If the data are consistent with a lognormal model, the resulting plot will have points that line up roughly on a straight line with slope $\sigma / \mbox{ln } 10$ and intercept $T_{50}$ on the $\mbox{log } y$ axis.
+
+d) **Extreme Value Distribution (Type I - for minimum)**: Rewrite the [extreme value distribution CDF](#sec-apr-163) as
+
+$$ \mbox{ln } \left\{ -\mbox{ ln } [1 - F(x)]\right\} = (x - \mu)/\beta \, . $$
+
+If we let $y = -\mbox{ln}[1 - F(x)]$, then $\mbox{ln } y$ is linear in $x$ with slope 1/$\beta$ and intercept $-\mu / \beta$. We plot $y$ versus $x$ where the $y$ axis is base 10 logarithmic. The points should follow a straight line with a slope of $(1/\beta) \cdot \mbox{ln } 10$ and an intercept of $(-\mu/\beta) \cdot \mbox{ln } 10$. The $\mbox{ln } 10$ factors in the slope and intercept are needed because the plot uses a base 10 logarithmic axis.
+
+[**A Weibull example of probability plotting**]{#sec-apr-221-example}
+
+**Example**
+
+We generated 20 random [Weibull failure times](#sec-apr-162) with a shape parameter of $\gamma$ = 1.5 and $\alpha$ = 500. Assuming a test time of $T$ = 500 hours, only 10 of these failure times would have been observed. They are, to the nearest hour: 54, 187, 216, 240, 244, 335, 361, 373, 375, and 386. We will compute plotting position CDF estimates based on these failure times, and then generate a probability plot.
+
+```{r}
+#| label: tbl-apr-221-example-data
+#| tbl-cap: "Weibull probability plot example data and CDF estimates"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+x_fail <- c(54, 187, 216, 240, 244, 335, 361, 373, 375, 386)
+i <- 1:10
+n <- 20
+F_i <- (i - 0.3) / (n + 0.4)
+y <- log(1 / (1 - F_i))
+
+tibble(
+  `Failure (i)` = i,
+  `Time of Failure (x)` = x_fail,
+  `F(t_i) estimate` = round(F_i, 3),
+  `ln(1/[1-F(t_i)]) (y)` = round(y, 3)
+) |>
+  knitr::kable(align = "rrrr")
+```
+
+We generate a probability plot using column (4) versus column (2) and log-log scale axes.
+
+```{r}
+#| label: fig-apr-221-probability-plot
+#| fig-cap: "Weibull probability plot of the example failure times"
+#| code-fold: true
+ggplot(tibble(x = x_fail, y = y), aes(x, y)) +
+  geom_point(shape = 19, color = "blue", size = 2) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Time of Failure", y = expression(ln(1 / (1 - F(t))))) +
+  theme_classic()
+```
+
+Note that the configuration of points appears to have some curvature. This is mostly due to the very first point on the plot (the earliest time of failure). The first few points on a probability plot have more variability than points in the central range and less attention should be paid to them when visually testing for "straightness".
+
+[**Use of least squares (regression) to fit a line through the points on a probability plot**]{#sec-apr-221-least-squares}
+
+Since our data are plotted on a log-log scale, we fit a straight line using $\mbox{log } x$ as the independent variable and $\mbox{log } y$ as the dependent variable.
+
+The regression produces a slope estimate of 1.46, which is close to the 1.5 value used in the simulation. The intercept is -4.114 and setting this equal to $-\gamma \mbox{ log } \alpha$ we estimate $\alpha$ = 657 (the "true" value used in the simulation was 500).
+
+```{r}
+#| label: verify-apr-221-regression
+#| code-fold: true
+fit <- lm(log10(y) ~ log10(x_fail))
+slope <- round(unname(coef(fit)[2]), 2)
+intercept <- round(unname(coef(fit)[1]), 3)
+alpha_est <- round(10^(-intercept / slope))
+
+tibble(Statistic = c("Slope (gamma)", "Intercept", "Alpha estimate"), Value = c(slope, intercept, alpha_est)) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported slope (1.46), intercept (-4.114), and alpha estimate (657) exactly.
+
+The analyses in this section can be implemented using both Dataplot code and R code. Both packages have special functions to automatically generate probability plots for a wide variety of distributions.
+
+#### Hazard and cumulative hazard plotting {#sec-apr-222}
+
+[**Cumulative Hazard Plotting has the same purpose as probability plotting**]{#sec-apr-222-same-purpose}
+
+Similar to probability plots, cumulative hazard plots are used for visually examining distributional model assumptions for reliability data and have a similar interpretation as probability plots. The cumulative hazard plot consists of a plot of the [cumulative hazard $H(t_i)$](#sec-apr-123) versus the time $t_i$ of the $i$-th failure. As with probability plots, the plotting positions are calculated independently of the model and a reasonable straight-line fit to the points confirms that the chosen model and the data are consistent.
+
+**Advantages of Cumulative Hazard Plotting**
+
+1. It is much easier to calculate plotting positions for multicensored data using cumulative hazard plotting techniques.
+2. The most common reliability distributions, the exponential and the Weibull, are easily plotted.
+
+**Disadvantages of Cumulative Hazard Plotting**
+
+1. It is less intuitively clear just what is being plotted. In a probability plot, the cumulative percent failed is meaningful and the resulting straight-line fit can be used to identify times when desired percentages of the population will have failed. The percent cumulative hazard can increase beyond 100% and is harder to interpret.
+2. Normal cumulative hazard plotting techniques require exact times of failure and running times.
+3. Since computers are able to calculate [K-M estimates](#sec-apr-214) for probability plotting, the main advantage of cumulative hazard plotting goes away.
+
+Since probability plots are generally more useful, we will only give a brief description of hazard plotting.
+
+**How to Make Cumulative Hazard Plots**
+
+1. Order the failure times and running times for each of the $n$ units on test in ascending order from 1 to $n$. The order is called the rank of the unit. Calculate the reverse rank for each unit (reverse rank = $n - \mbox{rank} + 1$).
+2. Calculate a hazard "value" for every failed unit (do this only for the failed units). The hazard value for the failed unit with reverse rank $k$ is just $1/k$.
+3. Calculate the cumulative hazard values for each failed unit. The cumulative hazard value corresponding to a particular failed unit is the sum of all the hazard values for failed units with ranks up to and including that failed unit.
+4. Plot the time of failure versus the cumulative hazard value. Linear $x$ and $y$ scales are appropriate for an exponential distribution, while a log-log scale is appropriate for a Weibull distribution.
+
+[**A life test cumulative hazard plotting example**]{#sec-apr-222-example}
+
+**Example**: Ten units were tested at high stress test for up to 250 hours. Six failures occurred at 37, 73, 132, 195, 222 and 248 hours. Four units were taken off test without failing at the following run times: 50, 100, 200 and 250 hours. Cumulative hazard values were computed in the following table.
+
+```{r}
+#| label: tbl-apr-222-example-data
+#| tbl-cap: "Cumulative hazard plotting example"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+event_time <- c(37, 50, 73, 100, 132, 195, 200, 222, 248, 250)
+is_failure <- c(1, 0, 1, 0, 1, 1, 0, 1, 1, 0)
+n <- length(event_time)
+rank_i <- 1:n
+reverse_rank <- n - rank_i + 1
+haz_val <- ifelse(is_failure == 1, 1 / reverse_rank, NA)
+cum_haz <- cumsum(replace(haz_val, is.na(haz_val), 0))
+
+tibble(
+  `Time of Event` = event_time,
+  `1=failure, 0=runtime` = is_failure,
+  Rank = rank_i,
+  `Reverse Rank` = reverse_rank,
+  `Haz Val` = ifelse(is.na(haz_val), NA, round(haz_val, 3)),
+  `Cum Hazard Value` = round(cum_haz, 3)
+) |>
+  knitr::kable(align = "rrrrrr")
+```
+
+Next ignore the rows with no cumulative hazard value and plot column (1) vs column (6).
+
+[**Exponential and Weibull Cumulative Hazard Plots**]{#sec-apr-222-exp-weibull}
+
+The cumulative hazard for the [exponential](#sec-apr-161) distribution is just $H(t) = \alpha t$, which is linear in $t$ with an intercept of zero. So a simple linear graph of $y$ = column (6) versus $x$ = column (1) should line up as approximately a straight line going through the origin with slope $\lambda$ if the exponential model is appropriate.
+
+```{r}
+#| label: fig-apr-222-exponential-cumhaz
+#| fig-cap: "Exponential cumulative hazard plot"
+#| code-fold: true
+failures <- tibble(event_time, is_failure, cum_haz) |> filter(is_failure == 1)
+
+ggplot(failures, aes(event_time, cum_haz)) +
+  geom_point(shape = 19, color = "blue", size = 2) +
+  labs(x = "Time", y = "Cumulative Hazard") +
+  theme_classic()
+```
+
+The cumulative hazard for the [Weibull](#sec-apr-162) distribution is $H(t) = (t/\alpha)^\gamma$, so a plot of $y$ versus $x$ on a log-log scale should resemble a straight line with slope $\gamma$ if the Weibull model is appropriate.
+
+```{r}
+#| label: fig-apr-222-weibull-cumhaz
+#| fig-cap: "Weibull cumulative hazard plot"
+#| code-fold: true
+ggplot(failures, aes(event_time, cum_haz)) +
+  geom_point(shape = 19, color = "blue", size = 2) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Time", y = "Cumulative Hazard") +
+  theme_classic()
+```
+
+A least-squares regression fit of the data (using base 10 logarithms to transform columns (1) and (6)) indicates that the estimated slope for the Weibull distribution is 1.27, which is fairly similar to the exponential model slope of 1. The Weibull fit looks somewhat better than the exponential fit; however, with a sample of just 10, and only 6 failures, it is difficult to pick a model from the data alone.
+
+```{r}
+#| label: verify-apr-222-weibull-slope
+#| code-fold: true
+fit <- lm(log10(cum_haz) ~ log10(event_time), data = failures)
+
+tibble(Statistic = "Weibull cum hazard slope", Value = round(unname(coef(fit)[2]), 2)) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported Weibull slope of 1.27 exactly.
+
+The analyses in this section can be implemented using both Dataplot code and R code.
+
+#### Trend and growth plotting (Duane plots) {#sec-apr-223}
+
+[**Repair rates are typically either nearly constant over time or else consistently follow a good or a bad trend**]{#sec-apr-223-repair-rates}
+
+[Models for repairable systems](#sec-apr-17) were described earlier. These models are for the cumulative number of failures (or the [repair rate](#sec-apr-125)) over time. The two models used with most success throughout industry are the [HPP](#sec-apr-171) (constant repair rate or "exponential" system model) and the [NHPP Power Law](#sec-apr-172) process (the repair rate is the polynomial $m(t) = \alpha t^{-\beta}$).
+
+Before constructing a [Duane Plot](#sec-apr-192), there are a few simple trend plots that often convey strong evidence of the presence or absence of a trend in the repair rate over time. If there is no trend, an HPP model is reasonable. If there is an apparent improvement or degradation trend, a Duane Plot will provide a visual check for whether the NHPP Power law model is consistent with the data.
+
+[**A few simple plots can help us decide whether trends are present**]{#sec-apr-223-simple-plots}
+
+These simple visual graphical tests for trends are
+
+1. Plot cumulative failures versus system age (a step function that goes up every time there is a new failure). If this plot looks linear, there is no obvious improvement (or degradation) trend. A bending downward indicates improvement; bending upward indicates degradation.
+2. Plot the inter arrival times between new failures (in other words, the waiting times between failures, with the time to the first failure used as the first "inter-arrival" time). If these trend up, there is improvement; if they trend down, there is degradation.
+3. Plot the reciprocals of the inter-arrival times. Each reciprocal is a new failure rate estimate based only on the waiting time since the last failure. If these trend down, there is improvement; an upward trend indicates degradation.
+
+[**Trend plots and a Duane Plot for actual Reliability Improvement Test data**]{#sec-apr-223-case-study}
+
+**Case Study 1: Use of Trend Plots and Duane Plots with Reliability Improvement Test Data**
+
+A prototype of a new, complex piece of equipment went through a 1500 operational hours [Reliability Improvement Test](#sec-apr-19). During the test there were 10 failures. As part of the improvement process, a cross functional Failure Review Board made sure every failure was analyzed down to the root cause and design and parts selection fixes were implemented on the prototype. The observed failure times were: 5, 40, 43, 175, 389, 712, 747, 795, 1299 and 1478 hours, with the test ending at 1500 hours. The reliability engineer on the Failure Review Board first made trend plots as described above, then made a Duane plot. These plots follow.
+
+```{r}
+#| label: fig-apr-223-trend-plots
+#| fig-cap: "Trend plots for Case Study 1: cumulative failures, inter-arrival times, and their reciprocals"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+library(patchwork)
+
+age <- c(5, 40, 43, 175, 389, 712, 747, 795, 1299, 1478)
+r <- length(age)
+interarrival <- diff(c(0, age))
+
+p1 <- ggplot(tibble(age = c(0, age), cum = 0:r), aes(age, cum)) +
+  geom_step() +
+  labs(x = "System Age", y = "Cumulative Failures") +
+  theme_classic()
+
+p2 <- ggplot(tibble(number = 1:r, interarrival = interarrival), aes(number, interarrival)) +
+  geom_point(shape = 19, color = "blue", size = 2) +
+  geom_line(linewidth = 0.3) +
+  labs(x = "Failure Number", y = "Inter-arrival Time") +
+  theme_classic()
+
+p3 <- ggplot(tibble(number = 1:r, recip = 1 / interarrival), aes(number, recip)) +
+  geom_point(shape = 19, color = "blue", size = 2) +
+  geom_line(linewidth = 0.3) +
+  labs(x = "Failure Number", y = "Reciprocal Inter-arrival Time") +
+  theme_classic()
+
+p1 / p2 / p3
+```
+
+```{r}
+#| label: tbl-apr-223-cum-mtbf
+#| tbl-cap: "Case Study 1 cumulative MTBF estimates"
+#| code-fold: true
+cum_mtbf <- age / (1:r)
+
+tibble(Time = age, `Cum MTBF` = round(cum_mtbf, 1)) |>
+  knitr::kable(align = "rr")
+```
+
+```{r}
+#| label: fig-apr-223-duane-plot
+#| fig-cap: "Duane plot for Case Study 1"
+#| code-fold: true
+ggplot(tibble(age = age, mtbf = cum_mtbf), aes(age, mtbf)) +
+  geom_point(shape = 19, color = "blue", size = 2) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "System Age", y = "Cumulative MTBF") +
+  theme_classic()
+```
+
+The R computation of the cumulative MTBF table above matches NIST's reported values exactly.
+
+**Comments**: The three trend plots all show an improvement trend. The reason it might be useful to try all three trend plots is that a trend might show up more clearly on one plot than the others. Formal statistical tests on the significance of this visual evidence of a trend will be shown in the section on [Trend Tests](#sec-apr-234-case-study).
+
+The points on the Duane Plot line up roughly as a straight line, indicating the NHPP Power Law model is consistent with the data.
+
+Estimates for the [reliability growth slope and the MTBF at the end of this test](#sec-apr-452-case-study) for this case study will be given in a later section.
+
+The analyses in this section can be implemented using R code.

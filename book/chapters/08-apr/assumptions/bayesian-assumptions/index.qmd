@@ -1,0 +1,84 @@
+### What models and assumptions are typically made when Bayesian methods are used for reliability evaluation? {#sec-apr-25}
+
+The basics of [Bayesian methodology](#sec-apr-1a) were explained earlier, along with some of the [advantages and disadvantages](#sec-apr-1a-advantages-disadvantages) of using this approach. Here we only consider the models and assumptions that are commonplace when applying Bayesian methodology to evaluate system reliability.
+
+[**Bayesian assumptions for the gamma exponential system model**]{#sec-apr-25-assumptions}
+
+**Assumptions**:
+
+1. Failure times for the system under investigation can be adequately modeled by the [exponential distribution](#sec-apr-161). For repairable systems, this means the [HPP](#sec-apr-171) model applies and the system is operating in the flat portion of the [bathtub curve](#sec-apr-124). While Bayesian methodology can also be applied to non-repairable component populations, we will restrict ourselves to the system application in this Handbook.
+2. The MTBF for the system can be regarded as chosen from a prior distribution model that is an analytic representation of our previous information or judgments about the system's reliability. The form of this prior model is the [gamma distribution](#sec-apr-165) (the [conjugate prior](#sec-apr-1a-bayes-formula) for the exponential model). The prior model is actually defined for $\lambda$ = 1/MTBF since it is easier to do the calculations this way.
+3. Our prior knowledge is used to choose the gamma parameters $a$ and $b$ for the prior distribution model for $\lambda$. There are many possible ways to convert "knowledge" to gamma parameters, depending on the form of the "knowledge" - we will describe three approaches.
+
+[**Several ways to choose the prior gamma parameter values**]{#sec-apr-25-choosing-parameters}
+
+i) If you have actual data from previous testing done on the system (or a system believed to have the same reliability as the one under investigation), this is the most credible prior knowledge, and the easiest to use. Simply set the gamma parameter $a$ equal to the total number of failures from all the previous data, and set the parameter $b$ equal to the total of all the previous test hours.
+
+ii) A consensus method for determining $a$ and $b$ that works well is the following: Assemble a group of engineers who know the system and its sub-components well from a reliability viewpoint.
+
+- Have the group reach agreement on a reasonable MTBF they expect the system to have. They could each pick a number they would be willing to bet even money that the system would either meet or miss, and the average or median of these numbers would be their 50% best guess for the MTBF. Or they could just discuss even-money MTBF candidates until a consensus is reached.
+- Repeat the process again, this time reaching agreement on a low MTBF they expect the system to exceed. A "5%" value that they are "95% confident" the system will exceed (i.e., they would give 19 to 1 odds) is a good choice. Or a "10%" value might be chosen (i.e., they would give 9 to 1 odds the actual MTBF exceeds the low MTBF). Use whichever percentile choice the group prefers.
+- Call the reasonable MTBF $\mbox{MTBF}_{50}$ and the low MTBF you are 95% confident the system will exceed $\mbox{MTBF}_{05}$. These two numbers uniquely determine gamma parameters $a$ and $b$ that have $\lambda$ percentile values at the right locations
+
+$$ \lambda_{50} = 1/\mbox{MTBF}_{50} \,\,\, \mbox{ and } \,\,\, \lambda_{95} = 1/\mbox{MTBF}_{05} \, . $$
+
+We call this method of specifying gamma prior parameters the **50/95 method** (or the 50/90 method if we use $\mbox{MTBF}_{10}$, etc.). A simple way to calculate $a$ and $b$ for this method is described below.
+
+iii) A third way of choosing prior parameters starts the same way as the second method. Consensus is reached on an reasonable MTBF, $\mbox{MTBF}_{50}$. Next, however, the group decides they want a somewhat **weak prior** that will change rapidly, based on new test information. If the prior parameter "$a$" is set to 1, the gamma has a standard deviation equal to its mean, which makes it spread out, or "weak". To insure the 50th percentile is set at $\lambda_{50} = 1/\mbox{MTBF}_{50}$, we have to choose $b = \mbox{ln } 2 \times \mbox{MTBF}_{50}$, which is approximately $0.6931 \times \mbox{MTBF}_{50}$.
+
+**Note**: As we will see when we [plan Bayesian tests](#sec-apr-315), this *weak* prior is actually a very *friendly* prior in terms of saving test time.
+
+Many variations are possible, based on the above three methods. For example, you might have prior data from sources that you don't completely trust. Or you might question whether the data really apply to the system under investigation. You might decide to "weight" the prior data by 0.5, to "weaken" it. This can be implemented by setting $a$ = 0.5 $\times$ the number of fails in the prior data and $b$ = 0.5 $\times$ the number of test hours. That spreads out the prior distribution more, and lets it react quicker to new test data.
+
+**Consequences**
+
+[**After a new test is run, the posterior gamma parameters are easily obtained from the prior parameters by adding the new number of fails to "$a$" and the new test time to "$b$"**]{#sec-apr-25-posterior}
+
+No matter how you arrive at values for the gamma prior parameters $a$ and $b$, the method for incorporating new test information is the same. The new information is combined with the prior model to produce an updated or [posterior distribution model](#sec-apr-1a-bayes-formula) for $\lambda$.
+
+Under assumptions 1 and 2, when a new test is run with $T$ system operating hours and $r$ failures, the posterior distribution for $\lambda$ is still a gamma, with new parameters:
+
+$$ a' = a + r, \,\,\, b' = b + T \, . $$
+
+In other words, add to $a$ the number of new failures and add to $b$ the number of new test hours to obtain the new parameters for the posterior distribution.
+
+Use of the posterior distribution to estimate the system MTBF (with confidence, or prediction, intervals) is described in the section on [estimating reliability using the Bayesian gamma model](#sec-apr-46).
+
+**Obtaining Gamma Parameters**
+
+[**An example using the "50/95" consensus method**]{#sec-apr-25-example}
+
+A group of engineers, discussing the reliability of a new piece of equipment, decide to use the 50/95 method to convert their knowledge into a Bayesian gamma prior. Consensus is reached on a likely $\mbox{MTBF}_{50}$ value of 600 hours and a low $\mbox{MTBF}_{05}$ value of 250. $RT$ is 600/250 = 2.4. (**Note**: if the group felt that 250 was a $\mbox{MTBF}_{10}$ value, instead of a $\mbox{MTBF}_{05}$ value, then the only change needed would be to replace 0.95 in the B1 equation by 0.90. This would be the "50/90" method.)
+
+Using software to find the root of a univariate function, the gamma prior parameters were found to be $a$ = 2.863 and $b$ = 1522.46. The parameters will have (approximately) a probability of 50% of $\lambda$ being below 1/600 = 0.001667 and a probability of 95% of $\lambda$ being below 1/250 = 0.004. (The probabilities are based on the 0.001667 and 0.004 quantiles of a gamma distribution with shape parameter $a$ = 2.863 and rate parameter $b$ = 1522.46).
+
+```{r}
+#| label: verify-apr-25-example
+#| code-fold: true
+MTBF50 <- 600
+MTBF05 <- 250
+RT <- MTBF50 / MTBF05
+
+# The shape parameter a is found by matching the ratio of the 95th and 50th
+# gamma percentiles to RT; this ratio is independent of the rate parameter.
+f <- function(a) qgamma(0.95, shape = a, rate = 1) / qgamma(0.5, shape = a, rate = 1) - RT
+a_hat <- uniroot(f, c(0.1, 20))$root
+
+# b (rate parameter) is then set so the 50th percentile of lambda equals 1/MTBF50
+b_hat <- qgamma(0.5, shape = a_hat, rate = 1) * MTBF50
+
+lambda50 <- qgamma(0.5, shape = a_hat, rate = b_hat)
+lambda95 <- qgamma(0.95, shape = a_hat, rate = b_hat)
+
+tibble::tibble(
+  Statistic = c("RT", "a (shape)", "b (rate)", "lambda_50", "lambda_95"),
+  Value = c(round(RT, 2), round(a_hat, 3), round(b_hat, 2), round(lambda50, 6), round(lambda95, 6))
+) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported values ($a$ = 2.863, $b$ = 1522.46) exactly, confirming that the prior percentiles $\lambda_{50}$ = 0.001667 and $\lambda_{95}$ = 0.004 are correctly recovered with the gamma distribution parameterized by shape $a$ and rate $b$.
+
+The gamma parameter estimates in this example can be produced using R code.
+
+This example will be continued in [Section 8.3.1.5](#sec-apr-315), in which the Bayesian test time needed to confirm a 500 hour MTBF at 80% confidence will be derived.

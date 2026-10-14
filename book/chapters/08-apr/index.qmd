@@ -50,3 +50,15 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include introduction/reliability-growth/exponential-law.qmd >}}
 
 {{< include introduction/bayesian-methodology.qmd >}}
+
+{{< include assumptions/index.qmd >}}
+
+{{< include assumptions/life-distribution-model/index.qmd >}}
+
+{{< include assumptions/plotting-reliability-data/index.qmd >}}
+
+{{< include assumptions/testing-model-assumptions/index.qmd >}}
+
+{{< include assumptions/acceleration-model/index.qmd >}}
+
+{{< include assumptions/bayesian-assumptions/index.qmd >}}

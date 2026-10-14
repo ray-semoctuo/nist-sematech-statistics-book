@@ -1,0 +1,250 @@
+### How can you test reliability model assumptions? {#sec-apr-23}
+
+[**Models are frequently necessary - but should always be checked**]{#sec-apr-23-check}
+
+Since reliability models are often used to project (extrapolate) failure rates or MTBF's that are well beyond the range of the reliability data used to fit these models, it is very important to "test" whether the models chosen are consistent with whatever data are available. This section describes several ways of deciding whether a model under examination is acceptable. These are:
+
+1. [Visual Tests](#sec-apr-231)
+2. [Goodness of Fit Tests](#sec-apr-232)
+3. [Likelihood Ratio Tests](#sec-apr-233)
+4. [Trend Tests](#sec-apr-234)
+
+#### Visual tests {#sec-apr-231}
+
+[**A visual test of a model is a simple plot that tells us at a glance whether the model is consistent with the data**]{#sec-apr-231-glance}
+
+We have already seen many examples of visual tests of models. These were: Probability Plots, Cum hazard Plots, Duane Plots and Trend Plots. In all but the Trend Plots, the model was "tested" by how well the data points followed a straight line. In the case of the Trend Plots, we looked for curvature away from a straight line (cum repair plots) or increasing or decreasing size trends (inter arrival times and reciprocal inter-arrival times).
+
+These simple plots are a powerful diagnostic tool since the human eye can often detect patterns or anomalies in the data by studying graphs. That kind of invaluable information would be lost if the analyst only used quantitative statistical tests to check model fit. Every analysis should include as many visual tests as are applicable.
+
+**Advantages of Visual Tests**
+
+1. Easy to understand and explain.
+2. Can occasionally reveal patterns or anomalies in the data.
+3. When a model "passes" a visual test, it is somewhat unlikely any quantitative statistical test will "reject" it (the human eye is less forgiving and more likely to detect spurious trends)
+
+[**Combine visual tests with formal quantitative tests for the "best of both worlds" approach**]{#sec-apr-231-combine}
+
+**Disadvantages of Visual Tests**
+
+1. Visual tests are subjective.
+2. They do not quantify how well or how poorly a model fits the data.
+3. They are of little help in choosing between two or more competing models that both appear to fit the data.
+4. Simulation studies have shown that correct models may often appear to not fit well by sheer chance - it is hard to know when visual evidence is strong enough to reject what was previously believed to be a correct model.
+
+You can retain the advantages of visual tests and remove their disadvantages by combining data plots with formal statistical tests of [goodness of fit](#sec-apr-232) or [trend](#sec-apr-234).
+
+#### Goodness of fit tests {#sec-apr-232}
+
+[**A Goodness of Fit test checks on whether your data are reasonable or highly unlikely, given an assumed distribution model**]{#sec-apr-232-check}
+
+General tests for checking the hypothesis that your data are consistent with a particular model are discussed in [Chapter 7](#sec-prc-2). Details and examples of the [Chi-Square Goodness of Fit test](#sec-eda-35f) and the [Kolmogorov-Smirnov (K-S) test](#sec-eda-35g) are given in Chapter 1. The Chi-Square test can be used with [Type I or Type II censored data and readout data](#sec-apr-131) if there are enough failures and readout times. The K-S test generally requires complete samples, which limits its usefulness in reliability analysis.
+
+These tests control the probability of rejecting a valid model as follows:
+
+- the analyst chooses a confidence level designated by $100(1-\alpha)$.
+- a test statistic is calculated from the data and compared to likely values for this statistic, assuming the model is correct.
+- if the test statistic has a very unlikely value, or less than or equal to an $\alpha$ probability of occurring, where $\alpha$ is a small value like 0.1 or 0.05 or even 0.01, then the model is rejected.
+
+So the risk of rejecting the right model is kept to $\alpha$ or less, and the choice of $\alpha$ usually takes into account the potential loss or difficulties incurred if the model is rejected.
+
+#### Likelihood ratio tests {#sec-apr-233}
+
+[**Likelihood Ratio Tests are a powerful, very general method of testing model assumptions. However, they require special software, not always readily available**]{#sec-apr-233-general}
+
+Likelihood functions for reliability data are described in [Section 8.4.1.2](#sec-apr-412). Two ways we use likelihood functions to choose models or verify/validate assumptions are:
+
+1. Calculate the maximum likelihood of the sample data based on an assumed distribution model (the maximum occurs when unknown parameters are replaced by their [maximum likelihood estimates](#sec-apr-412)). Repeat this calculation for other candidate distribution models that also appear to fit the data (based on probability plots). If all the models have the same number of unknown parameters, and there is no convincing reason to choose one particular model over another based on the failure mechanism or previous successful analyses, then pick the model with the largest likelihood value.
+2. Many model assumptions can be viewed as putting restrictions on the parameters in a likelihood expression that effectively reduce the total number of unknown parameters. Some common examples are:
+
+[**Examples where assumptions can be tested by the Likelihood Ratio Test**]{#sec-apr-233-examples}
+
+> i) It is suspected that a type of data, typically modeled by a Weibull distribution, can be fit adequately by an exponential model. The exponential distribution is a special case of the Weibull, with the shape parameter $\gamma$ set to 1. If we write the Weibull likelihood function for the data, the exponential model likelihood function is obtained by setting $\gamma$ to 1, and the number of unknown parameters has been reduced from two to one.
+>
+> ii) Assume we have $n$ cells of data from an acceleration test, with each cell having a different operating temperature. We assume a lognormal population model applies in every cell. Without an acceleration model assumption, the likelihood of the experimental data would be the product of the likelihoods from each cell and there would be $2n$ unknown parameters (a different $T_{50}$ and $\sigma$ for each cell). If we assume an [Arrhenius model](#sec-apr-151) applies, the total number of parameters drops from $2n$ to just 3, the single common $\sigma$ and the Arrhenius $A$ and $\Delta H$ parameters. This acceleration assumption "saves" $(2n-3)$ parameters.
+>
+> iii) We life test samples of product from two vendors. The product is known to have a failure mechanism modeled by the Weibull distribution, and we want to know whether there is a difference in reliability between the vendors. The unrestricted likelihood of the data is the product of the two likelihoods, with 4 unknown parameters (the shape and characteristic life for each vendor population). If, however, we assume no difference between vendors, the likelihood reduces to having only two unknown parameters (the common shape and the common characteristic life). Two parameters are "lost" by the assumption of "no difference".
+
+Clearly, we could come up with many more examples like these three, for which an important assumption can be restated as a reduction or restriction on the number of parameters used to formulate the likelihood function of the data. In all these cases, there is a simple and very useful way to test whether the assumption is consistent with the data.
+
+**The Likelihood Ratio Test Procedure**
+
+[**Details of the Likelihood Ratio Test procedure. In general, calculations are difficult and need to be built into the software you use**]{#sec-apr-233-procedure}
+
+Let $L_1$ be the maximum value of the likelihood of the data without the additional assumption. In other words, $L_1$ is the likelihood of the data with all the parameters unrestricted and maximum likelihood estimates substituted for these parameters.
+
+Let $L_0$ be the maximum value of the likelihood when the parameters are restricted (and reduced in number) based on the assumption. Assume $k$ parameters were lost (i.e., $L_0$ has $k$ less parameters than $L_1$).
+
+Form the ratio $\lambda = L_0 / L_1$. This ratio is always between 0 and 1 and the less likely the assumption is, the smaller $\lambda$ will be. This can be quantified at a given confidence level as follows:
+
+1. Calculate $\chi^2 = -2 \mbox{ ln } \lambda$. The smaller $\lambda$ is, the larger $\chi^2$ will be.
+2. We can tell when $\chi^2$ is significantly large by comparing it to the $100(1-\alpha)$ percentile point of a Chi-Square distribution with $k$ degrees of freedom. $\chi^2$ has an approximate Chi-Square distribution with $k$ degrees of freedom and the approximation is usually good, even for small sample sizes.
+3. The likelihood ratio test computes $\chi^2$ and rejects the assumption if $\chi^2$ is larger than a Chi-Square percentile with $k$ degrees of freedom, where the percentile corresponds to the confidence level chosen by the analyst.
+
+**Note**: While Likelihood Ratio test procedures are very useful and widely applicable, the computations are difficult to perform by hand, especially for censored data, and appropriate software is necessary.
+
+#### Trend tests {#sec-apr-234}
+
+[**Formal Trend Tests should accompany Trend Plots and Duane Plots. Three are given in this section**]{#sec-apr-234-overview}
+
+In this section we look at formal statistical tests that can allow us to quantitatively determine whether or not the repair times of a system show a significant trend (which may be an improvement or a degradation trend). The section on [trend and growth plotting](#sec-apr-223) contained a discussion of visual tests for trends - this section complements those visual tests as several numerical tests are presented.
+
+Three statistical test procedures will be described:
+
+1. [The Reverse Arrangement Test](#sec-apr-234-rat) (a simple and useful test that has the advantage of making no assumptions about a model for the possible trend)
+2. [The Military Handbook Test](#sec-apr-234-milhdbk) (optimal for distinguishing between "no trend" and a trend following the NHPP Power Law or Duane model)
+3. [The Laplace Test](#sec-apr-234-laplace) (optimal for distinguishing between "no trend" and a trend following the NHPP Exponential Law model)
+
+[**The Reverse Arrangement Test (RAT test) is simple and makes no assumptions about what model a trend might follow**]{#sec-apr-234-rat}
+
+**The Reverse Arrangement Test**
+
+Assume there are $r$ repairs during the observation period and they occurred at system ages $T_1, \, T_2, \, T_3, \, \ldots, \, T_r$. (We set the start of the observation period to $T = 0$). Let $I_1 = T_1, \, I_2 = T_2 - T_1, \, I_3 = T_3 - T_2, \, \ldots, \, I_r = T_r - T_{r-1}$ be the inter-arrival times for repairs (i.e., the sequence of waiting times between failures). Assume the observation period ends at time $T_{end} > T_r$.
+
+Previously, we plotted this sequence of inter-arrival times to look for evidence of trends. Now, we calculate how many instances we have of a later inter-arrival time being strictly greater than an earlier inter-arrival time. Each time that happens, we call it a *reversal*. If there are a lot of reversals (more than are likely from pure chance with no trend), we have significant evidence of an improvement trend. If there are too few reversals we have significant evidence of degradation.
+
+A formal definition of the reversal count and some properties of this count are:
+
+- count a reversal every time $I_j < I_k$ for some $j$ and $k$ with $j < k$
+- this reversal count is the total number of reversals $R$
+- for $r$ repair times, the maximum possible number of reversals is $r(r-1)/2$
+- if there are no trends, on the average one would expect to have $r(r-1)/4$ reversals.
+
+As a simple example, assume we have 5 repair times at system ages 22, 58, 71, 156 and 225, and the observation period ended at system age 300. First calculate the inter arrival times and obtain: 22, 36, 13, 85, 69. Next, count reversals by "putting your finger" on the first inter-arrival time, 22, and counting how many later inter arrival times are greater than that. In this case, there are 3. Continue by "moving your finger" to the second time, 36, and counting how many later times are greater. There are exactly 2. Repeating this for the third and fourth inter-arrival times (with many repairs, your finger gets very tired!) we obtain 2 and 0 reversals, respectively. Adding 3 + 2 + 2 + 0 = 7, we see that $R$ = 7. The total possible number of reversals is 5x4/2 = 10 and an "average" number is half this, or 5.
+
+```{r}
+#| label: verify-apr-234-rat-example
+#| code-fold: true
+reversal_count <- function(I) {
+  r <- length(I)
+  R <- 0
+  for (j in 1:(r - 1)) for (k in (j + 1):r) if (I[j] < I[k]) R <- R + 1
+  R
+}
+
+T_rep <- c(22, 58, 71, 156, 225)
+I <- diff(c(0, T_rep))
+R <- reversal_count(I)
+
+tibble::tibble(Statistic = c("Inter-arrival times", "Reversal count (R)"), Value = c(paste(I, collapse = ", "), R)) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's inter-arrival times and reversal count ($R$ = 7) exactly.
+
+In the example, we saw 7 reversals (2 more than average). Is this strong evidence for an improvement trend? The following table allows us to answer that at a 90% or 95% or 99% confidence level - the higher the confidence, the stronger the evidence of improvement (or the less likely that pure chance alone produced the result).
+
+[**A useful table to check whether a reliability test has demonstrated significant improvement**]{#sec-apr-234-improvement-table}
+
+```{r}
+#| label: tbl-apr-234-improvement-table
+#| tbl-cap: "Value of R indicating significant improvement (one-sided test)"
+#| code-fold: true
+tibble::tibble(
+  `Number of Repairs` = 4:12,
+  `Min R for 90% Evidence` = c(6, 9, 12, 16, 20, 25, 31, 37, 43),
+  `Min R for 95% Evidence` = c(6, 9, 13, 17, 22, 27, 33, 39, 46),
+  `Min R for 99% Evidence` = c(NA, 10, 14, 19, 24, 30, 36, 43, 50)
+) |>
+  knitr::kable(align = "rrrr")
+```
+
+**One-sided test** means before looking at the data we expected improvement trends, or, at worst, a constant repair rate. This would be the case if we know of actions taken to improve reliability (such as occur during reliability improvement tests).
+
+For the $r$ = 5 repair times example above where we had $R$ = 7, the table shows we do not (yet) have enough evidence to demonstrate a significant improvement trend. That does not mean that an improvement model is incorrect - it just means it is not yet "proved" statistically. With small numbers of repairs, it is not easy to obtain significant results.
+
+For numbers of repairs beyond 12, there is a good approximation formula that can be used to determine whether $R$ is large enough to be significant. Calculate
+
+[**Use this formula when there are more than 12 repairs in the data set**]{#sec-apr-234-rat-approx}
+
+$$ z = \frac{R - \frac{r(r-1)}{4} + 0.5}{\sqrt{\frac{(2r+5)(r-1)r}{72}}} \, , $$
+
+and if $z$ > 1.282, we have at least 90% significance. If $z$ > 1.645, we have 95% significance, and a $z$ > 2.33 indicates 99% significance since $z$ has an approximate standard normal distribution.
+
+That covers the (one-sided) test for significant improvement trends. If, on the other hand, we believe there may be a degradation trend (the system is wearing out or being over stressed, for example) and we want to know if the data confirms this, then we expect a low value for $R$ and we need a table to determine when the value is low enough to be significant. The table below gives these critical values for $R$.
+
+```{r}
+#| label: tbl-apr-234-degradation-table
+#| tbl-cap: "Value of R indicating significant degradation trend (one-sided test)"
+#| code-fold: true
+tibble::tibble(
+  `Number of Repairs` = 4:12,
+  `Max R for 90% Evidence` = c(0, 1, 3, 5, 8, 11, 14, 18, 23),
+  `Max R for 95% Evidence` = c(0, 1, 2, 4, 6, 9, 12, 16, 20),
+  `Max R for 99% Evidence` = c(NA, 0, 1, 2, 4, 6, 9, 12, 16)
+) |>
+  knitr::kable(align = "rrrr")
+```
+
+For numbers of repairs $r$ > 12, use the approximation formula above, with $R$ replaced by $[r(r-1)/2 - R]$.
+
+[**Because of the success of the Duane model with industrial improvement test data, this Trend Test is recommended**]{#sec-apr-234-milhdbk}
+
+**The Military Handbook Test**
+
+This test is better at finding significance when the choice is between no trend and a NHPP Power Law (Duane) model. In other words, if the data come from a system following the Power Law, this test will generally do better than any other test in terms of finding significance.
+
+As before, we have $r$ times of repair $T_1, \, T_2, \, \ldots, \, T_r$ with the observation period ending at time $T_{end} > T_r$. Calculate
+
+$$ \chi_{2r}^2 = 2 \sum_{i=1}^r \mbox{ ln } \frac{T_{end}}{T_i} \, , $$
+
+and compare this to percentiles of the Chi-Square distribution with $2r$ degrees of freedom. For a one-sided improvement test, reject no trend (or HPP) in favor of an improvement trend if the chi square value is beyond the 90 (or 95, or 99) percentile. For a one-sided degradation test, reject no trend if the chi-square value is less than the 10 (or 5, or 1) percentile.
+
+Applying this test to the 5 repair times example, the test statistic has value 13.28 with 10 degrees of freedom, and the chi-square percentile is 79%.
+
+```{r}
+#| label: verify-apr-234-milhdbk-example
+#| code-fold: true
+T_end <- 300
+r <- length(T_rep)
+chisq_stat <- 2 * sum(log(T_end / T_rep))
+df <- 2 * r
+pct <- pchisq(chisq_stat, df)
+
+tibble::tibble(Statistic = c("Chi-Square statistic", "Degrees of freedom", "Percentile"), Value = c(round(chisq_stat, 2), df, paste0(round(pct * 100), "%"))) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported chi-square statistic (13.28), degrees of freedom (10), and percentile (79%) exactly.
+
+[**The Laplace Test**]{#sec-apr-234-laplace}
+
+This test is better at finding significance when the choice is between no trend and a NHPP Exponential model. In other words, if the data come from a system following the Exponential Law, this test will generally do better than any test in terms of finding significance.
+
+As before, we have $r$ times of repair $T_1, \, T_2, \, \ldots, \, T_r$ with the observation period ending at time $T_{end} > T_r$. Calculate
+
+$$ z = \frac{\sqrt{12r} \sum_{i=1}^r \left( T_i - \frac{T_{end}}{2}\right)}{r T_{end}} \, , $$
+
+and compare this to high (for improvement) or low (for degradation) percentiles of the standard normal distribution.
+
+[**Formal tests generally confirm the subjective information conveyed by trend plots**]{#sec-apr-234-case-study}
+
+**Case Study 1: Reliability Test Improvement Data (Continued from earlier work)**
+
+The [failure data and Trend plots and Duane plot](#sec-apr-223-case-study) were shown earlier. The observed failure times were: 5, 40, 43, 175, 389, 712, 747, 795, 1299 and 1478 hours, with the test ending at 1500 hours.
+
+**Reverse Arrangement Test:** The inter-arrival times are: 5, 35, 3, 132, 214, 323, 35, 48, 504 and 179. The number of reversals is 33, which, according to the table above, is just significant at the 95% level.
+
+**The Military Handbook Test:** The Chi-Square test statistic, using the formula given above, is 37.23 with 20 degrees of freedom and has significance level 98.9%. Since the Duane Plot looked very reasonable, this test probably gives the most precise significance assessment of how unlikely it is that sheer chance produced such an apparent improvement trend (only about 1.1% probability).
+
+```{r}
+#| label: verify-apr-234-case-study
+#| code-fold: true
+T_rep_cs1 <- c(5, 40, 43, 175, 389, 712, 747, 795, 1299, 1478)
+T_end_cs1 <- 1500
+I_cs1 <- diff(c(0, T_rep_cs1))
+R_cs1 <- reversal_count(I_cs1)
+
+r_cs1 <- length(T_rep_cs1)
+chisq_cs1 <- 2 * sum(log(T_end_cs1 / T_rep_cs1))
+df_cs1 <- 2 * r_cs1
+pct_cs1 <- pchisq(chisq_cs1, df_cs1)
+
+tibble::tibble(
+  Statistic = c("Inter-arrival times", "Reversal count (R)", "Chi-Square statistic", "Degrees of freedom", "Significance level"),
+  Value = c(paste(I_cs1, collapse = ", "), R_cs1, round(chisq_cs1, 2), df_cs1, paste0(round(pct_cs1 * 1000) / 10, "%"))
+) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported reversal count (33), Chi-Square statistic (37.23), degrees of freedom (20), and significance level (98.9%) exactly.
