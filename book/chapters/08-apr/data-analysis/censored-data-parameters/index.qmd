@@ -1,0 +1,243 @@
+### How do you estimate life distribution parameters from censored data? {#sec-apr-41}
+
+[**Graphical estimation methods (aided by computer line fits) are easy and quick**]{#sec-apr-41-graphical}
+
+[**Maximum likelihood methods are usually more precise - but require special software**]{#sec-apr-41-mle}
+
+Two widely used general methods will be described in this section:
+
+- [Graphical estimation](#sec-apr-411)
+- [Maximum Likelihood Estimation (MLE)](#sec-apr-412)
+
+**Recommendation On Which Method to Use**
+
+Maximum likelihood estimation (except when the failure data are very sparse - i.e., only a few failures) is a more precise and flexible method. However, with censored data, the method of maximum likelihood estimation requires special computer programs for distributions other than the exponential. This is no longer an obstacle since, in recent years, many statistical software packages have added reliability platforms that will calculate MLE's and most of these packages will estimate acceleration model parameters and give confidence bounds as well.
+
+If important business decisions are based on reliability projections made from life test data and acceleration modeling, then it pays to obtain state-of-the art MLE reliability software. Otherwise, for monitoring and tracking reliability, estimation methods based on computer-augmented graphical procedures will often suffice.
+
+#### Graphical estimation {#sec-apr-411}
+
+[**The line on a probability plot uniquely identifies distributional parameters**]{#sec-apr-411-uniquely}
+
+Once you have calculated [plotting positions](#sec-apr-221-plotting-positions) from your failure data, and have generated the [probability plot](#sec-apr-221-y-axis) for your chosen model, parameter estimation follows easily. But along with the mechanics of graphical estimation, be aware of both the advantages and the disadvantages of graphical estimation methods.
+
+[**Most probability plots have simple procedures to calculate underlying distribution parameter estimates**]{#sec-apr-411-mechanics}
+
+**Graphical Estimation Mechanics:**
+
+If you draw a line through points on a probability plot, there are usually simple rules to find estimates of the slope (or shape parameter) and the scale parameter. On lognormal probability plot with time on the $x$-axis and cumulative percent on the $y$-axis, draw horizontal lines from the 34th and the 50th percentiles across to the fitted line, and drop vertical lines to the time axis from these intersection points. The time corresponding to the 50th percentile is the $T_{50}$ estimate. Divide $T_{50}$ by the time corresponding to the 34th percentile (this is called $T_{34}$). The natural logarithm of that ratio is the estimate of sigma, or the slope of the line ($\sigma = \mbox{ln } (T_{50} / T_{34})$).
+
+For a Weibull probability plot draw a horizontal line from the $y$-axis to the fitted line at the 62.3 percentile point. That estimation line intersects the line through the points at a time that is the estimate of the characteristic life parameter $\alpha$. In order to estimate the slope of the fitted line (or the shape parameter $\gamma$), choose any two points on the fitted line and divide the change in the $y$ variable by the change in $x$ variable.
+
+[**Using a computer generated line fitting routine removes subjectivity and can lead directly to computer parameter estimates based on the plotting positions**]{#sec-apr-411-computer-fit}
+
+To remove the subjectivity of drawing a line through the points, a least-squares (regression) fit can be performed using the equations described in the section on [probability plotting](#sec-apr-221-y-axis). An [example](#sec-apr-221-example) of this for the Weibull was also shown in that section. Another [example](#sec-apr-413) of a Weibull plot for the same data appears later in this section.
+
+Finally, if you have exact times and complete samples (no censoring), many software packages have built-in Probability Plotting functions. Examples were shown in the sections describing various [life distribution models](#sec-apr-16).
+
+[**Do probability plots even if you use some other method for the final estimates**]{#sec-apr-411-advantages}
+
+**Advantages of Graphical Methods of Estimation:**
+
+- Graphical methods are quick and easy to use and make visual sense.
+- Calculations can be done with little or no special software needed.
+- Visual test of model (i.e., how well the points line up) is an additional benefit.
+
+**Disadvantages of Graphical Methods of Estimation**
+
+[**Perhaps the worst drawback of graphical estimation is you cannot get legitimate confidence intervals for the estimates**]{#sec-apr-411-disadvantages}
+
+The statistical properties of graphical estimates (i.e., how precise are they on average) are not good:
+
+- they are biased,
+- even with large samples, they are not minimum variance (i.e., most precise) estimates,
+- graphical methods do not give confidence intervals for the parameters (intervals generated by a regression program for this kind of data are incorrect), and
+- formal statistical tests about model fit or parameter values cannot be performed with graphical methods.
+
+As we will see in the next section, [Maximum Likelihood Estimates](#sec-apr-412) overcome all these disadvantages - at least for reliability data sets with a reasonably large number of failures - at a cost of losing all the advantages listed above for graphical estimation.
+
+#### Maximum likelihood estimation {#sec-apr-412}
+
+[**There is nothing visual about the maximum likelihood method - but it is a powerful method and, at least for large samples, very precise**]{#sec-apr-412-powerful}
+
+Maximum likelihood estimation begins with writing a mathematical expression known as the ***Likelihood Function*** of the sample data. Loosely speaking, the likelihood of a set of data is the probability of obtaining that particular set of data, given the chosen probability distribution model. This expression contains the unknown model parameters. The values of these parameters that maximize the sample likelihood are known as the ***Maximum Likelihood Estimates*** or **MLEs**.
+
+Maximum likelihood estimation is a totally analytic maximization procedure. It applies to every form of censored or multicensored data, and it is even possible to use the technique across several stress cells and estimate acceleration model parameters at the same time as life distribution parameters. Moreover, MLEs and Likelihood Functions generally have very desirable large sample properties:
+
+- they become unbiased minimum variance estimators as the sample size increases
+- they have approximate normal distributions and approximate sample variances that can be calculated and used to generate confidence bounds
+- likelihood functions can be used to test hypotheses about models and parameters
+
+[**With small samples, MLE's may not be very precise and may even generate a line that lies above or below the data points**]{#sec-apr-412-small-samples}
+
+There are only two drawbacks to MLEs, but they are important ones:
+
+- With small numbers of failures (less than 5, and sometimes less than 10 is small), MLEs can be heavily biased and the large sample optimality properties do not apply
+- Calculating MLEs often requires specialized software for solving complex non-linear equations. This is less of a problem as time goes by, as more statistical packages are upgrading to contain MLE analysis capability every year.
+
+Additional information about maximum likelihood estimation can be found in [Chapter 1](#sec-eda-3652).
+
+[**Likelihood equation for censored data**]{#sec-apr-412-likelihood}
+
+**Likelihood Function Examples for Reliability Data:**
+
+Let $f(t)$ be the PDF and $F(t)$ the CDF for the chosen life distribution model. Note that these are functions of $t$ and the unknown parameters of the model. The likelihood function for [Type I Censored data](#sec-apr-131) is:
+
+$$ L = C \left( \prod_{i=1}^r f(t_i) \right) [1-F(T)]^{n - r} \, , $$
+
+with $C$ denoting a constant that plays no role when solving for the MLEs. Note that with no censoring, the likelihood reduces to just the product of the densities, each evaluated at a failure time. For [Type II Censored Data](#sec-apr-131), just replace $T$ above by the random end of test time $t_r$.
+
+The likelihood function for [readout data](#sec-apr-131) is:
+
+$$ L = C \left( \prod_{i=1}^k \left[ F(T_i) - F(T_{i-1}) \right]^{r_i} \right) [1-F(T)]^{n - \sum_{i=1}^k r_i} \, , $$
+
+with $F(T_0)$ defined to be 0.
+
+In general, any [multicensored data](#sec-apr-131) set likelihood will be a constant times a product of terms, one for each unit in the sample, that look like either $f(t_i)$, $[F(T_i) - F(T_{i-1})]$, or $[1-F(t_i)]$, depending on whether the unit was an exact time failure at time $t_i$, failed between two readouts $T_{i-1}$ and $T_i$, or survived to time $t_i$ and was not observed any longer.
+
+The general mathematical technique for solving for MLEs involves setting partial derivatives of $\mbox{ln } L$ (the derivatives are taken with respect to the unknown parameters) equal to zero and solving the resulting (usually non-linear) equations. The equation for the exponential model can easily be solved, however.
+
+[**MLE for the exponential model parameter $\lambda$ turns out to be just (total # of failures) divided by (total unit test time)**]{#sec-apr-412-exponential}
+
+**MLEs for the Exponential Model (Type I Censoring):**
+
+$$ L = C \lambda^r \mbox{ exp } \left( -\lambda \sum_{i=1}^r t_i \right) \left( e^{-\lambda(n-r)T} \right) $$
+
+$$ \mbox{ln } L = \mbox{ln }C + r \mbox{ ln } \lambda - \lambda \sum_{i=1}^r t_i - \lambda(n-r)T $$
+
+$$ \frac{\partial \mbox{ ln } L}{\partial \lambda} = \frac{r}{\lambda} - \sum_{i=1}^r t_i - (n-r)T = 0 $$
+
+$$ \hat{\lambda} = \frac{r}{\sum_{i=1}^r t_i + (n-r)T} $$
+
+**Note:** The MLE of the failure rate (or repair rate) in the exponential case turns out to be the total number of failures observed divided by the total unit test time. For the MLE of the MTBF, take the reciprocal of this or use the total unit test hours divided by the total observed failures.
+
+There are examples of [Weibull](#sec-apr-413) and [lognormal](#sec-apr-422) MLE analysis later in this section.
+
+#### A Weibull maximum likelihood estimation example {#sec-apr-413}
+
+[**Reliability analysis using Weibull data**]{#sec-apr-413-reliability-analysis}
+
+We will plot Weibull censored data and estimate parameters using data from a previous example ([8.2.2.1](#sec-apr-221-example)).
+
+The recorded failure times were 54, 187, 216, 240, 244, 335, 361, 373, 375, and 386 hours, and 10 units that did not fail were removed from the test at 500 hours. The data are summarized in the following table.
+
+```{r}
+#| label: tbl-apr-413-data
+#| tbl-cap: "Weibull MLE example data"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+tibble(
+  Time = c(54, 187, 216, 240, 244, 335, 361, 373, 375, 386, 500),
+  Censored = c(rep(0, 10), 1),
+  Frequency = c(rep(1, 10), 10)
+) |>
+  knitr::kable(align = "rrr")
+```
+
+The column labeled "Time" contains failure and censoring times, the "Censored" column contains a variable to indicate whether the time in column one is a failure time or a censoring time, and the "Frequency" column shows how many units failed or were censored at that time.
+
+First, we generate a survival curve using the Kaplan-Meier method and a Weibull probability plot. **Note**: Some software packages might use the name "Product Limit Method" or "Product Limit Survival Estimates" instead of the equivalent name "Kaplan-Meier".
+
+```{r}
+#| label: fig-apr-413-survival-curve
+#| fig-cap: "Kaplan-Meier survival curve"
+#| code-fold: true
+#| message: false
+library(survival)
+
+failures <- c(54, 187, 216, 240, 244, 335, 361, 373, 375, 386)
+y <- Surv(c(failures, rep(500, 10)), c(rep(1, length(failures)), rep(0, 10)))
+ys <- survfit(y ~ 1, type = "kaplan-meier")
+
+km <- tibble(time = ys$time, survival = ys$surv)
+ggplot(km, aes(time, survival)) +
+  geom_step() +
+  labs(x = "Hours", y = "Survival Probability") +
+  theme_classic()
+```
+
+```{r}
+#| label: fig-apr-413-probability-plot
+#| fig-cap: "Weibull probability plot"
+#| code-fold: true
+p <- (seq_along(failures) - 0.3) / (length(failures) + 0.4)
+
+ggplot(tibble(time = failures, y = -log(1 - p)), aes(time, y)) +
+  geom_point(shape = 19, color = "red", size = 2) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Hours", y = "Cumulative Hazard") +
+  theme_classic()
+```
+
+Next, we perform a regression analysis for a survival model assuming that failure times have a Weibull distribution. The Weibull characteristic life parameter ($\eta$) estimate is 606.5280 and the shape parameter ($\beta$) estimate is 1.7208.
+
+The log-likelihood and Akaike's Information Criterion (AIC) from the model fit are -75.135 and 154.27. For comparison, we computed the AIC for the lognormal distribution and found that it was only slightly larger than the Weibull AIC.
+
+```{r}
+#| label: verify-apr-413-mle
+#| code-fold: true
+yw <- survreg(y ~ 1, dist = "weibull")
+eta_hat <- unname(exp(coef(yw)[1]))
+beta_hat <- unname(1 / yw$scale)
+loglik <- yw$loglik[1]
+aic_weibull <- extractAIC(yw)[2]
+
+yl <- survreg(y ~ 1, dist = "lognormal")
+aic_lognormal <- extractAIC(yl)[2]
+
+tibble(
+  Statistic = c("eta (characteristic life)", "beta (shape)", "log-likelihood", "Weibull AIC", "Lognormal AIC"),
+  Value = c(round(eta_hat, 4), round(beta_hat, 4), round(loglik, 3), round(aic_weibull, 2), round(aic_lognormal, 2))
+) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported Weibull parameter estimates ($\eta$ = 606.5280, $\beta$ = 1.7208), log-likelihood (-75.135), and both AIC values (154.27 and 154.39) exactly.
+
+When comparing values of AIC, smaller is better. The probability density of the fitted Weibull distribution is shown below.
+
+```{r}
+#| label: fig-apr-413-density
+#| fig-cap: "Probability density of fitted Weibull distribution"
+#| code-fold: true
+mu_hat <- eta_hat * gamma(1 + 1 / beta_hat)
+sigma_hat <- eta_hat * sqrt(gamma(1 + 2 / beta_hat) - gamma(1 + 1 / beta_hat)^2)
+
+ggplot(tibble(x = seq(0, mu_hat + 6 * sigma_hat, length.out = 200)), aes(x)) +
+  stat_function(fun = dweibull, args = list(shape = beta_hat, scale = eta_hat), color = "blue") +
+  labs(x = "Hours", y = "Probability Density") +
+  theme_classic()
+```
+
+Based on the estimates of $\eta$ and $\beta$, the lifetime expected value and standard deviation are the following.
+
+$$ \begin{eqnarray}
+\hat{\eta} &=& 606.5280 \\
+\\
+\hat{\beta} &=& 1.7208 \\
+\\
+\hat{\mu} &=& \hat{\eta} \cdot \Gamma \left( 1 + 1/\hat{\beta} \right) = 540.737 \,\, \mbox{hours}\\
+\\
+\hat{\sigma} &=& \hat{\eta} \, \sqrt{\Gamma \left( 1+2/\hat{\beta} \right) -
+\left( \Gamma \left(1+1/\hat{\beta} \right) \right)^{2}} = 323.806 \,\, \mbox{hours}
+\end{eqnarray} $$
+
+```{r}
+#| label: verify-apr-413-moments
+#| code-fold: true
+tibble(Statistic = c("mu (mean)", "sigma (std. dev.)"), Value = c(round(mu_hat, 3), round(sigma_hat, 3))) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported lifetime mean (540.737 hours) and standard deviation (323.806 hours) exactly.
+
+The greek letter, $\Gamma$, represents the gamma function.
+
+[**Discussion**]{#sec-apr-413-discussion}
+
+Maximum likelihood estimation (MLE) is an accurate and easy way to estimate life distribution parameters, provided that a good software analysis package is available. The package should also calculate confidence bounds and log-likelihood values.
+
+The analyses in this section can be implemented using R code.

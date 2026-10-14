@@ -1,0 +1,3 @@
+## Reliability Data Analysis {#sec-apr-4}
+
+After you have obtained component or system reliability data, how do you fit life distribution models, reliability growth models, or acceleration models? How do you estimate failure rates or MTBF's and project component or system reliability at use conditions? This section answers these kinds of questions.

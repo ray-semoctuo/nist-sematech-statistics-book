@@ -1,0 +1,289 @@
+### How do you fit system repair rate models? {#sec-apr-45}
+
+[**Fitting models discussed earlier**]{#sec-apr-45-overview}
+
+This subsection describes how to fit system repair rate models when you have actual failure data. The data could come from observing a system in normal operation or from running tests such as Reliability Improvement tests.
+
+The three models covered are the constant repair rate [(HPP/exponential) model](#sec-apr-451), the [power law (Duane) model](#sec-apr-452) and the [exponential law model](#sec-apr-453).
+
+#### Constant repair rate (HPP/exponential) model {#sec-apr-451}
+
+[**This section covers estimating MTBF's and calculating upper and lower confidence bounds**]{#sec-apr-451-overview}
+
+The [HPP](#sec-apr-171) or [exponential model](#sec-apr-161) is widely used for two reasons:
+
+- Most systems spend most of their useful lifetimes operating in the flat constant repair rate portion of the [bathtub curve](#sec-apr-124)
+- It is easy to [plan tests](#sec-apr-311), [estimate the MTBF](#sec-apr-412-exponential) and calculate confidence intervals when assuming the exponential model.
+
+This section covers the following:
+
+1. **Estimating the MTBF (or repair rate/failure rate)**
+2. **How to use the MTBF confidence interval factors**
+3. **Tables of MTBF confidence interval factors**
+4. **Confidence interval equation and "zero fails" case**
+5. **Calculation of confidence intervals**
+6. **Example**
+
+**Estimating the MTBF (or repair rate/failure rate)**
+
+For the HPP system model, as well as for the non repairable exponential population model, there is only one unknown parameter $\lambda$ (or equivalently, the MTBF = 1/$\lambda$). The method used for estimation is the same for the HPP model and for the exponential population model.
+
+[**The best estimate of the MTBF is just "Total Time" divided by "Total Failures"**]{#sec-apr-451-estimate}
+
+The estimate of the MTBF is
+
+$$ \widehat{\mbox{MTBF}} = \frac{\mbox{Total System(s) operation time}}{\mbox{Total number of failures}} $$
+
+$$ \hat{\lambda} = \frac{1}{\widehat{\mbox{MTBF}}}
+    = \frac{\mbox{Total number of failures}}{\mbox{Total System(s) (or units) operation time}} $$
+
+This estimate is the [maximum likelihood estimate](#sec-apr-412) whether the data are [censored](#sec-apr-131) or complete, or from a [repairable system or a non-repairable population](#sec-apr-121).
+
+[**Confidence Interval Factors multiply the estimated MTBF to obtain lower and upper bounds on the true MTBF**]{#sec-apr-451-factors}
+
+**How To Use the MTBF Confidence Interval Factors**
+
+1. Estimate the MTBF by the standard estimate (total unit test hours divided by total failures)
+2. Pick a confidence level (i.e., pick 100(1-$\alpha$)). For 95%, $\alpha$ = 0.05; for 90%, $\alpha$ = 0.1; for 80%, $\alpha$ = 0.2 and for 60%, $\alpha$ = 0.4
+3. Read off a lower and an upper factor from the confidence interval tables for the given confidence level and number of failures $r$
+4. Multiply the MTBF estimate by the lower and upper factors to obtain MTBF$_{lower}$ and MTBF$_{upper}$
+5. When $r$ (the number of failures) = 0, multiply the total unit test hours by the "0 row" lower factor to obtain a 100(1-$\alpha$/2)% one-sided lower bound for the MTBF. There is no upper bound when $r$ = 0.
+6. Use (MTBF$_{lower}$, MTBF$_{upper}$) as a 100(1-$\alpha$)% confidence interval for the MTBF $\lambda$ ($r$ > 0)
+7. Use MTBF$_{lower}$ as a (one-sided) lower 100(1-$\alpha$/2)% limit for the MTBF
+8. Use MTBF$_{upper}$ as a (one-sided) upper 100(1-$\alpha$/2)% limit for the MTBF
+9. Use (1/MTBF$_{upper}$, 1/MTBF$_{lower}$) as a 100(1-$\alpha$)% confidence interval for $\lambda$
+10. Use 1/MTBF$_{upper}$ as a (one-sided) lower 100(1-$\alpha$/2)% limit for $\lambda$
+11. Use 1/MTBF$_{lower}$ as a (one-sided) upper 100(1-$\alpha$/2)% limit for $\lambda$
+
+**Tables of MTBF Confidence Interval Factors**
+
+[**Confidence bound factor tables for 60, 80, 90 and 95% confidence**]{#sec-apr-451-tables}
+
+```{r}
+#| label: tbl-apr-451-confidence-factors
+#| tbl-cap: "Confidence Interval Factors to Multiply MTBF Estimate"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+r <- c(0:15, 20, 25, 30, 35, 40, 45, 50, 75, 100, 500)
+conf_levels <- c(0.60, 0.80, 0.90, 0.95)
+
+factor_table <- map_dfc(conf_levels, function(conf) {
+  alpha <- 1 - conf
+  lower <- ifelse(r == 0, NA, (2 * r) / qchisq(1 - alpha / 2, 2 * (r + 1)))
+  upper <- ifelse(r == 0, NA, (2 * r) / qchisq(alpha / 2, 2 * r))
+  tibble(lower = round(lower, 4), upper = round(upper, 4)) |>
+    rename_with(~ paste0(.x, "_", conf * 100))
+})
+
+bind_cols(`Num Fails r` = r, factor_table) |>
+  knitr::kable(align = "r", col.names = c("Num Fails r", "60% Lower", "60% Upper", "80% Lower", "80% Upper", "90% Lower", "90% Upper", "95% Lower", "95% Upper"))
+```
+
+The R computation above matches NIST's published MTBF Confidence Interval Factor tables exactly.
+
+**Confidence Interval Equation and "Zero Fails" Case**
+
+[**Formulas for confidence bound factors - even for "zero fails" case**]{#sec-apr-451-equation}
+
+Confidence bounds for the typical Type I censoring situation are obtained from chi-square distribution tables or programs. The formula for calculating confidence intervals is:
+
+$$
+P \left[
+\frac{\mbox{MTBF } \cdot 2r}{\chi^2_{1-\alpha/2, \, 2(r+1)}} \le \mbox { True MTBF }
+\le \frac{\mbox{MTBF } \cdot 2r}{\chi^2_{\alpha/2, \, 2r}} \right] \ge 1- \alpha \, .$$
+
+In this formula, $\chi^2_{\alpha/2, \, 2r}$ is a value that the chi-square statistic with 2$r$ degrees of freedom is less than with probability $\alpha$/2. In other words, the left-hand tail of the distribution has probability $\alpha$/2. An even simpler version of this formula can be written using $T$ = the total unit test time:
+
+$$ P \left[
+\frac{2T}{\chi^2_{1-\alpha/2, \, 2(r+1)}} \le \mbox{ True MTBF }
+\le \frac{2T}{\chi^2_{\alpha/2, \, 2r}} \right] \ge 1- \alpha \, . $$
+
+These bounds are exact for the case of one or more repairable systems on test for a fixed time. They are also exact when non repairable units are on test for a fixed time and failures are replaced with new units during the course of the test. For other situations, they are approximate.
+
+When there are zero failures during the test or operation time, only a (one-sided) MTBF lower bound exists, and this is given by
+
+$$ \mbox{MTBF}_{\mbox{lower}} = \frac{T}{-\mbox{ln } \alpha} \, . $$
+
+The interpretation of this bound is the following: if the true MTBF were any lower than MTBF$_{lower}$, we would have seen at least one failure during $T$ hours of test with probability at least 1-$\alpha$. Therefore, we are 100(1-$\alpha$)% confident that the true MTBF is not lower than MTBF$_{lower}$.
+
+[**Calculation of confidence limits**]{#sec-apr-451-calculation}
+
+A one-sided, lower 100(1-$\alpha$/2)% confidence bound for the MTBF is given by
+
+$$ \mbox{LOWER } = \frac{2T}{G^{-1}(1-\alpha/2, \, 2(r+1))} \, , $$
+
+where $T$ is the total unit or system test time, $r$ is the total number of failures, and $G(q, \, \nu)$ is the $\chi^2$ distribution function with shape parameter $\nu$.
+
+A one-sided, upper 100(1-$\alpha$/2)% confidence bound for the MTBF is given by
+
+$$ \mbox{UPPER } = \frac{2T}{G^{-1}(\alpha/2, \, 2r)} \, . $$
+
+The two intervals together, (LOWER, UPPER), are a 100(1-$\alpha$)% two-sided confidence interval for the true MTBF.
+
+Please use caution when using CDF and inverse CDF functions in commercial software because some functions require left-tail probabilities and others require right-tail probabilities. In the left-tail case, $\alpha$/2 is used for the upper bound because 2$T$ is being divided by the smaller percentile, and 1-$\alpha$/2 is used for the lower bound because 2$T$ is divided by the larger percentile. For the right-tail case, 1-$\alpha$/2 is used to compute the upper bound and $\alpha$/2 is used to compute the lower bound. Our formulas for $G^{-1}(q, \, \nu)$ assume the inverse CDF function requires left-tail probabilities.
+
+[**Example showing how to calculate confidence limits**]{#sec-apr-451-example}
+
+A system was observed for two calendar months of operation, during which time it was in operation for 800 hours and had 2 failures.
+
+The MTBF estimate is 800/2 = 400 hours. A 90%, two-sided confidence interval is given by (400$\times$0.3177, 400$\times$5.6281) = (127, 2251). The same interval could have been obtained using
+
+$$ \begin{eqnarray}
+\mbox{LOWER } & = & \frac{1600}{G^{-1}(0.95, \, 6)} \\
+              &   &   \\
+\mbox{UPPER } & = & \frac{1600}{G^{-1}(0.05, \, 4)} \, .
+\end{eqnarray} $$
+
+```{r}
+#| label: verify-apr-451-example
+#| code-fold: true
+T_hours <- 800
+r_fails <- 2
+MTBF_hat <- T_hours / r_fails
+
+lower_90 <- 2 * T_hours / qchisq(0.95, 6)
+upper_90 <- 2 * T_hours / qchisq(0.05, 4)
+
+tibble(Statistic = c("MTBF estimate", "90% CI Lower", "90% CI Upper"), Value = c(round(MTBF_hat), round(lower_90), round(upper_90))) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported 90% confidence interval (127, 2251) exactly.
+
+Note that 127 is a 95% lower limit for the true MTBF. The customer is usually only concerned with the lower limit and one-sided lower limits are often used for statements of contractual requirements.
+
+[**Zero fails confidence limit calculation**]{#sec-apr-451-zero-fails}
+
+What could we have said if the system had no failures? For a 95% lower confidence limit on the true MTBF, we either use the 0 failures factor from the 90% confidence interval table and calculate 800 $\times$ 0.3338 = 267, or we use $T / \mbox{ ln } \alpha$ = 800/(ln 0.05) = 267.
+
+```{r}
+#| label: verify-apr-451-zero-fails
+#| code-fold: true
+lower_zero_table <- T_hours * 0.3338
+lower_zero_formula <- T_hours / (-log(0.05))
+
+tibble(Statistic = c("Lower bound (table factor)", "Lower bound (formula)"), Value = round(c(lower_zero_table, lower_zero_formula))) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported zero-fails lower bound (267) exactly.
+
+The analyses in this section can be implemented using both Dataplot code and R code.
+
+#### Power law (Duane) model {#sec-apr-452}
+
+[**The Power Law (Duane) model has been very successful in modeling industrial reliability improvement data**]{#sec-apr-452-overview}
+
+**Brief Review of Power Law Model and Duane Plots**
+
+Recall that the [Power Law is a NHPP](#sec-apr-172) with the expected number of fails, $M(t)$, and the repair rate, $M'(t) = m(t)$, given by:
+
+$$ M(t) = a t^b, \,\,\,\,\, M'(t) = abt^{b-1} = \alpha t ^{-\beta} \, . $$
+
+The parameter $\beta = 1-b$ is called the [Reliability Growth Slope](#sec-apr-192) and typical industry values for growth slopes during reliability improvement tests are in the 0.3 to 0.6 range.
+
+If a system is observed for a fixed time of $T$ hours and failures occur at times $t_1, \, t_2, \, t_3, \, \ldots, \, t_r$ (with the start of the test or observation period being time 0), a [Duane plot](#sec-apr-192) is a plot of $t_i/i$ versus $t_i$ on log-log graph paper. If the data are consistent with a Power Law model, the points in a Duane Plot will roughly follow a straight line with slope $\beta$ and intercept (where $t$ = 1 on the log-log paper) of $\mbox{-log}_{10} \alpha$.
+
+[**MLE's for the Power Law model are given**]{#sec-apr-452-mle}
+
+**Estimates for the Power Law Model**
+
+Computer aided graphical estimates can easily be obtained by doing a regression fit of $Y = \mbox{ ln } \left( t_i / i \right)$ versus $X = \mbox{ ln } t_i$. The slope is the $\beta$ estimate and $e^{\mbox{-intercept}}$ is the $a$ estimate. The estimate of $b$ is 1-$\beta$.
+
+However, better estimates can easily be calculated. These are modified maximum likelihood estimates (corrected to eliminate bias). The formulas are given below for a fixed time of $T$ hours, and $r$ failures occurring at times $t_1, \, t_2, \, t_3, \, \ldots, \, t_r$.
+
+$$ \begin{eqnarray}
+\hat{\beta} & = & 1 - \frac{r-1}{\sum_{i=1}^r \mbox{ ln } \left( \frac{T}{t_i} \right)} , \,\,\, \hat{\alpha} = \frac{r}{T^{1-\hat{\beta}}} \\
+            &   &   \\
+\hat{b} & =  &1 - \hat{\beta} = \frac{r-1}{\sum_{i=1}^r \mbox{ ln } \left( \frac{T}{t_i} \right)} \, .
+\end{eqnarray} $$
+
+[**Approximate confidence bounds for the MTBF at end of test are given**]{#sec-apr-452-confidence}
+
+**Approximate Confidence Bounds for the MTBF at End of Test**
+
+We give an approximate 100(1-$\alpha$)% confidence interval $(M_L, \, M_U)$ for the MTBF at the end of the test. Note that $M_L$ is a 100(1-$\alpha$/2)% one-sided lower confidence bound and $M_U$ is a 100(1-$\alpha$/2)% one-sided upper confidence bound. The formulas are:
+
+$$ \begin{eqnarray}
+M_L & = & \mbox{ MTBF } \,\, \frac{r(r-1)}{\left[ r + \frac{z^2_{1-\alpha/2}}{4} + \sqrt{r \, \frac{z^2_{1-\alpha/2}}{2} + \frac{z^4_{1-\alpha/2}}{16}} \right]^2} \\
+       &    & \\
+       &    & \\
+M_U & = & \mbox{ MTBF } \,\, \frac{r(r-1)}{\left( r - z_{1-\alpha/2} \sqrt{\frac{r}{2}} \right)^2}
+\end{eqnarray} $$
+
+where $z_{1-\alpha/2}$ is the 100(1-$\alpha$/2) percentile point of the standard normal distribution.
+
+**Case Study 1: Reliability Improvement Test Data Continued**
+
+[**Fitting the power law model to case study 1 failure data**]{#sec-apr-452-case-study}
+
+This [case study](#sec-apr-223-case-study) was introduced in section 2, where we did various plots of the data, including a Duane Plot. The case study was [continued](#sec-apr-234-case-study) when we discussed trend tests and verified that significant improvement had taken place. Now we will complete the case study data analysis.
+
+The observed failure times were: 5, 40, 43, 175, 389, 712, 747, 795, 1299 and 1478 hours, with the test ending at 1500 hours. We estimate $\beta$, $a$, and the MTBF at the end of test, along with a 100(1-$\alpha$)% confidence interval for the true MTBF at the end of test (assuming, of course, that the Power Law model holds). The parameters and confidence intervals for the power law model were estimated to be the following.
+
+```{r}
+#| label: verify-apr-452-case-study
+#| code-fold: true
+t_fail <- c(5, 40, 43, 175, 389, 712, 747, 795, 1299, 1478)
+T_test <- 1500
+r <- length(t_fail)
+
+beta_hat <- 1 - (r - 1) / sum(log(T_test / t_fail))
+a_hat <- r / T_test^(1 - beta_hat)
+MTBF_end <- T_test / (r * (1 - beta_hat))
+
+alpha80 <- 0.2
+z80 <- qnorm(1 - alpha80 / 2)
+M_L_80 <- MTBF_end * (r * (r - 1)) / (r + z80^2 / 4 + sqrt(r * z80^2 / 2 + z80^4 / 16))^2
+M_U_80 <- MTBF_end * (r * (r - 1)) / (r - z80 * sqrt(r / 2))^2
+
+tibble(
+  Statistic = c("Beta estimate", "a estimate", "MTBF at end of test", "80% CI Lower", "80% CI Upper", "90% one-sided lower"),
+  Value = c(round(beta_hat, 4), round(a_hat, 4), round(MTBF_end, 3), round(M_L_80, 4), round(M_U_80, 4), round(M_L_80, 4))
+) |>
+  knitr::kable(align = "lr")
+```
+
+> Estimate of $\beta$ = 0.5165
+>
+> Estimate of $a$ = 0.2913
+>
+> Estimate of MTBF at the end of the test = 310.234
+>
+> 80% two-sided confidence interval: (157.7139, 548.5565)
+>
+> 90% one-sided lower confidence limit = 157.7139
+
+The R computation above matches NIST's reported parameter estimates and confidence intervals exactly.
+
+The analyses in this section can be implemented using R code.
+
+#### Exponential law model {#sec-apr-453}
+
+[**Estimates of the parameters of the Exponential Law model can be obtained from either a graphical procedure or maximum likelihood estimation**]{#sec-apr-453-overview}
+
+Recall from [section 1](#sec-apr-173) that the Exponential Law refers to a NHPP process with repair rate
+
+$$ M'(t) = m(t) = \mbox{ exp } (\alpha + \beta t) \, . $$
+
+This model has not been used nearly as much in industrial applications as the Power Law model, and it is more difficult to analyze. Only a brief description will be given here.
+
+Since the expected number of failures is given by
+
+$$ M(t) = (1/\beta) \cdot \mbox{ exp } (\alpha + \beta t) $$
+
+and
+
+$$ \mbox{ln } M(t) = -\alpha \mbox{ ln } \beta + \beta t \, , $$
+
+a plot of the cumulative failures versus time of failure on a log-linear scale should roughly follow a straight line with slope $\beta$. Doing a regression fit of $y = \mbox{ ln (cumulative  failures)}$ versus $x = \mbox{ time of failure}$ will provide estimates of the slope $\beta$ and the intercept $-\alpha \mbox{ ln } \beta$.
+
+Alternatively, maximum likelihood estimates can be obtained from the following pair of equations:
+
+$$ \sum_{i=1}^r t_i + \frac{r}{\beta} - \frac{rT}{1 - e^{-\beta T}} = 0 $$
+
+$$ \alpha = \mbox { ln } \left( \frac{r\beta}{e^{-\beta T} -1} \right) \, . $$
+
+The first equation is non-linear and must be solved iteratively to obtain the maximum likelihood estimate for $\beta$. Then, this estimate is substituted into the second equation to solve for the maximum likelihood estimate for $\alpha$.

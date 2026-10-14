@@ -1,14 +1,14 @@
 chapter,number,title,nist_file,status,verified,book_file,notes
 1. Exploratory Data Analysis,1.1,EDA Introduction,eda/section1/eda1.htm,done,no,,
 1. Exploratory Data Analysis,1.1.1,What is EDA?,eda/section1/eda11.htm,done,no,,
-1. Exploratory Data Analysis,1.1.2,How Does Exploratory Data Analysis differ from Classical Data Analysis?,eda/section1/eda12.htm,done,yes,chapters/01-eda/index.qmd,Reworded as 'EDA versus Classical and Bayesian' (#sec-eda-112)
-1. Exploratory Data Analysis,1.1.2.1,Model,eda/section1/eda121.htm,done,yes,chapters/01-eda/index.qmd,"Heading 'Models' (#sec-eda-1121), below auto-match length threshold"
+1. Exploratory Data Analysis,1.1.2,How Does Exploratory Data Analysis differ from Classical Data Analysis?,eda/section1/eda12.htm,not_started,no,,
+1. Exploratory Data Analysis,1.1.2.1,Model,eda/section1/eda121.htm,not_started,no,,
 1. Exploratory Data Analysis,1.1.2.2,Focus,eda/section1/eda122.htm,done,no,,
 1. Exploratory Data Analysis,1.1.2.3,Techniques,eda/section1/eda123.htm,done,no,,
 1. Exploratory Data Analysis,1.1.2.4,Rigor,eda/section1/eda124.htm,done,no,,
 1. Exploratory Data Analysis,1.1.2.5,Data Treatment,eda/section1/eda125.htm,done,no,,
 1. Exploratory Data Analysis,1.1.2.6,Assumptions,eda/section1/eda126.htm,done,no,,
-1. Exploratory Data Analysis,1.1.3,How Does Exploratory Data Analysis Differ from Summary Analysis?,eda/section1/eda13.htm,done,yes,chapters/01-eda/index.qmd,Reworded as 'EDA versus Summary Analysis' (#sec-eda-113)
+1. Exploratory Data Analysis,1.1.3,How Does Exploratory Data Analysis Differ from Summary Analysis?,eda/section1/eda13.htm,not_started,no,,
 1. Exploratory Data Analysis,1.1.4,What are the EDA Goals?,eda/section1/eda14.htm,done,no,,
 1. Exploratory Data Analysis,1.1.5,The Role of Graphics,eda/section1/eda15.htm,done,no,,
 1. Exploratory Data Analysis,1.1.6,An EDA/Graphics Example,eda/section1/eda16.htm,done,no,,
@@ -26,190 +26,190 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 1. Exploratory Data Analysis,1.3,EDA Techniques,eda/section3/eda3.htm,done,no,,
 1. Exploratory Data Analysis,1.3.1,Introduction,eda/section3/eda31.htm,done,no,,
 1. Exploratory Data Analysis,1.3.2,Analysis Questions,eda/section3/eda32.htm,done,no,,
-1. Exploratory Data Analysis,1.3.3,Graphical Techniques: Alphabetic,eda/section3/eda33.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.1,Autocorrelation Plot,eda/section3/eda331.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.1.1,Autocorrelation Plot: Random Data,eda/section3/eda3311.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.1.2,Autocorrelation Plot: Moderate Autocorrelation,eda/section3/eda3312.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.1.3,Autocorrelation Plot: Strong Autocorrelation and Autoregressive Model,eda/section3/eda3313.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.1.4,Autocorrelation Plot: Sinusoidal Model,eda/section3/eda3314.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.2,Bihistogram,eda/section3/eda332.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.3,Block Plot,eda/section3/eda333.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.4,Bootstrap Plot,eda/section3/eda334.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.5,Box-Cox Linearity Plot,eda/section3/eda335.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.6,Box-Cox Normality Plot,eda/section3/eda336.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.7,Box Plot,eda/section3/eda337.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.8,Complex Demodulation Amplitude Plot,eda/section3/eda338.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.9,Complex Demodulation Phase Plot,eda/section3/eda339.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.10,Contour Plot,eda/section3/eda33a.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.10.1,DOE Contour Plot,eda/section3/eda33a1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.11,DOE Scatter Plot,eda/section3/eda33b.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.12,DOE Mean Plot,eda/section3/eda33c.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.13,DOE Standard Deviation Plot,eda/section3/eda33d.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14,Histogram,eda/section3/eda33e.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.1,Histogram Interpretation: Normal,eda/section3/eda33e1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.2,"Histogram Interpretation: Symmetric, Non-Normal, Short-Tailed",eda/section3/eda33e2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.3,"Histogram Interpretation: Symmetric, Non-Normal, Long-Tailed",eda/section3/eda33e3.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.4,Histogram Interpretation: Symmetric and Bimodal,eda/section3/eda33e4.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.5,Histogram Interpretation: Bimodal Mixture of 2 Normals,eda/section3/eda33e5.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.6,Histogram Interpretation: Skewed (Non-Normal) Right,eda/section3/eda33e6.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.7,Histogram Interpretation: Skewed (Non-Symmetric) Left,eda/section3/eda33e7.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.14.8,Histogram Interpretation: Symmetric with Outlier,eda/section3/eda33e8.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.15,Lag Plot,eda/section3/eda33f.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.15.1,Lag Plot: Random Data,eda/section3/eda33f1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.15.2,Lag Plot: Moderate Autocorrelation,eda/section3/eda33f2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.15.3,Lag Plot: Strong Autocorrelation and Autoregressive Model,eda/section3/eda33f3.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.15.4,Lag Plot: Sinusoidal Models and Outliers,eda/section3/eda33f4.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.16,Linear Correlation Plot,eda/section3/eda33g.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.17,Linear Intercept Plot,eda/section3/eda33h.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.18,Linear Slope Plot,eda/section3/eda33i.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.19,Linear Residual Standard Deviation Plot,eda/section3/eda33j.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.20,Mean Plot,eda/section3/eda33k.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.21,Normal Probability Plot,eda/section3/eda33l.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.21.1,Normal Probability Plot: Normally Distributed Data,eda/section3/eda33l1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.21.2,Normal Probability Plot: Data Have Short Tails,eda/section3/eda33l2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.21.3,Normal Probability Plot: Data Have Long Tails,eda/section3/eda33l3.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.21.4,Normal Probability Plot: Data are Skewed Right,eda/section3/eda33l4.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.22,Probability Plot,eda/section3/eda33m.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.23,Probability Plot Correlation Coefficient Plot,eda/section3/eda33n.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.24,Quantile-Quantile Plot,eda/section3/eda33o.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.25,Run-Sequence Plot,eda/section3/eda33p.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26,Scatter Plot,eda/section3/eda33q.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.1,Scatter Plot: No Relationship,eda/section3/eda33q1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.2,Scatter Plot: Strong Linear (positive correlation) Relationship,eda/section3/eda33q2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.3,Scatter Plot: Strong Linear (negative correlation) Relationship,eda/section3/eda33q3.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.4,Scatter Plot: Exact Linear (positive correlation) Relationship,eda/section3/eda33q4.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.5,Scatter Plot: Quadratic Relationship,eda/section3/eda33q5.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.6,Scatter Plot: Exponential Relationship,eda/section3/eda33q6.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.7,Scatter Plot: Sinusoidal Relationship (damped),eda/section3/eda33q7.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.8,Scatter Plot: Variation of Y Does Not Depend on X (homoscedastic),eda/section3/eda33q8.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.9,Scatter Plot: Variation of Y Does Depend on X (heteroscedastic),eda/section3/eda33q9.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.10,Scatter Plot: Outlier,eda/section3/eda33qa.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.11,Scatterplot Matrix,eda/section3/eda33qb.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.26.12,Conditioning Plot,eda/section3/eda33qc.htm,done,yes,chapters/01-eda/techniques/scatter-plot.qmd,"Heading present (line ~364) but missing its own {#anchor}, so the heading regex didn't match"
-1. Exploratory Data Analysis,1.3.3.27,Spectral Plot,eda/section3/eda33r.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.27.1,Spectral Plot: Random Data,eda/section3/eda33r1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.27.2,Spectral Plot: Strong Autocorrelation and Autoregressive Model,eda/section3/eda33r2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.27.3,Spectral Plot: Sinusoidal Model,eda/section3/eda33r3.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.28,Standard Deviation Plot,eda/section3/eda33s.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.29,Star Plot,eda/section3/eda33t.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.30,Weibull Plot,eda/section3/eda33u.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.31,Youden Plot,eda/section3/eda3331.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.31.1,DOE Youden Plot,eda/section3/eda33311.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.32,4-Plot,eda/section3/eda3332.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.3.33,6-Plot,eda/section3/eda3333.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.4,Graphical Techniques: By Problem Category,eda/section3/eda34.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5,Quantitative Techniques,eda/section3/eda35.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.1,Measures of Location,eda/section3/eda351.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.2,Confidence Limits for the Mean,eda/section3/eda352.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.4,One-Factor ANOVA,eda/section3/eda354.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.5,Multi-factor Analysis of Variance,eda/section3/eda355.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.6,Measures of Scale,eda/section3/eda356.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.7,Bartlett's Test,eda/section3/eda357.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.8,Chi-Square Test for the Standard Deviation,eda/section3/eda358.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.8.1,Data Used for Chi-Square Test for the Standard Deviation,eda/section3/eda3581.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.9,F-Test for Equality of Two Standard Deviations,eda/section3/eda359.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.10,Levene Test for Equality of Variances,eda/section3/eda35a.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.11,Measures of Skewness and Kurtosis,eda/section3/eda35b.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.12,Autocorrelation,eda/section3/eda35c.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.13,Runs Test for Detecting Non-randomness,eda/section3/eda35d.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.14,Anderson-Darling Test,eda/section3/eda35e.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.15,Chi-Square Goodness-of-Fit Test,eda/section3/eda35f.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.16,Kolmogorov-Smirnov Goodness-of-Fit Test,eda/section3/eda35g.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.17,Grubbs' Test for Outliers,eda/section3/eda35h.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.18,Yates Analysis,eda/section3/eda35i.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.18.1,Defining Models and Prediction Equations,eda/section3/eda35i1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.5.18.2,Important Factors,eda/section3/eda35i2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6,Probability Distributions,eda/section3/eda36.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.1,What is a Probability Distribution,eda/section3/eda361.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.2,Related Distributions,eda/section3/eda362.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.3,Families of Distributions,eda/section3/eda363.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.4,Location and Scale Parameters,eda/section3/eda364.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.5,Estimating the Parameters of a Distribution,eda/section3/eda365.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.5.1,Method of Moments,eda/section3/eda3651.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.5.2,Maximum Likelihood,eda/section3/eda3652.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.5.3,Least Squares,eda/section3/eda3653.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.5.4,PPCC and Probability Plots,eda/section3/eda3654.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6,Gallery of Distributions,eda/section3/eda366.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.1,Normal Distribution,eda/section3/eda3661.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.2,Uniform Distribution,eda/section3/eda3662.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.3,Cauchy Distribution,eda/section3/eda3663.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.4,t Distribution,eda/section3/eda3664.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.5,F Distribution,eda/section3/eda3665.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.6,Chi-Square Distribution,eda/section3/eda3666.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.7,Exponential Distribution,eda/section3/eda3667.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.8,Weibull Distribution,eda/section3/eda3668.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.9,Lognormal Distribution,eda/section3/eda3669.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.10,Fatigue Life Distribution,eda/section3/eda366a.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.11,Gamma Distribution,eda/section3/eda366b.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.12,Double Exponential Distribution,eda/section3/eda366c.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.13,Power Normal Distribution,eda/section3/eda366d.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.14,Power Lognormal Distribution,eda/section3/eda366e.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.15,Tukey-Lambda Distribution,eda/section3/eda366f.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.16,Extreme Value Type I Distribution,eda/section3/eda366g.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.17,Beta Distribution,eda/section3/eda366h.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.18,Binomial Distribution,eda/section3/eda366i.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.6.19,Poisson Distribution,eda/section3/eda366j.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.7,Tables for Probability Distributions,eda/section3/eda367.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.7.1,Cumulative Distribution Function of the Standard Normal Distribution,eda/section3/eda3671.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.7.2,Upper Critical Values of the Student's-t Distribution,eda/section3/eda3672.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.7.3,Upper Critical Values of the F Distribution,eda/section3/eda3673.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.7.4,Critical Values of the Chi-Square Distribution,eda/section3/eda3674.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.3.6.7.6,Critical Values of the Normal PPCC Distribution,eda/section3/eda3676.htm,done,yes,,User-confirmed done (2026-09-26)
+1. Exploratory Data Analysis,1.3.3,Graphical Techniques: Alphabetic,eda/section3/eda33.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.1,Autocorrelation Plot,eda/section3/eda331.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.1.1,Autocorrelation Plot: Random Data,eda/section3/eda3311.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.1.2,Autocorrelation Plot: Moderate Autocorrelation,eda/section3/eda3312.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.1.3,Autocorrelation Plot: Strong Autocorrelation and Autoregressive Model,eda/section3/eda3313.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.1.4,Autocorrelation Plot: Sinusoidal Model,eda/section3/eda3314.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.2,Bihistogram,eda/section3/eda332.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.3,Block Plot,eda/section3/eda333.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.4,Bootstrap Plot,eda/section3/eda334.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.5,Box-Cox Linearity Plot,eda/section3/eda335.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.6,Box-Cox Normality Plot,eda/section3/eda336.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.7,Box Plot,eda/section3/eda337.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.8,Complex Demodulation Amplitude Plot,eda/section3/eda338.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.9,Complex Demodulation Phase Plot,eda/section3/eda339.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.10,Contour Plot,eda/section3/eda33a.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.10.1,DOE Contour Plot,eda/section3/eda33a1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.11,DOE Scatter Plot,eda/section3/eda33b.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.12,DOE Mean Plot,eda/section3/eda33c.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.13,DOE Standard Deviation Plot,eda/section3/eda33d.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14,Histogram,eda/section3/eda33e.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.1,Histogram Interpretation: Normal,eda/section3/eda33e1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.2,"Histogram Interpretation: Symmetric, Non-Normal, Short-Tailed",eda/section3/eda33e2.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.3,"Histogram Interpretation: Symmetric, Non-Normal, Long-Tailed",eda/section3/eda33e3.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.4,Histogram Interpretation: Symmetric and Bimodal,eda/section3/eda33e4.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.5,Histogram Interpretation: Bimodal Mixture of 2 Normals,eda/section3/eda33e5.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.6,Histogram Interpretation: Skewed (Non-Normal) Right,eda/section3/eda33e6.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.7,Histogram Interpretation: Skewed (Non-Symmetric) Left,eda/section3/eda33e7.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.14.8,Histogram Interpretation: Symmetric with Outlier,eda/section3/eda33e8.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.15,Lag Plot,eda/section3/eda33f.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.15.1,Lag Plot: Random Data,eda/section3/eda33f1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.15.2,Lag Plot: Moderate Autocorrelation,eda/section3/eda33f2.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.15.3,Lag Plot: Strong Autocorrelation and Autoregressive Model,eda/section3/eda33f3.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.15.4,Lag Plot: Sinusoidal Models and Outliers,eda/section3/eda33f4.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.16,Linear Correlation Plot,eda/section3/eda33g.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.17,Linear Intercept Plot,eda/section3/eda33h.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.18,Linear Slope Plot,eda/section3/eda33i.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.19,Linear Residual Standard Deviation Plot,eda/section3/eda33j.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.20,Mean Plot,eda/section3/eda33k.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.21,Normal Probability Plot,eda/section3/eda33l.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.21.1,Normal Probability Plot: Normally Distributed Data,eda/section3/eda33l1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.21.2,Normal Probability Plot: Data Have Short Tails,eda/section3/eda33l2.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.21.3,Normal Probability Plot: Data Have Long Tails,eda/section3/eda33l3.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.21.4,Normal Probability Plot: Data are Skewed Right,eda/section3/eda33l4.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.22,Probability Plot,eda/section3/eda33m.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.23,Probability Plot Correlation Coefficient Plot,eda/section3/eda33n.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.24,Quantile-Quantile Plot,eda/section3/eda33o.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.25,Run-Sequence Plot,eda/section3/eda33p.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26,Scatter Plot,eda/section3/eda33q.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.1,Scatter Plot: No Relationship,eda/section3/eda33q1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.2,Scatter Plot: Strong Linear (positive correlation) Relationship,eda/section3/eda33q2.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.3,Scatter Plot: Strong Linear (negative correlation) Relationship,eda/section3/eda33q3.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.4,Scatter Plot: Exact Linear (positive correlation) Relationship,eda/section3/eda33q4.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.5,Scatter Plot: Quadratic Relationship,eda/section3/eda33q5.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.6,Scatter Plot: Exponential Relationship,eda/section3/eda33q6.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.7,Scatter Plot: Sinusoidal Relationship (damped),eda/section3/eda33q7.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.8,Scatter Plot: Variation of Y Does Not Depend on X (homoscedastic),eda/section3/eda33q8.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.9,Scatter Plot: Variation of Y Does Depend on X (heteroscedastic),eda/section3/eda33q9.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.10,Scatter Plot: Outlier,eda/section3/eda33qa.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.11,Scatterplot Matrix,eda/section3/eda33qb.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.26.12,Conditioning Plot,eda/section3/eda33qc.htm,not_started,no,,
+1. Exploratory Data Analysis,1.3.3.27,Spectral Plot,eda/section3/eda33r.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.27.1,Spectral Plot: Random Data,eda/section3/eda33r1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.27.2,Spectral Plot: Strong Autocorrelation and Autoregressive Model,eda/section3/eda33r2.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.27.3,Spectral Plot: Sinusoidal Model,eda/section3/eda33r3.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.28,Standard Deviation Plot,eda/section3/eda33s.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.29,Star Plot,eda/section3/eda33t.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.30,Weibull Plot,eda/section3/eda33u.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.31,Youden Plot,eda/section3/eda3331.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.31.1,DOE Youden Plot,eda/section3/eda33311.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.32,4-Plot,eda/section3/eda3332.htm,done,no,,
+1. Exploratory Data Analysis,1.3.3.33,6-Plot,eda/section3/eda3333.htm,done,no,,
+1. Exploratory Data Analysis,1.3.4,Graphical Techniques: By Problem Category,eda/section3/eda34.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5,Quantitative Techniques,eda/section3/eda35.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.1,Measures of Location,eda/section3/eda351.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.2,Confidence Limits for the Mean,eda/section3/eda352.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.4,One-Factor ANOVA,eda/section3/eda354.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.5,Multi-factor Analysis of Variance,eda/section3/eda355.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.6,Measures of Scale,eda/section3/eda356.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.7,Bartlett's Test,eda/section3/eda357.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.8,Chi-Square Test for the Standard Deviation,eda/section3/eda358.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.8.1,Data Used for Chi-Square Test for the Standard Deviation,eda/section3/eda3581.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.9,F-Test for Equality of Two Standard Deviations,eda/section3/eda359.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.10,Levene Test for Equality of Variances,eda/section3/eda35a.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.11,Measures of Skewness and Kurtosis,eda/section3/eda35b.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.12,Autocorrelation,eda/section3/eda35c.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.13,Runs Test for Detecting Non-randomness,eda/section3/eda35d.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.14,Anderson-Darling Test,eda/section3/eda35e.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.15,Chi-Square Goodness-of-Fit Test,eda/section3/eda35f.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.16,Kolmogorov-Smirnov Goodness-of-Fit Test,eda/section3/eda35g.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.17,Grubbs' Test for Outliers,eda/section3/eda35h.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.18,Yates Analysis,eda/section3/eda35i.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.18.1,Defining Models and Prediction Equations,eda/section3/eda35i1.htm,done,no,,
+1. Exploratory Data Analysis,1.3.5.18.2,Important Factors,eda/section3/eda35i2.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6,Probability Distributions,eda/section3/eda36.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.1,What is a Probability Distribution,eda/section3/eda361.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.2,Related Distributions,eda/section3/eda362.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.3,Families of Distributions,eda/section3/eda363.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.4,Location and Scale Parameters,eda/section3/eda364.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.5,Estimating the Parameters of a Distribution,eda/section3/eda365.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.5.1,Method of Moments,eda/section3/eda3651.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.5.2,Maximum Likelihood,eda/section3/eda3652.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.5.3,Least Squares,eda/section3/eda3653.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.5.4,PPCC and Probability Plots,eda/section3/eda3654.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6,Gallery of Distributions,eda/section3/eda366.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.1,Normal Distribution,eda/section3/eda3661.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.2,Uniform Distribution,eda/section3/eda3662.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.3,Cauchy Distribution,eda/section3/eda3663.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.4,t Distribution,eda/section3/eda3664.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.5,F Distribution,eda/section3/eda3665.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.6,Chi-Square Distribution,eda/section3/eda3666.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.7,Exponential Distribution,eda/section3/eda3667.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.8,Weibull Distribution,eda/section3/eda3668.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.9,Lognormal Distribution,eda/section3/eda3669.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.10,Fatigue Life Distribution,eda/section3/eda366a.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.11,Gamma Distribution,eda/section3/eda366b.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.12,Double Exponential Distribution,eda/section3/eda366c.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.13,Power Normal Distribution,eda/section3/eda366d.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.14,Power Lognormal Distribution,eda/section3/eda366e.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.15,Tukey-Lambda Distribution,eda/section3/eda366f.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.16,Extreme Value Type I Distribution,eda/section3/eda366g.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.17,Beta Distribution,eda/section3/eda366h.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.18,Binomial Distribution,eda/section3/eda366i.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.6.19,Poisson Distribution,eda/section3/eda366j.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.7,Tables for Probability Distributions,eda/section3/eda367.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.7.1,Cumulative Distribution Function of the Standard Normal Distribution,eda/section3/eda3671.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.7.2,Upper Critical Values of the Student's-t Distribution,eda/section3/eda3672.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.7.3,Upper Critical Values of the F Distribution,eda/section3/eda3673.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.7.4,Critical Values of the Chi-Square Distribution,eda/section3/eda3674.htm,done,no,,
+1. Exploratory Data Analysis,1.3.6.7.6,Critical Values of the Normal PPCC Distribution,eda/section3/eda3676.htm,done,no,,
 1. Exploratory Data Analysis,1.4,EDA Case Studies,eda/section4/eda4.htm,done,no,,
 1. Exploratory Data Analysis,1.4.1,Case Studies Introduction,eda/section4/eda41.htm,done,no,,
-1. Exploratory Data Analysis,1.4.2,Case Studies,eda/section4/eda42.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.1,Normal Random Numbers,eda/section4/eda421.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.1.1,Background and Data,eda/section4/eda4211.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.1.2,Graphical Output and Interpretation,eda/section4/eda4212.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.1.3,Quantitative Output and Interpretation,eda/section4/eda4213.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.1.4,Work This Example Yourself,eda/section4/eda4214.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.2,Uniform Random Numbers,eda/section4/eda422.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.2.1,Background and Data,eda/section4/eda4221.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.2.2,Graphical Output and Interpretation,eda/section4/eda4222.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.2.3,Quantitative Output and Interpretation,eda/section4/eda4223.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.2.4,Work This Example Yourself,eda/section4/eda4224.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.3,Random Walk,eda/section4/eda423.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.3.1,Background and Data,eda/section4/eda4231.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.3.2,Test Underlying Assumptions,eda/section4/eda4232.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.3.3,Develop A Better Model,eda/section4/eda4233.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.3.4,Validate New Model,eda/section4/eda4234.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.3.5,Work This Example Yourself,eda/section4/eda4235.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.4,Josephson Junction Cryothermometry,eda/section4/eda424.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.4.1,Background and Data,eda/section4/eda4241.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.4.2,Graphical Output and Interpretation,eda/section4/eda4242.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.4.3,Quantitative Output and Interpretation,eda/section4/eda4243.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.4.4,Work This Example Yourself,eda/section4/eda4244.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.5,Beam Deflections,eda/section4/eda425.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.5.1,Background and Data,eda/section4/eda4251.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.5.2,Test Underlying Assumptions,eda/section4/eda4252.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.5.3,Develop a Better Model,eda/section4/eda4253.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.5.4,Validate New Model,eda/section4/eda4254.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.5.5,Work This Example Yourself,eda/section4/eda4255.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.6,Filter Transmittance,eda/section4/eda426.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.6.1,Background and Data,eda/section4/eda4261.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.6.2,Graphical Output and Interpretation,eda/section4/eda4262.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.6.3,Quantitative Output and Interpretation,eda/section4/eda4263.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.6.4,Work This Example Yourself,eda/section4/eda4264.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.7,Standard Resistor,eda/section4/eda427.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.7.1,Background and Data,eda/section4/eda4271.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.7.2,Graphical Output and Interpretation,eda/section4/eda4272.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.7.3,Quantitative Output and Interpretation,eda/section4/eda4273.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.7.4,Work This Example Yourself,eda/section4/eda4274.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.8,Heat Flow Meter 1,eda/section4/eda428.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.8.1,Background and Data,eda/section4/eda4281.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.8.2,Graphical Output and Interpretation,eda/section4/eda4282.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.8.3,Quantitative Output and Interpretation,eda/section4/eda4283.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.8.4,Work This Example Yourself,eda/section4/eda4284.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.9,Fatigue Life of Aluminum Alloy Specimens,eda/section4/eda429.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.9.1,Background and Data,eda/section4/eda4291.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.9.2,Graphical Output and Interpretation,eda/section4/eda4292.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10,Ceramic Strength,eda/section4/eda42a.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10.1,Background and Data,eda/section4/eda42a1.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10.2,Analysis of the Response Variable,eda/section4/eda42a2.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10.3,Analysis of the Batch Effect,eda/section4/eda42a3.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10.4,Analysis of the Lab Effect,eda/section4/eda42a4.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10.5,Analysis of Primary Factors,eda/section4/eda42a5.htm,done,yes,,User-confirmed done (2026-09-26)
-1. Exploratory Data Analysis,1.4.2.10.6,Work This Example Yourself,eda/section4/eda42a6.htm,done,yes,,User-confirmed done (2026-09-26)
+1. Exploratory Data Analysis,1.4.2,Case Studies,eda/section4/eda42.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.1,Normal Random Numbers,eda/section4/eda421.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.1.1,Background and Data,eda/section4/eda4211.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.1.2,Graphical Output and Interpretation,eda/section4/eda4212.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.1.3,Quantitative Output and Interpretation,eda/section4/eda4213.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.1.4,Work This Example Yourself,eda/section4/eda4214.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.2,Uniform Random Numbers,eda/section4/eda422.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.2.1,Background and Data,eda/section4/eda4221.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.2.2,Graphical Output and Interpretation,eda/section4/eda4222.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.2.3,Quantitative Output and Interpretation,eda/section4/eda4223.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.2.4,Work This Example Yourself,eda/section4/eda4224.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.3,Random Walk,eda/section4/eda423.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.3.1,Background and Data,eda/section4/eda4231.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.3.2,Test Underlying Assumptions,eda/section4/eda4232.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.3.3,Develop A Better Model,eda/section4/eda4233.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.3.4,Validate New Model,eda/section4/eda4234.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.3.5,Work This Example Yourself,eda/section4/eda4235.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.4,Josephson Junction Cryothermometry,eda/section4/eda424.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.4.1,Background and Data,eda/section4/eda4241.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.4.2,Graphical Output and Interpretation,eda/section4/eda4242.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.4.3,Quantitative Output and Interpretation,eda/section4/eda4243.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.4.4,Work This Example Yourself,eda/section4/eda4244.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.5,Beam Deflections,eda/section4/eda425.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.5.1,Background and Data,eda/section4/eda4251.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.5.2,Test Underlying Assumptions,eda/section4/eda4252.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.5.3,Develop a Better Model,eda/section4/eda4253.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.5.4,Validate New Model,eda/section4/eda4254.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.5.5,Work This Example Yourself,eda/section4/eda4255.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.6,Filter Transmittance,eda/section4/eda426.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.6.1,Background and Data,eda/section4/eda4261.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.6.2,Graphical Output and Interpretation,eda/section4/eda4262.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.6.3,Quantitative Output and Interpretation,eda/section4/eda4263.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.6.4,Work This Example Yourself,eda/section4/eda4264.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.7,Standard Resistor,eda/section4/eda427.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.7.1,Background and Data,eda/section4/eda4271.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.7.2,Graphical Output and Interpretation,eda/section4/eda4272.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.7.3,Quantitative Output and Interpretation,eda/section4/eda4273.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.7.4,Work This Example Yourself,eda/section4/eda4274.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.8,Heat Flow Meter 1,eda/section4/eda428.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.8.1,Background and Data,eda/section4/eda4281.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.8.2,Graphical Output and Interpretation,eda/section4/eda4282.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.8.3,Quantitative Output and Interpretation,eda/section4/eda4283.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.8.4,Work This Example Yourself,eda/section4/eda4284.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.9,Fatigue Life of Aluminum Alloy Specimens,eda/section4/eda429.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.9.1,Background and Data,eda/section4/eda4291.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.9.2,Graphical Output and Interpretation,eda/section4/eda4292.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10,Ceramic Strength,eda/section4/eda42a.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10.1,Background and Data,eda/section4/eda42a1.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10.2,Analysis of the Response Variable,eda/section4/eda42a2.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10.3,Analysis of the Batch Effect,eda/section4/eda42a3.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10.4,Analysis of the Lab Effect,eda/section4/eda42a4.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10.5,Analysis of Primary Factors,eda/section4/eda42a5.htm,done,no,,
+1. Exploratory Data Analysis,1.4.2.10.6,Work This Example Yourself,eda/section4/eda42a6.htm,done,no,,
 1. Exploratory Data Analysis,1.4.3,References For Chapter 1: Exploratory Data Analysis,eda/section4/eda43.htm,skipped,no,,
 2. Measurement Process Characterization,2.1,Characterization,mpc/section1/mpc1.htm,done,no,,
 2. Measurement Process Characterization,2.1.1,What are the issues for characterization?,mpc/section1/mpc11.htm,done,no,,
@@ -466,489 +466,487 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 3. Production Process Characterization,3.5.2.5,Final Conclusions,ppc/section5/ppc525.htm,done,no,,
 3. Production Process Characterization,3.5.2.6,Work This Example Yourself,ppc/section5/ppc526.htm,done,no,,
 3. Production Process Characterization,3.6,References,ppc/section6/ppc6.htm,skipped,no,,
-4. Process Modeling,4.1,Introduction to Process Modeling,pmd/section1/pmd1.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.1,What is process modeling?,pmd/section1/pmd11.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.2,What terminology do statisticians use to describe process models?,pmd/section1/pmd12.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.3,What are process models used for?,pmd/section1/pmd13.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.3.1,Estimation,pmd/section1/pmd131.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.3.2,Prediction,pmd/section1/pmd132.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.3.3,Calibration,pmd/section1/pmd133.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.3.4,Optimization,pmd/section1/pmd134.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.4,What are some of the different statistical methods for model building?,pmd/section1/pmd14.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.4.1,Linear Least Squares Regression,pmd/section1/pmd141.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.4.2,Nonlinear Least Squares Regression,pmd/section1/pmd142.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.4.3,Weighted Least Squares Regression,pmd/section1/pmd143.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.1.4.4,LOESS (aka LOWESS),pmd/section1/pmd144.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2,Underlying Assumptions for Process Modeling,pmd/section2/pmd2.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2.1,What are the typical underlying assumptions in process modeling?,pmd/section2/pmd21.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2.1.2,The means of the random errors are zero.,pmd/section2/pmd212.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2.1.3,The random errors have a constant standard deviation.,pmd/section2/pmd213.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2.1.4,The random errors follow a normal distribution.,pmd/section2/pmd214.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2.1.5,The data are randomly sampled from the process.,pmd/section2/pmd215.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.2.1.6,The explanatory variables are observed without error.,pmd/section2/pmd216.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.3,Data Collection for Process Modeling,pmd/section3/pmd3.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.3.1,What is design of experiments (DOE)?,pmd/section3/pmd31.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.3.2,Why is experimental design important for process modeling?,pmd/section3/pmd32.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.3.3,What are some general design principles for process modeling?,pmd/section3/pmd33.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.3.4,"I've heard some people refer to ""optimal"" designs, shouldn't I use those?",pmd/section3/pmd34.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.3.5,How can I tell if a particular experimental design is good for my application?,pmd/section3/pmd35.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4,Data Analysis for Process Modeling,pmd/section4/pmd4.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.1,What are the basic steps for developing an effective process model?,pmd/section4/pmd41.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.2,How do I select a function to describe my process?,pmd/section4/pmd42.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.2.1,Incorporating Scientific Knowledge into Function Selection,pmd/section4/pmd421.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.2.2,Using the Data to Select an Appropriate Function,pmd/section4/pmd422.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.2.3,Using Methods that Do Not Require Function Specification,pmd/section4/pmd423.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.3,How are estimates of the unknown parameters obtained?,pmd/section4/pmd43.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.3.1,Least Squares,pmd/section4/pmd431.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.3.2,Weighted Least Squares,pmd/section4/pmd432.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4,How can I tell if a model fits my data?,pmd/section4/pmd44.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.1,How can I assess the sufficiency of the functional part of the model?,pmd/section4/pmd441.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.2,How can I detect non-constant variation across the data?,pmd/section4/pmd442.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.3,How can I tell if there was drift in the measurement process?,pmd/section4/pmd443.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.4,How can I assess whether the random errors are independent from one to the next?,pmd/section4/pmd444.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.5,How can I test whether or not the random errors are distributed normally?,pmd/section4/pmd445.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.6,How can I test whether any significant terms are missing or misspecified in the functional part of the model?,pmd/section4/pmd446.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.4.7,How can I test whether all of the terms in the functional part of the model are necessary?,pmd/section4/pmd447.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.5,"If my current model does not fit the data well, how can I improve it?",pmd/section4/pmd45.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.5.1,Updating the Function Based on Residual Plots,pmd/section4/pmd451.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.5.2,Accounting for Non-Constant Variation Across the Data,pmd/section4/pmd452.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.4.5.3,Accounting for Errors with a Non-Normal Distribution,pmd/section4/pmd453.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.5,Use and Interpretation of Process Models,pmd/section5/pmd5.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.5.1,What types of predictions can I make using the model?,pmd/section5/pmd51.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.5.1.1,How do I estimate the average response for a particular set of predictor variable values?,pmd/section5/pmd511.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.5.1.2,How can I predict the value and and estimate the uncertainty of a single response?,pmd/section5/pmd512.htm,done,yes,,"NIST title has a duplicated 'and and' typo; book heading omits it, so exact/substring match fails"
-4. Process Modeling,4.5.2,How can I use my process model for calibration?,pmd/section5/pmd52.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.5.2.1,Single-Use Calibration Intervals,pmd/section5/pmd521.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.5.3,How can I optimize my process using the process model?,pmd/section5/pmd53.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6,Case Studies in Process Modeling,pmd/section6/pmd6.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1,Load Cell Calibration,pmd/section6/pmd61.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.1,Background & Data,pmd/section6/pmd611.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.2,Selection of Initial Model,pmd/section6/pmd612.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.3,Model Fitting - Initial Model,pmd/section6/pmd613.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.4,Graphical Residual Analysis - Initial Model,pmd/section6/pmd614.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.5,Interpretation of Numerical Output - Initial Model,pmd/section6/pmd615.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.6,Model Refinement,pmd/section6/pmd616.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.7,Model Fitting - Model #2,pmd/section6/pmd617.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.8,Graphical Residual Analysis - Model #2,pmd/section6/pmd618.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.9,Interpretation of Numerical Output - Model #2,pmd/section6/pmd619.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.10,Use of the Model for Calibration,pmd/section6/pmd61a.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.1.11,Work This Example Yourself,pmd/section6/pmd61b.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.2,Alaska Pipeline,pmd/section6/pmd62.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.2.1,Background and Data,pmd/section6/pmd621.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.2.2,Check for Batch Effect,pmd/section6/pmd622.htm,done,yes,chapters/04-pmd/case-studies/alaska-pipeline/batch-effect.qmd,Reworded as 'Check for a Batch Effect'
-4. Process Modeling,4.6.2.3,Initial Linear Fit,pmd/section6/pmd623.htm,done,yes,chapters/04-pmd/case-studies/alaska-pipeline/initial-fit.qmd,Reworded as 'Fit Initial Model'
-4. Process Modeling,4.6.2.4,Transformations to Improve Fit and Equalize Variances,pmd/section6/pmd624.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.2.5,Weighting to Improve Fit,pmd/section6/pmd625.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.2.6,Compare the Fits,pmd/section6/pmd626.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.2.7,Work This Example Yourself,pmd/section6/pmd627.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3,Ultrasonic Reference Block Study,pmd/section6/pmd63.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3.1,Background and Data,pmd/section6/pmd631.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3.2,Initial Non-Linear Fit,pmd/section6/pmd632.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3.3,Transformations to Improve Fit,pmd/section6/pmd633.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3.4,Weighting to Improve Fit,pmd/section6/pmd634.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3.5,Compare the Fits,pmd/section6/pmd635.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.3.6,Work This Example Yourself,pmd/section6/pmd636.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4,Thermal Expansion of Copper Case Study,pmd/section6/pmd64.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4.1,Background and Data,pmd/section6/pmd641.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4.2,Rational Function Models,pmd/section6/pmd642.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4.3,Initial Plot of Data,pmd/section6/pmd643.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4.4,Quadratic/Quadratic Rational Function Model,pmd/section6/pmd644.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4.5,Cubic/Cubic Rational Function Model,pmd/section6/pmd645.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.6.4.6,Work This Example Yourself,pmd/section6/pmd646.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.7,References For Chapter 4: Process Modeling,pmd/section7/pmd7.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8,Some Useful Functions for Process Modeling,pmd/section8/pmd8.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1,Univariate Functions,pmd/section8/pmd81.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.1,Polynomial Functions,pmd/section8/pmd811.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.1.1,Straight Line,pmd/section8/pmd8111.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.1.2,Quadratic Polynomial,pmd/section8/pmd8112.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.1.3,Cubic Polynomial,pmd/section8/pmd8113.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2,Rational Functions,pmd/section8/pmd812.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.1,Constant / Linear Rational Function,pmd/section8/pmd8121.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.2,Linear / Linear Rational Function,pmd/section8/pmd8122.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.3,Linear / Quadratic Rational Function,pmd/section8/pmd8123.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.4,Quadratic / Linear Rational Function,pmd/section8/pmd8124.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.5,Quadratic / Quadratic Rational Function,pmd/section8/pmd8125.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.6,Cubic / Linear Rational Function,pmd/section8/pmd8126.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.7,Cubic / Quadratic Rational Function,pmd/section8/pmd8127.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.8,Linear / Cubic Rational Function,pmd/section8/pmd8128.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.9,Quadratic / Cubic Rational Function,pmd/section8/pmd8129.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.10,Cubic / Cubic Rational Function,pmd/section8/pmd812a.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-4. Process Modeling,4.8.1.2.11,Determining m and n for Rational Function Models,pmd/section8/pmd812b.htm,done,yes,,Verified complete during Chapter 4 migration session (2026-09-26)
-5. Process Improvement,5.1,Introduction,pri/section1/pri1.htm,done,yes,chapters/05-pri/introduction/index.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.1.1,What is experimental design?,pri/section1/pri11.htm,done,yes,chapters/05-pri/introduction/what-is-experimental-design.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.1.2,What are the uses of DOE?,pri/section1/pri12.htm,done,yes,chapters/05-pri/introduction/uses-overview.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.1.3,What are the steps of DOE?,pri/section1/pri13.htm,done,yes,chapters/05-pri/introduction/steps.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.2,Assumptions,pri/section2/pri2.htm,done,yes,chapters/05-pri/assumptions/index.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.2.1,Is the measurement system capable?,pri/section2/pri21.htm,done,yes,chapters/05-pri/assumptions/measurement-system.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.2.2,Is the process stable?,pri/section2/pri22.htm,done,yes,chapters/05-pri/assumptions/process-stability.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.2.3,Is there a simple model?,pri/section2/pri23.htm,done,yes,chapters/05-pri/assumptions/simple-model.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.2.4,Are the model residuals well-behaved?,pri/section2/pri24.htm,done,yes,chapters/05-pri/assumptions/residuals.qmd,Drafted and reviewed 2026-09-26
-5. Process Improvement,5.3,Choosing an experimental design,pri/section3/pri3.htm,done,yes,chapters/05-pri/choosing-design/index.qmd,
-5. Process Improvement,5.3.1,What are the objectives?,pri/section3/pri31.htm,done,yes,chapters/05-pri/choosing-design/objectives.qmd,
-5. Process Improvement,5.3.2,How do you select and scale the process variables?,pri/section3/pri32.htm,done,yes,chapters/05-pri/choosing-design/process-variables.qmd,
-5. Process Improvement,5.3.3,How do you select an experimental design?,pri/section3/pri33.htm,done,yes,chapters/05-pri/choosing-design/index.qmd,
-5. Process Improvement,5.3.3.1,Completely randomized designs,pri/section3/pri331.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/completely-randomized.qmd,
-5. Process Improvement,5.3.3.2,Randomized block designs,pri/section3/pri332.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/randomized-block.qmd,
-5. Process Improvement,5.3.3.2.1,Latin square and related designs,pri/section3/pri3321.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/latin-square.qmd,
-5. Process Improvement,5.3.3.2.2,Graeco-Latin square designs,pri/section3/pri3322.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/graeco-latin-square.qmd,
-5. Process Improvement,5.3.3.2.3,Hyper-Graeco-Latin square designs,pri/section3/pri3323.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/hyper-graeco-latin-square.qmd,
-5. Process Improvement,5.3.3.3,Full factorial designs,pri/section3/pri333.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/full-factorial.qmd,
-5. Process Improvement,5.3.3.3.1,Two-level full factorial designs,pri/section3/pri3331.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/two-level-full-factorial.qmd,
-5. Process Improvement,5.3.3.3.2,Full factorial example,pri/section3/pri3332.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/full-factorial-example.qmd,
-5. Process Improvement,5.3.3.3.3,Blocking of full factorial designs,pri/section3/pri3333.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/blocking-full-factorial.qmd,
-5. Process Improvement,5.3.3.4,Fractional factorial designs,pri/section3/pri334.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/fractional-factorial.qmd,
-5. Process Improvement,5.3.3.4.1,A 2^3-1 design (half of a 2^3),pri/section3/pri3341.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/half-fraction.qmd,
-5. Process Improvement,5.3.3.4.2,Constructing the 2^3-1 half-fraction design,pri/section3/pri3342.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/constructing-half-fraction.qmd,
-5. Process Improvement,5.3.3.4.3,Confounding (also called aliasing),pri/section3/pri3343.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/confounding.qmd,
-5. Process Improvement,5.3.3.4.4,Fractional factorial design specifications and design resolution,pri/section3/pri3344.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/design-resolution.qmd,
-5. Process Improvement,5.3.3.4.5,Use of fractional factorial designs,pri/section3/pri3345.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/use-of-fractional-factorial.qmd,
-5. Process Improvement,5.3.3.4.6,Screening designs,pri/section3/pri3346.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/screening-designs.qmd,
-5. Process Improvement,5.3.3.4.7,Summary tables of useful fractional factorial designs,pri/section3/pri3347.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/summary-tables.qmd,
-5. Process Improvement,5.3.3.5,Plackett-Burman designs,pri/section3/pri335.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/plackett-burman.qmd,
-5. Process Improvement,5.3.3.6,Response surface designs,pri/section3/pri336.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/response-surface-designs.qmd,
-5. Process Improvement,5.3.3.6.1,Central Composite Designs (CCD),pri/section3/pri3361.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/central-composite.qmd,
-5. Process Improvement,5.3.3.6.2,Box-Behnken designs,pri/section3/pri3362.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/box-behnken.qmd,
-5. Process Improvement,5.3.3.6.3,Comparisons of response surface designs,pri/section3/pri3363.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/response-surface-comparisons.qmd,
-5. Process Improvement,5.3.3.6.4,Blocking a response surface design,pri/section3/pri3364.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/blocking-response-surface.qmd,
-5. Process Improvement,5.3.3.7,Adding centerpoints,pri/section3/pri337.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/adding-centerpoints.qmd,
-5. Process Improvement,5.3.3.8,Improving fractional factorial design resolution,pri/section3/pri338.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/improving-resolution.qmd,
-5. Process Improvement,5.3.3.8.1,Mirror-Image foldover designs,pri/section3/pri3381.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/mirror-image-foldover.qmd,
-5. Process Improvement,5.3.3.8.2,Alternative foldover designs,pri/section3/pri3382.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/alternative-foldover.qmd,
-5. Process Improvement,5.3.3.9,Three-level full factorial designs,pri/section3/pri339.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/three-level-full-factorial.qmd,
-5. Process Improvement,5.3.3.10,"Three-level, mixed-level and fractional factorial designs",pri/section3/pri33a.htm,done,yes,chapters/05-pri/choosing-design/selecting-design/mixed-level-designs.qmd,
-5. Process Improvement,5.4,Analysis of DOE data,pri/section4/pri4.htm,not_started,no,,
-5. Process Improvement,5.4.1,What are the steps in a DOE analysis?,pri/section4/pri41.htm,not_started,no,,
-5. Process Improvement,5.4.2,"How to ""look"" at DOE data",pri/section4/pri42.htm,not_started,no,,
-5. Process Improvement,5.4.3,How to model DOE data,pri/section4/pri43.htm,not_started,no,,
-5. Process Improvement,5.4.4,How to test and revise DOE models,pri/section4/pri44.htm,not_started,no,,
-5. Process Improvement,5.4.5,How to interpret DOE results,pri/section4/pri45.htm,not_started,no,,
-5. Process Improvement,5.4.6,How to confirm DOE results (confirmatory runs),pri/section4/pri46.htm,not_started,no,,
+4. Process Modeling,4.1,Introduction to Process Modeling,pmd/section1/pmd1.htm,done,no,,
+4. Process Modeling,4.1.1,What is process modeling?,pmd/section1/pmd11.htm,done,no,,
+4. Process Modeling,4.1.2,What terminology do statisticians use to describe process models?,pmd/section1/pmd12.htm,done,no,,
+4. Process Modeling,4.1.3,What are process models used for?,pmd/section1/pmd13.htm,done,no,,
+4. Process Modeling,4.1.3.1,Estimation,pmd/section1/pmd131.htm,done,no,,
+4. Process Modeling,4.1.3.2,Prediction,pmd/section1/pmd132.htm,done,no,,
+4. Process Modeling,4.1.3.3,Calibration,pmd/section1/pmd133.htm,done,no,,
+4. Process Modeling,4.1.3.4,Optimization,pmd/section1/pmd134.htm,done,no,,
+4. Process Modeling,4.1.4,What are some of the different statistical methods for model building?,pmd/section1/pmd14.htm,done,no,,
+4. Process Modeling,4.1.4.1,Linear Least Squares Regression,pmd/section1/pmd141.htm,done,no,,
+4. Process Modeling,4.1.4.2,Nonlinear Least Squares Regression,pmd/section1/pmd142.htm,done,no,,
+4. Process Modeling,4.1.4.3,Weighted Least Squares Regression,pmd/section1/pmd143.htm,done,no,,
+4. Process Modeling,4.1.4.4,LOESS (aka LOWESS),pmd/section1/pmd144.htm,done,no,,
+4. Process Modeling,4.2,Underlying Assumptions for Process Modeling,pmd/section2/pmd2.htm,done,no,,
+4. Process Modeling,4.2.1,What are the typical underlying assumptions in process modeling?,pmd/section2/pmd21.htm,done,no,,
+4. Process Modeling,4.2.1.2,The means of the random errors are zero.,pmd/section2/pmd212.htm,done,no,,
+4. Process Modeling,4.2.1.3,The random errors have a constant standard deviation.,pmd/section2/pmd213.htm,done,no,,
+4. Process Modeling,4.2.1.4,The random errors follow a normal distribution.,pmd/section2/pmd214.htm,done,no,,
+4. Process Modeling,4.2.1.5,The data are randomly sampled from the process.,pmd/section2/pmd215.htm,done,no,,
+4. Process Modeling,4.2.1.6,The explanatory variables are observed without error.,pmd/section2/pmd216.htm,done,no,,
+4. Process Modeling,4.3,Data Collection for Process Modeling,pmd/section3/pmd3.htm,done,no,,
+4. Process Modeling,4.3.1,What is design of experiments (DOE)?,pmd/section3/pmd31.htm,done,no,,
+4. Process Modeling,4.3.2,Why is experimental design important for process modeling?,pmd/section3/pmd32.htm,done,no,,
+4. Process Modeling,4.3.3,What are some general design principles for process modeling?,pmd/section3/pmd33.htm,done,no,,
+4. Process Modeling,4.3.4,"I've heard some people refer to ""optimal"" designs, shouldn't I use those?",pmd/section3/pmd34.htm,done,no,,
+4. Process Modeling,4.3.5,How can I tell if a particular experimental design is good for my application?,pmd/section3/pmd35.htm,done,no,,
+4. Process Modeling,4.4,Data Analysis for Process Modeling,pmd/section4/pmd4.htm,done,no,,
+4. Process Modeling,4.4.1,What are the basic steps for developing an effective process model?,pmd/section4/pmd41.htm,done,no,,
+4. Process Modeling,4.4.2,How do I select a function to describe my process?,pmd/section4/pmd42.htm,done,no,,
+4. Process Modeling,4.4.2.1,Incorporating Scientific Knowledge into Function Selection,pmd/section4/pmd421.htm,done,no,,
+4. Process Modeling,4.4.2.2,Using the Data to Select an Appropriate Function,pmd/section4/pmd422.htm,done,no,,
+4. Process Modeling,4.4.2.3,Using Methods that Do Not Require Function Specification,pmd/section4/pmd423.htm,done,no,,
+4. Process Modeling,4.4.3,How are estimates of the unknown parameters obtained?,pmd/section4/pmd43.htm,done,no,,
+4. Process Modeling,4.4.3.1,Least Squares,pmd/section4/pmd431.htm,done,no,,
+4. Process Modeling,4.4.3.2,Weighted Least Squares,pmd/section4/pmd432.htm,done,no,,
+4. Process Modeling,4.4.4,How can I tell if a model fits my data?,pmd/section4/pmd44.htm,done,no,,
+4. Process Modeling,4.4.4.1,How can I assess the sufficiency of the functional part of the model?,pmd/section4/pmd441.htm,done,no,,
+4. Process Modeling,4.4.4.2,How can I detect non-constant variation across the data?,pmd/section4/pmd442.htm,done,no,,
+4. Process Modeling,4.4.4.3,How can I tell if there was drift in the measurement process?,pmd/section4/pmd443.htm,done,no,,
+4. Process Modeling,4.4.4.4,How can I assess whether the random errors are independent from one to the next?,pmd/section4/pmd444.htm,done,no,,
+4. Process Modeling,4.4.4.5,How can I test whether or not the random errors are distributed normally?,pmd/section4/pmd445.htm,done,no,,
+4. Process Modeling,4.4.4.6,How can I test whether any significant terms are missing or misspecified in the functional part of the model?,pmd/section4/pmd446.htm,done,no,,
+4. Process Modeling,4.4.4.7,How can I test whether all of the terms in the functional part of the model are necessary?,pmd/section4/pmd447.htm,done,no,,
+4. Process Modeling,4.4.5,"If my current model does not fit the data well, how can I improve it?",pmd/section4/pmd45.htm,done,no,,
+4. Process Modeling,4.4.5.1,Updating the Function Based on Residual Plots,pmd/section4/pmd451.htm,done,no,,
+4. Process Modeling,4.4.5.2,Accounting for Non-Constant Variation Across the Data,pmd/section4/pmd452.htm,done,no,,
+4. Process Modeling,4.4.5.3,Accounting for Errors with a Non-Normal Distribution,pmd/section4/pmd453.htm,done,no,,
+4. Process Modeling,4.5,Use and Interpretation of Process Models,pmd/section5/pmd5.htm,done,no,,
+4. Process Modeling,4.5.1,What types of predictions can I make using the model?,pmd/section5/pmd51.htm,done,no,,
+4. Process Modeling,4.5.1.1,How do I estimate the average response for a particular set of predictor variable values?,pmd/section5/pmd511.htm,done,no,,
+4. Process Modeling,4.5.1.2,How can I predict the value and and estimate the uncertainty of a single response?,pmd/section5/pmd512.htm,not_started,no,,
+4. Process Modeling,4.5.2,How can I use my process model for calibration?,pmd/section5/pmd52.htm,done,no,,
+4. Process Modeling,4.5.2.1,Single-Use Calibration Intervals,pmd/section5/pmd521.htm,done,no,,
+4. Process Modeling,4.5.3,How can I optimize my process using the process model?,pmd/section5/pmd53.htm,done,no,,
+4. Process Modeling,4.6,Case Studies in Process Modeling,pmd/section6/pmd6.htm,done,no,,
+4. Process Modeling,4.6.1,Load Cell Calibration,pmd/section6/pmd61.htm,done,no,,
+4. Process Modeling,4.6.1.1,Background & Data,pmd/section6/pmd611.htm,done,no,,
+4. Process Modeling,4.6.1.2,Selection of Initial Model,pmd/section6/pmd612.htm,done,no,,
+4. Process Modeling,4.6.1.3,Model Fitting - Initial Model,pmd/section6/pmd613.htm,done,no,,
+4. Process Modeling,4.6.1.4,Graphical Residual Analysis - Initial Model,pmd/section6/pmd614.htm,done,no,,
+4. Process Modeling,4.6.1.5,Interpretation of Numerical Output - Initial Model,pmd/section6/pmd615.htm,done,no,,
+4. Process Modeling,4.6.1.6,Model Refinement,pmd/section6/pmd616.htm,done,no,,
+4. Process Modeling,4.6.1.7,Model Fitting - Model #2,pmd/section6/pmd617.htm,done,no,,
+4. Process Modeling,4.6.1.8,Graphical Residual Analysis - Model #2,pmd/section6/pmd618.htm,done,no,,
+4. Process Modeling,4.6.1.9,Interpretation of Numerical Output - Model #2,pmd/section6/pmd619.htm,done,no,,
+4. Process Modeling,4.6.1.10,Use of the Model for Calibration,pmd/section6/pmd61a.htm,done,no,,
+4. Process Modeling,4.6.1.11,Work This Example Yourself,pmd/section6/pmd61b.htm,done,no,,
+4. Process Modeling,4.6.2,Alaska Pipeline,pmd/section6/pmd62.htm,done,no,,
+4. Process Modeling,4.6.2.1,Background and Data,pmd/section6/pmd621.htm,done,no,,
+4. Process Modeling,4.6.2.2,Check for Batch Effect,pmd/section6/pmd622.htm,not_started,no,,
+4. Process Modeling,4.6.2.3,Initial Linear Fit,pmd/section6/pmd623.htm,not_started,no,,
+4. Process Modeling,4.6.2.4,Transformations to Improve Fit and Equalize Variances,pmd/section6/pmd624.htm,done,no,,
+4. Process Modeling,4.6.2.5,Weighting to Improve Fit,pmd/section6/pmd625.htm,done,no,,
+4. Process Modeling,4.6.2.6,Compare the Fits,pmd/section6/pmd626.htm,done,no,,
+4. Process Modeling,4.6.2.7,Work This Example Yourself,pmd/section6/pmd627.htm,done,no,,
+4. Process Modeling,4.6.3,Ultrasonic Reference Block Study,pmd/section6/pmd63.htm,done,no,,
+4. Process Modeling,4.6.3.1,Background and Data,pmd/section6/pmd631.htm,done,no,,
+4. Process Modeling,4.6.3.2,Initial Non-Linear Fit,pmd/section6/pmd632.htm,done,no,,
+4. Process Modeling,4.6.3.3,Transformations to Improve Fit,pmd/section6/pmd633.htm,done,no,,
+4. Process Modeling,4.6.3.4,Weighting to Improve Fit,pmd/section6/pmd634.htm,done,no,,
+4. Process Modeling,4.6.3.5,Compare the Fits,pmd/section6/pmd635.htm,done,no,,
+4. Process Modeling,4.6.3.6,Work This Example Yourself,pmd/section6/pmd636.htm,done,no,,
+4. Process Modeling,4.6.4,Thermal Expansion of Copper Case Study,pmd/section6/pmd64.htm,done,no,,
+4. Process Modeling,4.6.4.1,Background and Data,pmd/section6/pmd641.htm,done,no,,
+4. Process Modeling,4.6.4.2,Rational Function Models,pmd/section6/pmd642.htm,done,no,,
+4. Process Modeling,4.6.4.3,Initial Plot of Data,pmd/section6/pmd643.htm,done,no,,
+4. Process Modeling,4.6.4.4,Quadratic/Quadratic Rational Function Model,pmd/section6/pmd644.htm,done,no,,
+4. Process Modeling,4.6.4.5,Cubic/Cubic Rational Function Model,pmd/section6/pmd645.htm,done,no,,
+4. Process Modeling,4.6.4.6,Work This Example Yourself,pmd/section6/pmd646.htm,done,no,,
+4. Process Modeling,4.7,References For Chapter 4: Process Modeling,pmd/section7/pmd7.htm,done,no,,
+4. Process Modeling,4.8,Some Useful Functions for Process Modeling,pmd/section8/pmd8.htm,done,no,,
+4. Process Modeling,4.8.1,Univariate Functions,pmd/section8/pmd81.htm,done,no,,
+4. Process Modeling,4.8.1.1,Polynomial Functions,pmd/section8/pmd811.htm,done,no,,
+4. Process Modeling,4.8.1.1.1,Straight Line,pmd/section8/pmd8111.htm,done,no,,
+4. Process Modeling,4.8.1.1.2,Quadratic Polynomial,pmd/section8/pmd8112.htm,done,no,,
+4. Process Modeling,4.8.1.1.3,Cubic Polynomial,pmd/section8/pmd8113.htm,done,no,,
+4. Process Modeling,4.8.1.2,Rational Functions,pmd/section8/pmd812.htm,done,no,,
+4. Process Modeling,4.8.1.2.1,Constant / Linear Rational Function,pmd/section8/pmd8121.htm,done,no,,
+4. Process Modeling,4.8.1.2.2,Linear / Linear Rational Function,pmd/section8/pmd8122.htm,done,no,,
+4. Process Modeling,4.8.1.2.3,Linear / Quadratic Rational Function,pmd/section8/pmd8123.htm,done,no,,
+4. Process Modeling,4.8.1.2.4,Quadratic / Linear Rational Function,pmd/section8/pmd8124.htm,done,no,,
+4. Process Modeling,4.8.1.2.5,Quadratic / Quadratic Rational Function,pmd/section8/pmd8125.htm,done,no,,
+4. Process Modeling,4.8.1.2.6,Cubic / Linear Rational Function,pmd/section8/pmd8126.htm,done,no,,
+4. Process Modeling,4.8.1.2.7,Cubic / Quadratic Rational Function,pmd/section8/pmd8127.htm,done,no,,
+4. Process Modeling,4.8.1.2.8,Linear / Cubic Rational Function,pmd/section8/pmd8128.htm,done,no,,
+4. Process Modeling,4.8.1.2.9,Quadratic / Cubic Rational Function,pmd/section8/pmd8129.htm,done,no,,
+4. Process Modeling,4.8.1.2.10,Cubic / Cubic Rational Function,pmd/section8/pmd812a.htm,done,no,,
+4. Process Modeling,4.8.1.2.11,Determining m and n for Rational Function Models,pmd/section8/pmd812b.htm,done,no,,
+5. Process Improvement,5.1,Introduction,pri/section1/pri1.htm,done,no,,
+5. Process Improvement,5.1.1,What is experimental design?,pri/section1/pri11.htm,done,no,,
+5. Process Improvement,5.1.2,What are the uses of DOE?,pri/section1/pri12.htm,done,no,,
+5. Process Improvement,5.1.3,What are the steps of DOE?,pri/section1/pri13.htm,done,no,,
+5. Process Improvement,5.2,Assumptions,pri/section2/pri2.htm,done,no,,
+5. Process Improvement,5.2.1,Is the measurement system capable?,pri/section2/pri21.htm,done,no,,
+5. Process Improvement,5.2.2,Is the process stable?,pri/section2/pri22.htm,done,no,,
+5. Process Improvement,5.2.3,Is there a simple model?,pri/section2/pri23.htm,done,no,,
+5. Process Improvement,5.2.4,Are the model residuals well-behaved?,pri/section2/pri24.htm,done,no,,
+5. Process Improvement,5.3,Choosing an experimental design,pri/section3/pri3.htm,done,no,,
+5. Process Improvement,5.3.1,What are the objectives?,pri/section3/pri31.htm,done,no,,
+5. Process Improvement,5.3.2,How do you select and scale the process variables?,pri/section3/pri32.htm,done,no,,
+5. Process Improvement,5.3.3,How do you select an experimental design?,pri/section3/pri33.htm,done,no,,
+5. Process Improvement,5.3.3.1,Completely randomized designs,pri/section3/pri331.htm,done,no,,
+5. Process Improvement,5.3.3.2,Randomized block designs,pri/section3/pri332.htm,done,no,,
+5. Process Improvement,5.3.3.2.1,Latin square and related designs,pri/section3/pri3321.htm,done,no,,
+5. Process Improvement,5.3.3.2.2,Graeco-Latin square designs,pri/section3/pri3322.htm,done,no,,
+5. Process Improvement,5.3.3.2.3,Hyper-Graeco-Latin square designs,pri/section3/pri3323.htm,done,no,,
+5. Process Improvement,5.3.3.3,Full factorial designs,pri/section3/pri333.htm,done,no,,
+5. Process Improvement,5.3.3.3.1,Two-level full factorial designs,pri/section3/pri3331.htm,done,no,,
+5. Process Improvement,5.3.3.3.2,Full factorial example,pri/section3/pri3332.htm,done,no,,
+5. Process Improvement,5.3.3.3.3,Blocking of full factorial designs,pri/section3/pri3333.htm,done,no,,
+5. Process Improvement,5.3.3.4,Fractional factorial designs,pri/section3/pri334.htm,done,no,,
+5. Process Improvement,5.3.3.4.3,Confounding (also called aliasing),pri/section3/pri3343.htm,done,no,,
+5. Process Improvement,5.3.3.4.4,Fractional factorial design specifications and design resolution,pri/section3/pri3344.htm,done,no,,
+5. Process Improvement,5.3.3.4.5,Use of fractional factorial designs,pri/section3/pri3345.htm,done,no,,
+5. Process Improvement,5.3.3.4.6,Screening designs,pri/section3/pri3346.htm,done,no,,
+5. Process Improvement,5.3.3.4.7,Summary tables of useful fractional factorial designs,pri/section3/pri3347.htm,done,no,,
+5. Process Improvement,5.3.3.5,Plackett-Burman designs,pri/section3/pri335.htm,done,no,,
+5. Process Improvement,5.3.3.6,Response surface designs,pri/section3/pri336.htm,done,no,,
+5. Process Improvement,5.3.3.6.1,Central Composite Designs (CCD),pri/section3/pri3361.htm,done,no,,
+5. Process Improvement,5.3.3.6.2,Box-Behnken designs,pri/section3/pri3362.htm,done,no,,
+5. Process Improvement,5.3.3.6.3,Comparisons of response surface designs,pri/section3/pri3363.htm,done,no,,
+5. Process Improvement,5.3.3.6.4,Blocking a response surface design,pri/section3/pri3364.htm,done,no,,
+5. Process Improvement,5.3.3.7,Adding centerpoints,pri/section3/pri337.htm,done,no,,
+5. Process Improvement,5.3.3.8,Improving fractional factorial design resolution,pri/section3/pri338.htm,done,no,,
+5. Process Improvement,5.3.3.8.1,Mirror-Image foldover designs,pri/section3/pri3381.htm,done,no,,
+5. Process Improvement,5.3.3.8.2,Alternative foldover designs,pri/section3/pri3382.htm,done,no,,
+5. Process Improvement,5.3.3.9,Three-level full factorial designs,pri/section3/pri339.htm,done,no,,
+5. Process Improvement,5.3.3.10,"Three-level, mixed-level and fractional factorial designs",pri/section3/pri33a.htm,done,no,,
+5. Process Improvement,5.4,Analysis of DOE data,pri/section4/pri4.htm,done,no,,
+5. Process Improvement,5.4.1,What are the steps in a DOE analysis?,pri/section4/pri41.htm,done,no,,
+5. Process Improvement,5.4.2,"How to ""look"" at DOE data",pri/section4/pri42.htm,done,no,,
+5. Process Improvement,5.4.3,How to model DOE data,pri/section4/pri43.htm,done,no,,
+5. Process Improvement,5.4.4,How to test and revise DOE models,pri/section4/pri44.htm,done,no,,
+5. Process Improvement,5.4.5,How to interpret DOE results,pri/section4/pri45.htm,done,no,,
+5. Process Improvement,5.4.6,How to confirm DOE results (confirmatory runs),pri/section4/pri46.htm,done,no,,
 5. Process Improvement,5.4.7,Examples of DOE's,pri/section4/pri47.htm,not_started,no,,
-5. Process Improvement,5.4.7.1,Full factorial example,pri/section4/pri471.htm,not_started,no,,
-5. Process Improvement,5.4.7.2,Fractional factorial example,pri/section4/pri472.htm,not_started,no,,
+5. Process Improvement,5.4.7.1,Full factorial example,pri/section4/pri471.htm,done,no,,
+5. Process Improvement,5.4.7.2,Fractional factorial example,pri/section4/pri472.htm,done,no,,
 5. Process Improvement,5.4.7.3,Response surface model example,pri/section4/pri473.htm,not_started,no,,
-5. Process Improvement,5.5,Advanced topics,pri/section5/pri5.htm,not_started,no,,
-5. Process Improvement,5.5.1,What if classical designs don't work?,pri/section5/pri51.htm,not_started,no,,
-5. Process Improvement,5.5.2,What is a computer-aided design?,pri/section5/pri52.htm,not_started,no,,
-5. Process Improvement,5.5.2.1,D-Optimal designs,pri/section5/pri521.htm,not_started,no,,
-5. Process Improvement,5.5.2.2,Repairing a design,pri/section5/pri522.htm,not_started,no,,
-5. Process Improvement,5.5.3,How do you optimize a process?,pri/section5/pri53.htm,not_started,no,,
-5. Process Improvement,5.5.3.1,Single response case,pri/section5/pri531.htm,not_started,no,,
-5. Process Improvement,5.5.3.1.1,Single response: Path of steepest ascent,pri/section5/pri5311.htm,not_started,no,,
-5. Process Improvement,5.5.3.1.2,Single response: Confidence region for search path,pri/section5/pri5312.htm,not_started,no,,
-5. Process Improvement,5.5.3.1.3,Single response: Choosing the step length,pri/section5/pri5313.htm,not_started,no,,
-5. Process Improvement,5.5.3.1.4,Single response: Optimization when there is adequate quadratic fit,pri/section5/pri5314.htm,not_started,no,,
-5. Process Improvement,5.5.3.1.5,Single response: Effect of sampling error on optimal solution,pri/section5/pri5315.htm,not_started,no,,
-5. Process Improvement,5.5.3.1.6,Single response: Optimization subject to experimental region constraints,pri/section5/pri5316.htm,not_started,no,,
-5. Process Improvement,5.5.3.2,Multiple response case,pri/section5/pri532.htm,not_started,no,,
-5. Process Improvement,5.5.3.2.1,Multiple responses: Path of steepest ascent,pri/section5/pri5321.htm,not_started,no,,
-5. Process Improvement,5.5.3.2.2,Multiple responses: The desirability approach,pri/section5/pri5322.htm,not_started,no,,
-5. Process Improvement,5.5.3.2.3,Multiple responses: The mathematical programming approach,pri/section5/pri5323.htm,not_started,no,,
-5. Process Improvement,5.5.4,What is a mixture design?,pri/section5/pri54.htm,not_started,no,,
-5. Process Improvement,5.5.4.1,Mixture screening designs,pri/section5/pri541.htm,not_started,no,,
-5. Process Improvement,5.5.4.2,Simplex-lattice designs,pri/section5/pri542.htm,not_started,no,,
-5. Process Improvement,5.5.4.3,Simplex-centroid designs,pri/section5/pri543.htm,not_started,no,,
-5. Process Improvement,5.5.4.4,Constrained mixture designs,pri/section5/pri544.htm,not_started,no,,
-5. Process Improvement,5.5.4.5,Treating mixture and process variables together,pri/section5/pri545.htm,not_started,no,,
-5. Process Improvement,5.5.5,How can I account for nested variation (restricted randomization)?,pri/section5/pri55.htm,not_started,no,,
-5. Process Improvement,5.5.6,What are Taguchi designs?,pri/section5/pri56.htm,not_started,no,,
-5. Process Improvement,5.5.7,What are John's 3/4 fractional factorial designs?,pri/section5/pri57.htm,not_started,no,,
-5. Process Improvement,5.5.8,What are small composite designs?,pri/section5/pri58.htm,not_started,no,,
-5. Process Improvement,5.5.9,An EDA approach to experimental design,pri/section5/pri59.htm,not_started,no,,
-5. Process Improvement,5.5.9.1,Ordered data plot,pri/section5/pri591.htm,not_started,no,,
-5. Process Improvement,5.5.9.2,DOE scatter plot,pri/section5/pri592.htm,not_started,no,,
-5. Process Improvement,5.5.9.3,DOE mean plot,pri/section5/pri593.htm,not_started,no,,
-5. Process Improvement,5.5.9.4,Interaction effects matrix plot,pri/section5/pri594.htm,not_started,no,,
-5. Process Improvement,5.5.9.5,Block plot,pri/section5/pri595.htm,not_started,no,,
-5. Process Improvement,5.5.9.6,DOE Youden plot,pri/section5/pri596.htm,not_started,no,,
-5. Process Improvement,5.5.9.7,|Effects| plot,pri/section5/pri597.htm,not_started,no,,
-5. Process Improvement,5.5.9.7.1,Statistical significance,pri/section5/pri5971.htm,not_started,no,,
-5. Process Improvement,5.5.9.7.2,Engineering significance,pri/section5/pri5972.htm,not_started,no,,
-5. Process Improvement,5.5.9.7.3,Numerical significance,pri/section5/pri5973.htm,not_started,no,,
-5. Process Improvement,5.5.9.7.4,Pattern significance,pri/section5/pri5974.htm,not_started,no,,
-5. Process Improvement,5.5.9.8,Half-normal probability plot,pri/section5/pri598.htm,not_started,no,,
-5. Process Improvement,5.5.9.9,Cumulative residual standard deviation plot,pri/section5/pri599.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.1,Motivation: What is a Model?,pri/section5/pri5991.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.2,Motivation: How do we Construct a Goodness-of-fit Metric for a Model?,pri/section5/pri5992.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.3,Motivation: How do we Construct a Good Model?,pri/section5/pri5993.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.4,Motivation: How do we Know When to Stop Adding Terms?,pri/section5/pri5994.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.5,Motivation: What is the Form of the Model?,pri/section5/pri5995.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.6,Motivation: What are the Advantages of the LinearCombinatoric Model?,pri/section5/pri5996.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.7,Motivation: How do we use the Model to Generate Predicted Values?,pri/section5/pri5997.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.8,Motivation: How do we Use the Model Beyond the Data Domain?,pri/section5/pri5998.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.9,Motivation: What is the Best Confirmation Point for Interpolation?,pri/section5/pri5999.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.10,Motivation: How do we Use the Model for Interpolation?,pri/section5/pri599a.htm,not_started,no,,
-5. Process Improvement,5.5.9.9.11,Motivation: How do we Use the Model for Extrapolation?,pri/section5/pri599b.htm,not_started,no,,
-5. Process Improvement,5.5.9.10,DOE contour plot,pri/section5/pri59a.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.1,How to Interpret: Axes,pri/section5/pri59a1.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.2,How to Interpret: Contour Curves,pri/section5/pri59a2.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.3,How to Interpret: Optimal Response Value,pri/section5/pri59a3.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.4,How to Interpret: Best Corner,pri/section5/pri59a4.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.5,How to Interpret: Steepest Ascent/Descent,pri/section5/pri59a5.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.6,How to Interpret: Optimal Curve,pri/section5/pri59a6.htm,not_started,no,,
-5. Process Improvement,5.5.9.10.7,How to Interpret: Optimal Setting,pri/section5/pri59a7.htm,not_started,no,,
-5. Process Improvement,5.6,Case Studies,pri/section6/pri6.htm,not_started,no,,
-5. Process Improvement,5.6.1,Eddy Current Probe Sensitivity Case Study,pri/section6/pri61.htm,not_started,no,,
-5. Process Improvement,5.6.1.1,Background and Data,pri/section6/pri611.htm,not_started,no,,
-5. Process Improvement,5.6.1.2,Initial Plots/Main Effects,pri/section6/pri612.htm,not_started,no,,
-5. Process Improvement,5.6.1.3,Interaction Effects,pri/section6/pri613.htm,not_started,no,,
-5. Process Improvement,5.6.1.4,Main and Interaction Effects: Block Plots,pri/section6/pri614.htm,not_started,no,,
-5. Process Improvement,5.6.1.5,Estimate Main and Interaction Effects,pri/section6/pri615.htm,not_started,no,,
-5. Process Improvement,5.6.1.6,Modeling and Prediction Equations,pri/section6/pri616.htm,not_started,no,,
-5. Process Improvement,5.6.1.7,Intermediate Conclusions,pri/section6/pri617.htm,not_started,no,,
-5. Process Improvement,5.6.1.8,Important Factors and Parsimonious Prediction,pri/section6/pri618.htm,not_started,no,,
-5. Process Improvement,5.6.1.9,Validate the Fitted Model,pri/section6/pri619.htm,not_started,no,,
-5. Process Improvement,5.6.1.10,Using the Fitted Model,pri/section6/pri61a.htm,not_started,no,,
-5. Process Improvement,5.6.1.11,Conclusions and Next Step,pri/section6/pri61b.htm,not_started,no,,
-5. Process Improvement,5.6.1.12,Work This Example Yourself,pri/section6/pri61c.htm,not_started,no,,
-5. Process Improvement,5.6.2,Sonoluminescent Light Intensity Case Study,pri/section6/pri62.htm,not_started,no,,
-5. Process Improvement,5.6.2.1,Background and Data,pri/section6/pri621.htm,not_started,no,,
-5. Process Improvement,5.6.2.2,Initial Plots/Main Effects,pri/section6/pri622.htm,not_started,no,,
-5. Process Improvement,5.6.2.3,Interaction Effects,pri/section6/pri623.htm,not_started,no,,
-5. Process Improvement,5.6.2.4,Main and Interaction Effects: Block Plots,pri/section6/pri624.htm,not_started,no,,
-5. Process Improvement,5.6.2.5,Important Factors: Youden Plot,pri/section6/pri625.htm,not_started,no,,
-5. Process Improvement,5.6.2.6,Important Factors: |Effects| Plot,pri/section6/pri626.htm,not_started,no,,
-5. Process Improvement,5.6.2.7,Important Factors: Half-Normal Probability Plot,pri/section6/pri627.htm,not_started,no,,
-5. Process Improvement,5.6.2.8,Cumulative Residual Standard Deviation Plot,pri/section6/pri628.htm,not_started,no,,
-5. Process Improvement,5.6.2.9,Next Step: DOE Contour Plot,pri/section6/pri629.htm,not_started,no,,
-5. Process Improvement,5.6.2.10,Summary of Conclusions,pri/section6/pri62a.htm,not_started,no,,
-5. Process Improvement,5.6.2.11,Work This Example Yourself,pri/section6/pri62b.htm,not_started,no,,
-5. Process Improvement,5.7,A Glossary of DOE Terminology,pri/section7/pri7.htm,not_started,no,,
+5. Process Improvement,5.5,Advanced topics,pri/section5/pri5.htm,done,no,,
+5. Process Improvement,5.5.1,What if classical designs don't work?,pri/section5/pri51.htm,done,no,,
+5. Process Improvement,5.5.2,What is a computer-aided design?,pri/section5/pri52.htm,done,no,,
+5. Process Improvement,5.5.2.1,D-Optimal designs,pri/section5/pri521.htm,done,no,,
+5. Process Improvement,5.5.2.2,Repairing a design,pri/section5/pri522.htm,done,no,,
+5. Process Improvement,5.5.3,How do you optimize a process?,pri/section5/pri53.htm,done,no,,
+5. Process Improvement,5.5.3.1,Single response case,pri/section5/pri531.htm,done,no,,
+5. Process Improvement,5.5.3.1.1,Single response: Path of steepest ascent,pri/section5/pri5311.htm,done,no,,
+5. Process Improvement,5.5.3.1.2,Single response: Confidence region for search path,pri/section5/pri5312.htm,done,no,,
+5. Process Improvement,5.5.3.1.3,Single response: Choosing the step length,pri/section5/pri5313.htm,done,no,,
+5. Process Improvement,5.5.3.1.4,Single response: Optimization when there is adequate quadratic fit,pri/section5/pri5314.htm,done,no,,
+5. Process Improvement,5.5.3.1.5,Single response: Effect of sampling error on optimal solution,pri/section5/pri5315.htm,done,no,,
+5. Process Improvement,5.5.3.1.6,Single response: Optimization subject to experimental region constraints,pri/section5/pri5316.htm,done,no,,
+5. Process Improvement,5.5.3.2,Multiple response case,pri/section5/pri532.htm,done,no,,
+5. Process Improvement,5.5.3.2.1,Multiple responses: Path of steepest ascent,pri/section5/pri5321.htm,done,no,,
+5. Process Improvement,5.5.3.2.2,Multiple responses: The desirability approach,pri/section5/pri5322.htm,done,no,,
+5. Process Improvement,5.5.3.2.3,Multiple responses: The mathematical programming approach,pri/section5/pri5323.htm,done,no,,
+5. Process Improvement,5.5.4,What is a mixture design?,pri/section5/pri54.htm,done,no,,
+5. Process Improvement,5.5.4.1,Mixture screening designs,pri/section5/pri541.htm,done,no,,
+5. Process Improvement,5.5.4.2,Simplex-lattice designs,pri/section5/pri542.htm,done,no,,
+5. Process Improvement,5.5.4.3,Simplex-centroid designs,pri/section5/pri543.htm,done,no,,
+5. Process Improvement,5.5.4.4,Constrained mixture designs,pri/section5/pri544.htm,done,no,,
+5. Process Improvement,5.5.4.5,Treating mixture and process variables together,pri/section5/pri545.htm,done,no,,
+5. Process Improvement,5.5.5,How can I account for nested variation (restricted randomization)?,pri/section5/pri55.htm,done,no,,
+5. Process Improvement,5.5.6,What are Taguchi designs?,pri/section5/pri56.htm,done,no,,
+5. Process Improvement,5.5.7,What are John's 3/4 fractional factorial designs?,pri/section5/pri57.htm,done,no,,
+5. Process Improvement,5.5.8,What are small composite designs?,pri/section5/pri58.htm,done,no,,
+5. Process Improvement,5.5.9,An EDA approach to experimental design,pri/section5/pri59.htm,done,no,,
+5. Process Improvement,5.5.9.1,Ordered data plot,pri/section5/pri591.htm,done,no,,
+5. Process Improvement,5.5.9.2,DOE scatter plot,pri/section5/pri592.htm,done,no,,
+5. Process Improvement,5.5.9.3,DOE mean plot,pri/section5/pri593.htm,done,no,,
+5. Process Improvement,5.5.9.4,Interaction effects matrix plot,pri/section5/pri594.htm,done,no,,
+5. Process Improvement,5.5.9.5,Block plot,pri/section5/pri595.htm,done,no,,
+5. Process Improvement,5.5.9.6,DOE Youden plot,pri/section5/pri596.htm,done,no,,
+5. Process Improvement,5.5.9.7,|Effects| plot,pri/section5/pri597.htm,done,no,,
+5. Process Improvement,5.5.9.7.1,Statistical significance,pri/section5/pri5971.htm,done,no,,
+5. Process Improvement,5.5.9.7.2,Engineering significance,pri/section5/pri5972.htm,done,no,,
+5. Process Improvement,5.5.9.7.3,Numerical significance,pri/section5/pri5973.htm,done,no,,
+5. Process Improvement,5.5.9.7.4,Pattern significance,pri/section5/pri5974.htm,done,no,,
+5. Process Improvement,5.5.9.8,Half-normal probability plot,pri/section5/pri598.htm,done,no,,
+5. Process Improvement,5.5.9.9,Cumulative residual standard deviation plot,pri/section5/pri599.htm,done,no,,
+5. Process Improvement,5.5.9.9.1,Motivation: What is a Model?,pri/section5/pri5991.htm,done,no,,
+5. Process Improvement,5.5.9.9.2,Motivation: How do we Construct a Goodness-of-fit Metric for a Model?,pri/section5/pri5992.htm,done,no,,
+5. Process Improvement,5.5.9.9.3,Motivation: How do we Construct a Good Model?,pri/section5/pri5993.htm,done,no,,
+5. Process Improvement,5.5.9.9.4,Motivation: How do we Know When to Stop Adding Terms?,pri/section5/pri5994.htm,done,no,,
+5. Process Improvement,5.5.9.9.5,Motivation: What is the Form of the Model?,pri/section5/pri5995.htm,done,no,,
+5. Process Improvement,5.5.9.9.6,Motivation: What are the Advantages of the LinearCombinatoric Model?,pri/section5/pri5996.htm,done,no,,
+5. Process Improvement,5.5.9.9.7,Motivation: How do we use the Model to Generate Predicted Values?,pri/section5/pri5997.htm,done,no,,
+5. Process Improvement,5.5.9.9.8,Motivation: How do we Use the Model Beyond the Data Domain?,pri/section5/pri5998.htm,done,no,,
+5. Process Improvement,5.5.9.9.9,Motivation: What is the Best Confirmation Point for Interpolation?,pri/section5/pri5999.htm,done,no,,
+5. Process Improvement,5.5.9.9.10,Motivation: How do we Use the Model for Interpolation?,pri/section5/pri599a.htm,done,no,,
+5. Process Improvement,5.5.9.9.11,Motivation: How do we Use the Model for Extrapolation?,pri/section5/pri599b.htm,done,no,,
+5. Process Improvement,5.5.9.10,DOE contour plot,pri/section5/pri59a.htm,done,no,,
+5. Process Improvement,5.5.9.10.1,How to Interpret: Axes,pri/section5/pri59a1.htm,done,no,,
+5. Process Improvement,5.5.9.10.2,How to Interpret: Contour Curves,pri/section5/pri59a2.htm,done,no,,
+5. Process Improvement,5.5.9.10.3,How to Interpret: Optimal Response Value,pri/section5/pri59a3.htm,done,no,,
+5. Process Improvement,5.5.9.10.4,How to Interpret: Best Corner,pri/section5/pri59a4.htm,done,no,,
+5. Process Improvement,5.5.9.10.5,How to Interpret: Steepest Ascent/Descent,pri/section5/pri59a5.htm,done,no,,
+5. Process Improvement,5.5.9.10.6,How to Interpret: Optimal Curve,pri/section5/pri59a6.htm,done,no,,
+5. Process Improvement,5.5.9.10.7,How to Interpret: Optimal Setting,pri/section5/pri59a7.htm,done,no,,
+5. Process Improvement,5.6,Case Studies,pri/section6/pri6.htm,done,no,,
+5. Process Improvement,5.6.1,Eddy Current Probe Sensitivity Case Study,pri/section6/pri61.htm,done,no,,
+5. Process Improvement,5.6.1.1,Background and Data,pri/section6/pri611.htm,done,no,,
+5. Process Improvement,5.6.1.2,Initial Plots/Main Effects,pri/section6/pri612.htm,done,no,,
+5. Process Improvement,5.6.1.3,Interaction Effects,pri/section6/pri613.htm,done,no,,
+5. Process Improvement,5.6.1.4,Main and Interaction Effects: Block Plots,pri/section6/pri614.htm,done,no,,
+5. Process Improvement,5.6.1.5,Estimate Main and Interaction Effects,pri/section6/pri615.htm,done,no,,
+5. Process Improvement,5.6.1.6,Modeling and Prediction Equations,pri/section6/pri616.htm,done,no,,
+5. Process Improvement,5.6.1.7,Intermediate Conclusions,pri/section6/pri617.htm,done,no,,
+5. Process Improvement,5.6.1.8,Important Factors and Parsimonious Prediction,pri/section6/pri618.htm,done,no,,
+5. Process Improvement,5.6.1.9,Validate the Fitted Model,pri/section6/pri619.htm,done,no,,
+5. Process Improvement,5.6.1.10,Using the Fitted Model,pri/section6/pri61a.htm,done,no,,
+5. Process Improvement,5.6.1.11,Conclusions and Next Step,pri/section6/pri61b.htm,done,no,,
+5. Process Improvement,5.6.1.12,Work This Example Yourself,pri/section6/pri61c.htm,done,no,,
+5. Process Improvement,5.6.2,Sonoluminescent Light Intensity Case Study,pri/section6/pri62.htm,done,no,,
+5. Process Improvement,5.6.2.1,Background and Data,pri/section6/pri621.htm,done,no,,
+5. Process Improvement,5.6.2.2,Initial Plots/Main Effects,pri/section6/pri622.htm,done,no,,
+5. Process Improvement,5.6.2.3,Interaction Effects,pri/section6/pri623.htm,done,no,,
+5. Process Improvement,5.6.2.4,Main and Interaction Effects: Block Plots,pri/section6/pri624.htm,done,no,,
+5. Process Improvement,5.6.2.5,Important Factors: Youden Plot,pri/section6/pri625.htm,done,no,,
+5. Process Improvement,5.6.2.6,Important Factors: |Effects| Plot,pri/section6/pri626.htm,done,no,,
+5. Process Improvement,5.6.2.7,Important Factors: Half-Normal Probability Plot,pri/section6/pri627.htm,done,no,,
+5. Process Improvement,5.6.2.8,Cumulative Residual Standard Deviation Plot,pri/section6/pri628.htm,done,no,,
+5. Process Improvement,5.6.2.9,Next Step: DOE Contour Plot,pri/section6/pri629.htm,done,no,,
+5. Process Improvement,5.6.2.10,Summary of Conclusions,pri/section6/pri62a.htm,done,no,,
+5. Process Improvement,5.6.2.11,Work This Example Yourself,pri/section6/pri62b.htm,done,no,,
+5. Process Improvement,5.7,A Glossary of DOE Terminology,pri/section7/pri7.htm,done,no,,
 5. Process Improvement,5.8,References,pri/section8/pri8.htm,skipped,no,,
-6. Process or Product Monitoring and Control,6.1,Introduction,pmc/section1/pmc1.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.1.1,How did Statistical Quality Control Begin?,pmc/section1/pmc11.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.1.2,What are Process Control Techniques?,pmc/section1/pmc12.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.1.3,What is Process Control?,pmc/section1/pmc13.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.1.4,"What to do if the process is ""Out of Control""?",pmc/section1/pmc14.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.1.5,"What to do if ""In Control"" but Unacceptable?",pmc/section1/pmc15.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.1.6,What is Process Capability?,pmc/section1/pmc16.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2,Test Product for Acceptability: Lot Acceptance Sampling,pmc/section2/pmc2.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.1,What is Acceptance Sampling?,pmc/section2/pmc21.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.2,What kinds of Lot Acceptance Sampling Plans (LASPs) are there?,pmc/section2/pmc22.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.3,How do you Choose a Single Sampling Plan?,pmc/section2/pmc23.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.3.1,Choosing a Sampling Plan: MIL Standard 105D,pmc/section2/pmc231.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.3.2,Choosing a Sampling Plan with a given OC Curve,pmc/section2/pmc232.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.4,What is Double Sampling?,pmc/section2/pmc24.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.5,What is Multiple Sampling?,pmc/section2/pmc25.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.6,What is a Sequential Sampling Plan?,pmc/section2/pmc26.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.2.7,What is Skip Lot Sampling?,pmc/section2/pmc27.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3,Univariate and Multivariate Control Charts,pmc/section3/pmc3.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.1,What are Control Charts?,pmc/section3/pmc31.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.2,What are Variables Control Charts?,pmc/section3/pmc32.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.2.1,Shewhart X-bar and R and S Control Charts,pmc/section3/pmc321.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.2.2,Individuals Control Charts,pmc/section3/pmc322.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.2.3,Cusum Control Charts,pmc/section3/pmc323.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.2.3.1,Cusum Average Run Length,pmc/section3/pmc3231.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.2.4,EWMA Control Charts,pmc/section3/pmc324.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.3,What are Attributes Control Charts?,pmc/section3/pmc33.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.3.1,Counts Control Charts,pmc/section3/pmc331.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.3.2,Proportions Control Charts,pmc/section3/pmc332.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.4,What are Multivariate Control Charts?,pmc/section3/pmc34.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.4.1,Hotelling Control Charts,pmc/section3/pmc341.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.4.2,Principal Components Control Charts,pmc/section3/pmc342.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.3.4.3,Multivariate EWMA Charts,pmc/section3/pmc343.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4,Introduction to Time Series Analysis,pmc/section4/pmc4.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.1,"Definitions, Applications and Techniques",pmc/section4/pmc41.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.2,What are Moving Average or Smoothing Techniques?,pmc/section4/pmc42.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.2.1,Single Moving Average,pmc/section4/pmc421.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.2.2,Centered Moving Average,pmc/section4/pmc422.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3,What is Exponential Smoothing?,pmc/section4/pmc43.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.1,Single Exponential Smoothing,pmc/section4/pmc431.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.2,Forecasting with Single Exponential Smoothing,pmc/section4/pmc432.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.3,Double Exponential Smoothing,pmc/section4/pmc433.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.4,Forecasting with Double Exponential Smoothing(LASP),pmc/section4/pmc434.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.5,Triple Exponential Smoothing,pmc/section4/pmc435.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.6,Example of Triple Exponential Smoothing,pmc/section4/pmc436.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.3.7,Exponential Smoothing Summary,pmc/section4/pmc437.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4,Univariate Time Series Models,pmc/section4/pmc44.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.1,Sample Data Sets,pmc/section4/pmc441.htm,not_started,no,,
+6. Process or Product Monitoring and Control,6.1,Introduction,pmc/section1/pmc1.htm,done,no,,
+6. Process or Product Monitoring and Control,6.1.1,How did Statistical Quality Control Begin?,pmc/section1/pmc11.htm,done,no,,
+6. Process or Product Monitoring and Control,6.1.2,What are Process Control Techniques?,pmc/section1/pmc12.htm,done,no,,
+6. Process or Product Monitoring and Control,6.1.3,What is Process Control?,pmc/section1/pmc13.htm,done,no,,
+6. Process or Product Monitoring and Control,6.1.4,"What to do if the process is ""Out of Control""?",pmc/section1/pmc14.htm,done,no,,
+6. Process or Product Monitoring and Control,6.1.5,"What to do if ""In Control"" but Unacceptable?",pmc/section1/pmc15.htm,done,no,,
+6. Process or Product Monitoring and Control,6.1.6,What is Process Capability?,pmc/section1/pmc16.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2,Test Product for Acceptability: Lot Acceptance Sampling,pmc/section2/pmc2.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.1,What is Acceptance Sampling?,pmc/section2/pmc21.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.2,What kinds of Lot Acceptance Sampling Plans (LASPs) are there?,pmc/section2/pmc22.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.3,How do you Choose a Single Sampling Plan?,pmc/section2/pmc23.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.3.1,Choosing a Sampling Plan: MIL Standard 105D,pmc/section2/pmc231.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.3.2,Choosing a Sampling Plan with a given OC Curve,pmc/section2/pmc232.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.4,What is Double Sampling?,pmc/section2/pmc24.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.5,What is Multiple Sampling?,pmc/section2/pmc25.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.6,What is a Sequential Sampling Plan?,pmc/section2/pmc26.htm,done,no,,
+6. Process or Product Monitoring and Control,6.2.7,What is Skip Lot Sampling?,pmc/section2/pmc27.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3,Univariate and Multivariate Control Charts,pmc/section3/pmc3.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.1,What are Control Charts?,pmc/section3/pmc31.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.2,What are Variables Control Charts?,pmc/section3/pmc32.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.2.1,Shewhart X-bar and R and S Control Charts,pmc/section3/pmc321.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.2.2,Individuals Control Charts,pmc/section3/pmc322.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.2.3,Cusum Control Charts,pmc/section3/pmc323.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.2.3.1,Cusum Average Run Length,pmc/section3/pmc3231.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.2.4,EWMA Control Charts,pmc/section3/pmc324.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.3,What are Attributes Control Charts?,pmc/section3/pmc33.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.3.1,Counts Control Charts,pmc/section3/pmc331.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.3.2,Proportions Control Charts,pmc/section3/pmc332.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.4,What are Multivariate Control Charts?,pmc/section3/pmc34.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.4.1,Hotelling Control Charts,pmc/section3/pmc341.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.4.2,Principal Components Control Charts,pmc/section3/pmc342.htm,done,no,,
+6. Process or Product Monitoring and Control,6.3.4.3,Multivariate EWMA Charts,pmc/section3/pmc343.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4,Introduction to Time Series Analysis,pmc/section4/pmc4.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.1,"Definitions, Applications and Techniques",pmc/section4/pmc41.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.2,What are Moving Average or Smoothing Techniques?,pmc/section4/pmc42.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.2.1,Single Moving Average,pmc/section4/pmc421.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.2.2,Centered Moving Average,pmc/section4/pmc422.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3,What is Exponential Smoothing?,pmc/section4/pmc43.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.1,Single Exponential Smoothing,pmc/section4/pmc431.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.2,Forecasting with Single Exponential Smoothing,pmc/section4/pmc432.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.3,Double Exponential Smoothing,pmc/section4/pmc433.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.4,Forecasting with Double Exponential Smoothing(LASP),pmc/section4/pmc434.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.5,Triple Exponential Smoothing,pmc/section4/pmc435.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.6,Example of Triple Exponential Smoothing,pmc/section4/pmc436.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.3.7,Exponential Smoothing Summary,pmc/section4/pmc437.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4,Univariate Time Series Models,pmc/section4/pmc44.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.1,Sample Data Sets,pmc/section4/pmc441.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.1.1,Data Set of Monthly CO2 Concentrations,pmc/section4/pmc4411.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.1.2,Data Set of Southern Oscillations,pmc/section4/pmc4412.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.2,Stationarity,pmc/section4/pmc442.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.3,Seasonality,pmc/section4/pmc443.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.3.1,Seasonal Subseries Plot,pmc/section4/pmc4431.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.4,Common Approaches to Univariate Time Series,pmc/section4/pmc444.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.5,Box-Jenkins Models,pmc/section4/pmc445.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.6,Box-Jenkins Model Identification,pmc/section4/pmc446.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.6.1,Model Identification for Southern Oscillations Data,pmc/section4/pmc4461.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.6.3,Partial Autocorrelation Plot,pmc/section4/pmc4463.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.7,Box-Jenkins Model Estimation,pmc/section4/pmc447.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.8,Box-Jenkins Model Diagnostics,pmc/section4/pmc448.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.8.1,Box-Ljung Test,pmc/section4/pmc4481.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.4.9,Example of Univariate Box-Jenkins Analysis,pmc/section4/pmc449.htm,not_started,no,,
+6. Process or Product Monitoring and Control,6.4.4.1.2,Data Set of Southern Oscillations,pmc/section4/pmc4412.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.2,Stationarity,pmc/section4/pmc442.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.3,Seasonality,pmc/section4/pmc443.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.3.1,Seasonal Subseries Plot,pmc/section4/pmc4431.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.4,Common Approaches to Univariate Time Series,pmc/section4/pmc444.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.5,Box-Jenkins Models,pmc/section4/pmc445.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.6,Box-Jenkins Model Identification,pmc/section4/pmc446.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.6.1,Model Identification for Southern Oscillations Data,pmc/section4/pmc4461.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.6.3,Partial Autocorrelation Plot,pmc/section4/pmc4463.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.7,Box-Jenkins Model Estimation,pmc/section4/pmc447.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.8,Box-Jenkins Model Diagnostics,pmc/section4/pmc448.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.8.1,Box-Ljung Test,pmc/section4/pmc4481.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.4.9,Example of Univariate Box-Jenkins Analysis,pmc/section4/pmc449.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.10,Box-Jenkins Analysis on Seasonal Data,pmc/section4/pmc44a.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.5,Multivariate Time Series Models,pmc/section4/pmc45.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.4.5.1,Example of Multivariate Time Series Analysis,pmc/section4/pmc451.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5,Tutorials,pmc/section5/pmc5.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.1,"What do we mean by ""Normal"" data?",pmc/section5/pmc51.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.2,"What do we do when data are ""Non-normal""?",pmc/section5/pmc52.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.3,Elements of Matrix Algebra,pmc/section5/pmc53.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.3.1,Numerical Examples,pmc/section5/pmc531.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.3.2,Determinant and Eigenstructure,pmc/section5/pmc532.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4,Elements of Multivariate Analysis,pmc/section5/pmc54.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4.1,Mean Vector and Covariance Matrix,pmc/section5/pmc541.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4.2,The Multivariate Normal Distribution,pmc/section5/pmc542.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4.3.3,Chart for Individual Observations -- Phase I,pmc/section5/pmc5433.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4.3.4,Chart for Individual Observations -- Phase II,pmc/section5/pmc5434.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4.3.5,Charts for Controlling Multivariate Variability,pmc/section5/pmc5435.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.4.3.6,Constructing Multivariate Charts,pmc/section5/pmc5436.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.5,Principal Components,pmc/section5/pmc55.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.5.1,Properties of Principal Components,pmc/section5/pmc551.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.5.5.2,Numerical Example,pmc/section5/pmc552.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6,Case Studies in Process Monitoring,pmc/section6/pmc6.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.1,Lithography Process,pmc/section6/pmc61.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.1.1,Background and Data,pmc/section6/pmc611.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.1.2,Graphical Representation of the Data,pmc/section6/pmc612.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.1.3,Subgroup Analysis,pmc/section6/pmc613.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.1.4,Shewhart Control Chart,pmc/section6/pmc614.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.1.5,Work This Example Yourself,pmc/section6/pmc615.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.2,Aerosol Particle Size,pmc/section6/pmc62.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.2.1,Background and Data,pmc/section6/pmc621.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.2.2,Model Identification,pmc/section6/pmc622.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.2.3,Model Estimation,pmc/section6/pmc623.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.2.4,Model Validation,pmc/section6/pmc624.htm,not_started,no,,
-6. Process or Product Monitoring and Control,6.6.2.5,Work This Example Yourself,pmc/section6/pmc625.htm,not_started,no,,
+6. Process or Product Monitoring and Control,6.4.5,Multivariate Time Series Models,pmc/section4/pmc45.htm,done,no,,
+6. Process or Product Monitoring and Control,6.4.5.1,Example of Multivariate Time Series Analysis,pmc/section4/pmc451.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5,Tutorials,pmc/section5/pmc5.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.1,"What do we mean by ""Normal"" data?",pmc/section5/pmc51.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.2,"What do we do when data are ""Non-normal""?",pmc/section5/pmc52.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.3,Elements of Matrix Algebra,pmc/section5/pmc53.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.3.1,Numerical Examples,pmc/section5/pmc531.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.3.2,Determinant and Eigenstructure,pmc/section5/pmc532.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4,Elements of Multivariate Analysis,pmc/section5/pmc54.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4.1,Mean Vector and Covariance Matrix,pmc/section5/pmc541.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4.2,The Multivariate Normal Distribution,pmc/section5/pmc542.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4.3.3,Chart for Individual Observations -- Phase I,pmc/section5/pmc5433.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4.3.4,Chart for Individual Observations -- Phase II,pmc/section5/pmc5434.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4.3.5,Charts for Controlling Multivariate Variability,pmc/section5/pmc5435.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.4.3.6,Constructing Multivariate Charts,pmc/section5/pmc5436.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.5,Principal Components,pmc/section5/pmc55.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.5.1,Properties of Principal Components,pmc/section5/pmc551.htm,done,no,,
+6. Process or Product Monitoring and Control,6.5.5.2,Numerical Example,pmc/section5/pmc552.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6,Case Studies in Process Monitoring,pmc/section6/pmc6.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.1,Lithography Process,pmc/section6/pmc61.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.1.1,Background and Data,pmc/section6/pmc611.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.1.2,Graphical Representation of the Data,pmc/section6/pmc612.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.1.3,Subgroup Analysis,pmc/section6/pmc613.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.1.4,Shewhart Control Chart,pmc/section6/pmc614.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.1.5,Work This Example Yourself,pmc/section6/pmc615.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.2,Aerosol Particle Size,pmc/section6/pmc62.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.2.1,Background and Data,pmc/section6/pmc621.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.2.2,Model Identification,pmc/section6/pmc622.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.2.3,Model Estimation,pmc/section6/pmc623.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.2.4,Model Validation,pmc/section6/pmc624.htm,done,no,,
+6. Process or Product Monitoring and Control,6.6.2.5,Work This Example Yourself,pmc/section6/pmc625.htm,done,no,,
 6. Process or Product Monitoring and Control,6.7,References,pmc/section7/pmc7.htm,skipped,no,,
-7. Product and Process Comparisons,7.1,Introduction,prc/section1/prc1.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.1,What is the scope?,prc/section1/prc11.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.2,What assumptions are typically made?,prc/section1/prc12.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.3,What are statistical tests?,prc/section1/prc13.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.3.1,Critical values and p values,prc/section1/prc131.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.4,What are confidence intervals?,prc/section1/prc14.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.5,What is the relationship between a test and a confidence interval?,prc/section1/prc15.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.6,What are outliers in the data?,prc/section1/prc16.htm,not_started,no,,
-7. Product and Process Comparisons,7.1.7,What are trends in sequential process or product data?,prc/section1/prc17.htm,not_started,no,,
-7. Product and Process Comparisons,7.2,Comparisons based on data from one process,prc/section2/prc2.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.1,Do the observations come from a particular distribution?,prc/section2/prc21.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.1.1,Chi-square goodness-of-fit test,prc/section2/prc211.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.1.2,Kolmogorov- Smirnov test,prc/section2/prc212.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.1.3,Anderson-Darling and Shapiro-Wilk tests,prc/section2/prc213.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.2,Are the data consistent with the assumed process mean?,prc/section2/prc22.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.2.1,Confidence interval approach,prc/section2/prc221.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.2.2,Sample sizes required,prc/section2/prc222.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.3,Are the data consistent with a nominal standard deviation?,prc/section2/prc23.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.3.1,Confidence interval approach,prc/section2/prc231.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.3.2,Sample sizes required,prc/section2/prc232.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.4,Does the proportion of defectives meet requirements?,prc/section2/prc24.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.4.1,Confidence intervals,prc/section2/prc241.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.4.2,Sample sizes required,prc/section2/prc242.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.5,Does the defect density meet requirements?,prc/section2/prc25.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.6,What intervals contain a fixed percentage of the population values?,prc/section2/prc26.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.6.1,Approximate intervals that contain most of the population values,prc/section2/prc261.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.6.2,Percentiles,prc/section2/prc262.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.6.3,Tolerance intervals for a normal distribution,prc/section2/prc263.htm,not_started,no,,
-7. Product and Process Comparisons,7.2.6.4,Tolerance intervals based on the largest and smallest observations,prc/section2/prc264.htm,not_started,no,,
-7. Product and Process Comparisons,7.3,Comparisons based on data from two processes,prc/section3/prc3.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.1,Do two processes have the same mean?,prc/section3/prc31.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.1.1,Analysis of paired observations,prc/section3/prc311.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.1.2,Confidence intervals for differences between means,prc/section3/prc312.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.2,Do two processes have the same standard deviation?,prc/section3/prc32.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.3,How can we determine whether two processes produce the same proportion of defectives?,prc/section3/prc33.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.4,"Assuming the observations are failure times, are the failure rates (or Mean Times To Failure) for two distributions the same?",prc/section3/prc34.htm,not_started,no,,
-7. Product and Process Comparisons,7.3.5,Do two arbitrary processes have the same central tendency?,prc/section3/prc35.htm,not_started,no,,
-7. Product and Process Comparisons,7.4,Comparisons based on data from more than two processes,prc/section4/prc4.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.1,How can we compare several populations with unknown distributions (the Kruskal-Wallis test)?,prc/section4/prc41.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.2,"Assuming the observations are normal, do the processes have the same variance?",prc/section4/prc42.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3,Are the means equal?,prc/section4/prc43.htm,not_started,no,,
+7. Product and Process Comparisons,7.1,Introduction,prc/section1/prc1.htm,done,no,,
+7. Product and Process Comparisons,7.1.1,What is the scope?,prc/section1/prc11.htm,done,no,,
+7. Product and Process Comparisons,7.1.2,What assumptions are typically made?,prc/section1/prc12.htm,done,no,,
+7. Product and Process Comparisons,7.1.3,What are statistical tests?,prc/section1/prc13.htm,done,no,,
+7. Product and Process Comparisons,7.1.3.1,Critical values and p values,prc/section1/prc131.htm,done,no,,
+7. Product and Process Comparisons,7.1.4,What are confidence intervals?,prc/section1/prc14.htm,done,no,,
+7. Product and Process Comparisons,7.1.5,What is the relationship between a test and a confidence interval?,prc/section1/prc15.htm,done,no,,
+7. Product and Process Comparisons,7.1.6,What are outliers in the data?,prc/section1/prc16.htm,done,no,,
+7. Product and Process Comparisons,7.1.7,What are trends in sequential process or product data?,prc/section1/prc17.htm,done,no,,
+7. Product and Process Comparisons,7.2,Comparisons based on data from one process,prc/section2/prc2.htm,done,no,,
+7. Product and Process Comparisons,7.2.1,Do the observations come from a particular distribution?,prc/section2/prc21.htm,done,no,,
+7. Product and Process Comparisons,7.2.1.1,Chi-square goodness-of-fit test,prc/section2/prc211.htm,done,no,,
+7. Product and Process Comparisons,7.2.1.2,Kolmogorov- Smirnov test,prc/section2/prc212.htm,done,no,,
+7. Product and Process Comparisons,7.2.1.3,Anderson-Darling and Shapiro-Wilk tests,prc/section2/prc213.htm,done,no,,
+7. Product and Process Comparisons,7.2.2,Are the data consistent with the assumed process mean?,prc/section2/prc22.htm,done,no,,
+7. Product and Process Comparisons,7.2.2.1,Confidence interval approach,prc/section2/prc221.htm,done,no,,
+7. Product and Process Comparisons,7.2.2.2,Sample sizes required,prc/section2/prc222.htm,done,no,,
+7. Product and Process Comparisons,7.2.3,Are the data consistent with a nominal standard deviation?,prc/section2/prc23.htm,done,no,,
+7. Product and Process Comparisons,7.2.3.1,Confidence interval approach,prc/section2/prc231.htm,done,no,,
+7. Product and Process Comparisons,7.2.3.2,Sample sizes required,prc/section2/prc232.htm,done,no,,
+7. Product and Process Comparisons,7.2.4,Does the proportion of defectives meet requirements?,prc/section2/prc24.htm,done,no,,
+7. Product and Process Comparisons,7.2.4.1,Confidence intervals,prc/section2/prc241.htm,done,no,,
+7. Product and Process Comparisons,7.2.4.2,Sample sizes required,prc/section2/prc242.htm,done,no,,
+7. Product and Process Comparisons,7.2.5,Does the defect density meet requirements?,prc/section2/prc25.htm,done,no,,
+7. Product and Process Comparisons,7.2.6,What intervals contain a fixed percentage of the population values?,prc/section2/prc26.htm,done,no,,
+7. Product and Process Comparisons,7.2.6.1,Approximate intervals that contain most of the population values,prc/section2/prc261.htm,done,no,,
+7. Product and Process Comparisons,7.2.6.2,Percentiles,prc/section2/prc262.htm,done,no,,
+7. Product and Process Comparisons,7.2.6.3,Tolerance intervals for a normal distribution,prc/section2/prc263.htm,done,no,,
+7. Product and Process Comparisons,7.2.6.4,Tolerance intervals based on the largest and smallest observations,prc/section2/prc264.htm,done,no,,
+7. Product and Process Comparisons,7.3,Comparisons based on data from two processes,prc/section3/prc3.htm,done,no,,
+7. Product and Process Comparisons,7.3.1,Do two processes have the same mean?,prc/section3/prc31.htm,done,no,,
+7. Product and Process Comparisons,7.3.1.1,Analysis of paired observations,prc/section3/prc311.htm,done,no,,
+7. Product and Process Comparisons,7.3.1.2,Confidence intervals for differences between means,prc/section3/prc312.htm,done,no,,
+7. Product and Process Comparisons,7.3.2,Do two processes have the same standard deviation?,prc/section3/prc32.htm,done,no,,
+7. Product and Process Comparisons,7.3.3,How can we determine whether two processes produce the same proportion of defectives?,prc/section3/prc33.htm,done,no,,
+7. Product and Process Comparisons,7.3.4,"Assuming the observations are failure times, are the failure rates (or Mean Times To Failure) for two distributions the same?",prc/section3/prc34.htm,done,no,,
+7. Product and Process Comparisons,7.3.5,Do two arbitrary processes have the same central tendency?,prc/section3/prc35.htm,done,no,,
+7. Product and Process Comparisons,7.4,Comparisons based on data from more than two processes,prc/section4/prc4.htm,done,no,,
+7. Product and Process Comparisons,7.4.1,How can we compare several populations with unknown distributions (the Kruskal-Wallis test)?,prc/section4/prc41.htm,done,no,,
+7. Product and Process Comparisons,7.4.2,"Assuming the observations are normal, do the processes have the same variance?",prc/section4/prc42.htm,done,no,,
+7. Product and Process Comparisons,7.4.3,Are the means equal?,prc/section4/prc43.htm,done,no,,
 7. Product and Process Comparisons,7.4.3.1,1-Way ANOVA overview,prc/section4/prc431.htm,not_started,no,,
 7. Product and Process Comparisons,7.4.3.2,The 1-way ANOVA model and assumptions,prc/section4/prc432.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.3,The ANOVA table and tests of hypotheses about means,prc/section4/prc433.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.4,1-Way ANOVA calculations,prc/section4/prc434.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.5,Confidence intervals for the difference of treatment means,prc/section4/prc435.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.6,Assessing the response from any factor combination,prc/section4/prc436.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.7,The two-way ANOVA,prc/section4/prc437.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.8,Models and calculations for the two-way ANOVA,prc/section4/prc438.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.4,What are variance components?,prc/section4/prc44.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.5,How can we compare the results of classifying according to several categories?,prc/section4/prc45.htm,not_started,no,,
+7. Product and Process Comparisons,7.4.3.3,The ANOVA table and tests of hypotheses about means,prc/section4/prc433.htm,done,no,,
+7. Product and Process Comparisons,7.4.3.4,1-Way ANOVA calculations,prc/section4/prc434.htm,done,no,,
+7. Product and Process Comparisons,7.4.3.5,Confidence intervals for the difference of treatment means,prc/section4/prc435.htm,done,no,,
+7. Product and Process Comparisons,7.4.3.6,Assessing the response from any factor combination,prc/section4/prc436.htm,done,no,,
+7. Product and Process Comparisons,7.4.3.7,The two-way ANOVA,prc/section4/prc437.htm,done,no,,
+7. Product and Process Comparisons,7.4.3.8,Models and calculations for the two-way ANOVA,prc/section4/prc438.htm,done,no,,
+7. Product and Process Comparisons,7.4.4,What are variance components?,prc/section4/prc44.htm,done,no,,
+7. Product and Process Comparisons,7.4.5,How can we compare the results of classifying according to several categories?,prc/section4/prc45.htm,done,no,,
 7. Product and Process Comparisons,7.4.6,Do all the processes have the same proportion of defects?,prc/section4/prc46.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.7,How can we make multiple comparisons?,prc/section4/prc47.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.7.1,Tukey's method,prc/section4/prc471.htm,not_started,no,,
+7. Product and Process Comparisons,7.4.7,How can we make multiple comparisons?,prc/section4/prc47.htm,done,no,,
+7. Product and Process Comparisons,7.4.7.1,Tukey's method,prc/section4/prc471.htm,done,no,,
 7. Product and Process Comparisons,7.4.7.2,Scheffe's method,prc/section4/prc472.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.7.3,Bonferroni's method,prc/section4/prc473.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.7.4,Comparing multiple proportions: The Marascuillo procedure,prc/section4/prc474.htm,not_started,no,,
+7. Product and Process Comparisons,7.4.7.3,Bonferroni's method,prc/section4/prc473.htm,done,no,,
+7. Product and Process Comparisons,7.4.7.4,Comparing multiple proportions: The Marascuillo procedure,prc/section4/prc474.htm,done,no,,
 7. Product and Process Comparisons,7.5,References,prc/section5/prc5.htm,skipped,no,,
-8. Assessing Product Reliability,8.1,Introduction,apr/section1/apr1.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.1,Why is the assessment and control of product reliability important?,apr/section1/apr11.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.1.1,Quality versus reliability,apr/section1/apr111.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.1.2,Competitive driving factors,apr/section1/apr112.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.1.3,Safety and health considerations,apr/section1/apr113.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.2,What are the basic terms and models used for reliability evaluation?,apr/section1/apr12.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.2.1,"Repairable systems, non-repairable populations and lifetime distribution models",apr/section1/apr121.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.2.2,Reliability or survival function,apr/section1/apr122.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.2.3,Failure (or hazard) rate,apr/section1/apr123.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.2.4,"""Bathtub"" curve",apr/section1/apr124.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.2.5,Repair rate or ROCOF,apr/section1/apr125.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.3,What are some common difficulties with reliability data and how are they overcome?,apr/section1/apr13.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.3.1,Censoring,apr/section1/apr131.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.3.2,Lack of failures,apr/section1/apr132.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.4,"What is ""physical acceleration"" and how do we model it?",apr/section1/apr14.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.5,What are some common acceleration models?,apr/section1/apr15.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.5.1,Arrhenius,apr/section1/apr151.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.5.2,Eyring,apr/section1/apr152.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.5.3,Other models,apr/section1/apr153.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6,What are the basic lifetime distribution models used for non-repairable populations?,apr/section1/apr16.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.1,Exponential,apr/section1/apr161.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.2,Weibull,apr/section1/apr162.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.3,Extreme value distributions,apr/section1/apr163.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.4,Lognormal,apr/section1/apr164.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.5,Gamma,apr/section1/apr165.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.6,Fatigue life (Birnbaum-Saunders),apr/section1/apr166.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.6.7,Proportional hazards model,apr/section1/apr167.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.7,What are some basic repair rate models used for repairable systems?,apr/section1/apr17.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.7.1,Homogeneous Poisson Process (HPP),apr/section1/apr171.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.7.2,Non-Homogeneous Poisson Process (NHPP) - power law,apr/section1/apr172.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.7.3,Exponential law,apr/section1/apr173.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8,"How can you evaluate reliability from the ""bottom-up"" (component failure mode to system failure rate)?",apr/section1/apr18.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8.1,Competing risk model,apr/section1/apr181.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8.2,Series model,apr/section1/apr182.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8.3,Parallel or redundant model,apr/section1/apr183.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8.4,R out of N model,apr/section1/apr184.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8.5,Standby model,apr/section1/apr185.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.8.6,Complex systems,apr/section1/apr186.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.9,How can you model reliability growth?,apr/section1/apr19.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.9.1,NHPP power law,apr/section1/apr191.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.9.2,Duane plots,apr/section1/apr192.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.9.3,NHPP exponential law,apr/section1/apr193.htm,not_started,no,,
-8. Assessing Product Reliability,8.1.10,How can Bayesian methodology be used for reliability evaluation?,apr/section1/apr1a.htm,not_started,no,,
-8. Assessing Product Reliability,8.2,Assumptions/Prerequisites,apr/section2/apr2.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.1,How do you choose an appropriate life distribution model?,apr/section2/apr21.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.1.1,Based on failure mode,apr/section2/apr211.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.1.2,Extreme value argument,apr/section2/apr212.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.1.3,Multiplicative degradation argument,apr/section2/apr213.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.1.4,Fatigue life (Birnbaum-Saunders) model,apr/section2/apr214.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.1.5,Empirical model fitting - distribution free (Kaplan-Meier) approach,apr/section2/apr215.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.2,How do you plot reliability data?,apr/section2/apr22.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.2.1,Probability plotting,apr/section2/apr221.htm,not_started,no,,
+8. Assessing Product Reliability,8.1,Introduction,apr/section1/apr1.htm,done,no,,
+8. Assessing Product Reliability,8.1.1,Why is the assessment and control of product reliability important?,apr/section1/apr11.htm,done,no,,
+8. Assessing Product Reliability,8.1.1.1,Quality versus reliability,apr/section1/apr111.htm,done,no,,
+8. Assessing Product Reliability,8.1.1.2,Competitive driving factors,apr/section1/apr112.htm,done,no,,
+8. Assessing Product Reliability,8.1.1.3,Safety and health considerations,apr/section1/apr113.htm,done,no,,
+8. Assessing Product Reliability,8.1.2,What are the basic terms and models used for reliability evaluation?,apr/section1/apr12.htm,done,no,,
+8. Assessing Product Reliability,8.1.2.1,"Repairable systems, non-repairable populations and lifetime distribution models",apr/section1/apr121.htm,done,no,,
+8. Assessing Product Reliability,8.1.2.2,Reliability or survival function,apr/section1/apr122.htm,done,no,,
+8. Assessing Product Reliability,8.1.2.3,Failure (or hazard) rate,apr/section1/apr123.htm,done,no,,
+8. Assessing Product Reliability,8.1.2.4,"""Bathtub"" curve",apr/section1/apr124.htm,done,no,,
+8. Assessing Product Reliability,8.1.2.5,Repair rate or ROCOF,apr/section1/apr125.htm,done,no,,
+8. Assessing Product Reliability,8.1.3,What are some common difficulties with reliability data and how are they overcome?,apr/section1/apr13.htm,done,no,,
+8. Assessing Product Reliability,8.1.3.1,Censoring,apr/section1/apr131.htm,done,no,,
+8. Assessing Product Reliability,8.1.3.2,Lack of failures,apr/section1/apr132.htm,done,no,,
+8. Assessing Product Reliability,8.1.4,"What is ""physical acceleration"" and how do we model it?",apr/section1/apr14.htm,done,no,,
+8. Assessing Product Reliability,8.1.5,What are some common acceleration models?,apr/section1/apr15.htm,done,no,,
+8. Assessing Product Reliability,8.1.5.1,Arrhenius,apr/section1/apr151.htm,done,no,,
+8. Assessing Product Reliability,8.1.5.2,Eyring,apr/section1/apr152.htm,done,no,,
+8. Assessing Product Reliability,8.1.5.3,Other models,apr/section1/apr153.htm,done,no,,
+8. Assessing Product Reliability,8.1.6,What are the basic lifetime distribution models used for non-repairable populations?,apr/section1/apr16.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.1,Exponential,apr/section1/apr161.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.2,Weibull,apr/section1/apr162.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.3,Extreme value distributions,apr/section1/apr163.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.4,Lognormal,apr/section1/apr164.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.5,Gamma,apr/section1/apr165.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.6,Fatigue life (Birnbaum-Saunders),apr/section1/apr166.htm,done,no,,
+8. Assessing Product Reliability,8.1.6.7,Proportional hazards model,apr/section1/apr167.htm,done,no,,
+8. Assessing Product Reliability,8.1.7,What are some basic repair rate models used for repairable systems?,apr/section1/apr17.htm,done,no,,
+8. Assessing Product Reliability,8.1.7.1,Homogeneous Poisson Process (HPP),apr/section1/apr171.htm,done,no,,
+8. Assessing Product Reliability,8.1.7.2,Non-Homogeneous Poisson Process (NHPP) - power law,apr/section1/apr172.htm,done,no,,
+8. Assessing Product Reliability,8.1.7.3,Exponential law,apr/section1/apr173.htm,done,no,,
+8. Assessing Product Reliability,8.1.8,"How can you evaluate reliability from the ""bottom-up"" (component failure mode to system failure rate)?",apr/section1/apr18.htm,done,no,,
+8. Assessing Product Reliability,8.1.8.1,Competing risk model,apr/section1/apr181.htm,done,no,,
+8. Assessing Product Reliability,8.1.8.2,Series model,apr/section1/apr182.htm,done,no,,
+8. Assessing Product Reliability,8.1.8.3,Parallel or redundant model,apr/section1/apr183.htm,done,no,,
+8. Assessing Product Reliability,8.1.8.4,R out of N model,apr/section1/apr184.htm,done,no,,
+8. Assessing Product Reliability,8.1.8.5,Standby model,apr/section1/apr185.htm,done,no,,
+8. Assessing Product Reliability,8.1.8.6,Complex systems,apr/section1/apr186.htm,done,no,,
+8. Assessing Product Reliability,8.1.9,How can you model reliability growth?,apr/section1/apr19.htm,done,no,,
+8. Assessing Product Reliability,8.1.9.1,NHPP power law,apr/section1/apr191.htm,done,no,,
+8. Assessing Product Reliability,8.1.9.2,Duane plots,apr/section1/apr192.htm,done,no,,
+8. Assessing Product Reliability,8.1.9.3,NHPP exponential law,apr/section1/apr193.htm,done,no,,
+8. Assessing Product Reliability,8.1.10,How can Bayesian methodology be used for reliability evaluation?,apr/section1/apr1a.htm,done,no,,
+8. Assessing Product Reliability,8.2,Assumptions/Prerequisites,apr/section2/apr2.htm,done,no,,
+8. Assessing Product Reliability,8.2.1,How do you choose an appropriate life distribution model?,apr/section2/apr21.htm,done,no,,
+8. Assessing Product Reliability,8.2.1.1,Based on failure mode,apr/section2/apr211.htm,done,no,,
+8. Assessing Product Reliability,8.2.1.2,Extreme value argument,apr/section2/apr212.htm,done,no,,
+8. Assessing Product Reliability,8.2.1.3,Multiplicative degradation argument,apr/section2/apr213.htm,done,no,,
+8. Assessing Product Reliability,8.2.1.4,Fatigue life (Birnbaum-Saunders) model,apr/section2/apr214.htm,done,no,,
+8. Assessing Product Reliability,8.2.1.5,Empirical model fitting - distribution free (Kaplan-Meier) approach,apr/section2/apr215.htm,done,no,,
+8. Assessing Product Reliability,8.2.2,How do you plot reliability data?,apr/section2/apr22.htm,done,no,,
+8. Assessing Product Reliability,8.2.2.1,Probability plotting,apr/section2/apr221.htm,done,no,,
 8. Assessing Product Reliability,8.2.2.2,Hazard and cum hazard plotting,apr/section2/apr222.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.2.3,Trend and growth plotting (Duane plots),apr/section2/apr223.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.3,How can you test reliability model assumptions?,apr/section2/apr23.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.3.1,Visual tests,apr/section2/apr231.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.3.2,Goodness of fit tests,apr/section2/apr232.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.3.3,Likelihood ratio tests,apr/section2/apr233.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.3.4,Trend tests,apr/section2/apr234.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.4,How do you choose an appropriate physical acceleration model?,apr/section2/apr24.htm,not_started,no,,
-8. Assessing Product Reliability,8.2.5,What models and assumptions are typically made when Bayesian methods are used for reliability evaluation?,apr/section2/apr25.htm,not_started,no,,
-8. Assessing Product Reliability,8.3,Reliability Data Collection,apr/section3/apr3.htm,not_started,no,,
-8. Assessing Product Reliability,8.3.1,How do you plan a reliability assessment test?,apr/section3/apr31.htm,not_started,no,,
-8. Assessing Product Reliability,8.3.1.1,Exponential life distribution (or HPP model) tests,apr/section3/apr311.htm,not_started,no,,
-8. Assessing Product Reliability,8.3.1.2,Lognormal or Weibull tests,apr/section3/apr312.htm,not_started,no,,
-8. Assessing Product Reliability,8.3.1.3,Reliability growth (Duane model),apr/section3/apr313.htm,not_started,no,,
-8. Assessing Product Reliability,8.3.1.4,Accelerated life tests,apr/section3/apr314.htm,not_started,no,,
-8. Assessing Product Reliability,8.3.1.5,Bayesian gamma prior model,apr/section3/apr315.htm,not_started,no,,
-8. Assessing Product Reliability,8.4,Reliability Data Analysis,apr/section4/apr4.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.1,How do you estimate life distribution parameters from censored data?,apr/section4/apr41.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.1.1,Graphical estimation,apr/section4/apr411.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.1.2,Maximum likelihood estimation,apr/section4/apr412.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.1.3,A Weibull maximum likelihood estimation example,apr/section4/apr413.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.2,How do you fit an acceleration model?,apr/section4/apr42.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.2.1,Graphical estimation,apr/section4/apr421.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.2.2,Maximum likelihood,apr/section4/apr422.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.2.3,Fitting models using degradation data instead of failures,apr/section4/apr423.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.3,How do you project reliability at use conditions?,apr/section4/apr43.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.4,How do you compare reliability between two or more populations?,apr/section4/apr44.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.5,How do you fit system repair rate models?,apr/section4/apr45.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.5.1,Constant repair rate (HPP/exponential) model,apr/section4/apr451.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.5.2,Power law (Duane) model,apr/section4/apr452.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.5.3,Exponential law model,apr/section4/apr453.htm,not_started,no,,
-8. Assessing Product Reliability,8.4.6,How do you estimate reliability using the Bayesian gamma prior model?,apr/section4/apr46.htm,not_started,no,,
+8. Assessing Product Reliability,8.2.2.3,Trend and growth plotting (Duane plots),apr/section2/apr223.htm,done,no,,
+8. Assessing Product Reliability,8.2.3,How can you test reliability model assumptions?,apr/section2/apr23.htm,done,no,,
+8. Assessing Product Reliability,8.2.3.1,Visual tests,apr/section2/apr231.htm,done,no,,
+8. Assessing Product Reliability,8.2.3.2,Goodness of fit tests,apr/section2/apr232.htm,done,no,,
+8. Assessing Product Reliability,8.2.3.3,Likelihood ratio tests,apr/section2/apr233.htm,done,no,,
+8. Assessing Product Reliability,8.2.3.4,Trend tests,apr/section2/apr234.htm,done,no,,
+8. Assessing Product Reliability,8.2.4,How do you choose an appropriate physical acceleration model?,apr/section2/apr24.htm,done,no,,
+8. Assessing Product Reliability,8.2.5,What models and assumptions are typically made when Bayesian methods are used for reliability evaluation?,apr/section2/apr25.htm,done,no,,
+8. Assessing Product Reliability,8.3,Reliability Data Collection,apr/section3/apr3.htm,done,no,,
+8. Assessing Product Reliability,8.3.1,How do you plan a reliability assessment test?,apr/section3/apr31.htm,done,no,,
+8. Assessing Product Reliability,8.3.1.1,Exponential life distribution (or HPP model) tests,apr/section3/apr311.htm,done,no,,
+8. Assessing Product Reliability,8.3.1.2,Lognormal or Weibull tests,apr/section3/apr312.htm,done,no,,
+8. Assessing Product Reliability,8.3.1.3,Reliability growth (Duane model),apr/section3/apr313.htm,done,no,,
+8. Assessing Product Reliability,8.3.1.4,Accelerated life tests,apr/section3/apr314.htm,done,no,,
+8. Assessing Product Reliability,8.3.1.5,Bayesian gamma prior model,apr/section3/apr315.htm,done,no,,
+8. Assessing Product Reliability,8.4,Reliability Data Analysis,apr/section4/apr4.htm,done,no,,
+8. Assessing Product Reliability,8.4.1,How do you estimate life distribution parameters from censored data?,apr/section4/apr41.htm,done,no,,
+8. Assessing Product Reliability,8.4.1.1,Graphical estimation,apr/section4/apr411.htm,done,no,,
+8. Assessing Product Reliability,8.4.1.2,Maximum likelihood estimation,apr/section4/apr412.htm,done,no,,
+8. Assessing Product Reliability,8.4.1.3,A Weibull maximum likelihood estimation example,apr/section4/apr413.htm,done,no,,
+8. Assessing Product Reliability,8.4.2,How do you fit an acceleration model?,apr/section4/apr42.htm,done,no,,
+8. Assessing Product Reliability,8.4.2.1,Graphical estimation,apr/section4/apr421.htm,done,no,,
+8. Assessing Product Reliability,8.4.2.2,Maximum likelihood,apr/section4/apr422.htm,done,no,,
+8. Assessing Product Reliability,8.4.2.3,Fitting models using degradation data instead of failures,apr/section4/apr423.htm,done,no,,
+8. Assessing Product Reliability,8.4.3,How do you project reliability at use conditions?,apr/section4/apr43.htm,done,no,,
+8. Assessing Product Reliability,8.4.4,How do you compare reliability between two or more populations?,apr/section4/apr44.htm,done,no,,
+8. Assessing Product Reliability,8.4.5,How do you fit system repair rate models?,apr/section4/apr45.htm,done,no,,
+8. Assessing Product Reliability,8.4.5.1,Constant repair rate (HPP/exponential) model,apr/section4/apr451.htm,done,no,,
+8. Assessing Product Reliability,8.4.5.2,Power law (Duane) model,apr/section4/apr452.htm,done,no,,
+8. Assessing Product Reliability,8.4.5.3,Exponential law model,apr/section4/apr453.htm,done,no,,
+8. Assessing Product Reliability,8.4.6,How do you estimate reliability using the Bayesian gamma prior model?,apr/section4/apr46.htm,done,no,,
 8. Assessing Product Reliability,8.4.7,References For Chapter 8: Assessing Product Reliability,apr/section4/apr47.htm,skipped,no,,

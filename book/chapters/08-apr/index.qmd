@@ -66,3 +66,15 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include data-collection/index.qmd >}}
 
 {{< include data-collection/planning-reliability-test/index.qmd >}}
+
+{{< include data-analysis/index.qmd >}}
+
+{{< include data-analysis/censored-data-parameters/index.qmd >}}
+
+{{< include data-analysis/fitting-acceleration-model/index.qmd >}}
+
+{{< include data-analysis/projecting-use-reliability/index.qmd >}}
+
+{{< include data-analysis/repair-rate-model-fitting/index.qmd >}}
+
+{{< include data-analysis/bayesian-estimation/index.qmd >}}

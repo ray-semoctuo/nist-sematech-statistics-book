@@ -1,0 +1,111 @@
+### How do you project reliability at use conditions? {#sec-apr-43}
+
+[**When projecting from high stress to use conditions, having a correct acceleration model and life distribution model is critical**]{#sec-apr-43-critical}
+
+**General Considerations**
+
+Reliability projections based on failure data from high stress tests are based on assuming we know the correct acceleration model for the failure mechanism under investigation and we are also using the correct life distribution model. This is because we are extrapolating "backwards" - trying to describe failure behavior in the early tail of the life distribution, where we have little or no actual data.
+
+For example, with an acceleration factor of 5000 (and some are much larger than this), the first 100,000 hours of use life is "over" by 20 hours into the test. Most, or all, of the test failures typically come later in time and are used to fit a life distribution model with only the first 20 hours or less being of practical use. Many distributions may be flexible enough to adequately fit the data at the percentiles where the points are, and yet differ from the data by orders of magnitude in the very early percentiles (sometimes referred to as the early "tail" of the distribution).
+
+However, it is frequently necessary to test at high stress (to obtain any failures at all!) and project backwards to use. When doing this bear in mind two important points:
+
+[**Project for each failure mechanism separately**]{#sec-apr-43-separate}
+
+- Distribution models, and especially acceleration models, should be applied only to a single failure mechanism at a time. [Separate out failure mechanisms](#sec-apr-131) when doing the data analysis and use the [competing risk model](#sec-apr-181) to build up to a total component failure rate
+- Try to find theoretical justification for the chosen models, or at least a successful history of their use for the same or very similar mechanisms. (Choosing models solely based on empirical fit is like extrapolating from quicksand to a mirage.)
+
+**How to Project from High Stress to Use Stress**
+
+Two types of use-condition reliability projections are common:
+
+1. Projection to use conditions after completing a multiple stress cell experiment and successfully fitting both a life distribution model and an acceleration model
+2. Projection to use conditions after a single cell at high stress is run as a line reliability monitor.
+
+[**Arrhenius model projection example**]{#sec-apr-43-example}
+
+The Arrhenius example from the [graphical estimation](#sec-apr-421-example) and the [MLE estimation](#sec-apr-422-comparison) sections ended by comparing use projections of the CDF at 100,000 hours. This is a projection of the first type. We know from the Arrhenius model assumption that the $T_{50}$ at 25°C is just
+
+$$ A \cdot \mbox{exp} \left( \frac{\Delta H}{k(25+273.16)} \right) \, . $$
+
+Using the graphical model estimates for $\mbox{ln } A$ and $\Delta H$ we have,
+
+$$ \begin{eqnarray}
+T_{50} \mbox{ at use } & = & e^{-18.312} \cdot e^{0.808 (11605)/298.16} \\
+                       &   &  \\
+                       & = & e^{13.137} = 507383 \, ,
+\end{eqnarray} $$
+
+and combining this $T_{50}$ with the estimate of the common sigma of 0.74 allows us to easily estimate the CDF or failure rate after any number of hours of operation at use conditions.
+
+In particular, the CDF value of a lognormal at $T/T_{50}$ (where time $T$ = 100,000, $T_{50}$ = 507383, and sigma = 0.74) is 0.014, which matches the answer given in the [MLE estimation section](#sec-apr-422-comparison) as the graphical projection of the CDF at 100,000 hours at a use temperature of 25°C.
+
+```{r}
+#| label: verify-apr-43-use-cdf
+#| code-fold: true
+T50_use <- exp(-18.312) * exp(0.808 * 11605 / 298.16)
+sigma <- 0.74
+T_hours <- 100000
+
+cdf_use <- pnorm(log(T_hours / T50_use) / sigma)
+
+tibble::tibble(Statistic = c("T50 at use", "CDF at 100,000 hours"), Value = c(round(T50_use), round(cdf_use, 3))) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported use $T_{50}$ (507383) and CDF at 100,000 hours (0.014) exactly.
+
+If the life distribution model had been Weibull, the same type of analysis would be performed by letting the characteristic life parameter $\alpha$ vary with stress according to the acceleration model, while the shape parameter $\gamma$ is constant for all stress conditions.
+
+The second type of use projection was used in the section on [lognormal and Weibull tests](#sec-apr-312-rules-of-thumb), in which we judged new lots of product by looking at the proportion of failures in a sample tested at high stress. The assumptions we made were:
+
+- we knew the acceleration factor between use and high stress
+- the shape parameter (sigma for the lognormal, gamma for the Weibull) is also known and does not change significantly from lot to lot.
+
+With these assumptions, we can take any proportion of failures we see from a high stress test and project a use CDF or failure rate. For a $T$-hour high stress test and an acceleration factor of $A$ from high stress to use stress, an observed proportion $p$ is converted to a use CDF at 100,000 hours for a lognormal model using:
+
+$$ T_{50Stress} = T \cdot G^{-1} (p, \, 0, \, \sigma) $$
+
+$$ \mbox{CDF } = G\left( 100000/(AT_{50Stress}), \, 0, \, \sigma \right) \, , $$
+
+where $G(q, \, \mu, \, \sigma)$ is the lognormal distribution function with mean $\mu$ and standard deviation $\sigma$.
+
+If the model is Weibull, we can find the use CDF or failure rate with:
+
+$$ A_{Stress} = T \cdot W^{-1} (p, \, \gamma, \, 1) $$
+
+$$ \mbox{CDF } = W\left( 100000/(A \cdot A_{Stress}), \, \gamma, \, 1 \right) \, , $$
+
+where $W(q, \, \gamma, \, \alpha)$ is the Weibull distribution function with shape parameter $\gamma$ and scale parameter $\alpha$.
+
+The analyses in this section can be implemented using both Dataplot code and R code.
+
+### How do you compare reliability between two or more populations? {#sec-apr-44}
+
+[**Several methods for comparing reliability between populations are described**]{#sec-apr-44-methods}
+
+Comparing reliability among populations based on samples of failure data usually means asking whether the samples came from populations with the same reliability function (or CDF). Three techniques already described can be used to answer this question for censored reliability data. These are:
+
+- [Comparing sample proportion failures](#sec-apr-44-proportions)
+- [Likelihood ratio test comparisons](#sec-apr-44-lrt)
+- [Lifetime regression comparisons](#sec-apr-44-lifetime-regression)
+
+[**Comparing Sample Proportion Failures**]{#sec-apr-44-proportions}
+
+Assume each sample is a random sample from possibly a different lot, vendor or production plant. All the samples are tested under the same conditions. Each has an observed proportion of failures on test. Call these sample proportions of failures $p_1, \, p_2, \, p_3, \, \ldots, \, p_n$. Could these all have come from equivalent populations?
+
+This is a question covered in Chapter 7 [for two populations](#sec-prc-33), and for [more than two populations](#sec-prc-46), and the techniques described there apply equally well here.
+
+[**Likelihood Ratio Test Comparisons**]{#sec-apr-44-lrt}
+
+The [Likelihood Ratio test](#sec-apr-233) was described earlier. In this application, the Likelihood ratio $\lambda$ has as a denominator the product of all the Likelihoods of all the samples assuming each population has its own unique set of parameters. The numerator is the product of the Likelihoods assuming the parameters are exactly the same for each population. The test looks at whether $-2\mbox{ ln } \lambda$ is unusually large, in which case it is unlikely the populations have the same parameters (or reliability functions).
+
+This procedure is very effective if, and only if, it is built into the analysis software package being used and this software covers the models and situations of interest to the analyst.
+
+[**Lifetime Regression Comparisons**]{#sec-apr-44-lifetime-regression}
+
+Lifetime regression is similar to [maximum likelihood](#sec-apr-422) and [likelihood ratio test methods](#sec-apr-233). Each sample is assumed to have come from a population with the same shape parameter and a wide range of questions about the scale parameter (which is often assumed to be a "measure" of lot-to-lot or vendor-to-vendor quality) can be formulated and tested for significance.
+
+For a complicated, but realistic example, assume a company manufactures memory chips and can use chips with some known defects ("partial goods") in many applications. However, there is a question of whether the reliability of "partial good" chips is equivalent to "all good" chips. There exists lots of customer reliability data to answer this question. However the data are difficult to analyze because they contain several different vintages with known reliability differences as well as chips manufactured at many different locations. How can the partial good vs all good question be resolved?
+
+A lifetime regression model can be constructed with variables included that change the scale parameter based on vintage, location, partial versus all good, and any other relevant variables. Then, a good lifetime regression program will sort out which, if any, of these factors are significant and, in particular, whether there is a significant difference between "partial good" and "all good".

@@ -1,0 +1,601 @@
+### How do you fit an acceleration model? {#sec-apr-42}
+
+[**Acceleration models can be fit by either graphical procedures or maximum likelihood methods**]{#sec-apr-42-methods}
+
+As with estimating life distribution model parameters, there are two general approaches for estimating acceleration model parameters:
+
+- [Graphical estimation](#sec-apr-421) (or computer procedures based on a graphical approach)
+- [Maximum Likelihood Estimation](#sec-apr-422) (an analytic approach based on writing the likelihood of all the data across all the cells, incorporating the acceleration model).
+
+The same comments and [recommendations](#sec-apr-41) concerning these methods still apply. Note that it is even harder, however, to find useful software programs that will do maximum likelihood estimation across stress cells and fit and test acceleration models.
+
+[**Sometimes it is possible to fit a model using degradation data**]{#sec-apr-42-degradation}
+
+Another promising method of fitting acceleration models is sometimes possible when studying failure mechanisms characterized by a stress-induced gradual degradation process that causes the eventual failure. This approach [fits models based on degradation data](#sec-apr-423) and has the advantage of not actually needing failures. This overcomes censoring limitations by providing measurement data at consecutive time intervals for every unit in every stress cell.
+
+#### Graphical estimation {#sec-apr-421}
+
+This section will discuss the following:
+
+1. [How to fit an Arrhenius model with graphical estimation](#sec-apr-421-arrhenius)
+2. [Graphical estimation: an Arrhenius model example](#sec-apr-421-example)
+3. [Fitting more complicated models](#sec-apr-421-complicated)
+
+[**Estimate acceleration model parameters by estimating cell $T_{50}$ values (or $\alpha$ values) and then using regression to fit the model across the cells**]{#sec-apr-421-arrhenius}
+
+**How to fit an Arrhenius Model with Graphical Estimation**
+
+Graphical methods work best (and are easiest to describe) for a simple one-stress model like the widely used [Arrhenius model](#sec-apr-151)
+
+$$ t_f = A \cdot \mbox{ exp } \left( \frac{\Delta H}{kT} \right) \, , $$
+
+with $T$ denoting temperature measured in degrees Kelvin (273.16 + degrees Celsius) and $k$ is Boltzmann's constant (8.617 $\times$ 10$^{-5}$ in eV/K).
+
+When applying an acceleration model to a distribution of failure times, we interpret the deterministic model equation to apply at any distribution percentile we want. This is equivalent to setting the life distribution scale parameter equal to the model equation ($T_{50}$ for the lognormal, $\alpha$ for the Weibull and the MTBF, or $1/\lambda$ for the exponential). For the lognormal, for example, we have
+
+$$ T_{50} = A \cdot \mbox{ exp } \left( \frac{\Delta H}{kT} \right) \, , $$
+
+$$ \mbox{ln } T_{50} = y = \mbox{ln } A + \Delta H \left( \frac{1}{kT} \right) \, . $$
+
+This can be written as
+
+$$ y = a + bx $$
+
+with
+
+$$ b = \Delta H \,\,\,\,\, \mbox{ and } \,\,\,\,\, x = \frac{1}{kT} \, . $$
+
+So, if we run several stress cells and compute $T_{50}$ values for each cell, a plot of the natural log of these $T_{50}$ values versus the corresponding $1/kT$ values should be roughly linear with a slope of $\Delta H$ and an intercept of $\mbox{ln } A$. In practice, a computer fit of a line through these points is typically used to obtain the Arrhenius model estimates. Remember that $T$ is in Kelvin in the above equations. For temperature in Celsius, use the following for $1/kT$: 11605/($t$°C + 273.16).
+
+An example will illustrate the procedure.
+
+[**Graphical Estimation: An Arrhenius Model Example**]{#sec-apr-421-example}
+
+Component life tests were run at three temperatures: 85°C, 105°C and 125°C. The lowest temperature cell was populated with 100 components; the 105°C cell had 50 components and the highest stress cell had 25 components. All tests were run until either all the units in the cell had failed or 1000 hours was reached. Acceleration was assumed to follow an Arrhenius model and the life distribution model for the failure mode was believed to be lognormal. The normal operating temperature for the components is 25°C and it is desired to project the use CDF at 100,000 hours.
+
+**Test results**:
+
+Cell 1 (85°C): 5 failures at 401, 428, 695, 725 and 738 hours. Ninety-five units were censored at 1000 hours running time.
+
+Cell 2 (105°C): 35 failures at 171, 187, 189, 266, 275, 285, 301, 302, 305, 316, 317, 324, 349, 350, 386, 405, 480, 493, 530, 534, 536, 567, 589, 598, 599, 614, 620, 650, 668, 685, 718, 795, 854, 917, and 926 hours. Fifteen units were censored at 1000 hours running time.
+
+Cell 3 (125°C): 24 failures at 24, 42, 92, 93, 141, 142, 143, 159, 181, 188, 194, 199, 207, 213, 243, 256, 259, 290, 294, 305, 392, 454, 502 and 696. One unit was censored at 1000 hours running time.
+
+Failure analysis confirmed that all failures were due to the same failure mechanism (if any failures due to another mechanism had occurred, they would have been considered [censored run times](#sec-apr-131) in the Arrhenius analysis).
+
+**Steps to Fitting the Distribution Model and the Arrhenius Model:**
+
+- Do plots for each cell and estimate $T_{50}$ and sigma as [previously discussed](#sec-apr-411-mechanics).
+- Plot all the cells on the same graph and check whether the lines are roughly parallel (a necessary consequence of true acceleration).
+- If probability plots indicate that the lognormal model is appropriate and that sigma is consistent among cells, plot $\mbox{ln } T_{50}$ versus 11605/($t$°C + 273.16) for each cell, check for linearity and fit a straight line through the points. Since the points have different values of precision, due to different numbers of failures in each cell, it is recommended that the number of failures in each cell be used as weights in a regression when fitting a line through the points.
+- Use the slope of the line as the $\Delta H$ estimate and calculate the Arrhenius *A* constant from the intercept using $A = e^{intercept}$.
+- Estimate the common sigma across all the cells by the weighted average of the individual cell sigma estimates. Use the number of failures in a cell divided by the total number of failures in all cells as that cell's weight. This will allow cells with more failures to play a bigger role in the estimation process.
+
+[**Solution for Arrhenius model example**]{#sec-apr-421-solution}
+
+**Analysis of Multicell Arrhenius Model Data:**
+
+The following lognormal probability plot was generated for our data so that all three stress cells are plotted on the same graph.
+
+```{r}
+#| label: fig-apr-421-probability-plot
+#| fig-cap: "Lognormal probability plots of temperature cells"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+cell1 <- c(401, 428, 695, 725, 738)
+cell2 <- c(171, 187, 189, 266, 275, 285, 301, 302, 305, 316, 317,
+           324, 349, 350, 386, 405, 480, 493, 530, 534, 536, 567,
+           589, 598, 599, 614, 620, 650, 668, 685, 718, 795, 854,
+           917, 926)
+cell3 <- c(24, 42, 92, 93, 141, 142, 143, 159, 181, 188, 194, 199,
+           207, 213, 243, 256, 259, 290, 294, 305, 392, 454, 502, 696)
+nu <- c(100, 50, 25)
+
+plot_pos <- function(cell, n) {
+  i <- seq_along(cell)
+  (i - 0.3) / (n + 0.4)
+}
+
+cell_df <- bind_rows(
+  tibble(cell = "1 (85C)", y = log(cell1), x = qnorm(plot_pos(cell1, nu[1]))),
+  tibble(cell = "2 (105C)", y = log(cell2), x = qnorm(plot_pos(cell2, nu[2]))),
+  tibble(cell = "3 (125C)", y = log(cell3), x = qnorm(plot_pos(cell3, nu[3])))
+)
+
+ggplot(cell_df, aes(x, y, color = cell, linetype = cell)) +
+  geom_line() +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted")) +
+  labs(x = "Theoretical Quantiles", y = "ln Time", color = "Cell", linetype = "Cell") +
+  theme_classic()
+```
+
+Note that the lines are somewhat straight (a check on the lognormal model) and the slopes are approximately parallel (a check on the acceleration assumption).
+
+The cell $\mbox{ln } T_{50}$ and sigma estimates are obtained from linear regression fits for each cell using the data from the probability plot. Each fit will yield a cell $A_0$, the $\mbox{ln } T_{50}$ estimate, and $A_1$, the cell sigma estimate. These are summarized in the table below.
+
+```{r}
+#| label: tbl-apr-421-cell-estimates
+#| tbl-cap: "Summary of Least Squares Estimation of Cell Lognormal Parameters"
+#| code-fold: true
+fit1 <- lsfit(qnorm(plot_pos(cell1, nu[1])), log(cell1))
+fit2 <- lsfit(qnorm(plot_pos(cell2, nu[2])), log(cell2))
+fit3 <- lsfit(qnorm(plot_pos(cell3, nu[3])), log(cell3))
+
+tibble(
+  `Cell Number` = c("1 (t C = 85)", "2 (t C = 105)", "3 (t C = 125)"),
+  `ln T_50` = round(c(fit1$coef[1], fit2$coef[1], fit3$coef[1]), 3),
+  Sigma = round(c(fit1$coef[2], fit2$coef[2], fit3$coef[2]), 3)
+) |>
+  knitr::kable(align = "lrr")
+```
+
+The R computation above matches NIST's reported cell $\mbox{ln } T_{50}$ and sigma estimates exactly.
+
+The three cells have 11605/($t$°C + 273.16) values of 32.40, 30.69 and 29.15 respectively, in cell number order. The Arrhenius plot is
+
+```{r}
+#| label: fig-apr-421-arrhenius-plot
+#| fig-cap: "Arrhenius plot of three cell T50's"
+#| code-fold: true
+temp <- c(85, 105, 125)
+xarrh <- 11605 / (temp + 273.15)
+yarrh <- c(fit1$coef[1], fit2$coef[1], fit3$coef[1])
+
+ggplot(tibble(x = xarrh, y = yarrh), aes(x, y)) +
+  geom_point(shape = 19, color = "red", size = 2) +
+  geom_line(color = "red") +
+  labs(x = "11605/(t+273.16)", y = "ln T50") +
+  theme_classic()
+```
+
+With only three cells, it is unlikely a straight line through the points will present obvious visual lack of fit. However, in this case, the points appear to line up very well.
+
+Finally, the model coefficients are computed from a weighted linear fit of $\mbox{ln } T_{50}$ versus 11605/($t$°C + 273.16), using weights of 5, 35, and 24 for each cell. This will yield a $\mbox{ln } A$ estimate of -18.312 ($A = e^{-18.312} = 0.1115 \times 10^{-7}$) and a $\Delta H$ estimate of 0.808. With this value of $\Delta H$, the acceleration between the lowest stress cell of 85°C and the highest of 125°C is
+
+$$ \mbox{exp } \left[ 0.808 \times 11605 \times \left( \frac{1}{358.16} - \frac{1}{398.16} \right) \right] = 13.9 \, , $$
+
+which is almost 14 $\times$ acceleration. Acceleration from 125°C to the use condition of 25°C is 3708$\times$. The use $T_{50}$ is
+
+$$ e^{-18.312} \times e^{0.808 \times 11605 \times 1/298.16} = e^{13.137} = 507383 \, . $$
+
+```{r}
+#| label: verify-apr-421-arrhenius-fit
+#| code-fold: true
+wfit <- lm(yarrh ~ xarrh, weights = c(length(cell1), length(cell2), length(cell3)))
+lnA_hat <- unname(coef(wfit)[1])
+dH_hat <- unname(coef(wfit)[2])
+A_hat <- exp(lnA_hat)
+
+acc_85_125 <- exp(dH_hat * 11605 * (1 / (temp[1] + 273.16) - 1 / (temp[3] + 273.16)))
+acc_125_25 <- exp(dH_hat * 11605 * (1 / (temp[3] + 273.16) - 1 / (25 + 273.16)))
+use_T50 <- exp(lnA_hat) * exp(dH_hat * 11605 * (1 / (25 + 273.16)))
+
+sigma_weighted <- (5 / 64) * fit1$coef[2] + (35 / 64) * fit2$coef[2] + (24 / 64) * fit3$coef[2]
+
+tibble(
+  Statistic = c("ln A", "A", "Delta H", "Acceleration 85 to 125 C", "Acceleration 125 to 25 C", "Use T50", "Weighted sigma"),
+  Value = c(round(lnA_hat, 3), format(A_hat, digits = 4, scientific = TRUE), round(dH_hat, 3), round(acc_85_125, 1), round(acc_125_25), round(use_T50), round(sigma_weighted, 2))
+) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported Arrhenius model estimates ($\mbox{ln } A$ = -18.312, $\Delta H$ = 0.808, acceleration 85→125°C of 13.9, use $T_{50}$ of 507383) and weighted sigma (0.74) exactly.
+
+A single sigma estimate for all stress conditions can be calculated as a weighted average of the three sigma estimates obtained from the experimental cells. The weighted average is (5/64) $\times$ 0.908 + (35/64) $\times$ 0.663 + (24/64) $\times$ 0.805 = 0.74.
+
+The analyses in this section can be implemented using both Dataplot code and R code.
+
+[**Fitting More Complicated models**]{#sec-apr-421-complicated}
+
+[**Models involving several stresses can be fit using multiple regression**]{#sec-apr-421-multiple-regression}
+
+Two stress models, such as the temperature/voltage model given by
+
+$$ t_f = A \cdot V^{\beta} \cdot \mbox{ exp } \left( \frac{\Delta H}{kT} \right) \, , $$
+
+need at least four or five carefully chosen stress cells to estimate all the parameters. The [Backwards L design](#sec-apr-314-backward-l) previously described is an example of a design for this model. The bottom row of the "backward L" could be used for a plot testing the Arrhenius temperature dependence, similar to the above Arrhenius example. The right hand column could be plotted using $y = \mbox{ln } T_{50}$ and $x = \mbox{ln } V$, to check the voltage term in the model. The overall model estimates should be obtained from fitting the multiple regression model
+
+$$ Y = b_0 + b_1 X_1 + b_2 X_2 \, , $$
+
+with
+
+$$ \begin{array}{rl}
+Y = \mbox{ln } T_{50}, &  b_0 = \mbox{ln } A \\
+ &  \\
+b_1 = \Delta H,  & X_1 = 1/kT \\
+ &  \\
+b_2 = \beta, & X_2 = \mbox{ln } V \, .
+\end{array} $$
+
+Fitting this model, after setting up the data vectors, provides estimates for $b_0, \, b_1$, and $b_2$.
+
+Three stress models, and even Eyring models with interaction terms, can be fit by a direct extension of these methods. Graphical plots to test the model, however, are less likely to be meaningful as the model becomes more complex.
+
+#### Maximum likelihood {#sec-apr-422}
+
+[**The maximum likelihood method can be used to estimate distribution and acceleration model parameters at the same time**]{#sec-apr-422-overview}
+
+The likelihood equation for a multi-cell acceleration model utilizes the [likelihood function](#sec-apr-412-likelihood) for each cell, as described in section 8.4.1.2. Each cell will have unknown life distribution parameters that, in general, are different. For example, if a lognormal model is used, each cell might have its own $T_{50}$ and sigma.
+
+Under an acceleration assumption, however, all the cells contain samples from populations that have the same value of sigma (the slope does not change for different stress cells). Also, the $T_{50}$ values are related to one another by the acceleration model; they all can be written using the acceleration model equation that includes the proper cell stresses.
+
+To form the likelihood equation under the acceleration model assumption, simply rewrite each cell likelihood by replacing each cell $T_{50}$ with its acceleration model equation equivalent and replacing each cell sigma with the same overall sigma. Then, multiply all these modified cell likelihoods together to obtain the overall likelihood equation.
+
+Once the overall likelihood equation has been created, the maximum likelihood estimates (MLE) of sigma and the acceleration model parameters are the values that maximize this likelihood. In most cases, these values are obtained by setting partial derivatives of the log likelihood to zero and solving the resulting (non-linear) set of equations.
+
+[**The method is complicated and requires specialized software**]{#sec-apr-422-complicated}
+
+As you can see, the procedure is complicated, computationally intensive, and is only practical if appropriate software is available. MLE does have many desirable features.
+
+- The method can, in theory at least, be used for any distribution model and acceleration model and type of censored data.
+- Estimates have "optimal" statistical properties as sample sizes (i.e., numbers of failures) become large.
+- Approximate confidence bounds can be calculated.
+- Statistical tests of key assumptions can be made using the [likelihood ratio test.](#sec-apr-233) Some common tests are:
+  - the life distribution model versus another simpler model with fewer parameters (i.e., a 3-parameter Weibull versus a 2-parameter Weibull, or a 2-parameter Weibull versus an exponential),
+  - the constant slope from cell to cell requirement of typical acceleration models, and
+  - the fit of a particular acceleration model.
+
+In general, the [recommendations](#sec-apr-41) made when comparing methods of estimating life distribution model parameters also apply here. Software incorporating acceleration model analysis capability, while rare just a few years ago, is now readily available and many companies and universities have developed their own proprietary versions.
+
+**Steps For Fitting The Arrhenius Model**
+
+[**Use MLE to fit an Arrhenius model to example data**]{#sec-apr-422-fit}
+
+Data from the [Arrhenius example](#sec-apr-421-example) given in section 8.4.2.1 were analyzed using MLE. The analyses in this section can be implemented using R code.
+
+1. We generate survival curves for each cell. All plots and estimates are based on individual cell data, without the Arrhenius model assumption.
+
+```{r}
+#| label: fig-apr-422-survival-curves
+#| fig-cap: "Survival curves for the three temperature cells"
+#| code-fold: true
+#| message: false
+library(survival)
+
+cell85 <- c(401, 428, 695, 725, 738)
+NC85 <- 100
+y85 <- Surv(c(cell85, rep(1000, NC85 - length(cell85))), c(rep(1, length(cell85)), rep(0, NC85 - length(cell85))))
+ys85 <- survfit(y85 ~ 1, type = "kaplan-meier")
+
+cell105 <- c(171, 187, 189, 266, 275, 285, 301, 302, 305, 316, 317,
+             324, 349, 350, 386, 405, 480, 493, 530, 534, 536, 567,
+             589, 598, 599, 614, 620, 650, 668, 685, 718, 795, 854,
+             917, 926)
+NC105 <- 50
+y105 <- Surv(c(cell105, rep(1000, NC105 - length(cell105))), c(rep(1, length(cell105)), rep(0, NC105 - length(cell105))))
+ys105 <- survfit(y105 ~ 1, type = "kaplan-meier")
+
+cell125 <- c(24, 42, 92, 93, 141, 142, 143, 159, 181, 188, 194, 199,
+             207, 213, 243, 256, 259, 290, 294, 305, 392, 454, 502, 696)
+NC125 <- 25
+y125 <- Surv(c(cell125, rep(1000, NC125 - length(cell125))), c(rep(1, length(cell125)), rep(0, NC125 - length(cell125))))
+ys125 <- survfit(y125 ~ 1, type = "kaplan-meier")
+
+surv_df <- bind_rows(
+  tibble(time = ys85$time, surv = ys85$surv, cell = "85 C"),
+  tibble(time = ys105$time, surv = ys105$surv, cell = "105 C"),
+  tibble(time = ys125$time, surv = ys125$surv, cell = "125 C")
+) |>
+  mutate(cell = factor(cell, levels = c("85 C", "105 C", "125 C")))
+
+ggplot(surv_df, aes(time, surv, color = cell, linetype = cell)) +
+  geom_step() +
+  scale_linetype_manual(values = c("solid", "dashed", "dotted")) +
+  labs(x = "Hours", y = "Survival Probability", color = "Cell", linetype = "Cell") +
+  theme_classic()
+```
+
+2. The results of lognormal survival regression modeling for the three data cells are shown below.
+
+```{r}
+#| label: verify-apr-422-cell-mle
+#| code-fold: true
+yl85 <- survreg(y85 ~ 1, dist = "lognormal")
+yl105 <- survreg(y105 ~ 1, dist = "lognormal")
+yl125 <- survreg(y125 ~ 1, dist = "lognormal")
+
+tibble(
+  Cell = c("1 - 85 C", "2 - 105 C", "3 - 125 C"),
+  Intercept = round(c(coef(yl85), coef(yl105), coef(yl125)), 3),
+  Sigma = round(c(yl85$scale, yl105$scale, yl125$scale), 3),
+  `Log Likelihood` = round(c(yl85$loglik[1], yl105$loglik[1], yl125$loglik[1]), 1)
+) |>
+  knitr::kable(align = "lrrr")
+```
+
+The cell ln likelihood values are -53.4, -265.2 and -156.5, respectively. Adding them together yields a total ln likelihood of -475.1 for all the data fit with separate lognormal parameters for each cell (no Arrhenius model assumption).
+
+3. Fit the Arrhenius model to all data using MLE.
+
+```{r}
+#| label: verify-apr-422-arrhenius-mle
+#| code-fold: true
+y.All <- rbind(y85, y105, y125)
+y.all <- Surv(y.All[, 1], y.All[, 2])
+k <- 8.617e-5
+TempC <- c(rep(85, NC85), rep(105, NC105), rep(125, NC125))
+T_kelvin <- TempC + 273.16
+lkT <- 1 / (k * T_kelvin)
+
+ylkT <- survreg(y.all ~ lkT, dist = "lognormal")
+
+tibble(
+  Parameter = c("Intercept", "1/kT", "ln(scale)"),
+  Estimate = round(c(coef(ylkT), log(ylkT$scale)), 3)
+) |>
+  knitr::kable(align = "lr")
+```
+
+```{r}
+#| label: verify-apr-422-likelihood-ratio
+#| code-fold: true
+lnL1 <- yl85$loglik[1] + yl105$loglik[1] + yl125$loglik[1]
+lnL0 <- ylkT$loglik[2]
+lr_stat <- -2 * (lnL0 - lnL1)
+p_value <- 1 - pchisq(lr_stat, 3)
+
+tibble(
+  Statistic = c("ln L1 (separate cells)", "ln L0 (Arrhenius model)", "-2 ln lambda", "Chi-square p-value (3 df)"),
+  Value = c(round(lnL1, 1), round(lnL0, 1), round(lr_stat, 1), paste0(round(p_value * 100, 1), "%"))
+) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported cell parameter estimates, log-likelihoods, Arrhenius model coefficients, and likelihood ratio test statistic (-2 ln lambda = 3.2, p-value 36.3%) exactly.
+
+4. The [likelihood ratio test](#sec-apr-233) statistic for the Arrhenius model fit (which also incorporates the single sigma acceleration assumption) is $-2 \mbox{ ln } \lambda$, where $\lambda$ denotes the ratio of the likelihood values with ($L_0$) and without ($L_1$) the Arrhenius model assumption so that
+
+$$ -2 \mbox{ ln } \lambda = -2 \mbox{ ln } (L_0 / L_1) = -2(\mbox{ln } L_0 - \mbox{ln } L_1) \, . $$
+
+Using the results from steps 2 and 3, we have
+
+$$ -2 \mbox{ ln } \lambda = -2[-476.7 - (-475.1)] = 3.2 \, . $$
+
+The degrees of freedom for the Chi-Square test statistic is 6 - 3 = 3, since six parameters were reduced to three under the acceleration model assumption. The chance of obtaining a value 3.2 or higher is 36.3% for a Chi-Square distribution with 3 degrees of freedom, which indicates an acceptable model (no significant lack of fit).
+
+This completes the Arrhenius model analysis of the three cells of data. If different cells of data have different voltages, then a new variable "$\mbox{ln } V$" could be added as an effect to fit the Inverse Power Law voltage model. In fact, several effects can be included at once if more than one stress varies across cells. Cross product stress terms could also be included by adding these columns to the spreadsheet and adding them in the model as additional "effects".
+
+[**Example Comparing Graphical Estimates and MLE**]{#sec-apr-422-comparison}
+
+The results from the three-stress-cell [Arrhenius example](#sec-apr-421-example) using graphical and MLE methods for estimating parameters are shown in the table below.
+
+```{r}
+#| label: tbl-apr-422-comparison
+#| tbl-cap: "Comparison of graphical and MLE estimates"
+#| code-fold: true
+library(gt)
+
+tibble(
+  Cell = c("Cell 1", "Cell 2", "Cell 3"),
+  `ln T50 (Graphical)` = c(8.17, 6.42, 5.32),
+  `Sigma (Graphical)` = c(0.91, 0.66, 0.81),
+  `ln T50 (MLE)` = c(8.89, 6.47, 5.33),
+  `Sigma (MLE)` = c(1.21, 0.71, 0.81)
+) |>
+  gt() |>
+  tab_spanner(label = "Graphical Estimates", columns = c(`ln T50 (Graphical)`, `Sigma (Graphical)`)) |>
+  tab_spanner(label = "MLE", columns = c(`ln T50 (MLE)`, `Sigma (MLE)`)) |>
+  cols_label(
+    `ln T50 (Graphical)` = "ln T50",
+    `Sigma (Graphical)` = "Sigma",
+    `ln T50 (MLE)` = "ln T50",
+    `Sigma (MLE)` = "Sigma"
+  )
+```
+
+```{r}
+#| label: tbl-apr-422-overall
+#| tbl-cap: "Acceleration Model Overall Estimates"
+#| code-fold: true
+tibble(
+  Method = c("Graphical", "MLE"),
+  `Delta H` = c(0.808, 0.863),
+  Sigma = c(0.74, 0.77),
+  `ln A` = c(-18.312, -19.91)
+) |>
+  knitr::kable(align = "lrrr")
+```
+
+Note that when there are a lot of failures and little censoring, the two methods are in fairly close agreement. Both methods are also in close agreement on the Arrhenius model results. However, even small differences can be important when projecting reliability numbers at use conditions. In this example, the CDF at 25°C and 100,000 hours projects to 0.014 using the graphical estimates and only 0.003 using the MLE.
+
+[**MLE method tests models and gives confidence intervals**]{#sec-apr-422-tests}
+
+The maximum likelihood method allows us to test whether parallel lines (a single sigma) are reasonable and whether the Arrhenius model is acceptable. The [likelihood ratio tests](#sec-apr-233) for the three example data cells indicated that a single sigma and the Arrhenius model are appropriate. In addition, we can compute confidence intervals for all estimated parameters based on the MLE results.
+
+#### Fitting models using degradation data instead of failures {#sec-apr-423}
+
+[**If you can fit models using degradation data, you don't need actual test failures**]{#sec-apr-423-no-failures}
+
+When failure can be related directly to a change over time in a measurable product parameter, it opens up the possibility of measuring degradation over time and using that data to extrapolate when failure will occur. That allows us to fit acceleration models and life distribution models without actually waiting for failures to occur.
+
+This overview of degradation modeling assumes you have chosen a [life distribution model](#sec-apr-21) and an [acceleration model](#sec-apr-24) and offers an alternative to the [accelerated testing methodology](#sec-apr-314) based on failure data, previously described. The following topics are covered.
+
+- [Common assumptions](#sec-apr-423-assumptions)
+- [Advantages](#sec-apr-423-advantages)
+- [Drawbacks](#sec-apr-423-drawbacks)
+- [A simple method](#sec-apr-423-simple-method)
+- [A more accurate approach for a special case](#sec-apr-423-regression-model)
+- [Example](#sec-apr-423-example)
+
+More details can be found in Nelson (1990, pages 521-544) [@Nelson1990] or Tobias and Trindade (1995, pages 197-203) [@TobiasTrindade1995].
+
+**Common Assumptions When Modeling Degradation Data**
+
+[**You need a measurable parameter that drifts (degrades) linearly to a critical failure value**]{#sec-apr-423-assumptions}
+
+Two common assumptions typically made when degradation data are modeled are the following:
+
+1. A parameter $D$, that can be measured over time, drifts monotonically (upwards, or downwards) towards a specified critical value $DF$. When it reaches $DF$, failure occurs.
+2. The drift, measured in terms of $D$, is linear over time with a slope (or **rate of degradation**) $R$, that depends on the relevant stress the unit is operating under and also the (random) characteristics of the unit being measured. Note: It may be necessary to define $D$ as a transformation of some standard parameter in order to obtain linearity - logarithms or powers are sometimes needed.
+
+@fig-apr-423-degradation-trends illustrates these assumptions by showing degradation plots of five units on test. Degradation readings for each unit are taken at the same four time points and straight lines fit through these readings on a unit-by-unit basis. These lines are then extended up to a critical (failure) degradation value. The projected times of failure for these units are then read off the plot. These are: $t_1, \, t_2, \, \ldots, \, t_5$.
+
+![Plot of linear degradation trends for five units read out at four time points](data-analysis/images/degradation-trends-four-readouts.gif){#fig-apr-423-degradation-trends}
+
+[**Often, the degradation lines go through the origin - as when % change is the measurable parameter increasing to a failure level**]{#sec-apr-423-through-origin}
+
+In many practical situations, $D$ starts at 0 at time zero, and all the linear theoretical degradation lines start at the origin. This is the case when $D$ is a "% change" parameter, or failure is defined as a change of a specified magnitude in a parameter, regardless of its starting value. Lines all starting at the origin simplify the analysis since we don't have to characterize the population starting value for $D$, and the "distance" any unit "travels" to reach failure is always the constant $DF$. For these situations, the degradation lines would look as follows, as shown in @fig-apr-423-degradation-origin.
+
+![Linear degradation trends going through the origin](data-analysis/images/degradation-trends-through-origin.gif){#fig-apr-423-degradation-origin}
+
+It is also common to assume the effect of measurement error, when reading values of $D$, has relatively little impact on the accuracy of model estimates.
+
+**Advantages of Modeling Based on Degradation Data**
+
+[**Modeling based on complete samples of measurement data, even with low stress cells, offers many advantages**]{#sec-apr-423-advantages}
+
+1. Every degradation readout for every test unit contributes a data point. This leads to large amounts of useful data, even if there are very few failures.
+2. You don't have to run tests long enough to obtain significant numbers of failures.
+3. You can run low stress cells that are much closer to use conditions and obtain meaningful degradation data. The same cells would be a waste of time to run if failures were needed for modeling. Since these cells are more typical of use conditions, it makes sense to have them influence model parameters.
+4. Simple plots of degradation versus time can be used to visually test the linear degradation assumption.
+
+**Drawbacks to Modeling Based on Degradation Data**
+
+[**Degradation may not proceed in a smooth, linear fashion towards what the customer calls "failure"**]{#sec-apr-423-drawbacks}
+
+1. For many failure mechanisms, it is difficult or impossible to find a measurable parameter that degrades to a critical value in such a way that reaching that critical value is equivalent to what the customer calls a failure.
+2. Degradation trends may vary erratically from unit to unit, with no apparent way to transform them into linear trends.
+3. Sometimes degradation trends are reversible and a few units appear to "heal themselves" or get better. This kind of behavior does not follow typical assumptions and is difficult to model.
+4. Measurement error may be significant and overwhelm small degradation trends, especially at low stresses.
+5. Even when degradation trends behave according to assumptions and the chosen models fit well, the final results may not be consistent with an analysis based on actual failure data. This probably means that the failure mechanism depends on more than a simple continuous degradation process.
+
+Because of the last listed drawback, it is a good idea to have at least one high-stress cell where enough real failures occur to do a standard life distribution model analysis. The parameter estimates obtained can be compared to the predictions from the degradation data analysis, as a "reality" check.
+
+**A Simple Method For Modeling Degradation Data**
+
+[**A simple approach is to extend each unit's degradation line until a projected "failure time" is obtained**]{#sec-apr-423-simple-method}
+
+1. As shown in the figures above, fit a line through each unit's degradation readings. This can be done by hand, but using a least squares regression program is better.
+2. Take the equation of the fitted line, substitute $DF$ for $Y$ and solve for $X$. This value of $X$ is the "projected time of fail" for that unit.
+3. Repeat for every unit in a stress cell until a complete sample of (projected) times of failure is obtained for the cell.
+4. Use the failure times to compute life distribution parameter estimates for a cell. Under the fairly typical assumption of a [lognormal model](#sec-apr-164), this is very simple. Take natural logarithms of all failure times and treat the resulting data as a sample from a normal distribution. Compute the sample mean and the sample standard deviation. These are estimates of $\mbox{ln } T_{50}$ and $\sigma$, respectively, for the cell.
+5. Assuming there are $k$ cells with varying stress, fit an appropriate [acceleration model](#sec-apr-24) using the cell $\mbox{ln } T_{50}$ values, as described in the [graphical estimation](#sec-apr-421) section. A single sigma estimate is obtained by taking the square root of the average of the cell $\sigma^2$ estimates (assuming the same number of units each cell). If the cells have $n_j$ units on test, where the $n_j$ values are not all equal, use the pooled sum-of-squares estimate across all $k$ cells calculated by
+
+$$ \hat{\sigma}^2 = \frac{1}{\sum_{j=1}^k (n_j - 1)}
+   \sum_{j=1}^k \sum_{i=1}^{n_j} \left( x_{ij} - \bar{x}_j \right)^2 \, . $$
+
+**A More Accurate Regression Approach For the Case When $D$ = 0 at time 0 and the "Distance To Fail" $DF$ is the Same for All Units**
+
+[**Models can be fit using all the degradation readings and linear regression**]{#sec-apr-423-regression-model}
+
+Let the degradation measurement for the $i$-th unit at the $j$-th readout time in the $k$-th stress cell be given by $D_{ijk}$, and let the corresponding readout time be denoted by $t_{jk}$. That readout gives a degradation rate (or slope) estimate of $D_{ijk} / t_{jk}$. This follows from the linear assumption or:
+
+> (Rate of degradation) $\times$ (Time on test) = (Amount of degradation)
+
+Based on that readout alone, an estimate of the natural logarithm of the time to fail for that unit is
+
+$$ y_{ijk} = \mbox{ln } DF - \left( \mbox{ln } D_{ijk} - \mbox{ln } t_{jk} \right) \, . $$
+
+This follows from the basic formula connecting linear degradation with failure time
+
+> (rate of degradation) $\times$ (time of failure) = $DF$
+
+by solving for (time of failure) and taking natural logarithms.
+
+For an [Arrhenius model](#sec-apr-421) analysis, with
+
+$$ t_f = A \cdot \mbox{exp}\left( \frac{\Delta H}{KT} \right) \, , $$
+
+$$ y_{ijk} = a + b x_k \, , $$
+
+with the $x_k$ values equal to $1/KT$. Here $T$ is the temperature of the $k$-th cell, measured in Kelvin (273.16 + degrees Celsius) and $K$ is Boltzmann's constant (8.617 $\times$ 10$^{-5}$ in eV/ unit Kelvin). Use a linear regression program to estimate $a = \mbox{ln } A$ and $b = \Delta H$. If we further assume $t_f$ has a lognormal distribution, the mean square residual error from the regression fit is an estimate of $\sigma^2$ (with $\sigma$ the lognormal sigma).
+
+One way to think about this model is as follows: each unit has a random rate $R$ of degradation. Since $t_f = DF/R$, it follows from a characterization property of the normal distribution that if $t_f$ is lognormal, then $R$ must also have a lognormal distribution (assuming $DF$ and $R$ are independent). After we take logarithms, $\mbox{ln } R$ has a normal distribution with a mean determined by the acceleration model parameters. The randomness in $R$ comes from the variability in physical characteristics from unit to unit, due to material and processing differences.
+
+**Note**: The estimate of sigma based on this simple graphical approach might tend to be too large because it includes an adder due to the measurement error that occurs when making the degradation readouts. This is generally assumed to have only a small impact.
+
+**Example: Arrhenius Degradation Analysis**
+
+[**An example using the regression approach to fit an Arrhenius model**]{#sec-apr-423-example}
+
+A component has a critical parameter that studies show degrades linearly over time at a rate that varies with operating temperature. A component failure based on this parameter occurs when the parameter value changes by 30% or more. Fifteen components were tested under 3 different temperature conditions (5 at 65°C, 5 at 85°C and the last 5 at 105°C). Degradation percent values were read out at 200, 500 and 1000 hours. The readings are given by unit in the following three temperature cell tables.
+
+```{r}
+#| label: tbl-apr-423-degradation-data
+#| tbl-cap: "Degradation readings (% change) by unit, temperature cell, and readout time"
+#| code-fold: true
+#| message: false
+library(gt)
+
+deg_65 <- tibble(
+  Unit = 1:5,
+  `200 hr` = c(0.87, 0.33, 0.94, 0.72, 0.66),
+  `500 hr` = c(1.48, 0.96, 2.91, 1.98, 0.99),
+  `1000 hr` = c(2.81, 2.13, 5.67, 4.28, 2.14)
+)
+deg_85 <- tibble(
+  Unit = 1:5,
+  `200 hr` = c(1.41, 3.61, 2.13, 4.36, 6.91),
+  `500 hr` = c(2.47, 8.99, 5.72, 9.82, 17.37),
+  `1000 hr` = c(5.71, 17.69, 11.54, 19.55, 34.84)
+)
+deg_105 <- tibble(
+  Unit = 1:5,
+  `200 hr` = c(24.58, 9.73, 4.74, 23.61, 10.90),
+  `500 hr` = c(62.02, 24.07, 11.53, 58.21, 27.85),
+  `1000 hr` = c(124.10, 48.06, 23.72, 117.20, 54.97)
+)
+
+bind_rows(
+  mutate(deg_65, `Temp (C)` = 65, .before = 1),
+  mutate(deg_85, `Temp (C)` = 85, .before = 1),
+  mutate(deg_105, `Temp (C)` = 105, .before = 1)
+) |>
+  gt(groupname_col = "Temp (C)", rowname_col = "Unit") |>
+  fmt_number(columns = everything(), decimals = 2)
+```
+
+Note that one unit failed in the 85°C cell and four units failed in the 105°C cell. Because there were so few failures, it would be impossible to fit a life distribution model in any cell but the 105°C cell, and therefore no acceleration model can be fit using failure data. We will fit an Arrhenius/lognormal model, using the degradation data.
+
+**Solution:**
+
+[**Fit the model to the degradation data**]{#sec-apr-423-fit}
+
+From the above tables, first create a variable ($DEG$) with 45 degradation values starting with the first row in the first table and proceeding to the last row in the last table. Next, create a temperature variable ($TEMP$) that has 15 repetitions of 65, followed by 15 repetitions of 85 and then 15 repetitions of 105. Finally, create a time variable ($TIME$) that corresponds to readout times.
+
+Fit the Arrhenius/lognormal equation, $y_{ijk} = a + bx_{ijk}$, where
+
+$$ y_{ijk} = \mbox{ln } 30 - \left( \mbox{ln } DEG - \mbox{ln } TIME \right) $$
+
+and
+
+$$ x_{ijk} = \frac{100000}{8.617(TEMP + 273.16)} \, . $$
+
+The linear regression results are the following.
+
+```{r}
+#| label: verify-apr-423-regression
+#| code-fold: true
+DEG <- c(
+  deg_65$`200 hr`, deg_65$`500 hr`, deg_65$`1000 hr`,
+  deg_85$`200 hr`, deg_85$`500 hr`, deg_85$`1000 hr`,
+  deg_105$`200 hr`, deg_105$`500 hr`, deg_105$`1000 hr`
+)
+TEMP <- c(rep(65, 15), rep(85, 15), rep(105, 15))
+TIME <- rep(c(rep(200, 5), rep(500, 5), rep(1000, 5)), 3)
+
+YIJK <- log(30) - (log(DEG) - log(TIME))
+XIJK <- 100000 / (8.617 * (TEMP + 273.16))
+
+lin_fit <- lm(YIJK ~ XIJK)
+s <- summary(lin_fit)
+
+tibble(
+  Parameter = c("a (Intercept)", "b (XIJK)"),
+  Estimate = round(coef(lin_fit), 5),
+  `Stan. Dev` = round(s$coefficients[, 2], 5),
+  `t Value` = round(s$coefficients[, 3], 2)
+) |>
+  knitr::kable(align = "lrrr")
+
+tibble(Statistic = "Residual standard deviation", Value = round(s$sigma, 4)) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported regression coefficients ($a$ = -18.94337, $b$ = 0.81877) and residual standard deviation (0.5611) exactly.
+
+The Arrhenius model parameter estimates are: $\mbox{ln } A$ = -18.94; $\Delta H$ = 0.82. An estimate of the lognormal sigma is $\sigma$ = 0.56.
+
+The analyses in this section can be implemented using both Dataplot code and R code.
