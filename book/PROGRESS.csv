@@ -848,8 +848,8 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 7. Product and Process Comparisons,7.4.1,How can we compare several populations with unknown distributions (the Kruskal-Wallis test)?,prc/section4/prc41.htm,done,no,,
 7. Product and Process Comparisons,7.4.2,"Assuming the observations are normal, do the processes have the same variance?",prc/section4/prc42.htm,done,no,,
 7. Product and Process Comparisons,7.4.3,Are the means equal?,prc/section4/prc43.htm,done,no,,
-7. Product and Process Comparisons,7.4.3.1,1-Way ANOVA overview,prc/section4/prc431.htm,not_started,no,,
-7. Product and Process Comparisons,7.4.3.2,The 1-way ANOVA model and assumptions,prc/section4/prc432.htm,not_started,no,,
+7. Product and Process Comparisons,7.4.3.1,1-Way ANOVA overview,prc/section4/prc431.htm,done,yes,,"Content verified present at sec-prc-431 (one-way-overview.qmd), heading ""One-way ANOVA overview"" matching the live page title exactly. NIST's own dtoc.htm uses the digit form ""1-Way ANOVA overview"" instead (NIST internal TOC/page inconsistency)."
+7. Product and Process Comparisons,7.4.3.2,The 1-way ANOVA model and assumptions,prc/section4/prc432.htm,done,yes,,"Content verified present at sec-prc-432 (one-way-model-assumptions.qmd), heading matching the live page title exactly (""The one-way ANOVA model and assumptions""). NIST's own dtoc.htm uses the digit form ""1-way"" instead (NIST internal TOC/page inconsistency)."
 7. Product and Process Comparisons,7.4.3.3,The ANOVA table and tests of hypotheses about means,prc/section4/prc433.htm,done,no,,
 7. Product and Process Comparisons,7.4.3.4,1-Way ANOVA calculations,prc/section4/prc434.htm,done,no,,
 7. Product and Process Comparisons,7.4.3.5,Confidence intervals for the difference of treatment means,prc/section4/prc435.htm,done,no,,
@@ -858,10 +858,10 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 7. Product and Process Comparisons,7.4.3.8,Models and calculations for the two-way ANOVA,prc/section4/prc438.htm,done,no,,
 7. Product and Process Comparisons,7.4.4,What are variance components?,prc/section4/prc44.htm,done,no,,
 7. Product and Process Comparisons,7.4.5,How can we compare the results of classifying according to several categories?,prc/section4/prc45.htm,done,no,,
-7. Product and Process Comparisons,7.4.6,Do all the processes have the same proportion of defects?,prc/section4/prc46.htm,not_started,no,,
+7. Product and Process Comparisons,7.4.6,Do all the processes have the same proportion of defects?,prc/section4/prc46.htm,done,yes,,"Content verified present at sec-prc-46 (proportion-defectives.qmd), heading matching the live page's own H2 title exactly (""...proportion of defectives?""). NIST's own dtoc.htm says ""...proportion of defects?"" instead (NIST internal TOC/page inconsistency)."
 7. Product and Process Comparisons,7.4.7,How can we make multiple comparisons?,prc/section4/prc47.htm,done,no,,
 7. Product and Process Comparisons,7.4.7.1,Tukey's method,prc/section4/prc471.htm,done,no,,
-7. Product and Process Comparisons,7.4.7.2,Scheffe's method,prc/section4/prc472.htm,not_started,no,,
+7. Product and Process Comparisons,7.4.7.2,Scheffe's method,prc/section4/prc472.htm,done,yes,,"Content verified present at sec-prc-472 (scheffe.qmd), titled ""Scheffé’s method"" with the correct diacritic on the mathematician's name; NIST's plain-ASCII ""Scheffe’s method"" lacks the accent, breaking the title-matching heuristic's normalization."
 7. Product and Process Comparisons,7.4.7.3,Bonferroni's method,prc/section4/prc473.htm,done,no,,
 7. Product and Process Comparisons,7.4.7.4,Comparing multiple proportions: The Marascuillo procedure,prc/section4/prc474.htm,done,no,,
 7. Product and Process Comparisons,7.5,References,prc/section5/prc5.htm,skipped,no,,
