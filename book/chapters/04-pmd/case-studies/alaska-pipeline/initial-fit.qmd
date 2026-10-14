@@ -1,4 +1,4 @@
-#### Fit Initial Model {#sec-pmd-623}
+#### Initial Linear Fit {#sec-pmd-623}
 
 [**Linear Fit Results**]{#sec-pmd-623-fit}
 
