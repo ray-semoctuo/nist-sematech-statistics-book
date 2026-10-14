@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 520" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .wire { stroke: #00105A; stroke-width: 2.5; fill: none; }
+    .node { fill: #1B9E77; stroke: #1B1B1B; stroke-width: 1; }
+    .label { font-size: 13px; fill: #D60021; text-anchor: middle; }
+    .eqn { font-size: 14px; fill: #00105A; text-anchor: middle; }
+    .title { font-size: 15px; font-weight: bold; text-decoration: underline; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <text class="title" x="280" y="20">Complex System Reduced to Equivalent One Component System</text>
+
+  <!-- Stage 1: Block A (F1,F2,F3 parallel) in series with Block B (F4,F5 parallel) in series with R6 -->
+
+  <!-- entry wire: short leg connects at the main line and drops down -->
+  <line class="wire" x1="60" y1="110" x2="60" y2="125" />
+  <line class="wire" x1="60" y1="110" x2="140" y2="110" />
+
+  <!-- Block A rails: span exactly from F1's line to F3's line, no dangling extension -->
+  <line class="wire" x1="140" y1="78" x2="140" y2="142" />
+  <line class="wire" x1="240" y1="78" x2="240" y2="142" />
+
+  <text class="label" x="190" y="64">F1</text>
+  <line class="wire" x1="140" y1="78" x2="240" y2="78" />
+  <circle class="node" cx="190" cy="78" r="5" />
+
+  <text class="label" x="190" y="96">F2</text>
+  <line class="wire" x1="140" y1="110" x2="240" y2="110" />
+  <circle class="node" cx="190" cy="110" r="5" />
+
+  <text class="label" x="190" y="128">F3</text>
+  <line class="wire" x1="140" y1="142" x2="240" y2="142" />
+  <circle class="node" cx="190" cy="142" r="5" />
+
+  <!-- connector from Block A to Block B -->
+  <line class="wire" x1="240" y1="110" x2="300" y2="110" />
+
+  <!-- Block B rails: span exactly from F4's line to F5's line, no dangling extension -->
+  <line class="wire" x1="300" y1="94" x2="300" y2="126" />
+  <line class="wire" x1="380" y1="94" x2="380" y2="126" />
+
+  <text class="label" x="340" y="80">F4</text>
+  <line class="wire" x1="300" y1="94" x2="380" y2="94" />
+  <circle class="node" cx="340" cy="94" r="5" />
+
+  <text class="label" x="340" y="112">F5</text>
+  <line class="wire" x1="300" y1="126" x2="380" y2="126" />
+  <circle class="node" cx="340" cy="126" r="5" />
+
+  <!-- connector from Block B to R6, and R6 to exit (short leg at the far end) -->
+  <line class="wire" x1="380" y1="110" x2="420" y2="110" />
+  <line class="wire" x1="420" y1="110" x2="460" y2="110" />
+  <line class="wire" x1="460" y1="110" x2="460" y2="125" />
+  <text class="label" x="420" y="98">R6</text>
+  <circle class="node" cx="420" cy="110" r="5" />
+
+  <!-- Arrow 1 -->
+  <polygon points="253.5,158 266.5,158 266.5,190 278,190 260,210 242,190 253.5,190"
+           fill="#1B9E77" stroke="#1B1B1B" stroke-width="1" />
+
+  <!-- Stage 2: three equivalent components in series: RA, RB, R6 -->
+  <line class="wire" x1="100" y1="250" x2="460" y2="250" />
+  <line class="wire" x1="100" y1="250" x2="100" y2="265" />
+  <line class="wire" x1="460" y1="250" x2="460" y2="265" />
+
+  <circle cx="190" cy="250" r="24" fill="#1B9E77" stroke="#1B1B1B" stroke-width="1.5" />
+  <circle cx="340" cy="250" r="24" fill="#1B9E77" stroke="#1B1B1B" stroke-width="1.5" />
+  <circle class="node" cx="420" cy="250" r="5" />
+  <text class="label" x="420" y="238">R6</text>
+
+  <text class="eqn" x="190" y="294">RA = 1 - F1&#215;F2&#215;F3</text>
+  <text class="eqn" x="340" y="294">RB = 1 - F4&#215;F5</text>
+
+  <!-- Arrow 2 -->
+  <polygon points="253.5,314 266.5,314 266.5,346 278,346 260,366 242,346 253.5,346"
+           fill="#1B9E77" stroke="#1B1B1B" stroke-width="1" />
+
+  <!-- Stage 3: single equivalent component -->
+  <line class="wire" x1="100" y1="410" x2="460" y2="410" />
+  <line class="wire" x1="100" y1="410" x2="100" y2="425" />
+  <line class="wire" x1="460" y1="410" x2="460" y2="425" />
+
+  <circle cx="280" cy="410" r="26" fill="#1B9E77" stroke="#1B1B1B" stroke-width="1.5" />
+
+  <text class="eqn" x="280" y="456">Rs = RA &#215; RB &#215; R6</text>
+  <text class="eqn" x="280" y="476">= (1 - F1&#215;F2&#215;F3)(1 - F4&#215;F5)(R6)</text>
+</svg>

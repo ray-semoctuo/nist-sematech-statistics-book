@@ -1,0 +1,30 @@
+#### Proportional hazards model {#sec-apr-167}
+
+[**The proportional hazards model is often used in survival analysis (medical testing) studies. It is not used much with engineering data**]{#sec-apr-167-intro}
+
+The proportional hazards model, proposed by Cox (1972) [@Cox1972], has been used primarily in medical testing analysis, to model the effect of secondary variables on survival. It is more like an acceleration model than a specific life distribution model, and its strength lies in its ability to model and test many inferences about survival without making any specific assumptions about the form of the life distribution model.
+
+This section will give only a brief description of the proportional hazards model, since it has limited engineering applications.
+
+**Proportional Hazards Model Assumption**
+
+Let $z = \{x, \, y, \, \ldots\}$ be a vector of one or more **explanatory** variables believed to affect lifetime. These variables may be continuous (like temperature in engineering studies, or dosage level of a particular drug in medical studies) or they may be indicator variables with the value 1 if a given factor or condition is present, and 0 otherwise.
+
+Let the hazard rate for a nominal (or baseline) set $z_0 = \{x_0, \, y_0, \, \ldots\}$ of these variables be given by $h_0(t)$, with $h_0(t)$ denoting a legitimate hazard function (failure rate) for some unspecified life distribution model.
+
+[**The proportional hazard model assumes changing a stress variable (or explanatory variable) has the effect of multiplying the hazard rate by a constant.**]{#sec-apr-167-assumption}
+
+The proportional hazards model assumes we can write the changed hazard function for a new value of $z$ as
+
+$$ h_z(t) = g(z) h_0(t) \,\, .$$
+
+In other words, changing $z$, the explanatory variable vector, results in a new hazard function that is proportional to the nominal hazard function, and the proportionality constant is a function of $z, \, g(z)$, independent of the time variable $t$.
+
+A common and useful form for $g(z)$ is the **Log Linear Model** which has the equation: $g(x) = e^{\alpha x}$ for one variable, $g(x,y) = e^{ax + by}$ for two variables, etc.
+
+**Properties and Applications of the Proportional Hazards Model**
+
+1. The proportional hazards model is equivalent to the [acceleration factor](#sec-apr-14-acceleration-factor) concept if and only if the life distribution model is a Weibull (which includes the exponential model, as a special case). For a Weibull with shape parameter $\gamma$, and an acceleration factor $AF$ between nominal use fail time $t_0$ and high stress fail time $t_s$ (with $t_0 = AF t_s$) we have $g(s) = AF^\gamma$. In other words, $h_s(0) = AF^\gamma h_0(t)$.
+2. Under a log-linear model assumption for $g(z)$, without any further assumptions about the life distribution model, it is possible to analyze experimental data and compute [maximum likelihood estimates](#sec-apr-412) and use [likelihood ratio tests](#sec-apr-233) to determine which explanatory variables are highly significant. In order to do this kind of analysis, however, special software is needed.
+
+More details on the theory and applications of the proportional hazards model may be found in Cox and Oakes (1984) [@CoxOakes1984].

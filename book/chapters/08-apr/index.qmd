@@ -36,3 +36,9 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include introduction/lifetime-distributions/gamma.qmd >}}
 
 {{< include introduction/lifetime-distributions/fatigue-life.qmd >}}
+
+{{< include introduction/lifetime-distributions/proportional-hazards.qmd >}}
+
+{{< include introduction/repair-rate-models.qmd >}}
+
+{{< include introduction/bottom-up/index.qmd >}}

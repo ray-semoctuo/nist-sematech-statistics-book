@@ -1,0 +1,102 @@
+### What are some basic repair rate models used for repairable systems? {#sec-apr-17}
+
+[**Models for repair rates of repairable systems**]{#sec-apr-17-intro}
+
+$N(t)$, $M(t)$, and $m(t)$ were defined in the section on [Repair Rates](#sec-apr-125). Repair rate models are defined by first picking a functional form for $M(t)$, the expected number of cumulative failures by time $t$. Taking the derivative of this gives the repair rate model $m(t)$.
+
+In the next three sections we will describe three models, of increasing complexity, for $M(t)$. They are: the [Homogeneous Poisson Process](#sec-apr-171), the [Non-Homogeneous Poisson Process following a Power law](#sec-apr-172), and the [Non-Homogeneous Poisson Process following an Exponential law](#sec-apr-173).
+
+#### Homogeneous Poisson Process (HPP) {#sec-apr-171}
+
+[**Repair rate (ROCOF) models and formulas**]{#sec-apr-171-formulas}
+
+The simplest useful model for $M(t)$ is $M(t) = \lambda t$ and the [repair rate (or ROCOF)](#sec-apr-125) is the constant $m(t) = \lambda$. This model comes about when the interarrival times between failures are independent and identically distributed according to the [exponential distribution](#sec-apr-161), with parameter $\lambda$. This basic model is also known as a **Homogeneous Poisson Process (HPP)**. The following formulas apply.
+
+$$ \begin{array}{rcl}
+F(t) = 1 - e^{-\lambda t} & =  & \mbox{CDF of the waiting time to the next failure} \\
+                          &    & \mbox{(or interarrival time between failures)} \\
+     & & \\
+N(T) & = & \mbox{cumulative number of failures from time } 0 \mbox{ to time } T \\
+     & & \\
+P\{N(t)=k\} & = & \frac{(\lambda T)^k e^{-\lambda T}}{k!}  \\
+     & & \\
+M(t) = \lambda T & = & \mbox{expected number of failures by time } T \\
+     & & \\
+M'(t) = m(t) & = & \lambda = \mbox{repair rate or ROCOF} \\
+     & & \\
+\frac{1}{\lambda} & = & \mbox{Mean Time Between Failures (MTBF)}
+\end{array} $$
+
+[**HPP model fits flat portion of "bathtub" curve**]{#sec-apr-171-bathtub-fit}
+
+Despite the simplicity of this model, it is widely used for repairable equipment and systems throughout industry. Justification for this comes, in part, from the shape of the empirical [Bathtub Curve](#sec-apr-124). Most systems (or complex tools or equipment) spend most of their "lifetimes" operating in the long flat constant repair rate portion of the Bathtub Curve. The HPP is the only model that applies to that portion of the curve, so it is the most popular model for system reliability evaluation and reliability test planning.
+
+[Planning reliability assessment tests (under the HPP assumption)](#sec-apr-311) is covered in a later section, as is [estimating the MTBF](#sec-apr-451) from system failure data and calculating upper and lower confidence limits.
+
+[**Poisson relationship**]{#sec-apr-171-poisson}
+
+In the HPP model, the probability of having exactly $k$ failures by time $T$ is given by the Poisson distribution with mean $\lambda T$ (see formula for $P\{N(t) = k\}$ above).
+
+#### Non-Homogeneous Poisson Process (NHPP) - power law {#sec-apr-172}
+
+[**The repair rate for a NHPP following the Power law**]{#sec-apr-172-formulas}
+
+A flexible model (that has been very successful in many applications) for the expected number of failures in the first $t$ hours, $M(t)$, is given by the polynomial
+
+$$ M(t) = at^b, \,\, \mbox{ for } \,\, a, \, b > 0 \,\, . $$
+
+The [repair rate (or ROCOF)](#sec-apr-125) for this model is
+
+$$ m(t) = abt^{b-1} = \alpha t^{-\beta}, \,\, \mbox{ for } \,\, \alpha > 0, \,\, \beta < 1 \,\, . $$
+
+[**The Power law model is very flexible and contains the HPP (exponential) model as a special case**]{#sec-apr-172-flexibility}
+
+The [HPP](#sec-apr-171) model has a the constant repair rate $m(t) = \lambda$. If we substitute an arbitrary function $\lambda(t)$ for $\lambda$, we have a **Non-Homogeneous Poisson Process (NHPP)** with Intensity Function $\lambda$. If
+
+$$ \lambda(t) = m(t) = \alpha t^{-\beta} \,\, , $$
+
+then we have an NHPP with a **Power Law intensity function** (the "intensity function" is another name for the repair rate $m(t)$).
+
+Because of the polynomial nature of the ROCOF, this model is very flexible and can model both increasing ($b>1$ or $\beta < 0$) and decreasing ($0 < b < 1$ or $0 < \beta < 1$) failure rates. When $b$ = 1 or $\beta$ = 0, the model reduces to the HPP constant repair rate model.
+
+[**Probabilities of failure for all NHPP processes can easily be calculated based on the Poisson formula**]{#sec-apr-172-probabilities}
+
+Probabilities of a given number of failures for the NHPP model are calculated by a straightforward generalization of the formulas for the [HPP](#sec-apr-171). Thus, for any NHPP
+
+$$ P(N(T) = k) = \frac{M(T)^k}{k!} e^{-M(T)} \,\, , $$
+
+and for the Power Law model:
+
+$$ P(N(T)=k) = \frac{ \left[ aT^b \right]^k \mbox{exp}(-aT^b)}{k!} = \frac{a^k T^{bk} \mbox{exp}(-aT^b)}{k!} \,\, . $$
+
+[**The Power Law model is also called the Duane Model and the AMSAA model**]{#sec-apr-172-other-names}
+
+Other names for the Power Law model are: the **Duane Model** and the **AMSAA model**. AMSAA stands for the United States **Army Materials System Analysis Activity**, where much theoretical work describing the Power Law model was performed in the 1970's.
+
+[**It is also called a Weibull Process - but this name is misleading and should be avoided**]{#sec-apr-172-weibull-process-caution}
+
+The time to the first fail for a Power Law process has a [Weibull](#sec-apr-162) distribution with shape parameter $b$ and characteristic life $a$. For this reason, the Power Law model is sometimes called a **Weibull Process**. This name is confusing and should be avoided, however, since it mixes a life distribution model applicable to the lifetimes of a non-repairable population with a model for the inter-arrival times of failures of a repairable population.
+
+For any NHPP process with intensity function $m(t)$, the distribution function (CDF) for the inter-arrival time $\tau$ to the next failure, given a failure just occurred at time $T$, is given by
+
+[**Once a failure occurs, the waiting time to the next failure for an NHPP has a simple CDF formula**]{#sec-apr-172-cdf-waiting-time}
+
+$$ F_T(t) = 1 - \mbox{exp}\left( -\int_0^t m(T+\tau)d\tau \right) \,\, . $$
+
+In particular, for the Power Law the waiting time to the next failure, given a failure at time $T$, has distribution function
+
+$$ F_T(t) = 1 - \mbox{exp}\left( -a \left[(T+t)^b - T^b \right] \right) \,\, . $$
+
+This inter arrival time CDF can be used to derive a simple algorithm for [simulating NHPP Power Law Data](#sec-apr-191-simulating).
+
+#### Exponential law {#sec-apr-173}
+
+[**The Exponential Law is another flexible NHPP model**]{#sec-apr-173-formula}
+
+An [NHPP](#sec-apr-172) with [ROCOF](#sec-apr-125) or intensity function given by
+
+$$ m(t) = \mbox{exp} \left(\alpha + \beta t \right) \,\, , $$
+
+is said to follow an **Exponential Law**. This is also called the **log-linear model** or the **Cox-Lewis model**.
+
+A system whose repair rate follows this flexible model is improving if $\beta$ < 0 and deteriorating if $\beta$ > 0. When $\beta$ = 0, the Exponential Law reduces to the [HPP](#sec-apr-171) constant repair rate model.

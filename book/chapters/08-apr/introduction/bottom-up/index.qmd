@@ -1,0 +1,206 @@
+### How can you evaluate reliability from the "bottom-up" (component failure mode to system failure rate)? {#sec-apr-18}
+
+[**Several simple models can be used to calculate system failure rates, starting with failure rates for failure modes within individual system components**]{#sec-apr-18-intro}
+
+This section deals with models and methods that apply to non-repairable components and systems. Models for [failure rates](#sec-apr-123) (and not [repair rates](#sec-apr-125)) are described. The next section covers models for (repairable) [system reliability growth](#sec-apr-19).
+
+We use the [Competing Risk Model](#sec-apr-181) to go from component failure modes to component failure rates. Next we use the [Series Model](#sec-apr-182) to go from components to assemblies and systems. These models assume independence and "first failure mode to reach failure causes both the component and the system to fail".
+
+If some components are "in parallel", so that the system can survive one (or possibly more) component failures, we have the [parallel or redundant model](#sec-apr-183). If an assembly has $n$ identical components, at least $r$ of which must be working for the system to work, we have what is known as the [$r$ out of $n$ model](#sec-apr-184).
+
+The [standby model](#sec-apr-185) uses redundancy like the parallel model, except that the redundant unit is in an off-state (not exercised) until called upon to replace a failed unit.
+
+This section describes these various models. The last subsection shows how [complex systems](#sec-apr-186) can be evaluated using the various models as building blocks.
+
+#### Competing risk model {#sec-apr-181}
+
+[**Use the competing risk model when the failure mechanisms are independent and the first mechanism failure causes the component to fail**]{#sec-apr-181-when-to-use}
+
+Assume a (replaceable) component or unit has $k$ different ways it can fail. These are called **failure modes** and underlying each failure mode is a **failure mechanism**.
+
+The **Competing Risk Model** evaluates component reliability by "building up" from the reliability models for each failure mode.
+
+The following three assumptions are needed.
+
+1. Each failure mechanism leading to a particular type of failure (i.e., failure mode) proceeds independently of every other one, at least until a failure occurs.
+2. The component fails when the **first** of all the competing failure mechanisms reaches a failure state.
+3. Each of the $k$ failure modes has a known life distribution model $F_i(t)$.
+
+The competing risk model can be used when all three assumptions hold. If $R_c(t)$, $F_c(t)$, and $h_c(t)$ denote the reliability, CDF and failure rate for the component, respectively, and $R_i(t)$, $F_i(t)$, and $h_i(t)$ are the reliability, CDF and failure rate for the $i$-th failure mode, respectively, then the competing risk model formulas are:
+
+[**Multiply reliabilities and add failure rates**]{#sec-apr-181-formulas}
+
+$$ \begin{aligned}
+R_c(t) & = \prod_{i=1}^k R_i(t) \\
+F_c(t) & = 1 - \prod_{i=1}^k [1 - F_i(t)] \\
+h_c(t) & = \sum_{i=1}^k h_i(t)
+\end{aligned} $$
+
+Think of the competing risk model in the following way:
+
+> All the failure mechanisms are having a race to see which can reach failure first. They are not allowed to "look over their shoulder or sideways" at the progress the other ones are making. They just go their own way as fast as they can and the first to reach "failure" causes the component to fail.
+>
+> Under these conditions the component reliability is the product of the failure mode reliabilities and the component failure rate is just the sum of the failure mode failure rates.
+
+Note that the above holds for any arbitrary life distribution model, as long as "independence" and "first mechanism failure causes the component to fail" holds.
+
+When we learn how to plot and analyze reliability data in later sections, the methods will be applied separately to each failure mode within the data set (considering failures due to all other modes as ["censored run times"](#sec-apr-131-multicensored)). With this approach, the competing risk model provides the glue to put the pieces back together again.
+
+#### Series model {#sec-apr-182}
+
+[**The series model is used to go from individual components to the entire system, assuming the system fails when the first component fails and all components fail or survive independently of one another**]{#sec-apr-182-intro}
+
+The **Series Model** is used to build up from components to sub-assemblies and systems. It only applies to non replaceable populations (or first failures of populations of systems). The assumptions and formulas for the Series Model are identical to those for the Competing Risk Model, with the $k$ failure modes within a component replaced by the $n$ components within a system.
+
+The following three assumptions are needed.
+
+1. Each component operates or fails independently of every other one, at least until the first component failure occurs.
+2. The system fails when the first component failure occurs.
+3. Each of the $n$ (possibly different) components in the system has a known life distribution model $F_i(t)$.
+
+[**Add failure rates and multiply reliabilities in the Series Model**]{#sec-apr-182-formulas}
+
+When the Series Model assumptions hold we have:
+
+$$ \begin{aligned}
+R_S(t) & = \prod_{i=1}^n R_i(t) \\
+F_S(t) & = 1 - \prod_{i=1}^n \left[ 1 - F_i(t) \right] \\
+h_S(t) & = \sum_{i=1}^n h_i(t)
+\end{aligned} $$
+
+with the subscript $S$ referring to the entire system and the subscript $i$ referring to the $i$-th component.
+
+Note that the above holds for any arbitrary component life distribution models, as long as "independence" and "first component failure causes the system to fail" both hold.
+
+The analogy to a series circuit is useful. The entire system has $n$ components in series. The system fails when current no longer flows and each component operates or fails independently of all the others. The schematic below shows a system with 5 components in series "replaced" by an "equivalent" (as far as reliability is concerned) system with only one component.
+
+![Diagram of a series system with five components, R1(t) through R5(t), reduced to an equivalent one-component system with reliability Rs(t) equal to the product of the five component reliabilities](introduction/images/series-system.svg){#fig-apr-182-series}
+
+#### Parallel or redundant model {#sec-apr-183}
+
+[**The parallel model assumes all n components that make up a system operate independently and the system works as long as at least one component still works**]{#sec-apr-183-intro}
+
+The opposite of a [series model](#sec-apr-182), for which the first component failure causes the system to fail, is a parallel model for which all the components have to fail before the system fails. If there are $n$ components, any ($n - 1$) of them may be considered redundant to the remaining one (even if the components are all different). When the system is turned on, all the components operate until they fail. The system reaches failure at the time of the last component failure.
+
+The assumptions for a parallel model are:
+
+1. All components operate independently of one another, as far as reliability is concerned.
+2. The system operates as long as at least one component is still operating. System failure occurs at the time of the last component failure.
+3. The CDF for each component is known.
+
+[**Multiply component CDF's to get the system CDF for a parallel model**]{#sec-apr-183-formula}
+
+For a parallel model, the CDF $F_S(t)$ for the system is just the product of the CDFs $F_i(t)$ for the components, or
+
+$$  F_S(t) = \prod_{i=1}^n F_i(t) \,\, . $$
+
+$R_S(t)$ and $h_S(t)$ can be evaluated using basic definitions, once we have $F_S(t)$.
+
+The schematic below represents a parallel system with 5 components and the (reliability) equivalent 1 component system with a CDF $F_S(t)$ equal to the product of the 5 component CDFs.
+
+![Diagram of a parallel system with five components, F1(t) through F5(t), reduced to an equivalent single-component system with CDF Fs(t) equal to the product of the five component CDFs](introduction/images/parallel-system.svg){#fig-apr-183-parallel}
+
+#### R out of N model {#sec-apr-184}
+
+[**An $r$ out of $n$ model is a system that survives when at least $r$ of its components are working (any $r$)**]{#sec-apr-184-intro}
+
+An "$r$ out of $n$" system contains both the [series](#sec-apr-182) system model and the [parallel](#sec-apr-183) system model as special cases. The system has $n$ components that operate or fail independently of one another and as long as at least $r$ of these components (any $r$) survive, the system survives. System failure occurs when the ($n - r + $ 1)-th component failure occurs.
+
+When $r = n$, the $r$ out of $n$ model reduces to the series model. When $r$ = 1, the $r$ out of $n$ model becomes the parallel model.
+
+We treat here the simple case where all the components are identical.
+
+Formulas and assumptions for the $r$ out of $n$ model (identical components):
+
+1. All components have the identical reliability function $R(t)$.
+2. All components operate independently of one another (as far as failure is concerned).
+3. The system can survive any ($n - r$) of the components failing. The system fails at the instant of the ($n - r + $ 1)-th component failure.
+
+[**Formula for an $r$ out of $n$ system where the components are identical**]{#sec-apr-184-formula}
+
+System reliability is given by adding the probability of exactly $r$ components surviving to time $t$ to the probability of exactly ($r$ + 1) components surviving, and so on up to the probability of all components surviving to time $t$. These are binomial probabilities (with $p = R(t)$), so the system reliability is given by:
+
+$$ R_S(t) = \sum_{i=r}^n \left( \begin{array}{c} n \\ i \end{array} \right)
+            \left[ R(t) \right]^i \left[ 1 - R(t) \right] ^{n-i} \,\, . $$
+
+**Note**: If we relax the assumption that all the components are identical, then $R_S(t)$ would be the sum of probabilities evaluated for all possible terms that could be formed by picking at least $r$ survivors and the corresponding failures. The probability for each term is evaluated as a product of $R(t)$'s and $F(t)$'s. For example, for $n$ = 4 and $r$ = 2, the system reliability would be (abbreviating the notation for $R(t)$ and $F(t)$ by using only $R$ and $F$)
+
+$$ \begin{aligned}
+R_S & = R_1 R_2 F_3 F_4 + R_1 R_3 F_2 F_4 + R_1 R_4 F_2 F_3 + R_2 R_3 F_1 F_4 \\
+    & + R_2 R_4 F_1 F_3 + R_3 R_4 F_1 F_2 + R_1 R_2 R_3 F_4 + R_1 R_3 R_4 F_2 \\
+    & + R_1 R_2 R_4 F_3 + R_2 R_3 R_4 F_1 + R_1 R_2 R_3 R_4 \,\, .
+\end{aligned} $$
+
+#### Standby model {#sec-apr-185}
+
+[**The Standby Model evaluates improved reliability when backup replacements are switched on when failures occur**]{#sec-apr-185-intro}
+
+A **Standby Model** refers to the case in which a key component (or assembly) has an identical backup component in an "off" state until needed. When the original component fails, a switch turns on the "standby" backup component and the system continues to operate.
+
+In the simple case, assume the non-standby part of the system has CDF $F(t)$ and there are ($n - 1$) identical backup units that will operate in sequence until the last one fails. At that point, the system finally fails.
+
+The total system lifetime is the sum of $n$ identically distributed random lifetimes, each having CDF $F(t)$.
+
+[**Identical backup Standby model leads to convolution formulas**]{#sec-apr-185-convolution}
+
+In other words, $T_n = t_1 + t_2 + \cdots + t_n$, where each $t_i$ has CDF $F(t)$ and $T_n$ has a CDF we denote by $F_n(t)$. This can be evaluated using **convolution** formulas:
+
+$$ \begin{aligned}
+F_2(t) & = \int_0^t F(u) f(t-u) du \\
+F_n(t) & = \int_0^t F_{n-1}(u) f(t-u) du
+\end{aligned} $$
+
+where $f(t)$ is the PDF $F'(t)$.
+
+In general, convolutions are solved numerically. However, for the special case when $F(t)$ is the exponential model, the above integrations can be solved in closed form.
+
+[**Exponential standby systems lead to a gamma lifetime model**]{#sec-apr-185-gamma}
+
+**Special Case**: The Exponential (or Gamma) Standby Model
+
+If $F(t)$ has the [exponential](#sec-apr-161) CDF (i.e., $F(t) = 1 - e^{-\lambda t}$), then
+
+$$ \begin{aligned}
+F_2(t) & = 1 - \lambda t e^{-\lambda t} - e^{-\lambda t} \\
+f_2(t) & = \lambda^2 t e^{-\lambda t} \,\, , \mbox{ and} \\
+f_n(t) & = \frac{\lambda^n t^{n-1} e^{-\lambda t}}{(n-1)!}
+\end{aligned} $$
+
+and the PDF $f_n(t)$ is the well-known [gamma](#sec-apr-165) distribution.
+
+**Example:** An unmanned space probe sent out to explore the solar system has an onboard computer with reliability characterized by the [exponential distribution](#sec-apr-161-formulas) with a **Mean Time To Failure** (MTTF) of $1/\lambda$ = 30 months (a constant failure rate of 1/30 = 0.033 fails per month). The probability of surviving a two year mission is only $\mbox{exp}(-24/30)$ = 0.45. If, however, a second computer is included in the probe in a standby mode, the reliability at 24 months (using the above formula for $F_2$) becomes 0.8 $\times$ 0.449 + 0.449 = 0.81. The failure rate at 24 months ($f_2/(1-F_2)$) reduces to [(24/900) $\times$ 0.449]/0.81 = 0.015 fails per month. At 12 months the failure rate is only 0.0095 fails per month, which is less than 1/3 of the failure rate calculated for the non-standby case.
+
+```{r}
+#| label: verify-apr-185-standby-example
+#| code-fold: true
+lambda <- 1 / 30
+
+r1 <- function(t) exp(-lambda * t)
+f2_cdf <- function(t) 1 - lambda * t * exp(-lambda * t) - exp(-lambda * t)
+f2_pdf <- function(t) lambda^2 * t * exp(-lambda * t)
+
+r1_24 <- r1(24)
+r2_24 <- 1 - f2_cdf(24)
+fr2_24 <- f2_pdf(24) / r2_24
+fr2_12 <- f2_pdf(12) / (1 - f2_cdf(12))
+
+tibble::tibble(
+  Quantity = c("R1(24) (single unit)", "R2(24) (standby pair)", "Failure rate at 24 months", "Failure rate at 12 months"),
+  Value = c(r1_24, r2_24, fr2_24, fr2_12)
+) |>
+  knitr::kable(digits = 4, align = "lr")
+```
+
+Standby units (as the example shows) are an effective way of increasing reliability and reducing failure rates, especially during the early stages of product life. Their improvement effect is similar to, but greater than, that of [parallel redundancy](#sec-apr-183). The drawback, from a practical standpoint, is the expense of extra components that are not needed for functionality.
+
+#### Complex systems {#sec-apr-186}
+
+[**Often the reliability of complex systems can be evaluated by successive applications of Series and/or Parallel model formulas**]{#sec-apr-186-intro}
+
+Many complex systems can be diagrammed as combinations of [Series](#sec-apr-182) components, [Parallel](#sec-apr-183) components, [$R$ out of $N$](#sec-apr-184) components and [Standby](#sec-apr-185) components. By using the formulas for these models, subsystems or sections of the original system can be replaced by an "equivalent" single component with a known CDF or Reliability function. Proceeding like this, it may be possible to eventually reduce the entire system to one component with a known CDF.
+
+Below is an example of a complex system composed of both components in parallel and components in series is reduced first to a series system and finally to a one-component system.
+
+![Diagram of a complex system — three components (F1, F2, F3) in parallel, in series with two components (F4, F5) in parallel, in series with a single component R6 — reduced first to three equivalent components in series (RA, RB, R6), then to one equivalent component Rs](introduction/images/complex-system.svg){#fig-apr-186-complex}
+
+**Note**: The reduction methods described above will work for many, but not all, systems. Some systems with a complicated operational logic structure will need a more formal structural analysis methodology. This methodology deals with subjects such as event trees, Boolean representations, coherent structures, cut sets and decompositions, and is beyond the present scope of this Handbook.

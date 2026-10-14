@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 440" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .rail { stroke: #00105A; stroke-width: 2.5; fill: none; }
+    .rung { stroke: #C2007A; stroke-width: 2; fill: none; }
+    .node { fill: #1B9E77; stroke: #1B1B1B; stroke-width: 1; }
+    .label { font-size: 14px; fill: #D60021; text-anchor: middle; }
+    .eqn { font-size: 15px; fill: #00105A; text-anchor: middle; }
+    .title { font-size: 15px; font-weight: bold; text-decoration: underline; fill: #1B1B1B; text-anchor: middle; }
+  </style>
+
+  <text class="title" x="220" y="20">Parallel System and Equivalent Single Component</text>
+
+  <!-- Stage 1: five components in parallel (ladder rungs). Each rung: label above, dot sitting on the rung line. -->
+  <line class="rail" x1="140" y1="70" x2="140" y2="230" />
+  <line class="rail" x1="300" y1="70" x2="300" y2="230" />
+
+  <text class="label" x="220" y="58">F1(t)</text>
+  <line class="rung" x1="140" y1="70" x2="300" y2="70" />
+  <circle class="node" cx="220" cy="70" r="5" />
+
+  <text class="label" x="220" y="94">F2(t)</text>
+  <line class="rung" x1="140" y1="106" x2="300" y2="106" />
+  <circle class="node" cx="220" cy="106" r="5" />
+
+  <text class="label" x="220" y="130">F3(t)</text>
+  <line class="rung" x1="140" y1="142" x2="300" y2="142" />
+  <circle class="node" cx="220" cy="142" r="5" />
+
+  <text class="label" x="220" y="166">F4(t)</text>
+  <line class="rung" x1="140" y1="178" x2="300" y2="178" />
+  <circle class="node" cx="220" cy="178" r="5" />
+
+  <text class="label" x="220" y="202">F5(t)</text>
+  <line class="rung" x1="140" y1="214" x2="300" y2="214" />
+  <circle class="node" cx="220" cy="214" r="5" />
+
+  <!-- block-style down arrow, centered in the gap between the two diagrams -->
+  <polygon points="213.5,238 226.5,238 226.5,270 238,270 220,290 202,270 213.5,270"
+           fill="#1B9E77" stroke="#1B1B1B" stroke-width="1" />
+
+  <!-- Stage 2: equivalent single component. Wider top bar with legs hanging down, to visually hold the equation below. -->
+  <polyline class="rail" points="60,360 60,320 380,320 380,360" />
+  <circle cx="220" cy="320" r="22" fill="#1B9E77" stroke="#1B1B1B" stroke-width="1.5" />
+
+  <text class="eqn" x="220" y="385">Fs(t) = F1(t) &#215; F2(t) &#215; F3(t) &#215; F4(t) &#215; F5(t)</text>
+</svg>
