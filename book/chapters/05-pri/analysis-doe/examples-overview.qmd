@@ -1,4 +1,4 @@
-### Examples of Designed Experiments {#sec-pri-47}
+### Examples of DOE's {#sec-pri-47}
 
 [**Three detailed examples**]{#sec-pri-47-overview}
 

@@ -1,4 +1,4 @@
-#### Response surface example {#sec-pri-473}
+#### Response surface model example {#sec-pri-473}
 
 [**Data Source**]{#sec-pri-473-data-source}
 
