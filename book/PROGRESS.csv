@@ -760,7 +760,7 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 6. Process or Product Monitoring and Control,6.4.3.7,Exponential Smoothing Summary,pmc/section4/pmc437.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4,Univariate Time Series Models,pmc/section4/pmc44.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.1,Sample Data Sets,pmc/section4/pmc441.htm,done,no,,
-6. Process or Product Monitoring and Control,6.4.4.1.1,Data Set of Monthly CO2 Concentrations,pmc/section4/pmc4411.htm,not_started,no,,
+6. Process or Product Monitoring and Control,6.4.4.1.1,Data Set of Monthly CO2 Concentrations,pmc/section4/pmc4411.htm,done,yes,,"Content verified present at sec-pmc-4411 (sample-data/co2.qmd). Heading uses a Unicode subscript ""CO₂"" consistently with this book's established typographic style throughout the time-series chapter; the normalization strips the subscript digit entirely, breaking the title-matching heuristic's substring check against NIST's plain-ASCII ""CO2""."
 6. Process or Product Monitoring and Control,6.4.4.1.2,Data Set of Southern Oscillations,pmc/section4/pmc4412.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.2,Stationarity,pmc/section4/pmc442.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.3,Seasonality,pmc/section4/pmc443.htm,done,no,,
@@ -774,7 +774,7 @@ chapter,number,title,nist_file,status,verified,book_file,notes
 6. Process or Product Monitoring and Control,6.4.4.8,Box-Jenkins Model Diagnostics,pmc/section4/pmc448.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.8.1,Box-Ljung Test,pmc/section4/pmc4481.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.4.9,Example of Univariate Box-Jenkins Analysis,pmc/section4/pmc449.htm,done,no,,
-6. Process or Product Monitoring and Control,6.4.4.10,Box-Jenkins Analysis on Seasonal Data,pmc/section4/pmc44a.htm,not_started,no,,
+6. Process or Product Monitoring and Control,6.4.4.10,Box-Jenkins Analysis on Seasonal Data,pmc/section4/pmc44a.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.5,Multivariate Time Series Models,pmc/section4/pmc45.htm,done,no,,
 6. Process or Product Monitoring and Control,6.4.5.1,Example of Multivariate Time Series Analysis,pmc/section4/pmc451.htm,done,no,,
 6. Process or Product Monitoring and Control,6.5,Tutorials,pmc/section5/pmc5.htm,done,no,,

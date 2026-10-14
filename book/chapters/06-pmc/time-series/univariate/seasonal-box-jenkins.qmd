@@ -1,4 +1,4 @@
-#### Box-Jenkins Analysis of Seasonal Data {#sec-pmc-44a}
+#### Box-Jenkins Analysis on Seasonal Data {#sec-pmc-44a}
 
 [**Series G**]{#sec-pmc-44a-series-g}
 
