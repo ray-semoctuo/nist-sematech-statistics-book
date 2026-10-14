@@ -126,7 +126,7 @@ level2_illustrative
 
 Five of the six day averages and standard deviations reproduce NIST's stated per-day table exactly. Day 6 does not (we compute an average of 97.040 and a repeatability standard deviation of 0.0580 from the raw measurements shown above, versus NIST's stated 97.037 and 0.0614), which appears to be a small arithmetic slip in the original table rather than a transcription issue on our part. As a result, our pooled repeatability standard deviation (`r round(pooled_repeatability$"Pooled repeatability std dev", 4)` with 30 df) and level-2 standard deviation (`r round(level2_illustrative$"Level-2 std dev", 4)` with 5 df) are close to, but not exactly, NIST's stated illustrative values of 0.0625 and 0.0139.
 
-[**Control chart for probe #2362**]{#sec-mpc-623}
+[**Control chart for probe precision**]{#sec-mpc-623}
 
 The control chart for monitoring the precision of probe #2362 is constructed as discussed in the section on [control charts for standard deviations](#sec-mpc-231). The upper control limit (UCL) for testing for degradation of the probe is computed using the critical value from the [F table](../01-eda/index.qmd#sec-eda-f-distribution-table) with numerator degrees of freedom $J - 1 = 5$ and denominator degrees of freedom $K(J - 1) = 125$. For a 0.05 significance level,
 
@@ -159,7 +159,7 @@ The computed $F_{0.05,5,125} \approx$ `r round(f_crit_mpc622, 2)` and $UCL \appr
 
 The control chart shows two points exceeding the upper control limit. We expect 5% of the standard deviations to exceed the UCL for a measurement process that is in-control. Two outliers are not indicative of significant problems with the repeatability for the probe, but the probe should be monitored closely in the future.
 
-[**Control chart for bias and variability**]{#sec-mpc-624}
+[**Control chart for bias and long-term variability**]{#sec-mpc-624}
 
 The control limits for monitoring the bias and long-term variability of resistivity with a [Shewhart control chart](#sec-mpc-221) are given by
 

@@ -287,7 +287,7 @@ mpc61 |>
 
 These plots confirm NIST's description: probe #2362 is consistently more precise than the other four probes, and its precision is stable across wafers and days within each run. The faceted views also show that standard deviations run somewhat higher during run 2, most noticeably for probe #2062.
 
-#### Graphs showing day-to-day variability {#sec-mpc-614}
+#### Effects of days and long-term stability {#sec-mpc-614}
 
 **Effects of days and long-term stability on the measurements**
 
@@ -311,7 +311,7 @@ mpc61 |>
   theme_light()
 ```
 
-#### Graphs showing differences among gauges {#sec-mpc-615}
+#### Differences among 5 probes {#sec-mpc-615}
 
 **Graph of differences from wafer averages for each of 5 probes**
 

@@ -1,4 +1,4 @@
-### How do we quantify uncertainties of measurements made with the gauges? {#sec-mpc-46}
+### Quantifying uncertainties from a gauge study {#sec-mpc-46}
 
 **Gauge studies can be used as the basis for uncertainty assessment**
 
@@ -71,6 +71,6 @@ Other sources of bias are discussed as follows:
 1. [Differences among gauges](#sec-mpc-454)
 2. [Differences among configurations](#sec-mpc-455)
 
-**Case study: Type A uncertainties from a gauge study**<!-- XREF: MPC Case Studies (Section 2.6.3), Type A uncertainties from a gauge study, not yet migrated to this book; source handbook/mpc/section6/mpc63.htm -->
+**Case study: [Type A uncertainties from a gauge study](#sec-mpc-63)**
 
 A case study on type A uncertainty analysis from a gauge study is recommended as a guide for bringing together the principles and elements discussed in this section. The study in question characterizes the uncertainty of resistivity measurements made on silicon wafers.
