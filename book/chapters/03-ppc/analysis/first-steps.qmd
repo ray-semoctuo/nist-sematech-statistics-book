@@ -1,4 +1,4 @@
-### Initial Data Analysis {#sec-ppc-41}
+### First Steps {#sec-ppc-41}
 
 [**Gather all of the data into one place**]{#sec-ppc-41-gather}
 
