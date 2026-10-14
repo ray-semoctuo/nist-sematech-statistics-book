@@ -1,0 +1,99 @@
+### How can you model reliability growth? {#sec-apr-19}
+
+[**A reliability improvement test is a formal procedure aimed at discovering and fixing system reliability flaws**]{#sec-apr-19-intro}
+
+During the early stages of developing and prototyping complex systems, reliability often does not meet customer requirements. A formal test procedure aimed at discovering and fixing causes of unreliability is known as a **Reliability Improvement Test**. This test focuses on system design, system assembly and component selection weaknesses that cause failures.
+
+A typical reliability improvement test procedure would be to run a prototype system, as the customer might for a period of several weeks, while a multidisciplined team of engineers and technicians (design, quality, reliability, manufacturing, etc.) analyze every failure that occurs. This team comes up with root causes for the failures and develops design and/or assembly improvements to hopefully eliminate or reduce the future occurrence of that type of failure. As the testing continues, the improvements the team comes up with are incorporated into the prototype, so it is expected that reliability will improve during the course of the test.
+
+[**Repair rates should show an improvement trend during the course of a reliability improvement test and this can be modeled using a NHPP model**]{#sec-apr-19-nhpp}
+
+Another name for reliability improvement testing is **TAAF** testing, standing for **Test, Analyze And Fix.**
+
+While only one model applies when a repairable system has no improvement or degradation trends (the [constant repair rate HPP model](#sec-apr-171)), there are infinitely many models that could be used to describe a system with a decreasing repair rate (reliability growth models).
+
+Fortunately, one or two relatively simple models have been very successful in a wide range of industrial applications. Two models that have previously been described will be used in this section. These models are the [NHPP Power Law Model](#sec-apr-191) and the [NHPP Exponential Law Model](#sec-apr-193). The Power Law Model underlies the frequently used graphical technique known as [Duane Plotting](#sec-apr-192).
+
+#### NHPP power law {#sec-apr-191}
+
+[**If the Power Law applies, Repair Rates improve over time according to the formula $\alpha t^{-\beta}$. The exponent $\beta$ lies between 0 and 1 and is called the reliability growth slope**]{#sec-apr-191-formula}
+
+This repairable system model was described in [Section 8.1.7.2](#sec-apr-172). The expected number of failures by time $t$ has the form $M(t) = a t^b$ and the repair rate has the form $m(t) = a b t^{b-1}$. This will model improvement when 0 $ < b < $ 1, with larger improvements coming when $b$ is smaller. As we will see in the next section on Duane Plotting, it is convenient to define $\beta = 1 - b$ and $\alpha = ab$, and write the repair rate as
+
+$$ m(t) = \alpha t ^{-\beta} \,\, . $$
+
+Again we have improvement when 0 $< \beta <$ 1, with larger improvement coming from larger values of $\beta$. $\beta$ is known as the [Duane Plot](#sec-apr-192) slope or the reliability improvement **Growth Slope**.
+
+In terms of the original parameters for $M(t)$, we have
+
+$$ a = \frac{\alpha}{1-\beta}\,\,\, \mbox{ and } \,\,\, b = 1-\beta \,\, . $$
+
+Use of the Power Law model for reliability growth test data generally assumes the following:
+
+1. While the test is ongoing, system improvements are introduced that produce continual improvements in the rate of system repair.
+2. Over a long enough period of time the effect of these improvements can be modeled adequately by the continuous polynomial repair rate improvement model $\alpha t^{-\beta}$.
+
+[**When an improvement test ends, the MTBF stays constant at its last achieved value**]{#sec-apr-191-mtbf-at-end}
+
+3. When the improvement test ends at test time $T$ and no further improvement actions are ongoing, the repair rate has been reduced to $\alpha T^{-\beta}$. The repair rate remains constant from then on at this new (improved) level.
+
+Assumption three means that when the test ends, the HPP constant repair rate model takes over and the MTBF for the system from then on is the reciprocal of the final repair rate or $(T^{\beta})/\alpha$. If we estimate the expected number of failures up to time T by the actual number observed, the estimated MTBF at the end of a reliability test (following the Power Law) is:
+
+$$ \mbox{ESTIMATED MTBF AT END OF TEST } = \frac{T}{r(1-\beta)} \,\, , $$
+
+with $T$ denoting the test time, $r$ is the total number of test failures and $\beta$ is the reliability growth slope. A formula for estimating $\beta$ from system failure times is given in the [Analysis Section for the Power Law model](#sec-apr-452).
+
+[**Simulated Data Example**]{#sec-apr-191-simulating}
+
+**Simulating NHPP Power Law Data**
+
+Step 1: User inputs the positive constants $a$ and $b$.
+
+Step 2: Simulate a vector of $n$ uniform (0,1) random numbers. Call these $U_1, \, U_2, \, U_3, \, \ldots, \, U_n$.
+
+Step 3: Calculate $Y_1 = \left\{ -\frac{1}{a} \mbox{ ln } U_1 \right\}^{1/b}$.
+
+Step $i$: Calculate $Y_i = \left\{ Y_{i-1}^b - \frac{1}{a} \mbox{ ln } U_i \right\}^{1/b} $ for $i$ = 2, ..., $n$.
+
+The $n$ numbers $Y_1, \, Y_2, \, \ldots, \, Y_n$ are the desired repair times simulated from an NHPP Power Law process with parameters $a, \, b$ (or $\beta = 1-b$ and $\alpha = ab$).
+
+**Example**
+
+We generated $n$ = 13 random repair times using the NHPP Power Law process with $a$ = 0.2 and $b$ = 0.4. The resulting data and a plot of failure number versus repair times are shown below.
+
+```{r}
+#| label: tbl-apr-191-simulation
+#| tbl-cap: "Simulated NHPP power law repair times (a = 0.2, b = 0.4, n = 13)"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+powersim <- function(N, a, b) {
+  U <- runif(N)
+  Y <- rep(NA, N)
+  Y[1] <- ((-1 / a) * log(U[1]))^(1 / b)
+  for (i in 2:N) {
+    Y[i] <- ((Y[i - 1])^b - (1 / a) * log(U[i]))^(1 / b)
+  }
+  Y
+}
+
+set.seed(42)
+Y <- powersim(13, 0.2, 0.4)
+
+tibble(`Failure Number` = 1:13, `Failure Time` = round(Y, 1)) |>
+  knitr::kable(align = "lr")
+```
+
+```{r}
+#| label: fig-apr-191-simulation
+#| fig-cap: "Plot of failure number versus simulated repair times"
+#| code-fold: true
+ggplot(tibble(time = Y, number = 1:13), aes(time, number)) +
+  geom_point(shape = 1) +
+  geom_line(linewidth = 0.3) +
+  labs(x = "Failure Times", y = "Failure Number") +
+  theme_classic()
+```
+
+The NHPP power law process can be implemented using the `powersim()` function defined above (equivalent to NIST's own companion R script).

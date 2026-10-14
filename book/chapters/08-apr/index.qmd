@@ -42,3 +42,11 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include introduction/repair-rate-models.qmd >}}
 
 {{< include introduction/bottom-up/index.qmd >}}
+
+{{< include introduction/reliability-growth/index.qmd >}}
+
+{{< include introduction/reliability-growth/duane-plots.qmd >}}
+
+{{< include introduction/reliability-growth/exponential-law.qmd >}}
+
+{{< include introduction/bayesian-methodology.qmd >}}

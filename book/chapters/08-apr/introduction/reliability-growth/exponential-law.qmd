@@ -1,0 +1,19 @@
+#### NHPP exponential law {#sec-apr-193}
+
+[**The Exponential Law is another useful reliability growth model to try when the Power law is not fitting well**]{#sec-apr-193-intro}
+
+When the data points in a [Duane plot](#sec-apr-192) show obvious curvature, a model that might fit better is the [NHPP Exponential Law](#sec-apr-173).
+
+For this model, if $\beta$ < 0, the repair rate improves over time according to
+
+$$ m(t) = e^{\alpha + \beta t} \, . $$
+
+The corresponding cumulative expected failures model is
+
+$$ M(t) = A \left( 1-e^{\beta t} \right) \, . $$
+
+This approaches the maximum value of $A$ expected failures as $t$ goes to infinity, so the cumulative failures plot should clearly be bending over and asymptotically approaching a value
+
+$$A = \frac{-e^\alpha}{\beta} \, . $$
+
+**Rule of thumb**: First try a Duane plot and the Power law model. If that shows obvious lack of fit, try the Exponential Law model, estimating parameters using the formulas in the [Analysis Section for the Exponential law](#sec-apr-453). A plot of cum fails versus time, along with the estimated $M(t)$ curve, can be used to judge goodness of fit.
