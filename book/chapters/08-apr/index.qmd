@@ -62,3 +62,7 @@ This chapter describes the terms, models, and techniques used to evaluate and pr
 {{< include assumptions/acceleration-model/index.qmd >}}
 
 {{< include assumptions/bayesian-assumptions/index.qmd >}}
+
+{{< include data-collection/index.qmd >}}
+
+{{< include data-collection/planning-reliability-test/index.qmd >}}

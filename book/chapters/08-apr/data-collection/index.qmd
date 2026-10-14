@@ -1,0 +1,3 @@
+## Reliability Data Collection {#sec-apr-3}
+
+In order to assess or improve reliability, it is usually necessary to have failure data. Failure data can be obtained from field studies of system performance or from planned reliability tests, sometimes called *Life Tests*. This section focuses on how to plan reliability tests. The aim is to answer questions such as: how long should you test, what sample size do you need and what test conditions or stresses need to be run?

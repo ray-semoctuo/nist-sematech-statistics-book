@@ -1,0 +1,310 @@
+### How do you plan a reliability assessment test? {#sec-apr-31}
+
+[**The Plan for a reliability test ends with a detailed description of the mechanics of the test and starts with stating your assumptions and what you want to discover or prove**]{#sec-apr-31-plan}
+
+Planning a reliability test means:
+
+- How long should you test?
+- How many units have to be put on test?
+  - For repairable systems, this is often limited to 1.
+- If [acceleration modeling](#sec-apr-14) is part of the experimental plan
+  - What combination of stresses and how many experimental cells?
+  - How many units go in each cell?
+
+The answers to these questions depend on:
+
+- What models are you assuming?
+- What decisions or conclusions do you want to make after running the test and analyzing the data?
+- What risks are you willing to take of making wrong decisions or conclusions?
+
+It is not always possible, or practical, to completely answer all of these questions for every model we might want to use. This section looks at answers, or guidelines, for the following models:
+
+- [exponential or HPP Model](#sec-apr-311)
+- [Weibull or lognormal model](#sec-apr-312)
+- [Duane or NHPP Power Law model](#sec-apr-313)
+- [acceleration models](#sec-apr-314)
+- [Bayesian gamma prior model](#sec-apr-315)
+
+#### Exponential life distribution (or HPP model) tests {#sec-apr-311}
+
+[**Using an exponential (or HPP) model to test whether a system meets its MTBF requirement is common in industry**]{#sec-apr-311-common}
+
+Exponential tests are common in industry for verifying that tools, systems or equipment are meeting their reliability requirements for [Mean Time Between Failure (MTBF)](#sec-apr-171). The assumption is that the system has a constant failure (or repair) rate, which is the reciprocal of the MTBF. The waiting time between failures follows the exponential distribution model.
+
+A typical test situation might be: a new complex piece of equipment or tool is installed in a factory and monitored closely for a period of several weeks to several months. If it has no more than a pre-specified number of failures during that period, the equipment "passes" its **reliability acceptance test**.
+
+This kind of reliability test is often called a **Qualification Test** or a **Product Reliability Acceptance Test (PRAT)**. Contractual penalties may be invoked if the equipment fails the test. Everything is pegged to meeting a customer MTBF requirement at a specified confidence level.
+
+**How Long Must You Test A Piece of Equipment or a System In order to Assure a Specified MTBF at a Given Confidence?**
+
+You start with a given MTBF objective, say $M$, and a confidence level, say $100(1-\alpha)$. You need one more piece of information to determine the test length: how many fails do you want to allow and still "pass" the equipment? The more fails allowed, the longer the test required. However, a longer test allowing more failures has the desirable feature of making it less likely a good piece of equipment will be rejected because of random "bad luck" during the test period.
+
+The recommended procedure is to iterate on $r$ = the number of allowable fails until a larger $r$ would require an unacceptable test length. For any choice of $r$, the corresponding test length is quickly calculated by multiplying $M$ (the objective) by the factor in the table below corresponding to the $r$-th row and the desired confidence level column.
+
+For example, to confirm a 200-hour MTBF objective at 90% confidence, allowing up to 4 failures on the test, the test length must be 200 $\times$ 7.99 = 1598 hours. If this is unacceptably long, try allowing only 3 fails for a test length of 200 $\times$ 6.68 = 1336 hours. The shortest test would allow no fails and last 200 $\times$ 2.3 = 460 hours. All these tests guarantee a 200-hour MTBF at 90% confidence, when the equipment passes. However, the shorter test are much less "fair" to the supplier in that they have a large chance of failing a marginally acceptable piece of equipment.
+
+[**Use the Test length Table to determine how long to test**]{#sec-apr-311-table}
+
+The formula to calculate the factors in the table is the following.
+
+$$ \mbox{FAC } = 0.5 \, \chi_{\alpha; \, 2(r+1)}^2 $$
+
+with $\chi_{\alpha; \, 2(r+1)}^2$ denoting the upper $100(1-\alpha)$ percentile of the Chi-Square distribution with $2(r+1)$ degrees of freedom.
+
+```{r}
+#| label: tbl-apr-311-test-length-guide
+#| tbl-cap: "Test Length Guide Table: factor for given confidence levels"
+#| code-fold: true
+#| message: false
+library(tidyverse)
+
+r <- c(0:10, 15, 20)
+conf <- c(0.50, 0.60, 0.75, 0.80, 0.90, 0.95)
+fac <- sapply(conf, function(c) 0.5 * qchisq(c, 2 * (r + 1)))
+colnames(fac) <- paste0(conf * 100, "%")
+
+as_tibble(fac) |>
+  mutate(r = r, .before = 1) |>
+  knitr::kable(digits = 2, align = "r")
+```
+
+The R computation above matches NIST's published Test Length Guide Table exactly.
+
+**Example:** A new factory tool must meet a 400-hour MTBF requirement at 80% confidence. You have up to two months of 3-shift operation to decide whether the tool is acceptable. What is a good test plan?
+
+Two months of around-the-clock operation, with some time off for maintenance and repairs, amounts to a maximum of about 1300 hours. The 80% confidence factor for $r$ = 1 is 2.99, so a test of 400 $\times$ 2.99 = about 1200 hours (with up to 1 fail allowed) is the best that can be done.
+
+[**Shorten required test times by testing more than one system**]{#sec-apr-311-multiple-units}
+
+**NOTE:** Exponential test times can be shortened significantly if several similar tools or systems can be put on test at the same time. Test time means the same as "tool hours" and one tool operating for 1000 hours is equivalent (as far as the exponential model is concerned) to 2 tools operating for 500 hours each, or 10 tools operating for 100 hours each. Just count all the fails from all the tools and the sum of the test hours from all the tools.
+
+#### Lognormal or Weibull tests {#sec-apr-312}
+
+[**Planning reliability tests for distributions other than the exponential is difficult and involves a lot of guesswork**]{#sec-apr-312-difficult}
+
+Planning a reliability test is not simple and straightforward when the assumed model is lognormal or Weibull. Since these models have two parameters, no estimates are possible without at least two test failures, and good estimates require considerably more than that. Because of censoring, without a good guess ahead of time at what the unknown parameters are, any test plan may fail.
+
+However, it is often possible to make a good guess ahead of time about at least one of the unknown parameters - typically the "shape" parameter ($\sigma$ for the lognormal or $\gamma$ for the Weibull). With one parameter assumed known, test plans can be derived that assure the reliability or failure rate of the product tested will be acceptable.
+
+**Lognormal Case (shape parameter known)**: The lognormal model is used for many microelectronic wear-out failure mechanisms, such as electromigration. As a production monitor, samples of microelectronic chips taken randomly from production lots might be tested at levels of voltage and temperature that are high enough to significantly accelerate the occurrence of electromigration failures. Acceleration factors are known from previous testing and range from several hundred to several thousand.
+
+[**Lognormal test plans, assuming sigma and the acceleration factor are known**]{#sec-apr-312-lognormal}
+
+The goal is to construct a test plan (put $n$ units on stress test for $T$ hours and accept the lot if no more than $r$ failures occur). The following assumptions are made:
+
+- The life distribution model is lognormal
+- Sigma = $\sigma_0$ is known from past testing and does not vary appreciably from lot to lot
+- Lot reliability varies because $T_{50}$ values (the lognormal median or 50th percentile) differ from lot to lot
+- The acceleration factor from high stress to use stress is a known quantity "$A$"
+- A stress time of $T$ hours is practical as a line monitor
+- A nominal use $T_{50}$ of $T_u$ (combined with $\sigma_0$) produces an acceptable use CDF (or use reliability function). This is equivalent to specifying an acceptable use CDF at, say, 100,000 hours to be a given value $p_0$ and calculating $T_u$ via:
+
+$$ T_u = 100,000 \,\, \mbox{exp }\left[-\sigma \, \Phi^{-1}(p_0)\right] $$
+
+where $\Phi^{-1}$ is the inverse of the standard normal distribution
+
+- An unacceptable use CDF of $p_1$ leads to a "bad" use $T_{50}$ of $T_b$, using the same equation as above with $p_0$ replaced by $p_1$
+
+The acceleration factor $A$ is used to calculate a "good" or acceptable proportion of failures $p_a$ at stress and a "bad" or unacceptable proportion of fails $p_b$:
+
+$$ p_a = \Phi \left( \frac{\mbox{ln } (AT / T_u)}{\sigma_0} \right) , \,\,\,\,\, p_b = \Phi \left( \frac{\mbox{ln } (AT / T_b)}{\sigma_0} \right) \, , $$
+
+where $\Phi$ is the standard normal CDF. This reduces the reliability problem to a well-known [Lot Acceptance Sampling Plan (LASP) problem](#sec-pmc-22), which was covered in Chapter 6.
+
+If the sample size required to distinguish between $p_a$ and $p_b$ turns out to be too large, it may be necessary to increase $T$ or test at a higher stress. The important point is that the above assumptions and equations give a methodology for planning ongoing reliability tests under a lognormal model assumption.
+
+[**Weibull test plans, assuming gamma and the acceleration factor are known**]{#sec-apr-312-weibull}
+
+**Weibull Case (shape parameter known):** The assumptions and calculations are similar to those made for the lognormal:
+
+- The life distribution model is Weibull
+- Gamma = $\gamma_0$ is known from past testing and does not vary appreciably from lot to lot
+- Lot reliability varies because $\alpha$ values (the Weibull characteristic life or 62.3 percentile) differ from lot to lot
+- The acceleration factor from high stress to use stress is a known quantity "$A$"
+- A stress time of $T$ hours is practical as a line monitor
+- A nominal use $\alpha$ of $\alpha_u$ (combined with $\gamma_0$) produces an acceptable use CDF (or use reliability function). This is equivalent to specifying an acceptable use CDF at, say, 100,000 hours to be a given value $p_0$ and calculating $\alpha_u$
+
+$$ \alpha_u = \frac{AT}{\left[ -\mbox{ln } (1-p_0) \right]^{1/\gamma_0} } $$
+
+- An unacceptable use CDF of $p_1$ leads to a "bad" use $\alpha$ of $\alpha_b$, using the same equation as above with $p_0$ replaced by $p_1$
+
+The acceleration factor $A$ is used next to calculate a "good" or acceptable proportion of failures $p_a$ at stress and a "bad" or unacceptable proportion of failures $p_b$:
+
+$$ p_a = 1 - \mbox{exp } \left[ -\left( \frac{AT}{\alpha_u} \right)^{\gamma_0} \right] , \,\,\,\,\,\,\, p_b = 1 - \mbox{exp } \left[ -\left( \frac{AT}{\alpha_b} \right)^{\gamma_0} \right] \,\, . $$
+
+This reduces the reliability problem to a [Lot Acceptance Sampling Plan (LASP)](#sec-pmc-222) problem, which was covered in Chapter 6.
+
+If the sample size required to distinguish between $p_a$ and $p_b$ turns out to be too large, it may be necessary to increase $T$ or test at a higher stress. The important point is that the above assumptions and equations give a methodology for planning ongoing reliability tests under a Weibull model assumption.
+
+**Planning Tests to Estimate Both Weibull or Both Lognormal Parameters**
+
+[**Rules-of-thumb for general lognormal or Weibull life test planning**]{#sec-apr-312-rules-of-thumb}
+
+All that can be said here are some general rules-of-thumb:
+
+1. If you can observe at least 10 exact times of failure, estimates are usually reasonable - below 10 failures the critical shape parameter may be hard to estimate accurately. Below 5 failures, estimates are often very inaccurate.
+2. With readout data, even with more than 10 total failures, you need failures in three or more readout intervals for accurate estimates.
+3. When guessing how many units to put on test and for how long, try various reasonable combinations of distribution parameters to see if the corresponding calculated proportion of failures expected during the test, multiplied by the sample size, gives a reasonable number of failures.
+4. As an alternative to the last rule, simulate test data from reasonable combinations of distribution parameters and see if your estimates from the simulated data are close to the parameters used in the simulation. If a test plan doesn't work well with simulated data, it is not likely to work well with real data.
+
+#### Reliability growth (Duane model) {#sec-apr-313}
+
+[**Guidelines for planning how long to run a reliability growth test**]{#sec-apr-313-guidelines}
+
+A reliability improvement test usually takes a large resource commitment, so it is important to have a way of estimating how long a test will be required. The following procedure gives a starting point for determining a test time:
+
+1. Guess a starting value for $\beta$, the growth slope. Some [guidelines](#sec-apr-192-rule-of-thumb) were previously discussed. Pick something close to 0.3 for a conservative estimate (perhaps a new cross-functional team will be working on the improvement test or the system to be improved has many new parts with possibly unknown failure mechanisms), or close to 0.5 for a more optimistic estimate.
+2. Use current data and engineering estimates to arrive at a consensus for what the starting MTBF for the system is. Call this $M_1$.
+3. Let $M_T$ be the target MTBF (the customer requirement). Then the improvement needed on the test is given by
+
+$$ IM = \frac{M_T}{M_1} \, .$$
+
+4. A first pass estimate of the test time needed is
+
+$$ T = IM^{1/\beta} \, . $$
+
+This estimate comes from using the starting MTBF of $M_1$ as the MTBF after 1 hour on test and using the fact that the improvement from 1 hour to $T$ hours is just $T^\beta$.
+
+[**Make sure test time makes engineering sense**]{#sec-apr-313-sanity-check}
+
+The reason the above is just a first pass estimate is it will give unrealistic (too short) test times when a high $\beta$ is assumed. A very short reliability improvement test makes little sense because a minimal number of failures must be observed before the improvement team can determine design and parts changes that will "grow" reliability. And it takes time to implement these changes and observe an improved repair rate.
+
+[**Iterative simulation is an aid for test planning**]{#sec-apr-313-simulation}
+
+[Simulation methods](#sec-apr-191-simulating) can also be used to see if a planned test is likely to generate data that will demonstrate an assumed growth rate.
+
+#### Accelerated life tests {#sec-apr-314}
+
+[**Accelerated testing is needed when testing even large sample sizes at use stress would yield few or no failures within a reasonable time**]{#sec-apr-314-need}
+
+Accelerated life tests are component life tests with components operated at high stresses and failure data observed. While high stress testing can be performed for the sole purpose of seeing where and how failures occur and using that information to improve component designs or make better component selections, we will focus in this section on accelerated life testing for the following two purposes:
+
+1. To study how failure is accelerated by stress and fit an acceleration model to data from multiple stress cells
+2. To obtain enough failure data at high stress to accurately project (extrapolate) what the CDF at use will be.
+
+If we already know the acceleration model (or the acceleration factor to typical use conditions from high stress test conditions), then the methods described [two pages ago](#sec-apr-312) can be used. We assume, therefore, that the acceleration model is not known in advance.
+
+[**Test planning means picking stress levels and sample sizes and test times to produce enough data to fit models and make projections**]{#sec-apr-314-planning}
+
+Test planning and operation for a (multiple) stress cell life test experiment consists of the following:
+
+- Pick several combinations of the relevant stresses (the stresses that accelerate *the failure mechanism under investigation*). Each combination is a "stress cell". Note that you are planning for only one mechanism of failure at a time. Failures on test due to any other mechanism will be considered [censored run times](#sec-apr-131).
+- Make sure stress levels used are not too high - to the point where new failure mechanisms that would never occur at use stress are introduced. Picking a maximum allowable stress level requires experience and/or good engineering judgment.
+- Put random samples of components in each stress cell and run the components in each cell for fixed (but possibly different) lengths of time.
+- Gather the failure data from each cell and use the data to fit an acceleration model and a life distribution model and use these models to project reliability at use stress conditions.
+
+Test planning would be similar to topics already covered in the chapters that discussed modeling and experimental design except for one important point. When you test components in a stress cell for a fixed length test, it is typical that some (or possibly many) of the components end the test without failing. This is the censoring problem, and it greatly complicates experimental design to the point at which it becomes almost as much of an art (based on engineering judgment) as a statistical science.
+
+An example will help illustrate the design issues. Assume a metal migration failure mode is believed to follow the [2-stress temperature voltage model](#sec-apr-153) given by
+
+$$ t_f = A \, V^\beta \, \mbox{exp } \left( \frac{\Delta H}{kT} \right) \, . $$
+
+Normal use conditions are 4 volts and 25 degrees Celsius, and the high stress levels under consideration are 6, 8, 12 volts and 85°, 105° and 125°. It probably would be a waste of resources to test at (6v, 85°), or even possibly (8v, 85°) or (6v, 105°) since these cells are not likely to have enough stress acceleration to yield a reasonable number of failures within typical test times.
+
+If you write all the 9 possible stress cell combinations in a 3x3 matrix with voltage increasing by rows and temperature increasing by columns, the result would look like the matrix below:
+
+**Matrix Leading to "Backward L Design"**
+
+| | 85° | 105° | 125° |
+|---|---|---|---|
+| **6v** | 6v, 85° | 6v, 105° | **6v, 125°** |
+| **8v** | 8v, 85° | 8v, 105° | **8v, 125°** |
+| **12v** | **12v, 85°** | **12v, 105°** | **12v, 125°** |
+
+[**"Backwards L" designs are common in accelerated life testing. Put more experimental units in lower stress cells.**]{#sec-apr-314-backward-l}
+
+The combinations in bold are the most likely design choices covering the full range of both stresses, but still hopefully having enough acceleration to produce failures. This is the so-called **"backwards L" design** commonly used for acceleration modeling experiments.
+
+**Note**: It is good design practice to put more of your test units in the lower stress cells, to make up for the fact that these cells will have a smaller proportion of units failing.
+
+[**Sometimes simulation is the best way to learn whether a test plan has a chance of working**]{#sec-apr-314-design-by-simulation}
+
+**Design by Simulation:**
+
+A lengthy, but better way to choose a test matrix is the following:
+
+- Pick an [acceleration model](#sec-apr-24) and a [life distribution model](#sec-apr-21) (as usual).
+- Guess at the shape parameter value of the life distribution model based on literature studies or earlier experiments. [The shape parameter should remain the same](#sec-apr-14) for all stress cells. Choose a scale parameter value at use so that the use stress CDF exactly meets requirements (i.e., for the lognormal, pick a use $T_{50}$ that gives the desired use reliability - for a Weibull model choice, do the same for the characteristic life parameter).
+- Guess at the acceleration model parameters values ($\Delta H$ and $\beta$, for the 2-stress model shown above). Again, use whatever is in the literature for similar failure mechanisms or data from earlier experiments).
+- Calculate acceleration factors from any proposed test cells to use stress and divide the use scale parameter by these acceleration factors to obtain "trial" cell scale parameters.
+- Simulate cell data for each proposed stress cell using the derived cell scale parameters and the guessed shape parameter.
+- Check that every proposed cell has sufficient failures to give good estimates.
+- Adjust the choice of stress cells and the sample size allocations until you are satisfied that, if everything goes as expected, the experiment will yield enough data to provide good estimates of the model parameters.
+
+[**After you make advance estimates, it is sometimes possible to construct an optimal experimental design - but software for this is scarce**]{#sec-apr-314-optimal-designs}
+
+**Optimal Designs:**
+
+Recent work on designing accelerated life tests has shown it is possible, for a given choice of models and assumed values of the unknown parameters, to construct an optimal design (one which will have the best chance of providing good sample estimates of the model parameters). These optimal designs typically select stress levels as far apart as possible and heavily weight the allocation of sample units to the lower stress cells. However, unless the experimenter can find software that incorporates these optimal methods for his or her particular choice of models, the methods described above are the most practical way of designing acceleration experiments.
+
+#### Bayesian gamma prior model {#sec-apr-315}
+
+[**How to plan a Bayesian test to confirm a system meets its MTBF objective**]{#sec-apr-315-plan}
+
+Review [Bayesian Basics](#sec-apr-1a) and [assumptions](#sec-apr-25-assumptions), if needed. We start at the point when gamma prior parameters $a$ and $b$ have already been determined. Assume we have a given MTBF objective, $M$, and a desired confidence level of $100(1-\alpha)$. We want to confirm the system will have an MTBF of at least $M$ at the $100(1-\alpha)$ confidence level. As in the section on [classical (HPP) test plans](#sec-apr-311), we pick a number of failures, $r$, that we can allow on the test. We need a test time $T$ such that we can observe up to $r$ failures and still "pass" the test. If the test time is too long (or too short), we can iterate with a different choice of $r$.
+
+When the test ends, the posterior gamma distribution will have (worst case - assuming exactly $r$ failures) new parameters of
+
+$$ a' = a+r, \,\,\,\,\, b' = b + T \, ,$$
+
+and passing the test means that the failure rate $\lambda_{1-\alpha}$, the upper $100(1-\alpha)$ percentile for the posterior gamma, has to equal the target failure rate $1/M$. But this percentile is, by definition, $G^{-1}(1-\alpha; \, a', \, b')$, with $G^{-1}$ denoting the inverse of the gamma distribution with parameters $a', \, b'$. We can find the value of $T$ that satisfies $G^{-1}(1-\alpha; \, a', \, b')=1/M$ by trial and error. However, based on the properties of the gamma distribution, it turns out that we can calculate $T$ directly by using
+
+$$ T = M \cdot G^{-1}(1-\alpha; \, a', \, 1) - b \, .$$
+
+**Special Case: The Prior Has $a$ = 1 (The "Weak" Prior)**
+
+[**When the prior is a weak prior with $a$ = 1, the Bayesian test is always shorter than the classical test**]{#sec-apr-315-weak-prior}
+
+There is a very simple way to calculate the required Bayesian test time when the prior is a [weak prior](#sec-apr-25-choosing-parameters) with $a$ = 1. Just use the [Test Length Guide Table](#sec-apr-311-table) to calculate the classical test time. Call this $T_c$. The Bayesian test time $T$ is just $T_c$ minus the prior parameter $b$ (i.e., $T = T_c - b$). If the $b$ parameter was set equal to $(\mbox{ln } 2) \cdot \mbox{MTBF }_{50}$ (where $\mbox{MTBF}_{50}$ is the consensus choice for an "even money" MTBF), then
+
+$$ T = T_c - (\mbox{ln } 2) \cdot \mbox{MTBF }_{50} $$
+
+This shows that when a weak prior is used, the Bayesian test time is always less than the corresponding classical test time. That is why this prior is also known as a **friendly prior**.
+
+**Note:** In general, Bayesian test times can be shorter, or longer, than the corresponding classical test times, depending on the choice of prior parameters. However, the Bayesian time will always be shorter when the prior parameter $a$ is less than, or equal to, 1.
+
+[**Example: Calculating a Bayesian Test Time**]{#sec-apr-315-example}
+
+A new piece of equipment has to meet a MTBF requirement of 500 hours at 80% confidence. A group of engineers decide to use their collective experience to determine a Bayesian gamma prior using the 50/95 method described in [Section 8.2.5](#sec-apr-25-assumptions). They think 600 hours is a likely MTBF value and they are very confident that the MTBF will exceed 250. Following the [example](#sec-apr-25-example) in Section 8.2.5, they determine that the gamma prior parameters are $a$ = 2.863 and $b$ = 1522.46.
+
+Now they want to determine an appropriate test time so that they can confirm a MTBF of 500 with at least 80% confidence, provided they have no more than two failures.
+
+We obtain a test time of 1756.117 hours using
+
+$$ 500 \cdot G^{-1}(1-0.2; \, 2.863+2, \, 1) - 1522.46 \, . $$
+
+```{r}
+#| label: verify-apr-315-example
+#| code-fold: true
+a <- 2.863
+b <- 1522.46
+M <- 500
+alpha <- 0.2
+r <- 2
+
+a_prime <- a + r
+T_bayes <- M * qgamma(1 - alpha, shape = a_prime, rate = 1) - b
+
+fac_classical <- 0.5 * qchisq(1 - alpha, 2 * (r + 1))
+T_classical <- M * fac_classical
+
+T_weak <- round(T_classical) - 600 * log(2)
+
+tibble::tibble(
+  Statistic = c("Bayesian test time", "Classical factor (r=2, 80%)", "Classical test time", "Weak prior test time"),
+  Value = c(round(T_bayes, 3), round(fac_classical, 2), round(T_classical), round(T_weak))
+) |>
+  knitr::kable(align = "lr")
+```
+
+The R computation above matches NIST's reported Bayesian test time (1756.117 hours) and classical factor (4.28) exactly.
+
+To compare this result to the classical test time required, use the [Test Length Guide Table](#sec-apr-311-table). The table factor is 4.28, so the test time needed is 500 $\times$ 4.28 = 2140 hours for a non-Bayesian test. The Bayesian test saves about 384 hours, or an 18% savings. If the test is run for 1756 hours, with no more than two failures, then an MTBF of at least 500 hours has been confirmed at 80% confidence.
+
+If, instead, the engineers had decided to use a weak prior with an $\mbox{MTBF}_{50}$ of 600, the required test time would have been
+
+$$ 2140 - 600 \cdot \mbox{ln } 2 = 1724 \mbox { hours} \, . $$
+
+::: {.callout-note}
+NIST's rendered page states this result as "1725 hours," but $2140 - 600 \times \ln 2 = 1723.6$, which rounds to 1724 hours — matching both the R computation above and NIST's own (commented-out) original source text for this page, which reads "1724 hours." The visible "1725" appears to be a transcription slip introduced when the page was last edited.
+:::
