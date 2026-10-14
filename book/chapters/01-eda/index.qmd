@@ -58,7 +58,7 @@ The particular graphical techniques employed in EDA are often quite simple, cons
 2. Plotting simple statistics such as [mean plots](#sec-eda-mean-plot), [standard deviation plots](#sec-eda-standard-deviation-plot), [box plots](#sec-eda-box-plot), and main effects plots of the raw data.
 3. Positioning such plots so as to maximize our natural pattern-recognition abilities, such as using multiple plots per page.
 
-### EDA versus Classical and Bayesian {#sec-eda-112}
+### How Does Exploratory Data Analysis differ from Classical Data Analysis? {#sec-eda-112}
 
 **Data Analysis Approaches**
 
@@ -90,7 +90,7 @@ In the real world, data analysts freely mix elements of all of the above three a
 
 Focusing on EDA versus classical, these two approaches differ as follows.
 
-#### Models {#sec-eda-1121}
+#### Model {#sec-eda-1121}
 
 The classical approach imposes models (both deterministic and probabilistic) on the data. Deterministic models include, for example, regression models<!-- XREF: Process Modeling chapter, regression models; source handbook/pmd/section1/pmd141.htm --> and [analysis of variance (ANOVA)](#sec-eda-multi-factor-anova) models. The most common probabilistic model assumes that the errors about the deterministic model are normally distributed — this assumption affects the validity of the ANOVA F tests.
 
@@ -128,7 +128,7 @@ The "good news" of the classical approach is that tests based on classical techn
 
 Many EDA techniques make little or no assumptions — they present and show the data, all of the data, as is, with fewer encumbering assumptions.
 
-### EDA versus Summary Analysis {#sec-eda-113}
+### How Does Exploratory Data Analysis Differ from Summary Analysis? {#sec-eda-113}
 
 A summary analysis is simply a numeric reduction of a historical data set. It is quite passive. Its focus is in the past. Quite commonly, its purpose is to simply arrive at a few key statistics (for example, mean and standard deviation) which may then either replace the data set or be added to the data set in the form of a summary table.
 
@@ -341,7 +341,7 @@ The following classification is a convenient way to organize EDA problems.
 - Data: $k$ factor variables ($X_1$, $X_2$, ..., $X_k$).
 - Model: The model is not explicit.
 - Output: Identify underlying correlation structure in the data.
-- Techniques: [Star Plot](#sec-eda-star-plot), [Scatter Plot Matrix](#sec-eda-scatterplot-matrix), Conditioning Plot<!-- XREF: EDA graphical technique not yet migrated to this book; source handbook/eda/section3/scatterc.htm -->, Profile Plot, Principal Components<!-- XREF: Process or Product Monitoring and Control chapter, Principal Components; source handbook/pmc/section5/pmc55.htm -->, Clustering, Discrimination/Classification.
+- Techniques: [Star Plot](#sec-eda-star-plot), [Scatter Plot Matrix](#sec-eda-scatterplot-matrix), [Conditioning Plot](#sec-eda-conditioning-plot), Profile Plot, Principal Components<!-- XREF: Process or Product Monitoring and Control chapter, Principal Components; source handbook/pmc/section5/pmc55.htm -->, Clustering, Discrimination/Classification.
 
 Note that multivariate analysis is only covered lightly in this Handbook.
 

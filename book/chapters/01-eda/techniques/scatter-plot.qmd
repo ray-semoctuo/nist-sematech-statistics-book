@@ -361,7 +361,7 @@ Brushing extends this concept a bit further. In brushing, the points to be highl
 
 Scatterplot matrices are becoming increasingly common in general purpose statistical software programs. If a software program does not generate scatterplot matrices, but it does provide multiple plots per page and scatter plots, it should be possible to write a macro to generate a scatterplot matrix. Brushing is available in a few of the general purpose statistical software programs that emphasize graphical approaches.
 
-##### Conditioning Plot
+##### Conditioning Plot {#sec-eda-conditioning-plot}
 
 **Purpose: Check Pairwise Relationship Between Two Variables Conditional on a Third Variable**
 
